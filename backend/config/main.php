@@ -14,7 +14,14 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
+            'class' => 'common\components\Request',
             'csrfParam' => '_csrf-backend',
+            'web'=> '/backend/web',
+            'adminUrl' => '/iza-admin',
+            'csrfCookie' => [
+                'httpOnly' => true,
+                'path' => '/iza-admin'
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -24,6 +31,9 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
+            'cookieParams' => [
+                'path' => '/iza-admin'
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -37,14 +47,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

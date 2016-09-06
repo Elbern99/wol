@@ -13,7 +13,9 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
+            'class' => 'common\components\Request',
             'csrfParam' => '_csrf-frontend',
+            'web'=> '/frontend/web'
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -36,14 +38,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
