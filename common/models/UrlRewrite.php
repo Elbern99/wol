@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\contracts\IUrlRewrite;
 /**
  * This is the model class for table "url_rewrite".
  *
@@ -11,7 +11,7 @@ use Yii;
  * @property string $current_path
  * @property string $rewrite_path
  */
-class UrlRewrite extends \yii\db\ActiveRecord
+class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
 {
     /**
      * @inheritdoc
@@ -43,5 +43,9 @@ class UrlRewrite extends \yii\db\ActiveRecord
             'current_path' => Yii::t('app', 'Current Path'),
             'rewrite_path' => Yii::t('app', 'Rewrite Path'),
         ];
+    }
+    
+    public function getRewriteByPath($current_path) {
+        return self::find()->where(['current_path'=>$current_path])->select(['rewrite_path'])->asArray()->one();
     }
 }
