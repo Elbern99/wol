@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Html;
 
 NavBar::begin([
     'brandLabel' => 'IZA World of Labor',
@@ -9,12 +10,23 @@ NavBar::begin([
         'class' => 'navbar-inverse navbar-fixed-top',
     ],
 ]);
-$menuItems = [
-    ['label' => 'Home', 'url' => ['/site/index']],
-];
+
+$menuItems = [];
+
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 } else {
+    
+    $menuItems[] = ['label' => Yii::t('app/menu','Home'), 'url' => ['/site/index']];
+    $menuItems[] = ['label' =>  Yii::t('app/menu','CMS'), 'url' => ['/cms']];
+    $menuItems[] = ['label' =>  Yii::t('app/menu','Url Rewrite'), 'url' => ['/url-rewrite']];
+    $menuItems[] = ['label' => Yii::t('app/menu','Menu'),
+        'url' => ['#'],
+        'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
+        'items' => [
+            ['label' => Yii::t('app/menu','Bottom Menu'), 'url' => ['/menu/bottom']]
+        ],
+    ];
     $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
