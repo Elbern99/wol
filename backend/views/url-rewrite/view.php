@@ -2,12 +2,17 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\BottomMenu */
+/* @var $model common\models\UrlRewrite */
 /* @var $form ActiveForm */
+$this->title = Yii::t('app.menu', 'View');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Url Rewrite'), 'url' => Url::toRoute('/url-rewrite')];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view">
+    <h1><?= Html::encode($this->title) ?></h1>
     <div class="row content">
         <div class="col-sm-12 sidenav">
             <?php $form = ActiveForm::begin(); ?>

@@ -2,10 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\BottomMenu */
 /* @var $form ActiveForm */
+$this->title = Yii::t('app.menu', 'View');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Bottom Menu'), 'url' => Url::toRoute('/menu/bottom')];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view">
     <div class="row content">

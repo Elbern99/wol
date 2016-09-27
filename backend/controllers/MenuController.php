@@ -38,7 +38,7 @@ class MenuController extends Controller
     
     public function actionBottom() {
         $menu = BottomMenu::find()->orderBy('order');
-        return $this->render('bottom/index', ['dataProvider' => new ActiveDataProvider(['query' => $menu])]);
+        return $this->render('bottom/index', ['dataProvider' => new ActiveDataProvider(['query' => $menu, 'pagination' => ['pageSize' => 20]])]);
     }
     
     public function actionBottomView($id = null) {
