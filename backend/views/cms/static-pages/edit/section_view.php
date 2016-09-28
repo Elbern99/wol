@@ -10,7 +10,7 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $page int id common\models\CmsPage */
 /* @var $form ActiveForm */
 $this->title = Yii::t('app.menu', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'CMS Page Sections'), 'url' => Url::toRoute(['/cms/view', 'id'=>$page])];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Static Page Sections'), 'url' => Url::toRoute(['/cms/static-pages-view', 'id'=>$page])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

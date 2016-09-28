@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $model common\models\UrlRewrite */
 /* @var $form ActiveForm */
 $this->title = Yii::t('app.menu', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Url Rewrite'), 'url' => Url::toRoute('/url-rewrite')];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'URL Redirects'), 'url' => Url::toRoute('/url-rewrite')];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view">

@@ -18,8 +18,17 @@ if (Yii::$app->user->isGuest) {
 } else {
     
     $menuItems[] = ['label' => Yii::t('app/menu','Home'), 'url' => ['/site/index']];
-    $menuItems[] = ['label' =>  Yii::t('app/menu','CMS'), 'url' => ['/cms']];
-    $menuItems[] = ['label' =>  Yii::t('app/menu','Url Rewrite'), 'url' => ['/url-rewrite']];
+    
+    $menuItems[] = ['label' =>  Yii::t('app/menu','CMS'),
+        'url' => ['#'],
+        'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
+        'items' => [
+            ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']]
+        ],
+    ];
+    
+    $menuItems[] = ['label' =>  Yii::t('app/menu','URL Redirects'), 'url' => ['/url-rewrite']];
+    
     $menuItems[] = ['label' => Yii::t('app/menu','Menu'),
         'url' => ['#'],
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
@@ -27,6 +36,7 @@ if (Yii::$app->user->isGuest) {
             ['label' => Yii::t('app/menu','Bottom Menu'), 'url' => ['/menu/bottom']]
         ],
     ];
+    
     $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

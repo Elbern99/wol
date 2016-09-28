@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app.menu', 'View');
-$this->params['breadcrumbs'][] = ['label' => 'CMS', 'url' => Url::toRoute('/cms')];
+$this->params['breadcrumbs'][] = ['label' => 'Static Pages', 'url' => Url::toRoute('/cms/static-pages')];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view-index">

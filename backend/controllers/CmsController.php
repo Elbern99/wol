@@ -18,8 +18,8 @@ use yii\data\ActiveDataProvider;
 
 class CmsController extends Controller {
 
-    protected $filePagePath = "@backend/views/cms/components/page_edit.php";
-    protected $fileSectionsPath = "@backend/views/cms/components/sections_grid.php";
+    protected $filePagePath = "@backend/views/cms/static-pages/components/page_edit.php";
+    protected $fileSectionsPath = "@backend/views/cms/static-pages/components/sections_grid.php";
 
     public function behaviors() {
         return [
@@ -27,7 +27,7 @@ class CmsController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete', 'section-add', 'section-edit', 'section-delete'],
+                        'actions' => ['static-pages', 'static-pages-view', 'static-pages-delete', 'section-add', 'section-edit', 'section-delete'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -36,7 +36,7 @@ class CmsController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'static-pages-delete' => ['post'],
                     'section-delete' => ['post']
                 ],
             ],
@@ -69,10 +69,10 @@ class CmsController extends Controller {
         return $items;
     }
 
-    public function actionIndex() {
+    public function actionStaticPages() {
 
         $model = CmsPages::find()->alias('page')->with('cmsPageInfos')->orderBy('created_at');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $model, 'pagination' => ['pageSize' => 20]])]);
+        return $this->render('static-pages/index', ['dataProvider' => new ActiveDataProvider(['query' => $model, 'pagination' => ['pageSize' => 20]])]);
     }
 
     public function actionSectionAdd($page_id) {
@@ -89,12 +89,12 @@ class CmsController extends Controller {
                     
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Section save success'), false);
                     Yii::$app->getSession()->setFlash('section_open', true);
-                    return $this->redirect(['/cms/view', 'id' => $page_id]);
+                    return $this->redirect(['/cms/static-pages-view', 'id' => $page_id]);
                 }
             }
         }
 
-        return $this->render('edit/section_view', ['model' => $model, 'page' => $page_id]);
+        return $this->render('static-pages/edit/section_view', ['model' => $model, 'page' => $page_id]);
     }
 
     public function actionSectionEdit($id) {
@@ -107,14 +107,14 @@ class CmsController extends Controller {
 
                 Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Section save success'), false);
                 Yii::$app->getSession()->setFlash('section_open', true);
-                return $this->redirect(['/cms/view', 'id' => $model->page_id]);
+                return $this->redirect(['/cms/static-pages-view', 'id' => $model->page_id]);
             }
         }
 
-        return $this->render('edit/section_view', ['model' => $model, 'page' => $model->page_id]);
+        return $this->render('static-pages/edit/section_view', ['model' => $model, 'page' => $model->page_id]);
     }
 
-    public function actionView($id = null) {
+    public function actionStaticPagesView($id = null) {
 
         if (is_null($id)) {
             $page = new CmsPages();
@@ -146,12 +146,12 @@ class CmsController extends Controller {
 
                 if ($page_info->save()) {
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Page save success'), false);
-                    return $this->redirect(['/cms/view', 'id' => $page_info->page_id]);
+                    return $this->redirect(['/cms/static-pages-view', 'id' => $page_info->page_id]);
                 }
             }
         }
 
-        return $this->render('edit/view', ['items' => $this->getTabItems($page, $page_info, $sections)]);
+        return $this->render('static-pages/edit/view', ['items' => $this->getTabItems($page, $page_info, $sections)]);
     }
     
     public function actionSectionDelete($id) {
@@ -172,10 +172,10 @@ class CmsController extends Controller {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Section did not delete!'));
         }
 
-        return $this->redirect(['/cms/view', 'id' => $pageId]);
+        return $this->redirect(['/cms/static-pages-view', 'id' => $pageId]);
     }
 
-    public function actionDelete($id) {
+    public function actionStaticPagesDelete($id) {
 
         try {
 
@@ -190,7 +190,7 @@ class CmsController extends Controller {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Page did not delete!'));
         }
 
-        return $this->redirect('@web/cms');
+        return $this->redirect('@web/cms/static-pages');
     }
 
 }
