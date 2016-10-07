@@ -11,7 +11,11 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'treemanager' => [
+            'class' => '\backend\components\category\Module',
+        ]
+    ],
     'components' => [
         'formatter' => [
             'dateFormat' => 'dd.MM.yyyy',
