@@ -1,0 +1,30 @@
+.max-wrap,
+.max-wrap-medium {
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: $content-area-width;
+}
+
+.clearfix:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.reset-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: 0 ;
+  }
+}
+
+.hidden-area {
+  display: none;
+}

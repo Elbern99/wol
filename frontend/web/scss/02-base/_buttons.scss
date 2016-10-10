@@ -1,0 +1,29 @@
+//BUTTONS
+
+[class^="btn-"],
+[class*=" btn-"] {
+  color: #FFFFFF;
+  font: normal 16px/17px Arial;
+  padding: 16px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none !important;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: none;
+    border: 0;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
