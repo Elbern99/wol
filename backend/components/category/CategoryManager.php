@@ -136,19 +136,26 @@ HTML;
             
             $out .= Html::beginTag('li', $nodeOptions) . "\n" .
                     Html::beginTag('div', ['tabindex' => -1, 'class' => 'kv-tree-list']) . "\n" .
-                    Html::beginTag('div', ['class' => 'kv-node-indicators']) . "\n" .
+                    Html::beginTag('div', ['class' => 'kv-node-indicators kv-root-node-toggle']) . "\n" .
                     $indicators . "\n" .
                     '</div>' . "\n" .
                     Html::beginTag('div', ['tabindex' => -1, 'class' => 'kv-node-detail']) . "\n" .
+                    Html::beginTag('label', ['tabindex' => -1, 'class' => 'kv-node-detail-label']) . "\n" .
                     //$this->renderNodeIcon($nodeIcon, $nodeIconType, $isChild) . "\n" .
-                    Html::tag('span', $nodeName, ['class' => 'kv-node-label'])  .
                     $box . "\n" .
+                    Html::tag('span', $nodeName, ['class' => 'kv-node-label'])  .
+                    '</label>' . "\n" .
                     '</div>' . "\n" .
                     '</div>' . "\n";
             ++$counter;
         }
         $out .= str_repeat("</li>\n</ul>", $nodeDepth) . "</li>\n";
         $out .= "</ul>\n";
+        
+        $this->rootOptions['class'] = 'text-primary kv-tree-root kv-collapsed';
+        $this->treeOptions['class'] = 'kv-tree-container kv-tree-container-custom';
+        $this->rootNodeToggleOptions['class'] = 'kv-root-node-toggle';
+        $this->nodeToggleOptions['class'] = 'kv-root-node-toggle';
         return Html::tag('div', $this->renderRoot() . $out, $this->treeOptions);
     }
     

@@ -3,13 +3,14 @@
  * @package yii2-tree-manager
  * @version 1.0.5
  *
- * Tree View Style Sheet
+ * Tree View Style Sheetsa dfg
  *
  * Author: Kartik Visweswaran
  * Copyright: 2015, Kartik Visweswaran, Krajee.com
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
+
 .kv-tree-wrapper, .kv-tree-wrapper.form-control {
     height: auto;
     padding: 0;
@@ -189,7 +190,7 @@ ul.kv-tree, .kv-tree ul {
     border-bottom: 1px solid white;
 }
 
- .kv-node-collapse {
+.kv-node-collapse {
     display: inline;
 }
 
@@ -338,4 +339,56 @@ li.kv-invisible > .kv-tree-list .kv-node-label {
     .kv-detail-container {
         margin-top: 20px;
     }
+}
+
+
+/* custom */
+
+.kv-node-detail-label {
+    margin: 0;
+    display: block;
+    cursor: pointer;
+}
+
+.kv-parent > .kv-tree-list > .kv-node-indicators {
+    opacity: 1;
+    display: block;
+}
+
+.kv-tree-list > .kv-node-indicators {
+    opacity: 0;
+    display: none;
+}
+
+.kv-tree-container-custom .kv-node-indicators {
+    background: none;
+}
+
+.kv-collapsed > .kv-tree > li {
+    display: block;
+}
+
+.kv-tree-list,
+.kv-node-detail-label {
+    outline: none;
+}
+
+.kv-node-detail-label [type="checkbox"],
+.kv-node-detail-label [type="radio"]{
+    display:none;
+}
+.kv-node-detail-label [type="checkbox"] + span,
+.kv-node-detail-label [type="radio"] + span {
+    display: block;
+}
+.kv-node-detail-label :checked + span {
+    background: #f5f5f5;  
+}
+.kv-node-detail-label [type="checkbox"][disabled] + span,
+.kv-node-detail-label [type="radio"][disabled] + span{
+    background: #f5f5f5;
+}
+
+.kv-node-detail-label .kv-node-label {
+    padding: 0 5px 0 5px;
 }
