@@ -58,19 +58,28 @@ class CategoryView extends \kartik\tree\TreeView {
                 'data-lft' => $nodeLeft,
                 'data-rgt' => $nodeRight,
                 'data-lvl' => $nodeDepth,
-                'data-readonly' => true,
-                'data-movable-u' => true,
-                'data-movable-d' => true,
-                'data-movable-l' => true,
-                'data-movable-r' => true,
-                'data-removable' => true,
-                'data-removable-all' => true,
+                'data-readonly' => 0,
+                'data-movable-u' => 1,
+                'data-movable-d' => 1,
+                'data-movable-l' => 1,
+                'data-movable-r' => 1,
+                'data-removable' => 1,
+                'data-removable-all' => 1,
             ];
             if (!$isChild) {
                 $css = ' kv-parent ';
             }
-
+            
+            if ($this->showCheckbox && $node->isSelected()) {
+                $css .= ' kv-selected ';
+            }
+            if ($node->isCollapsed()) {
+                $css .= ' kv-collapsed ';
+            }
+            
+            $indicators .= $this->renderToggleIconContainer(false) . "\n";
             $css = trim($css);
+            
             if (!empty($css)) {
                 Html::addCssClass($nodeOptions, $css);
             }

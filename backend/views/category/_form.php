@@ -191,10 +191,8 @@ echo $renderContent(Module::VIEW_PART_1);
     <div class="col-sm-12">
         <?= $form->field($node, $nameAttribute)->textInput() ?>
         <?= $form->field($node, $urlKeyAttribute)->textInput() ?>
-        <?= $form->field($node, $metaTitleAttribute)->textInput() ?>
         <?= $form->field($node, $typeAttribute)->textInput() ?>
-        <?= $form->field($node, $descriptionAttribute)->textarea() ?>
-        <?= $form->field($node, $metaKeywordsAttribute)->textarea() ?>
+        <?= $form->field($node, $metaTitleAttribute)->textarea() ?>
     </div>
 </div>
 
@@ -211,7 +209,7 @@ echo $renderContent(Module::VIEW_PART_1);
  */
 ?>
 <?php if ($isAdmin): ?>
-    <h4><?= Yii::t('kvtree', 'Admin Settings') ?></h4>
+    <h4><?= Yii::t('kvtree', 'Settings') ?></h4>
 
     <?php
     /**
