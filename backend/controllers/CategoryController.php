@@ -17,7 +17,7 @@ class CategoryController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'test'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -35,6 +35,10 @@ class CategoryController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    
+    public function actionTest() {
+        return $this->render('test');
     }
     
 }
