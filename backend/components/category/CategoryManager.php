@@ -50,12 +50,7 @@ HTML;
         $nodeDepth = $currDepth = $counter = 0;
         $out = Html::beginTag('ul', ['class' => 'kv-tree']) . "\n";
         foreach ($this->_nodes as $node) {
-            /**
-             * @var Tree $node
-             */
-            if (!$this->isAdmin && !$node->isVisible() || !$this->showInactive && !$node->isActive()) {
-                continue;
-            }
+
             /** @noinspection PhpUndefinedVariableInspection */
             $nodeDepth = $node->$depthAttribute;
             /** @noinspection PhpUndefinedVariableInspection */
@@ -105,22 +100,7 @@ HTML;
             if (!$isChild) {
                 $css = ' kv-parent ';
             }
-            
-            if ($this->showCheckbox && $node->isSelected()) {
-                $css .= ' kv-selected ';
-            }
-            if ($node->isCollapsed()) {
-                $css .= ' kv-collapsed ';
-            }
-            /*if (!$node->isVisible() && $this->isAdmin) {
-                $css .= ' kv-invisible';
-            }
-            if ($node->isDisabled()) {
-                $css .= ' kv-disabled ';
-            }
-            if (!$node->isActive()) {
-                $css .= ' kv-inactive ';
-            }*/
+
             $indicators .= $this->renderToggleIconContainer(false) . "\n";
             $indicators .= $this->showCheckbox ? $this->renderCheckboxIconContainer(false) . "\n" : '';
             $css = trim($css);

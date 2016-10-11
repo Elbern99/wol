@@ -12,14 +12,9 @@ class CategoryView extends \kartik\tree\TreeView {
         extract($struct);
         $nodeDepth = $currDepth = $counter = 0;
         $out = Html::beginTag('ul', ['class' => 'kv-tree']) . "\n";
-        
+
         foreach ($this->_nodes as $node) {
-            /**
-             * @var Tree $node
-             */
-            if (!$this->isAdmin && !$node->isVisible() || !$this->showInactive && !$node->isActive()) {
-                continue;
-            }
+
             /** @noinspection PhpUndefinedVariableInspection */
             $nodeDepth = $node->$depthAttribute;
             /** @noinspection PhpUndefinedVariableInspection */
@@ -70,13 +65,6 @@ class CategoryView extends \kartik\tree\TreeView {
                 $css = ' kv-parent ';
             }
             
-            if ($this->showCheckbox && $node->isSelected()) {
-                $css .= ' kv-selected ';
-            }
-            if ($node->isCollapsed()) {
-                $css .= ' kv-collapsed ';
-            }
-            
             $indicators .= $this->renderToggleIconContainer(false) . "\n";
             $css = trim($css);
             
@@ -102,7 +90,9 @@ class CategoryView extends \kartik\tree\TreeView {
     public function renderDetail() {
 
         $modelClass = $this->query->modelClass;
-        $node = $modelClass::findOne($this->displayValue);
+        
+        $node = $modelClass::find()->orderBy(['id' => SORT_ASC])->one();
+
         if (empty($node)) {
             $msg = Html::tag('div', $this->emptyNodeMsg, $this->emptyNodeMsgOptions);
             return Html::tag('div', $msg, $this->detailOptions);
@@ -125,6 +115,13 @@ class CategoryView extends \kartik\tree\TreeView {
         
         $content = $this->render($this->nodeView, ['params' => $params]);
         return Html::tag('div', $content, $this->detailOptions);
+    }
+    
+    public function registerAssets() {
+        
+        parent::registerAssets();
+        $view = $this->getView();
+        \yii\validators\ValidationAsset::register($view);
     }
 
 }

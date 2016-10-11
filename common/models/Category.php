@@ -113,10 +113,10 @@ class Category extends \kartik\tree\models\Tree {
         $attribs = array_merge([$nameAttribute, $typeAttribute, $metaTitleAttribute, $urlKeyAttribute], static::$boolAttribs);
 
         $rules = [
-            [[$nameAttribute, $metaTitleAttribute, $urlKeyAttribute], 'required'],
-            /*[$urlKeyAttribute, 'string', 'length' => [1, 40]],
+            [[$nameAttribute, $metaTitleAttribute, $urlKeyAttribute, $typeAttribute], 'required'],
+            [$urlKeyAttribute, 'string', 'length' => [1, 40]],
             [$urlKeyAttribute, 'unique'],
-            [$urlKeyAttribute, 'match', 'pattern' => '/^[a-z0-9_-]+$/'],*/
+            [$urlKeyAttribute, 'match', 'pattern' => '/^[a-z0-9_-]+$/'],
             [$typeAttribute, 'integer'],
             [$attribs, 'safe']
         ];
