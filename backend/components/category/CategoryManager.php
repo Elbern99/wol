@@ -18,14 +18,10 @@ class CategoryManager extends TreeView
         </div>
 HTML;
 
-/**
-     * @var string the wrapper template for rendering the tree view navigation widget
-     */
+
     public $wrapperTemplate = "{header}\n{tree}{footer}";
 
-    /**
-     * @var string the template for rendering the header
-     */
+
     public $headerTemplate = <<< HTML
 <div class="row">
     <div class="col-sm-6">
@@ -43,11 +39,8 @@ HTML;
     {
         parent::init();
     }
-    
 
-
-    public function run()
-    {
+    public function run() {
         if (!$this->_module->treeStructure['treeAttribute']) {
             $this->allowNewRoots = false;
         }
@@ -67,8 +60,7 @@ HTML;
         Html::textInput('kv-node-selected', $this->value, $this->options) . "\n";
     }
     
-    public function renderWrapper()
-    {
+    public function renderWrapper() {
         $content = strtr($this->wrapperTemplate, [
             '{header}' => $this->renderHeader(),
             '{tree}' => $this->renderTree(),
@@ -77,27 +69,19 @@ HTML;
         return Html::tag('div', $content, $this->treeWrapperOptions);
     }
     
-    /**
-     * Renders the markup for the tree header container
-     *
-     * @return string
-     */
-    public function renderHeader()
-    {
+    public function renderHeader() {
         Html::addCssClass($this->headerOptions, 'kv-header-container');
         return Html::tag('div', $this->headerTemplate, $this->headerOptions);
     }
 
-    public function renderSearch()
-    {
+    public function renderSearch() {
         $clearLabel = ArrayHelper::remove($this->searchClearOptions, 'label', '&times;');
         $content = Html::tag('span', $clearLabel, $this->searchClearOptions) . "\n" .
             Html::textInput('kv-tree-search', null, $this->searchOptions);
         return Html::tag('div', $content, $this->searchContainerOptions);
     }
 
-    public function renderHeading()
-    {
+    public function renderHeading() {
         $heading = ArrayHelper::remove($this->headingOptions, 'label', '');
         return Html::tag('div', $heading, $this->headingOptions);
     }
@@ -156,7 +140,7 @@ HTML;
                 'data-removable-all' => 0,
             ];
             if (!$isChild) {
-                $css = ' kv-parent ';
+                $css = ' kv-parent kv-collapsed';
             }
 
             $indicators .= $this->renderToggleIconContainer(false) . "\n";
