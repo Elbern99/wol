@@ -34,10 +34,8 @@ class Module extends BaseModule {
         $this->dataStructure += [
             'keyAttribute' => 'id',
             'nameAttribute' => 'title',
-            'descriptionAttribute' => 'description',
             'typeAttribute' => 'type',
             'metaTitleAttribute' => 'meta_title',
-            'metaKeywordsAttribute' => 'meta_keywords',
             'urlKeyAttribute' => 'url_key',
         ];
         $nodeActions = ArrayHelper::getValue($this->treeViewSettings, 'nodeActions', []);
@@ -49,6 +47,12 @@ class Module extends BaseModule {
         ];
 
         $this->treeViewSettings['nodeActions'] = $nodeActions;
+
+        if (isset($this->params['typeClass']) && isset($this->params['categoryTypes'])) {
+            $class = $this->params['typeClass'];
+            $class::addTypes($this->params['categoryTypes']);
+        }
+        
     }
     
 }

@@ -12,14 +12,9 @@ class CategoryView extends \kartik\tree\TreeView {
         extract($struct);
         $nodeDepth = $currDepth = $counter = 0;
         $out = Html::beginTag('ul', ['class' => 'kv-tree']) . "\n";
-        
+
         foreach ($this->_nodes as $node) {
-            /**
-             * @var Tree $node
-             */
-            if (!$this->isAdmin && !$node->isVisible() || !$this->showInactive && !$node->isActive()) {
-                continue;
-            }
+
             /** @noinspection PhpUndefinedVariableInspection */
             $nodeDepth = $node->$depthAttribute;
             /** @noinspection PhpUndefinedVariableInspection */
@@ -58,19 +53,21 @@ class CategoryView extends \kartik\tree\TreeView {
                 'data-lft' => $nodeLeft,
                 'data-rgt' => $nodeRight,
                 'data-lvl' => $nodeDepth,
-                'data-readonly' => true,
-                'data-movable-u' => true,
-                'data-movable-d' => true,
-                'data-movable-l' => true,
-                'data-movable-r' => true,
-                'data-removable' => true,
-                'data-removable-all' => true,
+                'data-readonly' => 0,
+                'data-movable-u' => 1,
+                'data-movable-d' => 1,
+                'data-movable-l' => 1,
+                'data-movable-r' => 1,
+                'data-removable' => 1,
+                'data-removable-all' => 1,
             ];
             if (!$isChild) {
                 $css = ' kv-parent ';
             }
-
+            
+            $indicators .= $this->renderToggleIconContainer(false) . "\n";
             $css = trim($css);
+            
             if (!empty($css)) {
                 Html::addCssClass($nodeOptions, $css);
             }
@@ -93,7 +90,9 @@ class CategoryView extends \kartik\tree\TreeView {
     public function renderDetail() {
 
         $modelClass = $this->query->modelClass;
-        $node = $modelClass::findOne($this->displayValue);
+        
+        $node = $modelClass::find()->orderBy(['id' => SORT_ASC])->one();
+
         if (empty($node)) {
             $msg = Html::tag('div', $this->emptyNodeMsg, $this->emptyNodeMsgOptions);
             return Html::tag('div', $msg, $this->detailOptions);
@@ -116,6 +115,13 @@ class CategoryView extends \kartik\tree\TreeView {
         
         $content = $this->render($this->nodeView, ['params' => $params]);
         return Html::tag('div', $content, $this->detailOptions);
+    }
+    
+    public function registerAssets() {
+        
+        parent::registerAssets();
+        $view = $this->getView();
+        \yii\validators\ValidationAsset::register($view);
     }
 
 }

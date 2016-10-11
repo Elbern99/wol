@@ -27,6 +27,8 @@ if (Yii::$app->user->isGuest) {
         ],
     ];
     
+    $menuItems[] = ['label' => Yii::t('app/menu','Category'), 'url' => ['/category']];
+    
     $menuItems[] = ['label' =>  Yii::t('app/menu','URL Redirects'), 'url' => ['/url-rewrite']];
     
     $menuItems[] = ['label' => Yii::t('app/menu','Menu'),

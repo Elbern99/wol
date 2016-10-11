@@ -14,6 +14,13 @@ return [
     'modules' => [
         'treemanager' => [
             'class' => '\backend\components\category\Module',
+            'params' => [
+                'typeClass' => '\common\components\CategoryType',
+                'categoryTypes' => [
+                    1 => 'Video',
+                    2 => 'Article'
+                ]
+            ]
         ]
     ],
     'components' => [

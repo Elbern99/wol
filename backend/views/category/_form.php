@@ -41,7 +41,9 @@ extract($params);
 $isAdmin = ($isAdmin == true || $isAdmin === "true"); // admin mode flag
 $inputOpts = [];                                      // readonly/disabled input options for node
 $flagOptions = ['class' => 'kv-parent-flag'];         // node options for parent/child
-
+$typeClass = (isset(\Yii::$app->modules['treemanager']->params['typeClass'])) ?
+        \Yii::$app->modules['treemanager']->params['typeClass'] :
+        \common\components\CategoryType::className();
 
 // parse parent key
 if (empty($parentKey)) {
@@ -191,10 +193,14 @@ echo $renderContent(Module::VIEW_PART_1);
     <div class="col-sm-12">
         <?= $form->field($node, $nameAttribute)->textInput() ?>
         <?= $form->field($node, $urlKeyAttribute)->textInput() ?>
-        <?= $form->field($node, $metaTitleAttribute)->textInput() ?>
-        <?= $form->field($node, $typeAttribute)->textInput() ?>
-        <?= $form->field($node, $descriptionAttribute)->textarea() ?>
-        <?= $form->field($node, $metaKeywordsAttribute)->textarea() ?>
+
+        <?php if (!empty($typeClass::getTypes())): ?>
+            <?= $form->field($node, $typeAttribute)->listBox($typeClass::getTypes(),['size' => 1, 'prompt'=>'']) ?>
+        <?php else: ?>
+            <?= $form->field($node, $typeAttribute)->textInput() ?>
+        <?php endif; ?>
+        
+        <?= $form->field($node, $metaTitleAttribute)->textarea() ?>
     </div>
 </div>
 
@@ -211,7 +217,7 @@ echo $renderContent(Module::VIEW_PART_1);
  */
 ?>
 <?php if ($isAdmin): ?>
-    <h4><?= Yii::t('kvtree', 'Admin Settings') ?></h4>
+    <h4><?= Yii::t('kvtree', 'Settings') ?></h4>
 
     <?php
     /**
