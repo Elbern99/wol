@@ -116,7 +116,7 @@ class Category extends \kartik\tree\models\Tree {
             [[$nameAttribute, $metaTitleAttribute, $urlKeyAttribute, $typeAttribute], 'required'],
             [$urlKeyAttribute, 'string', 'length' => [1, 40]],
             [$urlKeyAttribute, 'unique'],
-            [$urlKeyAttribute, 'match', 'pattern' => '/^[a-z0-9_-]+$/'],
+            [$urlKeyAttribute, 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [$typeAttribute, 'integer'],
             [$attribs, 'safe']
         ];
