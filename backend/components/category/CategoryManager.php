@@ -4,6 +4,7 @@ namespace backend\components\category;
 use kartik\tree\TreeView;
 use backend\components\category\CategoryManagerAsset;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 class CategoryManager extends TreeView
 {
@@ -17,18 +18,29 @@ class CategoryManager extends TreeView
         </div>
 HTML;
 
-    public $headerTemplate = '';
+
+    public $wrapperTemplate = "{header}\n{tree}{footer}";
+
+
+    public $headerTemplate = <<< HTML
+<div class="row">
+    <div class="col-sm-6">
+        {heading}
+    </div>
+    <div class="col-sm-6">
+        {search}
+    </div>
+</div>
+HTML;
+    
     public $footerTemplate = "";
     
     public function init()
     {
         parent::init();
     }
-    
 
-
-    public function run()
-    {
+    public function run() {
         if (!$this->_module->treeStructure['treeAttribute']) {
             $this->allowNewRoots = false;
         }
@@ -41,7 +53,37 @@ HTML;
         $content = strtr($this->mainTemplate, [
             '{wrapper}' => $this->renderWrapper()
         ]);
-        return $content;
+        return strtr($content, [
+            '{heading}' => $this->renderHeading(),
+            '{search}' => $this->renderSearch()
+        ]) . "\n" .
+        Html::textInput('kv-node-selected', $this->value, $this->options) . "\n";
+    }
+    
+    public function renderWrapper() {
+        $content = strtr($this->wrapperTemplate, [
+            '{header}' => $this->renderHeader(),
+            '{tree}' => $this->renderTree(),
+            '{footer}' => $this->renderFooter(),
+        ]);
+        return Html::tag('div', $content, $this->treeWrapperOptions);
+    }
+    
+    public function renderHeader() {
+        Html::addCssClass($this->headerOptions, 'kv-header-container');
+        return Html::tag('div', $this->headerTemplate, $this->headerOptions);
+    }
+
+    public function renderSearch() {
+        $clearLabel = ArrayHelper::remove($this->searchClearOptions, 'label', '&times;');
+        $content = Html::tag('span', $clearLabel, $this->searchClearOptions) . "\n" .
+            Html::textInput('kv-tree-search', null, $this->searchOptions);
+        return Html::tag('div', $content, $this->searchContainerOptions);
+    }
+
+    public function renderHeading() {
+        $heading = ArrayHelper::remove($this->headingOptions, 'label', '');
+        return Html::tag('div', $heading, $this->headingOptions);
     }
     
     public function renderTree() {
@@ -98,7 +140,7 @@ HTML;
                 'data-removable-all' => 0,
             ];
             if (!$isChild) {
-                $css = ' kv-parent ';
+                $css = ' kv-parent kv-collapsed';
             }
 
             $indicators .= $this->renderToggleIconContainer(false) . "\n";
@@ -131,6 +173,20 @@ HTML;
         }
         $out .= str_repeat("</li>\n</ul>", $nodeDepth) . "</li>\n";
         $out .= "</ul>\n";
+        
+        //Html::addCssClass($this->headerOptions, 'kv-header-container');
+        Html::addCssClass($this->headingOptions, 'kv-heading-container');
+        Html::addCssClass($this->searchContainerOptions, 'kv-search-container');
+        Html::addCssClass($this->searchOptions, 'kv-search-input form-control');
+        Html::addCssClass($this->searchClearOptions, 'kv-search-clear');
+
+        if (empty($this->searchClearOptions['title'])) {
+            $this->searchClearOptions['title'] = \Yii::t('kvtree', 'Clear search results');
+        }       
+        
+        if (!isset($this->searchOptions['placeholder'])) {
+            $this->searchOptions['placeholder'] = \Yii::t('kvtree', 'Search...');
+        }
         
         $this->rootOptions['class'] = 'text-primary kv-tree-root kv-collapsed';
         $this->treeOptions['class'] = 'kv-tree-container kv-tree-container-custom';

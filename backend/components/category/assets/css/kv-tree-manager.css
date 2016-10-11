@@ -350,6 +350,11 @@ li.kv-invisible > .kv-tree-list .kv-node-label {
     cursor: pointer;
 }
 
+.kv-node-label {
+    display: block;
+    font-weight: normal;
+}
+
 .kv-parent > .kv-tree-list > .kv-node-indicators {
     opacity: 1;
     display: block;
@@ -391,4 +396,12 @@ li.kv-invisible > .kv-tree-list .kv-node-label {
 
 .kv-node-detail-label .kv-node-label {
     padding: 0 5px 0 5px;
+}
+
+#w0 {
+    display: none;
+}
+
+.kv-loading-search .kv-node-detail {
+    opacity: 0.8;
 }
