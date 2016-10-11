@@ -1,6 +1,9 @@
 <?php
 namespace common\components;
 
+/*
+ * Helper class for instance category type
+ */
 class CategoryType {
     
     static $types = [];

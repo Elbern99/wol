@@ -6,6 +6,9 @@ use backend\components\category\CategoryManagerAsset;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
+/*
+ * class use in manager who has category option
+ */
 class CategoryManager extends TreeView
 {
     public $selected = [];

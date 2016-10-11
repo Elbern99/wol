@@ -3,6 +3,9 @@ namespace backend\components\category;
 
 use kartik\tree\TreeViewAsset;
 
+/*
+ * register js for category manager widget
+ */
 class CategoryManagerAsset extends TreeViewAsset
 {
     

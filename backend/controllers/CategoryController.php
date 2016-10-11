@@ -9,6 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 
+/*
+ * Category Manager Controller
+ */
 class CategoryController extends Controller
 {
     public function behaviors() {

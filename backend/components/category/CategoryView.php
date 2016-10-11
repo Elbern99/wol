@@ -4,6 +4,9 @@ namespace backend\components\category;
 use yii\helpers\Html;
 use Yii;
 
+/*
+ * widget rewrite \kartik\tree\TreeView widget, use in category manager page
+ */
 class CategoryView extends \kartik\tree\TreeView {
     
     public function renderTree() {

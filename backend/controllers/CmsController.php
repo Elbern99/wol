@@ -15,7 +15,6 @@ use yii\data\ActiveDataProvider;
 /*
  * CMS Page Manager Class Controller
  */
-
 class CmsController extends Controller {
 
     protected $filePagePath = "@backend/views/cms/static-pages/components/page_edit.php";

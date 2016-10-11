@@ -4,6 +4,9 @@ namespace common\helpers;
 use common\contracts\IUrlRewrite;
 use Yii;
 
+/*
+ * Helper class with public methods for work with url rewrite
+ */
 class UrlRewriteHelper {
     
     private $model = null;
@@ -12,6 +15,12 @@ class UrlRewriteHelper {
         $this->model = $model;
     }
     
+    /*
+     * Method for change request path
+     * @param object $request
+     * 
+     * @returm void 
+     */
     public function rewritePath($request) {
 
         $result = Yii::$app->getUrlManager()->parseRequest($request);

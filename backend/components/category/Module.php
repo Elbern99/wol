@@ -6,6 +6,9 @@ use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
+/*
+ * rewrite kartik\tree\Module use for category widget
+ */
 class Module extends BaseModule {
     
     public $controllerNamespace = 'kartik\tree\controllers';
