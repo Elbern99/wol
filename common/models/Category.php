@@ -14,7 +14,8 @@ class Category extends \kartik\tree\models\Tree {
     public static $boolAttribs = [
         'active',
         'filterable',
-        'visible_in_menu'
+        'visible_in_menu',
+        'system'
     ];
 
     public static function tableName() {
@@ -113,7 +114,7 @@ class Category extends \kartik\tree\models\Tree {
         $attribs = array_merge([$nameAttribute, $typeAttribute, $metaTitleAttribute, $urlKeyAttribute], static::$boolAttribs);
 
         $rules = [
-            [[$nameAttribute, $metaTitleAttribute, $urlKeyAttribute, $typeAttribute], 'required'],
+            [[$nameAttribute, $metaTitleAttribute, $urlKeyAttribute], 'required'],
             [$urlKeyAttribute, 'string', 'length' => [1, 40]],
             [$urlKeyAttribute, 'unique'],
             [$urlKeyAttribute, 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
