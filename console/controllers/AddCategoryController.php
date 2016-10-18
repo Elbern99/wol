@@ -5,7 +5,7 @@ namespace console\controllers;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use common\models\Category;
+use console\models\Category;
 
 /*
  * Command example add category php yii add-category -t=Title -m=Meta Title -u=Url Key
@@ -29,14 +29,13 @@ class AddCategoryController extends Controller {
 
         if ($this->title && $this->meta_title && $this->url_key) {
 
-            $category = \Yii::createObject('\kartik\tree\models\Tree');
-var_dump($category);exit;
-
-            if ($category->makeRoot(true, [
+            $category = new Category([
                         'title' => $this->title,
                         'meta_title' => $this->meta_title,
                         'url_key' => $this->url_key,
-                        'system' => 1])) {
+                        'system' => 1]);
+
+            if ($category->makeRoot()) {
 
                 $this->stdout("Root category created success.", Console::BG_GREEN);
                 echo "\n";

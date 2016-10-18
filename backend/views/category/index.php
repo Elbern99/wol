@@ -2,12 +2,14 @@
 use yii\helpers\Html;
 use backend\components\category\CategoryView;
 use common\models\Category;
-use backend\components\category\Module;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Category');
 $this->params['breadcrumbs'][] = $this->title;
+
+$moduleClass = Yii::$app->modules['treemanager']['class'];
 ?>
 <div class="user-index">
 
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'softDelete'      => false,
                 'showIDAttribute' => false,
                 'nodeAddlViews' => [
-                    Module::VIEW_PART_2 => '@backend/views/category/form_part_description'
+                    $moduleClass::VIEW_PART_2 => '@backend/views/category/form_part_description'
                 ],
                     //'cacheSettings'   => ['enableCache' => true]      // normally not needed to change
             ]);

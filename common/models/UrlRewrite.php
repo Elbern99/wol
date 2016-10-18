@@ -48,4 +48,30 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
     public function getRewriteByPath($current_path) {
         return self::find()->where(['current_path'=>$current_path])->select(['rewrite_path'])->asArray()->one();
     }
+    
+    public function autoCreateRewrite($params) {
+        
+        if (isset($params['rewrite_path'])) {
+            $rewrite = self::find()->where(['rewrite_path'=>$params['rewrite_path']])->one();
+            
+            if (!is_null($rewrite)) {
+                $rewrite->load($params, '');
+                
+                if ($rewrite->validate()) {
+                    
+                    $rewrite->save();
+                    return true;
+                }
+                
+            }
+        }
+        
+        $this->load($params, '');
+        if ($this->validate()) {
+            $this->save();
+            return true;
+        }
+        
+        return false;
+    }
 }

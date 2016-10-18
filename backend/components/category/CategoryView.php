@@ -3,7 +3,7 @@ namespace backend\components\category;
 
 use yii\helpers\Html;
 use Yii;
-
+use common\components\category\Module;
 /*
  * widget rewrite \kartik\tree\TreeView widget, use in category manager page
  */
@@ -61,13 +61,13 @@ class CategoryView extends \kartik\tree\TreeView {
                 'data-movable-d' => 1,
                 'data-movable-l' => 1,
                 'data-movable-r' => 1,
-                'data-removable' => 1,
+                'data-removable' => $node->system,
                 'data-removable-all' => 1,
             ];
             if (!$isChild) {
                 $css = ' kv-parent ';
             }
-            
+
             $indicators .= $this->renderToggleIconContainer(false) . "\n";
             $css = trim($css);
             
@@ -94,7 +94,11 @@ class CategoryView extends \kartik\tree\TreeView {
 
         $modelClass = $this->query->modelClass;
         
-        $node = $modelClass::find()->orderBy(['id' => SORT_ASC])->one();
+        if($this->displayValue > 1) {
+            $node = $modelClass::findOne($this->displayValue);
+        } else {
+            $node = $modelClass::find()->orderBy(['id' => SORT_ASC])->one();
+        }
 
         if (empty($node)) {
             $msg = Html::tag('div', $this->emptyNodeMsg, $this->emptyNodeMsgOptions);

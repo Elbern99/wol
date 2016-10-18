@@ -1,5 +1,5 @@
 <?php
-namespace backend\components\category;
+namespace common\components\category;
 
 use kartik\tree\Module as BaseModule;
 use Yii;

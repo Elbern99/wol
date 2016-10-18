@@ -5,6 +5,7 @@ namespace common\models;
 use kartik\tree\TreeView;
 use Yii;
 use yii\helpers\Html;
+use common\models\UrlRewrite;
 
 class Category extends \kartik\tree\models\Tree {
 
@@ -17,6 +18,23 @@ class Category extends \kartik\tree\models\Tree {
         'visible_in_menu',
         'system'
     ];
+
+    public function afterSave($insert, $changedAttributes) {
+        
+        parent::afterSave($insert, $changedAttributes);
+
+        if (!$this->system) {
+            
+            $rewrite_path = '/category/' . $this->id;
+            $params = ['current_path'=>$this->getCategoryPath(), 'rewrite_path'=>$rewrite_path];
+            \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
+        }
+    }
+    
+    public function getCategoryPath() {
+        
+        return $this->url_key;
+    }
 
     public static function tableName() {
         return 'category';
@@ -82,7 +100,8 @@ class Category extends \kartik\tree\models\Tree {
 
         $module = TreeView::module();
         $keyAttribute = $nameAttribute = $leftAttribute = $rightAttribute = $depthAttribute = null;
-        $treeAttribute = $iconAttribute = $iconTypeAttribute = null;
+        $typeAttribute = $metaTitleAttribute = $urlKeyAttribute = null;
+        $treeAttribute = null;
 
         extract($module->treeStructure + $module->dataStructure);
         $labels = [
@@ -91,8 +110,9 @@ class Category extends \kartik\tree\models\Tree {
             $leftAttribute => Yii::t('kvtree', 'Left'),
             $rightAttribute => Yii::t('kvtree', 'Right'),
             $depthAttribute => Yii::t('kvtree', 'Depth'),
-            'meta_title' => Yii::t('kvtree', 'Meta Title'),
-            'type' => Yii::t('kvtree', 'Type'),
+            $urlKeyAttribute => Yii::t('kvtree', 'Url Full Path'),
+            $metaTitleAttribute => Yii::t('kvtree', 'Meta Title'),
+            $typeAttribute => Yii::t('kvtree', 'Type'),
             'active' => Yii::t('kvtree', 'Active'),
             'filterable' => Yii::t('kvtree', 'Filterable'),
             'visible_in_menu' => Yii::t('kvtree', 'Visible In Menu'),
@@ -121,7 +141,7 @@ class Category extends \kartik\tree\models\Tree {
             [$typeAttribute, 'integer'],
             [$attribs, 'safe']
         ];
-        
+
         $rules[] = ['description', 'safe'];
         $rules[] = ['meta_keywords', 'safe'];
 

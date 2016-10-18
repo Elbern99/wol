@@ -188,16 +188,16 @@ echo $renderContent(Module::VIEW_PART_1);
 
 <?php /* id attribute */ ?>
 <?= $keyField ?>
-
+<?php $disabled = ($node->system) ? ['disabled'=>'disabled'] : []; ?>
 <div class="row">
     <div class="col-sm-12">
         <?= $form->field($node, $nameAttribute)->textInput() ?>
-        <?= $form->field($node, $urlKeyAttribute)->textInput() ?>
+        <?= $form->field($node, $urlKeyAttribute)->textInput($disabled) ?>
 
         <?php if (!empty($typeClass::getTypes())): ?>
-            <?= $form->field($node, $typeAttribute)->listBox($typeClass::getTypes(),['size' => 1, 'prompt'=>'']) ?>
+            <?= $form->field($node, $typeAttribute)->listBox($typeClass::getTypes(),array_merge(['size' => 1, 'prompt'=>''], $disabled)) ?>
         <?php else: ?>
-            <?= $form->field($node, $typeAttribute)->textInput() ?>
+            <?= $form->field($node, $typeAttribute)->textInput($disabled) ?>
         <?php endif; ?>
         
         <?= $form->field($node, $metaTitleAttribute)->textarea() ?>
