@@ -110,7 +110,7 @@ class Category extends \kartik\tree\models\Tree {
             }
             return true;
         } else {
-            return $this->children()->count() ? $this->deleteWithChildren() : $this->delete();
+            return ($this->children()->count() || $this->isRoot()) ? $this->deleteWithChildren() : $this->delete();
         }
     }
 
