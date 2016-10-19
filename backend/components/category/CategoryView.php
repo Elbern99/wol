@@ -61,7 +61,7 @@ class CategoryView extends \kartik\tree\TreeView {
                 'data-movable-d' => 1,
                 'data-movable-l' => 1,
                 'data-movable-r' => 1,
-                'data-removable' => $node->system,
+                'data-removable' => (!$node->system) ? 1 : 0,
                 'data-removable-all' => 1,
             ];
             if (!$isChild) {
