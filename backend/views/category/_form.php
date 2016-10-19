@@ -41,9 +41,6 @@ extract($params);
 $isAdmin = ($isAdmin == true || $isAdmin === "true"); // admin mode flag
 $inputOpts = [];                                      // readonly/disabled input options for node
 $flagOptions = ['class' => 'kv-parent-flag'];         // node options for parent/child
-$typeClass = (isset(\Yii::$app->modules['treemanager']->params['typeClass'])) ?
-        \Yii::$app->modules['treemanager']->params['typeClass'] :
-        \common\components\CategoryType::className();
 
 // parse parent key
 if (empty($parentKey)) {
@@ -194,11 +191,11 @@ echo $renderContent(Module::VIEW_PART_1);
         <?= $form->field($node, $nameAttribute)->textInput() ?>
         <?= $form->field($node, $urlKeyAttribute)->textInput($disabled) ?>
 
-        <?php if (!empty($typeClass::getTypes())): ?>
-            <?= $form->field($node, $typeAttribute)->listBox($typeClass::getTypes(),array_merge(['size' => 1, 'prompt'=>''], $disabled)) ?>
-        <?php else: ?>
-            <?= $form->field($node, $typeAttribute)->textInput($disabled) ?>
+        <?php if (is_null($node->id)): ?>
+            <?php $node->$typeAttribute = $node->getType()->getTypeByLabel('Article') ?>
         <?php endif; ?>
+      
+        <?= Html::activeHiddenInput($node, $typeAttribute) ?>
         
         <?= $form->field($node, $metaTitleAttribute)->textarea() ?>
     </div>

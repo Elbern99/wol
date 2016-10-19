@@ -23,7 +23,8 @@ if (Yii::$app->user->isGuest) {
         'url' => ['#'],
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
         'items' => [
-            ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']]
+            ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']],
+            ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']]
         ],
     ];
     
@@ -35,7 +36,7 @@ if (Yii::$app->user->isGuest) {
         'url' => ['#'],
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
         'items' => [
-            ['label' => Yii::t('app/menu','Bottom Menu'), 'url' => ['/menu/bottom']]
+            ['label' => Yii::t('app/menu','Links'), 'url' => ['/menu/links']]
         ],
     ];
     

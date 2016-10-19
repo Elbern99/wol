@@ -8,8 +8,9 @@ use yii\helpers\Url;
 /* @var $model common\models\BottomMenu */
 /* @var $form ActiveForm */
 $this->title = Yii::t('app.menu', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Bottom Menu'), 'url' => Url::toRoute('/menu/bottom')];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Links'), 'url' => Url::toRoute('/menu/links')];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="view">
     <div class="row content">
@@ -17,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'title') ?>
+            <?= $form->field($model, 'type')->listBox($model->getType()->getTypes(),array_merge(['size' => 1, 'prompt'=>''])) ?>
             <?= $form->field($model, 'link') ?>
             <?= $form->field($model, 'class') ?>
             <?= $form->field($model, 'order') ?>

@@ -3,14 +3,7 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'modules' => [
         'treemanager' => [
-            'class' => '\common\components\category\Module',
-            'params' => [
-                'typeClass' => '\common\components\CategoryType',
-                'categoryTypes' => [
-                    1 => 'Video',
-                    2 => 'Article'
-                ]
-            ]
+            'class' => '\common\components\category\Module'
         ]
     ],
     'components' => [

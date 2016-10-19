@@ -5,10 +5,16 @@ namespace common\models;
 use kartik\tree\TreeView;
 use Yii;
 use yii\helpers\Html;
-use common\models\UrlRewrite;
+use common\contracts\TypeInterface;
 
 class Category extends \kartik\tree\models\Tree {
 
+    private $params = [
+        1 => 'Article'
+    ];
+    
+    private $type = null;
+    
     /**
      * @var array the list of boolean value attributes
      */
@@ -18,6 +24,18 @@ class Category extends \kartik\tree\models\Tree {
         'visible_in_menu',
         'system'
     ];
+    
+    public function init()
+    {
+        parent::init();
+        
+        $this->type = Yii::createObject(TypeInterface::class);
+        $this->type->addTypes($this->params);
+    }
+    
+    public function getType() {
+        return $this->type;
+    }
 
     public function afterSave($insert, $changedAttributes) {
         

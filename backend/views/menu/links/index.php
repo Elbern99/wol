@@ -6,12 +6,12 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app.menu', 'Bottom Menu');
+$this->title = Yii::t('app.menu', 'Links');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('menu/bottom-view')?>"><?= Yii::t('app/menu', 'Add Link') ?></a></p>
+    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('menu/link-view')?>"><?= Yii::t('app/menu', 'Add Link') ?></a></p>
     
     <div class="row content">
         <div class="col-sm-12 sidenav">
@@ -22,21 +22,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'title',
+                    [
+                        'attribute' => 'type',
+                        'value' => function($model) {
+                            return $model->getType()->getTypeByKey($model->type);
+                        }
+                    ],
                     'link',
                     'class',
                     'order',
                     'enabled',
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '{bottom-view}{bottom-delete}',
+                        'template' => '{link-view}{link-delete}',
                         'header' => 'Actions',
                         'buttons' => [
-                            'bottom-view' => function ($url, $model) {
+                            'link-view' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                                     'title' => Yii::t('app', 'Edit'),
                                 ]);
                             },
-                            'bottom-delete' => function ($url, $model) {
+                            'link-delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                                     'title' => Yii::t('app', 'Delete'),
                                     'data-confirm' => Yii::t('yii', 'Are you sure to delete this item?'),

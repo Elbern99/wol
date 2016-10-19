@@ -50,11 +50,6 @@ class Module extends BaseModule {
         ];
 
         $this->treeViewSettings['nodeActions'] = $nodeActions;
-
-        if (isset($this->params['typeClass']) && isset($this->params['categoryTypes'])) {
-            $class = $this->params['typeClass'];
-            $class::addTypes($this->params['categoryTypes']);
-        }
         
     }
     

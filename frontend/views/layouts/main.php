@@ -22,6 +22,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    <?php $this->beginContent('@app/views/components/header.php'); ?><?php $this->endContent();?>
     <?php $this->beginContent('@app/views/components/menu.php'); ?><?php $this->endContent();?>
 
     <div class="container">

@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\contracts\TypeInterface;
 /**
  * This is the model class for table "bottom_menu".
  *
@@ -14,14 +14,35 @@ use Yii;
  * @property integer $order
  * @property integer $enabled
  */
-class BottomMenu extends \yii\db\ActiveRecord
+class MenuLinks extends \yii\db\ActiveRecord
 {
+    
+    private $params = [
+        1 => 'Top Menu',
+        2 => 'Middle Menu',
+        3 => 'Bottom Menu'
+    ];
+    
+    private $type = null;
+    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'bottom_menu';
+        return 'menu_links';
+    }
+    
+    public function init()
+    {
+        parent::init();
+        
+        $this->type = Yii::createObject(TypeInterface::class);
+        $this->type->addTypes($this->params);
+    }
+    
+    public function getType() {
+        return $this->type;
     }
 
     /**
@@ -30,8 +51,8 @@ class BottomMenu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'order'], 'required'],
-            [['order', 'enabled'], 'integer'],
+            [['title', 'order', 'type'], 'required'],
+            [['order', 'enabled', 'type'], 'integer'],
             [['title', 'link', 'class'], 'string', 'max' => 255],
         ];
     }
@@ -43,6 +64,7 @@ class BottomMenu extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'type' => Yii::t('app', 'Type'),
             'title' => Yii::t('app', 'Title'),
             'link' => Yii::t('app', 'Link'),
             'class' => Yii::t('app', 'Class'),
@@ -52,10 +74,10 @@ class BottomMenu extends \yii\db\ActiveRecord
     }
     
     /*
-     * Get bottom menu item query 
+     * Get item query 
      * @return object
      */
-    public static function getVisibleItemsQuery() {
-        return self::find()->where(['enabled' => 1])->orderBy(['order'=>SORT_ASC]);
+    public static function getVisibleItemsQuery($type) {
+        return self::find()->where(['enabled' => 1, 'type' => $type])->orderBy(['order'=>SORT_ASC]);
     }
 }

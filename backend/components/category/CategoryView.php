@@ -85,6 +85,7 @@ class CategoryView extends \kartik\tree\TreeView {
                     '</div>' . "\n";
             ++$counter;
         }
+        
         $out .= str_repeat("</li>\n</ul>", $nodeDepth) . "</li>\n";
         $out .= "</ul>\n";
         return Html::tag('div', $this->renderRoot() . $out, $this->treeOptions);

@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\BottomMenu;
+use common\models\MenuLinks;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +21,7 @@ class MenuController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['bottom', 'bottom-view', 'bottom-delete'],
+                        'actions' => ['links', 'link-view', 'link-delete'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -30,39 +30,40 @@ class MenuController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'bottom-delete' => ['post'],
+                    'link-delete' => ['post'],
                 ],
             ],
         ];
     }
     
-    public function actionBottom() {
-        $menu = BottomMenu::find()->orderBy('order');
-        return $this->render('bottom/index', ['dataProvider' => new ActiveDataProvider(['query' => $menu, 'pagination' => ['pageSize' => 20]])]);
+    public function actionLinks() {
+        $menu = MenuLinks::find()->orderBy('order');
+        return $this->render('links/index', ['dataProvider' => new ActiveDataProvider(['query' => $menu, 'pagination' => ['pageSize' => 20]])]);
     }
     
-    public function actionBottomView($id = null) {
+    public function actionLinkView($id = null) {
         
         if (is_null($id)) {
-            $model = new BottomMenu();
+            $model = new MenuLinks();
         } else {
-            $model = BottomMenu::findOne($id);
+            $model = MenuLinks::findOne($id);
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Link added success'), false);
-                return $this->redirect('@web/menu/bottom');
+                return $this->redirect('@web/menu/links');
             }
         }
         
-        return $this->render('bottom/view', ['model'=>$model]);
+        return $this->render('links/view', ['model'=>$model]);
     }
     
-    public function actionBottomDelete($id) {
+    public function actionLinkDelete($id) {
         
         try {
-            $model = BottomMenu::findOne($id);
+            
+            $model = MenuLinks::findOne($id);
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
             }
@@ -74,6 +75,6 @@ class MenuController extends Controller
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Link did not delete!'));
         }
              
-        return $this->redirect('@web/menu/bottom');
+        return $this->redirect('@web/menu/links');
     }
 }

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /*
  * Widget init bottom menu
  */
-class BottomMenuWidget extends Widget {
+class MenuWidget extends Widget {
     
     public $query = null;
     private $items = [];
