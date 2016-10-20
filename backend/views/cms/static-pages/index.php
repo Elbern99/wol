@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('cms/static-pages-view')?>"><?= Yii::t('app/menu', 'Add Page') ?></a></p>
+    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('cms/select-type')?>"><?= Yii::t('app/menu', 'Add Page') ?></a></p>
     <div class="row content">
         <div class="col-sm-12 sidenav">
             <?=

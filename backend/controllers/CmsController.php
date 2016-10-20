@@ -3,30 +3,40 @@
 namespace backend\controllers;
 
 use Yii;
+
 use common\models\CmsPages;
 use common\models\CmsPageInfo;
-use common\models\CmsPageSections;
+use common\models\Modules;
+
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 
+use yii\helpers\ArrayHelper;
 /*
  * CMS Page Manager Class Controller
  */
 class CmsController extends Controller {
 
-    protected $filePagePath = "@backend/views/cms/static-pages/components/page_edit.php";
-    protected $fileSectionsPath = "@backend/views/cms/static-pages/components/sections_grid.php";
-
+    use traits\CmsAccordionTrait,
+        traits\CmsBaseTrait,
+        traits\CmsWidgetTrait;
+    
+    
+    
     public function behaviors() {
+        
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['static-pages', 'static-pages-view', 'static-pages-delete', 'section-add', 'section-edit', 'section-delete'],
+                        'actions' => ['select-type', 'static-pages', 'static-pages-view', 
+                            'static-pages-delete', 'section-add', 'section-edit', 
+                            'section-delete', 'widget'
+                        ],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -36,36 +46,19 @@ class CmsController extends Controller {
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'static-pages-delete' => ['post'],
-                    'section-delete' => ['post']
+                    'section-delete' => ['post'],
+                    'widget' => ['post']
                 ],
             ],
         ];
     }
-
-    private function getTabItems($page, $page_info, $sections = null) {
-
-        $items = array();
-
-        $sectionOpen = Yii::$app->session->getFlash('section_open');
-
-        $items[] = [
-            'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Page'),
-            'content' => $this->renderFile($this->filePagePath, ['page' => $page, 'page_info' => $page_info]),
-            'active' => ($sectionOpen) ? false : true
-        ];
-
-        if (!is_null($sections)) {
-            $items[] = [
-                'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Sections'),
-                'content' => $this->renderFile($this->fileSectionsPath, [
-                    'dataProvider' => new ActiveDataProvider(['query' => $sections, 'pagination' => ['pageSize' => 20]]),
-                    'page_id' => $page->id
-                ]),
-                'active' => ($sectionOpen) ? true : false
-            ];
-        }
-
-        return $items;
+    
+    
+    
+    public function actionSelectType() {
+        
+        $items = ArrayHelper::map(Modules::find()->select(['id', 'title'])->asArray()->all(), 'id', 'title');
+        return $this->render('static-pages/edit/select_view', ['items' => $items, 'postUrl'=>'/cms/static-pages-view']);
     }
 
     public function actionStaticPages() {
@@ -74,52 +67,21 @@ class CmsController extends Controller {
         return $this->render('static-pages/index', ['dataProvider' => new ActiveDataProvider(['query' => $model, 'pagination' => ['pageSize' => 20]])]);
     }
 
-    public function actionSectionAdd($page_id) {
-
-        $model = new CmsPageSections();
-
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
-
-            $model->setAttribute('page_id', $page_id);
-
-            if ($model->validate()) {
-
-                if ($model->save()) {
-                    
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Section save success'), false);
-                    Yii::$app->getSession()->setFlash('section_open', true);
-                    return $this->redirect(['/cms/static-pages-view', 'id' => $page_id]);
-                }
-            }
-        }
-
-        return $this->render('static-pages/edit/section_view', ['model' => $model, 'page' => $page_id]);
-    }
-
-    public function actionSectionEdit($id) {
-
-        $model = CmsPageSections::findOne($id);
-
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            if ($model->save()) {
-
-                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Section save success'), false);
-                Yii::$app->getSession()->setFlash('section_open', true);
-                return $this->redirect(['/cms/static-pages-view', 'id' => $model->page_id]);
-            }
-        }
-
-        return $this->render('static-pages/edit/section_view', ['model' => $model, 'page' => $model->page_id]);
-    }
-
     public function actionStaticPagesView($id = null) {
 
         if (is_null($id)) {
             $page = new CmsPages();
+            
+            $cmsType = Yii::$app->request->post('cms_type');
+
+            if ($cmsType) {
+                $page->setAttribute('modules_id', $cmsType);
+            }
+
             $page_info = new CmsPageInfo();
-            $sections = null;
+            
         } else {
+            
             $page = CmsPages::findOne($id);
 
             if (!is_object($page)) {
@@ -127,7 +89,6 @@ class CmsController extends Controller {
             }
 
             $page_info = CmsPageInfo::findOne(['page_id' => $page->id]);
-            $sections = CmsPageSections::find()->where(['page_id' => $page->id]);
         }
 
         if (Yii::$app->request->isPost) {
@@ -150,28 +111,7 @@ class CmsController extends Controller {
             }
         }
 
-        return $this->render('static-pages/edit/view', ['items' => $this->getTabItems($page, $page_info, $sections)]);
-    }
-    
-    public function actionSectionDelete($id) {
-
-        try {
-            
-            $model = CmsPageSections::findOne($id);
-            if (!is_object($model)) {
-                throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
-            }
-            
-            $pageId = $model->page_id;
-            $model->delete();
-            Yii::$app->getSession()->setFlash('section_open', true);
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Section was delete success!'));
-            
-        } catch (\yii\db\Exception $e) {
-            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Section did not delete!'));
-        }
-
-        return $this->redirect(['/cms/static-pages-view', 'id' => $pageId]);
+        return $this->render('static-pages/edit/view', ['items' => $this->getTabItems($page, $page_info)]);
     }
 
     public function actionStaticPagesDelete($id) {

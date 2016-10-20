@@ -39,7 +39,7 @@ class CmsPages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['enabled', 'created_at', 'updated_at'], 'integer']
+            [['enabled', 'created_at', 'updated_at', 'modules_id'], 'integer']
         ];
     }
 

@@ -2,10 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\BottomMenu */
+/* @var $model common\models\Widget */
 /* @var $form ActiveForm */
 ?>
 
@@ -13,16 +12,12 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin([
               'enableClientValidation' => true,
               'enableAjaxValidation' => false,
-              'method' => 'post'
+              'method' => 'post',
+              'action' => $url
           ]); 
     ?>
 
-    <?= $form->field($page_info, 'title') ?>
-    <?= $form->field($page_info, 'meta_title') ?>
-    <?= $form->field($page_info, 'meta_keywords')->textarea() ?>
-    <?= $form->field($page_info, 'meta_description')->textarea() ?>
-    <?= $form->field($page, 'enabled')->checkbox() ?>
-    <?= Html::activeHiddenInput($page, 'modules_id'); ?>
+    <?= $form->field($model, 'id')->checkboxList($items)->label('Widgets') ?>
     
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
