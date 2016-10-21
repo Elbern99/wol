@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "cms_pages".
  *
@@ -16,9 +17,8 @@ use yii\behaviors\TimestampBehavior;
  * @property CmsPageInfo[] $cmsPageInfos
  * @property CmsPageSections[] $cmsPageSections
  */
-class CmsPages extends \yii\db\ActiveRecord
-{
-    
+class CmsPages extends \yii\db\ActiveRecord {
+
     public function behaviors() {
         return [
             TimestampBehavior::className(),
@@ -28,16 +28,14 @@ class CmsPages extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'cms_pages';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['url'], 'required'],
             [['enabled', 'created_at', 'updated_at', 'modules_id'], 'integer']
@@ -47,8 +45,7 @@ class CmsPages extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'url' => Yii::t('app', 'Url Path'),
@@ -61,26 +58,31 @@ class CmsPages extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCmsPageInfos()
-    {
+    public function getCmsPageInfos() {
         return $this->hasOne(CmsPageInfo::className(), ['page_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCmsPageSections()
-    {
+    public function getCmsPageSections() {
         return $this->hasMany(CmsPageSections::className(), ['page_id' => 'id']);
     }
-    
-    public function afterSave($insert, $changedAttributes){
+
+    public function afterSave($insert, $changedAttributes) {
+        
         parent::afterSave($insert, $changedAttributes);
 
-        //if ($insert) {
-            $rewrite_path = '/page/' . $this->id;
-            $params = ['current_path'=>$this->url, 'rewrite_path'=>$rewrite_path];
-            \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
-        //}
+        $rewrite_path = '/page/' . $this->id;
+        $params = ['current_path' => $this->url, 'rewrite_path' => $rewrite_path];
+        \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
     }
+
+    public function beforeDelete() {
+        
+        $rewrite_path = '/page/' . $this->id;
+        \Yii::$container->get('Rewrite')->autoRemoveRewrite($rewrite_path);
+        return parent::beforeDelete();
+    }
+
 }

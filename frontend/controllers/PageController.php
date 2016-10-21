@@ -28,7 +28,6 @@ class PageController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['?'],
                     ]
                 ],
             ],

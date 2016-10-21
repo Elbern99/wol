@@ -74,4 +74,23 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
         
         return false;
     }
+    
+    public function autoRemoveRewrite($rewrite_paths) {
+        
+        try {
+            
+            if (is_array($rewrite_paths)) {
+                $this->deleteAll(['rewrite_path' => $rewrite_paths]);
+            } else {
+                $model = $this->find()->where(['rewrite_path' => $rewrite_paths])->one();
+                $model->delete();
+            }
+            
+            return true;
+        } catch(\yii\db\Exception $e) {
+            var_dump($e->getMessage());exit;
+        }
+        
+        return false;
+    }
 }

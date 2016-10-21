@@ -7,7 +7,7 @@ use Yii;
 /*
  * Helper class with public methods for work with url rewrite
  */
-class UrlRewriteHelper {
+class UrlRewriteHelper implements IUrlRewrite {
     
     private $model = null;
     
@@ -16,15 +16,21 @@ class UrlRewriteHelper {
         $this->model = $model;
     }
     
-    public function getRewrite($current_path) {
+    public function getRewriteByPath($current_paths) {
         
-        return $this->model->getRewriteByPath($current_path);
+        return $this->model->getRewriteByPath($current_paths);
     }
     
     public function autoCreateRewrite($params) {
         
         return $this->model->autoCreateRewrite($params);
     }
+    
+    public function autoRemoveRewrite($rewrite_path) {
+        
+        return $this->model->autoRemoveRewrite($rewrite_path);
+    }
+    
     /*
      * Method for change request path
      * @param object $request
@@ -39,7 +45,7 @@ class UrlRewriteHelper {
             list ($route, $params) = $result;
 
             if (Yii::$app->createController($route) === false) {
-                $rewrite = $this->getRewrite($request->getUrl());
+                $rewrite = $this->getRewriteByPath($request->getUrl());
 
                 if (isset($rewrite['rewrite_path'])) {
                     $request->setPathInfo($rewrite['rewrite_path']);

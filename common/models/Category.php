@@ -49,6 +49,24 @@ class Category extends \kartik\tree\models\Tree {
         }
     }
     
+    public function beforeDelete() {
+        
+        $cildrens = $this->children()->all();
+        
+        if (count($cildrens)) {
+            
+            $rewrite_paths = ['/category/' .$this->id];
+            foreach ($cildrens as $children) {
+                $rewrite_paths[] = '/category/' .$children->id;
+            }
+        } else {
+            $rewrite_paths = '/category/' .$this->id;
+        }
+
+        \Yii::$container->get('Rewrite')->autoRemoveRewrite($rewrite_paths);
+        return parent::beforeDelete();
+    }
+    
     public function getCategoryPath() {
         
         return $this->url_key;
