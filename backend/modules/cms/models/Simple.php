@@ -2,7 +2,9 @@
 namespace backend\modules\cms\models;
 
 use common\modules\cms\SectionInterface;
+use common\models\CmsPagesSimple;
 use Yii;
+use yii\helpers\Url;
 
 class Simple implements SectionInterface {
     
@@ -18,10 +20,21 @@ class Simple implements SectionInterface {
         return [
             'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Simple'),
             'content' => Yii::$app->getView()->renderFile($this->fileSectionsPath, [
-                'model' => '',
-                'page_id' => $this->page->id
+                'model' => $this->getModel(),
+                'url' => Url::toRoute(['simple', 'page_id' => $this->page->id])
             ]),
-            'active' => ($sectionOpen == strtolower(get_class($this))) ? true : false
+            'active' => ($sectionOpen == 'simple') ? true : false
         ];
+    }
+    
+    protected function getModel() {
+       $model = CmsPagesSimple::find()->where(['page_id' => $this->page->id])->one();
+       
+       if (is_null($model)) {
+           $model = new CmsPagesSimple();
+           $model->setAttribute('page_id', $this->page->id);
+       }
+       
+       return $model;
     }
 }

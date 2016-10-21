@@ -22,7 +22,8 @@ class CmsController extends Controller {
 
     use traits\CmsAccordionTrait,
         traits\CmsBaseTrait,
-        traits\CmsWidgetTrait;
+        traits\CmsWidgetTrait,
+        traits\CmsSimpleTrait;
     
     
     
@@ -35,7 +36,7 @@ class CmsController extends Controller {
                     [
                         'actions' => ['select-type', 'static-pages', 'static-pages-view', 
                             'static-pages-delete', 'section-add', 'section-edit', 
-                            'section-delete', 'widget'
+                            'section-delete', 'widget', 'simple'
                         ],
                         'roles' => ['@'],
                         'allow' => true,
@@ -47,7 +48,8 @@ class CmsController extends Controller {
                 'actions' => [
                     'static-pages-delete' => ['post'],
                     'section-delete' => ['post'],
-                    'widget' => ['post']
+                    'widget' => ['post'],
+                    'simple' => ['post']
                 ],
             ],
         ];

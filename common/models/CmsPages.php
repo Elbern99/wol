@@ -39,6 +39,7 @@ class CmsPages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['url'], 'required'],
             [['enabled', 'created_at', 'updated_at', 'modules_id'], 'integer']
         ];
     }
@@ -50,7 +51,7 @@ class CmsPages extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'url' => Yii::t('app', 'Url'),
+            'url' => Yii::t('app', 'Url Path'),
             'enabled' => Yii::t('app', 'Enabled'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -76,9 +77,10 @@ class CmsPages extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes){
         parent::afterSave($insert, $changedAttributes);
 
-        if ($insert) {
-            $this->setAttribute('url', '/page/'.$this->id);
-            $this->save();
-        }
+        //if ($insert) {
+            $rewrite_path = '/page/' . $this->id;
+            $params = ['current_path'=>$this->url, 'rewrite_path'=>$rewrite_path];
+            \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
+        //}
     }
 }
