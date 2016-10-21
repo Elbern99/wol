@@ -24,7 +24,8 @@ if (Yii::$app->user->isGuest) {
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
         'items' => [
             ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']],
-            ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']]
+            ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']],
+            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
         ],
     ];
     
