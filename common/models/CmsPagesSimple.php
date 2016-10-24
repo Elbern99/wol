@@ -17,8 +17,18 @@ use Yii;
 class CmsPagesSimple extends \yii\db\ActiveRecord
 {
     
-    const IMAGE_PATH = 'cms/backgroud';
+    protected $images = [
+        'backgroud'
+    ];
     
+    public function getFrontendPath() {
+        return Yii::getAlias('@backend').'/web/uploads/cms/backgroud';
+    }
+    
+    public function getBackendPath() {
+        return Yii::getAlias('@frontend').'/web/uploads/cms/backgroud';
+    }
+            
     /**
      * @inheritdoc
      */
@@ -43,22 +53,6 @@ class CmsPagesSimple extends \yii\db\ActiveRecord
         ];
     }
     
-    public function upload() {
-
-        if (is_object($this->backgroud)) {
-            
-            $imageName = Yii::$app->getSecurity()->generateRandomString(9);
-            $imageName .= '.'. $this->backgroud->extension;
-            $this->backgroud->name = $imageName;
-            $filePath = Yii::getAlias('@backend').'/web/uploads/' . self::IMAGE_PATH . '/'.$this->backgroud->name;
-
-            if ($this->backgroud->saveAs($filePath)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
 
     /**
      * @inheritdoc
