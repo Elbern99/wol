@@ -73,10 +73,16 @@ class CmsController extends Controller {
 
         if (is_null($id)) {
             $page = new CmsPages();
-            
+
             $cmsType = Yii::$app->request->post('cms_type');
 
-            if ($cmsType) {
+            if (!is_null($cmsType)) {
+                
+                if (!$cmsType) {
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Cms Type did not set'));
+                    return $this->goBack(['/cms/static-pages']);
+                }
+                
                 $page->setAttribute('modules_id', $cmsType);
             }
 

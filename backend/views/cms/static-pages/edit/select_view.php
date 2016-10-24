@@ -3,11 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\CmsPageSections */
-/* @var $page int id common\models\CmsPage */
+/* @var $items int id common\models\Modules */
 /* @var $form ActiveForm */
 $this->title = Yii::t('app.menu', 'Cms Type');
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     
     <div class="form-group field-menulinks-type required has-success">
-        <label class="control-label" for="menulinks-type">Type</label>
-        <?= Html::listBox('cms_type', null, $items, ['size' => 1, 'prompt'=>'']) ?>
+        <label class="control-label" for="menulinks-type"><?php Yii::t('app/form', 'Type') ?></label>
+        <?= Html::listBox('cms_type', null, $items, ['size' => 1]) ?>
     </div>
    
     <div class="form-group">
