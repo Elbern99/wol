@@ -12,20 +12,19 @@ trait CmsSimpleTrait {
         if (Yii::$app->request->isPost) {
             
             $postData = Yii::$app->request->post();
-            $loadImage = false;
             
             if ($postData['CmsPagesSimple']['id']) {
                 $model = CmsPagesSimple::find()->where(['page_id' => $page_id])->one();
             } else {
                 $model = new CmsPagesSimple();
             }
+            
+            $model->initUploadProperty();
+            
+            if ($model->load($postData, '') && $model->validate()) {
+                
+                $model->upload();
 
-            if ($model->load($postData) && $model->validate()) {
-                
-                if ($loadImage) {
-                    $model->upload();
-                }
-                
                 if ($model->save(false)) {
 
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Page save success'), false);

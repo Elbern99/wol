@@ -16,17 +16,18 @@ use Yii;
  */
 class CmsPagesSimple extends \yii\db\ActiveRecord
 {
+    use \common\helpers\ImageUploadTrait;
     
     protected $images = [
         'backgroud'
     ];
     
     public function getFrontendPath() {
-        return Yii::getAlias('@backend').'/web/uploads/cms/backgroud';
+        return Yii::getAlias('@frontend').'/web/uploads/cms/backgroud';
     }
     
     public function getBackendPath() {
-        return Yii::getAlias('@frontend').'/web/uploads/cms/backgroud';
+        return Yii::getAlias('@backend').'/web/uploads/cms/backgroud';
     }
             
     /**

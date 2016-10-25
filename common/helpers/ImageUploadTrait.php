@@ -1,33 +1,31 @@
 <?php
-namespace \common\helpers;
+
+namespace common\helpers;
+
 use Yii;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
 trait ImageUploadTrait {
     
-    protected $images = [];
     protected $mode = 0775;
     
     abstract public function getFrontendPath();
     abstract public function getBackendPath();
     
-    //before load
     
     public function initUploadProperty() {
-        
-        $load = false;
+
         foreach ($this->images as $image) {
             
             $upload = UploadedFile::getInstance($this, $image);
             
             if (is_object($upload) && $upload->name) {
-                $this->$image = $upload;
-                $load = true;
+                
+                $this->setAttribute($image,$upload);
             }
         }
         
-        return $load;
     }
     
     public function upload() {
@@ -35,7 +33,7 @@ trait ImageUploadTrait {
         try {
             
             foreach ($this->images as $image) {
-
+                
                 if (is_object($this->$image)) {
 
                     $imageName = Yii::$app->getSecurity()->generateRandomString(9);
@@ -47,22 +45,26 @@ trait ImageUploadTrait {
             }
             
             return true;
+            
         } catch(\Exception $e) {
             return false;
         }
     }
     
-    protected function saveImageFrontend($image, $path) {
+    protected function saveImage($image, $path) {
 
         if ($path) {
-            
+
             if (!file_exists($path)) {
+
                 if (!FileHelper::createDirectory($path, $this->mode, true)) {
                     return false;
                 }
+                
             }
-            
-            $image->saveAs($path);
+
+            $imageName = $path.'/'.$image->name;
+            $image->saveAs($imageName);
         }
 
     }
