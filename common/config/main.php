@@ -3,7 +3,17 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'modules' => [
         'treemanager' => [
-            'class' => '\common\components\category\Module'
+            'class' => '\common\modules\category\Module'
+        ],
+        'eav' => [
+            'class' => '\common\modules\eav\Module',
+            'components' => [
+                'attribute' => '\common\models\eav\EavAttribute',
+                'attribute_option' => '\common\models\eav\EavAttribute',
+                'entity' => '\common\models\eav',
+                'entity_type' => '',
+                'value' => ''
+            ]
         ]
     ],
     'components' => [
