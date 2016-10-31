@@ -5,23 +5,32 @@ namespace common\models\eav;
 use Yii;
 
 /**
- * This is the model class for table "eav_entity_type".
+ * This is the model class for table "eav_type".
  *
  * @property integer $id
  * @property string $name
- * @property integer $attribute_id
  *
  * @property EavEntity[] $eavEntities
- * @property EavAttribute $attribute
+ * @property EavTypeAttribute[] $eavTypeAttributes
  */
-class EavEntityType extends \yii\db\ActiveRecord
+class EavType extends \yii\db\ActiveRecord implements \common\modules\eav\contracts\EntityTypeInterface
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'eav_entity_type';
+        return 'eav_type';
+    }
+    
+    public function addType($name) {
+        
+        $this->load(['name'=>$name], '');
+        if ($this->validate()) {
+            $this->save();
+        }
+        
+        return $this;
     }
 
     /**
@@ -30,11 +39,8 @@ class EavEntityType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['attribute_id'], 'required'],
-            [['attribute_id'], 'integer'],
             [['name'], 'string', 'max' => 30],
             [['name'], 'unique'],
-            [['attribute_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavAttribute::className(), 'targetAttribute' => ['attribute_id' => 'id']],
         ];
     }
 
@@ -46,7 +52,6 @@ class EavEntityType extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'attribute_id' => Yii::t('app', 'Attribute ID'),
         ];
     }
 
@@ -61,8 +66,8 @@ class EavEntityType extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAttribute()
+    public function getEavTypeAttributes()
     {
-        return $this->hasOne(EavAttribute::className(), ['id' => 'attribute_id']);
+        return $this->hasMany(EavTypeAttribute::className(), ['type_id' => 'id']);
     }
 }

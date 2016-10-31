@@ -15,7 +15,7 @@ use Yii;
  * @property EavEntityType $type
  * @property EavValue[] $eavValues
  */
-class EavEntity extends \yii\db\ActiveRecord
+class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\contracts\EntityInterface
 {
     /**
      * @inheritdoc

@@ -14,7 +14,7 @@ use Yii;
  *
  * @property EavAttribute $attribute
  */
-class EavAttributeOption extends \yii\db\ActiveRecord
+class EavAttributeOption extends \yii\db\ActiveRecord implements \common\modules\eav\contracts\AttributeOptionInterface
 {
     /**
      * @inheritdoc

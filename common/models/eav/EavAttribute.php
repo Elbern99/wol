@@ -1,7 +1,6 @@
 <?php
 
 namespace common\models\eav;
-
 use Yii;
 
 /**
@@ -18,8 +17,8 @@ use Yii;
  * @property EavEntityType[] $eavEntityTypes
  * @property EavValue[] $eavValues
  */
-class EavAttribute extends \yii\db\ActiveRecord
-{
+class EavAttribute extends \yii\db\ActiveRecord implements \common\modules\eav\contracts\AttributeInterface
+{ 
     /**
      * @inheritdoc
      */
@@ -40,6 +39,17 @@ class EavAttribute extends \yii\db\ActiveRecord
             [['name'], 'unique'],
         ];
     }
+    
+    public function getAttributeSchema() {
+        
+        return [
+            'name',
+            'label',
+            'in_search',
+            'required',
+            'enabled'
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -55,6 +65,32 @@ class EavAttribute extends \yii\db\ActiveRecord
             'enabled' => Yii::t('app', 'Enabled'),
         ];
     }
+    
+    public function addAttributeWithOptions($attribute) {
+        
+        $this->load($attribute->getParams(), '');
+
+        if ($this->validate()) {
+            
+            $this->save();
+            $options = [];
+
+            foreach ($attribute->getOptions() as $option) {
+                $option['attribute_id'] = $this->id;
+                $options[] = $option;
+            }
+           
+            $insertCount = Yii::$app->db->createCommand()
+                    ->batchInsert(
+                       EavAttributeOption::tableName(), ['label', 'type', 'attribute_id'], $options
+                    )
+                    ->execute();
+            
+            return $this;
+        }
+        
+        return false;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -67,9 +103,9 @@ class EavAttribute extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEavEntityTypes()
+    public function getEavAttributeTypes()
     {
-        return $this->hasMany(EavEntityType::className(), ['attribute_id' => 'id']);
+        return $this->hasMany(EavTypeAttributes::className(), ['attribute_id' => 'id']);
     }
 
     /**

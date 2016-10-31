@@ -5,14 +5,15 @@ return [
         'treemanager' => [
             'class' => '\common\modules\category\Module'
         ],
-        'eav' => [
+        'eav_module' => [
             'class' => '\common\modules\eav\Module',
             'components' => [
                 'attribute' => '\common\models\eav\EavAttribute',
-                'attribute_option' => '\common\models\eav\EavAttribute',
-                'entity' => '\common\models\eav',
-                'entity_type' => '',
-                'value' => ''
+                'attribute_option' => '\common\models\eav\EavAttributeOption',
+                'entity' => '\common\models\eav\EavEntity',
+                'type' => '\common\models\eav\EavType',
+                'atribute_type' => '\common\models\eav\EavTypeAttributes',
+                'value' => '\common\models\eav\EavValue'
             ]
         ]
     ],
