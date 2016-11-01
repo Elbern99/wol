@@ -2,6 +2,7 @@
 namespace common\modules\eav;
 
 use Yii;
+
 class StorageEav {
     
     private $storage = [];
@@ -31,7 +32,7 @@ class StorageEav {
             return Yii::createObject($this->components[$name]);
         }
         
-        throw new \Exception('Object '.$name.' did not find');
+        throw new \Exception('Class '.$name.' did not find');
     }
 }
 
