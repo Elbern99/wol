@@ -19,6 +19,15 @@ if (Yii::$app->user->isGuest) {
     
     $menuItems[] = ['label' => Yii::t('app/menu','Home'), 'url' => ['/site/index']];
     
+    $menuItems[] = ['label' =>  Yii::t('app/menu','IZA'),
+        'url' => ['#'],
+        'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
+        'items' => [
+            ['label' => Yii::t('app/menu','Articles'), 'url' => ['/iza/articles']],
+            ['label' => Yii::t('app/menu','Authors'), 'url' => ['/iza/authors']],
+        ],
+    ];
+    
     $menuItems[] = ['label' =>  Yii::t('app/menu','CMS'),
         'url' => ['#'],
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',

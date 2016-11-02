@@ -23,12 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     [
-                        'attribute' => 'sort_key',
-                        'value' => function($model) {
-                            return AdminFunctionHelper::short($model->sort_key);
-                        }
-                    ],
-                    [
                         'attribute' => 'seo',
                         'value' => function($model) {
                             return AdminFunctionHelper::short($model->seo);
@@ -40,6 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->doi);
                         }
                     ],
+                    'publisher',
+                    'availability',
+                    [
+                        'attribute' => 'sort_key',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::short($model->sort_key);
+                        }
+                    ],
+                    'created_at',
+                    'updated_at',
                     [
                         'attribute' => 'enabled',
                         'format' => 'raw',
@@ -47,6 +51,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::activeCheckbox($model, 'enabled', ['class'=>'enabled_field', 'data-item'=>$model->id]);
                         }
                     ],
+                    /*[
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{article-view}',
+                        'header' => 'Actions',
+                        'buttons' => [
+                            'article-view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    'title' => Yii::t('app', 'View'),
+                                ]);
+                            }
+                        ]
+                    ],*/
                 ],
             ]);
             ?>

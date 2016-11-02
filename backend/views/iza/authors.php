@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'email',
                     'url',
                     'phone',
+                    'avatar',
                     [
                         'attribute' => 'enabled',
                         'format' => 'raw',
@@ -33,6 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::activeCheckbox($model, 'enabled', ['class'=>'enabled_field', 'data-item'=>$model->id]);
                         }
                     ],
+                    /*[
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{author-view}',
+                        'header' => 'Actions',
+                        'buttons' => [
+                            'author-view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    'title' => Yii::t('app', 'View'),
+                                ]);
+                            }
+                        ]
+                    ],*/
                 ],
             ]);
             ?>

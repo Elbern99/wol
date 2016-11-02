@@ -11,7 +11,9 @@ use Yii;
  * @property string $author_key
  * @property string $email
  * @property string $phone
- * @property integer $enable
+ * @property integer $enabled
+ * @property string $url
+ * @property string $avatar
  *
  * @property ArticleAuthor[] $articleAuthors
  */
@@ -33,8 +35,8 @@ class Author extends \yii\db\ActiveRecord
         return [
             [['author_key'], 'required'],
             [['enabled'], 'integer'],
-            [['author_key', 'phone'], 'string', 'max' => 50],
-            [['email', 'url'], 'string', 'max' => 255],
+            [['author_key', 'phone', 'url', 'avatar'], 'string', 'max' => 50],
+            [['email'], 'string', 'max' => 255],
             [['author_key'], 'unique'],
         ];
     }
@@ -48,9 +50,10 @@ class Author extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'author_key' => Yii::t('app', 'Author Key'),
             'email' => Yii::t('app', 'Email'),
-            'url' => Yii::t('app', 'Url'),
             'phone' => Yii::t('app', 'Phone'),
             'enabled' => Yii::t('app', 'Enabled'),
+            'url' => Yii::t('app', 'Url'),
+            'avatar' => Yii::t('app', 'Avatar'),
         ];
     }
 

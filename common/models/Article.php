@@ -12,10 +12,10 @@ use Yii;
  * @property string $seo
  * @property string $doi
  * @property string $availability
- * @property string $keywords
  * @property integer $enabled
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $publisher
  *
  * @property ArticleAuthor[] $articleAuthors
  * @property ArticleCategory[] $articleCategories
@@ -31,6 +31,11 @@ class Article extends \yii\db\ActiveRecord
     {
         return 'article';
     }
+    
+    public static function primaryKey()
+    {
+        return [0=>'id'];
+    }
 
     /**
      * @inheritdoc
@@ -38,10 +43,11 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'enabled', 'created_at', 'updated_at'], 'integer'],
-            [['sort_key', 'seo', 'doi', 'created_at', 'updated_at'], 'required'],
+            [['id','enabled'], 'integer'],
+            [['sort_key', 'seo', 'doi'], 'required'],
+            [['created_at', 'updated_at'], 'safe'],
             [['sort_key', 'seo'], 'string', 'max' => 255],
-            [['doi', 'availability'], 'string', 'max' => 50],
+            [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
         ];
     }
@@ -60,6 +66,7 @@ class Article extends \yii\db\ActiveRecord
             'enabled' => Yii::t('app', 'Enabled'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'publisher' => Yii::t('app', 'Publisher'),
         ];
     }
 
