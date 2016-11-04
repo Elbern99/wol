@@ -16,9 +16,9 @@ use Yii;
  */
 class CmsPagesSimple extends \yii\db\ActiveRecord
 {
-    use \common\helpers\ImageUploadTrait;
+    use \common\helpers\FileUploadTrait;
     
-    protected $images = [
+    protected $files = [
         'backgroud'
     ];
     

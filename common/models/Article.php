@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\modules\article\contracts\ArticleInterface;
 /**
  * This is the model class for table "article".
  *
@@ -22,7 +22,7 @@ use Yii;
  * @property ArticleRelation[] $articleRelations
  * @property ArticleRelation[] $articleRelations0
  */
-class Article extends \yii\db\ActiveRecord
+class Article extends \yii\db\ActiveRecord implements ArticleInterface
 {
     /**
      * @inheritdoc

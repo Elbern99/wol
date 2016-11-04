@@ -68,6 +68,6 @@ class EavType extends \yii\db\ActiveRecord implements \common\modules\eav\contra
      */
     public function getEavTypeAttributes()
     {
-        return $this->hasMany(EavTypeAttribute::className(), ['type_id' => 'id']);
+        return $this->hasMany(EavTypeAttributes::className(), ['type_id' => 'id']);
     }
 }

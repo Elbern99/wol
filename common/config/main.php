@@ -30,6 +30,7 @@ return [
                     'sourceLanguage' => 'en',
                     'fileMap' => [
                         'app' => 'app.php',
+                        'app/exception' => 'exception.php',
                         'app/form' => 'form.php',
                         'app/text' => 'text.php',
                         'app/menu' => 'menu.php',

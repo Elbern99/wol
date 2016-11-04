@@ -42,14 +42,13 @@ class IzaController extends Controller {
     public function actionArticles() {
         
         if (Yii::$app->request->getIsAjax()) {
-            
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ['result'=>$this->changeEnabledAjax(ArticleSearch::class)];
+            $this->changeEnabledAjax(ArticleSearch::class);
         }
         
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $this->getView()->registerJsFile(Url::to(['/js/field-ajax-change.js']), ['depends' => [\yii\web\JqueryAsset::className()]]);
+        
         return $this->render('articles', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -75,14 +74,13 @@ class IzaController extends Controller {
     public function actionAuthors() {
         
         if (Yii::$app->request->getIsAjax()) {
-
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ['result' => $this->changeEnabledAjax(AuthorSearch::class)];
+            $this->changeEnabledAjax(AuthorSearch::class);
         }
 
         $searchModel = new AuthorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $this->getView()->registerJsFile(Url::to(['/js/field-ajax-change.js']), ['depends' => [\yii\web\JqueryAsset::className()]]);
+        
         return $this->render('authors', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
