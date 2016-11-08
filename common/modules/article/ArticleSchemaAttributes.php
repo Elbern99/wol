@@ -100,12 +100,6 @@ class ArticleSchemaAttributes {
         );
         
         $this->attributes[] = new Attribute(
-                'further_reading', 
-                array_combine($attributeSchema, ['further_reading', 'Further Reading', 0, 1, 1]),
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Full Citation', 'type' => 'Text']]
-        );
-        
-        $this->attributes[] = new Attribute(
                 'key_references', 
                 array_combine($attributeSchema, ['key_references', 'Key References', 0, 1, 1]),
                 [['label' => 'Title', 'type' => 'String'], ['label' => 'Reference', 'type' => 'Text']]
@@ -130,12 +124,12 @@ class ArticleSchemaAttributes {
         );
     }
     
-    public function addAttribute($name, $params, $options) {
+    /*public function addAttribute($name, $params, $options) {
         
         $attributeSchema = $this->modelAtribute->getAttributeSchema();
         $attribute = new Attribute($name, array_combine($attributeSchema, $params), $options);
         array_push($this->attributes,$attribute);
-    }
+    }*/
     
     public function getAttributes() {
         return $this->attributes;
