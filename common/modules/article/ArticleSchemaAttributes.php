@@ -102,6 +102,21 @@ class ArticleSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'key_references', 
                 array_combine($attributeSchema, ['key_references', 'Key References', 0, 1, 1]),
+                [
+                    ['label' => 'Title', 'type' => 'String'], 
+                    ['label' => 'Method', 'type' => 'String'],
+                    ['label' => 'Ref', 'type' => 'Int'],
+                    ['label' => 'Full Citation', 'type' => 'Text'],
+                    ['label' => 'Data Source', 'type' => 'String'],
+                    ['label' => 'Data Type', 'type' => 'String'],
+                    ['label' => 'Countries', 'type' => 'String'],
+                    ['label' => 'Country Codes', 'type' => 'String']
+                ]
+        );
+        
+        $this->attributes[] = new Attribute(
+                'add_references', 
+                array_combine($attributeSchema, ['add_references', 'Add References', 0, 1, 1]),
                 [['label' => 'Title', 'type' => 'String'], ['label' => 'Reference', 'type' => 'Text']]
         );
         
@@ -122,6 +137,13 @@ class ArticleSchemaAttributes {
                 array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
                 [['label' => 'Title', 'type' => 'String'], ['label' => 'Path', 'type' => 'String']]
         );
+        
+        $this->attributes[] = new Attribute(
+                'related', 
+                array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
+                [['label' => 'Article Id', 'type' => 'Int']]
+        );
+        
     }
     
     /*public function addAttribute($name, $params, $options) {
