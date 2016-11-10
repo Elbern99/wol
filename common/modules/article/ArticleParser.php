@@ -44,7 +44,7 @@ class ArticleParser implements ParserInterface {
     private $fullPdf = '';
     private $onePagerPdf = '';
     
-    protected $images = [];
+    protected $images = null;
     protected $gaImage = '';
     protected $sources = [];
     protected $furtherReading = null;
@@ -83,34 +83,57 @@ class ArticleParser implements ParserInterface {
 
     /* need to realisation */
     protected function getTextClass() {
+        
         return '';
     }
     
     protected function getFullPdf() {
+        
         $obj = new \stdClass();
         $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
         return serialize($obj);
     }
     
     protected function getOnePagerPdf() {
+        
         $obj = new \stdClass();
         $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
         return serialize($obj);
     }
 
     protected function getFurtherReading() {
+        
+        if (is_null($this->furtherReading)) {
+            return null;
+        }
+        
         return serialize($this->furtherReading);
     }
 
     protected function getKeyReferences() {
+        
+        if (is_null($this->keyReferences)) {
+            return null;
+        }
+        
         return serialize($this->keyReferences);
     }
 
     protected function getAddReferences() {
+        
+        if (is_null($this->addReferences)) {
+            return null;
+        }
+        
         return serialize($this->addReferences);
     }
 
     protected function getGaImage() {
+        
+        if (is_null($this->gaImage)) {
+            return null;
+        }
+        
         return serialize($this->gaImage);
     }
 
@@ -148,9 +171,18 @@ class ArticleParser implements ParserInterface {
         $this->addBaseTableValue();
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
-
+        $reader->removeTemporaryFolder();
+        unset($reader);
+        
         if (!$this->article->save()) {
-            throw new \Exception('Article did not save '. join(', ', $this->article->getErrors()));
+            
+            $errors = [];
+            
+            foreach ($this->article->getErrors() as $error) {
+                $errors[] = current($error);
+            }
+            
+            throw new \Exception("Article did not save \n". implode("\n", $errors));
         }
 
         $attributes = $this->type->find()
@@ -163,6 +195,8 @@ class ArticleParser implements ParserInterface {
         $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
 
         if (is_null($entity)) {
+            
+            $this->article->delete();
             throw new \Exception('Entity could not be created');
         }
 
@@ -218,7 +252,6 @@ class ArticleParser implements ParserInterface {
             }
         }
         
-        $reader->removeTemporaryFolder();
         return $result;
     }
 
