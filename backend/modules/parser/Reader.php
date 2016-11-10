@@ -15,13 +15,13 @@ class Reader implements ReaderInterface {
     
     public function read($file) {
 
-        /*if (file_exists($file)) {
+        if (file_exists($file)) {
             
             $zip = new ZipArchive;
 
             if ($zip->open($file, ZipArchive::CREATE) === true) {
                 
-                $zipId = 'ddd';//Yii::$app->getSecurity()->generateRandomString(9);
+                $zipId = Yii::$app->getSecurity()->generateRandomString(9);
                 $this->temporaryFolder = Yii::getAlias('@backend').'/runtime/temporary_folder/'.$zipId;
                 
                 if (!is_dir($this->temporaryFolder)) {
@@ -49,8 +49,8 @@ class Reader implements ReaderInterface {
                 }
                 
             }
-            
-        }*/
+
+        }
         
         return $this;
     }
@@ -64,7 +64,7 @@ class Reader implements ReaderInterface {
     }
     
     public function getXml() {
-        return $this->images;
+        return $this->xml;
     }
     
     public function removeTemporaryFolder() {

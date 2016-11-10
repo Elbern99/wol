@@ -35,7 +35,7 @@ class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\cont
             [['model_id', 'type_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['model_id', 'type_id'], 'unique', 'targetAttribute' => ['model_id', 'type_id'], 'message' => 'The combination of Model ID and Type ID has already been taken.'],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavEntityType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -66,5 +66,16 @@ class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\cont
     public function getEavValues()
     {
         return $this->hasMany(EavValue::className(), ['entity_id' => 'id']);
+    }
+    
+    public function addEntity(array $args) {
+        
+        $this->load($args, '');
+        
+        if ($this->save()) {
+            return $this;
+        }
+        
+        return null;
     }
 }

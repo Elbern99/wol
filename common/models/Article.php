@@ -36,6 +36,26 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface
     {
         return [0=>'id'];
     }
+    
+    public static function getBaseFolder() {
+        return 'articles';
+    }
+    
+    public function getFrontendImagesBasePath() {
+        return Yii::getAlias('@frontend').'/web/uploads/'. self::getBaseFolder() .'/'.$this->id.'/images/';
+    }
+    
+    public function getBackendImagesBasePath() {
+        return Yii::getAlias('@backend').'/web/uploads/'. self::getBaseFolder() .'/'.$this->id.'/images/';
+    }
+    
+    public function getFrontendPdfsBasePath() {
+        return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/pdfs/';
+    }
+    
+    public function getBackendPdfsBasePath() {
+        return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/pdfs/';
+    }
 
     /**
      * @inheritdoc

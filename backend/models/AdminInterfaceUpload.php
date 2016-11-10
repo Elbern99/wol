@@ -27,13 +27,11 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
     }
     
     public function getTypeParse() {
-        //return $this->type;
-        return 1;
+        return $this->type;
     }
     
     public function getArchivePath() {
-        //return $this->getBackendPath().'/'.$this->archive->name;
-        return $this->getBackendPath().'/'.'IZAWOL.297.zip';
+        return $this->getBackendPath().'/'.$this->archive->name;
     }
     
     public function getActionClass() {

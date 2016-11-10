@@ -33,7 +33,8 @@ class EavValue extends \yii\db\ActiveRecord implements \common\modules\eav\contr
     {
         return [
             [['entity_id', 'attribute_id'], 'required'],
-            [['entity_id', 'attribute_id', 'lang_id'], 'integer'],
+            [['entity_id', 'attribute_id'], 'integer'],
+            [['lang_id'], 'safe'],
             [['value'], 'string'],
             [['attribute_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavAttribute::className(), 'targetAttribute' => ['attribute_id' => 'id']],
             [['entity_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavEntity::className(), 'targetAttribute' => ['entity_id' => 'id']],
@@ -57,7 +58,7 @@ class EavValue extends \yii\db\ActiveRecord implements \common\modules\eav\contr
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAttribute()
+    public function getEavAttribute()
     {
         return $this->hasOne(EavAttribute::className(), ['id' => 'attribute_id']);
     }
@@ -68,5 +69,17 @@ class EavValue extends \yii\db\ActiveRecord implements \common\modules\eav\contr
     public function getEntity()
     {
         return $this->hasOne(EavEntity::className(), ['id' => 'entity_id']);
+    }
+    
+    public function addEavAttribute(array $args) {
+        
+        $obj = Yii::createObject(self::class);
+        $obj->load($args, '');
+
+        if ($obj->save()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -9,6 +9,7 @@ use yii\helpers\Html;
 trait ArticleParseTrait {
 
     abstract public function parse(ReaderInterface $reader);
+    abstract protected function getParseImagePath($name);
     
     protected function getRelated() {
         
@@ -373,7 +374,7 @@ trait ArticleParseTrait {
                             ' ' . $analitics->idno[1], $analitics->idno[0]);
 
             $obj->title = (string) implode(' and ', $authors) . " ({$date})";
-            $this->furtherReading[] = serialize($obj);
+            $this->furtherReading[] = $obj;
         }
 
         foreach ($item->div[1]->biblStruct as $ref) {
@@ -448,7 +449,7 @@ trait ArticleParseTrait {
             $obj->countries = explode(' ', (string) $bibl['n']);
             $obj->country_codes = explode(' ', (string) $bibl['n']);
 
-            $this->keyReferences[] = serialize($obj);
+            $this->keyReferences[] = $obj;
         }
 
         foreach ($item->div[2]->biblStruct as $read) {
@@ -487,7 +488,7 @@ trait ArticleParseTrait {
                             ' ' . $analitics->idno[1], $analitics->idno[0]);
 
             $obj->title = (string) implode(' and ', $authors) . " ({$date})";
-            $this->addReferences[] = serialize($obj);
+            $this->addReferences[] = $obj;
         }
 
     }
@@ -536,7 +537,8 @@ trait ArticleParseTrait {
                 $obj = new stdClass;
 
                 $obj->title = (string) $image->head;
-                $obj->path = (string) $attr->url;
+                $name = (string) $attr->url;
+                $obj->path = $this->getParseImagePath($name);
 
                 $this->gaImage = $obj;
 
@@ -554,7 +556,8 @@ trait ArticleParseTrait {
                     $obj = new stdClass;
 
                     $obj->title = (string) $image->head;
-                    $obj->path = (string) $attr->url;
+                    $name = (string) $attr->url;
+                    $obj->path = $this->getParseImagePath($name);
 
                     $this->images[$id] = $obj;
                 }

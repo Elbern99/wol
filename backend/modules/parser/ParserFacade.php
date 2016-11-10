@@ -16,7 +16,9 @@ class ParserFacade {
     public function run() {
 
         $read = $this->factory->createReader()->read($this->model->getArchivePath());
-        $this->factory->createParser($this->model->getActionClass())->parse($read);
+        $result = $this->factory->createParser($this->model->getActionClass())->parse($read);
+        
+        return $result;
     }
      
 }

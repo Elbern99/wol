@@ -7,7 +7,30 @@ use common\contracts\ReaderInterface;
 use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityInterface;
 use common\modules\eav\contracts\EntityTypeInterface;
+use common\modules\eav\contracts\ValueInterface;
+use common\models\Lang;
+use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 
+/* Existing Method */
+
+//$this->addBaseTableValue();
+//$this->getTitle();
+//$this->getAddress()
+//$this->getAddressCountry()
+//$this->getCreation()
+//$this->getKeywords()
+//$this->getTeaser()
+//$this->getFindingsPositive()
+//$this->getFindingsNegative()
+//$this->getMainMessage()
+//$this->getTermGroups()
+//$this->setImages()
+//$this->setSources()
+//$this->getRelated()
+//$this->furtherReading
+//$this->keyReferences
+//$this->addReferences
 class ArticleParser implements ParserInterface {
 
     use traits\ArticleParseTrait;
@@ -15,7 +38,11 @@ class ArticleParser implements ParserInterface {
     private $article = null;
     private $entity = null;
     private $type = null;
+    private $value = null;
     private $xml = null;
+    private $langs = [];
+    private $fullPdf = '';
+    private $onePagerPdf = '';
     
     protected $images = [];
     protected $gaImage = '';
@@ -24,40 +51,75 @@ class ArticleParser implements ParserInterface {
     protected $keyReferences = null;
     protected $addReferences = null;
 
-    public function __construct(ArticleInterface $article, EntityInterface $entity, EntityTypeInterface $type) {
+    public function __construct(ArticleInterface $article, EntityInterface $entity, EntityTypeInterface $type, ValueInterface $value
+    ) {
 
         $this->article = $article;
         $this->entity = $entity;
         $this->type = $type;
+        $this->value = $value;
+        
+        $this->setLangData();
     }
     
-    /* need to realisation*/
+    protected function getParseImagePath($name) {
+        return $this->article->getFrontendImagesBasePath().$name;
+    }
+    
+    protected function setLangData() {
+        
+        $this->langs = ArrayHelper::map(Lang::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
+    }
+    
+    public function getLangByCode($code) {
+        
+        if (isset($this->langs[$code])) {
+            
+            return $this->langs[$code];
+        }
+        
+        return 0;
+    }
+
+    /* need to realisation */
     protected function getTextClass() {
         return '';
     }
     
+    protected function getFullPdf() {
+        $obj = new \stdClass();
+        $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
+        return serialize($obj);
+    }
+    
+    protected function getOnePagerPdf() {
+        $obj = new \stdClass();
+        $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
+        return serialize($obj);
+    }
+
     protected function getFurtherReading() {
-        return $this->furtherReading;
+        return serialize($this->furtherReading);
     }
-    
+
     protected function getKeyReferences() {
-        return $this->keyReferences;
+        return serialize($this->keyReferences);
     }
-    
+
     protected function getAddReferences() {
-        return $this->addReferences;
+        return serialize($this->addReferences);
     }
-    
+
     protected function getGaImage() {
         return serialize($this->gaImage);
     }
-    
+
     protected function getImages() {
         return serialize($this->images);
     }
 
     protected function addBaseTableValue() {
-        
+
         $articleId = (int) $this->xml->teiHeader->fileDesc->publicationStmt->idno[1];
         $doi = (string) $this->xml->teiHeader->fileDesc->publicationStmt->idno[0];
         $sortKey = (string) $this->xml->teiHeader->fileDesc->titleStmt->title[1];
@@ -71,75 +133,166 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('sort_key', $sortKey);
         $this->article->setAttribute('seo', $seo);
         $this->article->setAttribute('doi', $doi);
-        $this->article->setAttribute('enabled', 1);
+        $this->article->setAttribute('enabled', 0);
         $this->article->setAttribute('availability', $availability);
         $this->article->setAttribute('created_at', $time);
         $this->article->setAttribute('updated_at', $time);
         $this->article->setAttribute('publisher', $publisher);
-
     }
 
     public function parse(ReaderInterface $reader) {
 
-        $xml = '/var/www/iza.local/backend/runtime/temporary_folder/ddd/IZAWOL.297.xml';
+        $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
         
-        //$this->addBaseTableValue();
-        //$this->getTitle();
-        //$this->getAddress()
-        //$this->getAddressCountry()
-        //$this->getCreation()
-        //$this->getKeywords()
-        //$this->getTeaser()
-        //$this->getFindingsPositive()
-        //$this->getFindingsNegative()
-        //$this->getMainMessage()
-        //$this->getTermGroups()
-        //$this->setImages()
-        //$this->setSources()
-        //$this->getRelated()
-        //$this->furtherReading
-        //$this->keyReferences
-        //$this->addReferences
-        
-        //$this->getRelated();
-        //$this->article->save();
-        //$this->article->getAttributes()
-        
+        $this->addBaseTableValue();
+        $this->saveArticleImages($reader->getImages());
+        $this->saveArticlePdfs($reader->getPdfs());
+
+        if (!$this->article->save()) {
+            throw new \Exception('Article did not save '. join(', ', $this->article->getErrors()));
+        }
+
+        $attributes = $this->type->find()
+                ->where(['name' => 'article'])
+                ->with('eavTypeAttributes.eavAttribute')
+                ->one();
+
+        $typeId = $attributes->id;
+        $articleId = $this->article->id;
+        $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
+
+        if (is_null($entity)) {
+            throw new \Exception('Entity could not be created');
+        }
+
         $this->setImages();
         $this->setSources();
+        $result = true;
+        
+        foreach ($attributes->eavTypeAttributes as $attrType) {
+            
+            $related = $attrType->getRelatedRecords();
 
-        echo '<pre>';
-        $attributes = $this->type->find()
-            ->where(['name'=>'article'])
-            ->with('eavTypeAttributes.eavAttribute')
-            ->one();
-          //.eavAttributeOptions
-         foreach ($attributes->eavTypeAttributes as $attrType) {
-             $related = $attrType->getRelatedRecords();
-             
-             foreach ($related as $attribute) {
-                 $attrName = $attribute->getAttribute('name');
-                 $val = $this->$attrName;
-                 var_dump($attrName);
-                 //var_dump($val);
-             }
-         }
+            foreach ($related as $attribute) {
 
-        //var_dump($this->getFurtherReading());
-        echo '</pre>';
-        exit;
+                $attrName = $attribute->getAttribute('name');
+                $val = $this->$attrName($attribute->getAttribute('required'));
+
+                if (!is_null($val)) {
+
+                    if (is_array($val)) {
+
+                        foreach ($val as $v) {
+
+                            if (!isset($v['lang_id']) || !isset($v['value'])) {
+                                throw new \Exception('Invalid attribute ' . $attrName . ' data!');
+                            }
+
+                            $args = [
+                                'entity_id' => $entity->id,
+                                'attribute_id' => $attribute->getAttribute('id'),
+                                'lang_id' => $this->getLangByCode($v['lang_id']),
+                                'value' => $v['value']
+                            ];
+
+                            if (!$this->value->addEavAttribute($args)) {
+                                $result[] = 'Attribute '. $attrName . ' did not add';
+                            }
+                        }
+                        
+                    } else {
+                        
+                        $args = [
+                            'entity_id' => $entity->id,
+                            'attribute_id' => $attribute->getAttribute('id'),
+                            'value' => $val
+                        ];
+                        
+                        if (!$this->value->addEavAttribute($args)) {
+                            $result[] = 'Attribute '. $attrName . ' did not add';
+                        }
+                    }
+                }
+
+            }
+        }
+        
+        $reader->removeTemporaryFolder();
+        return $result;
     }
-    
-    public function __get($name)
-    {
-        $fName = 'get'. str_replace(' ','', ucwords(str_replace('_', ' ', $name)));
+
+    protected function saveArticlePdfs($pdfs) {
+
+        $baseBackendPath = $this->article->getBackendPdfsBasePath();
+        $baseFrontendPath = $this->article->getFrontendPdfsBasePath();
+
+        if (!is_dir($baseBackendPath)) {
+
+            if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
+                throw new \Exception('Pdf article  folder could not be created');
+            }
+        }
+
+        if (!is_dir($baseFrontendPath)) {
+
+            if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
+                throw new \Exception('Pdf article  folder could not be created');
+            }
+        }
+
+        foreach ($pdfs as $name => $path) {
+            
+            if (preg_match("/(full)/i", $name)) {
+                $this->fullPdf = $name;
+            } elseif(preg_match("/(one-pager)/i", $name)) {
+                $this->onePagerPdf = $name;
+            }
+            
+            copy($path, $baseBackendPath . $name);
+            copy($path, $baseFrontendPath . $name);
+        }
+    }
+
+    protected function saveArticleImages($images) {
+        
+        $baseBackendPath = $this->article->getBackendImagesBasePath();
+        $baseFrontendPath = $this->article->getFrontendImagesBasePath();
+        
+        if (!is_dir($baseBackendPath)) {
+
+            if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
+                throw new \Exception('Images article  folder could not be created');
+            }
+        }
+        
+        if (!is_dir($baseFrontendPath)) {
+
+            if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
+                throw new \Exception('Images article  folder could not be created');
+            }
+        }
+        
+        foreach ($images as $name => $path) {
+            
+            copy($path, $baseBackendPath.$name);
+            copy($path, $baseFrontendPath.$name);
+        }
+    }
+
+    public function __call($name, $arg) {
+        
+        $fName = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $name)));
 
         if (method_exists($this, $fName)) {
             return call_user_func(array($this, $fName));
         }
-        
-        throw new \Exception('Method for attribute '.$name.' not exist!');
+
+        if ($arg[0]) {
+            throw new \Exception('Method for attribute ' . $name . ' not exist!');
+        }
+
+        return null;
     }
 
 }

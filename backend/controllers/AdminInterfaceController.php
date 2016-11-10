@@ -41,16 +41,14 @@ class AdminInterfaceController extends Controller {
     public function actionUpload() {
         
         $model = new AdminInterfaceUpload();
-        $facade = new ParserFacade($model);
-        $facade->run();
-        exit;
+
         if (Yii::$app->request->isPost) {
             
             $model->load(Yii::$app->request->post());
             $model->initUploadProperty();
             
             if ($model->upload(true)) {
-                
+
                 $facade = new ParserFacade($model);
                 $facade->run();
                 
