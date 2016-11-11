@@ -45,6 +45,19 @@ return [
                 'page/<id:[1-9]+>' => 'page/index',
             ],
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\web\JqueryAsset' => [
+                    'js'=>[]
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];
