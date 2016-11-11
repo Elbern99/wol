@@ -1,0 +1,24 @@
+{
+  "name": "qs",
+  "version": "1.0.0",
+  "description": "=== Twenty Sixteen === Contributors: the WordPress team Requires at least: WordPress 4.4 Tested up to: WordPress 4.5 Version: 1.2 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html Tags: black, blue, gray, green, white, yellow, dark, light, one-column, two-columns, right-sidebar, fixed-layout, responsive-layout, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.7",
+    "gulp-combine-media-queries": "^0.2.0",
+    "gulp-csslint": "^0.3.0",
+    "gulp-ruby-sass": "^2.1.0",
+    "gulp-watch": "^4.3.5"
+  },
+  "dependencies": {
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7"
+  }
+}

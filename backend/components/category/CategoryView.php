@@ -3,7 +3,7 @@ namespace backend\components\category;
 
 use yii\helpers\Html;
 use Yii;
-use common\components\category\Module;
+use common\modules\category\Module;
 /*
  * widget rewrite \kartik\tree\TreeView widget, use in category manager page
  */
