@@ -89,16 +89,26 @@ class ArticleParser implements ParserInterface {
     
     protected function getFullPdf() {
         
-        $obj = new \stdClass();
-        $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
-        return serialize($obj);
+        if ($this->fullPdf) {
+            
+            $obj = new \stdClass();
+            $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
+            return serialize($obj);
+        }
+        
+        return null;
     }
     
     protected function getOnePagerPdf() {
         
-        $obj = new \stdClass();
-        $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
-        return serialize($obj);
+        if ($this->onePagerPdf) {
+            
+            $obj = new \stdClass();
+            $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
+            return serialize($obj);
+        }
+        
+        return null;
     }
 
     protected function getFurtherReading() {
@@ -138,15 +148,20 @@ class ArticleParser implements ParserInterface {
     }
 
     protected function getImages() {
+        
+        if (is_null($this->images)) {
+            return null;
+        }
+        
         return serialize($this->images);
     }
 
     protected function addBaseTableValue() {
 
-        $articleId = (int) $this->xml->teiHeader->fileDesc->publicationStmt->idno[1];
-        $doi = (string) $this->xml->teiHeader->fileDesc->publicationStmt->idno[0];
-        $sortKey = (string) $this->xml->teiHeader->fileDesc->titleStmt->title[1];
-        $seo = (string) $this->xml->teiHeader->fileDesc->titleStmt->title[2];
+        $articleId = $this->getIdNoByType('articleNumber');
+        $doi = $this->getIdNoByType('doi');
+        $sortKey = $this->getTitleByType('sortKey');
+        $seo = $this->getTitleByType('seo');
         $availability = (string) $this->xml->teiHeader->fileDesc->publicationStmt->availability->p;
         $created_at = $this->xml->teiHeader->fileDesc->publicationStmt->date->attributes();
         $time = strtotime((string) $created_at['when-iso']);

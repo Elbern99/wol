@@ -30,6 +30,49 @@ trait ArticleParseTrait {
 
         return serialize($options);
     }
+    
+    protected function getIdNoByType($type) {
+        
+        $idnos = $this->xml->teiHeader->fileDesc->publicationStmt->idno;
+
+        foreach ($idnos as $idno) {
+
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $idno->asXML(), $vals);
+            xml_parser_free($p);
+
+            if (isset($vals[0]['attributes']['TYPE'])) {
+
+                if ($vals[0]['attributes']['TYPE'] == $type) {
+                    return (string) $idno;
+                }
+            }
+        }
+
+        return null;
+    }
+    
+    protected function getTitleByType($type) {
+        
+        $titles = $this->xml->teiHeader->fileDesc->titleStmt->title;
+
+        foreach ($titles as $title) {
+
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $title->asXML(), $vals);
+            xml_parser_free($p);
+
+            if (isset($vals[0]['attributes']['TYPE'])) {
+                
+                if ($vals[0]['attributes']['TYPE'] == $type) {
+                    return (string)$title;
+                }
+            }
+
+        }
+        
+        return null;
+    }
 
     protected function getTitle() {
         

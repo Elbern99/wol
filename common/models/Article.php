@@ -64,7 +64,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface
     {
         return [
             [['id','enabled'], 'integer'],
-            [['sort_key', 'seo', 'doi'], 'required'],
+            [['id','sort_key', 'seo', 'doi'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['sort_key', 'seo'], 'string', 'max' => 255],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
