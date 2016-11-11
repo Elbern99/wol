@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\modules\author\contracts\AuthorInterface;
 /**
  * This is the model class for table "author".
  *
@@ -17,7 +17,7 @@ use Yii;
  *
  * @property ArticleAuthor[] $articleAuthors
  */
-class Author extends \yii\db\ActiveRecord
+class Author extends \yii\db\ActiveRecord implements AuthorInterface
 {
     /**
      * @inheritdoc
@@ -63,5 +63,17 @@ class Author extends \yii\db\ActiveRecord
     public function getArticleAuthors()
     {
         return $this->hasMany(ArticleAuthor::className(), ['author_id' => 'id']);
+    }
+    
+    public function addNewAuthor($args) {
+        
+        $obj = Yii::createObject(self::class);
+        $obj->load($args, '');
+
+        if ($obj->save()) {
+            return $obj;
+        }
+
+        return false;
     }
 }

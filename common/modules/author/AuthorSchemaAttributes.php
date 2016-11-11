@@ -23,7 +23,12 @@ class AuthorSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'name', 
                 array_combine($attributeSchema,['name','Name',1,1,1]), 
-                [['label'=>'First Name','type'=>'String'], ['label'=>'Middle Name','type'=>'String'], ['label'=>'Last Name','type'=>'String']]
+                [
+                    ['label'=>'Honorific', 'type'=>'String'],
+                    ['label'=>'First Name','type'=>'String'], 
+                    ['label'=>'Middle Name','type'=>'String'], 
+                    ['label'=>'Last Name','type'=>'String']
+                ]
         );
         
         $this->attributes[] = new Attribute(
@@ -40,8 +45,8 @@ class AuthorSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'author_publications', 
-                array_combine($attributeSchema,['publications','Publications',1,1,1]), 
-                [['label'=>'Publications','type'=>'Text']]
+                array_combine($attributeSchema,['publications','Publications',1,0,1]), 
+                [['label'=>'Publication','type'=>'Text']]
         );
         
         $this->attributes[] = new Attribute(

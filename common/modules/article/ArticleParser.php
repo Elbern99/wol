@@ -11,6 +11,7 @@ use common\modules\eav\contracts\ValueInterface;
 use common\models\Lang;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use Yii;
 
 /* Existing Method */
 
@@ -197,7 +198,7 @@ class ArticleParser implements ParserInterface {
                 $errors[] = current($error);
             }
             
-            throw new \Exception("Article did not save \n". implode("\n", $errors));
+            throw new \Exception(Yii::t('app/messages',"Article did not save").'  \n'. implode("\n", $errors));
         }
 
         $attributes = $this->type->find()
@@ -212,7 +213,7 @@ class ArticleParser implements ParserInterface {
         if (is_null($entity)) {
             
             $this->article->delete();
-            throw new \Exception('Entity could not be created');
+            throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
 
         $this->setImages();
@@ -278,14 +279,14 @@ class ArticleParser implements ParserInterface {
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception('Pdf article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
             }
         }
 
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception('Pdf article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
             }
         }
 
@@ -310,14 +311,14 @@ class ArticleParser implements ParserInterface {
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception('Images article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
             }
         }
         
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception('Images article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
             }
         }
         
