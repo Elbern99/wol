@@ -34,3 +34,7 @@ phpunit.phar
 
 #apache config
 .htaccess
+
+#js moduls
+/node_modules
+/.sass-cache
