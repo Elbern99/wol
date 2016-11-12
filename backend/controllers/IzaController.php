@@ -15,7 +15,6 @@ use yii\helpers\Url;
 /*
  * Article Author Class Controller
  */
-
 class IzaController extends Controller {
 
     public function behaviors() {

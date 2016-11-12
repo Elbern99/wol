@@ -6,6 +6,9 @@ use common\contracts\ReaderInterface;
 use stdClass;
 use yii\helpers\Html;
 
+/*
+ * extension for parse author xml
+ */
 trait ArticleParseTrait {
 
     abstract public function parse(ReaderInterface $reader);

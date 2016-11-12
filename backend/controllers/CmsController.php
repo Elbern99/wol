@@ -55,20 +55,27 @@ class CmsController extends Controller {
         ];
     }
     
-    
-    
+    /*
+     * init page type before add
+     */
     public function actionSelectType() {
         
         $items = ArrayHelper::map(Modules::find()->select(['id', 'title'])->asArray()->all(), 'id', 'title');
         return $this->render('static-pages/edit/select_view', ['items' => $items, 'postUrl'=>'/cms/static-pages-view']);
     }
-
+    
+    /*
+     *  action for add cms page
+     */
     public function actionStaticPages() {
 
         $model = CmsPages::find()->alias('page')->with('cmsPageInfos')->orderBy('created_at');
         return $this->render('static-pages/index', ['dataProvider' => new ActiveDataProvider(['query' => $model, 'pagination' => ['pageSize' => 20]])]);
     }
 
+    /*
+     *  action for change cms page data
+     */
     public function actionStaticPagesView($id = null) {
 
         if (is_null($id)) {
@@ -122,6 +129,9 @@ class CmsController extends Controller {
         return $this->render('static-pages/edit/view', ['items' => $this->getTabItems($page, $page_info)]);
     }
 
+    /*
+     * action for delete cms page
+     */
     public function actionStaticPagesDelete($id) {
 
         try {

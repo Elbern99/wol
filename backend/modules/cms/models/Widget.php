@@ -8,6 +8,9 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+/*
+ * class for widget cms page
+ */
 class Widget implements SectionInterface {
     
     private $page;

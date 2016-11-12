@@ -11,10 +11,10 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use backend\models\AdminInterfaceUpload;
 use backend\modules\parser\ParserFacade;
+
 /*
  * Article Author Class Controller
  */
-
 class AdminInterfaceController extends Controller { 
     
     public function behaviors() {

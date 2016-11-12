@@ -6,6 +6,9 @@ use common\contracts\ReaderInterface;
 use common\contracts\ParserInterface;
 use Yii;
 
+/*
+ * class create parser object by type
+ */
 class ParserFactory {
     
     public function createReader(): ReaderInterface {

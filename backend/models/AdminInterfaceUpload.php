@@ -6,6 +6,9 @@ use yii\web\UploadedFile;
 use Yii;
 use backend\modules\parser\contracts\UploadInterface;
 
+/*
+ * class for upload and parse archive
+ */
 class AdminInterfaceUpload extends Model implements UploadInterface {
     
     use \common\helpers\FileUploadTrait;
