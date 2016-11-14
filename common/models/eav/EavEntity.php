@@ -70,12 +70,13 @@ class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\cont
     
     public function addEntity(array $args) {
         
-        $this->load($args, '');
-        
-        if ($this->save()) {
-            return $this;
+        $obj = Yii::createObject(self::class);
+        $obj->load($args, '');
+
+        if ($obj->save()) {
+            return $obj;
         }
-        
+
         return null;
     }
 }

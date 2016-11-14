@@ -39,7 +39,7 @@ class AdminInterfaceController extends Controller {
     }
 
     public function actionUpload() {
-        
+
         $model = new AdminInterfaceUpload();
 
         if (Yii::$app->request->isPost) {

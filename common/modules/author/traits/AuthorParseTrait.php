@@ -13,6 +13,17 @@ use stdClass;
  * getAuthorEmail string
  * getAuthorPhone string
  * getAuthorUrl string
+ * getAffiliation serialize stdClass
+ * getPublications serialize stdClass
+ * getTestimonial serialize stdClass
+ * getName serialize stdClass
+ * getPosition serialize stdClass
+ * getDegree serialize stdClass
+ * getInterests serialize stdClass
+ * getExpertise serialize stdClass
+ * getAuthorLanguage serialize stdClass
+ * getExperienceType serialize stdClass
+ * getExperienceUrl serialize stdClass
  */
 trait AuthorParseTrait {
 
@@ -21,7 +32,11 @@ trait AuthorParseTrait {
         $p = xml_parser_create();
         xml_parse_into_struct($p, $this->person->asXML(), $vals);
         xml_parser_free($p);
-
+        
+        if (!isset($vals[0]['attributes']['XML:ID'])) {
+            throw new \Exception('Not correct xml format');
+        }
+        
         return (string) $vals[0]['attributes']['XML:ID'];
     }
 
@@ -68,7 +83,7 @@ trait AuthorParseTrait {
         return serialize($obj);
     }
     
-    protected function getAuthorCountry() {
+    protected function getCountry() {
         
         $countries = [];
         
@@ -82,7 +97,7 @@ trait AuthorParseTrait {
         return serialize($countries);
     }
     
-    protected function getAuthorTestimonial() {
+    protected function getTestimonial() {
         
         $testimonials = [];
         
@@ -96,7 +111,7 @@ trait AuthorParseTrait {
         return serialize($testimonials);
     }
     
-    protected function getAuthorPublications() {
+    protected function getPublications() {
         
         $publications = [];
         
@@ -113,12 +128,116 @@ trait AuthorParseTrait {
         return serialize($publications);
     }
     
-    protected function getAuthorAffiliation() {
+    protected function getAffiliation() {
         
          $obj = new stdClass;
          $obj->affiliation = (string) $this->person->affiliation;
          
          return serialize($obj);
+    }
+    
+    protected function getPosition() {
+
+        $positions = [
+            'current' => '',
+            'past' => '',
+            'advisory' => ''
+        ];
+
+        $obj = new stdClass;
+
+        foreach ($this->person->positions->position as $position) {
+            
+            $type = (string) $position->attributes();
+            if (count($position->children()) > 1) {
+                $positions[$type] = [];
+                
+                foreach ($position->p as $p) {
+                    $positions[$type][] = (string)$p;
+                }
+                
+            } else {
+                $positions[$type] = (string) $position->p;
+            }
+            
+        }
+
+        $obj->current = $positions['current'];
+        $obj->past = $positions['past'];
+        $obj->advisory = $positions['advisory'];
+        
+        return serialize($obj);
+    }
+    
+    protected function getDegree() {
+        
+         $obj = new stdClass;
+         $obj->degree = (string) $this->person->degree;
+
+         return serialize($obj);
+    }
+    
+    protected function getInterests() {
+
+        $obj = new stdClass;
+        $obj->interests = (string) $this->person->interests;
+
+        return serialize($obj);
+    }
+    
+    
+    protected function getExpertise() {
+
+        $obj = new stdClass;
+        $obj->expertise = (string) $this->person->expertise;
+
+        return serialize($obj);
+    }
+    
+    protected function getLanguage() {
+        
+        $languages = [];
+        
+        foreach ($this->person->languages->language as $language) {
+            
+            $attribute = $language->attributes();
+            $obj = new stdClass;
+            $obj->code = (string) $attribute->code;
+            $obj->proficiency = (string) $attribute->proficiency;
+            
+            $languages[] = $obj;
+        }
+        
+        return serialize($languages);
+    }
+    
+    protected  function getExperienceType() {
+        
+        $experienceTypes = [];
+        
+        foreach ($this->person->experience->media as $media) {
+            
+            $obj = new stdClass;
+            $obj->expertise_type = (string) $media->attributes();
+            $experienceTypes[] = $obj;
+        }
+        
+        return serialize($experienceTypes);
+    }
+    
+    protected function getExperienceUrl() {
+
+        $experienceUrl = [];
+
+        foreach ($this->person->experience->url as $url) {
+
+            $obj = new stdClass;
+            $obj->url = (string)$url->attributes();
+            $obj->text = (string) $url;
+            $experienceUrl[] = $obj;
+        }
+
+        return serialize($experienceUrl);
     }
 
 }

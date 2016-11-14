@@ -38,25 +38,25 @@ class AuthorSchemaAttributes {
         );
         
         $this->attributes[] = new Attribute(
-                'author_testimonial', 
+                'testimonial', 
                 array_combine($attributeSchema,['testimonial','Testimonial',1,1,1]), 
                 [['label'=>'Testimonial','type'=>'Text']]
         );
         
         $this->attributes[] = new Attribute(
-                'author_publications', 
+                'publications', 
                 array_combine($attributeSchema,['publications','Publications',1,0,1]), 
                 [['label'=>'Publication','type'=>'Text']]
         );
         
         $this->attributes[] = new Attribute(
-                'author_affiliation', 
+                'affiliation', 
                 array_combine($attributeSchema,['affiliation','Affiliation',1,1,1]), 
                 [['label'=>'Affiliation','type'=>'Text']]
         );
         
         $this->attributes[] = new Attribute(
-                'author_position',
+                'position',
                 array_combine($attributeSchema,['position','Position',1,1,1]), 
                 [['label'=>'Current','type'=>'Text'], ['label'=>'Past','type'=>'Text'], ['label'=>'Advisory','type'=>'Text']]
         );
@@ -76,23 +76,23 @@ class AuthorSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'expertise', 
                 array_combine($attributeSchema,['expertise','Expertise',1,1,1]), 
-                [['label'=>'Expertise','type'=>'Text']]
+                [['label'=>'Expertise','type'=>'String']]
         );
         
         $this->attributes[] = new Attribute(
-                'expertise_type', 
-                array_combine($attributeSchema,['expertise_type','Expertise Type',0,1,1]), 
+                'experience_type', 
+                array_combine($attributeSchema,['experience_type','Experience Type',0,1,1]), 
                 [['label'=>'Expertise Type','type'=>'String']]
         );
         
         $this->attributes[] = new Attribute(
-                'expertise_url', 
-                array_combine($attributeSchema,['expertise_url','Expertise Url',0,1,1]), 
+                'experience_url', 
+                array_combine($attributeSchema,['experience_url','Experience Url',0,1,1]), 
                 [['label'=>'Url','type'=>'String'], ['label'=>'Text','type'=>'String']]
         );
         
         $this->attributes[] = new Attribute(
-                'author_language', 
+                'language', 
                 array_combine($attributeSchema,['language','Language',0,1,1]), 
                 [['label'=>'Code','type'=>'String'], ['label'=>'Proficiency','type'=>'String']]
         );

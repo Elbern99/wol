@@ -26,6 +26,18 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface
     {
         return 'author';
     }
+    
+    public static function getBaseFolder() {
+        return 'authors';
+    }
+
+    public function getFrontendImagesBasePath() {
+        return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
+    }
+
+    public function getBackendImagesBasePath() {
+        return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
+    }
 
     /**
      * @inheritdoc
