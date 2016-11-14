@@ -6,14 +6,26 @@ use Yii;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
+/*
+ * extension for model with upload file
+ */
 trait FileUploadTrait {
     
     protected $mode = 0775;
     
+    /*
+     * path for save file in frontend
+     */
     abstract public function getFrontendPath();
+    
+    /*
+     * path for save file in backend
+     */
     abstract public function getBackendPath();
     
-    
+    /*
+     * init before upload, get all files attribute in model 
+     */
     public function initUploadProperty() {
 
         foreach ($this->files as $image) {
@@ -28,6 +40,11 @@ trait FileUploadTrait {
         
     }
     
+    /*
+     * upload file on server
+     * @property boolean $saveName
+     * @return boolean
+     */
     public function upload($saveName = false) {
         
         try {
@@ -60,6 +77,12 @@ trait FileUploadTrait {
         return false;
     }
     
+    /*
+     * save file 
+     * @property object $file
+     * @property string $path
+     * @return boolean
+     */
     protected function saveFile($file, $path) {
 
         if ($path) {

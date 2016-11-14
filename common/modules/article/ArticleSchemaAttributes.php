@@ -4,6 +4,9 @@ namespace common\modules\article;
 use common\modules\eav\contracts\AttributeInterface;
 use common\modules\eav\Attribute;
 
+/*
+ * class for generate all article attribute 
+ */
 class ArticleSchemaAttributes {
     
     private $attributes;

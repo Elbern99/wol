@@ -6,6 +6,9 @@ use common\models\CmsPageSections;
 use Yii;
 use yii\data\ActiveDataProvider;
 
+/*
+ * class for accordion type page 
+ */
 class Accordion implements SectionInterface {
     
     private $page;

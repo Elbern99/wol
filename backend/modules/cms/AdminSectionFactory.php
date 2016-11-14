@@ -4,6 +4,9 @@ namespace backend\modules\cms;
 
 use common\modules\cms\SectionFactory;
 
+/*
+ * create object for cms static page
+ */
 class AdminSectionFactory extends SectionFactory {
     
     

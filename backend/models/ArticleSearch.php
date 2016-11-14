@@ -7,6 +7,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Article;
 
+/*
+ * class for filters in article manager
+ */
 class ArticleSearch extends Article
 {
     /**

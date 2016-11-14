@@ -3,6 +3,9 @@ namespace common\modules\eav;
 
 use Yii;
 
+/*
+ * instances eav object
+ */
 class StorageEav {
     
     private $storage = [];

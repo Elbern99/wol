@@ -6,6 +6,9 @@ use Yii;
 use common\models\CmsPagesWidget;
 use yii\helpers\ArrayHelper;
 
+/*
+ * Extension for cms widget on page
+ */
 trait CmsWidgetTrait {
     
     public function actionWidget($page_id) {

@@ -13,29 +13,36 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use Yii;
 
-/* Existing Method */
+/* Parse Methods */
 
-//$this->addBaseTableValue();
-//$this->getTitle();
-//$this->getAddress()
-//$this->getAddressCountry()
-//$this->getCreation()
-//$this->getKeywords()
-//$this->getTeaser()
-//$this->getFindingsPositive()
-//$this->getFindingsNegative()
-//$this->getMainMessage()
-//$this->getTermGroups()
-//$this->setImages()
-//$this->setSources()
-//$this->getRelated()
-//$this->furtherReading
-//$this->keyReferences
-//$this->addReferences
+//addBaseTableValue
+//getTitle
+//getAddress
+//getAddressCountry
+//getCreation
+//getKeywords
+//getTeaser
+//getFindingsPositive
+//getFindingsNegative
+//getMainMessage
+//getTermGroups
+//setImages
+//setSources
+//getRelated
+//furtherReading
+//keyReferences
+//addReferences
+
+/*
+ * class parse article
+ */
 class ArticleParser implements ParserInterface {
 
     use traits\ArticleParseTrait;
 
+    /*
+     * property for additional object, files
+     */
     private $article = null;
     private $entity = null;
     private $type = null;
@@ -45,6 +52,9 @@ class ArticleParser implements ParserInterface {
     private $fullPdf = '';
     private $onePagerPdf = '';
     
+    /*
+     * property for save parsed information
+     */
     protected $images = null;
     protected $gaImage = '';
     protected $sources = [];

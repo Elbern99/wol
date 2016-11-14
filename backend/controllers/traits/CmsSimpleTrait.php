@@ -5,8 +5,16 @@ namespace backend\controllers\traits;
 use Yii;
 use common\models\CmsPagesSimple;
 
+/*
+ * Extension for cms page simple type
+ */
 trait CmsSimpleTrait {
     
+    /*
+     * actions for simple type
+     * @property integer $page_id 
+     * @return html
+     */
     public function actionSimple($page_id) {
         
         if (Yii::$app->request->isPost) {

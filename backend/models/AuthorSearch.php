@@ -7,6 +7,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Author;
 
+/*
+ * class for author filters manager
+ */
 class AuthorSearch extends Author
 {
     /**

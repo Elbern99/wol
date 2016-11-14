@@ -13,7 +13,6 @@ use yii\data\ActiveDataProvider;
 /*
  * Widget Manager Class Controller
  */
-
 class WidgetController extends Controller {
 
     public function behaviors() {
