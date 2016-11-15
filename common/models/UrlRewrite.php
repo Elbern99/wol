@@ -83,7 +83,10 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
                 $this->deleteAll(['rewrite_path' => $rewrite_paths]);
             } else {
                 $model = $this->find()->where(['rewrite_path' => $rewrite_paths])->one();
-                $model->delete();
+                
+                if (is_object($model)) {
+                    $model->delete();
+                }
             }
             
             return true;

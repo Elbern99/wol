@@ -7,33 +7,29 @@ use yii\console\Controller;
 use yii\helpers\Console;
 use console\models\Category;
 
-/*
- * Command example add category php yii add-category -t=Title -m=Meta Title -u=Url Key
- */
-
-class AddCategoryController extends Controller {
+class CategoryController extends Controller {
 
     public $title;
     public $meta_title;
     public $url_key;
 
-    public function options($actionID) {
-        return ['title', 'meta_title', 'url_key'];
-    }
-
-    public function optionAliases() {
-        return ['t' => 'title', 'm' => 'meta_title', 'u' => 'url_key'];
-    }
-
-    public function actionIndex() {
+    /*  Command example add category php yii category param1 param2 ... */
+    public function actionIndex($title, $meta_title, $url_key) {
+        
+        $this->title = $title;
+        $this->meta_title = $meta_title;
+        $this->url_key = $url_key;
 
         if ($this->title && $this->meta_title && $this->url_key) {
 
             $category = new Category([
-                        'title' => $this->title,
-                        'meta_title' => $this->meta_title,
-                        'url_key' => $this->url_key,
-                        'system' => 1]);
+                            'title' => $this->title,
+                            'meta_title' => $this->meta_title,
+                            'url_key' => $this->url_key,
+                            'system' => 1,
+                            'active' => 1,
+                            'visible_in_menu' => 1
+                        ]);
 
             if ($category->makeRoot()) {
 
@@ -52,5 +48,6 @@ class AddCategoryController extends Controller {
 
         return 0;
     }
+   
 
 }
