@@ -50,11 +50,11 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
     }
     
     public function autoCreateRewrite($params) {
-        
+
         if (isset($params['rewrite_path'])) {
             $rewrite = self::find()->where(['rewrite_path'=>$params['rewrite_path']])->one();
             
-            if (!is_null($rewrite)) {
+            if (is_object($rewrite)) {
                 $rewrite->load($params, '');
                 
                 if ($rewrite->validate()) {
@@ -66,9 +66,12 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
             }
         }
         
-        $this->load($params, '');
-        if ($this->validate()) {
-            $this->save();
+        $newRewrite = Yii::createObject(self::className());
+        $newRewrite->load($params, '');
+
+        if ($newRewrite->validate()) {
+            
+            $newRewrite->save();
             return true;
         }
         
@@ -90,8 +93,9 @@ class UrlRewrite extends \yii\db\ActiveRecord implements IUrlRewrite
             }
             
             return true;
+            
         } catch(\yii\db\Exception $e) {
-            var_dump($e->getMessage());exit;
+            return false;
         }
         
         return false;

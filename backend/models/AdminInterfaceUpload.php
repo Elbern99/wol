@@ -22,12 +22,14 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
     
     const ARTICLE_TYPE = 1;
     const AUTHOR_TYPE = 2;
+    const TAXONOMY_TYPE = 3;
     
     public function getActionType() {
         
         return [
             self::ARTICLE_TYPE => Yii::t('app','Article'),
-            self::AUTHOR_TYPE => Yii::t('app','Author')
+            self::AUTHOR_TYPE => Yii::t('app','Author'),
+            self::TAXONOMY_TYPE => Yii::t('app','Taxonomy'),
         ];
     }
     
@@ -48,6 +50,9 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             break;
             case self::AUTHOR_TYPE:
                 return '\common\modules\author\AuthorParser';
+            break;
+            case self::TAXONOMY_TYPE:
+                return '\backend\modules\taxonomy\TaxonomyParser';
             break;
             default:
                 throw new \Exception('Class Not Found');
@@ -79,6 +84,9 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             break;
             case self::AUTHOR_TYPE:
                 $cat = '/authors';
+            break;
+            case self::TAXONOMY_TYPE:
+                $cat = '/taxonomies';
             break;
             default:
                 $cat = '';

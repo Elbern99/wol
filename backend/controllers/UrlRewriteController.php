@@ -38,7 +38,7 @@ class UrlRewriteController extends Controller
     
     public function actionIndex() {
         $menu = UrlRewrite::find()->orderBy('id');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $menu, 'pagination' => ['pageSize' => 50]])]);
+        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $menu, 'pagination' => ['pageSize' => 30]])]);
     }
     
     public function actionView($id = null) {

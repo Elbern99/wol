@@ -6,20 +6,23 @@ use common\contracts\ReaderInterface;
 use common\models\Category;
 use Exception;
 use Yii;
+use common\models\Taxonomy;
 
 class TaxonomyParser implements ParserInterface {
     
     private $xml;
     
-    public function __construct() {
-        
-    }
-    
     public function parse(ReaderInterface $reader) {
-        $xml = '/var/www/iza.local/backend/runtime/temporary_folder/eCeAQ5Spg/taxonomy_propagator.xml';
-        //$xml = $reader->getXml();   
+        
+        $xml = $reader->getXml(); 
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
+        $reader->removeTemporaryFolder();
+        unset($reader);
+        
         $this->categoryImport();
+        $this->taxonomyDataImport();
+        
+        return true;
     }
     
     protected function getBehaviourSection($behaviour) {
@@ -36,37 +39,104 @@ class TaxonomyParser implements ParserInterface {
         throw new Exception('Behaviour '.$behaviour.' did not find');
     }
     
+    protected function taxonomyDataImport() {
+        
+        $sections = [];
+        $currentDate = time();
+        
+        try
+        {
+            $sections['collection'] = $this->getBehaviourSection('iwol-data-source-collection');
+            $sections['dimension'] = $this->getBehaviourSection('iwol-data-source-dimension');
+            $sections['perspective'] = $this->getBehaviourSection('iwol-method-perspective');
+            $sections['technique'] = $this->getBehaviourSection('iwol-method-technique');
+        
+            foreach ($sections as $collection) {
+
+                $bulkInsertArray = [];
+                $facets = $this->setInvestedData($collection, []);
+                $parent = current($facets);
+
+                if (isset($parent['children'])) {
+
+                    foreach ($parent['children'] as $facet) {
+
+                        $key = key($facet);
+                        $bulkInsertArray[] = [
+                            'code' => $key,
+                            'value' => $facet[$key],
+                            'created_at' => $currentDate
+                        ];
+                    }
+
+                    Yii::$app->db->createCommand()
+                            ->batchInsert(
+                                Taxonomy::tableName(),
+                                ['code', 'value', 'created_at'],
+                                $bulkInsertArray
+                            )->execute();
+
+                }
+
+            }
+        
+        } catch (\yii\db\Exception $e) {
+            throw new Exception('Categories cannot be saved error:'. $e->getMessage());
+        } catch (\yii\db\Exception $e) {
+            throw new Exception('Categories cannot be saved error:'. $e->getMessage());
+        }
+    }
+    
     protected function categoryImport() {
         
         $taxonomy = $this->getBehaviourSection('subjects');
         $baseUrl = (string)$taxonomy->definition;
-        $baseUrl = strtolower(str_replace(' ', '-', $baseUrl));
+        $baseUrl = '/'.strtolower(str_replace(' ', '-', $baseUrl));
         
         $baseCategory = Category::find()->where(['url_key'=>'articles'])->one();
-        //
-        $categories = $this->setInvestedData($taxonomy->facet, []);
+        
+        try {
+            
+            foreach ($taxonomy->facet as $facet) {
 
-        foreach ($categories as $key=>$category) {
+                $categories = $this->setInvestedData($facet, []);
 
-            $base = $this->importTaxonomy($baseCategory, $category[0], $baseUrl, $key);
+                foreach ($categories as $key=>$category) {
+                            
+                    if (is_array($category)) {
+                        $baseTitle = $category[0];
+                    } else {
+                        $baseTitle = $category;
+                    }
+                    
+                    $base = $this->importTaxonomy($baseCategory, $baseTitle, $baseUrl, $key);
 
-            if (isset($category['children'])) {
-                
-                foreach ($category['children'] as $children) {
+                    if (isset($category['children'])) {
 
-                    $k = key($children);
-                    $this->importTaxonomy($base, $children[$k], $baseUrl, $k);
+                        foreach ($category['children'] as $children) {
+
+                            $k = key($children);
+                            $this->importTaxonomy($base, $children[$k], $baseUrl, $k);
+                        }
+                    }
+
+
                 }
-            }
 
+            }
+            
+        } catch (\yii\db\Exception $e) {
+            throw new Exception('Categories cannot be saved error:'. $e->getMessage());
+        } catch (\yii\db\Exception $e) {
+            throw new Exception('Categories cannot be saved error:'. $e->getMessage());
         }
-exit;
+
     }
     
      protected function importTaxonomy($parent, $title, $base_url = '', $taxonomy_code = null) {
 
         $meta_title = $title;
-        $url_key =  preg_replace('/[^a-z]+/', '-', urlencode(strtolower($title)));
+        $url_key =  $base_url.'/'.preg_replace('/[^a-z]+/', '-', urlencode(strtolower($title)));
 
         if ($title && $meta_title && $url_key && is_object($parent)) {
 
