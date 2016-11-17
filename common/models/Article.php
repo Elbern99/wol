@@ -41,6 +41,10 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface
         return 'articles';
     }
     
+    public function getSavePath() {
+        return '/web/uploads/'. self::getBaseFolder() .'/'.$this->id;
+    }
+    
     public function getFrontendImagesBasePath() {
         return Yii::getAlias('@frontend').'/web/uploads/'. self::getBaseFolder() .'/'.$this->id.'/images/';
     }

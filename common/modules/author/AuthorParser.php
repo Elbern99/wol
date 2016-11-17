@@ -20,6 +20,7 @@ class AuthorParser implements ParserInterface {
     private $entity = null;
     private $type = null;
     private $value = null;
+    private $config = null;
     
     /* temporary variable */
     protected $person = null;
@@ -27,7 +28,8 @@ class AuthorParser implements ParserInterface {
     public function __construct(AuthorInterface $author, EntityInterface $entity, 
             EntityTypeInterface $type, ValueInterface $value
     ) {
-
+        
+        $this->config = Yii::$app->params['authorModelDetail'];
         $this->author = $author;
         $this->entity = $entity;
         $this->type = $type;
@@ -71,6 +73,8 @@ class AuthorParser implements ParserInterface {
 
             $this->person = $this->xml;
             $author = $this->addBaseTableValue();
+            $this->setAuthorRoles($author);
+            $this->setAuthorCategory($author);
             $this->personParse($author);
         }
         
@@ -110,8 +114,80 @@ class AuthorParser implements ParserInterface {
 
             $this->person = $person;
             $author = $this->addBaseTableValue();
+            $this->setAuthorRoles($author);
+            $this->setAuthorCategory($author);
             $this->personParse($author);
         }
+    }
+    
+    public function setAuthorRoles($author) {
+
+        $class = $this->config['author_roles'];
+        $roles = new Roles();
+        $bulkInsertArray = [];
+        
+        foreach ($this->person->roles->role as $role) {
+            
+            $label = (string)$role->attributes();
+            $id = $roles->getTypeByLabel($label);
+
+            if (!$id) {
+                throw new \Exception('Role '.$label.' does not exists');
+            }
+            
+            $bulkInsertArray[] = [
+                'author_id' => $author->id,
+                'role_id' => $id
+            ];
+        }
+
+        $class::massInsert($bulkInsertArray);
+    }
+    
+    public function getSubjectEditor() {
+        
+        foreach ($this->person->roles->role as $role) {
+            
+            $label = (string)$role->attributes();
+            
+            if ($label == 'subjectEditor') {
+                return $role;
+            }
+        }
+        
+        return null;
+    }
+    
+    public function setAuthorCategory($author) {
+
+        $class = $this->config['article_category'];
+
+        $bulkInsertArray = [];
+        $subjectEditorRole = $this->getSubjectEditor();
+        
+        if (count($subjectEditorRole->subjectArea)) {
+            
+            $codes = [];
+            
+            foreach ($subjectEditorRole->subjectArea as $area) {
+                
+                $label = (string)$area->attributes();
+                $codes[] = $label;
+            }
+            
+            $categories = $class::getCategoryByCode($codes);
+
+            foreach ($categories as $category) {
+
+                $bulkInsertArray[] = [
+                    'author_id' => $author->id,
+                    'category_id' => $category['id'],
+                ];
+            }
+
+            $class::massInsert($bulkInsertArray);
+        }
+
     }
 
     protected function personParse($author) {

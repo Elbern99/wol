@@ -13,6 +13,7 @@ trait ArticleParseTrait {
 
     abstract public function parse(ReaderInterface $reader);
     abstract protected function getParseImagePath($name);
+    abstract protected function setTaxonomyData();
     
     protected function getRelated() {
         
@@ -382,190 +383,210 @@ trait ArticleParseTrait {
         return $multiOptions;
     }
     
-    protected function initFurtherReading($read) {
+    protected function initFurtherReading($readStruct) {
         
-        $authors = [];
-        $analitics = $read->analytic;
-        $monogr = $read->monogr;
+        foreach ($readStruct as $read) {
+            
+            $authors = [];
+            $analitics = $read->analytic;
+            $monogr = $read->monogr;
 
-        if (isset($analitics->author)) {
+            if (isset($analitics->author)) {
 
-            foreach ($analitics->author as $author) {
-                $name = (string) $author->persName->surname;
-                $name .= " " . $author->persName->forename . ".";
-                $authors[] = $name;
-            }
-        }
-
-        $biblScope_pp = '';
-        $biblScope_issue = '';
-        $biblScope_vol = '';
-
-        $date = (string) $monogr->imprint->date->attributes();
-
-        if (isset($monogr->imprint->biblScope)) {
-
-            $bibl = array();
-
-            foreach ($monogr->imprint->biblScope as $scope) {
-
-                $attributes = $scope->attributes();
-                $type = (string) $scope['type'];
-                $bibl['biblScope_' . $type] = (string) $scope['n'];
-            }
-
-            extract($bibl);
-        }
-
-        $obj = new stdClass;
-        $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                        ' "' . $analitics->title . '" ' .
-                        $monogr->title .
-                        ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                        ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                        ' ' . $analitics->idno[1], $analitics->idno[0]);
-
-        $obj->title = (string) implode(' and ', $authors) . " ({$date})";
-        $this->furtherReading[] = $obj;
-    }
-    
-    protected function initKeyReferences($ref) {
-        
-        $p = xml_parser_create();
-        $refAttribute = $ref->attributes();
-        xml_parse_into_struct($p, $ref->asXML(), $vals);
-        xml_parser_free($p);
-
-        $id = $vals[0]['attributes']["XML:ID"];
-        unset($vals);
-
-        $authors = [];
-        $analitics = $ref->analytic;
-        $monogr = $ref->monogr;
-
-        if (isset($analitics->author)) {
-
-            foreach ($analitics->author as $author) {
-                $name = (string) $author->persName->surname;
-                $name .= " " . $author->persName->forename . ".";
-                $authors[] = $name;
-            }
-        }
-
-        $date = (string) $monogr->imprint->date->attributes();
-
-        $obj = new stdClass;
-        $obj->method = '';
-
-        if (isset($ref->note->ref)) {
-            $obj->method = explode(' ', (string) $ref->note->ref->attributes());
-        }
-
-        $obj->ref = $id;
-
-        $biblScope_pp = '';
-        $biblScope_issue = '';
-        $biblScope_vol = '';
-
-        if (isset($monogr->imprint->biblScope)) {
-
-            $bibl = array();
-
-            foreach ($monogr->imprint->biblScope as $scope) {
-
-                $attributes = $scope->attributes();
-                $type = (string) $scope['type'];
-                $bibl['biblScope_' . $type] = (string) $scope['n'];
-            }
-
-            extract($bibl);
-        }
-
-
-        $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                        ' "' . $analitics->title . '" ' .
-                        $monogr->title .
-                        ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                        ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                        ' ' . $analitics->idno[1], $analitics->idno[0]);
-
-        $obj->title = (string) implode(' and ', $authors) . " ({$date})";
-
-        $obj->data_source = [];
-        $obj->data_type = [];
-
-        if (isset($refAttribute['corresp'])) {
-
-            $sourceIds = explode(' ', (string) $refAttribute['corresp']);
-
-            foreach ($sourceIds as $source) {
-
-                $id = str_replace('#', '', $source);
-
-                if (isset($this->sources[$id])) {
-
-                    $obj->data_source[] = $this->sources[$id]['source'];
-                    $obj->data_type[] = $this->sources[$id]['type'];
+                foreach ($analitics->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    $name .= " " . $author->persName->forename . ".";
+                    $authors[] = $name;
                 }
             }
+
+            $biblScope_pp = '';
+            $biblScope_issue = '';
+            $biblScope_vol = '';
+
+            $date = (string) $monogr->imprint->date->attributes();
+
+            if (isset($monogr->imprint->biblScope)) {
+
+                $bibl = array();
+
+                foreach ($monogr->imprint->biblScope as $scope) {
+
+                    $attributes = $scope->attributes();
+                    $type = (string) $scope['type'];
+                    $bibl['biblScope_' . $type] = (string) $scope['n'];
+                }
+
+                extract($bibl);
+            }
+
+            $obj = new stdClass;
+            $obj->full_citation = Html::a((string) implode(', ', $authors) .
+                            ' "' . $analitics->title . '" ' .
+                            $monogr->title .
+                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
+                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
+                            ' ' . $analitics->idno[1], $analitics->idno[0]);
+
+            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            $this->furtherReading[] = $obj;
         }
-
-        $obj->countries = [];
-        $obj->country_codes = [];
-
-        if (isset($refAttribute['n'])) {
-
-            $obj->countries = explode(' ', (string) $refAttribute['n']);
-            $obj->country_codes = explode(' ', (string) $refAttribute['n']);
-        }
-
-        $this->keyReferences[] = $obj;
     }
     
-    protected function initAddReferences($read) {
+    protected function initKeyReferences($refStruct) {
         
-        $authors = [];
-        $analitics = $read->analytic;
-        $monogr = $read->monogr;
+        foreach ($refStruct as $ref) {
+            
+            $p = xml_parser_create();
+            $refAttribute = $ref->attributes();
+            xml_parse_into_struct($p, $ref->asXML(), $vals);
+            xml_parser_free($p);
 
-        if (isset($analitics->author)) {
+            $id = $vals[0]['attributes']["XML:ID"];
+            unset($vals);
 
-            foreach ($analitics->author as $author) {
-                $name = (string) $author->persName->surname;
-                $name .= " " . $author->persName->forename . ".";
-                $authors[] = $name;
-            }
-        }
+            $authors = [];
+            $analitics = $ref->analytic;
+            $monogr = $ref->monogr;
 
-        $date = (string) $monogr->imprint->date->attributes();
-        $biblScope_pp = '';
-        $biblScope_issue = '';
-        $biblScope_vol = '';
+            if (isset($analitics->author)) {
 
-        if (isset($monogr->imprint->biblScope)) {
-
-            $bibl = array();
-
-            foreach ($monogr->imprint->biblScope as $scope) {
-
-                $attributes = $scope->attributes();
-                $type = (string) $scope['type'];
-                $bibl['biblScope_' . $type] = (string) $scope['n'];
+                foreach ($analitics->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    $name .= " " . $author->persName->forename . ".";
+                    $authors[] = $name;
+                }
             }
 
-            extract($bibl);
+            $date = (string) $monogr->imprint->date->attributes();
+
+            $obj = new stdClass;
+            $obj->method = '';
+
+            if (isset($ref->note->ref)) {
+
+                $types = explode(' ', (string) $ref->note->ref->attributes());
+                $methods = [];
+
+                foreach ($types as $type) {
+
+                    if (isset($this->taxonomy[$type])) {
+                        $methods[] = $this->taxonomy[$type];
+                    }
+                }
+
+                $obj->method = $methods;
+            }
+
+            $obj->ref = $id;
+
+            $biblScope_pp = '';
+            $biblScope_issue = '';
+            $biblScope_vol = '';
+
+            if (isset($monogr->imprint->biblScope)) {
+
+                $bibl = array();
+
+                foreach ($monogr->imprint->biblScope as $scope) {
+
+                    $attributes = $scope->attributes();
+                    $type = (string) $scope['type'];
+                    $bibl['biblScope_' . $type] = (string) $scope['n'];
+                }
+
+                extract($bibl);
+            }
+
+
+            $obj->full_citation = Html::a((string) implode(', ', $authors) .
+                            ' "' . $analitics->title . '" ' .
+                            $monogr->title .
+                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
+                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
+                            ' ' . $analitics->idno[1], $analitics->idno[0]);
+
+            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+
+            $obj->data_source = [];
+            $obj->data_type = [];
+
+            if (isset($refAttribute['corresp'])) {
+
+                $sourceIds = explode(' ', (string) $refAttribute['corresp']);
+
+                foreach ($sourceIds as $source) {
+
+                    $id = str_replace('#', '', $source);
+
+                    if (isset($this->sources[$id])) {
+
+                        $obj->data_source[] = $this->sources[$id]['source'];
+                        $obj->data_type[] = $this->sources[$id]['type'];
+                    }
+                }
+            }
+
+            $obj->countries = [];
+            $obj->country_codes = [];
+
+            if (isset($refAttribute['n'])) {
+
+                $obj->countries = explode(' ', (string) $refAttribute['n']);
+                $obj->country_codes = explode(' ', (string) $refAttribute['n']);
+            }
+
+            $this->keyReferences[] = $obj;
         }
+    }
+    
+    protected function initAddReferences($readStruct) {
+        
+        foreach ($readStruct as $read) {
+            
+            $authors = [];
+            $analitics = $read->analytic;
+            $monogr = $read->monogr;
 
-        $obj = new stdClass;
-        $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                        ' "' . $analitics->title . '" ' .
-                        $monogr->title .
-                        ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                        ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                        ' ' . $analitics->idno[1], $analitics->idno[0]);
+            if (isset($analitics->author)) {
 
-        $obj->title = (string) implode(' and ', $authors) . " ({$date})";
-        $this->addReferences[] = $obj;
+                foreach ($analitics->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    $name .= " " . $author->persName->forename . ".";
+                    $authors[] = $name;
+                }
+            }
+
+            $date = (string) $monogr->imprint->date->attributes();
+            $biblScope_pp = '';
+            $biblScope_issue = '';
+            $biblScope_vol = '';
+
+            if (isset($monogr->imprint->biblScope)) {
+
+                $bibl = array();
+
+                foreach ($monogr->imprint->biblScope as $scope) {
+
+                    $attributes = $scope->attributes();
+                    $type = (string) $scope['type'];
+                    $bibl['biblScope_' . $type] = (string) $scope['n'];
+                }
+
+                extract($bibl);
+            }
+
+            $obj = new stdClass;
+            $obj->full_citation = Html::a((string) implode(', ', $authors) .
+                            ' "' . $analitics->title . '" ' .
+                            $monogr->title .
+                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
+                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
+                            ' ' . $analitics->idno[1], $analitics->idno[0]);
+
+            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            $this->addReferences[] = $obj;
+        }
     }
 
     protected function setReferences($item) {
@@ -606,10 +627,18 @@ trait ArticleParseTrait {
             xml_parse_into_struct($p, $source->p[1]->ref->asXML(), $vals);
             xml_parser_free($p);
 
-            $id = $vals[0]['attributes']["XML:ID"];
-            $types = explode(' ', $vals[0]['attributes']["TARGET"]);
-
+            $id = $vals[0]['attributes']['XML:ID'];
+            $types = explode(' ', $vals[0]['attributes']['TARGET']);
+            $sourceText = [];
+           
             $link = '#';
+            
+            foreach ($types as $type) {
+                
+                if (isset($this->taxonomy[$type])) {
+                    $sourceText[] = $this->taxonomy[$type];
+                }
+            }
 
             if (isset($source->p->ptr)) {
                 $link = (string) $source->p->ptr->attributes();
@@ -617,7 +646,7 @@ trait ArticleParseTrait {
 
             $this->sources[$id] = [
                 'source' => Html::a("[{$i}] " . (string) $source->head, $link),
-                'type' => $types
+                'type' => $sourceText
             ];
 
             $i++;
@@ -651,9 +680,9 @@ trait ArticleParseTrait {
                 xml_parse_into_struct($p, $image->asXML(), $vals);
                 xml_parser_free($p);
 
-                if (isset($vals[0]["attributes"]['XML:ID'])) {
+                if (isset($vals[0]['attributes']['XML:ID'])) {
 
-                    $id = $vals[0]["attributes"]['XML:ID'];
+                    $id = $vals[0]['attributes']['XML:ID'];
                     $attr = $image->graphic->attributes();
                     $obj = new stdClass;
 

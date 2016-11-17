@@ -8,7 +8,7 @@ use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityInterface;
 use common\modules\eav\contracts\EntityTypeInterface;
 use common\modules\eav\contracts\ValueInterface;
-use common\models\Lang;
+use common\contracts\TaxonomyInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use Yii;
@@ -51,7 +51,7 @@ class ArticleParser implements ParserInterface {
     private $langs = [];
     private $fullPdf = '';
     private $onePagerPdf = '';
-    
+    private $taxonomy = null;
     /*
      * property for save parsed information
      */
@@ -61,25 +61,41 @@ class ArticleParser implements ParserInterface {
     protected $furtherReading = null;
     protected $keyReferences = null;
     protected $addReferences = null;
-
-    public function __construct(ArticleInterface $article, EntityInterface $entity, EntityTypeInterface $type, ValueInterface $value
+    protected $config = null;
+    
+    public function __construct
+            (ArticleInterface $article,
+            EntityInterface $entity, 
+            EntityTypeInterface $type, 
+            ValueInterface $value,
+            TaxonomyInterface $taxonomy
     ) {
-
+        
+        $this->config = Yii::$app->params['articleModelDetail'];
         $this->article = $article;
         $this->entity = $entity;
         $this->type = $type;
         $this->value = $value;
+        $this->taxonomy = $taxonomy;
         
         $this->setLangData();
+        $this->setTaxonomyData();
     }
     
     protected function getParseImagePath($name) {
-        return $this->article->getFrontendImagesBasePath().$name;
+        
+        return $this->article->getSavePath().'/images/'.$name;
+    }
+    
+    protected function setTaxonomyData() {
+        
+        $data = $this->taxonomy->find()->select(['code', 'value'])->asArray()->all();
+        $this->taxonomy = ArrayHelper::map($data, 'code', 'value');
     }
     
     protected function setLangData() {
-        
-        $this->langs = ArrayHelper::map(Lang::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
+        $langClass = $this->config['language'];
+        $this->langs = ArrayHelper::map($langClass::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
     }
     
     public function getLangByCode($code) {
@@ -103,7 +119,7 @@ class ArticleParser implements ParserInterface {
         if ($this->fullPdf) {
             
             $obj = new \stdClass();
-            $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
+            $obj->url = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
             return serialize($obj);
         }
         
@@ -115,7 +131,7 @@ class ArticleParser implements ParserInterface {
         if ($this->onePagerPdf) {
             
             $obj = new \stdClass();
-            $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
+            $obj->url = $this->article->getSavePath().'/pdfs/'. $this->onePagerPdf;
             return serialize($obj);
         }
         
@@ -193,7 +209,7 @@ class ArticleParser implements ParserInterface {
 
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
-        
+
         $this->addBaseTableValue();
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
@@ -225,7 +241,10 @@ class ArticleParser implements ParserInterface {
             $this->article->delete();
             throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
-
+        
+        $this->addArticleCategory($articleId);
+        $this->addArticleAuthor($articleId);
+        
         $this->setImages();
         $this->setSources();
         $result = true;
@@ -279,6 +298,61 @@ class ArticleParser implements ParserInterface {
         }
         
         return $result;
+    }
+    
+    protected function addArticleAuthor($articleId) {
+
+        $keys = [];
+        $bulkInsertArray = [];
+        $class = $this->config['article_author'];
+        $codes = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
+
+        foreach ($codes as $code) {
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $code->asXML(), $vals);
+            xml_parser_free($p);
+            
+            $keys[] = (string) $vals[0]['attributes']['XML:ID'];
+            unset($vals);
+        }
+
+        $authors = $class::getAuthorByCode($keys);
+
+        foreach ($authors as $author) {
+
+            $bulkInsertArray[] = [
+                'article_id' => $articleId,
+                'category_id' => $author['id'],
+            ];
+        }
+
+        $class::massInsert($bulkInsertArray);
+    }
+    
+    protected function addArticleCategory($articleId) {
+        
+        $categories = [];
+        $bulkInsertArray = [];
+        $codes = $this->xml->teiHeader->profileDesc->textClass->classCode;
+        $class = $this->config['article_category'];
+        
+        foreach ($codes as $code) {
+            $categories[] = (string)$code['scheme'];
+        }
+        
+        $categories = $class::getCategoryByCode($categories);
+        
+        foreach ($categories as $category) {
+
+            $bulkInsertArray[] = [
+                            'article_id' => $articleId,
+                            'category_id' => $category['id'],
+                        ];
+        }
+        
+        $class::massInsert($bulkInsertArray);
+
     }
 
     protected function saveArticlePdfs($pdfs) {
