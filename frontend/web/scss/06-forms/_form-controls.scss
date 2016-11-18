@@ -1,0 +1,64 @@
+label {
+  cursor: pointer;
+  color: #6e6e6e;
+}
+
+textarea,
+input[type=text],
+input[type=password],
+input[type=date],
+input[type=datetime],
+input[type=email],
+input[type=number],
+input[type=search],
+input[type=tel],
+input[type=time],
+input[type=url]{
+  background: $white;
+  border: 0;
+  color: $dark-brown;
+  padding: 0 10px 0;
+  height: 17px;
+  font: 12px/32px $lucida-sans;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  width: 100%;
+
+  &.erorr {
+    border-color: red !important;
+  }
+
+  &.form-control-decor {
+    font: normal 14px/1.1 $lucida-sans;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #9c9c9c;
+    border-radius: 0;
+
+    &:focus {
+      border-bottom-color: $blue !important;
+    }
+
+    @include placeholder {
+      color: #9c9c9c;
+    }
+  }
+
+  &.form-control {
+    height: 32px;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.35) inset;
+
+    &:focus {
+      box-shadow: 0 1px 7px rgba(0,83,160,0.9) inset;
+    }
+
+  }
+}
+
+.form-line {
+  margin: 0 0 10px;
+}
+
+.label-holder {
+  margin: 0px 0 2px;
+}

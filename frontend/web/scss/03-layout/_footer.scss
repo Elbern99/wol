@@ -1,0 +1,61 @@
+.footer {
+  flex: 0 0 auto;
+  border-top: 1px solid #bdbdbd;
+  padding: 25px 0 20px;
+  font-size: 10px;
+
+  @include breakpoint('tablet') {
+    padding: 50px 0 30px;
+  }
+  
+  .container-top {
+
+    @include breakpoint('tablet') {
+      justify-content: space-between;
+      display: flex;
+    }
+  }
+
+  .logo-main {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .socials-list {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.footer-middle {
+  @include breakpoint('tablet') {
+    text-align: center;
+  }
+}
+
+.socials-title {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.copyright {
+  font-size: 10px;
+  margin: 0;
+
+  @include breakpoint('tablet') {
+    text-align: center;
+  }
+}
+
+.footer-menu-list {
+  
+  @include breakpoint_custom($breakpoint-tablet) {
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: $gray;
+  }
+}

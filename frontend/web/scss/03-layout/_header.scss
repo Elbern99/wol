@@ -1,0 +1,547 @@
+//header-top
+.header-top {
+  border-bottom: 1px solid #d8d8d8;
+  padding: 9px 0 3px;
+
+  @include breakpoint('tablet') {
+    padding: 0;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+//header-menu-top
+.header-menu-top-list {
+  margin: 0 0 -1px;
+
+  li {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin: 0 23px 0 0;
+  }
+  
+  a {
+    color: $dark-blue-black;
+    text-decoration: none;
+    display: block;
+    padding: 9px 0;
+    border-bottom: 1px solid transparent;
+    
+    &.subscribe-link,
+    &:hover {
+      color: $blue;
+    }
+
+    &:hover,
+    &.active {
+      border-color: #008ef1;
+    }
+  }
+}
+
+//header-bottom
+.header-bottom {
+  padding: 15px 0;
+  border-bottom: 1px solid #bcbcbc;
+
+  @include breakpoint('tablet') {
+    padding: 23px 0 18px;
+  }
+
+  .container {
+    @include breakpoint('tablet') {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+//header-menu-bottom-list
+.header-menu-bottom-list {
+  padding: 0 10px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    padding: 0 0 10px;
+  }
+
+  > li { display: inline-block; }
+
+  li {
+
+    @include breakpoint('tablet') {
+      font-size: 14px;
+      margin: 0 10px;
+    }
+  }
+
+  >li {
+    >a {
+      display: block;
+      padding: 5px 0;
+
+      @include breakpoint('tablet') {
+        border-bottom: 1px solid transparent;
+
+        &:hover,
+        &.active {
+          border-color: #008ef1;
+        }
+      }
+    }
+  }
+
+  .dropdown-widget {
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    @include breakpoint('tablet') { margin-top: 27px; }
+  }
+
+  .dropdown-widget-inner {
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      li {
+        font-size: 14px;
+        a {
+
+        }
+      }
+    }
+
+    @include breakpoint('tablet') {
+      padding: 23px 23px 23px;
+      border-radius: 5px;
+    }
+  }
+
+  a {
+    color: $black-brown;
+    text-decoration: none;
+
+    &.active,
+    &:hover { color: $blue; }
+  }
+
+  ul {
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding-bottom: 0;
+    }
+
+    li {
+      margin: 0 0 7px;
+      font-size: 11px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        margin: 0 0 -2px 0;
+        line-height: 20px;
+      }
+
+      ul {
+        padding-left: 10px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      &.view-all {
+        color: $light-blue;
+      }
+    }
+  }
+}
+
+//search
+.search {
+  color: $black-brown;
+  max-width: 284px;
+  margin: 21px 0 -7px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    position: absolute;
+    top: calc(49vh*.75);
+    left: 40px;
+    right: 40px;
+    background: white;
+    max-width: none;
+  }
+
+  .search-top {
+    @extend .clearfix;
+    margin: 0 0 11px;
+    position: relative;
+
+    .icon-search {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      font-size: 10px;
+      margin: 1px 0 0;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .search-bottom {
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  input[type="search"],
+  .btn-white {
+    height: 31px;
+    line-height: 22px;
+    padding: 5px 13px;
+  }
+
+  input[type="search"] {
+    padding-left: 16px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding-left: 21px;
+      height: 35px;
+      font-size: 13px;
+
+      &.form-control-decor {
+        border-bottom: 2px solid #9c9c9c;
+      }
+    }
+  }
+
+  .search-holder {
+    overflow: hidden;
+  }
+
+  .btn-white {
+    margin-left: 8px;
+    float: right;
+  }
+}
+
+//login-registration
+
+.login-registration {
+  @include breakpoint_custom($breakpoint-tablet) {
+    padding: 29px 0 0;
+
+    .login-registration-list {
+      text-align: center;
+      font-size: 16px;
+      text-transform: none;
+      border-bottom: 1px solid  #a8a8a8;
+
+      li {
+        margin: 0 10px;
+        text-transform: capitalize;
+        position: static;
+
+        a {
+          display: block;
+          padding: 17px 10px 17px;
+        }
+      }
+    }
+
+    .dropdown-widget {
+      position: absolute;
+      top: 110px;
+      left: 25px;
+      right: 25px;
+      text-align: left;
+    }
+  }
+}
+
+.login-registration-list {
+  font-size: 10px;
+  margin: 0 0 -1px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .dropdown-widget {
+      display: none;
+
+      &.open {
+        display: block;
+      }
+    }
+  }
+
+  li {
+    display: inline-block;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0 0 0 27px;
+
+    &.hide-desktop {
+      @include breakpoint('tablet') {
+        display: none;
+      }
+    }
+
+    &.hide-mobile {
+      @include breakpoint_custom($breakpoint-tablet) {
+        display: none;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    display: block;
+    padding: 9px 0;
+
+    @include breakpoint('tablet') {
+      border-bottom: 1px solid transparent;
+
+      &:hover,
+      &.active {
+        border-color: #008ef1;
+      }
+    }
+
+    &.dropdown-link {
+      color: $dark-blue-black;
+      position: relative;
+
+      &.active {
+        @include breakpoint_custom($breakpoint-tablet) {
+          &:after {
+            display: block;
+          }
+        }
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        &:after {
+          content: '';
+          width: 6px;
+          height: 6px;
+          border-left: 1px solid #a8a8a8;
+          border-bottom: 1px solid #a8a8a8;
+          position: absolute;
+          bottom: -2px;
+          transform: rotate(-45deg) translateX(-50%);
+          background: $white;
+          left: 50%;
+          display: none;
+        }
+      }
+    }
+
+    &.active,
+    &hover {
+      color: $blue;
+    }
+  }
+}
+
+//only mobile
+@include breakpoint_custom($breakpoint-tablet) {
+
+
+
+  .mobile-search,
+  .mobile-login {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    left: -100%;
+    transition: all 0.3s ease;
+    height: 100vh;
+    opacity: 0;
+
+    &.mobile-login {
+      z-index: 1003;
+    }
+
+    .btn-mobile-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      z-index: 1005;
+    }
+
+    &.open {
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+  .header-mobile-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    >.dropdown {
+
+      >.btn-mobile-icon {
+        position: absolute;
+        top: 0;
+        right: 6px;
+        height: 49px;
+        width: 45px;
+      }
+
+      &:nth-child(2) {
+        >.btn-mobile-icon {right: 48px;}
+      }
+
+      &:nth-child(1) {
+        >.btn-mobile-icon {right: 91px;}
+      }
+    }
+  }
+
+  .header-mobile-menu-holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    bottom: 0;
+    display: none;
+
+    .btn-mobile-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      z-index: 1005;
+    }
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    background: #005aa9;
+    padding: 45px 35px 57px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    z-index: 1003;
+
+    .btn-mobile-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      z-index: 1005;
+    }
+
+    &.open {
+      left: 0;
+      opacity: 1;
+    }
+
+    .header-menu-bottom-list {
+      >li {
+        >a {
+          font-size: 18px;
+          padding: 8px 0 9px;
+        }
+      }
+
+      li {
+        a {
+          text-transform: none;
+        }
+      }
+    }
+
+    li,
+    .btn-light-blue,
+    a {
+      display: block;
+      font-size: 13px;
+      text-transform: uppercase;
+      position: static;
+      text-decoration: none;
+    }
+
+    a {
+      color: $white !important;
+      padding: 7px 0 7px;
+    }
+
+    .subscribe-link {
+      position: absolute;
+      bottom: 37px;
+      left: 35px;
+      right: 35px;
+      padding: 13px 0 10px;
+      background: #0094f2;
+      font-size: 13px;
+      font-family: $lucida-sans-demi-bold;
+      border-radius: 3px;
+    }
+  }
+
+  .mobile-menu-section {
+    border-bottom: 1px solid #0094f2;
+    margin: 0 0 16px;
+    padding: 0 0 12px;
+  }
+}
+
+.mobile-menu {
+
+  .subscribe-link {
+    @extend .btn;
+  }
+
+  .header-menu-bottom-list {
+    li {
+      &.dropdown {
+
+        >a {
+          position: relative;
+
+          &.active {
+            &:after {
+              transform: translateY(-50%) rotate(90deg);
+              color: $white;
+            }
+          }
+
+          &:after {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            content: '\004a';
+            @extend .icon-styles;
+            font-size: 10px;
+            transform: translateY(-50%) rotate(180deg);
+            color: $light-blue;
+
+            @include breakpoint('tablet') {
+              display: none;
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+

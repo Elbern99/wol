@@ -1,0 +1,195 @@
+//preloader
+.preloader{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  color: #fff;
+  z-index: 10000000;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+.loading-ball{
+  background-color: rgba(0,0,0,0);
+  border: 5px solid #cccccc;
+  border-top: 5px solid #4d9bc1;
+  border-left: 5px solid #cccccc;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  @include animation (spin, 1s, infinite, linear);
+  margin: -20px 0 0 -20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+}
+
+@-moz-keyframes spin{
+  0%{
+    -moz-transform:rotate(0deg)
+  }
+  100%{
+    -moz-transform:rotate(360deg)
+  }
+}
+
+@-webkit-keyframes spin{
+  0%{
+    -webkit-transform:rotate(0deg)
+  }
+  100%{
+    -webkit-transform:rotate(360deg)
+  }
+}
+
+@keyframes spin{
+  0%{
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100%{
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
+
+@-moz-keyframes spinoff{
+  0%{
+    -moz-transform:rotate(0deg)
+  }
+  100%{
+    -moz-transform:rotate(-360deg)
+  }
+}
+
+@-webkit-keyframes spinoff{
+  0%{
+    -webkit-transform:rotate(0deg)
+  }
+  100%{
+    -webkit-transform:rotate(-360deg)
+  }
+}
+
+@keyframes spinoff{
+  0%{
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100%{
+    -ms-transform:rotate(-360deg);
+    transform:rotate(-360deg);
+  }
+}
+
+//faq-accordion
+.faq-accordion-list {
+  margin: 0 0 29px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 63px;
+  }
+}
+
+.faq-accordion-item {
+  border-top: 1px solid #4d5f71;
+
+  &:last-child {
+    border-bottom: 1px solid #4d5f71;
+  }
+
+  &.is-open {
+    .title {
+
+      &:before {
+        transform: rotate(90deg);
+        color: $light-blue;
+
+        @include breakpoint('tablet') {
+          top: 50%;
+          transform: translateY(-50%) rotate(90deg);
+        }
+      }
+    }
+  }
+
+  .title {
+    text-decoration: none;
+    display: block;
+    padding: 12px 0 9px 22px;
+    position: relative;
+
+    @include breakpoint('tablet') {
+      padding: 13px 0 10px 30px;
+
+      &:hover {
+        h3 {
+          color: $light-blue;
+        }
+      }
+    }
+
+    &:before {
+      content: '\004a';
+      @extend .icon-styles;
+      position: absolute;
+      top: 15px;
+      color: #1d1d1b;
+      left: 4px;
+      font-size: 8px;
+
+      @include breakpoint('tablet') {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    h3 {
+      color: $blue;
+      transition: color 0.3s ease;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.3em;
+
+      @include breakpoint('tablet') {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .text-inner {
+    padding: 9px 0 20px 0;
+    transition: all 0.1s ease;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.4em;
+      padding: 0 0 11px 0;
+    }
+  }
+
+  .text {
+    overflow: hidden;
+    display: none;
+  }
+
+  p {
+    margin: 0 0 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.faq-accordion-bottom {
+  font-size: 17px;
+  line-height: 1.3em;
+
+  @include breakpoint('tablet') {
+    font-size: 18px;
+  }
+}
