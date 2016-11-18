@@ -42,8 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->sort_key);
                         }
                     ],
-                    'created_at',
-                    'updated_at',
+                    [
+                        'attribute' => 'created_at',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::dateFormat($model->created_at);
+                        }
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::dateFormat($model->updated_at);
+                        }
+                    ],
                     [
                         'attribute' => 'enabled',
                         'format' => 'raw',
