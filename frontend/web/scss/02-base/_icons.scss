@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Glyphter';
+    src: url('../fonts/glyphter/Glyphter.eot');
+    src: url('../fonts/glyphter/Glyphter.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/glyphter/Glyphter.woff') format('woff'),
+         url('../fonts/glyphter/Glyphter.ttf') format('truetype'),
+         url('../fonts/glyphter/Glyphter.svg#Glyphter') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class*='icon-']:before,
+.icon-styles {
+  display: inline-block;
+  font-family: 'Glyphter';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-user:before{content:'\0041';}
+.icon-twitter:before{content:'\0042';}
+.icon-search:before{content:'\0043';}
+.icon-print:before{content:'\0044';}
+.icon-message:before{content:'\0045';}
+.icon-linkedn:before{content:'\0046';}
+.icon-link:before{content:'\0047';}
+.icon-google:before{content:'\0048';}
+.icon-facebook:before{content:'\0049';}
+.icon-arrow:before{content:'\004a';}
+
+.icon-burger {
+  position: relative;
+  width: 20px;
+  height: 15px;
+  display: block;
+
+  &:after,
+  &:before,
+  span {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $black-brown;
+    top: 0;
+    transition: all 0.35s ease;
+  }
+
+  &:after { top: 6px; }
+
+  &:before { top: 12px; }
+
+  &.open {
+    span { opacity: 0; }
+
+    &:after {
+      transform: rotate(45deg);
+      top: 6px;
+    }
+
+    &:before {
+      transform: rotate(-45deg);
+      top: 6px;
+    }
+  }
+}
+
+.icon-cross {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  display: block;
+
+  &.dark {
+    &:after,
+    &:before {
+      background: $dark-gray;
+    }
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    height: 1px;
+    background: $white;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}

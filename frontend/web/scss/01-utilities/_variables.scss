@@ -1,23 +1,38 @@
 // CONTENT AREA
-$content-area-width: 1200px;
+$content-area-width: 1230px;
 
 // TYPOGRAFY
 
 //fonts
 $proxima-light: Helvetica, Arial, Sans-serif;
+$lucida-grande-bold: 'LucidaGrandeBold', Helvetica, Arial, Sans-serif;
+$lucida-grande: 'LucidaGrande', Helvetica, Arial, Sans-serif;
+$lucida-sans-bold: 'lucidaSansBold', Helvetica, Arial, Sans-serif;
+$lucida-sans: 'lucidaSans', Helvetica, Arial, Sans-serif;
+$lucida-sans-demi-bold: 'lucidaSansDemibold', Helvetica, Arial, Sans-serif;
 
 //fonts styles
-$def-font: $proxima-light;
-$def-font-size: 16px;
+$def-font: $lucida-sans;
+$def-font-size: 14px;
 $def-line-height: 1.1em;
 
 //COLORS
 
-$def-color: #000;
+$blue: #0053a0;
+$light-blue: #0094f2;
+$gray: #383838;
+$dark-gray: #262626;
+$dark-blue-black: #4b4b4b;
+$black-brown: #2a2a2a;
+$dark-brown: #242424;
+$white: #fff;
+
+$link-color: $blue;
+$def-color: $dark-gray;
 $def-second-color: #4d4d4d;
 
 //BREAKPOINT
 
 $breakpoint-mobile: 320px;
-$breakpoint-tablet: 768px;
+$breakpoint-tablet: 769px;
 $breakpoint-desktop: 1024px;

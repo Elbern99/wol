@@ -1,16 +1,23 @@
 //BUTTONS
 
 [class^="btn-"],
-[class*=" btn-"] {
+[class*=" btn-"],
+.btn {
   color: #FFFFFF;
-  font: normal 16px/17px Arial;
-  padding: 16px 20px;
+  font: normal 10px/1.1 $lucida-sans;
+  padding: 9px 11px;
   position: relative;
   text-align: center;
   text-decoration: none !important;
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 
   input {
     position: absolute;
@@ -24,6 +31,74 @@
   }
 
   &:active {
-    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  }
+}
+
+.btn-white {
+  border-color: #0053a0;
+  color: $blue;
+  line-height: 30px;
+  height: 30px;
+
+  &:hover {
+    background: $light-blue;
+    color: #fff;
+  }
+}
+
+.btn-blue {
+  background: #0094f2;
+  
+  &:hover {
+    color: $light-blue;
+    background: $white;
+    border-color: $light-blue;
+  }
+}
+
+.btn-transparent {
+  color: $light-blue;
+
+  &:hover {
+    background: $white;
+    border-color: $light-blue;
+  }
+}
+
+.btn-light-blue {
+  background: #0094f2;
+}
+
+.btn-mobile-icon {
+  font-size: 18px;
+  color: $black-brown;
+  padding: 5px;
+  width:  40px;
+  height: 40px;
+
+  >span {
+    @extend .icon-to-center;
+  }
+}
+
+.btn-gray {
+  background: #eaeaea;
+  color: #7b7b7b;
+  height: 36px;
+  line-height: 18px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  
+  &:hover {
+    background: #7b7b7b;
+    color: #eaeaea;
+  }
+
+  &.align-center {
+    display: block;
+    margin: 0 auto;
+    max-width: 107px;
   }
 }

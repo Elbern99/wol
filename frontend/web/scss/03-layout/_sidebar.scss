@@ -1,0 +1,8 @@
+.sidebar-right {
+
+  @include breakpoint('tablet') {
+    order: 1;
+    flex: 0 0 247px;
+    margin-left: 40px;
+  }
+}

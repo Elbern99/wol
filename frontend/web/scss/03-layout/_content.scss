@@ -1,12 +1,40 @@
-* {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  outline: none;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
+.content {
+  flex: 1 0 auto;
+  overflow: hidden;
+  padding-bottom: 60px;
+}
 
+.container {
+  max-width: $content-area-width;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.content-inner {
+
+  @include breakpoint('tablet') {
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    align-items: stretch;
+
+    .content-inner-text {
+      width: 100000px;
+    }
+  }
+}
 
 //EXTRA
 .no-js body {
 
+}
+
+iframe {
+  display: none;
 }

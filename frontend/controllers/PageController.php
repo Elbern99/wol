@@ -26,7 +26,7 @@ class PageController extends Controller
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'contact','faq', 'editorial-board', 'contributor-profile'],
                         'allow' => true,
                     ]
                 ],
@@ -60,7 +60,7 @@ class PageController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex($id)
+    /*public function actionIndex($id)
     {
         $pageInfoTable = CmsPageInfo::tableName();
         $page = CmsPages::find()
@@ -85,6 +85,27 @@ class PageController extends Controller
         }
         
         return $this->render('index', ['page' => $page]);
-    }
-
+    }*/
+	
+	public function actionContact()
+	{
+		return $this->render('contact');
+	}
+	
+	public function actionFaq()
+	{
+		return $this->render('faq');
+	}
+	
+	public function actionEditorialBoard()
+	{
+		return $this->render('editorial-board');
+	}
+	
+	public function actionContributorProfile()
+	{
+		return $this->render('contributor-profile');
+	}
+	
+	
 }
