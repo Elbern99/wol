@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use common\modules\author\contracts\AuthorInterface;
+use common\modules\eav\contracts\EntityModelInterface;
+
 /**
  * This is the model class for table "author".
  *
@@ -17,7 +19,7 @@ use common\modules\author\contracts\AuthorInterface;
  *
  * @property ArticleAuthor[] $articleAuthors
  */
-class Author extends \yii\db\ActiveRecord implements AuthorInterface
+class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityModelInterface
 {
     /**
      * @inheritdoc
@@ -67,6 +69,10 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface
             'url' => Yii::t('app', 'Url'),
             'avatar' => Yii::t('app', 'Avatar'),
         ];
+    }
+    
+    public function getId() {
+        return $this->id;
     }
 
     /**

@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use common\modules\article\contracts\ArticleInterface;
+use common\modules\eav\contracts\EntityModelInterface;
+
 /**
  * This is the model class for table "article".
  *
@@ -22,7 +24,7 @@ use common\modules\article\contracts\ArticleInterface;
  * @property ArticleRelation[] $articleRelations
  * @property ArticleRelation[] $articleRelations0
  */
-class Article extends \yii\db\ActiveRecord implements ArticleInterface
+class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityModelInterface
 {
     /**
      * @inheritdoc
@@ -35,6 +37,10 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface
     public static function primaryKey()
     {
         return [0=>'id'];
+    }
+    
+    public function getId() {
+        return $this->id;
     }
     
     public static function getBaseFolder() {

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::activeCheckbox($model, 'enabled', ['class'=>'enabled_field', 'data-item'=>$model->id]);
                         }
                     ],
-                    /*[
+                    [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{author-view}',
                         'header' => 'Actions',
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]);
                             }
                         ]
-                    ],*/
+                    ],
                 ],
             ]);
             ?>
