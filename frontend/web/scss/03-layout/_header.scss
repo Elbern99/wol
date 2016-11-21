@@ -1,3 +1,19 @@
+.header-desktop {
+  display: none;
+
+  @include breakpoint('tablet') {
+    display: block;
+  }
+}
+
+.header-mobile {
+  display: none;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: block;
+  }
+}
+
 //header-top
 .header-top {
   border-bottom: 1px solid #d8d8d8;
@@ -60,6 +76,25 @@
       align-items: center;
     }
   }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .header-menu-bottom-list {
+      white-space: nowrap;
+      text-align: left;
+      padding: 0;
+
+      >li {
+        >a {
+          display: block;
+          padding: 5px 10px;
+        }
+      }
+
+      .submenu-holder {
+        display: none;
+      }
+    }
+  }
 }
 
 //header-menu-bottom-list
@@ -96,6 +131,36 @@
     }
   }
 
+
+  >li {
+    >.submenu-holder {
+      @extend .dropdown-widget;
+
+      .submenu-holder {
+        display: none;
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        position: relative;
+        display: none;
+        max-height: none;
+        opacity: 1;
+        z-index: 100;
+        display: none;
+      }
+
+      >.submenu {
+        @extend .dropdown-widget-inner;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          background: none;
+        }
+      }
+    }
+  }
+
+
+  /*
   .dropdown-widget {
     @include breakpoint_custom($breakpoint-tablet) {
       padding: 0;
@@ -121,6 +186,7 @@
       border-radius: 5px;
     }
   }
+  */
 
   a {
     color: $black-brown;
@@ -301,11 +367,15 @@
     }
   }
 
+  >li {
+    >a {
+      display: block;
+      padding: 9px 0;
+    }
+  }
+
   a {
     text-decoration: none;
-
-    display: block;
-    padding: 9px 0;
 
     @include breakpoint('tablet') {
       border-bottom: 1px solid transparent;
@@ -354,8 +424,6 @@
 
 //only mobile
 @include breakpoint_custom($breakpoint-tablet) {
-
-
 
   .mobile-search,
   .mobile-login {
@@ -481,7 +549,7 @@
 
     a {
       color: $white !important;
-      padding: 7px 0 7px;
+      padding: 7px 15px 7px 0;
     }
 
     .subscribe-link {
@@ -511,18 +579,12 @@
   }
 
   .header-menu-bottom-list {
-    li {
-      &.dropdown {
 
+    li {
+
+      &.has-submenu {
         >a {
           position: relative;
-
-          &.active {
-            &:after {
-              transform: translateY(-50%) rotate(90deg);
-              color: $white;
-            }
-          }
 
           &:after {
             position: absolute;
@@ -538,6 +600,16 @@
               display: none;
             }
 
+          }
+        }
+      }
+
+      &.open {
+        >a{
+          &:after {
+            transform: translateY(-50%) rotate(90deg);
+            color: $white;
+            font-size: 9px;
           }
         }
       }

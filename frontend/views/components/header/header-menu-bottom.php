@@ -1,9 +1,9 @@
 <nav class="header-menu-bottom">
     <ul class="header-menu-bottom-list">
-        <li class="dropdown">
-            <a href="#" class="dropdown-link">Key topics</a>
-            <div class="dropdown-widget drop-content">
-                <ul class="dropdown-widget-inner">
+        <li class="has-submenu">
+            <a href="#">Key topics</a>
+            <div class="submenu-holder">
+                <ul class="submenu">
                     <li><a href="">Health and safety</a></li>
                     <li><a href="">Health plans and benefits</a></li>
                     <li><a href="">Immigration</a></li>
@@ -18,12 +18,23 @@
                 </ul>
             </div>
         </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-link">Articles</a>
-            <div class="dropdown-widget drop-content">
-                <ul class="dropdown-widget-inner">
+        <li class="has-submenu">
+            <a href="#">Articles</a>
+            <div class="submenu-holder">
+                <ul class="submenu">
                     <li><a href="">Program evaluation</a></li>
-                    <li><a href="">Behavioral and personnel economics</a></li>
+                    <li class="has-submenu">
+                        <a href="">Behavioral and personnel economics</a>
+                        <div class="submenu-holder">
+                            <ul class="submenu">
+                                <li><a href="">Pay and incentives</a></li>
+                                <li><a href="">Organization and hierarchies</a></li>
+                                <li><a href="">Human resource management</a></li>
+                                <li><a href="">practices</a></li>
+                                <li><a href="">All articles</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><a href="">Migration and ethnicity</a></li>
                     <li><a href="">Labor markets and institutions</a></li>
                     <li><a href="">Transition and emerging economies</a></li>

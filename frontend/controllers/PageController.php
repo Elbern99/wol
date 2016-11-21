@@ -25,7 +25,7 @@ class PageController extends Controller
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'contact','faq', 'editorial-board', 'contributor-profile'],
+                        'actions' => ['index', 'contact','faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article'],
                         'allow' => true,
                     ]
                 ],
@@ -91,5 +91,19 @@ class PageController extends Controller
 		return $this->render('contributor-profile');
 	}*/
 	
+	public function actionForContributor()
+	{
+		return $this->render('for-contributor');
+	}
+	
+	public function actionAbout()
+	{
+		return $this->render('about');
+	}
+	
+	public function actionNewsArticle()
+	{
+		return $this->render('news-article');
+	}
 	
 }
