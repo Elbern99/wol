@@ -4,18 +4,18 @@
             <a href="#" class="dropdown-link"><?= Yii::t('app/menu', 'Login') ?></a>
             <div class="dropdown-widget drop-content">
                 <div class="dropdown-widget-inner">
-                    <form action="">
+                    <form action="URL">
                         <div class="form-line">
                             <div class="label-holder">
-                                <label for="email">Email address</label>
+                                <label for="email_id">Email address</label>
                             </div>
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email_id" class="form-control" required>
                         </div>
                         <div class="form-line">
                             <div class="label-holder">
-                                <label for="password">Password</label>
+                                <label for="password_id">Password</label>
                             </div>
-                            <input type="password" id="password" class="form-control" required>
+                            <input type="password" id="password_id" class="form-control" required>
                         </div>
                         <div class="buttons">
                             <button type="submit" class="btn-blue">login</button>
@@ -29,27 +29,10 @@
             <a href="#"><?= Yii::t('app/menu', 'register') ?></a>
         </li>
         <li class="hide-desktop dropdown">
-            <a href="#" class="mobile-dropdown-link dropdown-link"><?= Yii::t('app/menu', 'register mobile') ?></a>
+            <a href="#" class="mobile-dropdown-link dropdown-link"><?= Yii::t('app/menu', 'register') ?></a>
             <div class="dropdown-widget drop-content">
                 <div class="dropdown-widget-inner">
-                    <form action="">
-                        <div class="form-line">
-                            <div class="label-holder">
-                                <label for="email">Email address</label>
-                            </div>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-line">
-                            <div class="label-holder">
-                                <label for="password">Password</label>
-                            </div>
-                            <input type="password" id="password" class="form-control" required>
-                        </div>
-                        <div class="buttons">
-                            <button type="submit" class="btn-blue">login</button>
-                            <a href="" class="forgot-link">forgot your password?</a>
-                        </div>
-                    </form>
+                    test
                 </div>
             </div>
         </li>

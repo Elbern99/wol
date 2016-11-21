@@ -131,21 +131,21 @@
     }
   }
 
-  >li {
-    .submenu-holder {
-      display: none;
-    }
-  }
 
   >li {
     >.submenu-holder {
       @extend .dropdown-widget;
-      max-height: none;
-      opacity: 1;
-      z-index: 100;
+
+      .submenu-holder {
+        display: none;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         position: relative;
+        display: none;
+        max-height: none;
+        opacity: 1;
+        z-index: 100;
         display: none;
       }
 
@@ -367,11 +367,15 @@
     }
   }
 
+  >li {
+    >a {
+      display: block;
+      padding: 9px 0;
+    }
+  }
+
   a {
     text-decoration: none;
-
-    display: block;
-    padding: 9px 0;
 
     @include breakpoint('tablet') {
       border-bottom: 1px solid transparent;
@@ -545,7 +549,7 @@
 
     a {
       color: $white !important;
-      padding: 7px 0 7px;
+      padding: 7px 15px 7px 0;
     }
 
     .subscribe-link {
@@ -577,17 +581,10 @@
   .header-menu-bottom-list {
 
     li {
-      &.has-submenu {
 
+      &.has-submenu {
         >a {
           position: relative;
-
-          &.active {
-            &:after {
-              transform: translateY(-50%) rotate(90deg);
-              color: $white;
-            }
-          }
 
           &:after {
             position: absolute;
@@ -603,6 +600,16 @@
               display: none;
             }
 
+          }
+        }
+      }
+
+      &.open {
+        >a{
+          &:after {
+            transform: translateY(-50%) rotate(90deg);
+            color: $white;
+            font-size: 9px;
           }
         }
       }

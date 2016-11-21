@@ -54,17 +54,28 @@
   &:before { top: 12px; }
 
   &.open {
+
+  }
+}
+
+.active {
+  .icon-burger {
+    z-index: 10000;
+
     span { opacity: 0; }
 
     &:after {
       transform: rotate(45deg);
       top: 6px;
+      color: $white;
     }
 
     &:before {
       transform: rotate(-45deg);
       top: 6px;
+      color: $white;
     }
+
   }
 }
 

@@ -22,14 +22,13 @@
             <span class="icon-burger"><span></span></span>
         </div>
         <div class="mobile-menu drop-content">
-            <div class="btn-mobile-icon btn-mobile-menu-close"><span class="icon-cross"></span></div>
             <div class="mobile-menu-section">
                 <?php $this->beginContent('@app/views/components/header/header-menu-bottom.php'); ?><?php $this->endContent();?>
             </div>
 
             <div class="mobile-menu-section">
-                <a href="">login</a>
-                <a href="">register</a>
+                <a href=""><?= Yii::t('app/menu', 'login') ?></a>
+                <a href=""><?= Yii::t('app/menu', 'register') ?></a>
             </div>
 
             <div class="mobile-menu-section">
@@ -41,9 +40,4 @@
             </div>
         </div>
     </div>
-	
-</div>
-
-<div class="header-mobile-menu-holder">
-    
 </div>
