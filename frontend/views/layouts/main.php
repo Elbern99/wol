@@ -21,16 +21,6 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    
-    <script>
-        var App = {
-            initHeader: function(desktop, mobile){
-                this.desktop = desktop;
-                this.mobile = mobile;
-            }
-        };
-    </script>
-    
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -48,12 +38,10 @@ AppAsset::register($this);
         
         <?php $menuDesktop = $this->renderFile('@app/views/components/header/header-desktop.php'); ?>
         <?php $menuMobile = $this->renderFile('@app/views/components/header/header-mobile.php'); ?>
-        
-        <script>
-            var headerDesktop = '<?php echo json_encode($menuDesktop) ;?>';
-            var headerMobile = '<?php echo json_encode($menuMobile) ;?>';
-                App.initHeader(headerDesktop ,headerMobile );
-        </script>
+
+        <?php echo $menuDesktop ?>
+
+        <?php echo $menuMobile ?>
         
         <?php //$this->beginContent('@app/views/components/menu.php'); ?><?php //$this->endContent();?>
 

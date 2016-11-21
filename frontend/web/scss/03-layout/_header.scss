@@ -1,3 +1,19 @@
+.header-desktop {
+  display: none;
+
+  @include breakpoint('tablet') {
+    display: block;
+  }
+}
+
+.header-mobile {
+  display: none;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: block;
+  }
+}
+
 //header-top
 .header-top {
   border-bottom: 1px solid #d8d8d8;
@@ -60,6 +76,25 @@
       align-items: center;
     }
   }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .header-menu-bottom-list {
+      white-space: nowrap;
+      text-align: left;
+      padding: 0;
+
+      >li {
+        >a {
+          display: block;
+          padding: 5px 10px;
+        }
+      }
+
+      .submenu-holder {
+        display: none;
+      }
+    }
+  }
 }
 
 //header-menu-bottom-list
@@ -96,6 +131,36 @@
     }
   }
 
+  >li {
+    .submenu-holder {
+      display: none;
+    }
+  }
+
+  >li {
+    >.submenu-holder {
+      @extend .dropdown-widget;
+      max-height: none;
+      opacity: 1;
+      z-index: 100;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        position: relative;
+        display: none;
+      }
+
+      >.submenu {
+        @extend .dropdown-widget-inner;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          background: none;
+        }
+      }
+    }
+  }
+
+
+  /*
   .dropdown-widget {
     @include breakpoint_custom($breakpoint-tablet) {
       padding: 0;
@@ -121,6 +186,7 @@
       border-radius: 5px;
     }
   }
+  */
 
   a {
     color: $black-brown;
@@ -355,8 +421,6 @@
 //only mobile
 @include breakpoint_custom($breakpoint-tablet) {
 
-
-
   .mobile-search,
   .mobile-login {
     position: absolute;
@@ -511,8 +575,9 @@
   }
 
   .header-menu-bottom-list {
+
     li {
-      &.dropdown {
+      &.has-submenu {
 
         >a {
           position: relative;
