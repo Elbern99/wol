@@ -15,6 +15,55 @@
 
     //FUNCTIONS ---------------
 
+    /* faqAccordion */
+    faqAccordion = {
+        classes: 'is-open',
+        delay: 200,
+        openItem: function(cur) {
+            cur.next().slideDown(faqAccordion.delay);
+            cur.parent().addClass('is-open');
+        },
+        closeItem: function(cur) {
+            cur.next().slideUp(faqAccordion.delay);
+            cur.parent().removeClass('is-open');
+        },
+        toggleItem: function(btn,content,parent) {
+            parent.find('.'+faqAccordion.classes).find(content).slideDown(0);
+            btn.click(function(e) {
+                var cur = $(this);
+                if(cur.parent().hasClass(faqAccordion.classes)){
+                    faqAccordion.closeItem(cur);
+                } else {
+                    cur.parent().siblings().removeClass(faqAccordion.classes).find(content)
+                        .slideUp( faqAccordion.delay, function() {
+                            setTimeout(function() {
+                                faqAccordion.openItem(cur);
+                            }, 100);
+                        });
+                }
+                e.preventDefault();
+            });
+        }
+    }
+    /* faqAccordion end */
+
+    /* moreSidebarNews */
+    function moreSidebarNews(btnMore,parent) {
+        $(parent).next(btnMore).on('click',function(e) {
+            var cur = $(this),
+                itemStep = 5,
+                curParent =  cur.parents('li');
+                curParent.find('li').slideDown();
+
+                if(curParent.find('li').is(":visible")) cur.css('opacity','0');
+
+            e.preventDefault();
+        });
+    }
+    /* moreSidebarNews end */
+
+    /// -------------------------- to refactor
+
     /* dropDown */
     function dropDown(btn, dropWidget) {
         if ( dropWidget.length ) {
@@ -109,42 +158,6 @@
     }
     /* tabs end */
 
-    /* faqAccordion */
-    faqAccordion = {
-        classes: 'is-open',
-        delay: 200,
-        openItem: function(cur) {
-            cur.next().slideDown(faqAccordion.delay);
-            cur.parent().addClass('is-open');
-        },
-        closeItem: function(cur) {
-            cur.next().slideUp(faqAccordion.delay);
-            cur.parent().removeClass('is-open');
-        },
-        toggleItem: function(btn,content,parent) {
-            parent.find('.'+faqAccordion.classes).find(content).slideDown(0);
-
-                btn.click(function(e) {
-
-                 var cur = $(this);
-
-                 if(cur.parent().hasClass(faqAccordion.classes)){
-                     faqAccordion.closeItem(cur);
-                 } else {
-                     cur.parent().siblings().removeClass(faqAccordion.classes).find(content)
-                     .slideUp( faqAccordion.delay, function() {
-                         setTimeout(function() {
-                             faqAccordion.openItem(cur);
-                         }, 100);
-                     });
-                 }
-
-                 e.preventDefault();
-            });
-        }
-    }
-    /* faqAccordion end */
-
     /* renderHeader */
     function renderHeader(desktop, mobile) {
         var headerRender = $('.header-render');
@@ -176,6 +189,9 @@
         accordion($('.mobile-menu .dropdown >a'), '.mobile-menu .dropdown', '.dropdown-widget');
 
         faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
+        faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
+
+        moreSidebarNews('.more-link','.sidebar-news-list');
 
         if(_window_width < _mobile ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');

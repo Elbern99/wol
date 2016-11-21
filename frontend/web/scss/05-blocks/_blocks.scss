@@ -7,23 +7,27 @@
   z-index: 1002;
 
   @include breakpoint('tablet') {
-    width: 160px;
+    width: 149px;
   }
 }
 
 //SOCIALS
 .socials-list {
-  margin: 0 0 46px;
+  margin: 0 0 39px;
 
   li {
     display: inline-block;
     vertical-align: middle;
-    margin: 0 8px;
+    margin: 0 6px;
     font-size: 11px;
   }
 
   [class*='icon-'] {
-    font-size: 30px;
+    font-size: 34px;
+
+    @include breakpoint('tablet') {
+      font-size: 30px;
+    }
   }
 
   a {
@@ -70,6 +74,7 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
+  min-height: 112px;
 }
 
 //DROP
@@ -173,7 +178,12 @@
   //item
   &.sidebar-widget-journals {
     .img {
-      margin: 0 0 10px;
+      margin: 3px 30px 0px 20px;
+      max-width: 330px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 10px;
+      }
 
       img {
         max-width: 100%;
@@ -445,8 +455,206 @@
   }
 }
 
+//full-article
+
+.full-article {
+
+  .head {
+    >div {
+      @include breakpoint_custom($breakpoint-tablet) {
+        display: inline-block;
+        font-size: 12px;
+
+        &.date {
+          &:after {
+            content: '/';
+            padding: 0 0 0 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .date {
+    margin: 0 0 -1px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .category {
+    margin: 0px 0 10px;
+    font-size: 11px;
+  }
+
+  figure {
+    margin: 0 0 16px 0;
+    overflow: hidden;
+
+    @include breakpoint('tablet') {
+      width: 47.3%;
+      margin: 6px 37px 20px 0;
+    }
+  }
+
+  img {
+    display: block;
+  }
+
+  h1 {
+    margin: 0 0 13px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 22px;
+    }
+  }
+}
+
+//sidebar-accrodion-list
+
+.sidebar-accrodion-list {
+  margin: 0 0 20px;
+
+  .sidebar-accrodion-item {
+    margin: 0 0 22px;
+  }
+}
+
+//sidebar-news-list
+.sidebar-news-list {
+
+  padding: 13px 0 6px;
+
+  li {
+    margin: 0 0 17px;
+    display: none;
+
+    &:nth-child(-n+5) {
+      display: block;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+    line-height: 1.45em;
+    color: $blue;
+    text-transform: none;
+    margin: 0;
+    
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}
+
+.sidebar-accrodion-item {
+  text-transform: uppercase;
+
+  .title {
+    display: block;
+    border-bottom: 1px solid #b0b0b0;
+    position: relative;
+    padding: 5px 0 5px;
+    font-size: 14px;
+    color: #323232;
+    
+    &:hover {
+      color: $light-blue;
+    }
+
+    @include breakpoint('tbalet') {
+      font-size: 12px;
+      padding: 5px 0 0px;
+    }
+
+    &:before {
+      content: '\004a';
+      @extend .icon-styles;
+      position: absolute;
+      color: #1d1d1b;
+      right: 4px;
+      font-size: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &.is-open {
+    .title {
+      &:before {
+        transform: translateY(-50%) rotate(-90deg);
+      }
+    }
+  }
+
+  .more-link {
+    font-size: 10px;
+    text-transform: none;
+    display: inline-block;
+    line-height: 1em;
+    color: $light-blue;
+    font-family: $lucida-grande;
+    
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .writer {
+    text-transform: none;
+    font-size: 10px;
+    padding: 5px 0 0 0;
+  }
+
+  .text {
+    display: none;
+  }
+}
+
 //PAGES
 
-.contact-page {
 
+//contact-us-page
+.contact-us-page {
+  p + br {
+    @include breakpoint('tablet') {
+      margin-bottom: 47px !important;
+    }
+  }
+
+  h2 {
+    @include breakpoint('tablet') {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+//about-page
+.about-page {
+
+  p:first-child {
+    font-size: 15px;
+    line-height: 1.4em;
+
+    @include breakpoint('tablet') {
+      font-size: 16px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 20px;
+    }
+  }
+
+  h2 {
+    margin-bottom: 7px;
+  }
+
+  p + br {
+    @include breakpoint('tablet') {
+      margin-bottom: 53px !important;
+    }
+  }
 }
