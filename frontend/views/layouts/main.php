@@ -54,13 +54,13 @@ AppAsset::register($this);
             var headerMobile = '<?php echo json_encode($menuMobile) ;?>';
                 App.initHeader(headerDesktop ,headerMobile );
         </script>
-        
+        <?php $this->beginContent('@app/views/components/widgets.php'); ?><?php $this->endContent();?>
         <?php //$this->beginContent('@app/views/components/menu.php'); ?><?php //$this->endContent();?>
 
         <?= $content ?>
         <!--
         <div class="container">
-            <?php $this->beginContent('@app/views/components/widgets.php'); ?><?php $this->endContent();?>
+            
             
             
             <h1>For contributors</h1>

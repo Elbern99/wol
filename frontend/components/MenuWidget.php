@@ -46,7 +46,7 @@ class MenuWidget extends Widget {
                         $options = [];
                     }
                     
-                    $text = Html::a($item->title, $item->link, $options);
+                    $text = Html::a($item->title, $item->link, $options);                   
                 } else {
                     $text = $item->title;
                 }

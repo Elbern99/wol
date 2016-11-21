@@ -42,7 +42,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                //'page/<id:[1-9]+>' => 'page/index',
+                'page/<id:[1-9]+>' => 'page/index',
             ],
         ],
         'assetManager' => [
@@ -52,10 +52,7 @@ return [
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
-                ],
-                /* 'yii\web\JqueryAsset' => [
-                    'js'=>[]
-                ], */
+                ]
             ],
         ],
     ],

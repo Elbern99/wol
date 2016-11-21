@@ -20,17 +20,19 @@ trait CmsSimpleTrait {
         if (Yii::$app->request->isPost) {
             
             $postData = Yii::$app->request->post();
-            
+
             if ($postData['CmsPagesSimple']['id']) {
                 $model = CmsPagesSimple::find()->where(['page_id' => $page_id])->one();
+                $postData['CmsPagesSimple']['backgroud'] = $model->backgroud;
             } else {
                 $model = new CmsPagesSimple();
             }
             
+            $model->load($postData);
             $model->initUploadProperty();
-            
-            if ($model->load($postData, '') && $model->validate()) {
-                
+
+            if ($model->validate()) {
+
                 $model->upload();
 
                 if ($model->save(false)) {
