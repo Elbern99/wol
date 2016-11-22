@@ -5,7 +5,6 @@
     display: block;
   }
 }
-
 .header-mobile {
   display: none;
 
@@ -62,31 +61,46 @@
 
 //header-bottom
 .header-bottom {
-  padding: 15px 0;
   border-bottom: 1px solid #bcbcbc;
+  position: relative;
 
   @include breakpoint('tablet') {
     padding: 23px 0 18px;
-  }
 
-  .container {
-    @include breakpoint('tablet') {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .logo-main {
+      width: 160px;
+    }
+
+    .container {
+      @include breakpoint('tablet') {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .header-menu-bottom-list {
+
+      li {
+        ul {
+          margin: 0 0 5px;
+          font-size: 11px;
+        }
+      }
     }
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
     .header-menu-bottom-list {
-      white-space: nowrap;
-      text-align: left;
       padding: 0;
+      white-space: nowrap;
 
-      >li {
-        >a {
+      li {
+        display: inline-block;
+
+        a {
           display: block;
-          padding: 5px 10px;
+          padding: 15px 10px !important;
         }
       }
 
@@ -105,15 +119,15 @@
     padding: 0 0 10px;
   }
 
-  > li { display: inline-block; }
-
-  li {
-
-    @include breakpoint('tablet') {
+  @include breakpoint('tablet') {
+    li {
       font-size: 14px;
-      margin: 0 10px;
+      margin: 0 18px;
     }
+
   }
+
+  > li { display: inline-block; }
 
   >li {
     >a {
@@ -124,21 +138,17 @@
         border-bottom: 1px solid transparent;
 
         &:hover,
-        &.active {
-          border-color: #008ef1;
-        }
+        &.active { border-color: #008ef1; }
       }
     }
   }
 
-
   >li {
     >.submenu-holder {
       @extend .dropdown-widget;
+      margin-top: 27px;
 
-      .submenu-holder {
-        display: none;
-      }
+      .submenu-holder { display: none; }
 
       @include breakpoint_custom($breakpoint-tablet) {
         position: relative;
@@ -147,10 +157,15 @@
         opacity: 1;
         z-index: 100;
         display: none;
+        margin: 0;
       }
 
       >.submenu {
         @extend .dropdown-widget-inner;
+
+        @include breakpoint('tablet') {
+          padding: 20px 26px 20px;
+        }
 
         @include breakpoint_custom($breakpoint-tablet) {
           background: none;
@@ -158,35 +173,6 @@
       }
     }
   }
-
-
-  /*
-  .dropdown-widget {
-    @include breakpoint_custom($breakpoint-tablet) {
-      padding: 0;
-      overflow: hidden;
-    }
-
-    @include breakpoint('tablet') { margin-top: 27px; }
-  }
-
-  .dropdown-widget-inner {
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      li {
-        font-size: 14px;
-        a {
-
-        }
-      }
-    }
-
-    @include breakpoint('tablet') {
-      padding: 23px 23px 23px;
-      border-radius: 5px;
-    }
-  }
-  */
 
   a {
     color: $black-brown;
@@ -211,19 +197,13 @@
         line-height: 20px;
       }
 
-      ul {
-        padding-left: 10px;
-      }
+      ul { padding-left: 14px; }
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+      &:last-child { margin-bottom: 0; }
     }
 
     a {
-      &.view-all {
-        color: $light-blue;
-      }
+      &.view-all { color: $light-blue; }
     }
   }
 }
@@ -231,8 +211,8 @@
 //search
 .search {
   color: $black-brown;
-  max-width: 284px;
-  margin: 21px 0 -7px;
+  width: 285px;
+  margin: 20px 0 -9px;
 
   @include breakpoint_custom($breakpoint-tablet) {
     position: absolute;
@@ -245,7 +225,7 @@
 
   .search-top {
     @extend .clearfix;
-    margin: 0 0 11px;
+    margin: 0 0 9px;
     position: relative;
 
     .icon-search {
@@ -272,12 +252,13 @@
   input[type="search"],
   .btn-white {
     height: 31px;
-    line-height: 22px;
-    padding: 5px 13px;
+    line-height: 20px;
+    padding: 6px 13px 7px;
   }
 
   input[type="search"] {
     padding-left: 16px;
+    padding-right: 0;
 
     @include breakpoint_custom($breakpoint-tablet) {
       padding-left: 21px;
@@ -290,9 +271,7 @@
     }
   }
 
-  .search-holder {
-    overflow: hidden;
-  }
+  .search-holder { overflow: hidden; }
 
   .btn-white {
     margin-left: 8px;
@@ -301,7 +280,6 @@
 }
 
 //login-registration
-
 .login-registration {
   @include breakpoint_custom($breakpoint-tablet) {
     padding: 29px 0 0;
@@ -371,6 +349,10 @@
     >a {
       display: block;
       padding: 9px 0;
+
+      @include breakpoint('tablet') {
+        border-bottom: 1px solid transparent;
+      }
     }
   }
 
@@ -378,7 +360,6 @@
     text-decoration: none;
 
     @include breakpoint('tablet') {
-      border-bottom: 1px solid transparent;
 
       &:hover,
       &.active {
@@ -541,7 +522,7 @@
     .btn-light-blue,
     a {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       text-transform: uppercase;
       position: static;
       text-decoration: none;
@@ -549,17 +530,17 @@
 
     a {
       color: $white !important;
-      padding: 7px 15px 7px 0;
+      padding: 7px 32px 7px 0;
     }
 
     .subscribe-link {
       position: absolute;
-      bottom: 37px;
+      bottom: 29px;
       left: 35px;
       right: 35px;
       padding: 13px 0 10px;
       background: #0094f2;
-      font-size: 13px;
+      font-size: 14px;
       font-family: $lucida-sans-demi-bold;
       border-radius: 3px;
     }
@@ -569,6 +550,10 @@
     border-bottom: 1px solid #0094f2;
     margin: 0 0 16px;
     padding: 0 0 12px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 }
 
@@ -588,13 +573,14 @@
 
           &:after {
             position: absolute;
-            top: 50%;
-            right: 0;
+            top: 13px;
+            right: -2px;
             content: '\004a';
             @extend .icon-styles;
             font-size: 10px;
-            transform: translateY(-50%) rotate(180deg);
+            transform: rotate(180deg);
             color: $light-blue;
+            transition: all 0.3s ease;
 
             @include breakpoint('tablet') {
               display: none;
@@ -607,9 +593,11 @@
       &.open {
         >a{
           &:after {
-            transform: translateY(-50%) rotate(90deg);
+            transform: rotate(90deg);
             color: $white;
             font-size: 9px;
+            top: 11px;
+            right: -1px;
           }
         }
       }

@@ -29,8 +29,7 @@
                             <ul class="submenu">
                                 <li><a href="">Pay and incentives</a></li>
                                 <li><a href="">Organization and hierarchies</a></li>
-                                <li><a href="">Human resource management</a></li>
-                                <li><a href="">practices</a></li>
+                                <li><a href="">Human resource management practices</a></li>
                                 <li><a href="">All articles</a></li>
                             </ul>
                         </div>
