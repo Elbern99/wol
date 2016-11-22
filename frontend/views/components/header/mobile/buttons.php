@@ -5,7 +5,7 @@
         </div>
         <div class="mobile-login drop-content">
             <div class="btn-mobile-icon btn-mobile-login-close"><span class="icon-cross dark"></span></div>
-            <?php $this->beginContent('@app/views/components/header/header-login-registration.php'); ?><?php $this->endContent();?>
+            <?= $this->renderFile('@app/views/components/header/login-registration.php'); ?>
         </div>
     </div>
     <div class="dropdown">
@@ -14,7 +14,7 @@
         </div>
         <div class="mobile-search drop-content">
             <div class="btn-mobile-icon btn-mobile-search-close"><span class="icon-cross dark"></span></div>
-            <?php $this->beginContent('@app/views/components/header/search-mobile.php'); ?><?php $this->endContent();?>
+            <?= $this->renderFile('@app/views/components/header/mobile/search.php'); ?>
         </div>
     </div>
     <div class="dropdown">
@@ -23,7 +23,7 @@
         </div>
         <div class="mobile-menu drop-content">
             <div class="mobile-menu-section">
-                <?php $this->beginContent('@app/views/components/header/header-menu-bottom.php'); ?><?php $this->endContent();?>
+                <?= $this->renderFile('@app/views/components/header/menu/main.php'); ?>
             </div>
 
             <div class="mobile-menu-section">
@@ -36,8 +36,9 @@
             </div>
 
             <div class="mobile-menu-section">
-                <?php $this->beginContent('@app/views/components/header/header-menu-top.php'); ?><?php $this->endContent();?>
+                <?= $this->renderFile('@app/views/components/header/menu/top.php'); ?>
             </div>
         </div>
     </div>
 </div>
+

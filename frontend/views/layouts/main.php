@@ -34,13 +34,11 @@ AppAsset::register($this);
     
     <main class="content">
         
-        <div class="header-render"></div>
+        <?= $this->renderFile('@app/views/components/header/desktop/header.php'); ?>
+        <?= $this->renderFile('@app/views/components/header/mobile/header.php'); ?>
         
-        <?= $this->renderFile('@app/views/components/header/header-desktop.php'); ?>
-        <?= $this->renderFile('@app/views/components/header/header-mobile.php'); ?>
-        <div class="container">
-            <?= $content ?>
-        </div>
+        <?= $content ?>
+        
         <?php $this->beginContent('@app/views/components/widgets.php'); ?><?php $this->endContent();?>
 
     </main>
@@ -48,7 +46,7 @@ AppAsset::register($this);
   <footer class="footer">
       <div class="container">
             <div class="container-top">
-                <?php $this->beginContent('@app/views/components/footer/footer.php'); ?><?php $this->endContent();?>
+                <?= $this->renderFile('@app/views/components/footer/footer.php'); ?>
             </div>
             <p class="copyright">
               Copyright &copy; IZA <?= date('Y') ?> <a href="#" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571

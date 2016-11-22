@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -8,25 +9,23 @@ use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use frontend\models\CmsPagesRepository as Page;
 
 /**
  * Cms Page controller
  */
-class PageController extends Controller
-{
+class HtmlController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article'],
                         'allow' => true,
                     ]
                 ],
@@ -42,8 +41,7 @@ class PageController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -55,21 +53,32 @@ class PageController extends Controller
         ];
     }
 
-    /**
-     * Displays Page.
-     *
-     * @return mixed
-     */
-    public function actionIndex($id)
-    {
-        try {
-            
-            $page = Page::getPageById($id);
-            return $this->render($page->Cms('key'), ['page' => $page]);
-            
-        } catch(\Exception $e) {
-            throw new NotFoundHttpException('Page Not Found.');
-        }
+    public function actionContact() {
+        return $this->render('contact');
     }
-    
+
+    public function actionFaq() {
+        return $this->render('faq');
+    }
+
+    public function actionEditorialBoard() {
+        return $this->render('editorial-board');
+    }
+
+    public function actionContributorProfile() {
+        return $this->render('contributor-profile');
+    }
+
+    public function actionForContributor() {
+        return $this->render('for-contributor');
+    }
+
+    public function actionAbout() {
+        return $this->render('about');
+    }
+
+    public function actionNewsArticle() {
+        return $this->render('news-article');
+    }
+
 }
