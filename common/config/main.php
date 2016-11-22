@@ -5,6 +5,12 @@ return [
         'treemanager' => [
             'class' => '\common\modules\category\Module'
         ],
+        'menu_module' => [
+            'class' => '\common\modules\menu\Module',
+            'components' => [
+                'menu_manager' => '\common\modules\menu\Manager'
+            ]
+        ],
         'eav_module' => [
             'class' => '\common\modules\eav\Module',
             'components' => [

@@ -16,11 +16,12 @@ use common\contracts\TypeInterface;
  */
 class MenuLinks extends \yii\db\ActiveRecord
 {
+    const TOP_LINK = 1;
+    const BOTTOM_LINK = 3;
     
     private $params = [
-        1 => 'Top Menu',
-        2 => 'Middle Menu',
-        3 => 'Bottom Menu'
+        self::TOP_LINK => 'Top Menu',
+        self::BOTTOM_LINK => 'Bottom Menu'
     ];
     
     private $type = null;
@@ -73,11 +74,4 @@ class MenuLinks extends \yii\db\ActiveRecord
         ];
     }
     
-    /*
-     * Get item query 
-     * @return object
-     */
-    public static function getVisibleItemsQuery($type) {
-        return self::find()->where(['enabled' => 1, 'type' => $type])->orderBy(['order'=>SORT_ASC]);
-    }
 }
