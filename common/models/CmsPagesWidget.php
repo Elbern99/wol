@@ -64,4 +64,14 @@ class CmsPagesWidget extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Widget::className(), ['id' => 'widget_id']);
     }
+    
+    public function getPageWidgets($id) {
+        return $this->find()
+                    ->alias('wp')
+                    ->where(['wp.page_id'=>$id])
+                    ->innerJoin(['widget' => Widget::tableName()], 'wp.widget_id = widget.id')
+                    ->select(['widget.text', 'widget.name'])
+                    ->asArray()
+                    ->all();
+    }
 }

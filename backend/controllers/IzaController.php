@@ -11,11 +11,11 @@ use yii\data\ActiveDataProvider;
 use backend\models\ArticleSearch;
 use backend\models\AuthorSearch;
 use yii\helpers\Url;
+use common\modules\eav\Collection;
 
 /*
  * Article Author Class Controller
  */
-
 class IzaController extends Controller {
 
     public function behaviors() {
@@ -24,7 +24,7 @@ class IzaController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['articles', 'authors'],
+                        'actions' => ['articles', 'authors', 'author-view', 'article-view'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -85,6 +85,24 @@ class IzaController extends Controller {
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    public function actionAuthorView($id) {
+        
+        $author = AuthorSearch::findOne($id);
+        $collection = Yii::createObject(Collection::class);
+        $collection->initCollection('author', $author);
+        
+        return $this->render('collection', ['collection' => $collection, 'backLink' => Url::to('authors')]);
+    }
+    
+    public function actionArticleView($id) {
+        
+        $author = ArticleSearch::findOne($id);
+        $collection = Yii::createObject(Collection::class);
+        $collection->initCollection('article', $author);
+        
+        return $this->render('collection', ['collection' => $collection, 'backLink' => Url::to('articles')]);
     }
 
 }

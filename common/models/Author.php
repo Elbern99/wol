@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use common\modules\author\contracts\AuthorInterface;
+use common\modules\eav\contracts\EntityModelInterface;
 
 /**
  * This is the model class for table "author".
@@ -17,7 +19,7 @@ use Yii;
  *
  * @property ArticleAuthor[] $articleAuthors
  */
-class Author extends \yii\db\ActiveRecord
+class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityModelInterface
 {
     /**
      * @inheritdoc
@@ -25,6 +27,18 @@ class Author extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'author';
+    }
+    
+    public static function getBaseFolder() {
+        return 'authors';
+    }
+
+    public function getFrontendImagesBasePath() {
+        return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
+    }
+
+    public function getBackendImagesBasePath() {
+        return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
     }
 
     /**
@@ -56,6 +70,10 @@ class Author extends \yii\db\ActiveRecord
             'avatar' => Yii::t('app', 'Avatar'),
         ];
     }
+    
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -63,5 +81,17 @@ class Author extends \yii\db\ActiveRecord
     public function getArticleAuthors()
     {
         return $this->hasMany(ArticleAuthor::className(), ['author_id' => 'id']);
+    }
+    
+    public function addNewAuthor($args) {
+        
+        $obj = Yii::createObject(self::class);
+        $obj->load($args, '');
+
+        if ($obj->save()) {
+            return $obj;
+        }
+
+        return false;
     }
 }

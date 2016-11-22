@@ -6,6 +6,9 @@ use yii\web\UploadedFile;
 use Yii;
 use backend\modules\parser\contracts\UploadInterface;
 
+/*
+ * class for upload and parse archive
+ */
 class AdminInterfaceUpload extends Model implements UploadInterface {
     
     use \common\helpers\FileUploadTrait;
@@ -18,11 +21,15 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
     ];
     
     const ARTICLE_TYPE = 1;
+    const AUTHOR_TYPE = 2;
+    const TAXONOMY_TYPE = 3;
     
     public function getActionType() {
         
         return [
-            self::ARTICLE_TYPE => Yii::t('app','Upload Article')
+            self::ARTICLE_TYPE => Yii::t('app','Article'),
+            self::AUTHOR_TYPE => Yii::t('app','Author'),
+            self::TAXONOMY_TYPE => Yii::t('app','Taxonomy'),
         ];
     }
     
@@ -40,6 +47,12 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             
             case self::ARTICLE_TYPE:
                 return '\common\modules\article\ArticleParser';
+            break;
+            case self::AUTHOR_TYPE:
+                return '\common\modules\author\AuthorParser';
+            break;
+            case self::TAXONOMY_TYPE:
+                return '\backend\modules\taxonomy\TaxonomyParser';
             break;
             default:
                 throw new \Exception('Class Not Found');
@@ -68,6 +81,12 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             
             case self::ARTICLE_TYPE:
                 $cat = '/articles';
+            break;
+            case self::AUTHOR_TYPE:
+                $cat = '/authors';
+            break;
+            case self::TAXONOMY_TYPE:
+                $cat = '/taxonomies';
             break;
             default:
                 $cat = '';

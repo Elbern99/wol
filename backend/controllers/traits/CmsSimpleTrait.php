@@ -5,24 +5,34 @@ namespace backend\controllers\traits;
 use Yii;
 use common\models\CmsPagesSimple;
 
+/*
+ * Extension for cms page simple type
+ */
 trait CmsSimpleTrait {
     
+    /*
+     * actions for simple type
+     * @property integer $page_id 
+     * @return html
+     */
     public function actionSimple($page_id) {
         
         if (Yii::$app->request->isPost) {
             
             $postData = Yii::$app->request->post();
-            
+
             if ($postData['CmsPagesSimple']['id']) {
                 $model = CmsPagesSimple::find()->where(['page_id' => $page_id])->one();
+                $postData['CmsPagesSimple']['backgroud'] = $model->backgroud;
             } else {
                 $model = new CmsPagesSimple();
             }
             
+            $model->load($postData);
             $model->initUploadProperty();
-            
-            if ($model->load($postData, '') && $model->validate()) {
-                
+
+            if ($model->validate()) {
+
                 $model->upload();
 
                 if ($model->save(false)) {

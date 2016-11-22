@@ -8,33 +8,41 @@ use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityInterface;
 use common\modules\eav\contracts\EntityTypeInterface;
 use common\modules\eav\contracts\ValueInterface;
-use common\models\Lang;
+use common\contracts\TaxonomyInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use Yii;
 
-/* Existing Method */
+/* Parse Methods */
 
-//$this->addBaseTableValue();
-//$this->getTitle();
-//$this->getAddress()
-//$this->getAddressCountry()
-//$this->getCreation()
-//$this->getKeywords()
-//$this->getTeaser()
-//$this->getFindingsPositive()
-//$this->getFindingsNegative()
-//$this->getMainMessage()
-//$this->getTermGroups()
-//$this->setImages()
-//$this->setSources()
-//$this->getRelated()
-//$this->furtherReading
-//$this->keyReferences
-//$this->addReferences
+//addBaseTableValue
+//getTitle
+//getAddress
+//getAddressCountry
+//getCreation
+//getKeywords
+//getTeaser
+//getFindingsPositive
+//getFindingsNegative
+//getMainMessage
+//getTermGroups
+//setImages
+//setSources
+//getRelated
+//furtherReading
+//keyReferences
+//addReferences
+
+/*
+ * class parse article
+ */
 class ArticleParser implements ParserInterface {
 
     use traits\ArticleParseTrait;
 
+    /*
+     * property for additional object, files
+     */
     private $article = null;
     private $entity = null;
     private $type = null;
@@ -43,32 +51,51 @@ class ArticleParser implements ParserInterface {
     private $langs = [];
     private $fullPdf = '';
     private $onePagerPdf = '';
-    
+    private $taxonomy = null;
+    /*
+     * property for save parsed information
+     */
     protected $images = null;
     protected $gaImage = '';
     protected $sources = [];
     protected $furtherReading = null;
     protected $keyReferences = null;
     protected $addReferences = null;
-
-    public function __construct(ArticleInterface $article, EntityInterface $entity, EntityTypeInterface $type, ValueInterface $value
+    protected $config = null;
+    
+    public function __construct
+            (ArticleInterface $article,
+            EntityInterface $entity, 
+            EntityTypeInterface $type, 
+            ValueInterface $value,
+            TaxonomyInterface $taxonomy
     ) {
-
+        
+        $this->config = Yii::$app->params['articleModelDetail'];
         $this->article = $article;
         $this->entity = $entity;
         $this->type = $type;
         $this->value = $value;
+        $this->taxonomy = $taxonomy;
         
         $this->setLangData();
+        $this->setTaxonomyData();
     }
     
     protected function getParseImagePath($name) {
-        return $this->article->getFrontendImagesBasePath().$name;
+        
+        return $this->article->getSavePath().'/images/'.$name;
+    }
+    
+    protected function setTaxonomyData() {
+        
+        $data = $this->taxonomy->find()->select(['code', 'value'])->asArray()->all();
+        $this->taxonomy = ArrayHelper::map($data, 'code', 'value');
     }
     
     protected function setLangData() {
-        
-        $this->langs = ArrayHelper::map(Lang::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
+        $langClass = $this->config['language'];
+        $this->langs = ArrayHelper::map($langClass::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
     }
     
     public function getLangByCode($code) {
@@ -92,7 +119,7 @@ class ArticleParser implements ParserInterface {
         if ($this->fullPdf) {
             
             $obj = new \stdClass();
-            $obj->url = $this->article->getFrontendPdfsBasePath().$this->fullPdf;
+            $obj->url = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
             return serialize($obj);
         }
         
@@ -104,7 +131,7 @@ class ArticleParser implements ParserInterface {
         if ($this->onePagerPdf) {
             
             $obj = new \stdClass();
-            $obj->url = $this->article->getFrontendPdfsBasePath() . $this->onePagerPdf;
+            $obj->url = $this->article->getSavePath().'/pdfs/'. $this->onePagerPdf;
             return serialize($obj);
         }
         
@@ -182,7 +209,7 @@ class ArticleParser implements ParserInterface {
 
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
-        
+
         $this->addBaseTableValue();
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
@@ -197,7 +224,7 @@ class ArticleParser implements ParserInterface {
                 $errors[] = current($error);
             }
             
-            throw new \Exception("Article did not save \n". implode("\n", $errors));
+            throw new \Exception(Yii::t('app/messages',"Article did not save").'  \n'. implode("\n", $errors));
         }
 
         $attributes = $this->type->find()
@@ -212,9 +239,12 @@ class ArticleParser implements ParserInterface {
         if (is_null($entity)) {
             
             $this->article->delete();
-            throw new \Exception('Entity could not be created');
+            throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
-
+        
+        $this->addArticleCategory($articleId);
+        $this->addArticleAuthor($articleId);
+        
         $this->setImages();
         $this->setSources();
         $result = true;
@@ -269,6 +299,61 @@ class ArticleParser implements ParserInterface {
         
         return $result;
     }
+    
+    protected function addArticleAuthor($articleId) {
+
+        $keys = [];
+        $bulkInsertArray = [];
+        $class = $this->config['article_author'];
+        $codes = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
+
+        foreach ($codes as $code) {
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $code->asXML(), $vals);
+            xml_parser_free($p);
+            
+            $keys[] = (string) $vals[0]['attributes']['XML:ID'];
+            unset($vals);
+        }
+
+        $authors = $class::getAuthorByCode($keys);
+
+        foreach ($authors as $author) {
+
+            $bulkInsertArray[] = [
+                'article_id' => $articleId,
+                'category_id' => $author['id'],
+            ];
+        }
+
+        $class::massInsert($bulkInsertArray);
+    }
+    
+    protected function addArticleCategory($articleId) {
+        
+        $categories = [];
+        $bulkInsertArray = [];
+        $codes = $this->xml->teiHeader->profileDesc->textClass->classCode;
+        $class = $this->config['article_category'];
+        
+        foreach ($codes as $code) {
+            $categories[] = (string)$code['scheme'];
+        }
+        
+        $categories = $class::getCategoryByCode($categories);
+        
+        foreach ($categories as $category) {
+
+            $bulkInsertArray[] = [
+                            'article_id' => $articleId,
+                            'category_id' => $category['id'],
+                        ];
+        }
+        
+        $class::massInsert($bulkInsertArray);
+
+    }
 
     protected function saveArticlePdfs($pdfs) {
 
@@ -278,14 +363,14 @@ class ArticleParser implements ParserInterface {
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception('Pdf article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
             }
         }
 
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception('Pdf article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
             }
         }
 
@@ -310,14 +395,14 @@ class ArticleParser implements ParserInterface {
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception('Images article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
             }
         }
         
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception('Images article  folder could not be created');
+                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
             }
         }
         

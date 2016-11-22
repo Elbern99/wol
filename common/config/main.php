@@ -34,6 +34,7 @@ return [
                         'app/form' => 'form.php',
                         'app/text' => 'text.php',
                         'app/menu' => 'menu.php',
+                        'app/messages' => 'messages.php',
                     ],
                 ],
             ],

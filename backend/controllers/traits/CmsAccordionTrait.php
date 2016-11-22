@@ -6,8 +6,16 @@ use common\models\CmsPageSections;
 use Yii;
 use yii\web\NotFoundHttpException;
 
+/*
+ * extension for cms page accordion type
+ */
 trait CmsAccordionTrait {
     
+    /*
+     * remove tab in accordion 
+     * @property integer $id
+     * @return html
+     */
     public function actionSectionDelete($id) {
 
         try {
@@ -29,6 +37,11 @@ trait CmsAccordionTrait {
         return $this->redirect(['/cms/static-pages-view', 'id' => $pageId]);
     }
     
+    /*
+     * Edit tab
+     * @property integer $id
+     * @return html
+     */
     public function actionSectionEdit($id) {
 
         $model = CmsPageSections::findOne($id);
@@ -46,6 +59,11 @@ trait CmsAccordionTrait {
         return $this->render('static-pages/edit/section_view', ['model' => $model, 'page' => $model->page_id]);
     }
     
+    /*
+     * Add Tab
+     * @proprty integer $page_id
+     * @return html
+     */
     public function actionSectionAdd($page_id) {
 
         $model = new CmsPageSections();

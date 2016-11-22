@@ -14,7 +14,7 @@ use Yii;
  *
  * @property CmsPages $page
  */
-class CmsPagesSimple extends \yii\db\ActiveRecord
+class CmsPagesSimple extends \yii\db\ActiveRecord implements \common\contracts\CmsPageTypeInterface
 {
     use \common\helpers\FileUploadTrait;
     
@@ -75,4 +75,20 @@ class CmsPagesSimple extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CmsPages::className(), ['id' => 'page_id']);
     }
+    
+    public function getContents($id) {
+
+        $result = $this->find()
+                        ->where(['page_id' => $id])
+                        ->select(['backgroud', 'text'])
+                        ->asArray()
+                        ->one();
+
+        if (isset($result["backgroud"]) && $result["backgroud"]) {
+            $result["backgroud"] = '/uploads/cms/backgroud/'.$result["backgroud"];
+        }
+        
+        return $result;
+    }
+
 }

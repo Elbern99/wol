@@ -6,6 +6,9 @@ use common\models\CmsPagesSimple;
 use Yii;
 use yii\helpers\Url;
 
+/*
+ * class for simple type page
+ */
 class Simple implements SectionInterface {
     
     private $page;

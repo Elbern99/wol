@@ -17,7 +17,7 @@ use Yii;
  *
  * @property CmsPages $page
  */
-class CmsPageSections extends \yii\db\ActiveRecord
+class CmsPageSections extends \yii\db\ActiveRecord implements \common\contracts\CmsPageTypeInterface
 {
     /**
      * @inheritdoc
@@ -65,4 +65,15 @@ class CmsPageSections extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CmsPages::className(), ['id' => 'page_id']);
     }
+    
+    public function getContents($id) {
+
+        return $this->find()
+                ->where(['page_id' => $id])
+                ->select(['title', 'anchor', 'open', 'text'])
+                ->orderBy(['order' => SORT_ASC])
+                ->asArray()
+                ->all();
+    }
+            
 }

@@ -3,6 +3,9 @@ namespace common\modules\eav;
 
 use common\modules\eav\contracts\AttributeSchemaInterface;
 
+/*
+ * class for create attribute
+ */
 class Attribute implements AttributeSchemaInterface {
     
     private $name, $options, $params;

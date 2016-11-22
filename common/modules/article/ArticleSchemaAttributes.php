@@ -4,6 +4,9 @@ namespace common\modules\article;
 use common\modules\eav\contracts\AttributeInterface;
 use common\modules\eav\Attribute;
 
+/*
+ * class for generate all article attribute 
+ */
 class ArticleSchemaAttributes {
     
     private $attributes;
@@ -140,7 +143,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'related', 
-                array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
+                array_combine($attributeSchema, ['related', 'Related', 0, 0, 1]), 
                 [['label' => 'Article Id', 'type' => 'Int']]
         );
         

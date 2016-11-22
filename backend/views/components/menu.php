@@ -42,7 +42,7 @@ if (Yii::$app->user->isGuest) {
         'items' => [
             ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']],
             ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']],
-            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
+           // ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
         ],
     ];
     

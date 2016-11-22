@@ -6,6 +6,9 @@ use ZipArchive;
 use yii\helpers\FileHelper;
 use Yii;
 
+/*
+ * class parse archive and save file in temporary folder
+ */
 class Reader implements ReaderInterface {
     
     private $images = [];
@@ -13,6 +16,11 @@ class Reader implements ReaderInterface {
     private $pdf = [];
     private $temporaryFolder;
     
+    /*
+     * read archive and save file
+     * @property string $file
+     * @return object
+     */
     public function read($file) {
 
         if (file_exists($file)) {
@@ -67,6 +75,10 @@ class Reader implements ReaderInterface {
         return $this->xml;
     }
     
+    /*
+     * remove temporary folder
+     * @return boolean
+     */
     public function removeTemporaryFolder() {
         
         $path = $this->temporaryFolder;
