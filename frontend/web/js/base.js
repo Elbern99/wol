@@ -112,7 +112,8 @@ $.getScript("./js/plugins/owl.carousel.min.js");
             var sliderOption = {
                 loop: false,
                 autoWidth: true,
-                nav : true,
+                nav:true,
+                navRewind:true,
                 navigationText : ["prev","next"],
                 responsiveRefreshRate : 0,
                 responsiveBaseWidth: window,
@@ -120,6 +121,7 @@ $.getScript("./js/plugins/owl.carousel.min.js");
                 onRefreshed: menuMobileSlider.arrowOption,
                 pagination: false,
                 responsiveClass:true,
+                mouseDrag: false,
                 responsive:{
                     0:{
                         items:4
@@ -134,12 +136,6 @@ $.getScript("./js/plugins/owl.carousel.min.js");
             }
 
             if(_window_width < _mobile) {
-
-            }
-
-            if(_window_width < _mobile) {
-                $(slider).owlCarousel(sliderOption);
-            } else {
                 $(slider).owlCarousel(sliderOption);
             }
 
@@ -147,7 +143,8 @@ $.getScript("./js/plugins/owl.carousel.min.js");
                 if(_window_width < _mobile) {
                     $(slider).owlCarousel(sliderOption);
                 } else {
-                    $(slider).owlCarousel(sliderOption);
+                    console.log('start destroy');
+                    $(slider).trigger('next.owl.carousel');
                 }
             });
         }
