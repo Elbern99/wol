@@ -20,7 +20,6 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 20px;
 
   @include breakpoint('tablet') {
-    font-size: 44px;
     font: normal 44px/1.1em $lucida-grande;
   }
 }
@@ -120,7 +119,8 @@ ol {
 .articles-list,
 .reset-style-list,
 .sidebar-news-list,
-.sidebar-accrodion-list {
+.sidebar-accrodion-list,
+.classification-list {
   list-style: none;
   padding: 0;
 

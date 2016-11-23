@@ -13,7 +13,7 @@
   vertical-align: middle;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   text-transform: uppercase;
   background: none;
   border: 1px solid transparent;
@@ -33,18 +33,75 @@
   &:active {
     box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
   }
+
+  [class*='icon-'] {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    font-size: 15px;
+    color: #313130;
+  }
 }
 
-.btn-white {
+.btn-border-blue,
+[class^="btn-border-blue-"],
+[class*=" btn-border-blue-"]{
   border-color: #0053a0;
   color: $blue;
-  line-height: 30px;
+  line-height: 12px;
   height: 30px;
 
-  &:hover {
-    background: $light-blue;
-    color: #fff;
+  [class*='icon-'] {
+    color: $blue;
+
+    &.icon-quote {
+      font-size: 13px;
+      margin: -2px 15px 0 5px;
+    }
+
+    &.icon-download {
+      font-size: 15px;
+      margin: -3px 15px 0px 0;
+    }
   }
+
+  &:hover {
+    background: #0053a0;
+    color: $white;
+
+    span {
+      color: inherit;
+    }
+  }
+}
+
+.btn-border-gray,
+[class^="btn-border-gray-"],
+[class*=" btn-border-gray-"] {
+  border-color: #aaa;
+
+  &:hover {
+    background: #aaa;
+    color: $white;
+
+    span {
+      color: inherit;
+    }
+  }
+
+  &.short {
+    width: 36px;
+    [class*='icon-'] {
+      @extend .icon-to-center;
+    }
+  }
+}
+
+.btn-border-blue-middle,
+.btn-border-gray-middle {
+  height: 33px;
+  line-height: 15px;
+  font-size: 11px;
 }
 
 .btn-blue {

@@ -19,16 +19,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-user:before{content:'\0041';}
-.icon-twitter:before{content:'\0042';}
+.icon-print:before{content:'\0041';}
+.icon-quote:before{content:'\0042';}
 .icon-search:before{content:'\0043';}
-.icon-print:before{content:'\0044';}
-.icon-message:before{content:'\0045';}
-.icon-linkedn:before{content:'\0046';}
-.icon-link:before{content:'\0047';}
-.icon-google:before{content:'\0048';}
-.icon-facebook:before{content:'\0049';}
-.icon-arrow:before{content:'\004a';}
+.icon-twitter:before{content:'\0044';}
+.icon-user:before{content:'\0045';}
+.icon-arrow:before{content:'\0046';}
+.icon-heart:before{content:'\0047';}
+.icon-facebook:before{content:'\0048';}
+.icon-google:before{content:'\0049';}
+.icon-download:before{content:'\004a';}
+.icon-link:before{content:'\004b';}
+.icon-linkedn:before{content:'\004c';}
+.icon-message:before{content:'\004d';}
 
 .icon-burger {
   position: relative;
@@ -109,5 +112,19 @@
 
   &:after {
     transform: rotate(-45deg);
+  }
+}
+
+.icon-circle-arrow {
+  width: 17px;
+  height: 17px;
+  background: #0053a0;
+  font-size: 7px;
+  color: #fff;
+  border-radius: 50%;
+  position: relative;
+
+  .icon-arrow {
+    @extend .icon-to-center;
   }
 }

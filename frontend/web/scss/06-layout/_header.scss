@@ -250,7 +250,7 @@
   }
 
   input[type="search"],
-  .btn-white {
+  .btn-border-blue {
     height: 31px;
     line-height: 20px;
     padding: 6px 13px 7px;
@@ -273,7 +273,7 @@
 
   .search-holder { overflow: hidden; }
 
-  .btn-white {
+  .btn-border-blue {
     margin-left: 8px;
     float: right;
   }
@@ -575,7 +575,7 @@
             position: absolute;
             top: 13px;
             right: -2px;
-            content: '\004a';
+            content: '\0046';
             @extend .icon-styles;
             font-size: 10px;
             transform: rotate(180deg);
