@@ -258,14 +258,26 @@
   }
 }
 
-.owl-stage-outer {
-  overflow: hidden;
+.owl-wrapper-outer {
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    overflow: hidden;
+  }
 }
 
 .owl-stage {
   white-space: nowrap;
+
+  @include breakpoint('tablet') {
+    width: auto !important;
+  }
 }
 
 .owl-item {
   display: inline-block;
+
+  @include breakpoint('tablet') {
+    width: auto !important;
+  }
+
 }
