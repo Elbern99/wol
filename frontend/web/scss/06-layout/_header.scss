@@ -81,8 +81,8 @@
 
     .header-menu-bottom-list {
 
-      li {
-        ul {
+      .item {
+        .submenu {
           margin: 0 0 5px;
           font-size: 11px;
         }
@@ -95,7 +95,7 @@
       padding: 0;
       white-space: nowrap;
 
-      li {
+      .item {
         display: inline-block;
 
         a {
@@ -120,16 +120,16 @@
   }
 
   @include breakpoint('tablet') {
-    li {
+    .item {
       font-size: 14px;
       margin: 0 18px;
     }
 
   }
 
-  > li { display: inline-block; }
+  > .item { display: inline-block; }
 
-  >li {
+  >.item {
     >a {
       display: block;
       padding: 5px 0;
@@ -143,7 +143,7 @@
     }
   }
 
-  >li {
+  >.item {
     >.submenu-holder {
       @extend .dropdown-widget;
       margin-top: 27px;
@@ -182,7 +182,7 @@
     &:hover { color: $blue; }
   }
 
-  ul {
+  .submenu {
 
     @include breakpoint_custom($breakpoint-tablet) {
       padding-bottom: 0;
@@ -197,7 +197,7 @@
         line-height: 20px;
       }
 
-      ul { padding-left: 14px; }
+      .submenu { padding-left: 14px; }
 
       &:last-child { margin-bottom: 0; }
     }
@@ -273,7 +273,7 @@
 
   .search-holder { overflow: hidden; }
 
-  .btn-border-blue {
+  .btn-white {
     margin-left: 8px;
     float: right;
   }
@@ -565,7 +565,7 @@
 
   .header-menu-bottom-list {
 
-    li {
+    .item {
 
       &.has-submenu {
         >a {
