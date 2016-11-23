@@ -1,3 +1,5 @@
+$.getScript("./js/plugins/owl.carousel.min.js");
+
 (function($) {
 
     //GLOBAL VARIABLE ---------
@@ -111,6 +113,48 @@
     }
     /* dropDownMenu end */
 
+    /* menuSlider */
+    menuSlider = {
+        arrowOption: function() {
+            if($('.owl-stage .owl-item').last().hasClass('active')){
+                //$('.owl-prev').fadeIn();
+                console.log('prev');
+            } else {
+                //$('.owl-next').fadeIn();
+                console.log('next');
+            }
+        },
+        init: function(slider) {
+            $(slider).owlCarousel({
+                loop: false,
+                autoWidth: true,
+                navigation : false,
+                navigationText : ["prev","next"],
+                rewindNav : true,
+                scrollPerPage : false,
+                items: 5,
+                responsiveRefreshRate : 200,
+                responsiveBaseWidth: window,
+                onInitialized: menuSlider.arrowOption,
+                onRefreshed: menuSlider.arrowOption,
+                pagination: false,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:4
+                    },
+                    375:{
+                        items:5
+                    },
+                    600:{
+                        items:8
+                    }
+                }
+            });
+        }
+    }
+    /* menuSlider end */
+
     /* moreSidebarNews */
     function moreSidebarNews(btnMore,parent) {
         $(parent).next(btnMore).on('click',function(e) {
@@ -160,7 +204,6 @@
                 } else {
                     dropWidget.removeClass('open');
                     cur.removeClass('active');
-                    console.log(2);
                 }
                 e.preventDefault();
             });
@@ -204,18 +247,12 @@
     /* tabs end */
 
     $(document).ready(function() {
-
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
-
         faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
-
         menu.toggleItem($('.mobile-menu .has-submenu >a'), '.submenu-holder',$('.mobile-menu .header-menu-bottom-list'));
         dropDownMenu.toggleMenu($('.header-desktop .has-submenu >a'),$('.header-desktop .submenu-holder'));
-
         moreSidebarNews('.more-link','.sidebar-news-list');
-
-
         //only mobile
         if(_window_width < _mobile ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
@@ -225,13 +262,12 @@
             closeDropDown($('.btn-mobile-menu-close'), $('.mobile-menu'), $('.btn-mobile-menu-show'));
             closeDropDown($('.btn-mobile-search-close'), $('.mobile-search'), $('.btn-mobile-search-show'));
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
+            menuSlider.init('.header-bottom .header-menu-bottom-list');
         }
     });
 
-    $( window ).resize(function() {
-
+    $(window).resize(function() {
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
-
         if(_window_width < _mobile ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
         }

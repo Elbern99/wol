@@ -16,23 +16,27 @@
         '02-base/_typography';
 /******* // BASE *******/
 
-/******* LAYOUT *******/
-@import '03-layout/_content',
-        '03-layout/_footer',
-        '03-layout/_header',
-        '03-layout/_sidebar';
-/******* // LAYOUT *******/
-
-/******* WIDJETS *******/
-@import '04-widgets/_map',
-        '04-widgets/_widgets';
-/******* // WIDJETS *******/
-
 /******* BLOCKS *******/
-@import '05-blocks/_blocks';
+@import '03-blocks/_blocks';
 /******* // BLOCKS *******/
 
 /******* FORMS *******/
-@import '06-forms/_form-controls',
-        '06-forms/_forms';
+@import '04-forms/_form-controls',
+'04-forms/_forms';
 /******* // FORMS *******/
+
+/******* WIDJETS *******/
+@import '05-widgets/_map',
+'05-widgets/_widgets';
+/******* // WIDJETS *******/
+
+/******* LAYOUT *******/
+@import '06-layout/_content',
+        '06-layout/_footer',
+        '06-layout/_header',
+        '06-layout/_sidebar';
+/******* // LAYOUT *******/
+
+/******* PAGES *******/
+@import '07-pages/_pages';
+/******* // PAGES *******/
