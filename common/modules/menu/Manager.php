@@ -22,10 +22,10 @@ class Manager implements MenuManagerInterface {
         
         $this->category = $category->find()->select([
                     'id', 'title','url_key',
-                    'root', 'lvl'
+                    'root', 'lvl', 'lft', 'rgt'
                 ])
                 ->where(['active' => 1, 'visible_in_menu' => 1])
-                ->andWhere(['<=', 'lvl', 1])
+                ->andWhere(['<=', 'lvl', 2])
                 ->asArray()
                 ->all(); 
     }
@@ -84,43 +84,53 @@ class Manager implements MenuManagerInterface {
         
         if (count($this->category)) {
             
-            $content .= '<div class="header-menu-bottom-list">';
-            $subMenuOpen = false;
-            $last = end($this->category);
-            
-            foreach ($this->category as $category) {
-                
-                if ($category['lvl'] == 0) {
-                    
-                    if ($subMenuOpen) {
-                        $subMenuOpen = false;
-                        $content .= '</div></div>';
+            $nodeDepth = $currDepth = $counter = 0;
+            $content = Html::beginTag('div', ['class' => 'header-menu-bottom-list']) . "\n";
+            foreach ($this->category as $node) {
+
+                $nodeDepth = $node['lvl'];
+                $nodeLeft = $node['lft'];
+                $nodeRight = $node['rgt'];
+                $nodeTitle = $node['title'];
+                $nodeUrlKey = $node['url_key'];
+
+
+                $isChild = ($nodeRight == $nodeLeft + 1);
+                $css = '';
+
+                if ($nodeDepth == $currDepth) {
+                    if ($counter > 0) {
+                        $content .= "</div>\n";
                     }
-                    
-                    $content .= '<div>';
-                    $content .= Html::a($category['title'], $category['url_key']);
-                    
-                    if ($last['id'] == $category['id']) {
-                        $content .= '</div>';
-                    }
-                    continue;
+                } elseif ($nodeDepth > $currDepth) {
+                    $content .= Html::beginTag('div') . "\n";
+                    $currDepth = $currDepth + ($nodeDepth - $currDepth);
+                } elseif ($nodeDepth < $currDepth) {
+                    $content .= str_repeat("</div>\n</div>", $currDepth - $nodeDepth) . "</div>\n";
+                    $currDepth = $currDepth - ($currDepth - $nodeDepth);
                 }
 
-                if (!$subMenuOpen) {
-                    $subMenuOpen = true;
-                    $content .= '<div class = "submenu">';
+                if ($isChild) {
+                    $css = ' item ';
                 }
                 
-                $content .= Html::tag('div', Html::a($category['title'], $category['url_key']));
-                
-                if ($last['id'] == $category['id']) {
-                    $content .= '</div></div>';
+                if (!$isChild) {
+                    $css = ' item has-drop';
                 }
+
+                $css = trim($css);
+
+                $content .= Html::beginTag('div', ['class' => $css]) . "\n" .
+                        Html::a($nodeTitle, $nodeUrlKey);
+
+                ++$counter;
             }
             
-            $content .= '</div>';
+            $content .= str_repeat("</div>\n</div>", $nodeDepth) . "</div>\n";
+            $content .= "</div>\n";
+
         }
-        
+
         return $content;
     }
 
