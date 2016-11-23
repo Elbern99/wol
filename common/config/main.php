@@ -21,7 +21,10 @@ return [
                 'atribute_type' => '\common\models\eav\EavTypeAttributes',
                 'value' => '\common\models\eav\EavValue'
             ]
-        ]
+        ],
+        'settings_module' => [
+            'class' => '\common\modules\settings\Module',
+        ],
     ],
     'components' => [
         'cache' => [

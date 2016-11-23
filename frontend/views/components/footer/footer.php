@@ -1,6 +1,6 @@
 <div class="footer-left">
     <a href="" class="logo-main">
-        <img src="../images/logo-main.svg" alt="IZA World of Labor" title="IZA World of Labor" />
+        <img src="<?= common\modules\settings\SettingsRepository::get('logo') ?>" alt="IZA World of Labor" title="IZA World of Labor" />
     </a>
 </div>
 
