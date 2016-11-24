@@ -440,7 +440,7 @@ th {
 .hidden-area {
   display: none; }
 
-.icon-to-center, .icon-circle-arrow .icon-arrow, .btn-border-gray.short [class*='icon-'],
+.icon-to-center, .icon-circle-arrow .icon-arrow, .icon-question:after, .btn-border-gray.short [class*='icon-'],
 [class^="btn-border-gray-"].short [class*='icon-'],
 [class*=" btn-border-gray-"].short [class*='icon-'], .btn-mobile-icon > span {
   position: absolute;
@@ -580,6 +580,20 @@ th {
   color: #fff;
   border-radius: 50%;
   position: relative; }
+  .icon-circle-arrow.white {
+    background: #fff;
+    color: #0053a0; }
+
+.icon-question {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #0094f2;
+  display: inline-block;
+  position: relative;
+  color: #0094f2; }
+  .icon-question:after {
+    content: '?'; }
 
 [class^="btn-"],
 [class*=" btn-"],
@@ -1776,6 +1790,8 @@ input[type=url] {
   max-width: 1230px;
   padding: 0 15px;
   margin: 0 auto; }
+  .container.main-container {
+    padding-top: 40px; }
 
 @media only screen and (min-width: 769px) {
   .content-inner {
@@ -2268,14 +2284,14 @@ iframe[name = advpp_manager] {
   .about-page p + br {
     margin-bottom: 53px !important; } }
 
-.article-full .sidebar-right {
-  margin-top: 0; }
-.article-full h2 {
+.article-full .content-inner-text h2 {
   font-size: 23px;
   margin: 0 0 11px; }
-.article-full h3 {
+.article-full .content-inner-text h3 {
   font-size: 18px;
   margin: 0 0 8px; }
+.article-full .sidebar-right {
+  margin-top: 0; }
 .article-full .article-top h1 {
   margin: 0 0 14px; }
 .article-full .article-top h3 {
@@ -2379,14 +2395,14 @@ iframe[name = advpp_manager] {
     line-height: 1.3em;
     font-family: "LucidaGrande", Helvetica, Arial, Sans-serif; }
 
-.article-bottom {
+.article-buttons {
   border-top: 1px solid #b0b0b0;
   padding: 37px 0 0; }
-  .article-bottom [class^="btn-"],
-  .article-bottom [class*=" btn-"] {
+  .article-buttons [class^="btn-"],
+  .article-buttons [class*=" btn-"] {
     margin-right: 5px; }
-    .article-bottom [class^="btn-"].cite,
-    .article-bottom [class*=" btn-"].cite {
+    .article-buttons [class^="btn-"].cite,
+    .article-buttons [class*=" btn-"].cite {
       padding: 8px 25px 0 10px; }
 
 .classification-list li {
@@ -2404,5 +2420,8 @@ iframe[name = advpp_manager] {
     right: -1px;
     padding: 20px;
     color: #fff; }
+  .sidebar-widget-evidence-map .title {
+    font-size: 20px;
+    margin: 0 0 10px; }
 
 /******* // PAGES *******/

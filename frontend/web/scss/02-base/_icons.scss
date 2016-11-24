@@ -127,4 +127,24 @@
   .icon-arrow {
     @extend .icon-to-center;
   }
+  
+  &.white {
+    background: $white;
+    color: $blue;
+  }
+}
+
+.icon-question {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid $light-blue;
+  display: inline-block;
+  position: relative;
+  color: $light-blue;
+
+  &:after {
+    content: '?';
+    @extend .icon-to-center;
+  }
 }

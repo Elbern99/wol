@@ -43,18 +43,20 @@
 //article full
 .article-full {
 
+  .content-inner-text {
+    h2 {
+      font-size: 23px;
+      margin: 0 0 11px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+    }
+  }
+
   .sidebar-right {
     margin-top: 0;
-  }
-
-  h2 {
-    font-size: 23px;
-    margin: 0 0 11px;
-  }
-
-  h3 {
-    font-size: 18px;
-    margin: 0 0 8px;
   }
 
   .article-top {
@@ -201,7 +203,7 @@
   }
 }
 
-.article-bottom {
+.article-buttons {
   border-top: 1px solid #b0b0b0;
   padding: 37px 0 0;
 
@@ -234,5 +236,10 @@
     right: -1px;
     padding: 20px;
     color: $white;
+  }
+
+  .title {
+    font-size: 20px;
+    margin: 0 0 10px;
   }
 }

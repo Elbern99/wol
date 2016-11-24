@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="article-bottom">
+                <div class="article-buttons">
                     <a href="" class="btn-border-blue-middle"><span>show one-pager</span></a>
                     <a href="" class="btn-border-blue-middle"><span class="icon-download"></span><span>download pdf</span></a>
                     <a href="" class="btn-border-blue-middle cite"><span class="icon-quote"></span><span>cite</span></a>
@@ -136,6 +136,13 @@
             </article>
         </div>
         <aside class="sidebar-right">
+            <div class="article-buttons article-buttons-sidebar">
+                <a href="" class="btn-border-blue-middle"><span>show one-pager</span></a>
+                <a href="" class="btn-border-blue-middle cite"><span class="icon-quote"></span><span>cite</span></a>
+                <a href="" class="btn-border-gray-middle short"><span class="icon-heart"></span></a>
+                <a href="" class="btn-border-gray-middle short "><span class="icon-print"></span></a>
+                <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+            </div>
 
             <div class="sidebar-widget">
                 <div class="widget-title">KeywordS</div>
@@ -162,6 +169,103 @@
                     </div>
                 </a>
             </div>
+
+            <ul class="sidebar-accrodion-list">
+                <li class="sidebar-accrodion-item is-open">
+                    <a href="" class="title">Background information</a>
+                    <div class="text">
+                        <div class="text-inner">
+                            <ul class="sidebar-news-list">
+                                <li>
+                                    <a href=""><h3>The three principal international agreements on child labor</h3></a>
+                                    <div class="icon-question"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-accrodion-item">
+                    <a href="" class="title">Related Articles</a>
+                    <div class="text">
+                        <div class="text-inner">
+                            <ul class="sidebar-news-list">
+                                <li>
+                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <a href=""><h3>Poverty persistence and poverty dynamics</h3></a>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                            </ul>
+                            <a href="" class="more-link">More</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-accrodion-item">
+                    <a href="" class="title">Further reading</a>
+                    <div class="text">
+                        <div class="text-inner">
+                            <ul class="further-reading-list">
+                                <li>
+                                    <h3>Basu and Van (1998)</h3>
+                                    <div class="icon-question"></div>
+                                </li>
+                                <li>
+                                    <h3>Edmonds (2007)</h3>
+                                    <div class="icon-question"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-accrodion-item">
+                    <a href="" class="title">Key references</a>
+                    <div class="text">
+                        <div class="text-inner">
+                            <ul class="key-references-list">
+                                <li><a href="">[1] De Hoop and Rosati (2013)</a></li>
+                                <li><a href="">[2] Cigno and Rosati (2005)</a></li>
+                                <li><a href="">[3] De Hoop and Rosati (2014)</a></li>
+                                <li><a href="">[4] Gertler et al. (2012)</a></li>
+                                <li><a href="">[5] Ravallion and Chen (2005)</a></li>
+                                <li><a href="">[6] Sadoulet et al. (2001)</a></li>
+                                <li><a href="">[7] Covarrubias et al. (2012)</a></li>
+                                <li><a href="">[8] Augsburg et al. (2012)</a></li>
+                                <li><a href="">[9] Nelson (2011)</a></li>
+                                <li><a href="">[10] Islam and Choe (2013)</a></li>
+                                <li><a href="">[11] Schady and Araujo (2006)</a></li>
+                                <li><a href="">[12] Edmonds and Schady (2012)</a></li>
+                                <li><a href="">[13] Benhassine et al. (2013)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-accrodion-item">
+                    <a href="" class="title">Additional References</a>
+                    <div class="text">
+                        <div class="text-inner">
+                            <ul class="additional-references-list">
+                                <li><a href="">[1] De Hoop and Rosati (2013)</a></li>
+                                <li><a href="">[2] Cigno and Rosati (2005)</a></li>
+                                <li><a href="">[3] De Hoop and Rosati (2014)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
             
             <div class="sidebar-widget">
                 <div class="widget-title">follow iza world of labor</div>
