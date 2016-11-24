@@ -48,7 +48,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     }
     
     public function getSavePath() {
-        return '/web/uploads/'. self::getBaseFolder() .'/'.$this->id;
+        return '/uploads/'. self::getBaseFolder() .'/'.$this->id;
     }
     
     public function getFrontendImagesBasePath() {
