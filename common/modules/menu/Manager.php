@@ -85,7 +85,7 @@ class Manager implements MenuManagerInterface {
         if (count($this->category)) {
             
             $nodeDepth = $currDepth = $counter = 0;
-            $content = Html::beginTag('div', ['class' => 'header-menu-bottom-list']) . "\n";
+            $content = Html::beginTag('ul', ['class' => 'header-menu-bottom-list']);
             foreach ($this->category as $node) {
 
                 $nodeDepth = $node['lvl'];
@@ -100,13 +100,13 @@ class Manager implements MenuManagerInterface {
 
                 if ($nodeDepth == $currDepth) {
                     if ($counter > 0) {
-                        $content .= "</div>\n";
+                        $content .= "</li>";
                     }
                 } elseif ($nodeDepth > $currDepth) {
-                    $content .= Html::beginTag('div') . "\n";
+                    $content .= Html::beginTag('ul');
                     $currDepth = $currDepth + ($nodeDepth - $currDepth);
                 } elseif ($nodeDepth < $currDepth) {
-                    $content .= str_repeat("</div>\n</div>", $currDepth - $nodeDepth) . "</div>\n";
+                    $content .= str_repeat("</li></ul>", $currDepth - $nodeDepth) . "</li>";
                     $currDepth = $currDepth - ($currDepth - $nodeDepth);
                 }
 
@@ -120,14 +120,14 @@ class Manager implements MenuManagerInterface {
 
                 $css = trim($css);
 
-                $content .= Html::beginTag('div', ['class' => $css]) . "\n" .
-                        Html::a($nodeTitle, $nodeUrlKey);
+                $content .= Html::beginTag('li', ['class' => $css]).
+                        Html::a($nodeTitle, $nodeUrlKey). '</li>';
 
                 ++$counter;
             }
             
-            $content .= str_repeat("</div>\n</div>", $nodeDepth) . "</div>\n";
-            $content .= "</div>\n";
+            $content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
+            $content .= "</ul>";
 
         }
 
