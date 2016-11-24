@@ -27,7 +27,7 @@ class Manager implements MenuManagerInterface {
                 ->where(['active' => 1, 'visible_in_menu' => 1])
                 ->andWhere(['<=', 'lvl', 2])
                 ->asArray()
-                ->all(); 
+                ->all();
     }
     
     private function setGroupLinks($links) {
