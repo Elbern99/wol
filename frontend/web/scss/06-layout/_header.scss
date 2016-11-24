@@ -39,14 +39,14 @@
     font-size: 10px;
     margin: 0 23px 0 0;
   }
-  
+
   a {
     color: $dark-blue-black;
     text-decoration: none;
     display: block;
     padding: 9px 0;
     border-bottom: 1px solid transparent;
-    
+
     &.subscribe-link,
     &:hover {
       color: $blue;
@@ -148,7 +148,9 @@
         }
       }
 
-      .submenu { display: none; }
+      .submenu {
+        display: none;
+      }
     }
   }
 }
@@ -447,6 +449,10 @@
 
       .submenu {
         display: none;
+
+        .submenu {
+          padding-left: 10px;
+        }
       }
     }
 

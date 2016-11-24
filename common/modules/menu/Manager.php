@@ -83,53 +83,53 @@ class Manager implements MenuManagerInterface {
         $content = '';
         
         if (count($this->category)) {
-								        
-            $nodeDepth = $currDepth = $counter = 0;
-            $content = Html::beginTag('ul', ['class' => 'header-menu-bottom-list']);
-            foreach ($this->category as $node) {
-
-                $nodeDepth = $node['lvl'];
-                $nodeLeft = $node['lft'];
-                $nodeRight = $node['rgt'];
-                $nodeTitle = $node['title'];
-                $nodeUrlKey = $node['url_key'];
-
-
-                $isChild = ($nodeRight == $nodeLeft + 1);
-                $css = '';
-
-                if ($nodeDepth == $currDepth) {
-                    if ($counter > 0) {
-                        $content .= "</li>";
-                    }
-                } elseif ($nodeDepth > $currDepth) {
-                    $content .= Html::beginTag('ul');
-                    $currDepth = $currDepth + ($nodeDepth - $currDepth);
-                } elseif ($nodeDepth < $currDepth) {
-                    $content .= str_repeat("</li></ul>", $currDepth - $nodeDepth) . "</li>";
-                    $currDepth = $currDepth - ($currDepth - $nodeDepth);
-                }
-
-                if ($isChild) {
-                    $css = ' item ';
-                }
-                
-                if (!$isChild) {
-                    $css = ' item has-drop';
-                }
-
-                $css = trim($css);
-								            
-                $content .= Html::beginTag('li', ['class' => $css]).
-                        Html::a($nodeTitle, $nodeUrlKey). '</li>';
-                ++$counter;
-            }
-								        
-            $content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
-            $content .= "</ul>";
-
+								
+								        $nodeDepth = $currDepth = $counter = 0;
+								        $content = Html::beginTag('div', ['class' => 'header-menu-bottom-list']);
+								        foreach ($this->category as $node) {
+																
+																        $nodeDepth = $node['lvl'];
+																        $nodeLeft = $node['lft'];
+																        $nodeRight = $node['rgt'];
+																        $nodeTitle = $node['title'];
+																        $nodeUrlKey = $node['url_key'];
+																
+																
+																        $isChild = ($nodeRight == $nodeLeft + 1);
+																        $css = '';
+																
+																        if ($nodeDepth == $currDepth) {
+																								        if ($counter > 0) {
+																																        $content .= "</div>";
+																								        }
+																        } elseif ($nodeDepth > $currDepth) {
+																								        $content .= Html::beginTag('div',['class' => 'submenu']);
+																								        $currDepth = $currDepth + ($nodeDepth - $currDepth);
+																        } elseif ($nodeDepth < $currDepth) {
+																								        $content .= str_repeat("</div></div>", $currDepth - $nodeDepth) . "</div>";
+																								        $currDepth = $currDepth - ($currDepth - $nodeDepth);
+																        }
+																
+																        if ($isChild) {
+																								        $css = ' item ';
+																        }
+																
+																        if (!$isChild) {
+																								        $css = ' item has-drop';
+																        }
+																
+																        $css = trim($css);
+																
+																        $content .= Html::beginTag('div', ['class' => $css]) .
+																				        Html::a($nodeTitle, $nodeUrlKey);
+																        ++$counter;
+								        }
+								
+								        $content .= str_repeat("</div></ul>", $nodeDepth) . "</div>";
+								        $content .= "</div>";
+								
         }
-
+        
         return $content;
     }
 

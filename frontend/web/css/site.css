@@ -2185,6 +2185,8 @@ iframe[name = advpp_manager] {
       text-transform: none; }
     .mobile-menu .header-menu-bottom-list .submenu {
       display: none; }
+      .mobile-menu .header-menu-bottom-list .submenu .submenu {
+        padding-left: 10px; }
     .mobile-menu .item,
     .mobile-menu .btn-light-blue,
     .mobile-menu a {

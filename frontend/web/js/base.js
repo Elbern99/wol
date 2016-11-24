@@ -46,15 +46,15 @@ $.getScript("./js/plugins/owl.carousel.min.js");
         toggleItem: function(btn,content,parent) {
             parent.find('.'+menuMobile.classes).find(content).slideDown(0);
 
-            console.log(btn);
 
             btn.click(function(e) {
                 var cur = $(this);
-
                 if(cur.parent().hasClass(menuMobile.classes)){
                     menuMobile.closeItem(cur);
                 } else {
-                    cur.parent().siblings().removeClass(menuMobile.classes).find(content).slideUp(menu.delay);
+                    cur.parent().siblings().removeClass(menuMobile.classes)
+                        .find(content).slideUp(menu.delay)
+                        .find('.item').removeClass('open');
                     menuMobile.openItem(cur);
                 }
                 e.preventDefault();
