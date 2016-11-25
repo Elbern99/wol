@@ -116,19 +116,24 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return $this->hasMany(ArticleCategory::className(), ['article_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticleRelations()
+    public function getRelatedArticles(array $articles)
     {
-        return $this->hasMany(ArticleRelation::className(), ['article_id' => 'id']);
+        $ids = [];
+        $related = [];
+        
+        foreach ($articles as $article) {
+            $ids[] = $article->id;
+        }
+        
+        if (!empty($ids)) {
+            $related = $this->find()->where(['id' => $ids, 'enabled' => 1])->select(['seo', 'availability'])->asArray()->all();
+            unset($ids);
+        }
+        
+        return $related;
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticleRelations0()
-    {
-        return $this->hasMany(ArticleRelation::className(), ['article_relation_id' => 'id']);
+    
+    public function getRelatedCategories() {
+        
     }
 }

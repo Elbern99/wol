@@ -22,7 +22,11 @@ class Value {
         $this->data = unserialize($values);
     }
     
-    public function getData() {
+    public function getData($key = null) {
+        
+        if (!is_null($key)) {
+            return $this->data->$key;
+        }
         
         return $this->data;
     }

@@ -98,9 +98,9 @@ class IzaController extends Controller {
     
     public function actionArticleView($id) {
         
-        $author = ArticleSearch::findOne($id);
+        $article = ArticleSearch::findOne($id);
         $collection = Yii::createObject(Collection::class);
-        $collection->initCollection('article', $author);
+        $collection->initCollection('article', $article);
         
         return $this->render('collection', ['collection' => $collection, 'backLink' => Url::to('articles')]);
     }

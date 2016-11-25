@@ -28,6 +28,11 @@ class Collection {
         return $this->entityCollection;
     }
     
+    public function getAttributes() {
+        return $this->attributeCollection;
+    }
+
+
     public function initCollection($type, EntityModelInterface $model, $lang = 'all') {
 
         $attributes = $this->type->find()

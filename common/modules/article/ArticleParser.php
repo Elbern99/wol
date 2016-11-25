@@ -323,7 +323,7 @@ class ArticleParser implements ParserInterface {
 
             $bulkInsertArray[] = [
                 'article_id' => $articleId,
-                'category_id' => $author['id'],
+                'author_id' => $author['id'],
             ];
         }
 
