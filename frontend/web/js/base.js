@@ -122,6 +122,9 @@ $.getScript("./js/plugins/owl.carousel.min.js");
                 pagination: false,
                 responsiveClass:true,
                 mouseDrag: false,
+                onTranslated: function(){
+
+                },
                 responsive:{
                     0:{
                         items:4
@@ -152,6 +155,18 @@ $.getScript("./js/plugins/owl.carousel.min.js");
     /* menuSlider end */
 
     //CONTENT ---------
+
+    /*article*/
+    article = {
+        addToFavourite: function(btn) {
+            btn.click(function(e) {
+                var cur = $(this);
+                cur.addClass('added');
+                e.preventDefault();
+            });
+        }
+    }
+    /*article end*/
 
     /* faqAccordion */
     faqAccordion = {
@@ -199,8 +214,6 @@ $.getScript("./js/plugins/owl.carousel.min.js");
         });
     }
     /* moreSidebarNews end */
-
-    /// -------------------------- to refactor
 
     /* dropDown */
     function dropDown(btn, dropWidget) {
@@ -251,6 +264,8 @@ $.getScript("./js/plugins/owl.carousel.min.js");
     }
     /* closeDropDown end */
 
+    /// -------------------------- to refactor
+
     /* tabs */
      function tabsFn(list, content){
 
@@ -284,7 +299,6 @@ $.getScript("./js/plugins/owl.carousel.min.js");
         //desktop
         menuDesktop.toggleMenu($('.header-desktop .has-submenu >a'),$('.header-desktop .submenu'));
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
-
         if(_window_width < _tablet ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
             dropDown($('.btn-mobile-menu-show'), $('.drop-content'));
@@ -294,7 +308,6 @@ $.getScript("./js/plugins/owl.carousel.min.js");
             closeDropDown($('.btn-mobile-search-close'), $('.mobile-search'), $('.btn-mobile-search-show'));
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
         }
-
         //CONTENT
         faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));

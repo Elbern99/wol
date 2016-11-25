@@ -1,4 +1,4 @@
-//contact-us-page
+//CONTACT-US-PAGE
 .contact-us-page {
   p + br {
     @include breakpoint('tablet') {
@@ -13,7 +13,7 @@
   }
 }
 
-//about-page
+//ABOUT-PAGE
 .about-page {
 
   p:first-child {
@@ -40,18 +40,35 @@
   }
 }
 
-//article full
+//ARTICLE FULL
 .article-full {
 
   .content-inner-text {
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      p+br {
+        margin-bottom: 36px !important;
+      }
+    }
+
     h2 {
-      font-size: 23px;
-      margin: 0 0 11px;
+      font-size: 18px;
+      margin: 0 0 7px;
+
+      @include breakpoint('tablet') {
+        font-size: 23px;
+        margin: 0 0 11px;
+      }
     }
 
     h3 {
-      font-size: 18px;
-      margin: 0 0 8px;
+      font-size: 15px;
+      margin: 0 0 15px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
     }
   }
 
@@ -61,18 +78,35 @@
 
   .article-top {
     h1 {
-      margin: 0 0 14px;
+      margin: 0 0 4px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 14px;
+      }
     }
 
     h3 {
-      font-size: 16px;
-      margin: 0 0 24px;
+      font-size: 15px;
+      margin: 0 0 14px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 24px;
+        font-size: 16px;
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        line-height: 1.4em;
+      }
     }
   }
 
   figure {
     display: block;
-    margin: 0 0 44px;
+    margin: 0 0 22px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 44px;
+    }
 
     img {
       display: block;
@@ -81,9 +115,14 @@
   }
 }
 
+//article-user
 .article-user {
   overflow: hidden;
-  margin: 0 0 39px;
+  margin: 0 0 25px;
+
+  @include breakpoint('tablet') {
+      margin: 0 0 39px;
+  }
 
   .img {
     float: left;
@@ -91,19 +130,41 @@
     height: 50px;
     overflow: hidden;
     border-radius: 50%;
-    margin: 0 22px 0 0;
+    margin: 0 21px 0 0;
+
+    @include breakpoint('tablet') {
+      margin: 0 22px 0 0;
+    }
   }
 
   .name {
-    font-size: 14px;
-    margin: 0 0 1px;
-    line-height: 1.1em;
+    font-size: 13px;
+    margin: 0 0 2px;
+
+    @include breakpoint('tablet') {
+      font-size: 14px;
+      margin: 0 0 1px;
+    }
+
+    @include breakpoint($breakpoint-tablet) {
+      line-height: 1.1em;
+    }
   }
 
   .desc {
     overflow: hidden;
-    padding: 13px 0px 0;
-    font-size: 12px;
+    padding: 2px 0px 0;
+    font-size: 11px;
+
+    @include breakpoint('tablet') {
+      overflow: hidden;
+      padding: 13px 0px 0;
+      font-size: 12px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.4em;
+    }
 
     p {
       &:last-child {
@@ -113,11 +174,33 @@
   }
 }
 
+//article-pagers
+.article-pagers-holder {
+  @extend .clearfix;
+  margin: 0 0 34px;
+
+  .language-pagers {
+    display: none;
+  }
+
+  @include breakpoint('tablet') {
+    margin: 0 0 39px;
+
+    .language-pagers {
+      float: right;
+      display: block;
+    }
+  }
+}
+
 .article-pagers {
-  width: 223px;
+  width: 240px;
   overflow: hidden;
   position: relative;
-  margin: 0 0 39px;
+
+  @include breakpoint('tablet') {
+    width: 223px;
+  }
 
   &:after {
     @extend .pinout;
@@ -126,11 +209,12 @@
     content: '';
   }
 
-  a {
+  a,
+  div {
     display: block;
-    height: 32px;
+    height: 36px;
     float: left;
-    line-height: 33px;
+    line-height: 36px;
     padding: 0 5px;
     border-radius: 4px;
     width: 50%;
@@ -138,23 +222,41 @@
     position: relative;
     z-index: 1;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 12px;
+
+    @include breakpoint('tablet') {
+      font-size: 11px;
+      line-height: 34px;
+      height: 32px;
+    }
 
     &.active {
       background: $light-blue;
       color: $white;
+      cursor: default;
     }
   }
 }
 
+//article-columns
 .article-columns {
-  display: flex;
-  margin: 26px 31px 59px -6%;
-  flex-flow: row wrap;
+  @include breakpoint_custom($breakpoint-tablet) {
+    padding: 10px 0 0 0;
 
-  >div {
-    width: 50%;
-    padding: 0 6%;
+    .column {
+      padding: 0 0 6px;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    display: flex;
+    margin: 26px 31px 59px -6%;
+    flex-flow: row wrap;
+
+    >div {
+      width: 50%;
+      padding: 0 6%;
+    }
   }
 
   h3 {
@@ -171,58 +273,127 @@
   }
 }
 
+//article-map-medium
 .article-map-medium {
-  border-top: 1px solid #979797;
-  padding: 20px 0 20px;
-  margin: 0 0 30px;
-  height: 286px;
-  position: relative;
+  display: none;
 
-  .article-map-medium-text {
-    position: absolute;
-    top: 50%;
-    left: 28px;
-    transform: translateY(-50%);
-    max-width: 230px;
-    padding: 19px 0 0;
-  }
-  
-  h4 {
-    text-transform: uppercase;
-    color: $light-blue;
-    font-size: 11px;
-    margin: 0 0 4px;
-    font-family: $lucida-grande;
-  }
+  @include breakpoint('tablet') {
+    border-top: 1px solid #979797;
+    padding: 20px 0 20px;
+    margin: 0 0 30px;
+    height: 286px;
+    position: relative;
+    display: block;
 
-  p {
-    font-size: 19px;
-    margin: 0 0 10px;
-    line-height: 1.3em;
-    font-family: $lucida-grande;
-  }
-}
+    .article-map-medium-text {
+      position: absolute;
+      top: 50%;
+      left: 28px;
+      transform: translateY(-50%);
+      max-width: 230px;
+      padding: 19px 0 0;
+    }
 
-.article-buttons {
-  border-top: 1px solid #b0b0b0;
-  padding: 37px 0 0;
+    h4 {
+      text-transform: uppercase;
+      color: $light-blue;
+      font-size: 11px;
+      margin: 0 0 4px;
+      font-family: $lucida-grande;
+    }
 
-  [class^="btn-"],
-  [class*=" btn-"] {
-    margin-right: 5px;
-
-    &.cite {
-      padding: 8px 25px 0 10px;
+    p {
+      font-size: 19px;
+      margin: 0 0 10px;
+      line-height: 1.3em;
+      font-family: $lucida-grande;
     }
   }
 }
 
-.classification-list {
-  li {
-    margin: 0 0 10px;
+//article-buttons
+.article-buttons {
+  border-top: 1px solid #b0b0b0;
+  padding: 37px 0 0;
+  position: relative;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    margin: 90px -15px 29px;
+    padding: 20px 15px 24px;
+    border-bottom: 1px solid #b0b0b0;
+  }
+
+  .extra-buttons {
+    margin-bottom: -22px;
+  }
+
+  .article-buttons-short {
+    display: inline-block;
+    margin-left: -1px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      float: right;
+
+      a {
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  [class^="btn-"],
+  [class*=" btn-"] {
+    margin: 0 5px 22px 0;
+
+    &.btn-cite {
+      padding: 8px 25px 0 10px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      &.btn-show-one-pager {
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  &.article-buttons-sidebar {
+    display: none;
+
+    @include breakpoint('tablet') {
+      border: 0;
+      padding: 0 0 20px;
+      display: block;
+
+      [class^="btn-"],
+      [class*=" btn-"] {
+        margin: 0 3px 22px 0;
+      }
+    }
   }
 }
 
+//classification-list
+.classification-list {
+  li {
+    margin: 0 0 10px;
+    line-height: 1.3em;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      font-size: 12px;
+    }
+
+    @include breakpoint('tablet') {
+      line-height: 1.5em;
+      margin: 0 0 13px;
+    }
+  }
+}
+
+//sidebar-widget-evidence-map
 .sidebar-widget-evidence-map {
   height: 250px;
   position: relative;
@@ -231,15 +402,177 @@
   .caption {
     background: $blue;
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: -1px;
     right: -1px;
-    padding: 20px;
+    padding: 18px 20px 21px;
     color: $white;
   }
 
   .title {
-    font-size: 20px;
-    margin: 0 0 10px;
+    font-size: 16px;
+    margin: 0 0 11px;
+  }
+  
+  &:hover {
+    .caption {
+      background: $light-blue;
+    }
+
+    .icon-arrow {
+      color: $light-blue;
+    }
+  }
+}
+
+//further-reading-list
+.further-reading-list {
+  padding: 10px 0 0;
+
+  h3 {
+    margin: 0 20px 0 0;
+    font-size: 12px;
+  }
+
+  li {
+    margin: 0 0 14px;
+    position: relative;
+    text-transform: capitalize;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .icon-question {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+
+    @include breakpoint('tablet') {
+      top: -2px;
+    }
+  }
+}
+
+//key-references-list
+.key-references-list {
+  padding: 15px 0 0;
+
+  li {
+    margin: 0 0 15px;
+    position: relative;
+    text-transform: capitalize;
+    font-size: 12px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 13px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+  }
+
+  .icon-question {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+
+    @include breakpoint('tablet') {
+      top: -2px;
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin: 0 20px 0 0;
+  }
+}
+
+//additional-references-list
+.additional-references-list {
+  padding: 16px 0 3px;
+
+  h3 {
+    font-size: 12px;
+    margin: 0;
+  }
+  
+  a {
+    display: inline-block;
+    margin: 0 20px 0 0;
+  }
+
+  li {
+    margin: 0 0 13px;
+    position: relative;
+    font-size: 12px;
+    text-transform: capitalize;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .icon-question {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+
+    @include breakpoint('tablet') {
+      top: -2px;
+    }
+  }
+}
+
+//btn-like
+.btn-like {
+  
+  &.added {
+    background: $light-blue;
+    border-color: $light-blue;
+
+    .icon-heart {
+      color: $white;
+
+      &:before {
+        content:'\0049';
+      }
+    }
+  }
+  
+  .btn-like-inner {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f5f5f5;
+    width: 208px;
+    padding: 15px 10px 13px;
+    margin: 0 0 16px 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    color: #262626 !important;
+    font-size: 11px;
+    z-index: 10;
+    text-align: center;
+    display: none;
+
+    &:after {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+      content: '';
+      width: 10px;
+      height: 10px;
+      box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+      background: #f5f5f5;
+      z-index: -1;
+    }
   }
 }

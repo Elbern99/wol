@@ -19,11 +19,18 @@
     <div class="content-inner">
         <div class="content-inner-text">
             <article>
-                <div class="article-pagers">
-                    <a href="">one-pager</a>
-                    <a href="" class="active">full article</a>
+                <div class="article-pagers-holder">
+                    <div class="language-pagers">
+                        <a href="" class="btn-border-gray-middle with-icon-r">
+                            <div class="lang"><img src="images/lang/germany.jpg" alt=""></div>
+                            <span class="text">in Deutsch lesen</span>
+                        </a>
+                    </div>
+                    <div class="article-pagers">
+                        <a href="">one-pager</a>
+                        <div class="active">full article</div>
+                    </div>
                 </div>
-                
                 <h2>Elevator pitch</h2>
                 <p>Cash transfers are a popular and successful means of tackling household vulnerability and promoting human capital investment. They can also reduce child labor, especially when it is a response to household vulnerability. But if not properly designed, cash transfers that promote children’s education can increase their economic activities in order to pay the additional costs of schooling. The efficacy of cash transfers may also be reduced if the transfers enable investment in productive assets that boost the returns to child labor. The impact of cash transfers must thus be assessed as part of the entire social protection system.</p>
                 <br>
@@ -126,25 +133,35 @@
                     </div>
                 </div>
                 <div class="article-buttons">
-                    <a href="" class="btn-border-blue-middle"><span>show one-pager</span></a>
-                    <a href="" class="btn-border-blue-middle"><span class="icon-download"></span><span>download pdf</span></a>
-                    <a href="" class="btn-border-blue-middle cite"><span class="icon-quote"></span><span>cite</span></a>
-                    <a href="" class="btn-border-gray-middle short"><span class="icon-heart"></span></a>
-                    <a href="" class="btn-border-gray-middle short "><span class="icon-print"></span></a>
-                    <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+                    <div class="share-buttons">
+                        
+                    </div>
+                    <div class="extra-buttons">
+                        <a href="" class="btn-border-blue-middle btn-show-one-pager"><span class="text">show one-pager</span></a>
+                        <a href="" class="btn-border-blue-middle btn-download with-icon-r"><span class="icon-download"></span><span class="text">download pdf</span></a>
+                        <a href="" class="btn-border-blue-middle btn-cite with-icon-r"><span class="icon-quote"></span><span class="text">cite</span></a>
+                        <div class="article-buttons-short">
+                            <a href="" class="btn-border-gray-middle btn-like short">
+                                <span class="icon-heart"></span>
+                                <span class="btn-like-inner">article added to favorites</span>
+                            </a>
+                            <a href="" class="btn-border-gray-middle short"><span class="icon-print"></span></a>
+                            <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+                        </div>
+                    </div>
                 </div>
             </article>
         </div>
         <aside class="sidebar-right">
             <div class="article-buttons article-buttons-sidebar">
-                <a href="" class="btn-border-blue-middle"><span>show one-pager</span></a>
-                <a href="" class="btn-border-blue-middle cite"><span class="icon-quote"></span><span>cite</span></a>
+                <a href="" class="btn-border-blue-middle btn-download with-icon"><span class="icon-download"></span><span class="text">download pdf</span></a>
+                <a href="" class="btn-border-blue-middle btn-cite"><span class="icon-quote"></span><span>cite</span></a>
                 <a href="" class="btn-border-gray-middle short"><span class="icon-heart"></span></a>
                 <a href="" class="btn-border-gray-middle short "><span class="icon-print"></span></a>
                 <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
             </div>
 
-            <div class="sidebar-widget">
+            <div class="sidebar-widget sidebar-widget-keywords">
                 <div class="widget-title">KeywordS</div>
                 <a href="">social protection</a>,<a href="">cash transfers</a>,<a href="">child labor</a>
             </div>
@@ -153,9 +170,9 @@
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
                     <li><a href="">Labor markets and institutions</a></li>
-                    <li><a href="">Transition and emerging economies > Gender issues</a></li>
-                    <li><a href="">Demography, family, and gender > Family</a></li>
-                    <li><a href="">Et harum quidem rerum facilis est et expedita distinctio > Itaque earum rerum hic tenetur a sapiente delectus</a></li>
+                    <li><a href="">Transition and emerging economies</a> > <a href="">Gender issues</a></li>
+                    <li><a href="">Demography, family, and gender </a> > <a href="">Family</a></li>
+                    <li><a href="">Et harum quidem rerum facilis est et expedita distinctio </a> > <a href=""> Itaque earum rerum hic tenetur a sapiente delectus</a></li>
                 </ul>
             </div>
 
@@ -170,117 +187,145 @@
                 </a>
             </div>
 
-            <ul class="sidebar-accrodion-list">
-                <li class="sidebar-accrodion-item is-open">
-                    <a href="" class="title">Background information</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="sidebar-news-list">
-                                <li>
-                                    <a href=""><h3>The three principal international agreements on child labor</h3></a>
-                                    <div class="icon-question"></div>
-                                </li>
-                            </ul>
+            <div class="sidebar-widget sidebar-widget-articles-references">
+                <ul class="sidebar-accrodion-list">
+                    <li class="sidebar-accrodion-item is-open">
+                        <a href="" class="title">Background information</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="sidebar-news-list">
+                                    <li>
+                                        <h3><a href="">The three principal international agreements on child labor</a></h3>
+                                        <div class="icon-question"></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Related Articles</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="sidebar-news-list">
-                                <li>
-                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
-                                    <div class="writer">Olivier Deschenes</div>
-                                </li>
-                                <li>
-                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
-                                    <div class="writer">Olivier Deschenes</div>
-                                </li>
-                                <li>
-                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
-                                    <div class="writer">Olivier Deschenes</div>
-                                </li>
-                                <li>
-                                    <a href=""><h3>Social protection programs for women in developing countries</h3></a>
-                                    <div class="writer">Olivier Deschenes</div>
-                                </li>
-                                <li>
-                                    <a href=""><h3>Poverty persistence and poverty dynamics</h3></a>
-                                    <div class="writer">Olivier Deschenes</div>
-                                </li>
-                            </ul>
-                            <a href="" class="more-link">More</a>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Related Articles</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="sidebar-news-list">
+                                    <li>
+                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                        <div class="writer">Olivier Deschenes</div>
+                                    </li>
+                                    <li>
+                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                        <div class="writer">Olivier Deschenes</div>
+                                    </li>
+                                    <li>
+                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                        <div class="writer">Olivier Deschenes</div>
+                                    </li>
+                                    <li>
+                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                        <div class="writer">Olivier Deschenes</div>
+                                    </li>
+                                    <li>
+                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                        <div class="writer">Olivier Deschenes</div>
+                                    </li>
+                                </ul>
+                                <a href="" class="more-link">More</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Further reading</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="further-reading-list">
-                                <li>
-                                    <h3>Basu and Van (1998)</h3>
-                                    <div class="icon-question"></div>
-                                </li>
-                                <li>
-                                    <h3>Edmonds (2007)</h3>
-                                    <div class="icon-question"></div>
-                                </li>
-                            </ul>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Further reading</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="further-reading-list">
+                                    <li>
+                                        <h3>Basu and Van (1998)</h3>
+                                        <div class="icon-question"></div>
+                                    </li>
+                                    <li>
+                                        <h3>Edmonds (2007)</h3>
+                                        <div class="icon-question"></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Key references</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="key-references-list">
-                                <li><a href="">[1] De Hoop and Rosati (2013)</a></li>
-                                <li><a href="">[2] Cigno and Rosati (2005)</a></li>
-                                <li><a href="">[3] De Hoop and Rosati (2014)</a></li>
-                                <li><a href="">[4] Gertler et al. (2012)</a></li>
-                                <li><a href="">[5] Ravallion and Chen (2005)</a></li>
-                                <li><a href="">[6] Sadoulet et al. (2001)</a></li>
-                                <li><a href="">[7] Covarrubias et al. (2012)</a></li>
-                                <li><a href="">[8] Augsburg et al. (2012)</a></li>
-                                <li><a href="">[9] Nelson (2011)</a></li>
-                                <li><a href="">[10] Islam and Choe (2013)</a></li>
-                                <li><a href="">[11] Schady and Araujo (2006)</a></li>
-                                <li><a href="">[12] Edmonds and Schady (2012)</a></li>
-                                <li><a href="">[13] Benhassine et al. (2013)</a></li>
-                            </ul>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Key references</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="key-references-list">
+                                    <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[4] Gertler et al. (2012)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[5] Ravallion and Chen (2005)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[6] Sadoulet et al. (2001)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[7] Covarrubias et al. (2012)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[8] Augsburg et al. (2012)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[9] Nelson (2011)</a></li>
+                                    <li><a href="">[10] Islam and Choe (2013)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[11] Schady and Araujo (2006)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[12] Edmonds and Schady (2012)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[13] Benhassine et al. (2013)</a><div class="icon-question"></div></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Additional References</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="additional-references-list">
-                                <li><a href="">[1] De Hoop and Rosati (2013)</a></li>
-                                <li><a href="">[2] Cigno and Rosati (2005)</a></li>
-                                <li><a href="">[3] De Hoop and Rosati (2014)</a></li>
-                            </ul>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Additional References</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="additional-references-list">
+                                    <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
+                                    <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
-            
-            <div class="sidebar-widget">
-                <div class="widget-title">follow iza world of labor</div>
-                <ul class="socials-list socials-vertical-list">
-                    <li><a href="" target="_blank"><span class="icon-twitter"></span><span class="text">on twitter</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-facebook"></span><span class="text">on facebook</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-google"></span><span class="text">on google+</span></a></li>
+                    </li>
                 </ul>
+                <a href="" class="btn-border-blue-middle btn-print with-icon"><span class="icon-print"></span><span class="text">print all references</span></a>
             </div>
 
-            <div class="sidebar-widget sidebar-widget-subscribe">
-                <div class="widget-title">stay up to date</div>
-                <p>Register for our newsletter to receive regular updates on what we’re doing, latest news and forthcoming articles.</p>
-                <a href="" class="btn-blue">subscribe to newsletter</a>
+            <div class="sidebar-widget sidebar-widget-version">
+                <div class="sidebar-widget-version-item">
+                    <div class="widget-title">Versions</div>
+                    <div class="number">
+                        <div class="icon-question"></div>
+                        <a href="">current version: <strong>2</strong></a>
+                    </div>
+                    <div class="date">
+                        <div class="title">date</div>
+                        September 2016
+                    </div>
+                    <div class="doi">
+                        <div class="title">DOI</div>
+                        <a href="">10.15185/izawol.293</a>
+                    </div>
+                    <div class="authors">
+                        <div class="title">authors</div>
+                        <a href="">Furio C. Rosati</a>
+                    </div>
+                    <div class="article-number">Article number: <strong>923</strong></div>
+                </div>
+                <div class="sidebar-widget-version-item">
+                    <div class="number">
+                        <a href="">current version: <strong>1</strong></a>
+                    </div>
+                    <div class="date">
+                        <div class="title">date</div>
+                        September 2016
+                    </div>
+                    <div class="doi">
+                        <div class="title">DOI</div>
+                        <a href="">10.15185/izawol.293</a>
+                    </div>
+                    <div class="authors">
+                        <div class="title">authors</div>
+                        <a href="">Furio C. Rosati</a>
+                    </div>
+                    <div class="article-number">Article number: <strong>923</strong></div>
+                </div>
             </div>
         </aside>
     </div>

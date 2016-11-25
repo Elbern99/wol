@@ -120,7 +120,8 @@ ol {
 .reset-style-list,
 .sidebar-news-list,
 .sidebar-accrodion-list,
-.classification-list {
+.classification-list,
+.authors-list {
   list-style: none;
   padding: 0;
 
@@ -183,4 +184,5 @@ strong {
 
 img {
   max-width: 100%;
+  height: auto;
 }
