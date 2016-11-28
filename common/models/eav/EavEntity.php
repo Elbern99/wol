@@ -3,6 +3,7 @@
 namespace common\models\eav;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "eav_entity".
@@ -66,6 +67,17 @@ class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\cont
     public function getEavValues()
     {
         return $this->hasMany(EavValue::className(), ['entity_id' => 'id']);
+    }
+    
+    public function getEavValueLanguage() {
+
+        $query = EavValue::find()->select(['lang_id'])
+                        ->where(['entity_id' => $this->id])
+                        ->groupBy('lang_id')
+                        ->asArray()
+                        ->all();
+        
+        return ArrayHelper::getColumn($query, 'lang_id');
     }
     
     public function addEntity(array $args) {

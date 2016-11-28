@@ -76,7 +76,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             [['id','enabled'], 'integer'],
             [['id','sort_key', 'seo', 'doi'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['sort_key', 'seo'], 'string', 'max' => 255],
+            [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
         ];
@@ -89,6 +89,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
             'sort_key' => Yii::t('app', 'Sort Key'),
             'seo' => Yii::t('app', 'Seo'),
             'doi' => Yii::t('app', 'Doi'),

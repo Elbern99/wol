@@ -656,11 +656,15 @@ trait ArticleParseTrait {
     protected function setImages() {
         
         $figures = $this->getBackElementByType('figures');
-        $iamges = $figures->children();
+        $images = $figures->children();
 
-        foreach ($iamges as $image) {
+        foreach ($images as $image) {
 
             $attributes = $image->attributes();
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $image->asXML(), $vals);
+            xml_parser_free($p);
 
             if (isset($attributes['subtype'])) {
 
@@ -670,15 +674,16 @@ trait ArticleParseTrait {
                 $obj->title = (string) $image->head;
                 $name = (string) $attr->url;
                 $obj->path = $this->getParseImagePath($name);
-
-                $this->gaImage = $obj;
+                $obj->target = (string)$image->head->ref->attributes();
+                $langId = (isset($vals[0]['attributes']['XML:LANG'])) ? $vals[0]['attributes']['XML:LANG'] : 0;
+                
+                $this->gaImage[] = [
+                    'value' => serialize($obj),
+                    'lang_id' => (string)$langId
+                ];
 
                 continue;
             } else {
-
-                $p = xml_parser_create();
-                xml_parse_into_struct($p, $image->asXML(), $vals);
-                xml_parser_free($p);
 
                 if (isset($vals[0]['attributes']['XML:ID'])) {
 
@@ -687,6 +692,7 @@ trait ArticleParseTrait {
                     $obj = new stdClass;
 
                     $obj->title = (string) $image->head;
+                    $obj->target = (string)$image->head->ref->attributes();
                     $name = (string) $attr->url;
                     $obj->path = $this->getParseImagePath($name);
 
@@ -829,7 +835,7 @@ trait ArticleParseTrait {
         return serialize($options);
     }
 
-    private function getChildren($elements) {
+    protected function getChildren($elements) {
 
         $elementsText = '';
 
@@ -840,7 +846,7 @@ trait ArticleParseTrait {
         return $elementsText;
     }
 
-    private function getChildrenData($element) {
+    protected function getChildrenData($element) {
 
         $text = '';
         
@@ -907,4 +913,26 @@ trait ArticleParseTrait {
         return $text;
     }
     
+    protected function getTextClass() {
+
+        if (isset($this->xml->teiHeader->profileDesc->textClass[1])) {
+            
+            $textClass = $this->xml->teiHeader->profileDesc->textClass[1];
+            
+            $options = [];
+
+            foreach ($textClass->classCode as $classCode) {
+
+                $obj = new stdClass;
+                $obj->code = (string)$classCode;
+                $options[] = $obj;
+                
+            }
+
+            return serialize($options);
+        }
+        
+        return null;
+    }
+
 }

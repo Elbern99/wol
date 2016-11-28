@@ -8,8 +8,13 @@ use Yii;
 
 <?php
 $attributes = $collection->getEntity()->getValues();
-//var_dump();exit;
-$this->title = $attributes['title']->getData('title');
+$currentLang = null;
+
+if ($collection->isMulti) {
+    $currentLang = 0;
+}
+var_dump($attributes['add_references']->getData(null, $currentLang));exit;
+$this->title = $attributes['title']->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = Html::encode('articles');
 
 $this->registerMetaTag([
@@ -19,7 +24,7 @@ $this->registerMetaTag([
             array_map(
                 function($item) {
                     return $item->word;
-                }, $attributes['keywords']->getData()
+                }, $attributes['keywords']->getData(null ,$currentLang)
             )
         )
     )
@@ -27,7 +32,7 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+    'content' => Html::encode($attributes['teaser']->getData('teaser', $currentLang))
 ]);
 ?>
 <div class="container article-full">
@@ -37,8 +42,8 @@ $this->registerMetaTag([
     </div>
 
     <div class="article-top">
-        <h1><?= $attributes['title']->getData('title') ?></h1>
-        <h3><?= $attributes['teaser']->getData('teaser') ?></h3>
+        <h1><?= $attributes['title']->getData('title', $currentLang) ?></h1>
+        <h3><?= $attributes['teaser']->getData('teaser', $currentLang) ?></h3>
     </div>
 
     <div class="article-user">
@@ -58,30 +63,30 @@ $this->registerMetaTag([
                 </div>
 
                 <h2>Elevator pitch</h2>
-                <p><?= $attributes['abstract']->getData('abstract') ?></p>
+                <p><?= $attributes['abstract']->getData('abstract', $currentLang) ?></p>
 
                 <figure>
-                    <img src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>" width="430" height="326">
+                    <img src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>" width="430" height="326">
                 </figure>
 
                 <h2>Key findings</h2>
                 <div class="article-columns">
                     <div class="clumn">
                         <h3>Pros</h3>
-                        <?php foreach ($attributes['findings_positive']->getData() as $finding): ?>
+                        <?php foreach ($attributes['findings_positive']->getData(null, $currentLang) as $finding): ?>
                             <p><?= $finding->item ?></p>
                         <?php endforeach; ?>
                     </div>
                     <div class="clumn">
                         <h3>Cons</h3>
-                        <?php foreach ($attributes['findings_negative']->getData() as $finding): ?>
+                        <?php foreach ($attributes['findings_negative']->getData(null, $currentLang) as $finding): ?>
                             <p><?= $finding->item ?></p>
                         <?php endforeach; ?>
                     </div>
                 </div>
 
                 <h2>Author's main message</h2>
-                <?= $attributes['main_message']->getData('text') ?>
+                <?= $attributes['main_message']->getData('text', $currentLang) ?>
             </article>
         </div>
         <aside class="sidebar-right">
@@ -99,7 +104,7 @@ $this->registerMetaTag([
                 implode(', ', array_map(
                     function($item) {
                         return Html::a($item->word);
-                    }, $attributes['keywords']->getData()
+                    }, $attributes['keywords']->getData(null, $currentLang)
                 ));
                 ?>
             </div>
@@ -129,7 +134,7 @@ $this->registerMetaTag([
                 
                 <?php if (isset($attributes['term_groups'])): ?>
                 <li class="sidebar-accrodion-item is-open">
-                    <?php $backgrounds = $attributes['term_groups']->getData(); ?>
+                    <?php $backgrounds = $attributes['term_groups']->getData(null, $currentLang); ?>
                     <a href="" class="title">Background information</a>
                     <div class="text">
                         <div class="text-inner">
@@ -149,7 +154,7 @@ $this->registerMetaTag([
                 
                 <?php if (isset($attributes['related'])): ?>
                 <li class="sidebar-accrodion-item">
-                    <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                    <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
                     <a href="" class="title">Related Articles</a>
                     <div class="text">
                         <div class="text-inner">
@@ -168,7 +173,7 @@ $this->registerMetaTag([
                 <?php endif; ?>
                 
                 <?php if (isset($attributes['further_reading'])): ?>
-                <?php $furthers = $attributes['further_reading']->getData(); ?>
+                <?php $furthers = $attributes['further_reading']->getData(null, $currentLang); ?>
                 <li class="sidebar-accrodion-item">
                     <a href="" class="title">Further reading</a>
                     <div class="text">
@@ -188,7 +193,7 @@ $this->registerMetaTag([
                 <?php endif; ?>
                 
                 <?php if (isset($attributes['key_references'])): ?>
-                <?php $references = $attributes['key_references']->getData(); ?>
+                <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                 <li class="sidebar-accrodion-item">
                     <a href="" class="title">Key references</a>
                     <div class="text">
@@ -210,7 +215,7 @@ $this->registerMetaTag([
                 <?php endif; ?>
                 
                 <?php if (isset($attributes['add_references'])): ?>
-                <?php $additionals = $attributes['add_references']->getData(); ?>
+                <?php $additionals = $attributes['add_references']->getData(null, $currentLang); ?>
                 <li class="sidebar-accrodion-item">
                     <a href="" class="title">Additional References</a>
                     <div class="text">
