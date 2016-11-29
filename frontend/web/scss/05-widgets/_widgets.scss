@@ -194,12 +194,147 @@
   }
 }
 
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+
+.jspContainer  {
+  overflow: hidden;
+  position: relative;
+}
+
+.jspPane {
+  position: absolute;
+}
+
+.jspVerticalBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 100%;
+  background: red;
+
+  .jspArrow {
+    height: 16px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.jspHorizontalBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: red;
+
+  .jspCap {
+    float: left;
+  }
+
+  .jspTrack,
+  .jspDrag {
+    float: left;
+    height: 100%;
+  }
+
+  .jspArrow {
+    width: 16px;
+    float: left;
+    height: 100%;
+  }
+}
+
+.jspCap {
+  display: none;
+}
+
+.jspTrack {
+  background: #dde;
+  position: relative;
+}
+
+.jspDrag {
+  background: #bbd;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.jspArrow {
+  background: #50506d;
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.jspArrow.jspDisabled {
+  cursor: default;
+  background: #80808d;
+}
+
+.jspCorner {
+  background: #eeeef4;
+  float: left;
+  height: 100%;
+}
 
 //owl-item
-
 .flex-direction-nav {
   @extend .reset-list;
 }
+
+@include breakpoint_custom($breakpoint-tablet) {
+  .header-bottom {
+    .header-menu-bottom-list {
+      margin: 0 -15px;
+      overflow: visible !important;
+
+      .jspPane {
+        padding: 0 15px;
+      }
+
+      .jspContainer {
+        height: 50px !important;
+      }
+
+      &.jspScrollable {
+
+        .jspHorizontalBar {
+          position: static;
+          background: none;
+        }
+
+        .jspArrow {
+          position: absolute;
+          top: 0;
+
+          &.jspArrowRight {
+            right: 0;
+          }
+
+          &.jspArrowLeft {
+            left: 0;
+          }
+        }
+        .jspTrack {
+          height: 0;
+        }
+      }
+    }
+  }
+}
+
 
 .owl-nav {
 
@@ -258,25 +393,17 @@
   }
 }
 
-.owl-wrapper-outer {
-
-  @include breakpoint_custom($breakpoint-tablet) {
-    overflow: hidden;
+//sidebar-widget-sort-by
+.sidebar-widget-sort-by {
+  label {
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    cursor: text;
+    display: block;
   }
 }
 
-.owl-stage {
-  white-space: nowrap;
-
-  @include breakpoint('tablet') {
-    width: auto !important;
-  }
-}
-
-.owl-item {
-  display: inline-block;
-
-  @include breakpoint('tablet') {
-    width: auto !important;
-  }
+.header-menu-bottom-list
+{
+  height: auto;
 }

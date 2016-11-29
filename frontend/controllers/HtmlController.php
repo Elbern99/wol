@@ -25,7 +25,7 @@ class HtmlController extends Controller {
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article', 'article'],
+                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article', 'article','articles-list'],
                         'allow' => true,
                     ]
                 ],
@@ -83,6 +83,10 @@ class HtmlController extends Controller {
 								
 				public function actionArticle() {
 								return $this->render('article');
+				}
+								
+				public function actionArticlesList() {
+								return $this->render('articles-list');
 				}
 
 }

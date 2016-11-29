@@ -145,11 +145,11 @@
   @include breakpoint('tablet') {
     width: 14px;
     height: 14px;
-  }
 
-  &:hover {
-    border-color: $blue;
-    color: $blue;
+    &:hover {
+      border-color: $blue;
+      color: $blue;
+    }
   }
 
   &:after {
@@ -160,5 +160,48 @@
     line-height: 1;
     font-size: 10px;
     padding: 1px 0 0 0;
+  }
+}
+
+.icon-close-popup {
+  cursor: pointer;
+
+  @include breakpoint('tablet') {
+    &:hover {
+      background: $blue;
+
+      &:before,
+      &:after {
+        background: $white !important;
+      }
+    }
+
+    &:active {
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    }
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    height: 1px;
+    position: absolute;
+    top: 7px;
+    left: 14px;
+    right: 14px;
+    transform: rotate(45deg);
+    margin: 12px 0 0 0;
+    background: #262626;
+
+    @include breakpoint('tablet') {
+      left: 12px;
+      right: 12px;
+      height: 2px;
+      background: #646464;
+    }
+  }
+
+  &:after {
+    transform: rotate(-45deg);
   }
 }

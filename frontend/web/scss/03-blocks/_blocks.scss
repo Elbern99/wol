@@ -80,6 +80,11 @@
 //BREADCRUMBS
 .breadcrumbs-list {
   margin: 30px 0 32px;
+  display: none;
+
+  @include breakpoint('tablet') {
+    display:  block;
+  }
 
   li {
     display: inline-block;
@@ -106,254 +111,6 @@
   a {
 
   }
-}
-
-//SIDEBAR-WIDGET
-.sidebar-widget {
-  margin: 0 0 31px;
-  font-size: 13px;
-  line-height: 1.4em;
-
-  @include breakpoint('tablet') {
-    margin: 0 0 37px;
-    font-size: 11px;
-    line-height: 1.3em;
-  }
-
-  //item
-  &.sidebar-widget-journals {
-    .img {
-      margin: 3px 30px 0px 20px;
-      max-width: 330px;
-
-      @include breakpoint('tablet') {
-        margin: 0 0 10px;
-      }
-
-      img {
-        max-width: 100%;
-      }
-    }
-  }
-
-  //item
-  &.sidebar-widget-views {
-    .name {
-      font-family: $lucida-sans-demi-bold;
-      font-size: 10px;
-      margin: 0 0 3px;
-    }
-
-    .name-description {
-      font-size: 10px;
-    }
-
-    .link-holder {
-      margin: 0 0 8px;
-      line-height: 1.55em;
-      font-size: 12px;
-
-      a {
-        color: $light-blue;
-      }
-    }
-  }
-
-  //item
-  &.sidebar-widget-subscribe {
-    margin: 0 0 50px;
-
-    .widget-title {
-      margin-bottom: 11px;
-    }
-
-    p {
-      margin: 0 0 19px;
-
-      @include breakpoint('tablet') {
-        margin: 0 0 15px;
-      }
-    }
-
-    .btn-blue {
-      padding: 13px 17px 11px;
-      font-size: 13px;
-
-      @include breakpoint('tablet') {
-        padding: 9px 12px 8px;
-        font-size: 11px;
-      }
-
-      @include breakpoint_custom($breakpoint-tablet) {
-        letter-spacing: 0.1em;
-      }
-    }
-  }
-
-  //item
-  &.sidebar-widget-journals {
-
-    .img {
-      padding: 0 16px;
-    }
-
-    .link {
-      font-size: 13px;
-    }
-  }
-
-  //item
-  &.sidebar-widget-version {
-    .widget-title {
-      font-size: 18px;
-      padding: 0 0 10px;
-      margin: 0px 0 15px;
-      text-transform: capitalize;
-    }
-  }
-
-  //item
-  &.sidebar-widget-articles-references {
-
-    .sidebar-accrodion-list {
-      .sidebar-accrodion-item {
-        margin: 0 0 27px;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 22px;
-        }
-
-        .title {
-          padding: 5px 0 6px;
-          font-size: 13px;
-
-          @include breakpoint('tablet') {
-            font-size: 12px;
-          }
-        }
-      }
-    }
-  }
-
-  //item
-  &.sidebar-widget-version {
-    .sidebar-widget-version-item {
-      font-family: $lucida-grande;
-      position: relative;
-      padding: 0 0 11px;
-      margin: 0 0 24px;
-
-      @include breakpoint_custom($breakpoint-tablet) {
-        font-size: 11px;
-        margin: 0 0 26px;
-      }
-
-      .widget-title {
-        @include breakpoint_custom($breakpoint-tablet) {
-          border: 0;
-          padding: 0;
-          font-size: 17px;
-          margin: 0 0 14px;
-        }
-      }
-
-      &:after {
-        content: '';
-        width: 100%;
-        height: 1px;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        border-bottom: 1px solid #b0b0b0;
-
-        @include breakpoint('tablet') {
-          width: 60%;
-        }
-      }
-
-      strong {
-        font-family: $lucida-grande-bold;
-      }
-
-      &:last-child {
-        &:after {
-          display: none;
-        }
-      }
-
-      .number {
-        text-transform: uppercase;
-        margin: 0 0 12px;
-        font-size: 12px;
-        position: relative;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 17px;
-        }
-
-        .icon-question {
-          position: absolute;
-          top: 0;
-          right: 0;
-
-          @include breakpoint('tablet') {
-            top: -2px;
-          }
-        }
-      }
-
-      .date {
-        margin: 0 0 16px;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 19px;
-        }
-      }
-
-      .title {
-        text-transform: uppercase;
-        margin: -1px 0 -1px;
-        font-size: 11px;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 2px;
-        }
-      }
-
-      .doi {
-        margin: 0 0 17px;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 22px;
-        }
-
-      }
-
-      .authors {
-        margin: 0 0 20px;
-
-        @include breakpoint('tablet') {
-          margin: 0 0 23px;
-        }
-      }
-
-      .article-number {
-        text-transform: uppercase;
-        font-size: 12px;
-        margin: 0 0 10px;
-      }
-    }
-  }
-
-  //item
-  &.ssidebar-widget-keywords {
-    font-family: $lucida-grande;
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      font-size: 12px;
-    }
-  }
-
 }
 
 //WIDGET-TITLE
@@ -460,7 +217,7 @@
 //ARTICLES-LIST
 .articles-list {
   >li {
-    margin: 0 0 30px;
+    margin: 0 0 35px;
   }
 }
 
@@ -469,24 +226,41 @@
   margin: 0 0 20px;
   overflow: hidden;
 
-  h2 {
-    font-size: 27px;
-    margin: 0 0 14px;
+  &:first-child {
+    h2 {
+      font-size: 28px;
+      margin: 0 0 5px;
+    }
+
+    h3 {
+      font-size: 14px;
+      margin: 0 0 5px;
+      line-height: 1.5em;
+    }
+
+    .publish {
+      margin: 0 0 4px;
+    }
   }
 
-  h3 {
-    font-size: 14px;
+  h2 {
+    font-size: 20px;
     margin: 0 0 9px;
   }
 
+  h3 {
+    font-size: 12px;
+    margin: 0 0 6px;
+  }
+
   .publish {
-    margin: 0 0 5px;
-    font-size: 9px
+    margin: 0 0 1px;
+    font-size: 10px;
   }
 
   .description {
-    font-size: 10px;
-    line-height: 1.8em;
+    font-size: 11px;
+    line-height: 1.6em;
     display: none;
   }
 
@@ -496,6 +270,16 @@
 
     .less {
       display: none;
+    }
+
+    &.opened {
+      span {
+        display: none;
+
+        &.less {
+          display: block;
+        }
+      }
     }
   }
 }
@@ -519,7 +303,7 @@
 
 //article-rubrics-list
 .article-rubrics-list {
-  margin: 0 0 6px -9px;
+  margin: 0 0 6px -8px;
   padding: 0;
 
   li {
@@ -529,7 +313,7 @@
     line-height: 1.1;
     padding: 0 0 0 6px;
     margin: 0 0 0 2px;
-    font-size: 9px;
+    font-size: 10px;
 
     &:first-child {
       &:after {
@@ -542,7 +326,7 @@
       position: absolute;
       bottom: 1px;
       left: 0;
-      top: 0;
+      top: 1px;
       border-right: 1px solid #676767;
       display: block;
     }
@@ -550,6 +334,10 @@
   
   a {
     color: $light-blue;
+    
+    &:hover {
+      color: $blue;
+    }
   }
 }
 
@@ -740,8 +528,8 @@
 
 //DROP
 .dropdown-widget,
-.header-desktop .header-menu-bottom-list >.has-submenu >.submenu,
-.owl-item >.has-submenu >.submenu {
+.header-desktop .header-menu-bottom-list >.has-drop >.submenu,
+.owl-item >.has-drop >.submenu {
   max-height: 0;
   z-index: -1;
   opacity: 0;
@@ -778,6 +566,224 @@
       transform: translateX(-50%) rotate(45deg);
       position: absolute;
       z-index: -1;
+    }
+  }
+}
+
+//btn-like
+.btn-like {
+  overflow: hidden;
+
+  &.added {
+    background: $light-blue;
+    border-color: $light-blue;
+    overflow: visible;
+
+    .icon-heart {
+      color: $white;
+
+      &:before {
+        content:'\0049';
+      }
+    }
+
+    .btn-like-inner {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  .btn-like-inner {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    background: #f5f5f5;
+    width: 208px;
+    padding: 15px 10px 13px;
+    margin: 0 0 16px 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    color: #262626 !important;
+    font-size: 11px;
+    z-index: 10;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    &:after {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+      content: '';
+      width: 10px;
+      height: 10px;
+      box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+      background: #f5f5f5;
+      z-index: -1;
+    }
+  }
+}
+
+//reference-popup
+.reference-popup {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1003;
+  font-size: 12px;
+  line-height: 1.4em;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+
+  .reference-popup-inner {
+    background: #fff;
+    padding: 25px 0 22px;
+    position: relative;
+
+    &:after {
+      background: rgba(0,0,0,0.5);
+      @extend .pinout;
+      top: 100%;
+      bottom: -99999999px;
+
+      @include breakpoint('tablet') {
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    top: 0 !important;
+  }
+
+  .container {
+    overflow: hidden;
+  }
+
+  @include breakpoint('tablet') {
+    font-size: 11px;
+    line-height: 1.2em;
+  }
+
+  @include breakpoint('tablet') {
+    border-top: 1px solid #535353;
+  }
+
+  .arrows {
+    text-align: center;
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      padding: 27px 0 5px;
+    }
+  }
+
+  .icon-close-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+
+    @include breakpoint('desktop-large') {
+      top: 15px;
+      right: 15px;
+    }
+  }
+
+  h3 {
+    font-size: 15px;
+    margin: 0 0 3px;
+    font-family: $lucida-grande;
+
+    @include breakpoint('tablet') {
+      font-size: 13px;
+      margin: 0 0 8px;
+    }
+  }
+
+  .links {
+    margin: 0 0 20px;
+  }
+
+  .columns {
+    margin: 0 -24px 0px;
+
+    @include breakpoint('tablet') {
+      margin: 0 -24px 26px;
+    }
+
+    .column {
+      padding: 0 24px 23px;
+
+      @include breakpoint('tablet') {
+        display: inline-block;
+        padding: 0 24px;
+      }
+    }
+  }
+
+  .icon-circle-arrow {
+    border: 1px solid $blue;
+    background: $white;
+    color: $blue;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    margin: 0 8px;
+
+    &.disabled {
+      display: none;
+    }
+
+    @include breakpoint('desktop-large') {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+
+      &:hover {
+        background: $blue;
+        color: $white;
+      }
+
+      &:active {
+        box-shadow: 0 2px 2px rgba(0,0,0,0.2) inset;
+      }
+
+      &.left {
+        left: 34px;
+
+        .icon-arrow {
+          &:before {
+            transform: rotate(180deg);
+            margin: -3px 0 0 0px;
+          }
+        }
+      }
+
+      &.right {
+        right: 34px;
+      }
+    }
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      display: inline-block;
+    }
+
+    &.left {
+
+      .icon-arrow {
+        &:before {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 }

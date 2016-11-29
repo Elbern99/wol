@@ -7,8 +7,20 @@
     }
   }
 
+  @if $point == 'desktop-large' {
+    @media only screen and (min-width: $breakpoint-desktop-large) {
+      @content;
+    }
+  }
+
   @if $point == 'tablet' {
     @media only screen and (min-width: $breakpoint-tablet) {
+      @content;
+    }
+  }
+
+  @if $point == 'mobile-large' {
+    @media only screen and (min-width: $breakpoint-mobile-large) {
       @content;
     }
   }

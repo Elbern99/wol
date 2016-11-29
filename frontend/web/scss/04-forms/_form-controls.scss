@@ -60,5 +60,66 @@ input[type=url]{
 }
 
 .label-holder {
-  margin: 0px 0 2px;
+  margin: 0 0 2px;
+}
+
+.custom-select {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0 0 20px;
+
+  select {
+    border: 1px solid #b5b5b5;
+    border-radius: 5px;
+    height: 29px;
+    cursor: pointer;
+    appearance: none;
+    padding: 3px 50px 5px 10px;
+    text-indent: 1px;
+    text-overflow: '';
+    background: #fff;
+    overflow: hidden;
+    margin: 0;
+    color: #323232;
+    font: normal 11px/1em $lucida-grande;
+    width: 100%;
+
+    &:focus {
+      border-color: #0182E2;
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  &:after {
+    content: '';
+    background-color: #efefef;
+    border-left: 1px solid #999;
+    right: 1px;
+    pointer-events: none;
+    z-index: 1;
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    width: 23px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+    content: '';
+    right: 9px;
+    width: 6px;
+    height: 6px;
+    border-bottom: 1px solid #323232;
+    border-left: 1px solid #323232;
+    pointer-events: none;
+    z-index: 2;
+    margin: -3px 0 0 0;
+  }
 }

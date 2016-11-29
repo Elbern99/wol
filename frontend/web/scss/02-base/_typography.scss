@@ -121,7 +121,8 @@ ol {
 .sidebar-news-list,
 .sidebar-accrodion-list,
 .classification-list,
-.authors-list {
+.authors-list,
+.data-method-list {
   list-style: none;
   padding: 0;
 
@@ -138,6 +139,7 @@ ol {
 a {
   color: $link-color;
   text-decoration: none;
+  transition: all 0.2s ease;
   
   &:hover {
     color: $light-blue;
@@ -185,4 +187,12 @@ strong {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.data-method-item .caption {
+  transition: all 0.2s ease;
+}
+
+.data-method-item {
+  transition: all 0s ease;
 }

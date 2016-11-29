@@ -1,4 +1,18 @@
 <div class="container article-full">
+    <div class="article-buttons article-buttons-mobile">
+        <div class="extra-buttons">
+            <a href="" class="btn-border-blue-middle btn-download with-icon-r"><span class="icon-download"></span><span class="text">download pdf</span></a>
+            <a href="" class="btn-border-blue-middle btn-cite with-icon-r"><span class="icon-quote"></span><span class="text">cite</span></a>
+            <div class="article-buttons-short">
+                <a href="" class="btn-border-gray-middle btn-like short">
+                    <span class="icon-heart"></span>
+                    <div class="btn-like-inner">article added to favorites</div>
+                </a>
+                <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+                <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+            </div>
+        </div>
+    </div>
     <div class="breadcrumbs">
         <ul class="breadcrumbs-list">
             <li><a href="">home</a></li>
@@ -100,8 +114,8 @@
                 <p>Conditions were introduced to transfer schemes with the intention of improving their effectiveness and ensuring that the benefits were used, at least in part, to improve children’s human capital. Common conditions in cash transfer programs require that participating households send their children to school regularly and take them in for regular health checks. Conditions have not addressed child labor participation because reducing child labor has not been a direct objective of most cash transfer programs (although participation of children in work has been a criterion for identifying households to receive benefits).</p>
                 <p>There are obvious reasons why conditions have not been imposed on child work. For instance, school and health clinic attendance are easy to monitor using school or clinic records. Objective verification of child work, by contrast, would be very difficult since most children who work are engaged in family businesses or in the informal sector, often in violation of national law. Monitoring would have to rely on statements by parents and children, which could be unreliable in these circumstances.</p>
                 <p>While evidence suggests that conditional cash transfers have a stronger impact on school participation than unconditional cash transfers do, whether the conditions related to child education reduce child labor has been much more difficult to assess. First, the decision to include an education condition in a program might depend on the expected impact of the program on the target population (meaning that the condition is endogenous, making assessment of impact difficult). Most studies do not specify the precise conditions attached to the delivery of the services or provide information on the degree of enforcement of the conditions, thus making straight comparisons of effectiveness difficult.</p>
-                <p>A few studies, however, offer some evidence in this area [11], [12]. The studies use variations in implementation of Ecuador’s Bono de Desarrollo Humano cash transfer program that, according to official reports, led some participating households to believe incorrectly that the cash transfers were conditional on children’s school attendance. The effect of the program on child labor was similar in households that believed that the program was conditional on school participation and in households that did not [3]. In both groups of households, child labor decreased.</p>
-                <p>Recent discussions of cash transfer programs have focused on whether conditions make a difference in the effectiveness of the programs or whether other approaches could achieve better results. One study of the Tayssir program in Morocco examined whether a cash transfer program open to all poor households without conditions could be as effective in increasing school enrollment as traditional targeted and conditional programs. Enrollment for the unconditional program was school-based, thus conferring an implicit endorsement of education. The study asked whether “a ‘nudge’ may be sufficient to significantly increase human capital investment, while [conditional cash transfer programs] as currently designed provide a big shove” [13]. The results show that a rural cash transfer program simply “labeled” as supporting education had a large impact on school participation even though the transfer was not conditional on school attendance. This has relevance for the case of child labor, where imposing explicit conditions might not be feasible.</p>
+                <p>A few studies, however, offer some evidence in this area <a href="" class="link-ref">[11]</a>, <a href="" class="link-ref">[12]</a>. The studies use variations in implementation of Ecuador’s Bono de Desarrollo Humano cash transfer program that, according to official reports, led some participating households to believe incorrectly that the cash transfers were conditional on children’s school attendance. The effect of the program on child labor was similar in households that believed that the program was conditional on school participation and in households that did not [3]. In both groups of households, child labor decreased.</p>
+                <p>Recent discussions of cash transfer programs have focused on whether conditions make a difference in the effectiveness of the programs or whether other approaches could achieve better results. One study of the Tayssir program in Morocco examined whether a cash transfer program open to all poor households without conditions could be as effective in increasing school enrollment as traditional targeted and conditional programs. Enrollment for the unconditional program was school-based, thus conferring an implicit endorsement of education. The study asked whether “a ‘nudge’ may be sufficient to significantly increase human capital investment, while [conditional cash transfer programs] as currently designed provide a big shove”<a href="" class="link-ref">[13]</a>. The results show that a rural cash transfer program simply “labeled” as supporting education had a large impact on school participation even though the transfer was not conditional on school attendance. This has relevance for the case of child labor, where imposing explicit conditions might not be feasible.</p>
                 <h3>Integrating cash transfer programs with other interventions</h3>
                 <p>The impacts of cash transfer programs on child labor appear to be greater when cash transfers are complemented by interventions that reduce the costs of health care and education services or improve their quality [1]. Some other cash transfer programs have focused on both safety net provision and active poverty reduction by including support for household income-generating activities through grants or loans to buy investment goods. These programs seem to have a smaller impact on child labor, confirming that interventions that increase household economic activity tend to generate greater demand for children’s work.</p>
                 <br>
@@ -143,7 +157,7 @@
                         <div class="article-buttons-short">
                             <a href="" class="btn-border-gray-middle btn-like short">
                                 <span class="icon-heart"></span>
-                                <span class="btn-like-inner">article added to favorites</span>
+                                <div class="btn-like-inner">article added to favorites</div>
                             </a>
                             <a href="" class="btn-border-gray-middle short"><span class="icon-print"></span></a>
                             <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
@@ -156,8 +170,11 @@
             <div class="article-buttons article-buttons-sidebar">
                 <a href="" class="btn-border-blue-middle btn-download with-icon"><span class="icon-download"></span><span class="text">download pdf</span></a>
                 <a href="" class="btn-border-blue-middle btn-cite"><span class="icon-quote"></span><span>cite</span></a>
-                <a href="" class="btn-border-gray-middle short"><span class="icon-heart"></span></a>
-                <a href="" class="btn-border-gray-middle short "><span class="icon-print"></span></a>
+                <a href="" class="btn-border-gray-middle btn-like short">
+                    <span class="icon-heart"></span>
+                    <div class="btn-like-inner">article added to favorites</div>
+                </a>
+                <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
                 <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
             </div>
 
@@ -192,95 +209,85 @@
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">Background information</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="sidebar-news-list">
-                                    <li>
-                                        <h3><a href="">The three principal international agreements on child labor</a></h3>
-                                        <div class="icon-question"></div>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul class="sidebar-news-list">
+                                <li>
+                                    <h3><a href="">The three principal international agreements on child labor</a></h3>
+                                    <div class="icon-question"></div>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Related Articles</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="sidebar-news-list">
-                                    <li>
-                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
-                                        <div class="writer">Olivier Deschenes</div>
-                                    </li>
-                                    <li>
-                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
-                                        <div class="writer">Olivier Deschenes</div>
-                                    </li>
-                                    <li>
-                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
-                                        <div class="writer">Olivier Deschenes</div>
-                                    </li>
-                                    <li>
-                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
-                                        <div class="writer">Olivier Deschenes</div>
-                                    </li>
-                                    <li>
-                                        <h3><a href="">Social protection programs for women in developing countries</a></h3>
-                                        <div class="writer">Olivier Deschenes</div>
-                                    </li>
-                                </ul>
-                                <a href="" class="more-link">More</a>
-                            </div>
+                            <ul class="sidebar-news-list">
+                                <li>
+                                    <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                                <li>
+                                    <h3><a href="">Social protection programs for women in developing countries</a></h3>
+                                    <div class="writer">Olivier Deschenes</div>
+                                </li>
+                            </ul>
+                            <a href="" class="more-link">More</a>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Further reading</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="further-reading-list">
-                                    <li>
-                                        <h3>Basu and Van (1998)</h3>
-                                        <div class="icon-question"></div>
-                                    </li>
-                                    <li>
-                                        <h3>Edmonds (2007)</h3>
-                                        <div class="icon-question"></div>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul class="further-reading-list">
+                                <li>
+                                    <h3>Basu and Van (1998)</h3>
+                                    <div class="icon-question"></div>
+                                </li>
+                                <li>
+                                    <h3>Edmonds (2007)</h3>
+                                    <div class="icon-question"></div>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Key references</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="key-references-list">
-                                    <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[4] Gertler et al. (2012)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[5] Ravallion and Chen (2005)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[6] Sadoulet et al. (2001)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[7] Covarrubias et al. (2012)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[8] Augsburg et al. (2012)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[9] Nelson (2011)</a></li>
-                                    <li><a href="">[10] Islam and Choe (2013)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[11] Schady and Araujo (2006)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[12] Edmonds and Schady (2012)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[13] Benhassine et al. (2013)</a><div class="icon-question"></div></li>
-                                </ul>
-                            </div>
+                            <ul class="key-references-list">
+                                <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
+                                <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
+                                <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
+                                <li><a href="">[4] Gertler et al. (2012)</a><div class="icon-question"></div></li>
+                                <li><a href="">[5] Ravallion and Chen (2005)</a><div class="icon-question"></div></li>
+                                <li><a href="">[6] Sadoulet et al. (2001)</a><div class="icon-question"></div></li>
+                                <li><a href="">[7] Covarrubias et al. (2012)</a><div class="icon-question"></div></li>
+                                <li><a href="">[8] Augsburg et al. (2012)</a><div class="icon-question"></div></li>
+                                <li><a href="">[9] Nelson (2011)</a></li>
+                                <li><a href="">[10] Islam and Choe (2013)</a><div class="icon-question"></div></li>
+                                <li><a href="">[11] Schady and Araujo (2006)</a><div class="icon-question"></div></li>
+                                <li><a href="">[12] Edmonds and Schady (2012)</a><div class="icon-question"></div></li>
+                                <li><a href="">[13] Benhassine et al. (2013)</a><div class="icon-question"></div></li>
+                            </ul>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Additional References</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="additional-references-list">
-                                    <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
-                                    <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
-                                </ul>
-                            </div>
+                            <ul class="additional-references-list">
+                                <li><a href="">[1] De Hoop and Rosati (2013)</a><div class="icon-question"></div></li>
+                                <li><a href="">[2] Cigno and Rosati (2005)</a><div class="icon-question"></div></li>
+                                <li><a href="">[3] De Hoop and Rosati (2014)</a><div class="icon-question"></div></li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
@@ -328,5 +335,41 @@
                 </div>
             </div>
         </aside>
+    </div>
+</div>
+
+<div class="reference-popup">
+    <div class="reference-popup-inner">
+        <div class="container">
+            <h3>Full citation</h3>
+            <div class="links">
+                <a href="">Holmlund, H., Lindahl, M., Plug, E. "The causal effect of parents’ schooling on children’s schooling: A comparison of estimation methods" Journal of Economic Literature 49:3 (2011): 614–650. Online at: DOI: 10.1257/jel.49.3.615 Holmlund, H., Lindahl, M., Plug, E. "The causal effect of parents’ schooling on children’s schooling: A comparison of estimation methods" Journal of Economic Literature 49:3 (2011): 614–650. Online at: DOI: 10.1257/jel.49.3.615</a>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <h3>Data source(s)</h3>
+                    [1] Statistics Sweden
+                </div>
+                <div class="column">
+                    <h3>Data type(s)</h3>
+                    [1] Administrative data (Micro data) - Cross section
+                </div>
+                <div class="column">
+                    <h3>Method(s)</h3>
+                    Micro-level analysis - Synthetic review
+                </div>
+            </div>
+            <h3>Countries</h3>
+            China, France, Germany, Iceland, Japan, Malaysia, Singapore, Sweden, United States, United Kingdom
+        </div>
+        <div class="icon-close-popup"></div>
+        <div class="arrows">
+            <div class="icon-circle-arrow left">
+                <div class="icon-arrow"></div>
+            </div>
+            <div class="icon-circle-arrow right">
+                <div class="icon-arrow"></div>
+            </div>
+        </div>
     </div>
 </div>

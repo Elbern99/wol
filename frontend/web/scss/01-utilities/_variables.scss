@@ -21,6 +21,7 @@ $def-line-height: 1.1em;
 $blue: #0053a0;
 $light-blue: #0094f2;
 $gray: #383838;
+$basalt-gray: #565656;
 $dark-gray: #262626;
 $dark-blue-black: #4b4b4b;
 $black-brown: #2a2a2a;
@@ -34,5 +35,7 @@ $def-second-color: #4d4d4d;
 //BREAKPOINT
 
 $breakpoint-mobile: 320px;
+$breakpoint-mobile-large: 568px;
 $breakpoint-tablet: 769px;
 $breakpoint-desktop: 1024px;
+$breakpoint-desktop-large: 1330px;
