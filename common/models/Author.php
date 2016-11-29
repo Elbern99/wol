@@ -32,6 +32,10 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     public static function getBaseFolder() {
         return 'authors';
     }
+    
+    public function getAvatarBaseUrl() {
+        return '/uploads/' . self::getBaseFolder() . '/images/avatar/'.$this->avatar;
+    }
 
     public function getFrontendImagesBasePath() {
         return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';

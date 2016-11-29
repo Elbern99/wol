@@ -34,6 +34,8 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode($attributes['teaser']->getData('teaser', $currentLang))
 ]);
+
+$authorLink = [];
 ?>
 <div class="container article-full">
 
@@ -45,15 +47,33 @@ $this->registerMetaTag([
         <h1><?= $attributes['title']->getData('title', $currentLang) ?></h1>
         <h3><?= $attributes['teaser']->getData('teaser', $currentLang) ?></h3>
     </div>
-
+    
+    <?php foreach ($authors as $author): ?>
     <div class="article-user">
-        <div class="img"><a href=""><img src="images/temp/editors/img-01.jpg" alt=""></a></div>
-        <div class="desc">
-            <div class="name"><a href=""><?= $article->availability ?></a></div>
-            <p>University of Rome Tor Vergata, ICID, and Understanding Children’s Work, Italy, and IZA, Germany</p>
-        </div>
-    </div>
+        <div class="img"><a href=""><img src="<?= $author['avatar'] ?>" alt=""></a></div>
+        
+        <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
 
+        <div class="desc">
+           <div class="name"
+            <?php
+            
+                $link = Html::a($authorAttributes['name']->getData('first_name').' '.
+                    $authorAttributes['name']->getData('middle_name').' '.
+                    $authorAttributes['name']->getData('last_name')
+                    ,'/'
+                );
+                
+                $authorLink[] = $link;
+                echo $link;
+            ?>  
+           </div>
+            <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
+        </div>
+        
+    </div>
+    <?php endforeach; ?>
+    
     <div class="content-inner">
         <div class="content-inner-text">
             <article>
@@ -236,7 +256,7 @@ $this->registerMetaTag([
                 <h3>Version</h3>
                 <p><?= date('F Y', $article->created_at) ?></p>
                 <p><?= $article->doi ?></p>
-                <p><?= $article->availability ?></p>
+                <p><?= implode('<br>', $authorLink) ?></p>
                 <p><?= $article->id ?></p>
             </div>
         </aside>
