@@ -76,7 +76,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             [['id','enabled'], 'integer'],
             [['id','sort_key', 'seo', 'doi'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['sort_key', 'seo'], 'string', 'max' => 255],
+            [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
         ];
@@ -89,6 +89,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
             'sort_key' => Yii::t('app', 'Sort Key'),
             'seo' => Yii::t('app', 'Seo'),
             'doi' => Yii::t('app', 'Doi'),
@@ -116,19 +117,24 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return $this->hasMany(ArticleCategory::className(), ['article_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticleRelations()
+    public function getRelatedArticles(array $articles)
     {
-        return $this->hasMany(ArticleRelation::className(), ['article_id' => 'id']);
+        $ids = [];
+        $related = [];
+        
+        foreach ($articles as $article) {
+            $ids[] = $article->id;
+        }
+        
+        if (!empty($ids)) {
+            $related = $this->find()->where(['id' => $ids, 'enabled' => 1])->select(['seo', 'availability', 'title'])->asArray()->all();
+            unset($ids);
+        }
+        
+        return $related;
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticleRelations0()
-    {
-        return $this->hasMany(ArticleRelation::className(), ['article_relation_id' => 'id']);
+    
+    public function getRelatedCategories() {
+        
     }
 }

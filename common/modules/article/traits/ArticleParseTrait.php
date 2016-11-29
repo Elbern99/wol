@@ -388,45 +388,27 @@ trait ArticleParseTrait {
         foreach ($readStruct as $read) {
             
             $authors = [];
-            $analitics = $read->analytic;
             $monogr = $read->monogr;
 
-            if (isset($analitics->author)) {
+            if (isset($monogr->author)) {
 
-                foreach ($analitics->author as $author) {
+                foreach ($monogr->author as $author) {
                     $name = (string) $author->persName->surname;
                     $name .= " " . $author->persName->forename . ".";
                     $authors[] = $name;
                 }
             }
-
-            $biblScope_pp = '';
-            $biblScope_issue = '';
-            $biblScope_vol = '';
-
+            
+            $publisher = (string) $monogr->imprint->publisher;
+            $pubPlace = (string) $monogr->imprint->pubPlace;
             $date = (string) $monogr->imprint->date->attributes();
-
-            if (isset($monogr->imprint->biblScope)) {
-
-                $bibl = array();
-
-                foreach ($monogr->imprint->biblScope as $scope) {
-
-                    $attributes = $scope->attributes();
-                    $type = (string) $scope['type'];
-                    $bibl['biblScope_' . $type] = (string) $scope['n'];
-                }
-
-                extract($bibl);
-            }
+            $title = (string)  $monogr->title;
+            $link = (string)$monogr->idno;
 
             $obj = new stdClass;
-            $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                            ' "' . $analitics->title . '" ' .
-                            $monogr->title .
-                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                            ' ' . $analitics->idno[1], $analitics->idno[0]);
+            $obj->full_citation = Html::a((string) implode(', ', $authors).' '.$title.
+                    ' '.$pubPlace.': '.$publisher.', '.$date
+                    , $link);
 
             $obj->title = (string) implode(' and ', $authors) . " ({$date})";
             $this->furtherReading[] = $obj;
@@ -453,7 +435,24 @@ trait ArticleParseTrait {
 
                 foreach ($analitics->author as $author) {
                     $name = (string) $author->persName->surname;
-                    $name .= " " . $author->persName->forename . ".";
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }
+                    $authors[] = $name;
+                }
+            }
+            
+            if (isset($monogr->author)) {
+
+                foreach ($monogr->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }
                     $authors[] = $name;
                 }
             }
@@ -500,7 +499,7 @@ trait ArticleParseTrait {
 
 
             $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                            ' "' . $analitics->title . '" ' .
+                            ' ' . $analitics->title . ' ' .
                             $monogr->title .
                             ' ' . $biblScope_vol . ':' . $biblScope_issue .
                             ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
@@ -552,7 +551,24 @@ trait ArticleParseTrait {
 
                 foreach ($analitics->author as $author) {
                     $name = (string) $author->persName->surname;
-                    $name .= " " . $author->persName->forename . ".";
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }
+                    $authors[] = $name;
+                }
+            }
+            
+            if (isset($monogr->author)) {
+
+                foreach ($monogr->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }
                     $authors[] = $name;
                 }
             }
@@ -578,7 +594,7 @@ trait ArticleParseTrait {
 
             $obj = new stdClass;
             $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                            ' "' . $analitics->title . '" ' .
+                            ' ' . $analitics->title . ' ' .
                             $monogr->title .
                             ' ' . $biblScope_vol . ':' . $biblScope_issue .
                             ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
@@ -646,7 +662,7 @@ trait ArticleParseTrait {
 
             $this->sources[$id] = [
                 'source' => Html::a("[{$i}] " . (string) $source->head, $link),
-                'type' => $sourceText
+                'type' => implode(' ', $sourceText)
             ];
 
             $i++;
@@ -656,11 +672,15 @@ trait ArticleParseTrait {
     protected function setImages() {
         
         $figures = $this->getBackElementByType('figures');
-        $iamges = $figures->children();
+        $images = $figures->children();
 
-        foreach ($iamges as $image) {
+        foreach ($images as $image) {
 
             $attributes = $image->attributes();
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $image->asXML(), $vals);
+            xml_parser_free($p);
 
             if (isset($attributes['subtype'])) {
 
@@ -670,15 +690,22 @@ trait ArticleParseTrait {
                 $obj->title = (string) $image->head;
                 $name = (string) $attr->url;
                 $obj->path = $this->getParseImagePath($name);
-
-                $this->gaImage = $obj;
+                $obj->target = '';
+                
+                if (isset($image->head->ref)) {
+                    $obj->target = (string)$image->head->ref->attributes();
+                }
+                
+                $langId = (isset($vals[0]['attributes']['XML:LANG'])) ? $vals[0]['attributes']['XML:LANG'] : 0;
+                
+                $this->gaImage[] = [
+                    'value' => serialize($obj),
+                    'lang_id' => (string)$langId
+                ];
 
                 continue;
+                
             } else {
-
-                $p = xml_parser_create();
-                xml_parse_into_struct($p, $image->asXML(), $vals);
-                xml_parser_free($p);
 
                 if (isset($vals[0]['attributes']['XML:ID'])) {
 
@@ -687,6 +714,12 @@ trait ArticleParseTrait {
                     $obj = new stdClass;
 
                     $obj->title = (string) $image->head;
+                    $obj->target = '';
+                    
+                    if (isset($image->head->ref)) {
+                        $obj->target = (string)$image->head->ref->attributes();
+                    }
+                    
                     $name = (string) $attr->url;
                     $obj->path = $this->getParseImagePath($name);
 
@@ -731,14 +764,15 @@ trait ArticleParseTrait {
     protected function getTermGroups() {
         
         $terms = $this->getBackElementByType('termGroups');
+        
         $options = array();
         
         if ($terms) {
-            
-            foreach ($terms->children() as $term) {
 
+            foreach ($terms->div as $term) {
+                
                 $p = xml_parser_create();
-                xml_parse_into_struct($p, $terms->div->asXML(), $vals);
+                xml_parse_into_struct($p, $term->asXML(), $vals);
                 xml_parser_free($p);
                 $obj = new stdClass;
                 $obj->text = '';
@@ -770,10 +804,10 @@ trait ArticleParseTrait {
                         $obj->text .= Html::tag('em',$val['value']);
                     }
                 }
-
+                
                 $options[$id] =  $obj;
             }
-            
+
             return serialize($options);
         }
         
@@ -829,7 +863,7 @@ trait ArticleParseTrait {
         return serialize($options);
     }
 
-    private function getChildren($elements) {
+    protected function getChildren($elements) {
 
         $elementsText = '';
 
@@ -840,7 +874,7 @@ trait ArticleParseTrait {
         return $elementsText;
     }
 
-    private function getChildrenData($element) {
+    protected function getChildrenData($element) {
 
         $text = '';
         
@@ -907,4 +941,26 @@ trait ArticleParseTrait {
         return $text;
     }
     
+    protected function getTextClass() {
+
+        if (isset($this->xml->teiHeader->profileDesc->textClass[1])) {
+            
+            $textClass = $this->xml->teiHeader->profileDesc->textClass[1];
+            
+            $options = [];
+
+            foreach ($textClass->classCode as $classCode) {
+
+                $obj = new stdClass;
+                $obj->code = (string)$classCode;
+                $options[] = $obj;
+                
+            }
+
+            return serialize($options);
+        }
+        
+        return null;
+    }
+
 }

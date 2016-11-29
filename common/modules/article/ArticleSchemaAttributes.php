@@ -120,7 +120,7 @@ class ArticleSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'add_references', 
                 array_combine($attributeSchema, ['add_references', 'Add References', 0, 1, 1]),
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Reference', 'type' => 'Text']]
+                [['label' => 'Title', 'type' => 'String'], ['label' => 'Full Citation', 'type' => 'Text']]
         );
         
         $this->attributes[] = new Attribute(

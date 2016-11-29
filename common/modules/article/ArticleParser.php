@@ -56,15 +56,15 @@ class ArticleParser implements ParserInterface {
      * property for save parsed information
      */
     protected $images = null;
-    protected $gaImage = '';
+    protected $gaImage = null;
     protected $sources = [];
     protected $furtherReading = null;
     protected $keyReferences = null;
     protected $addReferences = null;
     protected $config = null;
     
-    public function __construct
-            (ArticleInterface $article,
+    public function __construct (
+            ArticleInterface $article,
             EntityInterface $entity, 
             EntityTypeInterface $type, 
             ValueInterface $value,
@@ -108,12 +108,6 @@ class ArticleParser implements ParserInterface {
         return 0;
     }
 
-    /* need to realisation */
-    protected function getTextClass() {
-        
-        return '';
-    }
-    
     protected function getFullPdf() {
         
         if ($this->fullPdf) {
@@ -171,7 +165,7 @@ class ArticleParser implements ParserInterface {
             return null;
         }
         
-        return serialize($this->gaImage);
+        return $this->gaImage;
     }
 
     protected function getImages() {
@@ -193,8 +187,10 @@ class ArticleParser implements ParserInterface {
         $created_at = $this->xml->teiHeader->fileDesc->publicationStmt->date->attributes();
         $time = strtotime((string) $created_at['when-iso']);
         $publisher = (string) $this->xml->teiHeader->fileDesc->publicationStmt->publisher;
+        $title = (string)$this->xml->teiHeader->fileDesc->titleStmt->title;
 
         $this->article->setAttribute('id', $articleId);
+        $this->article->setAttribute('title', $title);
         $this->article->setAttribute('sort_key', $sortKey);
         $this->article->setAttribute('seo', $seo);
         $this->article->setAttribute('doi', $doi);
@@ -323,7 +319,7 @@ class ArticleParser implements ParserInterface {
 
             $bulkInsertArray[] = [
                 'article_id' => $articleId,
-                'category_id' => $author['id'],
+                'author_id' => $author['id'],
             ];
         }
 
