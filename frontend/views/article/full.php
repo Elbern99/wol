@@ -144,7 +144,7 @@ $this->registerMetaTag([
                             <ul>
                                 <?php foreach ($related as $relate): ?>
                                     <li>
-                                        <a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><h3>Social protection programs for women in developing countries</h3></a>
+                                        <a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><h3><?= $relate['title'] ?></h3></a>
                                         <div class="writer"><?= $relate['availability'] ?></div>
                                     </li>
                                 <?php endforeach;

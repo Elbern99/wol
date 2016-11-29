@@ -127,7 +127,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         }
         
         if (!empty($ids)) {
-            $related = $this->find()->where(['id' => $ids, 'enabled' => 1])->select(['seo', 'availability'])->asArray()->all();
+            $related = $this->find()->where(['id' => $ids, 'enabled' => 1])->select(['seo', 'availability', 'title'])->asArray()->all();
             unset($ids);
         }
         

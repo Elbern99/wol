@@ -165,7 +165,7 @@ class ArticleParser implements ParserInterface {
             return null;
         }
         
-        return serialize($this->gaImage);
+        return $this->gaImage;
     }
 
     protected function getImages() {
