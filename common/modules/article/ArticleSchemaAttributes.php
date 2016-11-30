@@ -132,13 +132,23 @@ class ArticleSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'ga_image', 
                 array_combine($attributeSchema, ['ga_image', 'Ga Image', 1, 1, 1]), 
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Path', 'type' => 'String']]
+                [
+                    ['label' => 'Title', 'type' => 'String'], 
+                    ['label' => 'Path', 'type' => 'String'],
+                    ['label' => 'Target', 'type' => 'String'],
+                    ['label' => 'Id', 'type' => 'String']
+                ]
         );
         
         $this->attributes[] = new Attribute(
                 'images', 
                 array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Path', 'type' => 'String']]
+                [
+                    ['label' => 'Title', 'type' => 'String'],
+                    ['label' => 'Path', 'type' => 'String'],
+                    ['label' => 'Target', 'type' => 'String'],
+                    ['label' => 'Id', 'type' => 'String']
+                ]
         );
         
         $this->attributes[] = new Attribute(

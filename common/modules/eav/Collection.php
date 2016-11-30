@@ -14,6 +14,7 @@ class Collection {
     
     private $type;
     private $entity;
+    private $selectAttribute = '*';
     
     protected $attributeCollection = null;
     protected $valueCollection = [];
@@ -25,6 +26,10 @@ class Collection {
         
          $this->type = $type;
          $this->entity = $entity;
+    }
+    
+    public function setAttributeFilter(array $selected) {
+        $this->selectAttribute = $selected;
     }
     
     public function getEntity() {
@@ -41,11 +46,20 @@ class Collection {
     
     public function initCollection($type, EntityModelInterface $model, $multiLang = true) {
         
+        $attrFilter = $this->selectAttribute;
+        
         $attributes = $this->type->find()
                                  ->where(['name' => $type])
-                                 ->with('eavTypeAttributes.eavAttribute')
+                                 ->with(['eavTypeAttributes.eavAttribute' => function($query) use ($attrFilter) {
+                                    
+                                    if (is_array($attrFilter)) {
+                                        return $query->where(['name' => $attrFilter]);
+                                    }
+                                    
+                                    return $query;
+                                 }])
                                  ->one();
-        
+                         
         if (!is_object($attributes)) {
             throw new Exception('Attributes did not set');
         }
@@ -73,20 +87,25 @@ class Collection {
         
         foreach ($attributes->eavTypeAttributes as $attrType) {
 
-            $related = $attrType->getRelatedRecords();
-
-            foreach ($related as $attribute) {
-                $this->attributeCollection[$attribute->id] = new Attribute($attribute->name, $attribute->label);
+            if ($attrType->eavAttribute) {
+                $this->attributeCollection[$attrType->eavAttribute->id] = new Attribute($attrType->eavAttribute->name, $attrType->eavAttribute->label);
             }
             
         }
-        
-        if ($multiLang) {
-            $valueRecords = $entityModel->getEavValues()->all();
-        } else {
-            $valueRecords = $entityModel->getEavValues()->where(['lang_id' => 0])->all();
-        }
 
+        $valueQuery = $entityModel->getEavValues();
+        
+        if (!$multiLang) {
+            $valueQuery->where(['lang_id' => 0]);
+        }
+        
+        if (is_array($attrFilter)) {
+            $valueQuery->andWhere(['attribute_id'=>array_keys($this->attributeCollection)]);
+        }
+        
+        $valueRecords = $valueQuery->all();
+        unset($valueQuery);
+        
         foreach ($valueRecords as $value) {
 
             if (isset($this->attributeCollection[$value->attribute_id])) {

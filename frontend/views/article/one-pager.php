@@ -15,7 +15,7 @@ if ($collection->isMulti) {
 }
 //var_dump($attributes['add_references']->getData(null, $currentLang));exit;
 $this->title = $attributes['title']->getData('title', $currentLang);
-$this->params['breadcrumbs'][] = Html::encode('articles');
+$this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['articles'])];
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -94,7 +94,7 @@ $authorLink = [];
                 <p><?= $attributes['abstract']->getData('abstract', $currentLang) ?></p>
 
                 <figure>
-                    <img src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>" width="430" height="326">
+                    <img id="<?php /*$attributes['ga_image']->getData('id', $currentLang)*/ ?>" data-target="<?= $attributes['ga_image']->getData('target', $currentLang) ?>" src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>" width="430" height="326">
                 </figure>
 
                 <h2>Key findings</h2>
@@ -143,10 +143,14 @@ $authorLink = [];
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
-                    <li><a href="">Labor markets and institutions</a></li>
-                    <li><a href="">Transition and emerging economies</a> > <a href="">Gender issues</a></li>
-                    <li><a href="">Demography, family, and gender </a> > <a href="">Family</a></li>
-                    <li><a href="">Et harum quidem rerum facilis est et expedita distinctio </a> > <a href=""> Itaque earum rerum hic tenetur a sapiente delectus</a></li>
+                    <?php foreach ($categories as $c): ?>
+                        <li>
+                        <?php if (isset($c['p_id'])): ?>
+                            <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
+                        <?php endif; ?>
+                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 
@@ -236,9 +240,10 @@ $authorLink = [];
                                             <div class="types"><?php /* (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type*/ ?></div>
                                             <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
                                             <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
-                                            <?php endforeach; ?>
+                                            
                                         </div>
                                     </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </li>

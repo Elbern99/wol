@@ -193,5 +193,5 @@ class Category extends \kartik\tree\models\Tree {
 
         return $rules;
     }
-
+    
 }
