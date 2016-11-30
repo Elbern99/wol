@@ -228,7 +228,7 @@ $authorLink = [];
                                 <li><a href="#<?= $reference->ref ?>">[<?= $i++ ?>]<?= $reference->title ?></a></li>
                                 <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                 <?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?>
-                                <?php /* (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type*/ ?>
+                                <?= (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type ?>
                                 <?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?>
                                 <?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?>
                                 <?php endforeach; ?>

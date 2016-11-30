@@ -113,14 +113,18 @@ class ArticleSchemaAttributes {
                     ['label' => 'Data Source', 'type' => 'String'],
                     ['label' => 'Data Type', 'type' => 'String'],
                     ['label' => 'Countries', 'type' => 'String'],
-                    ['label' => 'Country Codes', 'type' => 'String']
+                    ['label' => 'Country Codes', 'type' => 'Array']
                 ]
         );
         
         $this->attributes[] = new Attribute(
                 'add_references', 
                 array_combine($attributeSchema, ['add_references', 'Add References', 0, 1, 1]),
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Full Citation', 'type' => 'Text']]
+                [
+                    ['label' => 'Title', 'type' => 'String'], 
+                    ['label' => 'Full Citation', 'type' => 'Text'],
+                    ['label' => 'Country Codes', 'type' => 'Array']
+                ]
         );
         
         $this->attributes[] = new Attribute(
