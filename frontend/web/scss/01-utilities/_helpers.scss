@@ -35,3 +35,11 @@
   bottom: 0;
   content: '';
 }
+
+.scroll-vertical,
+.mobile-menu,
+.mobile-login {
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

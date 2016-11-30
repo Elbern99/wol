@@ -111,11 +111,11 @@ class Manager implements MenuManagerInterface {
 																        }
 																
 																        if ($isChild) {
-																								        $css = ' item ';
+																								        $css = ' item';
 																        }
 																
 																        if (!$isChild) {
-																								        $css = ' item has-drop';
+																								        $css = ' item';
 																        }
 																
 																        $css = trim($css);

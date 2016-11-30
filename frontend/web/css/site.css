@@ -462,6 +462,13 @@ th {
   bottom: 0;
   content: ''; }
 
+.scroll-vertical,
+.mobile-menu,
+.mobile-login {
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; }
+
 /******* // UTILITIES *******/
 /******* BASE *******/
 [class*='icon-'] {
@@ -1297,6 +1304,8 @@ img {
 
 .sidebar-news-list {
   padding: 13px 0 6px; }
+  .sidebar-news-list .bg-info {
+    display: none; }
   .sidebar-news-list li {
     margin: -2px 0 17px;
     display: none;
@@ -1456,7 +1465,7 @@ img {
       z-index: -1; }
 
 .reference-popup {
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 1003;
@@ -1465,16 +1474,23 @@ img {
   position: absolute;
   display: none;
   overflow: hidden; }
+  @media only screen and (min-width: 769px) {
+    .reference-popup {
+      height: auto !important;
+      bottom: 0;
+      top: auto;
+      position: fixed; } }
   .reference-popup .reference-popup-inner {
     background: #fff;
-    padding: 25px 0 22px;
-    position: relative; }
+    padding: 45px 0 22px;
+    position: relative;
+    min-height: 200px; }
     .reference-popup .reference-popup-inner:after {
       background: rgba(0, 0, 0, 0.5);
       top: 100%;
       bottom: -99999999px; }
       @media only screen and (min-width: 769px) {
-        .reference-popup .reference-popup-inner:after:after {
+        .reference-popup .reference-popup-inner:after {
           display: none; } }
   @media only screen and (max-width: 769px) {
     .reference-popup {
@@ -1511,8 +1527,22 @@ img {
       .reference-popup h3 {
         font-size: 13px;
         margin: 0 0 8px; } }
-  .reference-popup .links {
+  .reference-popup .caption {
     margin: 0 0 20px; }
+  .reference-popup .column-caption,
+  .reference-popup .column,
+  .reference-popup .column-types,
+  .reference-popup .column-methods,
+  .reference-popup .column-countries,
+  .reference-popup .column-furniture-reading {
+    display: none; }
+    .reference-popup .column-caption.visible,
+    .reference-popup .column.visible,
+    .reference-popup .column-types.visible,
+    .reference-popup .column-methods.visible,
+    .reference-popup .column-countries.visible,
+    .reference-popup .column-furniture-reading.visible {
+      display: block; }
   .reference-popup .columns {
     margin: 0 -24px 0px; }
     @media only screen and (min-width: 769px) {
@@ -1522,8 +1552,10 @@ img {
       padding: 0 24px 23px; }
       @media only screen and (min-width: 769px) {
         .reference-popup .columns .column {
-          display: inline-block;
-          padding: 0 24px; } }
+          padding: 0 24px;
+          vertical-align: top; }
+          .reference-popup .columns .column.visible {
+            display: inline-block; } }
   .reference-popup .icon-circle-arrow {
     border: 1px solid #0053a0;
     background: #fff;
@@ -1559,6 +1591,28 @@ img {
         display: inline-block; } }
     .reference-popup .icon-circle-arrow.left .icon-arrow:before {
       transform: rotate(180deg); }
+
+.tooltip-content {
+  position: absolute;
+  display: block;
+  background: #f5f5f5;
+  border: 1px solid #d8d8d8;
+  padding: 5px 10px;
+  border-radius: 5px;
+  right: 0;
+  bottom: 100%;
+  width: 400px; }
+  .tooltip-content:after {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    content: '';
+    width: 10px;
+    height: 10px;
+    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+    background: #f5f5f5;
+    z-index: -1; }
 
 .sidebar-widget {
   margin: 0 0 31px;
@@ -1737,6 +1791,8 @@ img {
 
 .further-reading-list {
   padding: 10px 0 0; }
+  .further-reading-list .further-reading-info {
+    display: none; }
   .further-reading-list h3 {
     margin: 0 20px 0 0;
     font-size: 12px; }
@@ -1756,6 +1812,8 @@ img {
 
 .key-references-list {
   padding: 15px 0 0; }
+  .key-references-list .key-references-info {
+    display: none; }
   .key-references-list li {
     margin: 0 0 15px;
     position: relative;
@@ -1781,6 +1839,8 @@ img {
 
 .additional-references-list {
   padding: 16px 0 3px; }
+  .additional-references-list .additional-references-info {
+    display: none; }
   .additional-references-list h3 {
     font-size: 12px;
     margin: 0; }
@@ -2488,62 +2548,62 @@ input[type=url] {
   height: 100%; }
 
 @media only screen and (max-width: 769px) {
+  .header-bottom .container {
+    padding: 0 5px; }
   .header-bottom .header-menu-bottom-list {
-    margin: 0 -15px;
     overflow: visible !important; }
-    .header-bottom .header-menu-bottom-list .jspPane {
-      padding: 0 15px; }
     .header-bottom .header-menu-bottom-list .jspContainer {
-      height: 50px !important; }
+      height: 48px !important;
+      overflow: visible; }
     .header-bottom .header-menu-bottom-list.jspScrollable .jspHorizontalBar {
-      position: static;
-      background: none; }
+      position: absolute;
+      left: -15px;
+      right: -15px;
+      width: auto;
+      background: none;
+      top: 0;
+      height: 0; }
     .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow {
       position: absolute;
-      top: 0; }
+      top: 0;
+      height: 48px;
+      width: 35px;
+      background: none; }
+      .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspDisabled {
+        display: none; }
+      .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 50px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.28) 17%, white 61%, white 100%); }
+      .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow:after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        display: block;
+        border-top: 1px solid #0094f2;
+        border-right: 1px solid #0094f2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg); }
       .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspArrowRight {
-        right: 0; }
+        right: 10px; }
+        .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspArrowRight:before {
+          left: auto;
+          right: 0; }
       .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspArrowLeft {
-        left: 0; }
+        left: 10px; }
+        .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspArrowLeft:before {
+          transform: rotate(180deg); }
+        .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspArrowLeft:after {
+          transform: translate(-50%, -50%) rotate(-135deg); }
     .header-bottom .header-menu-bottom-list.jspScrollable .jspTrack {
       height: 0; } }
-.owl-nav > div {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  font-size: 0;
-  width: 35px; }
-  .owl-nav > div:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 50px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.28) 17%, white 61%, white 100%); }
-  .owl-nav > div:after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    display: block;
-    border-top: 1px solid #0094f2;
-    border-right: 1px solid #0094f2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg); }
-  .owl-nav > div.owl-prev {
-    left: 0; }
-    .owl-nav > div.owl-prev:before {
-      transform: rotate(180deg); }
-    .owl-nav > div.owl-prev:after {
-      transform: translate(-50%, -50%) rotate(-135deg); }
-  .owl-nav > div.owl-next {
-    right: 0; }
-    .owl-nav > div.owl-next:before {
-      left: auto; }
-
 .sidebar-widget-sort-by label {
   text-transform: uppercase;
   margin: 0 0 10px;
@@ -2732,29 +2792,29 @@ iframe[name = advpp_manager] {
         .header-bottom .owl-stage-outer .item {
           font-size: 14px;
           margin: 0 18px; }
-        .header-bottom .header-menu-bottom-list .owl-item > .item,
+        .header-bottom .header-menu-bottom-list .jspPane > .item,
         .header-bottom .header-menu-bottom-list > .item,
-        .header-bottom .owl-stage-outer .owl-item > .item,
+        .header-bottom .owl-stage-outer .jspPane > .item,
         .header-bottom .owl-stage-outer > .item {
           display: inline-block;
           position: relative; }
-          .header-bottom .header-menu-bottom-list .owl-item > .item > .submenu,
+          .header-bottom .header-menu-bottom-list .jspPane > .item > .submenu,
           .header-bottom .header-menu-bottom-list > .item > .submenu,
-          .header-bottom .owl-stage-outer .owl-item > .item > .submenu,
+          .header-bottom .owl-stage-outer .jspPane > .item > .submenu,
           .header-bottom .owl-stage-outer > .item > .submenu {
             margin-top: 27px; }
-          .header-bottom .header-menu-bottom-list .owl-item > .item > a,
+          .header-bottom .header-menu-bottom-list .jspPane > .item > a,
           .header-bottom .header-menu-bottom-list > .item > a,
-          .header-bottom .owl-stage-outer .owl-item > .item > a,
+          .header-bottom .owl-stage-outer .jspPane > .item > a,
           .header-bottom .owl-stage-outer > .item > a {
             display: block;
             padding: 5px 0;
             border-bottom: 1px solid transparent; }
-            .header-bottom .header-menu-bottom-list .owl-item > .item > a:hover, .header-bottom .header-menu-bottom-list .owl-item > .item > a.active,
+            .header-bottom .header-menu-bottom-list .jspPane > .item > a:hover, .header-bottom .header-menu-bottom-list .jspPane > .item > a.active,
             .header-bottom .header-menu-bottom-list > .item > a:hover,
             .header-bottom .header-menu-bottom-list > .item > a.active,
-            .header-bottom .owl-stage-outer .owl-item > .item > a:hover,
-            .header-bottom .owl-stage-outer .owl-item > .item > a.active,
+            .header-bottom .owl-stage-outer .jspPane > .item > a:hover,
+            .header-bottom .owl-stage-outer .jspPane > .item > a.active,
             .header-bottom .owl-stage-outer > .item > a:hover,
             .header-bottom .owl-stage-outer > .item > a.active {
               border-color: #008ef1; }
@@ -2776,9 +2836,7 @@ iframe[name = advpp_manager] {
             margin-bottom: 0; }
         .header-bottom .header-menu-bottom-list .submenu a.view-all,
         .header-bottom .owl-stage-outer .submenu a.view-all {
-          color: #0094f2; }
-      .header-bottom .owl-stage-outer {
-        padding: 0; } }
+          color: #0094f2; } }
   @media only screen and (max-width: 769px) {
     .header-bottom .header-menu-bottom-list {
       padding: 0;

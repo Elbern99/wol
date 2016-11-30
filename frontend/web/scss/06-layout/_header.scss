@@ -84,7 +84,7 @@
         margin: 0 18px;
       }
 
-      .owl-item >.item,
+      .jspPane >.item,
       >.item {
         display: inline-block;
         position: relative;
@@ -128,9 +128,6 @@
 
     }
 
-    .owl-stage-outer {
-      padding: 0;
-    }
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
