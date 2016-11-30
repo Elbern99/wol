@@ -681,33 +681,33 @@ trait ArticleParseTrait {
             $p = xml_parser_create();
             xml_parse_into_struct($p, $image->asXML(), $vals);
             xml_parser_free($p);
-
-            if (isset($attributes['subtype'])) {
-
-                $attr = $image->graphic->attributes();
-                $obj = new stdClass;
-
-                $obj->title = (string) $image->head;
-                $name = (string) $attr->url;
-                $obj->path = $this->getParseImagePath($name);
-                $obj->target = '';
+            
+            if (isset($vals[0]['attributes']['XML:ID'])) {
                 
-                if (isset($image->head->ref)) {
-                    $obj->target = (string)$image->head->ref->attributes();
-                }
-                
-                $langId = (isset($vals[0]['attributes']['XML:LANG'])) ? $vals[0]['attributes']['XML:LANG'] : 0;
-                
-                $this->gaImage[] = [
-                    'value' => serialize($obj),
-                    'lang_id' => (string)$langId
-                ];
+                if (isset($attributes['subtype'])) {
 
-                continue;
-                
-            } else {
+                    $attr = $image->graphic->attributes();
+                    $obj = new stdClass;
 
-                if (isset($vals[0]['attributes']['XML:ID'])) {
+                    $obj->title = (string) $image->head;
+                    $name = (string) $attr->url;
+                    $obj->path = $this->getParseImagePath($name);
+                    $obj->target = '';
+                    $obj->id = $vals[0]['attributes']['XML:ID'];
+                    
+                    if (isset($image->head->ref)) {
+                        $obj->target = (string)$image->head->ref->attributes();
+                    }
+
+                    $langId = (isset($vals[0]['attributes']['XML:LANG'])) ? $vals[0]['attributes']['XML:LANG'] : 0;
+
+                    $this->gaImage[] = [
+                        'value' => serialize($obj),
+                        'lang_id' => (string)$langId
+                    ];
+
+
+                } else {
 
                     $id = $vals[0]['attributes']['XML:ID'];
                     $attr = $image->graphic->attributes();
@@ -715,18 +715,18 @@ trait ArticleParseTrait {
 
                     $obj->title = (string) $image->head;
                     $obj->target = '';
+                    $obj->id = $id;
                     
                     if (isset($image->head->ref)) {
                         $obj->target = (string)$image->head->ref->attributes();
                     }
-                    
+
                     $name = (string) $attr->url;
                     $obj->path = $this->getParseImagePath($name);
 
                     $this->images[$id] = $obj;
-                }
 
-                continue;
+                }
             }
         }
     }
@@ -821,8 +821,7 @@ trait ArticleParseTrait {
         $options = [];
 
         foreach ($list as $item) {
-       
-            $mainText = '';
+
             $type = (string) $item->attributes()->type;
 
             if ($type == 'references') {
@@ -833,51 +832,19 @@ trait ArticleParseTrait {
 
             $obj = new stdClass;
             $obj->type = $type;
-            
-            if (count($item) > 1) {
-                
-                foreach ($item->children() as $child) {
 
-                    $sectionText = '<div>';
-
-                    if (count($child->children()) > 1) {
-                        $sectionText .= $this->getChildren($child);
-
-                    } else {
-                        $sectionText .= $this->getChildrenData($child);
-                    }
-    
-                    $sectionText .= '</div>';
-                    $mainText .= $sectionText;
-                }
-                
-            } else {
-                
-                $mainText .= $this->getChildrenData($item);
-            }
-
-            $obj->text = $mainText;
+            $obj->text = $this->getChildrenData($item);
             $options[] = $obj;
         }
 
         return serialize($options);
     }
 
-    protected function getChildren($elements) {
-
-        $elementsText = '';
-
-        foreach ($elements as $element) {
-            $elementsText .= $this->getChildrenData($element);
-        }
-
-        return $elementsText;
-    }
 
     protected function getChildrenData($element) {
 
         $text = '';
-        
+
         $p = xml_parser_create();
         xml_parse_into_struct($p, $element->asXML(), $vals);
         xml_parser_free($p);
@@ -893,13 +860,29 @@ trait ArticleParseTrait {
                 }
 
                 if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
-                    $text .= $val['value'];
+                    
+                    if ($val['type'] == 'complete') {
+                        $text .= Html::tag('p',$val['value']);
+                    } else {
+                        $text .= $val['value'];
+                    }
+
                 }
 
                 if ($val['type'] == 'close') {
                     $text .= '</p>';
                 }
 
+            } elseif ($val['tag'] == 'DIV') {
+
+                if ($val['type'] == 'open') {
+                    $text .= '<div>';
+                }
+
+                if ($val['type'] == 'close') {
+                    $text .= '</div>';
+                }
+                
             } elseif ($val['tag'] == 'REF') {
 
                 if (!isset($val['attributes']['TYPE'])) {
@@ -909,19 +892,19 @@ trait ArticleParseTrait {
                 if ($val['attributes']['TYPE'] == 'figure') {
 
                     $images[] = str_replace('#', '', $val['attributes']['TARGET']);
-                    $text .= Html::a('Figure', $val['attributes']['TARGET']);
+                    $text .= Html::a('Figure', $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type'=>'figure']);
                     
                 } elseif ($val['attributes']['TYPE'] == 'bib') {
 
-                    $text .= Html::a('[' . $val['attributes']['N'] . ']', $val['attributes']['TARGET']);
+                    $text .= Html::a('[' . $val['attributes']['N'] . ']', $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type'=>'bible']);
                     
                 } elseif ($val['attributes']['TYPE'] == 'termGroup') {
 
-                    $text .= Html::a($val['value'], $val['attributes']['TARGET']);
+                    $text .= Html::a($val['value'], $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type' => 'term']);
                 } 
                 
             } elseif ($val['tag'] == 'HEAD') {
-                $text .= Html::tag('head', $val['value']);
+                $text .= Html::tag('h3', $val['value']);
             }
         }
 
@@ -932,7 +915,7 @@ trait ArticleParseTrait {
                 if (isset($this->images[$image])) {
                     $imgObj = $this->images[$image];
                     $text .= Html::tag(
-                        'p', Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => $image]), ['class' => 'article_image']
+                        'p', Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => '#'.$image, 'data-target' => $imgObj->target]), ['class' => 'article_image']
                     );
                 }
             }

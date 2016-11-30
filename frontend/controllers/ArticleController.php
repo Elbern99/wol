@@ -8,44 +8,63 @@ use yii\web\Controller;
 use common\models\Article;
 use common\models\Author;
 use common\modules\eav\Collection;
+use yii\helpers\ArrayHelper;
+use common\models\Category;
+
 /**
  * Site controller
  */
 class ArticleController extends Controller {
-
 
     public function actionIndex() {
 
         die('articles');
         return $this->render('index');
     }
-    
+
     public function actionOnePager($slug) {
-        
+
+        return $this->renderArticlePage('one-pager', $slug);
+    }
+
+    public function actionFull($slug) {
+
+        return $this->renderArticlePage('full', $slug, false);
+    }
+
+    private function renderArticlePage($template, $slug, $multiLang = true) {
+
         try {
             
             $model = Article::find()
-                    ->with(['articleAuthors.author' => function($query) {
-                        return $query->select(['id', 'avatar']);
-                    }])
-                    ->where(['seo' => $slug, 'enabled' => 1])
-                    ->one();
+                    ->with([
+                        'articleAuthors.author' => function($query) {
+                            return $query->select(['id', 'avatar']);
+                        }, 'articleCategories' => function($query) {
+                            return $query->select(['category_id', 'article_id'])->asArray();
+                        }])
+                            ->where(['seo' => $slug, 'enabled' => 1])
+                            ->one();
+
+            $records = $model->getRelatedRecords();
 
             if (!is_object($model)) {
                 throw new NotFoundHttpException('Page Not Found.');
             }
 
             $articleCollection = Yii::createObject(Collection::class);
-            $articleCollection->initCollection(Article::tableName(), $model);
-            
-            $articleAuthor = $model->getRelatedRecords();
-            $authors = [];
-            
-            if (isset($articleAuthor['articleAuthors'])) {
+            $articleCollection->initCollection(Article::tableName(), $model, $multiLang);
 
-                foreach ($articleAuthor['articleAuthors'] as $author) {
-                    
+
+            $authors = [];
+            $categories = [];
+
+            if (isset($records['articleAuthors'])) {
+
+                foreach ($records['articleAuthors'] as $author) {
+
                     $authorCollection = Yii::createObject(Collection::class);
+                    $authorCollection->setAttributeFilter(['affiliation', 'name']);
                     $authorCollection->initCollection(Author::tableName(), $author->author);
 
                     $authors[$author->author->id] = [
@@ -54,40 +73,38 @@ class ArticleController extends Controller {
                     ];
                 }
             }
-            
-            
-        } catch (\Exception $e) {
-            throw new NotFoundHttpException('Page Not Found.');
-        } catch (\yii\db\Exception $e) {
-            throw new NotFoundHttpException('Page Not Found.');
-        }
 
-        return $this->render('one-pager', ['article' => $model, 'collection' => $articleCollection, 'authors' => $authors]);  
-    }
+            if (count($records['articleCategories'])) {
 
-    public function actionFull($slug) {
-        
-        try {
-
-            $model = Article::find()
-                    ->where(['seo' => $slug, 'enabled' => 1])
-                    ->one();
-
-
-            if (!is_object($model)) {
-                throw new NotFoundHttpException('Page Not Found.');
+                $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
+                $categories = Category::find()
+                        ->alias('c1')
+                        ->leftJoin([
+                            'c2' => Category::tableName()], 'c2.lft < c1.lft and c2.rgt > c1.rgt'
+                        )
+                        ->where(['c1.id' => $categoryIds])
+                        ->andWhere(['>=', 'c2.lvl', 1])
+                        ->select([
+                            'c2.id as p_id',
+                            'c1.title', 'c1.url_key',
+                            'c2.title as p_title', 'c2.url_key as p_url_key',
+                        ])
+                        ->asArray()
+                        ->all();
             }
-
-            $collection = Yii::createObject(Collection::class);
-            $collection->initCollection(Article::tableName(), $model, false);
-        
+                    
         } catch (\Exception $e) {
             throw new NotFoundHttpException('Page Not Found.');
         } catch (\yii\db\Exception $e) {
             throw new NotFoundHttpException('Page Not Found.');
         }
 
-        return $this->render('full', ['article' => $model, 'collection' => $collection]);
+        return $this->render($template, [
+            'article' => $model,
+            'collection' => $articleCollection,
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
     }
 
     public function actionMap($slug) {
@@ -97,3 +114,4 @@ class ArticleController extends Controller {
     }
 
 }
+        

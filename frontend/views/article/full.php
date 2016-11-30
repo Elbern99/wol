@@ -41,27 +41,45 @@ $this->registerMetaTag([
         <h3><?= $attributes['teaser']->getData('teaser') ?></h3>
     </div>
 
+    <?php foreach ($authors as $author): ?>
     <div class="article-user">
-        <div class="img"><a href=""><img src="images/temp/editors/img-01.jpg" alt=""></a></div>
+        <div class="img"><a href=""><img src="<?= $author['avatar'] ?>" alt=""></a></div>
+        
+        <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
+
         <div class="desc">
-            <div class="name"><a href=""><?= $article->availability ?></a></div>
-            <p>University of Rome Tor Vergata, ICID, and Understanding Children’s Work, Italy, and IZA, Germany</p>
+           <div class="name"
+            <?php
+            
+                $link = Html::a($authorAttributes['name']->getData('first_name').' '.
+                    $authorAttributes['name']->getData('middle_name').' '.
+                    $authorAttributes['name']->getData('last_name')
+                    ,'/'
+                );
+                
+                $authorLink[] = $link;
+                echo $link;
+            ?>  
+           </div>
+            <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
         </div>
+        
     </div>
+    <?php endforeach; ?>
 
     <div class="content-inner">
         <div class="content-inner-text">
             <article>
                 <div class="article-pagers">
                     <a href="<?= Url::to('/articles/'.$article->seo) ?>">one-pager</a>
-                    <a href="javascript:void(0)"class="active">full article</a>
+                    <a href="javascript:void(0)" class="active" >full article</a>
                 </div>
 
                 <h2>Elevator pitch</h2>
                 <p><?= $attributes['abstract']->getData('abstract') ?></p>
 
                 <figure>
-                    <img src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>" width="430" height="326">
+                    <img data-target="<?= $attributes['ga_image']->getData('target') ?>" src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>" width="430" height="326">
                 </figure>
 
                 <h2>Key findings</h2>
@@ -117,10 +135,14 @@ $this->registerMetaTag([
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
-                    <li><a href="">Labor markets and institutions</a></li>
-                    <li><a href="">Transition and emerging economies > Gender issues</a></li>
-                    <li><a href="">Demography, family, and gender > Family</a></li>
-                    <li><a href="">Et harum quidem rerum facilis est et expedita distinctio > Itaque earum rerum hic tenetur a sapiente delectus</a></li>
+                    <?php foreach ($categories as $c): ?>
+                        <li>
+                            <?php if (isset($c['p_id'])): ?>
+                                <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
+                            <?php endif; ?>
+                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 
