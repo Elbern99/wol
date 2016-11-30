@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -276,7 +276,6 @@ $this->registerMetaTag([
                                         <?= $additional->full_citation ?>
                                     </div>
                                 </li>
-                                
                                 <?php endforeach; ?>
                             </ul>
                         </div>
