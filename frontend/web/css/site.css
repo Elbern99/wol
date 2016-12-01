@@ -1474,6 +1474,8 @@ img {
   position: absolute;
   display: none;
   overflow: hidden; }
+  .reference-popup .arrows {
+    display: none; }
   @media only screen and (min-width: 769px) {
     .reference-popup {
       height: auto !important;
@@ -1482,7 +1484,7 @@ img {
       position: fixed; } }
   .reference-popup .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 22px;
+    padding: 45px 0 42px;
     position: relative;
     min-height: 200px; }
     .reference-popup .reference-popup-inner:after {
@@ -1534,14 +1536,18 @@ img {
   .reference-popup .column-types,
   .reference-popup .column-methods,
   .reference-popup .column-countries,
-  .reference-popup .column-furniture-reading {
+  .reference-popup .column-furniture-reading,
+  .reference-popup .column-bg-info,
+  .reference-popup .column-additional-references {
     display: none; }
     .reference-popup .column-caption.visible,
     .reference-popup .column.visible,
     .reference-popup .column-types.visible,
     .reference-popup .column-methods.visible,
     .reference-popup .column-countries.visible,
-    .reference-popup .column-furniture-reading.visible {
+    .reference-popup .column-furniture-reading.visible,
+    .reference-popup .column-bg-info.visible,
+    .reference-popup .column-additional-references.visible {
       display: block; }
   .reference-popup .columns {
     margin: 0 -24px 0px; }
@@ -1799,7 +1805,10 @@ img {
   .further-reading-list li {
     margin: 0 0 14px;
     position: relative;
-    text-transform: capitalize; }
+    text-transform: capitalize;
+    display: none; }
+    .further-reading-list li:nth-child(-n+10) {
+      display: block; }
     .further-reading-list li:last-child {
       margin-bottom: 0; }
   .further-reading-list .icon-question {
@@ -1818,7 +1827,10 @@ img {
     margin: 0 0 15px;
     position: relative;
     text-transform: capitalize;
-    font-size: 12px; }
+    font-size: 12px;
+    display: none; }
+    .key-references-list li:nth-child(-n+10) {
+      display: block; }
     @media only screen and (min-width: 769px) {
       .key-references-list li {
         margin: 0 0 13px; } }
@@ -1841,17 +1853,15 @@ img {
   padding: 16px 0 3px; }
   .additional-references-list .additional-references-info {
     display: none; }
-  .additional-references-list h3 {
-    font-size: 12px;
-    margin: 0; }
-  .additional-references-list a {
-    display: inline-block;
-    margin: 0 20px 0 0; }
   .additional-references-list li {
     margin: 0 0 13px;
     position: relative;
+    padding: 0 20px 0 0;
     font-size: 12px;
-    text-transform: capitalize; }
+    text-transform: capitalize;
+    display: none; }
+    .additional-references-list li:nth-child(-n+10) {
+      display: block; }
     .additional-references-list li:last-child {
       margin-bottom: 0; }
   .additional-references-list .icon-question {

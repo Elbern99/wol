@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -29,6 +29,8 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode($attributes['teaser']->getData('teaser'))
 ]);
+
+$this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
 ?>
 <div class="container article-full">
 
@@ -224,15 +226,22 @@ $this->registerMetaTag([
                         <a href="" class="title">Further reading</a>
                         <div class="text">
                             <ul class="further-reading-list">
-                                <?php foreach ($furthers as $further): ?>
-                                <li>
-                                    <h3><?= $further->title ?></h3>
-                                    <div class="icon-question rel-tooltip"></div>
-                                    <div class="further-reading-info">
-                                        <?= $further->full_citation ?>
-                                    </div>
-                                </li>
-                                <?php endforeach; ?>
+                                <ul class="further-reading-list">
+                                    <?php foreach ($furthers as $further): ?>
+                                        <li>
+                                            <h3><?= $further->title ?></h3>
+                                            <div class="icon-question rel-tooltip"></div>
+                                            <div class="further-reading-info">
+                                                <?= $further->full_citation ?>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php
+                                if(sizeof($furthers) > 10) {
+                                    echo  '<a href="" class="more-link">More</a> ';
+                                }
+                                ?>
                             </ul>
                         </div>
                     </li>
@@ -259,6 +268,11 @@ $this->registerMetaTag([
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <?php
+                            if(sizeof($references) > 10) {
+                                echo  '<a href="" class="more-link">More</a> ';
+                            }
+                            ?>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -272,12 +286,18 @@ $this->registerMetaTag([
                                 <?php foreach($additionals as $additional): ?>
                                 <li>
                                     <?= $additional->title ?>
+                                    <div class="icon-question rel-tooltip"></div>
                                     <div class="additional-references-info">
                                         <?= $additional->full_citation ?>
                                     </div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <?php
+                                if(sizeof($additionals) > 10) {
+                                    echo  '<a href="" class="more-link">More</a> ';
+                                }
+                            ?>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -300,6 +320,9 @@ $this->registerMetaTag([
         <div class="container">
             <div class="column-bg-info">
                 <div class="bg-info"></div>
+            </div>
+            <div class="column-additional-references">
+                <div class="additional-references"></div>
             </div>
             <div class="column-furniture-reading">
                 <h3>Full citation</h3>

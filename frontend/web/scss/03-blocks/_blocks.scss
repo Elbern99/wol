@@ -642,6 +642,10 @@
   display: none;
   overflow: hidden;
 
+  .arrows {
+    display: none;
+  }
+
   @include breakpoint('tablet') {
     height: auto !important;
     bottom: 0;
@@ -651,7 +655,7 @@
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 22px;
+    padding: 45px 0 42px;
     position: relative;
     min-height: 200px;
 
@@ -725,7 +729,9 @@
   .column-types,
   .column-methods,
   .column-countries,
-  .column-furniture-reading {
+  .column-furniture-reading,
+  .column-bg-info,
+  .column-additional-references {
     display: none;
 
     &.visible {

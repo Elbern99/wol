@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -36,6 +36,8 @@ $this->registerMetaTag([
 ]);
 
 $authorLink = [];
+
+$this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
 ?>
 <div class="container article-full">
 
@@ -183,6 +185,7 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                <a href="" class="more-link">More</a>
                             </div>
                         </div>
                     </li>
@@ -202,7 +205,6 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; unset($related); ?>
                                 </ul>
-                                <a href="" class="more-link">More</a>
                             </div>
                         </div>
                     </li>
@@ -225,6 +227,11 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                <?php
+                                if(sizeof($furthers) > 10) {
+                                    echo  '<a href="" class="more-link">More</a> ';
+                                }
+                                ?>
                             </div>
                         </div>
                     </li>
@@ -252,6 +259,11 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                <?php
+                                    if(sizeof($references) > 10) {
+                                        echo  '<a href="" class="more-link">More</a> ';
+                                    }
+                                ?>
                             </div>
                         </div>
                     </li>
@@ -263,17 +275,23 @@ $authorLink = [];
                         <a href="" class="title">Additional References</a>
                         <div class="text">
                             <div class="text-inner">
-                                <?php $i = 1; ?>
                                 <ul class="additional-references-list">
                                     <?php foreach($additionals as $additional): ?>
                                         <li>
                                             <?= $additional->title ?>
+                                            <?php $i++; ?>
+                                            <div class="icon-question rel-tooltip"></div>
                                             <div class="additional-references-info">
                                                 <?= $additional->full_citation ?>
                                             </div>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                <?php
+                                if(sizeof($additionals) > 10) {
+                                    echo  '<a href="" class="more-link">More</a> ';
+                                }
+                                ?>
                             </div>
                         </div>
                     </li>
@@ -297,6 +315,9 @@ $authorLink = [];
         <div class="container">
             <div class="column-bg-info">
                 <div class="bg-info"></div>
+            </div>
+            <div class="column-additional-references">
+                <div class="additional-references"></div>
             </div>
             <div class="column-furniture-reading">
                 <h3>Full citation</h3>
