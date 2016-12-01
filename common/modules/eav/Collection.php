@@ -19,7 +19,7 @@ class Collection {
     protected $attributeCollection = null;
     protected $valueCollection = [];
     protected $entityCollection = null;
-    protected $lanuages = null;
+    protected $languages = null;
     public $isMulti;
     
     public function __construct(EntityTypeInterface $type, EntityInterface $entity) {
@@ -41,7 +41,7 @@ class Collection {
     }
 
     public function getLanguages() {
-        return $this->lanuages;
+        return $this->languages;
     }
     
     public function initCollection($type, EntityModelInterface $model, $multiLang = false) {
@@ -74,7 +74,7 @@ class Collection {
         if (!is_object($entityModel)) {
             throw new Exception('Entity did not set');
         }
-        
+
         if ($multiLang) {
             $this->languages = $entityModel->getEavValueLanguage();
             $multiLang = (count($this->languages) > 1) ? true : false;
