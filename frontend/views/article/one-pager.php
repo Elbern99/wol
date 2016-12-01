@@ -8,14 +8,9 @@ use Yii;
 
 <?php
 $attributes = $collection->getEntity()->getValues();
-$currentLang = null;
 
-if ($collection->isMulti) {
-    $currentLang = 0;
-}
-//var_dump($attributes['add_references']->getData(null, $currentLang));exit;
 $this->title = $attributes['title']->getData('title', $currentLang);
-$this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['articles'])];
+$this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 
 $this->registerMetaTag([
         'name' => 'keywords',
@@ -80,15 +75,28 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
     <div class="content-inner-text">
         <article>
             <div class="article-pagers-holder">
+                
+                <?php if ($collection->isMulti): ?>
                 <div class="language-pagers">
-                    <a href="" class="btn-border-gray-middle with-icon-r">
-                        <div class="lang"><img src="images/lang/germany.jpg" alt=""></div>
-                        <span class="text">in Deutsch lesen</span>
-                    </a>
+                    <?php if (!$currentLang): ?>
+                        <?php foreach($langs as $lang): ?> 
+                    <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
+                                <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
+                                <span class="text">in <?= $lang['name'] ?> lesen</span>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
+                            <div class="lang"><img src="<?= Yii::$app->params['default_lang']['image'] ?>" alt=""></div>
+                            <span class="text">in <?= Yii::$app->params['default_lang']['name'] ?> lesen</span>
+                        </a>
+                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
+                
                 <div class="article-pagers">
                     <a href="javascript:void(0)" class="active">one-pager</a>
-                    <a href="<?= Url::to(Yii::$app->request->url . '/long') ?>" >full article</a>
+                    <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" >full article</a>
                 </div>
             </div>
 
@@ -96,7 +104,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
             <p><?= $attributes['abstract']->getData('abstract', $currentLang) ?></p>
 
             <figure>
-                <img id="<?php /*$attributes['ga_image']->getData('id', $currentLang)*/ ?>" data-target="<?= $attributes['ga_image']->getData('target', $currentLang) ?>" src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>" width="430" height="326">
+                <img id="<?= $attributes['ga_image']->getData('id', $currentLang); ?>" data-target="<?= $attributes['ga_image']->getData('target', $currentLang) ?>" src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>" width="430" height="326">
             </figure>
 
             <h2>Key findings</h2>
@@ -121,7 +129,12 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
     </div>
     <aside class="sidebar-right">
         <div class="article-buttons article-buttons-sidebar">
-            <a href="" class="btn-border-blue-middle btn-download with-icon"><span class="icon-download"></span><span class="text">download pdf</span></a>
+            <?php if (isset($attributes['one_pager_pdf'])): ?>
+            <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                <span class="icon-download"></span>
+                <span class="text">download pdf</span>
+            </a>
+            <?php endif; ?>
             <a href="" class="btn-border-blue-middle btn-cite"><span class="icon-quote"></span><span>cite</span></a>
             <a href="" class="btn-border-gray-middle btn-like short">
                 <span class="icon-heart"></span>
@@ -157,7 +170,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
         </div>
 
         <div class="sidebar-widget sidebar-widget-evidence-map">
-            <a href="">
+            <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
                 <div class="caption">
                     <div class="title">Evidence map</div>
                     <div class="icon-circle-arrow white">

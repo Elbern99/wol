@@ -10,6 +10,7 @@ use common\models\Author;
 use common\modules\eav\Collection;
 use yii\helpers\ArrayHelper;
 use common\models\Category;
+use common\models\Lang;
 
 /**
  * Site controller
@@ -31,8 +32,13 @@ class ArticleController extends Controller {
 
         return $this->renderArticlePage('full', $slug);
     }
+    
+    public function actionLang($slug, $code) {
 
-    private function renderArticlePage($template, $slug, $multiLang = false) {
+        return $this->renderArticlePage('one-pager', $slug, true, $code);
+    }
+
+    private function renderArticlePage($template, $slug, $multiLang = false, $langCode = null) {
 
         try {
             
@@ -59,7 +65,9 @@ class ArticleController extends Controller {
 
             $authors = [];
             $categories = [];
-
+            $langs = [];
+            $currentLang = null;
+            
             if (isset($records['articleAuthors'])) {
 
                 foreach ($records['articleAuthors'] as $author) {
@@ -93,7 +101,25 @@ class ArticleController extends Controller {
                         ->asArray()
                         ->all();
             }
+            
+            if ($articleCollection->isMulti) {
+                
+                $currentLang = 0;
+                
+                if (is_null($langCode)) {
                     
+                    $langIds = $articleCollection->getLanguages();
+                    $langs = Lang::find()->where(['id' => $langIds])->asArray()->all();
+                } else {
+                    
+                    $lang = Lang::find()->where(['code' => $langCode])->select(['id'])->one();
+
+                    if (is_object($lang)) {
+                        $currentLang = $lang->id;
+                    }
+                }
+            }
+
         } catch (\Exception $e) {
             throw new NotFoundHttpException('Page Not Found.');
         } catch (\yii\db\Exception $e) {
@@ -104,7 +130,9 @@ class ArticleController extends Controller {
             'article' => $model,
             'collection' => $articleCollection,
             'authors' => $authors,
-            'categories' => $categories
+            'categories' => $categories,
+            'currentLang' => $currentLang,
+            'langs' => $langs
         ]);
     }
 

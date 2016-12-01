@@ -39,9 +39,9 @@ class Value {
             if ($key) {
 
                 if (is_object($this->data[$lang_key])) {
-                    return $this->data[$lang_key]->$key;
+                    return $this->data[$lang_key]->$key ?? null;
                 } elseif (is_array($this->data[$lang_key])) {
-                    return $this->data[$lang_key][$key];
+                    return $this->data[$lang_key][$key] ?? null;
                 }
             }
 
@@ -61,9 +61,9 @@ class Value {
             if ($key) {
 
                 if (is_object($this->data)) {
-                    return $this->data->$key;
+                    return $this->data->$key ?? null;
                 } elseif (is_array($this->data)) {
-                    return $this->data[$key];
+                    return $this->data[$key] ?? null;
                 }
             }
         }

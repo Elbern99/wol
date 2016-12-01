@@ -164,13 +164,13 @@ class ArticleSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'full_pdf', 
                 array_combine($attributeSchema, ['full_pdf', 'Full Pdf', 0, 1, 1]), 
-                [['label' => 'Path', 'type' => 'String']]
+                [['label' => 'Url', 'type' => 'String']]
         );
         
         $this->attributes[] = new Attribute(
                 'one_pager_pdf', 
                 array_combine($attributeSchema, ['one_pager_pdf', 'One Pager Pdf', 0, 1, 1]), 
-                [['label' => 'Path', 'type' => 'String']]
+                [['label' => 'Url', 'type' => 'String']]
         );
     }
     
