@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -226,23 +226,21 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                         <a href="" class="title">Further reading</a>
                         <div class="text">
                             <ul class="further-reading-list">
-                                <ul class="further-reading-list">
-                                    <?php foreach ($furthers as $further): ?>
-                                        <li>
-                                            <h3><?= $further->title ?></h3>
-                                            <div class="icon-question rel-tooltip"></div>
-                                            <div class="further-reading-info">
-                                                <?= $further->full_citation ?>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <?php
-                                if(sizeof($furthers) > 10) {
-                                    echo  '<a href="" class="more-link">More</a> ';
-                                }
-                                ?>
+                                <?php foreach ($furthers as $further): ?>
+                                    <li>
+                                        <h3><?= $further->title ?></h3>
+                                        <div class="icon-question rel-tooltip"></div>
+                                        <div class="further-reading-info">
+                                            <?= $further->full_citation ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
+                            <?php
+                            if(count($furthers) > 10) {
+                                echo  '<a href="" class="more-link">More</a> ';
+                            }
+                            ?>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -269,7 +267,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                                 <?php endforeach; ?>
                             </ul>
                             <?php
-                            if(sizeof($references) > 10) {
+                            if(count($references) > 10) {
                                 echo  '<a href="" class="more-link">More</a> ';
                             }
                             ?>
@@ -294,7 +292,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                                 <?php endforeach; ?>
                             </ul>
                             <?php
-                                if(sizeof($additionals) > 10) {
+                                if(count($additionals) > 10) {
                                     echo  '<a href="" class="more-link">More</a> ';
                                 }
                             ?>

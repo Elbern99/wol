@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -185,7 +185,11 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <a href="" class="more-link">More</a>
+                                <?php
+                                if(count($backgrounds) > 10) {
+                                    echo  '<a href="" class="more-link">More</a> ';
+                                }
+                                ?>
                             </div>
                         </div>
                     </li>
@@ -228,7 +232,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                                     <?php endforeach; ?>
                                 </ul>
                                 <?php
-                                if(sizeof($furthers) > 10) {
+                                if(count($furthers) > 10) {
                                     echo  '<a href="" class="more-link">More</a> ';
                                 }
                                 ?>
@@ -240,31 +244,29 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                 <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                     <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Key references</a>
-                        <div class="text">
-                            <div class="text-inner">
-                                <?php $i = 1; ?>
-                                <ul class="key-references-list">
-                                    <?php foreach($references as $reference): ?>
-                                        <li>
-                                            <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
-                                            <div class="icon-question rel-tooltip"></div>
-                                            <div class="key-references-info">
-                                                <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
-                                                <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
-                                                <div class="types"><?php /* (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type*/ ?></div>
-                                                <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
-                                                <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <?php
-                                    if(sizeof($references) > 10) {
-                                        echo  '<a href="" class="more-link">More</a> ';
-                                    }
-                                ?>
-                            </div>
+                    <a href="" class="title">Key references</a>
+                    <div class="text">
+                        <?php $i = 1; ?>
+                        <ul class="key-references-list">
+                            <?php foreach($references as $reference): ?>
+                                <li>
+                                    <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
+                                    <div class="icon-question rel-tooltip"></div>
+                                    <div class="key-references-info">
+                                        <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
+                                        <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
+                                        <div class="types"><?php /* (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type*/ ?></div>
+                                        <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
+                                        <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php
+                            if(count($references) > 10) {
+                                echo  '<a href="" class="more-link">More</a> ';
+                            }
+                        ?>
                         </div>
                     </li>
                 <?php endif; ?>
@@ -288,7 +290,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                                     <?php endforeach; ?>
                                 </ul>
                                 <?php
-                                if(sizeof($additionals) > 10) {
+                                if(count($additionals) > 10) {
                                     echo  '<a href="" class="more-link">More</a> ';
                                 }
                                 ?>
