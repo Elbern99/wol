@@ -24,15 +24,15 @@ class ArticleController extends Controller {
 
     public function actionOnePager($slug) {
 
-        return $this->renderArticlePage('one-pager', $slug);
+        return $this->renderArticlePage('one-pager', $slug, true);
     }
 
     public function actionFull($slug) {
 
-        return $this->renderArticlePage('full', $slug, false);
+        return $this->renderArticlePage('full', $slug);
     }
 
-    private function renderArticlePage($template, $slug, $multiLang = true) {
+    private function renderArticlePage($template, $slug, $multiLang = false) {
 
         try {
             
@@ -40,18 +40,19 @@ class ArticleController extends Controller {
                     ->with([
                         'articleAuthors.author' => function($query) {
                             return $query->select(['id', 'avatar']);
-                        }, 'articleCategories' => function($query) {
+                        }, 
+                        'articleCategories' => function($query) {
                             return $query->select(['category_id', 'article_id'])->asArray();
-                        }])
-                            ->where(['seo' => $slug, 'enabled' => 1])
-                            ->one();
-
-            $records = $model->getRelatedRecords();
+                        }
+                    ])
+                    ->where(['seo' => $slug, 'enabled' => 1])
+                    ->one();
 
             if (!is_object($model)) {
                 throw new NotFoundHttpException('Page Not Found.');
             }
-
+            
+            $records = $model->getRelatedRecords();
             $articleCollection = Yii::createObject(Collection::class);
             $articleCollection->initCollection(Article::tableName(), $model, $multiLang);
 
@@ -108,9 +109,51 @@ class ArticleController extends Controller {
     }
 
     public function actionMap($slug) {
-        var_dump($slug);
-        exit;
-        return $this->render('map');
+        
+        $model = Article::find()
+                    ->with([
+                        'articleCategories' => function($query) {
+                            return $query->select(['category_id', 'article_id'])->asArray();
+                        }
+                    ])
+                    ->where(['seo' => $slug, 'enabled' => 1])
+                    ->one();
+
+        if (!is_object($model)) {
+            throw new NotFoundHttpException('Page Not Found.');
+        }
+        
+        $records = $model->getRelatedRecords();
+        $articleCollection = Yii::createObject(Collection::class);
+        $articleCollection->setAttributeFilter(['title', 'keywords', 'related', 'key_references', 'add_references']);
+        $articleCollection->initCollection(Article::tableName(), $model);
+
+        $categories = [];
+
+        if (count($records['articleCategories'])) {
+
+            $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
+            $categories = Category::find()
+                    ->alias('c1')
+                    ->leftJoin([
+                        'c2' => Category::tableName()], 'c2.lft < c1.lft and c2.rgt > c1.rgt'
+                    )
+                    ->where(['c1.id' => $categoryIds])
+                    ->andWhere(['>=', 'c2.lvl', 1])
+                    ->select([
+                        'c2.id as p_id',
+                        'c1.title', 'c1.url_key',
+                        'c2.title as p_title', 'c2.url_key as p_url_key',
+                    ])
+                    ->asArray()
+                    ->all();
+        }
+        
+        return $this->render('map', [
+            'article' => $model,
+            'collection' => $articleCollection,
+            'categories' => $categories
+        ]);
     }
 
 }

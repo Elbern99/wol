@@ -44,7 +44,7 @@ class Collection {
         return $this->lanuages;
     }
     
-    public function initCollection($type, EntityModelInterface $model, $multiLang = true) {
+    public function initCollection($type, EntityModelInterface $model, $multiLang = false) {
         
         $attrFilter = $this->selectAttribute;
         

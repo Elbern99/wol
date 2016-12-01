@@ -545,6 +545,7 @@ trait ArticleParseTrait {
             
             $authors = [];
             $analitics = $read->analytic;
+            $readAttribute = $read->attributes();
             $monogr = $read->monogr;
 
             if (isset($analitics->author)) {
@@ -601,8 +602,17 @@ trait ArticleParseTrait {
                             ' ' . $analitics->idno[1], $analitics->idno[0]);
 
             $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            
+            $obj->country_codes = [];
+
+            if (isset($readAttribute['n'])) {
+
+                $obj->country_codes = explode(' ', (string) $readAttribute['n']);
+            }
+
             $this->addReferences[] = $obj;
         }
+        
     }
 
     protected function setReferences($item) {
