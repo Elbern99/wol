@@ -222,14 +222,14 @@
 
     // 2.2 DOC HEIGHT FOR ELEMENTS
     var docHeightForElement = {
-        elements: ['.reference-popup, .mobile-menu, .mobile-search, .mobile-login'],
+        elements: ['.reference-popup, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
-                elements.css('height', 'auto');
+                elements.css('min-height', '1px');
                 _doc_height = $(document).height();
 
                 setTimeout(function(){
-                    elements.css('height',_doc_height);
+                    elements.css('min-height',_doc_height);
                 }, 10);
         }
     };

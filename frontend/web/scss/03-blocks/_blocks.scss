@@ -524,6 +524,10 @@
   .text {
     display: none;
   }
+
+  .evidence-map-list {
+    padding: 20px 0 0;
+  }
 }
 
 .submenu {
@@ -542,7 +546,7 @@
 
   &.open {
     max-height: 800px;
-    z-index: 100;
+    z-index: 1300;
     opacity: 1;
   }
 
@@ -647,7 +651,7 @@
   }
 
   @include breakpoint('tablet') {
-    height: auto !important;
+    min-height: auto !important;
     bottom: 0;
     top: auto;
     position: fixed;

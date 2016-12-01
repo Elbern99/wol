@@ -205,3 +205,73 @@
     transform: rotate(-45deg);
   }
 }
+
+[class*='icon-square-'] {
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+
+  &.icon-square-dark-green {
+    background: #00453a;
+    border: 2px solid #00352d;
+  }
+
+  &.icon-square-green {
+    background: #008954;
+    border: 2px solid #006c42;
+  }
+
+  &.icon-square-lime-green {
+    background: #49da2c;
+    border: 2px solid #3bc81f;
+  }
+
+  &.icon-square-yellow-green {
+    background: #9ced10;
+    border: 2px solid #86d400;
+  }
+
+  &.icon-square-yellow {
+    background: #f6ff00;
+    border: 2px solid #cfd700;
+  }
+}
+
+.icon-number-reference {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #0053a0;
+  border-radius: 50%;
+  text-align: center;
+  font: 8px/14px $lucida-sans-bold;
+  margin-bottom: 10px;
+  background: $white;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -2px;
+    right: -2px;
+    height: 1px;
+    margin-top: 3px;
+    box-shadow: 0 5px 1px rgba(0,0,0,0.5);
+    border-radius: 50%;
+  }
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 5px 0 5px;
+    border-color: #02529F transparent transparent transparent;
+    -webkit-transform: rotate(360deg);
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    margin-left: -5px;
+    z-index: -1;
+  }
+}

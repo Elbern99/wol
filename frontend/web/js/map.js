@@ -1,76 +1,48 @@
 (function($) {
 
-  /* old example need remove */
-  var countries_array =  {
-    'AU':{
-      'name':'Australia',
-      'link':'http:australia.ru',
-      'content': {
-        'key_references': {
-          'title': 'Key references from Australia',
-          'columns': [
-            {
-              'Reference': [
-                {
-                  'link_title':'Organisation for Economic Co-operation and <em>Development Employment Outlook</em>, Paris: OECD Publishing, 2013. [2]',
-                  'link':'http://dx.doi.org/10.1787/empl_outlook-2013-en'
-                },
-                {
-                  'link_title':'OECD Employment Outlook, Paris: OECD Publishing, 2010. [9]',
-                  'link':'http://www.w3.org/1999/xhtml'
-                }  
-              ]
-            },
-            {
-              'Data type(s)': [
-                {
-                  'type':'[1] Other - Time series'
-                }
-              ]
-            },
-            {
-              'Method(s)': [
-                {
-                  'method':'Macro-level analysis - Descriptive statistics'
-                }
-              ]
-            }
-          ]
-        },
-        'additional_references': {
-          'title': 'Additional references from United States',
-          'reference_title': 'Reference',
-          'columns': [
-            {
-              'link_title': 'Organisation for Economic Co-operation and Development Employment Outlook, Paris: OECD Publishing, 2006.',
-              'link': 'http://dx.doi.org/10.1787/empl_outlook-2006-en'
-            },
-            {
-              'link_title': 'Organisation for Economic Co-operation and Development Employment Outlook, Paris: OECD Publishing, 2006.',
-              'link': 'http://dx.doi.org/10.1787/empl_outlook-2006-en'
-            },
-            {
-              'link_title': 'Organisation for Economic Co-operation and Development Employment Outlook, Paris: OECD Publishing, 2006.',
-              'link': 'http://dx.doi.org/10.1787/empl_outlook-2006-en'
-            }
-          ]
-        }
-      }
-    }
-  }  
+    //GLOBAL VARIABLE ---------
+
+    var _window_width = $(window).width(),
+        _mobile = 769,
+        _tablet = 1025;
+
+    $(window).resize(function() {
+        _window_width = $(window).width();
+    });
 
   $(document).ready(function() {
 
-    //console.log(JSON.parse(mapConfig.source));
+    var countries_array = JSON.parse(mapConfig.source);
+
+    var elements = {
+        mapInfo: $('.map-info')
+    }
+
+    var contentMap = {
+        MobileMoreText: function(btn){
+            $(btn).click(function(e) {
+                var cur = $(this);
+                    cur.parent().toggleClass('open-text-map');
+                e.preventDefault();
+            });
+        }
+    };
+
+    contentMap.MobileMoreText('.more-evidence-map-text-mobile');
+
     mapObj = { 
       options: {
           maxBounds: new L.LatLngBounds( new L.LatLng(-60, -180), new L.LatLng(86, 180)),
           inertia: false,
           minZoom: 2,
-          maxZoom: 4,
+          maxZoom: 5,
           zoom: 2,
           attributionControl: false,
-          clickable: false
+          clickable: false,
+          boxZoom: false,
+          tap: false,
+          trackResize: true,
+          center: [30, 10],
       },
       style: function(feature) {
         return {
@@ -78,52 +50,56 @@
           opacity: 1,
           color: mapObj.getBorderColor(feature.properties.economy),
           dashArray: '1',
-          fillOpacity: 0.7,
+          fillOpacity: 1,
           fillColor: mapObj.getColor(feature.properties.economy)
         };
       },
       getColor: function(d) {
-        return  d === 'factor-efficiency' ? '#01BBD7' :
-                d === 'factor' ? '#0EA494' :
-                d === 'efficiency-innovation' ? '#3AB000' :
-                d === 'efficiency' ? '#87DB00' :
-                d === 'innovation' ? '#00550C' :
-                d === 'none' ? '#C8D9E1' :
-                '#C8D9E1';
+        return  d === 'factor-efficiency' ? '#9ced10' :
+                d === 'factor' ? '#f6ff00' :
+                d === 'efficiency-innovation' ? '#008954' :
+                d === 'efficiency' ? '#49da2c' :
+                d === 'innovation' ? '#00453a' :
+                d === 'none' ? '#c1d2d9' :
+                '#c1d2d9';
       },
       getBorderColor: function(d) {
-        return  d === 'factor-efficiency' ? '#2D8580' :
-                d === 'factor' ? '#2D8580' :
-                d === 'efficiency-innovation' ? '#257525' :
-                d === 'efficiency' ? '#55A617' :
-                d === 'innovation' ? '#00550C' :
-                d === 'none' ? '#C1D2DA' :
-                '#C1D2DA';
+        return  d === 'factor-efficiency' ? '#86d400' :
+                d === 'factor' ? '#cfd700' :
+                d === 'efficiency-innovation' ? '#006c42' :
+                d === 'efficiency' ? '#3bc81f' :
+                d === 'innovation' ? '#00352d' :
+                d === 'none' ? '#a4b5bd' :
+                '#a4b5bd';
       },
       onEachFeature: function(feature, layer) {
         layer.on({});
       },
       hideInfoMap: function(){
-        map.on('click', function(e) {        
-          $('.map-info').removeClass('map-info-open');
+        map.on('click', function(e) {
+            elements.mapInfo.removeClass('map-info-open');
         });
 
-        map.on('movestart', function(e) {        
-            $('.map-info').removeClass('map-info-open');
+        map.on('movestart', function(e) {
+            elements.mapInfo.removeClass('map-info-open');
         });
 
-        $('.map-holder').on('click', '.icon-close', function(e) {        
-            $('.map-info').removeClass('map-info-open');
+        $('.map-holder').on('click', '.icon-close', function(e) {
+            elements.mapInfo.removeClass('map-info-open');
         });
       },
       onMapClick: function(event) {
         event.target.closePopup();
         var popup = event.target.getPopup();
-        $('.map-info').addClass('map-info-open').find('.map-info-content').html(popup._content);
+            elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
+          
+          if(_window_width< _mobile){
+              $("html, body").animate({ scrollTop: 0 }, "slow");
+          }
       }
     }    
 
-    var map = L.map('map', mapObj.options).setView([40, 0], 2),
+    var map = L.map('map', mapObj.options),
         geojson;
 
         map.zoomControl.setPosition('bottomright');
@@ -148,8 +124,9 @@
           $.each(data, function(index, value) {
 
               $.each(countries_array, function(index_countries, value_countries) {
+
                 if(index === index_countries) {
-                  countries_array[index].economy = value; 
+                  countries_array[index].economy = value;
                 }
               });
           });
@@ -163,6 +140,7 @@
               $.each(countries_array, function(index_countries, value_countries) {
                 if(value_countries.id === country_id) {
                   country.properties.economy = value_countries.economy;
+                  value_countries.country = country.properties.name;
                 }
               });
             });
@@ -178,38 +156,75 @@
                 y = value.capital.y;
 
                 //references
-                var key_references = value.content.key_references,
-                    key_references_text = key_references.title,
-                    key_references_columns = key_references.columns,
-                    key_references_columns_length = key_references_columns.length;
-                    key_references_list = [];
+                var key_references_obj = value.key_references,
+                    key_additional_obj = value.additional_references,
+                    key_country = value.country,
+                    arrayTpl = [];
 
-                //additional 
-                var additional_references = value.content.additional_references,
-                    additional_references_text = additional_references.title,
-                    aditional_references_title = additional_references.reference_title,
-                    aditional_columns = additional_references.columns,
-                    aditional_columns_length = aditional_columns.length,
-                    aditional_references_list = [];
+                if(key_references_obj) {
+                    var key_references_length = value.key_references.length;
 
-                  for (i = 0; i < aditional_columns.length; i++) { 
-                    aditional_references_list.push('<li><a href="'+aditional_columns[i].link+'" target="_blank">'+aditional_columns[i].link_title+'</a></li>');
-                  }  
+                    arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
 
-                  var tpl = [
-                      '<div class="title">'+additional_references_text+'</div>',
-                      '<div class="title-references">'+aditional_references_title+'</div>',
-                      '<ul class="references-list">'+aditional_references_list.join("\n")+'</ul>'
-                  ].join("\n");
+                    for (i = 0; i < key_references_obj.length; i++) {
+                        var references_full_citation = key_references_obj[i].full_citation,
+                            references_method = key_references_obj[i].method,
+                            references_position = key_references_obj[i].position,
+                            references_source = key_references_obj[i].source,
+                            references_title = key_references_obj[i].title,
+                            references_type = key_references_obj[i].type;
 
-                var articles_count = aditional_columns_length+key_references_columns_length;  
+                        arrayTpl.push('' +
+                            '<div class="ref-item">' +
+                            '<div class="authors">Bernstein, L., Rappaport, C., Olsho, L., Hunt, D., Levin, M.</div>' +
+                            '<div class="link">'+references_full_citation+'</div>' +
+                            '<div class="text">National Center for Education Evaluation and Regional Assistance Report</div>' +
+                            '<div class="dates">'+references_title+' <a href="#">['+references_position+']</a></div>' +
+                            '<div class="types">Data type(s): '+references_type+'</div>' +
+                            '<div class="method">Method(s): '+references_method+'</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+
+                if(key_additional_obj) {
+                    var key_additional_length = key_additional_obj.length;
+                        arrayTpl.push('<h3>Additional references from '+key_country+'</h3>');
+                        for (i = 0; i < key_additional_obj.length; i++) {
+                            var additional_full_citation = key_additional_obj[i].full_citation,
+                                additional_method = key_additional_obj[i].title;
+
+                            arrayTpl.push('' +
+                                '<div class="ref-item">' +
+                                '<div class="link">'+additional_full_citation+'</div>' +
+                                '<div class="method">'+additional_method+'</div>' +
+                                '</div>'
+                            );
+                        }
+                }
+
+                var key_ref_tpl;
+
+                if(arrayTpl) {
+                    key_ref_tpl = arrayTpl.join("\n");
+                }
+
+                if(key_references_length === undefined){
+                    key_references_length = 0;
+                }
+
+                if(key_additional_length === undefined){
+                    key_additional_length = 0;
+                }
+
+                var articles_count = key_references_length + key_additional_length;
 
                 var LeafIcon = L.divIcon({
-                    iconSize: new L.Point(20, 27), 
-                    html: '<div class="map-icon">'+ articles_count +'</div>'
+                    iconSize: new L.Point(24, 35),
+                    html: '<div class="icon-number-reference">'+ articles_count +'</div>'
                 });
 
-                var marker = L.marker([y,x], {icon: LeafIcon}).bindPopup(tpl).addTo(map);
+                var marker = L.marker([y,x], {icon: LeafIcon}).bindPopup(key_ref_tpl).addTo(map);
 
                 marker.on('click', mapObj.onMapClick );
             });

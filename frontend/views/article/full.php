@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -199,7 +199,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
             </div>
             
             <div class="sidebar-widget sidebar-widget-articles-references">
-                <ul class="sidebar-accrodion-list">
+                <ul class="sidebar-accrodion-list hide-desktop">
                     
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item">
