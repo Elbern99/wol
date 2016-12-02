@@ -468,7 +468,7 @@
     border-bottom: 1px solid #b0b0b0;
     position: relative;
     padding: 5px 0 5px;
-    font-size: 14px;
+    font-size: 13px;
     color: #323232;
     
     &:hover {
@@ -651,7 +651,7 @@
   }
 
   @include breakpoint('tablet') {
-    min-height: auto !important;
+    min-height: 1px !important;
     bottom: 0;
     top: auto;
     position: fixed;
@@ -847,5 +847,54 @@
     box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
     background: #f5f5f5;
     z-index: -1;
+  }
+}
+
+//sidebar-buttons-holder
+.sidebar-buttons-holder {
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 31px;
+  }
+}
+
+//share-buttons-list
+.share-buttons-list {
+  margin: 4px -2px 0px -4px;
+  display: flex;
+  align-self: center;
+
+  @include breakpoint('tablet') {
+    margin: 4px -2px 0px -5px;
+  }
+
+  li {
+    margin: 0 5px 7px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      transform: scale(1.3);
+      margin: 0 13px 0;
+    }
+
+    span {
+      vertical-align: top !important;
+    }
+  }
+}
+
+//sidebar-email-holder
+.sidebar-email-holder {
+
+  .btn-border-gray-small {
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 26px;
+      width: 34px;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    margin: 0 0 29px;
   }
 }

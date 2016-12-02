@@ -100,7 +100,8 @@
     }
   }
 
-  figure {
+  figure,
+  .article_image {
     display: block;
     margin: 0 0 22px;
 
@@ -179,8 +180,17 @@
   @extend .clearfix;
   margin: 0 0 34px;
 
-  .language-pagers {
-    display: none;
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: flex;
+    justify-content: space-around;
+
+    .language-pagers {
+      order: 1;
+
+      a {
+        height: 36px;
+      }
+    }
   }
 
   @include breakpoint('tablet') {
@@ -188,7 +198,6 @@
 
     .language-pagers {
       float: right;
-      display: block;
     }
   }
 }
@@ -292,6 +301,7 @@
       transform: translateY(-50%);
       max-width: 230px;
       padding: 19px 0 0;
+      z-index: 550;
     }
 
     h4 {
@@ -384,4 +394,10 @@
       display: none;
     }
   }
+}
+
+#article-map-medium,
+#map-mini{
+  @extend .pinout;
+  background: $white;
 }

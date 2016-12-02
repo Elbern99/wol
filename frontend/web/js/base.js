@@ -225,7 +225,7 @@
         elements: ['.reference-popup, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
-                elements.css('min-height', '1px');
+                elements.css('min-height', 'auto');
                 _doc_height = $(document).height();
 
                 setTimeout(function(){
@@ -277,7 +277,9 @@
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
         headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .header-menu-bottom-list'));
+
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
+
         if(_window_width < _tablet ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
             dropDown($('.btn-mobile-menu-show'), $('.drop-content'));
