@@ -63,7 +63,7 @@ class Manager implements MenuManagerInterface {
                         $options = [];
                     }
 
-                    $text = Html::a($item['title'], $item['link'], $options);
+                    $text = Html::a($item['title'], Url::to($item['link'], true), $options);
                 } else {
                     $text = $item['title'];
                 }
@@ -147,7 +147,7 @@ class Manager implements MenuManagerInterface {
                         $options = [];
                     }
 
-                    $text = Html::a($item['title'], $item['link'], $options);
+                    $text = Html::a($item['title'], Url::to($item['link'], true), $options);
                 } else {
                     $text = $item['title'];
                 }
