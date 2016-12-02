@@ -51,7 +51,7 @@ $this->registerMetaTag([
                     </li>
                     <?php endforeach; ?>
                 </ul>
-                <a href="" class="btn-gray align-center">show more</a>
+                <!-- <a href="" class="btn-gray align-center">show more</a>-->
             </div>
         </div>
 
