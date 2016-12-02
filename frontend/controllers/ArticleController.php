@@ -11,16 +11,83 @@ use common\modules\eav\Collection;
 use yii\helpers\ArrayHelper;
 use common\models\Category;
 use common\models\Lang;
+use common\modules\eav\CategoryCollection;
 
 /**
  * Site controller
  */
 class ArticleController extends Controller {
 
-    public function actionIndex() {
+    public function actionIndex($sort = 0) {
+        
+        $order = SORT_DESC;
+        
+        if ($sort) {
+            $order = SORT_ASC;
+        }
+        
+        $category = Category::find()
+                             ->where(['url_key' => 'articles'])
+                             ->select([
+                                 'root', 'lvl', 'lft', 'rgt',
+                                 'url_key', 'title', 
+                                 'description', 'meta_title',
+                                 'meta_keywords'
+                             ])
+                             ->one();
+        
+        $subjectAreas = $category->children()
+                                 ->select([
+                                    'id', 'title', 
+                                    'url_key','root', 
+                                    'lvl', 'lft', 'rgt'
+                                 ])
+                                 ->asArray()
+                                 ->all();
+        $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
+            return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
+        });
+        
+        $articles = Article::find()
+                             ->select(['id','title','seo', 'availability', 'created_at'])
+                             ->where(['enabled' => 1])
+                             ->with(['articleCategories' => function($query) {
+                                 return $query->select(['category_id', 'article_id']);
+                             }])
+                             ->orderBy(['created_at' => $order])
+                             ->all();
+        
+        $articlesIds = ArrayHelper::getColumn($articles, 'id');
+        
+        $categoryCollection = Yii::createObject(CategoryCollection::class);
+        $categoryCollection->initCollection(Article::tableName(), $articlesIds);
+        $values = $categoryCollection->getValues();
+        $articlesCollection = [];
+ 
+        foreach ($articles as $article) {
+            
+            $articleCategory = [];
+            
+            foreach ($article->articleCategories as $c) {
 
-        die('articles');
-        return $this->render('index');
+                if (isset($categoryFormat[$c->category_id])) {
+
+                    $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
+                }
+            }
+            
+            $articlesCollection[$article->id] = [
+                'title' => $article->title,
+                'url' => '/articles/'.$article->seo,
+                'availability' => $article->availability,
+                'teaser' => unserialize($values[$article->id]['teaser']),
+                'abstract' => unserialize($values[$article->id]['abstract']), 
+                'created_at' => $article->created_at,
+                'category' => $articleCategory,
+            ];
+        }
+        
+        return $this->render('index', ['category' => $category, 'subjectAreas' => $subjectAreas, 'collection' => $articlesCollection]);
     }
 
     public function actionOnePager($slug) {
