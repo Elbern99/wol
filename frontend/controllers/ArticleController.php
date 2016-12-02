@@ -88,7 +88,12 @@ class ArticleController extends Controller {
             ];
         }
         
-        return $this->render('index', ['category' => $category, 'subjectAreas' => $subjectAreas, 'collection' => $articlesCollection, 'sort' => $sort]);
+        return $this->render('index', [
+            'category' => $category, 
+            'subjectAreas' => $subjectAreas, 
+            'collection' => $articlesCollection, 
+            'sort' => $sort
+        ]);
     }
 
     public function actionOnePager($slug) {

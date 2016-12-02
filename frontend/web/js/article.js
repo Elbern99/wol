@@ -234,7 +234,6 @@
 
     $(window).load(function() {
 
-
         var countries_array = {
             CN: {
 
