@@ -11,7 +11,7 @@ $attributes = $collection->getEntity()->getValues();
 
 //var_dump($attributes['add_references']->getData(null, $currentLang));exit;
 $this->title = $attributes['title']->getData('title');
-$this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['articles'])];
+$this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = 'Evidence map';
 
 $this->registerMetaTag([

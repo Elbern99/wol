@@ -41,7 +41,6 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
-$this->registerJs("var mapConfig = ".json_encode($config), 3);
 ?>
 <div class="container article-full">
 
@@ -254,15 +253,15 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
-                            <?php
-                            if(count($furthers) > 10) {
-                                echo  '<a href="" class="more-link">More</a> ';
-                            }
-                            ?>
+                            <?php if(count($furthers) > 10): ?>
+                                <a href="" class="more-link">More</a>
+                            <?php endif ?>
                         </div>
                     </li>
                     <?php endif; ?>
-
+                    
+                    <?php $source = []; ?>
+                    
                     <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(); ?>
                     <li class="sidebar-accrodion-item">
@@ -271,6 +270,9 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
                             <?php $i = 1; ?>
                             <ul class="key-references-list">
                                 <?php foreach($references as $reference): ?>
+                                <?php if (count($reference->country_codes)): ?>
+                                    <?php $source = array_merge($source, $reference->country_codes); ?>
+                                <?php endif; ?>
                                 <li>
                                     <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
                                     <div class="icon-question rel-tooltip"></div>
@@ -284,11 +286,9 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
-                            <?php
-                            if(count($references) > 10) {
-                                echo  '<a href="" class="more-link">More</a> ';
-                            }
-                            ?>
+                            <?php if(count($references) > 10): ?>
+                                <a href="" class="more-link">More</a>
+                            <?php endif ?>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -300,6 +300,9 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
                         <div class="text">
                             <ul class="additional-references-list">
                                 <?php foreach($additionals as $additional): ?>
+                                <?php if (count($additional->country_codes)): ?>
+                                    <?php $source = array_merge($source, $additional->country_codes); ?>
+                                <?php endif; ?>
                                 <li>
                                     <?= $additional->title ?>
                                     <div class="icon-question rel-tooltip"></div>
@@ -309,11 +312,9 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
-                            <?php
-                                if(count($additionals) > 10) {
-                                    echo  '<a href="" class="more-link">More</a> ';
-                                }
-                            ?>
+                            <?php if(count($additionals) > 10): ?>
+                                <a href="" class="more-link">More</a>
+                            <?php endif ?>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -380,3 +381,7 @@ $this->registerJs("var mapConfig = ".json_encode($config), 3);
         </div>
     </div>
 </div>
+<?php
+$config['source'] = array_unique($source);
+$this->registerJs("var mapConfig = ".json_encode($config), 3);
+?>
