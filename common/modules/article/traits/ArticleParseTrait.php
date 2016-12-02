@@ -395,8 +395,13 @@ trait ArticleParseTrait {
 
                 foreach ($monogr->author as $author) {
                     $name = (string) $author->persName->surname;
-                    $name .= " " . $author->persName->forename . ".";
-                    $authors[] = $name;
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }  elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
+                    }
                 }
             }
             
@@ -408,7 +413,10 @@ trait ArticleParseTrait {
                         foreach ($author->persName->forename as $forename) {
                             $name .= " " . $forename . ". ";
                         }
+                    }  elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
                     }
+                    
                     $authors[] = $name;
                 }
             }
@@ -453,7 +461,10 @@ trait ArticleParseTrait {
                         foreach ($author->persName->forename as $forename) {
                             $name .= " " . $forename . ". ";
                         }
+                    } elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
                     }
+                    
                     $authors[] = $name;
                 }
             }
@@ -466,7 +477,10 @@ trait ArticleParseTrait {
                         foreach ($author->persName->forename as $forename) {
                             $name .= " " . $forename . ". ";
                         }
+                    } elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
                     }
+                    
                     $authors[] = $name;
                 }
             }
@@ -570,7 +584,11 @@ trait ArticleParseTrait {
                         foreach ($author->persName->forename as $forename) {
                             $name .= " " . $forename . ". ";
                         }
+                        
+                    } elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
                     }
+                    
                     $authors[] = $name;
                 }
             }
@@ -583,7 +601,10 @@ trait ArticleParseTrait {
                         foreach ($author->persName->forename as $forename) {
                             $name .= " " . $forename . ". ";
                         }
+                    } elseif (isset($author->persName->orgName)) {
+                        $name = (string) $author->persName->orgName;
                     }
+                    
                     $authors[] = $name;
                 }
             }
