@@ -43,7 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'page/<id:[1-9]+>' => 'page/index',
-                'articles' => 'article/index',
+                'articles/' => 'article/index',
                 'articles/<slug:[1-9a-z-]+>' => 'article/one-pager',
                 'articles/<slug:[1-9a-z-]+>/long' => 'article/full',
                 'articles/<slug:[1-9a-z-]+>/map' => 'article/map',
