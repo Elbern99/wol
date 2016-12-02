@@ -63,7 +63,7 @@ $this->registerMetaTag([
                         <span value="date-desc">
                             <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
                         </span>
-                        <span value="date-asc" selected="selected">
+                        <span value="date-asc" <?= ($sort) ? 'selected="selected"' : '' ?>>
                             <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
                         </span>
                     </div>
