@@ -6,6 +6,7 @@ use common\models\Category;
 use common\models\MenuLinks;
 use common\modules\menu\contracts\MenuManagerInterface;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class Manager implements MenuManagerInterface {
 
@@ -90,7 +91,7 @@ class Manager implements MenuManagerInterface {
                 $nodeLeft = $node['lft'];
                 $nodeRight = $node['rgt'];
                 $nodeTitle = $node['title'];
-                $nodeUrlKey = $node['url_key'];
+                $nodeUrlKey = Url::to($node['url_key'], true);
 
 
                 $isChild = ($nodeRight == $nodeLeft + 1);

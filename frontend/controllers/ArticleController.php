@@ -55,6 +55,7 @@ class ArticleController extends Controller {
                                  return $query->select(['category_id', 'article_id']);
                              }])
                              ->orderBy(['created_at' => $order])
+                             ->limit(10)
                              ->all();
         
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
@@ -87,7 +88,7 @@ class ArticleController extends Controller {
             ];
         }
         
-        return $this->render('index', ['category' => $category, 'subjectAreas' => $subjectAreas, 'collection' => $articlesCollection]);
+        return $this->render('index', ['category' => $category, 'subjectAreas' => $subjectAreas, 'collection' => $articlesCollection, 'sort' => $sort]);
     }
 
     public function actionOnePager($slug) {
