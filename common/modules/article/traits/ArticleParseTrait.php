@@ -389,12 +389,26 @@ trait ArticleParseTrait {
             
             $authors = [];
             $monogr = $read->monogr;
-
+            $analitics = $read->analytic;
+            
             if (isset($monogr->author)) {
 
                 foreach ($monogr->author as $author) {
                     $name = (string) $author->persName->surname;
                     $name .= " " . $author->persName->forename . ".";
+                    $authors[] = $name;
+                }
+            }
+            
+            if (isset($analitics->author)) {
+
+                foreach ($analitics->author as $author) {
+                    $name = (string) $author->persName->surname;
+                    if (isset($author->persName->forename)) {
+                        foreach ($author->persName->forename as $forename) {
+                            $name .= " " . $forename . ". ";
+                        }
+                    }
                     $authors[] = $name;
                 }
             }
