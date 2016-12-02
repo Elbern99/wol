@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -33,6 +33,17 @@ $this->registerMetaTag([
 $authorLink = [];
 
 $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/plugins/leaflet.js');
+$this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerCssFile('/css/leaflet.css');
+    
+$config = [
+        'json_path' => '/json/countries.geo.json',
+        'json_path_country' => '/json/countrydata.json',
+        'json_path_economytypes' => '/json/economytypes.json'
+];
+
+$this->registerJs("var mapConfig = ".json_encode($config), 3);
 ?>
 <div class="container article-full">
 
@@ -171,6 +182,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
 
         <div class="sidebar-widget sidebar-widget-evidence-map">
             <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                <div id="map-mini"></div>
                 <div class="caption">
                     <div class="title">Evidence map</div>
                     <div class="icon-circle-arrow white">
@@ -211,20 +223,28 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                 <?php if (isset($attributes['related'])): ?>
                     <li class="sidebar-accrodion-item">
                         <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                        <?php $count_related = count($related) ?>
+
+                        <?php if ($count_related > 0): ?>
                         <a href="" class="title">Related Articles</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="sidebar-news-list">
-                                    <?php foreach ($related as $relate): ?>
-                                        <li>
-                                            <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                            <div class="writer"><?= $relate['availability'] ?></div>
-                                        </li>
-                                    <?php endforeach; unset($related); ?>
-                                </ul>
-                            </div>
+                            <ul class="sidebar-news-list">
+                                <?php foreach ($related as $relate): ?>
+                                    <li>
+                                        <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                        <div class="writer"><?= $relate['availability'] ?></div>
+                                    </li>
+                                <?php endforeach; unset($related); ?>
+                            </ul>
+                            <?php
+                            if($count_related > 10) {
+                                echo '<a href="" class="more-link">More</a>';
+                            }
+                            ?>
                         </div>
+                        <?php endif; ?>
                     </li>
+                
                 <?php endif; ?>
 
                 <?php if (isset($attributes['further_reading'])): ?>

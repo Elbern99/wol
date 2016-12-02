@@ -1,7 +1,6 @@
 (function($) {
 
 //GLOBAL VARIABLE ---------
-
     var _window_height = $(window).height(),
         _window_width = $(window).width(),
         _doc_height = $(document).height(),
@@ -168,19 +167,15 @@
                 }
             }
         },
-        detectNext: function(btnNext) {
-            var link = $('.opened-reflink'),
-                curNext = link.next();
-            if(curNext.length > 0) {
+        detectNext: function(btnNext,btnPrev,nextCur) {
+            if(nextCur == 0) {
                 $(btnNext).css('opacity',1);
             } else {
                 $(btnNext).css('opacity',0.4);
             }
         },
-        detectPrev: function(btnPrev) {
-            var link = $('.opened-reflink'),
-                curPrev = link.prev();
-            if(curPrev.length > 0) {
+        detectPrev: function(btnNext,btnPrev,nextCur) {
+            if(nextCur == 0) {
                 $(btnPrev).css('opacity',1);
             } else {
                 $(btnPrev).css('opacity',0.4);
@@ -225,6 +220,8 @@
     };
     /* end */
 
+
+
     //EVENTS
     $(document).ready(function() {
         article.closeReference('.icon-close-popup ','.reference-popup');
@@ -236,6 +233,126 @@
     });
 
     $(window).load(function() {
+
+
+        var countries_array = {
+            CN: {
+
+            }
+        };
+
+        var elements = {
+            mapMini: 'map-mini',
+            mapMedium: 'article-map-medium'
+        }
+
+        mapObj = {
+            options: {
+                inertia: false,
+                zoom: 0,
+                clickable: false,
+                boxZoom: false,
+                tap: false,
+                trackResize: true,
+                center: [0, 0],
+                attributionControl: false,
+                zoomControl: false,
+                dragging: false
+            },
+            style: function(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: mapObj.getBorderColor(feature.properties.economy),
+                    dashArray: '1',
+                    fillOpacity: 1,
+                    fillColor: mapObj.getColor(feature.properties.economy)
+                };
+            },
+            getColor: function(d) {
+                return  d === 'factor-efficiency' ? '#9ced10' :
+                    d === 'factor' ? '#f6ff00' :
+                        d === 'efficiency-innovation' ? '#008954' :
+                            d === 'efficiency' ? '#49da2c' :
+                                d === 'innovation' ? '#00453a' :
+                                    d === 'none' ? '#c1d2d9' :
+                                        '#c1d2d9';
+            },
+            getBorderColor: function(d) {
+                return  d === 'factor-efficiency' ? '#86d400' :
+                    d === 'factor' ? '#cfd700' :
+                        d === 'efficiency-innovation' ? '#006c42' :
+                            d === 'efficiency' ? '#3bc81f' :
+                                d === 'innovation' ? '#00352d' :
+                                    d === 'none' ? '#a4b5bd' :
+                                        '#a4b5bd';
+            },
+            onEachFeature: function(feature, layer) {
+                layer.on({});
+            }
+        };
+
+
+        var map = L.map(elements.mapMini, mapObj.options),
+            geojson;
+
+        if($('#'+ elements.mapMedium).length) {
+            var mapSecond = L.map(elements.mapMedium, mapObj.options),
+                geojson;
+        }
+
+        //----------1 get
+        $.getJSON(mapConfig.json_path_country, function( data ) {
+            $.each(data[1], function(index, country) {
+
+                $.each(countries_array, function(index, value) {
+                    if(index === country.iso2Code) {
+                        countries_array[index].id = country.id;
+                    }
+                });
+            });
+
+            //------------2 get
+            $.getJSON(mapConfig.json_path_economytypes, function( data ) {
+                $.each(data, function(index, value) {
+
+                    $.each(countries_array, function(index_countries, value_countries) {
+
+                        if(index === index_countries) {
+                            countries_array[index].economy = value;
+                        }
+                    });
+                });
+
+                //------------3 get
+                $.getJSON(mapConfig.json_path, function( data ) {
+
+                    $.each(data.features, function(index, country) {
+                        var country_id = country.id;
+
+                        $.each(countries_array, function(index_countries, value_countries) {
+                            if(value_countries.id === country_id) {
+                                country.properties.economy = value_countries.economy;
+                                value_countries.country = country.properties.name;
+                            }
+                        });
+                    });
+
+                    geojson = L.geoJson(data, {
+                        style: mapObj.style,
+                        onEachFeature: mapObj.onEachFeature
+                    }).addTo(map);
+
+                    if(mapSecond){
+                        geojson = L.geoJson(data, {
+                            style: mapObj.style,
+                            onEachFeature: mapObj.onEachFeature
+                        }).addTo(mapSecond);
+                    }
+                })
+            });
+        });
+
         article.openPrintWindow('.btn-print');
         article.addToFavourite('.btn-like');
     });

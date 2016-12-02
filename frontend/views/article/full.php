@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -31,6 +31,17 @@ $this->registerMetaTag([
 ]);
 
 $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/plugins/leaflet.js');
+$this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerCssFile('/css/leaflet.css');
+
+$config = [
+        'json_path' => '/json/countries.geo.json',
+        'json_path_country' => '/json/countrydata.json',
+        'json_path_economytypes' => '/json/economytypes.json'
+];
+
+$this->registerJs("var mapConfig = ".json_encode($config), 3);
 ?>
 <div class="container article-full">
 
@@ -122,6 +133,7 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
                             <div class="icon-arrow"></div>
                         </div>
                     </div>
+                    <div id="article-map-medium"></div>
                 </div>
                 
                 <div class="article-buttons">
@@ -192,7 +204,8 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
             </div>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
-                <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                    <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
                         <div class="icon-circle-arrow white">
@@ -203,11 +216,12 @@ $this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
             </div>
             
             <div class="sidebar-widget sidebar-widget-articles-references">
-                <ul class="sidebar-accrodion-list">
+                <ul class="sidebar-accrodion-list hide-desktop">
                     
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item">
                             <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                            <?php $count_related = count($related) ?>
                             <a href="" class="title">Related Articles</a>
                             <div class="text">
                                 <ul class="sidebar-news-list">
