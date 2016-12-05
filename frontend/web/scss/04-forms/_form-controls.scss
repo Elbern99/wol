@@ -24,6 +24,7 @@ input[type=url]{
   transition: all 0.3s ease;
   box-sizing: border-box;
   width: 100%;
+  -webkit-appearance: none;
 
   &.erorr {
     border-color: red !important;
@@ -65,61 +66,84 @@ input[type=url]{
 
 .custom-select {
   position: relative;
-  overflow: hidden;
   display: block;
   margin: 0 0 20px;
 
-  select {
+  .sort-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     border: 1px solid #b5b5b5;
+    border-radius: 0 0 5px 5px;
+    margin: -13px 0 0 0;
+    padding: 7px 0 5px 0;
+    z-index: 1;
+    background: $white;
+    opacity: 0;
+    transition: all 0.2s ease;
+    max-height: 0;
+    overflow: hidden;
+
+    &.open {
+      opacity: 1;
+      margin: -3px 0 0 0;
+      display: block;
+      max-height: 180px;
+    }
+
+    a {
+      padding: 7px 10px 5px 10px;
+      display: block;
+    }
+  }
+
+  .custom-select-title {
+    border: 1px solid #b5b5b5;
+    z-index: 2;
     border-radius: 5px;
     height: 29px;
     cursor: pointer;
-    appearance: none;
-    padding: 3px 50px 5px 10px;
-    text-indent: 1px;
-    text-overflow: '';
+    padding: 7px 50px 5px 10px;
     background: #fff;
     overflow: hidden;
     margin: 0;
     color: #323232;
     font: normal 11px/1em $lucida-grande;
     width: 100%;
+    position: relative;
 
-    &:focus {
-      border-color: #0182E2;
+    &.active {
+      border-radius: 5px 5px 0 0 ;
     }
 
-    &::-ms-expand {
-      display: none;
+    &:after {
+      content: '';
+      background-color: #efefef;
+      border-left: 1px solid #999;
+      right: 0;
+      pointer-events: none;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 23px;
+      border-radius: 0 5px 5px 0;
     }
-  }
 
-  &:after {
-    content: '';
-    background-color: #efefef;
-    border-left: 1px solid #999;
-    right: 1px;
-    pointer-events: none;
-    z-index: 1;
-    position: absolute;
-    top: 1px;
-    bottom: 1px;
-    width: 23px;
-    border-radius: 0 5px 5px 0;
-  }
-
-  &:before {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) rotate(-45deg);
-    content: '';
-    right: 9px;
-    width: 6px;
-    height: 6px;
-    border-bottom: 1px solid #323232;
-    border-left: 1px solid #323232;
-    pointer-events: none;
-    z-index: 2;
-    margin: -3px 0 0 0;
+    &:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
+      content: '';
+      right: 8px;
+      width: 6px;
+      height: 6px;
+      border-bottom: 1px solid #323232;
+      border-left: 1px solid #323232;
+      pointer-events: none;
+      z-index: 2;
+      margin: -2px 0 0 0;
+    }
   }
 }

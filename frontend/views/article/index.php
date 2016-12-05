@@ -28,6 +28,9 @@ $this->registerMetaTag([
     </div>
 
     <h1><?= $category->meta_title ?></h1>
+    <div class="articles-list-mobile">
+        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
+    </div>
     <p><?= $category->description ?></p>
     <div class="content-inner">
         
@@ -51,23 +54,26 @@ $this->registerMetaTag([
                     </li>
                     <?php endforeach; ?>
                 </ul>
-                <a href="" class="btn-gray align-center">show more</a>
+                <!-- <a href="" class="btn-gray align-center">show more</a>-->
             </div>
         </div>
 
         <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-sort-by">
                 <label>sort by</label>
-                <label class="custom-select">
-                    <div name="sort">
-                        <span value="date-desc">
-                            <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
-                        </span>
-                        <span value="date-asc" <?= ($sort) ? 'selected="selected"' : '' ?>>
-                            <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
-                        </span>
+                <div class="custom-select dropdown">
+                    <div class="custom-select-title dropdown-link">
+                        Publication date (descending)
                     </div>
-                </label>
+                    <div class="sort-list drop-content">
+                        <div value="date-desc">
+                            <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
+                        </div>
+                        <div value="date-asc" <?= ($sort) ? 'selected="selected"' : '' ?>>
+                            <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="sidebar-widget">
                 <div class="sidebar-widget sidebar-widget-articles-filter">
@@ -87,7 +93,7 @@ $this->registerMetaTag([
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
                     <a href="/subject-areas/data" class="data-method-item">
-                        <div class="img"><img src="images/temp/editors/img-01.jpg" alt=""></div>
+                        <div class="img"><img src="images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
                             <div class="icon-circle-arrow white">
                                 <div class="icon-arrow"></div>
@@ -96,7 +102,7 @@ $this->registerMetaTag([
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
-                        <div class="img"><img src="images/temp/article/img-02.jpg" alt="" width="430" height="326"></div>
+                        <div class="img"><img src="images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
                             <div class="icon-circle-arrow white">
                                 <div class="icon-arrow"></div>

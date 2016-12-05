@@ -217,7 +217,11 @@
 //ARTICLES-LIST
 .articles-list {
   >li {
-    margin: 0 0 35px;
+    margin: 0 0 21px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 35px;
+    }
   }
 }
 
@@ -246,16 +250,32 @@
   h2 {
     font-size: 20px;
     margin: 0 0 9px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      font-size: 16px !important;
+      margin: 0 0 1px !important;
+    }
   }
 
   h3 {
-    font-size: 12px;
-    margin: 0 0 6px;
+    font-size: 15px;
+    line-height: 1.5em;
+    margin: 0 0 8px;
+
+    @include breakpoint('tablet') {
+      font-size: 12px;
+      margin: 0 0 6px;
+    }
   }
 
   .publish {
-    margin: 0 0 1px;
-    font-size: 10px;
+    margin: 0 0 9px;
+    font-size: 12px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 1px;
+      font-size: 10px;
+    }
   }
 
   .description {
@@ -265,8 +285,12 @@
   }
 
   .article-more {
-    font-size: 10px;
+    font-size: 13px;
     color: $light-blue;
+
+    @include breakpoint('tablet') {
+      font-size: 10px;
+    }
 
     .less {
       display: none;
@@ -303,16 +327,17 @@
 
 //article-rubrics-list
 .article-rubrics-list {
-  margin: 0 0 6px -8px;
+  margin: 0 0 6px -12px;
   padding: 0;
+  overflow: hidden;
 
   li {
-    display: inline-block;
+    float: left;
     text-transform: uppercase;
     position: relative;
     line-height: 1.1;
     padding: 0 0 0 6px;
-    margin: 0 0 0 2px;
+    margin: 0 0 3px 5px;
     font-size: 10px;
 
     &:first-child {
@@ -452,10 +477,10 @@
   .icon-question {
     position: absolute;
     top: 1px;
-    right: 0px;
+    right: 0;
 
     @include breakpoint('tablet') {
-      top: -2px;
+      top: 0;
     }
   }
 }
@@ -558,7 +583,7 @@
     width: 265px;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    margin-left: -133px;
     border: 1px solid #d8d8d8;
     box-shadow: 0 6px  18px rgba(0,0,0,0.16);
 
@@ -661,7 +686,7 @@
     background: #fff;
     padding: 45px 0 42px;
     position: relative;
-    min-height: 200px;
+    min-height: 202px;
 
     &:after {
       background: rgba(0,0,0,0.5);
@@ -752,6 +777,7 @@
 
     .column {
       padding: 0 24px 23px;
+      max-width: 33.3%;
 
       @include breakpoint('tablet') {
 

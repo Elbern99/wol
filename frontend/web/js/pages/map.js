@@ -4,7 +4,8 @@
 
     var _window_width = $(window).width(),
         _mobile = 769,
-        _tablet = 1025;
+        _tablet = 1025,
+        _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click');
 
     $(window).resize(function() {
         _window_width = $(window).width();
@@ -13,8 +14,6 @@
   $(document).ready(function() {
 
     var countries_array = JSON.parse(mapConfig.source);
-
-      console.log(countries_array);
 
     var elements = {
         mapInfo: $('.map-info')
@@ -120,6 +119,10 @@
     var map = L.map('map', mapObj.options),
         geojson;
 
+        if(_click_touch == 'touchstart') {
+            map.dragging.disable();
+        }
+
         map.zoomControl.setPosition('bottomright');
         mapObj.hideInfoMap();
 
@@ -173,6 +176,8 @@
                 x = value.capital.x;
                 y = value.capital.y;
 
+                console.log(value);
+
                 //references
                 var key_references_obj = value.key_references,
                     key_additional_obj = value.additional_references,
@@ -195,8 +200,8 @@
                         arrayTpl.push('' +
                             '<div class="ref-item">' +
                             '<div class="authors">'+references_title+'</div>' +
-                            '<div class="link">'+references_full_citation+'</div>' +
-                            '<div class="dates">'+references_source+'</div>' +
+                            '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
+                            '<div class="dates">Data source(s): '+references_source+'</div>' +
                             '<div class="types">Data type(s): '+references_type+'</div>' +
                             '<div class="method">Method(s): '+references_method+'</div>' +
                             '</div>'

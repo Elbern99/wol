@@ -42,7 +42,7 @@ class SubjectAreas extends Widget
                     
                 } elseif ($nodeDepth > $currDepth) {
 
-                    $content .= Html::beginTag('ul', ['class' => 'text']);
+                    $content .= Html::beginTag('ul', ['class' => 'submenu']);
                     $currDepth = $currDepth + ($nodeDepth - $currDepth);
                     
                 } elseif ($nodeDepth < $currDepth) {
@@ -55,7 +55,7 @@ class SubjectAreas extends Widget
                     $css = ' item ';
                 }*/
 
-                $css = ' icon-arrow';
+                $css = ' item';
                 $css = trim($css);
 
                 $content .= Html::beginTag('li', ['class' => $css]) .
