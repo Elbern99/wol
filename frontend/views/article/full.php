@@ -125,19 +125,33 @@ $config = [
                 <p><a href="">&copy; <?=$article->availability?></a></p>
 
                 <div class="article-map-medium">
-                    <div class="article-map-medium-text">
-                        <h4> <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">evidence map</a></h4>
-                        <p>Can cash transfers reduce child labor?</p>
-                        <div class="icon-circle-arrow">
-                            <div class="icon-arrow"></div>
+                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                        <div class="article-map-medium-text">
+                            <h4>evidence map</h4>
+                            <p>Can cash transfers reduce child labor?</p>
+                            <div class="icon-circle-arrow">
+                                <div class="icon-arrow"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div id="article-map-medium"></div>
+                        <div id="article-map-medium"></div>
+                    </a>
                 </div>
                 
                 <div class="article-buttons">
                     <div class="share-buttons">
-
+                        <ul class="share-buttons-list">
+                            <li class="share-facebook">
+                                <div id="fb-root"></div>
+                                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                            </li>
+                            <li class="share-twitter">
+                                <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+                            </li>
+                            <li class="share-ln">
+                                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                                <script type="IN/Share"></script>
+                            </li>
+                        </ul>
                     </div>
                     <div class="extra-buttons">
                         <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-blue-middle btn-show-one-pager"><span class="text">show one-pager</span></a>
@@ -153,7 +167,7 @@ $config = [
                                 <span class="icon-heart"></span>
                                 <div class="btn-like-inner">article added to favorites</div>
                             </a>
-                            <a href="" class="btn-border-gray-middle short"><span class="icon-print"></span></a>
+                            <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
                             <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
                         </div>
                     </div>
@@ -216,25 +230,30 @@ $config = [
             
             <div class="sidebar-widget sidebar-widget-articles-references">
                 <ul class="sidebar-accrodion-list hide-desktop">
-                    
+
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item">
-                            <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                            <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
                             <?php $count_related = count($related) ?>
-                            <a href="" class="title">Related Articles</a>
-                            <div class="text">
-                                <ul class="sidebar-news-list">
-                                    <?php foreach ($related as $relate): ?>
-                                        <li>
-                                            <h3><a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                            <div class="writer"><?= $relate['availability'] ?></div>
-                                        </li>
-                                    <?php endforeach;
-                                    unset($related); ?>
-                                </ul>
-                                <a href="" class="more-link">More</a>
-                            </div>
+
+                            <?php if ($count_related > 0): ?>
+                                <a href="" class="title">Related Articles</a>
+                                <div class="text">
+                                    <ul class="sidebar-news-list">
+                                        <?php foreach ($related as $relate): ?>
+                                            <li>
+                                                <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                                <div class="writer"><?= $relate['availability'] ?></div>
+                                            </li>
+                                        <?php endforeach; unset($related); ?>
+                                    </ul>
+                                    <?php if(count($count_related) > 10): ?>
+                                        <a href="" class="more-link">More</a>
+                                    <?php endif ?>
+                                </div>
+                            <?php endif; ?>
                         </li>
+
                     <?php endif; ?>
             
                     <?php if (isset($attributes['further_reading'])): ?>

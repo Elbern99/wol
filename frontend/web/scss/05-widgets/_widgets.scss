@@ -402,3 +402,87 @@
 {
   height: auto;
 }
+
+.share-selected-text-main-container {
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: .3s ease all;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 99;
+  pointer-events: none;
+  width: auto !important;
+
+  &.active {
+    opacity: 1;
+    transform: translateY(1px);
+    z-index: 999
+  }
+
+  .share-selected-text-inner {
+
+    align-items: center;
+    background: #f5f5f5;
+    height: 100%;
+    pointer-events: auto;
+    position: relative;
+    border: 1px solid #aaaaaa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    padding: 0 8px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 20px;
+      margin: auto;
+      width: 10px;
+      height: 10px;
+      background: #f5f5f5;
+      transform: rotate(-43deg);
+      box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .share-selected-text-btn {
+    float: left;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 10px 4px;
+    width: 26px;
+    height: 26px;
+    transition: .2s ease all;
+    z-index: 1;
+    position: relative;
+    font-size: 26px;
+    color: $blue;
+
+    &:focus,
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}
+
+.icon-sst-twitter {
+  &:before {
+    content: '\0042';
+  }
+}
+
+.icon-sst-linkedin {
+  &:before {
+    content: '\0047';
+  }
+}
+
+.icon-sst-tumblr {
+  &:before {
+    content: '\004b';
+  }
+}

@@ -36,8 +36,8 @@ AppAsset::register($this);
         
         <?= $this->renderFile('@app/views/components/header/desktop/header.php'); ?>
         <?= $this->renderFile('@app/views/components/header/mobile/header.php'); ?>
-        
-         <?= $content ?>
+
+        <?= $content ?>
         
         <?php $this->beginContent('@app/views/components/widgets.php'); ?><?php $this->endContent();?>
 
