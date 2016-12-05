@@ -6,6 +6,7 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
 use console\models\Category;
+use common\modules\category\CategoryType;
 
 class CategoryController extends Controller {
 
@@ -14,7 +15,14 @@ class CategoryController extends Controller {
     public $url_key;
 
     /*  Command example add category php yii category param1 param2 ... */
-    public function actionIndex($title, $meta_title, $url_key) {
+    public function actionIndex($title, $meta_title, $url_key, $type = null) {
+        
+        $types = new CategoryType();
+        
+        
+        if (!is_null($type)) {
+            $type = $types->getTypeByLabel($type);
+        }
         
         $this->title = $title;
         $this->meta_title = $meta_title;
@@ -23,6 +31,7 @@ class CategoryController extends Controller {
         if ($this->title && $this->meta_title && $this->url_key) {
 
             $category = new Category([
+                            'type' => $type,
                             'title' => $this->title,
                             'meta_title' => $this->meta_title,
                             'url_key' => $this->url_key,

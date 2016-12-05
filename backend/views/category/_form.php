@@ -191,12 +191,10 @@ echo $renderContent(Module::VIEW_PART_1);
         <?= $form->field($node, $nameAttribute)->textInput() ?>
         <?= $form->field($node, $urlKeyAttribute)->textInput($disabled) ?>
 
-        <?php if (is_null($node->id)): ?>
-            <?php $node->$typeAttribute = $node->getType()->getTypeByLabel('Article') ?>
+        <?php if (!is_null($node->id)): ?>
+            <?= Html::activeHiddenInput($node, 'type') ?>
         <?php endif; ?>
-      
-        <?= Html::activeHiddenInput($node, $typeAttribute) ?>
-        
+
         <?= $form->field($node, $metaTitleAttribute)->textarea() ?>
     </div>
 </div>
