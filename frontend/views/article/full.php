@@ -231,6 +231,29 @@ $config = [
             <div class="sidebar-widget sidebar-widget-articles-references">
                 <ul class="sidebar-accrodion-list hide-desktop">
 
+                    <?php if (isset($attributes['term_groups'])): ?>
+                        <li class="sidebar-accrodion-item">
+                            <?php $backgrounds = $attributes['term_groups']->getData(null, $currentLang); ?>
+                            <a href="" class="title">Background information</a>
+                            <div class="text">
+                                <div class="text-inner">
+                                    <ul class="sidebar-news-list bg-news-list">
+                                        <?php foreach($backgrounds as $key=>$value): ?>
+                                            <li>
+                                                <a href="#<?=$key?>"><?= $value->title ?></a>
+                                                <div class="icon-question rel-tooltip"></div>
+                                                <div class="bg-info"><?= $value->text ?></div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <?php if(count($backgrounds) > 10): ?>
+                                        <a href="" class="more-link">More</a>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item">
                             <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
@@ -264,7 +287,7 @@ $config = [
                             <ul class="further-reading-list">
                                 <?php foreach ($furthers as $further): ?>
                                     <li>
-                                        <h3><?= $further->title ?></h3>
+                                        <a href=""><?= $further->title ?></a>
                                         <div class="icon-question rel-tooltip"></div>
                                         <div class="further-reading-info">
                                             <?= $further->full_citation ?>
@@ -323,7 +346,7 @@ $config = [
                                     <?php $source = array_merge($source, $additional->country_codes); ?>
                                 <?php endif; ?>
                                 <li>
-                                    <?= $additional->title ?>
+                                    <a href=""><?= $additional->title ?></a>
                                     <div class="icon-question rel-tooltip"></div>
                                     <div class="additional-references-info">
                                         <?= $additional->full_citation ?>

@@ -1610,6 +1610,9 @@ img {
       border-top: 1px solid #535353; } }
   .reference-popup .arrows {
     text-align: center; }
+    @media only screen and (max-width: 769px) {
+      .reference-popup .arrows {
+        display: block !important; } }
     @media only screen and (max-width: 1330px) {
       .reference-popup .arrows {
         padding: 27px 0 5px; } }
@@ -1657,10 +1660,10 @@ img {
       .reference-popup .columns {
         margin: 0 -24px 26px; } }
     .reference-popup .columns .column {
-      padding: 0 24px 23px;
-      max-width: 33.3%; }
+      padding: 0 24px 23px; }
       @media only screen and (min-width: 769px) {
         .reference-popup .columns .column {
+          max-width: 33.3%;
           padding: 0 24px;
           vertical-align: top; }
           .reference-popup .columns .column.visible {
@@ -2066,6 +2069,9 @@ img {
       margin-bottom: 0; }
   .articles-filter-list > .submenu {
     display: block; }
+
+.bg-news-list li {
+  text-transform: none; }
 
 .sidebar-widget-sort-by {
   display: none; }

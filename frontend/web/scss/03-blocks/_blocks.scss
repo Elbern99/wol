@@ -720,6 +720,10 @@
   .arrows {
     text-align: center;
 
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: block !important;
+    }
+
     @include breakpoint_custom($breakpoint-desktop-large) {
       padding: 27px 0 5px;
     }
@@ -777,9 +781,9 @@
 
     .column {
       padding: 0 24px 23px;
-      max-width: 33.3%;
 
       @include breakpoint('tablet') {
+        max-width: 33.3%;
 
         &.visible {
           display: inline-block;

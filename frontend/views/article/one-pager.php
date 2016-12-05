@@ -203,7 +203,7 @@ $config = [
                                 <ul class="sidebar-news-list">
                                     <?php foreach($backgrounds as $key=>$value): ?>
                                         <li>
-                                            <h3><a href="#<?=$key?>"><?= $value->title ?></a></h3>
+                                            <a href="#<?=$key?>"><?= $value->title ?></a>
                                             <div class="icon-question rel-tooltip"></div>
                                             <div class="bg-info"><?= $value->text ?></div>
                                         </li>

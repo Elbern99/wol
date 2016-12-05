@@ -521,6 +521,12 @@
   }
 }
 
+.bg-news-list {
+  li {
+    text-transform: none;
+  }
+}
+
 //sidebar-widget-sort-by
 .sidebar-widget-sort-by {
   display: none;
