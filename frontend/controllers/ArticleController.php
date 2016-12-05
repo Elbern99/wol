@@ -17,7 +17,9 @@ use common\modules\eav\CategoryCollection;
  * Site controller
  */
 class ArticleController extends Controller {
-
+    
+    use \frontend\components\articles\SubjectTrait;
+    
     public function actionIndex($sort = 0) {
         
         $order = SORT_DESC;
@@ -36,14 +38,8 @@ class ArticleController extends Controller {
                              ])
                              ->one();
         
-        $subjectAreas = $category->children()
-                                 ->select([
-                                    'id', 'title', 
-                                    'url_key','root', 
-                                    'lvl', 'lft', 'rgt'
-                                 ])
-                                 ->asArray()
-                                 ->all();
+        $subjectAreas = $this->getSubjectAreas($category);
+        
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
             return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
         });

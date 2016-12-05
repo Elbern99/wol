@@ -8,7 +8,8 @@ use frontend\components\articles\SubjectAreas;
 
 <?php
 
-$this->title = 'Articles';
+$this->title = $category->title;
+$this->params['breadcrumbs'][] =['label'=>'Articles', 'url'=>Url::to('articles', true)];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerMetaTag([
@@ -67,10 +68,10 @@ $this->registerMetaTag([
                     </div>
                     <div class="sort-list drop-content">
                         <div value="date-desc">
-                            <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
+                            <a href="<?= Url::to($category->url_key) ?>">Publication date (descending)</a>
                         </div>
                         <div value="date-asc" <?= ($sort) ? 'selected="selected"' : '' ?>>
-                            <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
+                            <a href="<?= Url::to([$category->url_key, 'sort' => 1]) ?>">Publication date (ascending)</a>
                         </div>
                     </div>
                 </div>
@@ -82,7 +83,7 @@ $this->registerMetaTag([
                             <a href="" class="title">subject areas</a>
                             <div class="text is-open">
                                 <div class="text-inner">
-                                    <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
+                                    <?= SubjectAreas::widget(['category' => $subjectAreas, 'currentId' => $category->id]) ?>
                                 </div>
                             </div>
                         </li>

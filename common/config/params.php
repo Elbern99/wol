@@ -16,5 +16,8 @@ return [
         'accordion' => '\common\models\CmsPageSections',
         'simple' => '\common\models\CmsPagesSimple',
         'widget' => 'common\models\CmsPagesWidget'
+    ],
+    'category_type_class' => [
+        'article' => '\frontend\models\category\ArticleRepository'
     ]
 ];

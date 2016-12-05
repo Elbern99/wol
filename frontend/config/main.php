@@ -48,6 +48,7 @@ return [
                 'articles/<slug:[1-9a-z-]+>/long' => 'article/full',
                 'articles/<slug:[1-9a-z-]+>/map' => 'article/map',
                 'articles/<slug:[1-9a-z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
+                'category/<id:[1-9]+>' => 'category/index',
             ],
         ],
         'assetManager' => [

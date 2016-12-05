@@ -7,11 +7,23 @@ use common\models\Category;
 use Exception;
 use Yii;
 use common\models\Taxonomy;
+use common\modules\category\CategoryType;
 
 class TaxonomyParser implements ParserInterface {
     
     private $xml;
+    private $type;
     
+    public function __construct() {
+        
+        $types = new CategoryType();
+        
+        if (!$types->getTypeByLabel('article')) {
+            throw new Exception('Article Type Not Found');
+        }
+        
+        $this->type = $types->getTypeByLabel('article');
+    }
     public function parse(ReaderInterface $reader) {
         
         $xml = $reader->getXml(); 
@@ -94,7 +106,7 @@ class TaxonomyParser implements ParserInterface {
         $baseUrl = '/'.strtolower(str_replace(' ', '-', $baseUrl));
         
         $baseCategory = Category::find()->where(['url_key'=>'articles'])->one();
-        
+
         try {
             
             foreach ($taxonomy->facet as $facet) {
@@ -147,7 +159,8 @@ class TaxonomyParser implements ParserInterface {
                 'system' => 0,
                 'active' => 1,
                 'visible_in_menu' => 1,
-                'taxonomy_code' => $taxonomy_code
+                'taxonomy_code' => $taxonomy_code,
+                'type' => $this->type
             ]);
 
             if ($category->appendTo($parent)) {

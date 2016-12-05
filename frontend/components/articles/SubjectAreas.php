@@ -7,7 +7,8 @@ use yii\helpers\Html;
 class SubjectAreas extends Widget
 {
     public $category= null;
-
+    public $currentId = null;
+    
     public function init()
     {
         parent::init();
@@ -54,8 +55,12 @@ class SubjectAreas extends Widget
                 /*if ($isChild) {
                     $css = ' item ';
                 }*/
+                
+                if ($node['id'] == $this->currentId) {
+                    $css .= ' open ';
+                }
 
-                $css = ' item';
+                $css .= ' item';
                 $css = trim($css);
 
                 $content .= Html::beginTag('li', ['class' => $css]) .

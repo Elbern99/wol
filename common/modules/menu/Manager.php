@@ -27,6 +27,7 @@ class Manager implements MenuManagerInterface {
                 ])
                 ->where(['active' => 1, 'visible_in_menu' => 1])
                 ->andWhere(['<=', 'lvl', 2])
+                ->orderBy(['root' => SORT_ASC, 'lvl' => SORT_ASC])
                 ->asArray()
                 ->all();
     }
@@ -63,7 +64,7 @@ class Manager implements MenuManagerInterface {
                         $options = [];
                     }
 
-                    $text = Html::a($item['title'], $item['link'], $options);
+                    $text = Html::a($item['title'], Url::to($item['link'], true), $options);
                 } else {
                     $text = $item['title'];
                 }
@@ -147,7 +148,7 @@ class Manager implements MenuManagerInterface {
                         $options = [];
                     }
 
-                    $text = Html::a($item['title'], $item['link'], $options);
+                    $text = Html::a($item['title'], Url::to($item['link'], true), $options);
                 } else {
                     $text = $item['title'];
                 }
