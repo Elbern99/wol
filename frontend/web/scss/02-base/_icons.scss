@@ -7,11 +7,14 @@
   font-family: 'Glyphter';
   font-style: normal;
   font-weight: normal;
+  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
   vertical-align: middle;
-  line-height: 1;
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    margin-bottom: 1px;
+  }
 }
 
 .icon-user:before{content:'\0041';}
@@ -164,7 +167,7 @@
 
     @include breakpoint('tablet') {
       padding: 1px 0 0 0;
-      height: 10px;
+      height: 10px ;
     }
   }
 }
