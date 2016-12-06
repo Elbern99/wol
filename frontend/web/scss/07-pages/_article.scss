@@ -84,6 +84,16 @@
     margin: 0 0 39px;
   }
 
+  a {
+    display: block;
+    height: 100%;
+
+    img {
+      display: block;
+      min-height: 100%;
+    }
+  }
+
   .img {
     float: left;
     width: 50px;
@@ -93,7 +103,7 @@
     margin: 0 21px 0 0;
 
     @include breakpoint('tablet') {
-      margin: 0 22px 0 0;
+      margin: 7px 22px 0 0;
     }
   }
 

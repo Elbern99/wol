@@ -2089,10 +2089,10 @@ img {
   .articles-filter-list li {
     padding: 0 0 0 14px;
     position: relative; }
+    .articles-filter-list li.open > a {
+      font-family: "LucidaGrandeBold", Helvetica, Arial, Sans-serif; }
     .articles-filter-list li.has-drop > .icon-arrow {
       display: block; }
-    .articles-filter-list li.has-drop.open > a {
-      font-family: "LucidaGrandeBold", Helvetica, Arial, Sans-serif; }
     .articles-filter-list li.has-drop.open > .icon-arrow {
       color: #0053a0;
       transform: translateY(-50%) rotate(90deg);
@@ -3438,6 +3438,12 @@ iframe[name = advpp_manager] {
   @media only screen and (min-width: 769px) {
     .article-user {
       margin: 0 0 39px; } }
+  .article-user a {
+    display: block;
+    height: 100%; }
+    .article-user a img {
+      display: block;
+      min-height: 100%; }
   .article-user .img {
     float: left;
     width: 50px;
@@ -3447,7 +3453,7 @@ iframe[name = advpp_manager] {
     margin: 0 21px 0 0; }
     @media only screen and (min-width: 769px) {
       .article-user .img {
-        margin: 0 22px 0 0; } }
+        margin: 7px 22px 0 0; } }
   .article-user .name {
     font-size: 13px;
     margin: 0 0 2px; }

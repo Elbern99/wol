@@ -452,16 +452,19 @@
     padding: 0 0 0 14px;
     position: relative;
 
+    &.open {
+
+      > a {
+        font-family: $lucida-grande-bold;
+      }
+    }
+
     &.has-drop {
       >.icon-arrow {
         display: block;
       }
 
       &.open {
-
-        >a {
-          font-family: $lucida-grande-bold;
-        }
 
         >.icon-arrow {
           color: $blue;
