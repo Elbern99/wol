@@ -18,7 +18,7 @@
 .header-top {
   border-bottom: 1px solid #d8d8d8;
   padding: 9px 0 3px;
-  min-height: 52px;
+  min-height: 50px;
 
   @include breakpoint('tablet') {
     padding: 0;
