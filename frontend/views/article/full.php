@@ -68,7 +68,7 @@ $config = [
                     $authorAttributes['name']->getData('last_name')
                     ,'/'
                 );
-                
+
                 $authorLink[] = $link;
                 echo $link;
             ?>
