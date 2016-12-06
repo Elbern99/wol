@@ -284,7 +284,7 @@
             });
         },
         sort: function(btn,item) {
-            var selectItem = $('[selected=selected]'),
+            var selectItem = $('[data-select=selected]'),
                 selectText = selectItem.find('a').text();
             if(selectText.length > 0) {
                 $(btn).text(selectText);

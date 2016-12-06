@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -30,7 +30,7 @@ $this->registerMetaTag([
     'content' => Html::encode($attributes['teaser']->getData('teaser'))
 ]);
 
-$this->registerJsFile('/js/article.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerCssFile('/css/leaflet.css');
@@ -125,16 +125,16 @@ $config = [
                 <p><a href="">&copy; <?=$article->availability?></a></p>
 
                 <div class="article-map-medium">
-                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
-                        <div class="article-map-medium-text">
+                    <div class="article-map-medium-text">
+                        <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
                             <h4>evidence map</h4>
                             <p>Can cash transfers reduce child labor?</p>
                             <div class="icon-circle-arrow">
                                 <div class="icon-arrow"></div>
                             </div>
-                        </div>
-                        <div id="article-map-medium"></div>
-                    </a>
+                        </a>
+                    </div>
+                    <div id="article-map-medium"></div>
                 </div>
                 
                 <div class="article-buttons">
@@ -157,11 +157,18 @@ $config = [
                         <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-blue-middle btn-show-one-pager"><span class="text">show one-pager</span></a>
                         <?php if (isset($attributes['full_pdf'])): ?>
                         <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-                            <span class="icon-download"></span>
-                            <span class="text">download pdf</span>
+                            <div class="inner">
+                                <span class="icon-download"></span>
+                                <span class="text">download pdf</span>
+                            </div>
                         </a>
                         <?php endif; ?>
-                        <a href="" class="btn-border-blue-middle btn-cite with-icon-r"><span class="icon-quote"></span><span class="text">cite</span></a>
+                        <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+                            <div class="inner">
+                                <span class="icon-quote"></span>
+                                <span class="text">cites</span>
+                            </div>
+                        </a>
                         <div class="article-buttons-short">
                             <a href="" class="btn-border-gray-middle btn-like short">
                                 <span class="icon-heart"></span>
@@ -182,7 +189,12 @@ $config = [
                         <span class="text">download pdf</span>
                     </a>
                 <?php endif; ?>
-                <a href="" class="btn-border-blue-middle btn-cite"><span class="icon-quote"></span><span>cite</span></a>
+                <a href="" class="btn-border-blue-middle btn-cite with-icon">
+                    <span class="inner">
+                        <span class="icon-quote"></span>
+                        <span>cite</span>
+                    </span>
+                </a>
                 <a href="" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
                     <div class="btn-like-inner">article added to favorites</div>
@@ -202,6 +214,12 @@ $config = [
                 ?>
             </div>
 
+            
+            <?php
+                $count_categories = count($categories);
+            ?>
+
+            <?php if ($count_categories > 0): ?>
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
@@ -215,6 +233,7 @@ $config = [
                     <?php endforeach; ?>
                 </ul>
             </div>
+            <?php endif; ?>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
                 <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
@@ -255,7 +274,7 @@ $config = [
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
-                        <li class="sidebar-accrodion-item">
+                        <li class="sidebar-accrodion-item sidebar-articles-item">
                             <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
                             <?php $count_related = count($related) ?>
 
@@ -361,14 +380,38 @@ $config = [
                     </li>
                     <?php endif; ?>
                 </ul>
+                <a href="" class="btn-border-blue-middle btn-cite with-icon btn-print">
+                    <div class="inner">
+                        <span class="icon-print"></span><span>print all references</span>
+                    </div>
+                </a>
             </div>
-            
-            <div>
-                <h3>Version</h3>
-                <p><?= date('F Y', $article->created_at) ?></p>
-                <p><?= $article->doi ?></p>
-                <p><?= $article->availability ?></p>
-                <p><?= $article->id ?></p>
+
+            <div class="sidebar-widget sidebar-widget-version">
+                <div class="sidebar-widget-version-item">
+                    <div class="widget-title">Versions</div>
+                    <div class="number">
+                        <div class="icon-question tooltip">
+                            <div class="tooltip-content">
+                                This is a revision
+                            </div>
+                        </div>
+                        <a href="">current version: <strong>2</strong></a>
+                    </div>
+                    <div class="date">
+                        <div class="title">date</div>
+                        <?= date('F Y', $article->created_at) ?>
+                    </div>
+                    <div class="doi">
+                        <div class="title">DOI</div>
+                        <a href=""><?= $article->doi ?></a>
+                    </div>
+                    <div class="authors">
+                        <div class="title">authors</div>
+                        <a href=""><?= $article->availability ?></a>
+                    </div>
+                    <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
+                </div>
             </div>
         </aside>
     </div>

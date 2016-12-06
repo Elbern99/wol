@@ -104,7 +104,7 @@ input[type=url]{
     border-radius: 5px;
     height: 29px;
     cursor: pointer;
-    padding: 7px 50px 5px 10px;
+    padding: 5px 50px 7px 10px;
     background: #fff;
     overflow: hidden;
     margin: 0;
@@ -112,6 +112,8 @@ input[type=url]{
     font: normal 11px/1em $lucida-grande;
     width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
 
     &.active {
       border-radius: 5px 5px 0 0 ;

@@ -504,20 +504,6 @@ if (window.jQuery) {
                 }
             }
         },
-        detectNext: function(btnNext,btnPrev,nextCur) {
-            if(nextCur == 0) {
-                $(btnNext).css('opacity',1);
-            } else {
-                $(btnNext).css('opacity',0.4);
-            }
-        },
-        detectPrev: function(btnNext,btnPrev,nextCur) {
-            if(nextCur == 0) {
-                $(btnPrev).css('opacity',1);
-            } else {
-                $(btnPrev).css('opacity',0.4);
-            }
-        },
         arrowsSwitchNext: function(btnNext,btnPrev) {
             $(btnNext).click(function(e) {
                 var cur = $('.text-reference-opened'),
@@ -558,11 +544,10 @@ if (window.jQuery) {
         arrowsSwitchPrev: function(btnPrev,btnNext) {
             $(btnPrev).click(function(e) {
                 var cur = $('.text-reference-opened'),
-                    curAttrIndex = cur.data('index') + 1,
+                    curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href'),
                     nextAttrIndex = curAttrIndex-1,
                     prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
-
                 if(_window_width > _mobile){
                     if(prevCur.length == 0) {
                         $(btnPrev).css('opacity','0.5');
@@ -632,6 +617,7 @@ if (window.jQuery) {
             buttons: [           // services that you want to enable you can add :
                 'twitter',       // - twitter, tumblr, buffer, stumbleupon, digg, reddit, linkedin, facebook
                 'linkedin',
+                'digg',
                 'tumblr',
             ],
             anchorsClass: '',    // class given to each tooltip's links
@@ -653,7 +639,7 @@ if (window.jQuery) {
         article.openTooltip('.rel-tooltip','.reference-popup');
         article.arrowsSwitchNext('.reference-popup .right','.reference-popup .left');
         article.arrowsSwitchPrev('.reference-popup .left','.reference-popup .right');
-        article.articleReference('.sidebar-widget-articles-references','li ul>li');
+        article.articleReference('.sidebar-widget-articles-references','li:not(.sidebar-articles-item) ul>li');
     });
 
     $(window).load(function() {
