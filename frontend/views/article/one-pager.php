@@ -62,7 +62,7 @@ $config = [
         <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
 
         <div class="desc">
-            <div class="name"
+            <div class="name">
             <?php
 
             $link = Html::a($authorAttributes['name']->getData('first_name').' '.
