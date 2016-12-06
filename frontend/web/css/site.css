@@ -2991,7 +2991,7 @@ iframe[name = advpp_manager] {
 .header-top {
   border-bottom: 1px solid #d8d8d8;
   padding: 9px 0 3px;
-  min-height: 52px; }
+  min-height: 50px; }
   @media only screen and (min-width: 769px) {
     .header-top {
       padding: 0;
@@ -3384,6 +3384,9 @@ iframe[name = advpp_manager] {
   .about-page p + br {
     margin-bottom: 53px !important; } }
 
+@media only screen and (max-width: 769px) {
+  .article-full article {
+    margin-bottom: 30px; } }
 @media only screen and (max-width: 769px) {
   .article-full .content-inner-text p + br {
     margin-bottom: 36px !important; } }

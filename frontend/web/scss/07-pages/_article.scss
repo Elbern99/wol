@@ -1,6 +1,12 @@
 //ARTICLE FULL
 .article-full {
 
+  article {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 30px ;
+    }
+  }
+
   .content-inner-text {
 
     @include breakpoint_custom($breakpoint-tablet) {
