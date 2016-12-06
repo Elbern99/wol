@@ -484,12 +484,11 @@ th {
   font-family: 'Glyphter';
   font-style: normal;
   font-weight: normal;
-  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
   vertical-align: middle;
-  margin-bottom: 1px; }
+  line-height: 1; }
 
 .icon-user:before {
   content: '\0041'; }
@@ -1992,6 +1991,11 @@ img {
     .sidebar-widget.sidebar-widget-evidence-map .title {
       font-size: 16px;
       margin: 0 0 11px; }
+    .sidebar-widget.sidebar-widget-evidence-map .icon-arrow {
+      color: #0053a0;
+      height: 12px; }
+      .sidebar-widget.sidebar-widget-evidence-map .icon-arrow:before {
+        margin: 0; }
     .sidebar-widget.sidebar-widget-evidence-map:hover .caption {
       background: #0094f2; }
     .sidebar-widget.sidebar-widget-evidence-map:hover .icon-arrow {

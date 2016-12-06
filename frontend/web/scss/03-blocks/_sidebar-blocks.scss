@@ -276,9 +276,18 @@
       margin: 0 0 11px;
     }
 
+    .icon-arrow {
+      color: $blue;
+      height: 12px;
+
+      &:before {
+        margin: 0;
+      }
+    }
+
     &:hover {
       .caption {
-        background: $light-blue;
+        background: $light-blue ;
       }
 
       .icon-arrow {
