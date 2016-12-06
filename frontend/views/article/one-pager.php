@@ -356,7 +356,7 @@ $config = [
                             This is a revision
                         </div>
                     </div>
-                    <a href="">current version: <strong>2</strong></a>
+                    <!--<a href="">current version: <strong>2</strong></a>-->
                 </div>
                 <div class="date">
                     <div class="title">date</div>
