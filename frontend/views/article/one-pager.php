@@ -350,14 +350,14 @@ $config = [
         <div class="sidebar-widget sidebar-widget-version">
             <div class="sidebar-widget-version-item">
                 <div class="widget-title">Versions</div>
-                <div class="number">
+                <!--<div class="number">
                     <div class="icon-question tooltip">
                         <div class="tooltip-content">
                             This is a revision
                         </div>
                     </div>
-                    <!--<a href="">current version: <strong>2</strong></a>-->
-                </div>
+                    <a href="">current version: <strong>2</strong></a>
+                </div>-->
                 <div class="date">
                     <div class="title">date</div>
                     <?= date('F Y', $article->created_at) ?>
