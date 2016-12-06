@@ -964,7 +964,7 @@ trait ArticleParseTrait {
                 if (isset($this->images[$image])) {
                     $imgObj = $this->images[$image];
                     $text .= Html::tag(
-                        'p', Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => '#'.$image, 'data-target' => $imgObj->target]), ['class' => 'article_image']
+                        'p', Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => $image, 'data-target' => $imgObj->target]), ['class' => 'article_image']
                     );
                 }
             }
