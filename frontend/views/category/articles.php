@@ -4,6 +4,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
+use yii\widgets\Pjax;
 ?>
 
 <?php
@@ -33,8 +34,8 @@ $this->registerMetaTag([
         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
     </div>
     <p><?= $category->description ?></p>
+    <?php //Pjax::begin(); ?>
     <div class="content-inner">
-        
         <div class="content-inner-text">
             <div class="articles">
                 <ul class="articles-list">
@@ -55,7 +56,13 @@ $this->registerMetaTag([
                     </li>
                     <?php endforeach; ?>
                 </ul>
-                <!-- <a href="" class="btn-gray align-center">show more</a>-->
+                <?php /*if ($articleCount > $limit): ?>
+                    <?= Html::a("show more", Url::to(['/articles', 'limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
+                <?php else: ?>
+                    <?php if (\Yii::$app->request->get('limit')): ?>
+                        <?= Html::a("clear", Url::to(['/articles']), ['class' => 'btn-gray align-center']) ?>
+                    <?php endif; ?>
+                <?php endif;*/ ?>
             </div>
         </div>
 
@@ -68,10 +75,10 @@ $this->registerMetaTag([
                     </div>
                     <div class="sort-list drop-content">
                         <div>
-                            <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
+                            <a href="<?= Url::to($category->url_key, [ 'data-pjax' => false]) ?>">Publication date (descending)</a>
                         </div>
-                        <div <?= ($sort) ? 'data-select="selected"' : '' ?>>
-                            <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
+                        <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
+                            <a href="<?= Url::to([$category->url_key, 'sort' => 1]) ?>">Publication date (ascending)</a>
                         </div>
                     </div>
                 </div>
@@ -115,4 +122,5 @@ $this->registerMetaTag([
             </div>
         </aside>
     </div>
+    <?php//Pjax::end(); ?>
 </div>

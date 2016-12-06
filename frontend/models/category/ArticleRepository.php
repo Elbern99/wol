@@ -26,6 +26,18 @@ class ArticleRepository implements RepositoryInterface {
             $order = SORT_ASC;
         }
         
+        $limit = Yii::$app->params['article_limit'];
+
+        if (Yii::$app->request->getIsPjax()) {
+
+            $limitPrev = Yii::$app->request->get('limit');
+            
+            if (isset($limitPrev) && intval($limitPrev)) {
+                $limit += (int)$limitPrev;
+            }
+
+        }
+        
         $subjectAreas = $this->getSubjectAreas();
         
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
@@ -36,7 +48,7 @@ class ArticleRepository implements RepositoryInterface {
                                         ->select(['article_id'])
                                         ->where(['category_id' => $this->current->id])
                                         ->asArray()
-                                        ->limit(10)
+                                        ->limit($limit)
                                         ->all();
         
         if (!count($categoryIds)) {
@@ -44,7 +56,9 @@ class ArticleRepository implements RepositoryInterface {
                 'category' => $this->current, 
                 'subjectAreas' => $subjectAreas, 
                 'collection' => [], 
-                'sort' => $order
+                'sort' => $order,
+                'limit' => $limit,
+                'articleCount' => 1
             ];
         }
 
@@ -91,7 +105,9 @@ class ArticleRepository implements RepositoryInterface {
             'category' => $this->current, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
-            'sort' => $order
+            'sort' => $order,
+            'limit' => $limit,
+            'articleCount' => ArticleCategory::find()->where(['category_id' => $this->current->id])->count('id')
         ];
     }
     

@@ -22,6 +22,18 @@ class ArticleController extends Controller {
     
     public function actionIndex($sort = 0) {
         
+        $limit = Yii::$app->params['article_limit'];
+
+        if (Yii::$app->request->getIsPjax()) {
+
+            $limitPrev = Yii::$app->request->get('limit');
+            
+            if (isset($limitPrev) && intval($limitPrev)) {
+                $limit += (int)$limitPrev;
+            }
+
+        }
+        
         $order = SORT_DESC;
         
         if ($sort) {
@@ -43,7 +55,7 @@ class ArticleController extends Controller {
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
             return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
         });
-        
+
         $articles = Article::find()
                              ->select(['id','title','seo', 'availability', 'created_at'])
                              ->where(['enabled' => 1])
@@ -51,7 +63,7 @@ class ArticleController extends Controller {
                                  return $query->select(['category_id', 'article_id']);
                              }])
                              ->orderBy(['created_at' => $order])
-                             ->limit(10)
+                             ->limit($limit)
                              ->all();
         
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
@@ -88,7 +100,9 @@ class ArticleController extends Controller {
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
-            'sort' => $sort
+            'sort' => $sort,
+            'limit' => $limit,
+            'articleCount' => Article::find()->where(['enabled' => 1])->count('id')
         ]);
     }
 
