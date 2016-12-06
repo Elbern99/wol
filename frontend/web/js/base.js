@@ -230,16 +230,14 @@
 
             setTimeout(function(){
                 elements.css('min-height',$(document).height());
-            }, 600);
+            }, 200);
 
-
-            $(window).resize(function() {
+            window.addEventListener("orientationchange", function() {
                 elements.css('min-height', '1px');
 
                 setTimeout(function(){
                     elements.css('min-height',$(document).height());
-                }, 600);
-
+                }, 200);
             });
 
         }
