@@ -42,13 +42,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'page/<id:[1-9]+>' => 'page/index',
+                'page/<id:[0-9]+>' => 'page/index',
                 'articles/' => 'article/index',
-                'articles/<slug:[1-9a-z-]+>' => 'article/one-pager',
-                'articles/<slug:[1-9a-z-]+>/long' => 'article/full',
-                'articles/<slug:[1-9a-z-]+>/map' => 'article/map',
+                'articles/<slug:[0-9a-z-]+>' => 'article/one-pager',
+                'articles/<slug:[0-9a-z-]+>/long' => 'article/full',
+                'articles/<slug:[0-9a-z-]+>/map' => 'article/map',
                 'articles/<slug:[1-9a-z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
-                'category/<id:[1-9]+>' => 'category/index',
+                'category/<id:[0-9]+>' => 'category/index',
             ],
         ],
         'assetManager' => [

@@ -1,5 +1,5 @@
 <div class="footer-left">
-    <a href="" class="logo-main">
+    <a href="/" class="logo-main">
         <img src="<?= common\modules\settings\SettingsRepository::get('logo') ?>" alt="IZA World of Labor" title="IZA World of Labor" />
     </a>
 </div>
