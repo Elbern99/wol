@@ -98,7 +98,7 @@ $config = [
                     <?php else: ?>
                         <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
                             <div class="lang"><img src="<?= Yii::$app->params['default_lang']['image'] ?>" alt=""></div>
-                            <span class="text">in <?= Yii::$app->params['default_lang']['name'] ?> lesen</span>
+                            <span class="text">in <?= Yii::$app->params['default_lang']['name'] ?> language</span>
                         </a>
                     <?php endif; ?>
                 </div>

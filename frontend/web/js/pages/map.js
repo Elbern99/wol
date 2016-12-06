@@ -94,8 +94,10 @@
         var popup = event.target.getPopup();
             elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
 
-          if(_window_width< _mobile){
-              $("html, body").animate({ scrollTop: 0 }, "slow");
+          if(_window_width < _mobile){
+              if($(window).scrollTop() !== 0) {
+                  $("html, body").animate({ scrollTop: 0 }, 0);
+              }
           }
       }
     };

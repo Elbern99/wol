@@ -254,6 +254,10 @@
     background: #1d1d1b;
     transform: rotate(-45deg);
     margin-top: -1px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 1px;
+    }
   }
 
   &:after {

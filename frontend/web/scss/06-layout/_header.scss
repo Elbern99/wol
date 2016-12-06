@@ -510,6 +510,12 @@
     @extend .btn;
   }
 
+  .header-menu-top-list {
+    li {
+      display: block;
+    }
+  }
+
   .header-menu-bottom-list {
 
     .item {

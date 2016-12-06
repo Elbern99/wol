@@ -225,12 +225,15 @@
         elements: ['.reference-popup, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
-                elements.css('min-height', 'auto');
-                _doc_height = $(document).height();
 
-                setTimeout(function(){
-                    elements.css('min-height',_doc_height);
-                }, 10);
+            elements.css('min-height', '1px');
+            elements.css('min-height',$(document).height());
+
+            $(window).resize(function() {
+                elements.css('min-height', '1px');
+                elements.css('min-height',$(document).height());
+            });
+
         }
     };
     /* end */
@@ -348,7 +351,6 @@
         //HEADER
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
 
-
         if(_window_width < _mobile ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
         }
@@ -363,12 +365,6 @@
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
-    });
-
-    $(window).on('orientationchange', function() {
-        setTimeout(function(){
-            docHeightForElement.changeHeight();
-        }, 10);
     });
 
 })(jQuery);

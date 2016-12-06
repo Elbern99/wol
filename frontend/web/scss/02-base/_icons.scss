@@ -137,10 +137,12 @@
   height: 17px;
   border-radius: 50%;
   border: 1px solid $light-blue;
-  display: inline-block;
   position: relative;
   color: $light-blue;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @include breakpoint('tablet') {
     width: 14px;
@@ -159,9 +161,11 @@
     font-weight: bold;
     line-height: 1;
     font-size: 10px;
+    height: 10px;
 
     @include breakpoint('tablet') {
       padding: 1px 0 0 0;
+      height: 10px;
     }
   }
 }

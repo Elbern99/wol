@@ -829,6 +829,7 @@
         left: 34px;
 
         .icon-arrow {
+
           &:before {
             transform: rotate(180deg);
             margin: -3px 0 0 0px;
@@ -849,6 +850,11 @@
 
       .icon-arrow {
         height: 10px;
+
+        @include breakpoint_custom($breakpoint-desktop-large) {
+          margin-top: -1px;
+        }
+
         &:before {
           transform: rotate(180deg);
         }

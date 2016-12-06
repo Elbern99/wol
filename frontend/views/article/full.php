@@ -166,7 +166,7 @@ $config = [
                         <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
                             <div class="inner">
                                 <span class="icon-quote"></span>
-                                <span class="text">cites</span>
+                                <span class="text">cite</span>
                             </div>
                         </a>
                         <div class="article-buttons-short">
