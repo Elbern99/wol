@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -182,7 +182,12 @@ $this->registerCssFile('/css/leaflet.css');
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="" class="btn-border-gray-small with-icon-r"><span class="icon-message"></span><span class="text">email</span></a>
+                    <a href="" class="btn-border-gray-small with-icon-r">
+                        <div class="inner">
+                            <span class="icon-message"></span>
+                            <span class="text">email</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             
@@ -203,19 +208,25 @@ $this->registerCssFile('/css/leaflet.css');
                 ?>
             </div>
 
-            <div class="sidebar-widget">
-                <div class="widget-title">Classification</div>
-                <ul class="classification-list">
-                    <?php foreach ($categories as $c): ?>
-                        <li>
-                            <?php if (isset($c['p_id'])): ?>
-                                <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
-                            <?php endif; ?>
-                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <?php
+            $count_categories = count($categories);
+            ?>
+
+            <?php if ($count_categories > 0): ?>
+                <div class="sidebar-widget">
+                    <div class="widget-title">Classification</div>
+                    <ul class="classification-list">
+                        <?php foreach ($categories as $c): ?>
+                            <li>
+                                <?php if (isset($c['p_id'])): ?>
+                                    <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
+                                <?php endif; ?>
+                                <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
 
             <?php if (isset($attributes['related'])): ?>
                 <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>

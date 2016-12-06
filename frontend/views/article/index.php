@@ -66,10 +66,10 @@ $this->registerMetaTag([
                         Publication date (descending)
                     </div>
                     <div class="sort-list drop-content">
-                        <div value="date-desc">
+                        <div>
                             <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
                         </div>
-                        <div value="date-asc" <?= ($sort) ? 'selected="selected"' : '' ?>>
+                        <div <?= ($sort) ? 'data-select="selected"' : '' ?>>
                             <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ $this->registerMetaTag([
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
                     <a href="/subject-areas/data" class="data-method-item">
-                        <div class="img"><img src="/images/temp/article/01-img.jpg" alt=""></div>
+                        <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
                             <div class="icon-circle-arrow white">
                                 <div class="icon-arrow"></div>
@@ -102,7 +102,7 @@ $this->registerMetaTag([
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
-                        <div class="img"><img src="/images/temp/article/02-img.jpg" alt="" width="430" height="326"></div>
+                        <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
                             <div class="icon-circle-arrow white">
                                 <div class="icon-arrow"></div>

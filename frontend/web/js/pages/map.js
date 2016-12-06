@@ -97,24 +97,8 @@
           if(_window_width< _mobile){
               $("html, body").animate({ scrollTop: 0 }, "slow");
           }
-      },
-      doubleMapClick: function(map){
-          var tapped=false
-          map.on("touchstart",function(e){
-              if(!tapped){
-                  tapped=setTimeout(function(){
-                      tapped=null
-                  },300);
-              } else {
-                  clearTimeout(tapped);
-                  tapped=null
-                  $(this).addClass('clicked');
-              }
-              e.preventDefault()
-          });
       }
     };
-
 
     var map = L.map('map', mapObj.options),
         geojson;
@@ -175,8 +159,6 @@
               var 
                 x = value.capital.x;
                 y = value.capital.y;
-
-                console.log(value);
 
                 //references
                 var key_references_obj = value.key_references,

@@ -21,9 +21,24 @@
   touch-action: manipulation;
   user-select: none;
 
+  &.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   &.with-icon,
   &.with-icon-r {
     padding: 7px 11px;
+
+    .inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
 
     > * {
       vertical-align: middle;
@@ -36,7 +51,8 @@
       width: 36px;
     }
 
-    > * {
+    > *,
+    div > *{
       @include breakpoint_custom($breakpoint-tablet) {
         margin: 0 !important;
         position: absolute;
@@ -99,12 +115,12 @@
 
     &.icon-quote {
       font-size: 13px;
-      margin: -2px 15px 0 5px;
+      margin: 0 15px 0 5px;
     }
 
     &.icon-download {
       font-size: 15px;
-      margin: 0 15px 0px 0;
+      margin: 0 12px 0px 0;
     }
 
     &.icon-print {
@@ -150,7 +166,7 @@
 
   &.btn-border-gray-small {
     height: 24px;
-    padding: 5px 6px 2px;
+    padding: 1px 6px 0;
     border-radius: 2px;
     font-size: 9px;
 
