@@ -303,12 +303,11 @@
         },
         accordion: function(btn,content,parent) {
             parent.find('.'+headerMenu.classes).find(content).slideDown(0);
+
+            parent.find('.'+headerMenu.classes).parents('li').addClass('open');
+            parent.find('.'+headerMenu.classes).parents('.open').find('>ul').slideDown(0);
+
             btn.click(function(e) {
-
-                setTimeout(function(){
-                    _doc_height = $(document).height();
-                }, 600);
-
                 var cur = $(this);
                 if(cur.parent().hasClass(headerMenu.classes)){
                     articlesFilter.closeItem(cur);

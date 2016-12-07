@@ -156,7 +156,7 @@
     }
   }
 
-  &:after {
+  &:before {
     content: '?';
     @extend .icon-to-center;
     font-family: Helvetica;

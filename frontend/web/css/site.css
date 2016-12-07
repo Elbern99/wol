@@ -446,7 +446,7 @@ th {
 .hidden-area {
   display: none; }
 
-.icon-to-center, .icon-circle-arrow .icon-arrow, .icon-question:after, .btn-border-gray.short [class*='icon-'],
+.icon-to-center, .icon-circle-arrow .icon-arrow, .icon-question:before, .btn-border-gray.short [class*='icon-'],
 [class^="btn-border-gray-"].short [class*='icon-'],
 [class*=" btn-border-gray-"].short [class*='icon-'], .btn-mobile-icon > span {
   position: absolute;
@@ -632,7 +632,7 @@ th {
       .icon-question:hover {
         border-color: #0053a0;
         color: #0053a0; } }
-  .icon-question:after {
+  .icon-question:before {
     content: '?';
     font-family: Helvetica;
     font-weight: bold;
@@ -640,7 +640,7 @@ th {
     font-size: 10px;
     height: 10px; }
     @media only screen and (min-width: 769px) {
-      .icon-question:after {
+      .icon-question:before {
         padding: 1px 0 0 0;
         height: 10px; } }
 
@@ -1235,7 +1235,13 @@ img {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
-  min-height: 112px; }
+  min-height: 112px;
+  position: relative;
+  z-index: 10;
+  margin: -1px 0 0 0; }
+  @media only screen and (max-width: 769px) {
+    .header-background {
+      margin: -21px 0 13px 0; } }
 
 .breadcrumbs-list {
   margin: 30px 0 32px;
