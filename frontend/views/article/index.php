@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
+use Yii;
 ?>
 
 <?php
@@ -33,8 +34,9 @@ $this->registerMetaTag([
         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
     </div>
     <p><?= $category->description ?></p>
-    <?php //Pjax::begin(); ?>
+    
     <div class="content-inner">
+        <?php Pjax::begin(); ?>
         <div class="content-inner-text">
             <div class="articles">
                 <ul class="articles-list">
@@ -55,15 +57,30 @@ $this->registerMetaTag([
                     </li>
                     <?php endforeach; ?>
                 </ul>
-                <?php /*if ($articleCount > $limit): ?>
-                    <?= Html::a("show more", Url::to(['/articles', 'limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
+                <?php if ($articleCount > $limit): ?>
+                    <?php
+                    if ($sort == 3) {
+                        $params = ['/articles', 'limit' => $limit];
+                    } else {
+                        $params = ['/articles', 'limit' => $limit, 'sort' => 1];
+                    }
+                    ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center']) ?>
                 <?php else: ?>
-                    <?php if (\Yii::$app->request->get('limit')): ?>
-                        <?= Html::a("clear", Url::to(['/articles']), ['class' => 'btn-gray align-center']) ?>
+                    <?php if (Yii::$app->request->get('limit')): ?>
+                        <?php
+                        if ($sort == 3) {
+                            $params = ['/articles'];
+                        } else {
+                            $params = ['/articles', 'sort' => 1];
+                        }
+                        ?>
+                        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
                     <?php endif; ?>
-                <?php endif;*/ ?>
+                <?php endif; ?>
             </div>
         </div>
+        <?php Pjax::end(); ?>
         
         <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-sort-by">
@@ -121,5 +138,4 @@ $this->registerMetaTag([
             </div>
         </aside>
     </div>
-    <?php //Pjax::end(); ?>
 </div>

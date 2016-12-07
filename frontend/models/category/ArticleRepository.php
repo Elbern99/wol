@@ -25,7 +25,7 @@ class ArticleRepository implements RepositoryInterface {
         if (Yii::$app->request->get('sort')) {
             $order = SORT_ASC;
         }
-        
+
         $limit = Yii::$app->params['article_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
