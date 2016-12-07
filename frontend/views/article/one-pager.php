@@ -353,7 +353,7 @@ $config = [
                     <div class="icon-close"></div>
                     <div class="reference-popup-list-inner">
                         <?php if (isset($attributes['further_reading'])): ?>
-                            <?php $furthers = $attributes['further_reading']->getData(); ?>
+                            <?php $furthers = $attributes['further_reading']->getData(null, $currentLang); ?>
                             <h3>Further reading</h3>
                             <ul class="further-reading-popup-list">
                                 <?php foreach ($furthers as $further): ?>
@@ -364,17 +364,12 @@ $config = [
                             </ul>
                         <?php endif; ?>
 
-                        <?php $source = []; ?>
-
                         <?php if (isset($attributes['key_references'])): ?>
-                            <?php $references = $attributes['key_references']->getData(); ?>
+                            <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                             <h3>Key references</h3>
                             <?php $i = 1; ?>
                             <ul class="key-references-popup-list">
                                 <?php foreach($references as $reference): ?>
-                                    <?php if (count($reference->country_codes)): ?>
-                                        <?php $source = array_merge($source, $reference->country_codes); ?>
-                                    <?php endif; ?>
                                     <li>
                                         <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                         <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
