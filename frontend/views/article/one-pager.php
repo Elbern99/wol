@@ -90,10 +90,10 @@ $config = [
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?> 
-                    <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
-                                <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
-                                <span class="text">in <?= $lang['name'] ?> lesen</span>
-                            </a>
+                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
+                            <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
+                            <span class="text">in <?= $lang['name'] ?> lesen</span>
+                        </a>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
@@ -340,13 +340,55 @@ $config = [
                     </li>
                 <?php endif; ?>
             </ul>
-            <a href="" class="btn-border-blue-middle btn-cite with-icon btn-print">
+            <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle btn-cite with-icon btn-print">
                 <div class="inner">
                     <span class="icon-print"></span><span>print all references</span>
                 </div>
             </a>
         </div>
 
+        <div class="sidebar-widget sidebar-widget-reference-popup dropdown">
+            <div class="reference-popup-list-holder drop-content">
+                <div class="reference-popup-list">
+                    <div class="icon-close"></div>
+                    <div class="reference-popup-list-inner">
+                        <?php if (isset($attributes['further_reading'])): ?>
+                            <?php $furthers = $attributes['further_reading']->getData(); ?>
+                            <h3>Further reading</h3>
+                            <ul class="further-reading-popup-list">
+                                <?php foreach ($furthers as $further): ?>
+                                    <li>
+                                        <?= $further->full_citation ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <?php $source = []; ?>
+
+                        <?php if (isset($attributes['key_references'])): ?>
+                            <?php $references = $attributes['key_references']->getData(); ?>
+                            <h3>Key references</h3>
+                            <?php $i = 1; ?>
+                            <ul class="key-references-popup-list">
+                                <?php foreach($references as $reference): ?>
+                                    <?php if (count($reference->country_codes)): ?>
+                                        <?php $source = array_merge($source, $reference->country_codes); ?>
+                                    <?php endif; ?>
+                                    <li>
+                                        <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
+                                        <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-title">Full reference list</div>
+            <a href="" class="dropdown-link">Open full reference list</a>
+        </div>
+        
         <div class="sidebar-widget sidebar-widget-version">
             <div class="sidebar-widget-version-item">
                 <div class="widget-title">Versions</div>

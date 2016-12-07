@@ -227,10 +227,14 @@
   background: #eaeaea;
   color: #7b7b7b;
   height: 36px;
-  line-height: 18px;
+  line-height: 19px;
   font-size: 11px;
   letter-spacing: 0.05em;
   border-radius: 2px;
+  
+  @include breakpoint_custom($breakpoint-tablet) {
+    color: #1e1e1e;
+  }
   
   &:hover {
     background: #7b7b7b;
@@ -239,7 +243,11 @@
 
   &.align-center {
     display: block;
-    margin: 0 auto;
+    margin: 27px auto 29px;
     max-width: 107px;
+
+    @include breakpoint('tablet') {
+      margin: 0 auto;
+    }
   }
 }

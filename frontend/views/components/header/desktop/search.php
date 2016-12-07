@@ -3,9 +3,9 @@
         <form action="url">
             <span class="icon-search"></span>
             <button type="submit" class="btn-border-blue btn-center">
-                <div class="inner">
+                <span class="inner">
                     search
-                </div>
+                </span>
             </button>
             <div class="search-holder">
                 <input type="search" name="search" placeholder="Keyword(s) or name" class="form-control-decor">
