@@ -266,6 +266,31 @@ class ArticleController extends Controller {
             'categories' => $categories
         ]);
     }
+    
+    public function actionReferences($slug) {
+        
+        $model = Article::find()
+                    ->where(['seo' => $slug, 'enabled' => 1])
+                    ->one();
+
+        if (!is_object($model)) {
+            throw new NotFoundHttpException('Page Not Found.');
+        }
+        
+        $articleCollection = Yii::createObject(Collection::class);
+        $articleCollection->setAttributeFilter([
+                            'title', 'keywords', 'related', 
+                            'key_references', 'add_references', 
+                            'further_reading'
+        ]);
+        
+        $articleCollection->initCollection(Article::tableName(), $model);
+        
+        return $this->render('references', [
+            'article' => $model,
+            'collection' => $articleCollection,
+        ]);
+    }
 
 }
         
