@@ -50,6 +50,7 @@ class ArticleController extends Controller {
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
         
         $categoryCollection = Yii::createObject(CategoryCollection::class);
+        $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $articlesIds);
         $values = $categoryCollection->getValues();
         $articlesCollection = [];

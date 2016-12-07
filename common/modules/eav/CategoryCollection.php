@@ -5,9 +5,8 @@ use common\modules\eav\contracts\EntityInterface;
 use Yii;
 
 class CategoryCollection {
-    
     private $entity;
-    private $selectAttribute = ['teaser', 'abstract'];
+    private $selectAttribute = [];
     private $values = null;
     
     public function __construct(EntityInterface $entity) {
@@ -24,7 +23,7 @@ class CategoryCollection {
         
         $this->values = $this->entity->find()
                         ->alias('e')
-                        ->select(['`v`.`id`', 'article_id'=>'`e`.`model_id`', '`ea`.`name`', '`v`.`value`'])
+                        ->select(['`v`.`id`', 'model_id'=>'`e`.`model_id`', '`ea`.`name`', '`v`.`value`'])
                         ->innerJoin(['t' => $models['type']::tableName()], '`e`.`type_id` = `t`.`id`')
                         ->innerJoin(['ea' => $models['attribute']::tableName()])
                         ->leftJoin(['v' => $models['value']::tableName()], 
@@ -45,13 +44,13 @@ class CategoryCollection {
 
         foreach ($this->values as $value) {
             
-            if (isset($formated[$value['article_id']])) {
+            if (isset($formated[$value['model_id']])) {
                 
-                $formated[$value['article_id']][$value['name']] = $value['value'];
+                $formated[$value['model_id']][$value['name']] = $value['value'];
                 continue;
             }
             
-            $formated[$value['article_id']] = array($value['name'] => $value['value']);
+            $formated[$value['model_id']] = array($value['name'] => $value['value']);
         }
         
         return $formated;
