@@ -257,6 +257,27 @@
     };
     /* end */
 
+    // 2.5 ARTICLE
+    var article = {
+        openPrintWindow: function(btn) {
+            $(btn).click(function(e) {
+                window.print();
+                e.preventDefault();
+            });
+        }
+    };
+    /* end */
+
+    // 2.6 REFERENCES
+    var references = {
+        openPrintWindow: function(btn) {
+            if(window.location.hash && $(btn).length) {
+                $(btn).first().trigger('click')
+            }
+        }
+    };
+    /* end */
+
 // 3. SIDEBAR WIDGETS ---------
 
     // 3.1 MORE SIDEBAR NEWS
@@ -346,6 +367,8 @@
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
         }
         //CONTENT
+        article.openPrintWindow('.btn-print');
+        references.openPrintWindow('.btn-print');
         faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
         sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list');

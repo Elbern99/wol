@@ -578,12 +578,7 @@ if (window.jQuery) {
                 }
             });
         },
-        openPrintWindow: function(btn) {
-            $(btn).click(function(e) {
-                window.print();
-                e.preventDefault();
-            });
-        },
+
         addToFavourite: function(btn) {
             $(btn).click(function(e) {
                 var cur = $(this);
@@ -604,6 +599,16 @@ if (window.jQuery) {
         openReferencePopup: function(btn) {
             $(btn).click(function(e) {
                 $(this).parent().find('.rel-tooltip').trigger('click');
+                e.preventDefault();
+            });
+        },
+        openReferenceListInPopup: function(btn,parent) {
+            $(btn).click(function(e) {
+                var cur = $(this),
+                    curAttrIndex = cur.data('index'),
+                    curAttr = cur.attr('href');
+
+                $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });
         }
@@ -640,6 +645,7 @@ if (window.jQuery) {
         article.arrowsSwitchNext('.reference-popup .right','.reference-popup .left');
         article.arrowsSwitchPrev('.reference-popup .left','.reference-popup .right');
         article.articleReference('.sidebar-widget-articles-references','li:not(.sidebar-articles-item) ul>li');
+        article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
     });
 
     $(window).load(function() {
@@ -764,7 +770,6 @@ if (window.jQuery) {
             });
         });
 
-        article.openPrintWindow('.btn-print');
         article.addToFavourite('.btn-like');
     });
 
