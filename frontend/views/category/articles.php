@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -38,7 +38,10 @@ $this->registerMetaTag([
     
     <div class="content-inner">
         
-        <?php Pjax::begin(); ?>
+        <?php
+            Pjax::begin([ 'linkSelector' => '#w0 .btn-gray']);
+        ?>
+        
         <div class="content-inner-text">
             <div class="articles">
                 <ul class="articles-list">
@@ -67,7 +70,7 @@ $this->registerMetaTag([
                             $params = [$category->url_key, 'limit' => $limit, 'sort' => 1];
                         }
                     ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update', 'data-pjax'=> '#w0']) ?>
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
                         <?php
