@@ -380,13 +380,11 @@ $config = [
                     </li>
                     <?php endif; ?>
                 </ul>
-                <div>
-                    <a href="" class="btn-border-blue-middle btn-cite with-icon btn-print">
-                        <div class="inner">
-                            <span class="icon-print"></span><span>print all references</span>
-                        </div>
-                    </a>
-                </div>
+                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle btn-cite with-icon">
+                    <div class="inner">
+                        <span class="icon-print"></span><span>print all references</span>
+                    </div>
+                </a>
             </div>
             
             <div class="sidebar-widget sidebar-widget-reference-popup dropdown">

@@ -28,74 +28,63 @@ $this->registerMetaTag([
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
     </div>
 
-    <div class="article-top">
-        <h1><?= $attributes['title']->getData('title') ?></h1>
+    <div class="article-reference-top">
+        <div class="line">
+            <a href="" class="btn-border-blue-middle with-icon btn-print">
+                <div class="inner">
+                    <span class="icon-print"></span><span>print</span>
+                </div>
+            </a>
+            <h1>References for <?= $attributes['title']->getData('title') ?></h1>
+        </div>
+        Author: <a href="">Julia Bredtmann</a>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text">
-            <ul>
+            <ul class="all-references-list">
                 <?php if (isset($attributes['further_reading'])): ?>
                     <?php $furthers = $attributes['further_reading']->getData(); ?>
-                    <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Further reading</a>
-                        <div class="text">
-                            <ul class="further-reading-list">
-                                <?php foreach ($furthers as $further): ?>
-                                    <li>
-                                        <a href=""><?= $further->title ?></a>
-                                        <div class="icon-question rel-tooltip"></div>
-                                        <div class="further-reading-info">
-                                            <?= $further->full_citation ?>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                    <li>
+                        <h2>Further reading</h2>
+                        <ul>
+                            <?php foreach ($furthers as $further): ?>
+                                <li>
+                                    <?= $further->full_citation ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </li>
                 <?php endif; ?>
                 <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(); ?>
-                    <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Key references</a>
-                        <div class="text">
-                            <?php $i = 1; ?>
-                            <ul class="key-references-list">
-                                <?php foreach ($references as $reference): ?>
-                                    <li>
-                                        <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
-                                        <div class="icon-question rel-tooltip"></div>
-                                        <div class="key-references-info">
-                                            <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation ?></div>
-                                            <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
-                                            <div class="types"><?= (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type ?></div>
-                                            <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
-                                            <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                    <li>
+                        <h2>Key references</h2>
+                        <?php $i = 1; ?>
+                        <ul>
+                            <?php foreach ($references as $reference): ?>
+                                <li>
+                                    <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation ?>
+                                    <div class="all-key-reference-count">
+                                        Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </li>
                 <?php endif; ?>
 
                 <?php if (isset($attributes['add_references'])): ?>
                     <?php $additionals = $attributes['add_references']->getData(); ?>
-                    <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Additional References</a>
-                        <div class="text">
-                            <ul class="additional-references-list">
-                                <?php foreach ($additionals as $additional): ?>
-                                    <li>
-                                        <a href=""><?= $additional->title ?></a>
-                                        <div class="icon-question rel-tooltip"></div>
-                                        <div class="additional-references-info">
-                                            <?= $additional->full_citation ?>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                    <li>
+                        <h2>Additional References</h2>
+                        <ul>
+                            <?php foreach ($additionals as $additional): ?>
+                                <li>
+                                    <?= $additional->full_citation ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </li>
                 <?php endif; ?>
             </ul>

@@ -340,7 +340,7 @@ $config = [
                     </li>
                 <?php endif; ?>
             </ul>
-            <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle btn-cite with-icon btn-print">
+            <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle btn-cite with-icon">
                 <div class="inner">
                     <span class="icon-print"></span><span>print all references</span>
                 </div>
