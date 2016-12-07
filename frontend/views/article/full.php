@@ -252,7 +252,7 @@ $config = [
 
                     <?php if (isset($attributes['term_groups'])): ?>
                         <li class="sidebar-accrodion-item">
-                            <?php $backgrounds = $attributes['term_groups']->getData(null, $currentLang); ?>
+                            <?php $backgrounds = $attributes['term_groups']->getData(); ?>
                             <a href="" class="title">Background information</a>
                             <div class="text">
                                 <div class="text-inner">
@@ -275,7 +275,7 @@ $config = [
 
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item sidebar-articles-item">
-                            <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                            <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                             <?php $count_related = count($related) ?>
 
                             <?php if ($count_related > 0): ?>
@@ -406,17 +406,12 @@ $config = [
                                 </ul>
                             <?php endif; ?>
 
-                            <?php $source = []; ?>
-
                             <?php if (isset($attributes['key_references'])): ?>
                                 <?php $references = $attributes['key_references']->getData(); ?>
                                 <h3>Key references</h3>
                                 <?php $i = 1; ?>
                                 <ul class="key-references-popup-list">
                                     <?php foreach($references as $reference): ?>
-                                        <?php if (count($reference->country_codes)): ?>
-                                            <?php $source = array_merge($source, $reference->country_codes); ?>
-                                        <?php endif; ?>
                                         <li>
                                             <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                             <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
