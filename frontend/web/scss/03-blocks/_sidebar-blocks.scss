@@ -276,8 +276,9 @@
       margin: 0 0 11px;
     }
 
-    .icon-arrow {
-      color: $blue;
+    .icon-next-circle {
+      color: $white;
+      font-size: 19px;
     }
 
     &:hover {
@@ -473,11 +474,8 @@
         >.icon-arrow {
           color: $blue;
           transform: translateY(-50%) rotate(90deg);
-          margin: 4px 0 0 -1px;
+          margin: 6px 0 0 0px;
 
-          @include breakpoint_custom($breakpoint-tablet){
-            margin: 5px 0 0 -1px;
-          }
         }
       }
     }
@@ -485,8 +483,8 @@
     .icon-arrow {
       position: absolute;
       left: 0px;
-      top: 2px;
-      content: '\004e';
+      top: 1px;
+      content: '\0050';
       font-size: 6px;
       @extend .icon-styles;
       color: #1d1d1b;
@@ -495,9 +493,10 @@
       height: 10px;
       text-align: center;
       display: none;
+      padding: 2px 0 0;
 
       @include breakpoint_custom($breakpoint-tablet){
-        top: 4px;
+        top: 3px;
       }
     }
   }
@@ -650,12 +649,12 @@
     }
   }
 
-  .icon-circle-arrow {
+  .icon-next-circle {
     float: left;
     margin: 6px 10px 0 0;
     width: 17px;
     height: 17px;
-    font-size: 10px;
+    font-size: 18px;
 
     @include breakpoint('tablet') {
       margin: 4px 10px 0 0;
@@ -679,18 +678,5 @@
       font-size: 16px;
       min-height: 1px;
     }
-  }
-}
-
-.articles-list-mobile {
-
-  p {
-    font-size: 15px;
-    line-height: 1.4em;
-    margin: 0 0 31px;
-  }
-
-  @include breakpoint('tablet') {
-    display: none;
   }
 }
