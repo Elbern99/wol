@@ -1,4 +1,6 @@
 [class*='icon-'] {
+  display: inline-block;
+  vertical-align: middle;
   line-height: 1;
 }
 
@@ -10,28 +12,24 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
-  vertical-align: middle;
-  @media screen and (-webkit-min-device-pixel-ratio:0) {
-    margin-bottom: 1px;
-  }
 }
 
 .icon-user:before{content:'\0041';}
 .icon-twitter:before{content:'\0042';}
 .icon-search:before{content:'\0043';}
 .icon-quote:before{content:'\0044';}
-.icon-print:before{content:'\0045';}
-.icon-message:before{content:'\0046';}
-.icon-linkedn:before{content:'\0047';}
-.icon-link:before{content:'\0048';}
-.icon-heart-flooded:before{content:'\0049';}
-.icon-heart:before{content:'\004a';}
-.icon-google:before{content:'\004b';}
-.icon-facebook:before{content:'\004c';}
-.icon-download:before{content:'\004d';}
-.icon-arrow:before{content:'\004e';}
-.icon-message:before{content:'\004f';}
+.icon-question:before{content:'\0045';}
+.icon-print:before{content:'\0046';}
+.icon-next-circle:before{content:'\0047';}
+.icon-message:before{content:'\0048';}
+.icon-linkedn:before{content:'\0049';}
+.icon-link:before{content:'\004a';}
+.icon-heart-flooded:before{content:'\004b';}
+.icon-heart:before{content:'\004c';}
+.icon-google:before{content:'\004d';}
+.icon-facebook:before{content:'\004e';}
+.icon-download:before{content:'\004f';}
+.icon-arrow:before{content:'\0050';}
 
 .icon-burger {
   position: relative;
@@ -135,39 +133,20 @@
 }
 
 .icon-question {
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 1px solid $light-blue;
   position: relative;
   color: $light-blue;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 16px;
+  margin-top: 1px;
 
   @include breakpoint('tablet') {
-    width: 14px;
-    height: 14px;
-
-    &:hover {
-      border-color: $blue;
-      color: $blue;
-    }
+    font-size: 14px;
   }
 
-  &:before {
-    content: '?';
-    @extend .icon-to-center;
-    font-family: Helvetica;
-    font-weight: bold;
-    line-height: 1;
-    font-size: 10px;
-    height: 10px;
+  @include breakpoint('tablet') {
 
-    @include breakpoint('tablet') {
-      padding: 1px 0 0 0;
-      height: 10px ;
+    &:hover {
+      color: $blue;
     }
   }
 }

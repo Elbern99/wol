@@ -461,6 +461,7 @@
   overflow: hidden;
   left: 0;
   z-index: 565;
+  border-radius: 3px;
 
   @include breakpoint('tablet') {
     right: 100%;

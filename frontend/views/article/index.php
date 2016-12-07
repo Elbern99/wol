@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -119,18 +119,14 @@ $this->registerMetaTag([
                     <a href="/subject-areas/data" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>Explore our methods</h3>
                         </div>
                     </a>

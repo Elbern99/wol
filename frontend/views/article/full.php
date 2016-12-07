@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -240,9 +240,7 @@ $config = [
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
-                        <div class="icon-circle-arrow white">
-                            <div class="icon-arrow"></div>
-                        </div>
+                        <div class="icon-next-circle"></div>
                     </div>
                 </a>
             </div>
@@ -380,7 +378,7 @@ $config = [
                     </li>
                     <?php endif; ?>
                 </ul>
-                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle btn-cite with-icon">
+                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
                     <div class="inner">
                         <span class="icon-print"></span><span>print all references</span>
                     </div>

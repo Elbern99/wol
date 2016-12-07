@@ -186,18 +186,14 @@
                     <a href="" class="data-method-item">
                         <div class="img"><img src="images/temp/editors/img-01.jpg" alt=""></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
                     <a href="" class="data-method-item">
                         <div class="img"><img src="images/temp/article/img-02.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>Explore our methods</h3>
                         </div>
                     </a>

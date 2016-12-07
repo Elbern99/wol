@@ -64,6 +64,7 @@
     span {
       display: inline-block;
       vertical-align: middle;
+      line-height: 1;
     }
   }
 }
@@ -514,7 +515,7 @@
     }
 
     &:before {
-      content: '\004e';
+      content: '\0050';
       @extend .icon-styles;
       position: absolute;
       color: #1d1d1b;
@@ -815,6 +816,10 @@
       display: none;
     }
 
+    &.left {
+      transform: rotate(180deg);
+    }
+
     @include breakpoint('desktop-large') {
       position: absolute;
       width: 22px;
@@ -834,14 +839,6 @@
 
       &.left {
         left: 34px;
-
-        .icon-arrow {
-
-          &:before {
-            transform: rotate(180deg);
-            margin: -3px 0 0 0px;
-          }
-        }
       }
 
       &.right {

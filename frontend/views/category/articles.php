@@ -31,10 +31,6 @@ $this->registerMetaTag([
     </div>
 
     <h1><?= $category->meta_title ?></h1>
-    <div class="articles-list-mobile">
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
-    </div>
-    <p><?= $category->description ?></p>
     
     <div class="content-inner">
         
@@ -44,6 +40,74 @@ $this->registerMetaTag([
         
         <div class="content-inner-text">
             <div class="articles">
+                <div class="article-user-list-holder">
+                    <div class="desc-category">
+                        <p><?= $category->description ?></p>
+                    </div>
+                    <h3>Subject editor</h3>
+                    <div class="article-user-list">
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Associate editors</h3>
+                    <div class="article-user-list">
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                        <div class="article-user">
+                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/">Daniel S. Hamermesh</a>        </div>
+                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <ul class="articles-list">
                     <?php foreach($collection as $article): ?>
                     <li class="article-item">
@@ -124,18 +188,14 @@ $this->registerMetaTag([
                     <a href="/subject-areas/data" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>Explore our methods</h3>
                         </div>
                     </a>
