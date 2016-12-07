@@ -48,6 +48,7 @@ return [
                 'articles/<slug:[0-9a-z-]+>/long' => 'article/full',
                 'articles/<slug:[0-9a-z-]+>/map' => 'article/map',
                 'articles/<slug:[1-9a-z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
+                'articles/<slug:[0-9a-z-]+>/references' => 'article/references',
                 'category/<id:[0-9]+>' => 'category/index',
             ],
         ],
