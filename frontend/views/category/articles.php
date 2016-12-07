@@ -39,7 +39,7 @@ $this->registerMetaTag([
     <div class="content-inner">
         
         <?php
-            Pjax::begin([ 'linkSelector' => '.btn-gray']);
+            Pjax::begin(['linkSelector' => '.btn-gray']);
         ?>
         
         <div class="content-inner-text">
@@ -70,7 +70,7 @@ $this->registerMetaTag([
                             $params = [$category->url_key, 'limit' => $limit, 'sort' => 1];
                         }
                     ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update', 'data-pjax'=> '#w0']) ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update']) ?>
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
                         <?php
