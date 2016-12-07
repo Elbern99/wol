@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -397,10 +397,10 @@ $config = [
                             <?php if (isset($attributes['further_reading'])): ?>
                                 <?php $furthers = $attributes['further_reading']->getData(); ?>
                                 <h3>Further reading</h3>
-                                <ul class="further-reading-list">
+                                <ul class="further-reading-popup-list">
                                     <?php foreach ($furthers as $further): ?>
                                         <li>
-                                            <a href=""><?= $further->title ?></a>
+                                            <?= $further->full_citation ?>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -412,13 +412,13 @@ $config = [
                                 <?php $references = $attributes['key_references']->getData(); ?>
                                 <h3>Key references</h3>
                                 <?php $i = 1; ?>
-                                <ul class="key-references-list">
+                                <ul class="key-references-popup-list">
                                     <?php foreach($references as $reference): ?>
                                         <?php if (count($reference->country_codes)): ?>
                                             <?php $source = array_merge($source, $reference->country_codes); ?>
                                         <?php endif; ?>
                                         <li>
-                                            <a href="#<?= $reference->ref ?>"><?= $reference->title ?></a>
+                                            <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                             <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
                                         </li>
                                     <?php endforeach; ?>

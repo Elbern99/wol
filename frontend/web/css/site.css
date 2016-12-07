@@ -1103,8 +1103,8 @@ ol li {
 .data-method-list,
 .evidence-map-list,
 .share-buttons-list,
-.further-reading-list,
-.key-references-list {
+.further-reading-popup-list,
+.key-references-popup-list {
   list-style: none;
   padding: 0; }
   .reset-list li, .flex-direction-nav li,
@@ -1125,8 +1125,8 @@ ol li {
   .data-method-list li,
   .evidence-map-list li,
   .share-buttons-list li,
-  .further-reading-list li,
-  .key-references-list li {
+  .further-reading-popup-list li,
+  .key-references-popup-list li {
     margin: 0;
     padding: 0; }
     .reset-list li:before, .flex-direction-nav li:before,
@@ -1147,8 +1147,8 @@ ol li {
     .data-method-list li:before,
     .evidence-map-list li:before,
     .share-buttons-list li:before,
-    .further-reading-list li:before,
-    .key-references-list li:before {
+    .further-reading-popup-list li:before,
+    .key-references-popup-list li:before {
       display: none; }
 
 a {
@@ -3758,13 +3758,17 @@ iframe[name = advpp_manager] {
         margin: 0 10px -20px 0;
         width: 400px; } }
   .reference-popup-list-holder h3 {
-    margin: 0; }
+    margin: 0 0 20px; }
   .reference-popup-list-holder .reference-popup-list-inner {
     max-height: 300px;
     height: 100%;
     padding: 0 10px 0 0; }
   .reference-popup-list-holder ul {
-    margin: 0 0 30px; }
+    margin: 0 0 10px; }
+    .reference-popup-list-holder ul li {
+      margin-bottom: 10px; }
+      .reference-popup-list-holder ul li:last-child {
+        margin-bottom: 0; }
     .reference-popup-list-holder ul:last-child {
       margin-bottom: 0; }
   .reference-popup-list-holder .key-reference-in-popup {

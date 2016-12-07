@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-//use Yii;
+use Yii;
 ?>
 
 <?php
@@ -39,7 +39,7 @@ $this->registerMetaTag([
     <div class="content-inner">
         
         <?php
-            Pjax::begin([ 'linkSelector' => '#w0 .btn-gray']);
+            Pjax::begin([ 'linkSelector' => '.btn-gray']);
         ?>
         
         <div class="content-inner-text">
