@@ -76,7 +76,7 @@ $this->registerMetaTag([
                         <div>
                             <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
                         </div>
-                        <div <?= ($sort == 3) ? 'data-select="selected"' : '' ?>>
+                        <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
                             <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
                         </div>
                     </div>

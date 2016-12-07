@@ -20,7 +20,7 @@ class ArticleController extends Controller {
     
     use \frontend\components\articles\SubjectTrait;
     
-    public function actionIndex($sort = 0) {
+    public function actionIndex() {
         
         $limit = Yii::$app->params['article_limit'];
 
@@ -36,7 +36,7 @@ class ArticleController extends Controller {
         
         $order = SORT_DESC;
         
-        if ($sort) {
+        if (Yii::$app->request->get('sort')) {
             $order = SORT_ASC;
         }
         
@@ -100,7 +100,7 @@ class ArticleController extends Controller {
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
-            'sort' => $sort,
+            'sort' => $order,
             'limit' => $limit,
             'articleCount' => Article::find()->where(['enabled' => 1])->count('id')
         ]);
