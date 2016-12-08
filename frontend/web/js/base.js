@@ -248,6 +248,32 @@
                 cur.parent().find(text).slideToggle(articleList.delay);
                 e.preventDefault();
             });
+        },
+        pajax: function(container) {
+            $(container).on('pjax:end',   function() {
+                articleList.openMoreText('.article-more','.description');
+            });
+        }
+    };
+    /* end */
+
+    // 2.5 ARTICLE
+    var article = {
+        openPrintWindow: function(btn) {
+            $(btn).click(function(e) {
+                window.print();
+                e.preventDefault();
+            });
+        }
+    };
+    /* end */
+
+    // 2.6 REFERENCES
+    var references = {
+        openPrintWindow: function(btn) {
+            if(window.location.hash && $(btn).length) {
+                $(btn).first().trigger('click')
+            }
         }
     };
     /* end */
@@ -321,12 +347,15 @@
 
     //EVENTS
     $(document).ready(function() {
+
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
         headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .header-menu-bottom-list'));
 
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
         dropDown($('.sidebar-widget-sort-by .dropdown-link'), $('.drop-content'));
+        dropDown($('.sidebar-widget-reference-popup .dropdown-link'), $('.drop-content'));
+        closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
 
         if(_window_width < _tablet ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
@@ -338,6 +367,8 @@
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
         }
         //CONTENT
+        article.openPrintWindow('.btn-print');
+        references.openPrintWindow('.btn-print');
         faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
         sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list');
@@ -359,11 +390,18 @@
     $(window).load(function() {
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
+        articleList.pajax('#w0');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
         articlesFilter.sort('.custom-select-title');
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
+
+        $('.btn-gray').click(function(event){
+            console.log(1);
+            event.preventDefault();
+        });
+        $('.btn-gray').unbind('click');
     });
 
 })(jQuery);

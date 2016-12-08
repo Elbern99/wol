@@ -5,6 +5,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
+use Yii;
+use common\modules\author\Roles;
 ?>
 
 <?php
@@ -22,6 +24,7 @@ $this->registerMetaTag([
     'content' => Html::encode($category->meta_title)
 ]);
 
+$roleLabel = new Roles();
 ?>
 
 <div class="container">
@@ -30,14 +33,37 @@ $this->registerMetaTag([
     </div>
 
     <h1><?= $category->meta_title ?></h1>
-    <div class="articles-list-mobile">
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
-    </div>
-    <p><?= $category->description ?></p>
-    <?php //Pjax::begin(); ?>
+    
     <div class="content-inner">
+        
+        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        
         <div class="content-inner-text">
             <div class="articles">
+                <div class="article-user-list-holder">
+                    <div class="desc-category">
+                        <p><?= $category->description ?></p>
+                    </div>
+                    <?php foreach ($authorsRoles as $role => $authors): ?>
+                    <h3><?= Yii::t('app/text', $roleLabel->getTypeByKey($role)) ?></h3>
+                    <div class="article-user-list">
+                        <?php foreach($authors as $author): ?>
+                        <div class="article-user">
+                            <div class="img">
+                                <a href=""><img src="<?= $authorsValue[$author]['avatar'] ?? '' ?>" alt=""></a>
+                            </div>
+                            <div class="desc">
+                                <div class="name">
+                                    <a href="/"><?= $authorsValue[$author]['name'] ?? '' ?></a>        
+                                </div>
+                                <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                
                 <ul class="articles-list">
                     <?php foreach($collection as $article): ?>
                     <li class="article-item">
@@ -56,16 +82,31 @@ $this->registerMetaTag([
                     </li>
                     <?php endforeach; ?>
                 </ul>
-                <?php /*if ($articleCount > $limit): ?>
-                    <?= Html::a("show more", Url::to(['/articles', 'limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
+                <?php if ($articleCount > $limit): ?>
+                    <?php
+                        if ($sort == 3) {
+                            $params = [$category->url_key, 'limit' => $limit];
+                        } else {
+                            $params = [$category->url_key, 'limit' => $limit, 'sort' => 1];
+                        }
+                    ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update']) ?>
                 <?php else: ?>
-                    <?php if (\Yii::$app->request->get('limit')): ?>
-                        <?= Html::a("clear", Url::to(['/articles']), ['class' => 'btn-gray align-center']) ?>
+                    <?php if (Yii::$app->request->get('limit')): ?>
+                        <?php
+                        if ($sort == 3) {
+                            $params = [$category->url_key];
+                        } else {
+                            $params = [$category->url_key, 'sort' => 1];
+                        }
+                        ?>
+                        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
                     <?php endif; ?>
-                <?php endif;*/ ?>
+                <?php endif; ?>
             </div>
         </div>
-
+        <?php Pjax::end(); ?>
+        
         <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-sort-by">
                 <label>sort by</label>
@@ -103,18 +144,14 @@ $this->registerMetaTag([
                     <a href="/subject-areas/data" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
-                            <div class="icon-circle-arrow white">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <div class="icon-next-circle"></div>
                             <h3>Explore our methods</h3>
                         </div>
                     </a>
@@ -122,5 +159,4 @@ $this->registerMetaTag([
             </div>
         </aside>
     </div>
-    <?php//Pjax::end(); ?>
 </div>

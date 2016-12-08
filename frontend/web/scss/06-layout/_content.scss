@@ -32,7 +32,9 @@
     min-height: 100%;
     align-items: stretch;
 
-    .content-inner-text {
+
+    >.content-inner-text,
+    #w0 {
       width: 100000px;
     }
   }

@@ -3,7 +3,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use Yii;
+//use Yii;
 ?>
 
 <?php
@@ -240,9 +240,7 @@ $config = [
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
-                        <div class="icon-circle-arrow white">
-                            <div class="icon-arrow"></div>
-                        </div>
+                        <div class="icon-next-circle"></div>
                     </div>
                 </a>
             </div>
@@ -252,7 +250,7 @@ $config = [
 
                     <?php if (isset($attributes['term_groups'])): ?>
                         <li class="sidebar-accrodion-item">
-                            <?php $backgrounds = $attributes['term_groups']->getData(null, $currentLang); ?>
+                            <?php $backgrounds = $attributes['term_groups']->getData(); ?>
                             <a href="" class="title">Background information</a>
                             <div class="text">
                                 <div class="text-inner">
@@ -275,7 +273,7 @@ $config = [
 
                     <?php if (isset($attributes['related'])): ?>
                         <li class="sidebar-accrodion-item sidebar-articles-item">
-                            <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                            <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                             <?php $count_related = count($related) ?>
 
                             <?php if ($count_related > 0): ?>
@@ -340,7 +338,7 @@ $config = [
                                     <div class="key-references-info">
                                         <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
                                         <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
-                                        <div class="types"><?php /* (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type*/ ?></div>
+                                        <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type ?></div>
                                         <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
                                         <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
                                     </div>
@@ -380,13 +378,50 @@ $config = [
                     </li>
                     <?php endif; ?>
                 </ul>
-                <a href="" class="btn-border-blue-middle btn-cite with-icon btn-print">
+                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
                     <div class="inner">
                         <span class="icon-print"></span><span>print all references</span>
                     </div>
                 </a>
             </div>
+            
+            <div class="sidebar-widget sidebar-widget-reference-popup dropdown">
+                <div class="reference-popup-list-holder drop-content">
+                    <div class="reference-popup-list">
+                        <div class="icon-close"></div>
+                        <div class="reference-popup-list-inner">
+                            <?php if (isset($attributes['further_reading'])): ?>
+                                <?php $furthers = $attributes['further_reading']->getData(); ?>
+                                <h3>Further reading</h3>
+                                <ul class="further-reading-popup-list">
+                                    <?php foreach ($furthers as $further): ?>
+                                        <li>
+                                            <?= $further->full_citation ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
 
+                            <?php if (isset($attributes['key_references'])): ?>
+                                <?php $references = $attributes['key_references']->getData(); ?>
+                                <h3>Key references</h3>
+                                <?php $i = 1; ?>
+                                <ul class="key-references-popup-list">
+                                    <?php foreach($references as $reference): ?>
+                                        <li>
+                                            <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
+                                            <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-title">Full reference list</div>
+                <a href="" class="dropdown-link">Open full reference list</a>
+            </div>
+            
             <div class="sidebar-widget sidebar-widget-version">
                 <div class="sidebar-widget-version-item">
                     <div class="widget-title">Versions</div>

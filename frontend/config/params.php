@@ -6,5 +6,5 @@ return [
         'name' => 'English',
         'image' => '/images/lang/english.jpg'
     ],
-    'article_limit' => 10
+    'article_limit' => 1
 ];

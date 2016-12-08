@@ -197,9 +197,7 @@
                 <a href="">
                     <div class="caption">
                         <div class="title">Evidence map</div>
-                        <div class="icon-circle-arrow white">
-                            <div class="icon-arrow"></div>
-                        </div>
+                        <div class="icon-next-circle"></div>
                     </div>
                 </a>
             </div>
