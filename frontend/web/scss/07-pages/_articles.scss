@@ -2,6 +2,7 @@
   h3 {
     margin: 0 0 15px;
     font-size: 18px;
+    text-transform: capitalize;
 
     @include breakpoint('tablet') {
       margin: 0 0 13px;
@@ -22,6 +23,7 @@
   >div {
     padding: 0 19px;
     width: 100%;
+    text-transform: capitalize;
 
     @include breakpoint('mobile-large') {
       width: 50%;

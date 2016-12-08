@@ -44,65 +44,73 @@ $this->registerMetaTag([
                     <div class="desc-category">
                         <p><?= $category->description ?></p>
                     </div>
-                    <h3>Subject editor</h3>
-                    <div class="article-user-list">
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                            </div>
+                    
+                    <div class="mobile-accordion-item dropdown">
+                        <div class="title mobile-accordion-link">
+                            editorial team
                         </div>
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                        <div class="mobile-accordion-drop drop-content">
+                            <h3>Subject editor</h3>
+                            <div class="article-user-list">
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h3>Associate editors</h3>
-                    <div class="article-user-list">
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                            </div>
-                        </div>
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                            </div>
-                        </div>
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                            </div>
-                        </div>
-                        <div class="article-user">
-                            <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/">Daniel S. Hamermesh</a>        </div>
-                                <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                            <h3>Associate editors</h3>
+                            <div class="article-user-list">
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
+                                <div class="article-user">
+                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/">Daniel S. Hamermesh</a>        </div>
+                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
