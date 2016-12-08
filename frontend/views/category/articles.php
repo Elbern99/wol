@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
 //use Yii;
+use common\modules\author\Roles;
 ?>
 
 <?php
@@ -23,6 +24,7 @@ $this->registerMetaTag([
     'content' => Html::encode($category->meta_title)
 ]);
 
+$roleLabel = new Roles();
 ?>
 
 <div class="container">
@@ -34,9 +36,7 @@ $this->registerMetaTag([
     
     <div class="content-inner">
         
-        <?php
-            Pjax::begin([ 'linkSelector' => '.btn-gray']);
-        ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
         
         <div class="content-inner-text">
             <div class="articles">
@@ -50,68 +50,24 @@ $this->registerMetaTag([
                             editorial team
                         </div>
                         <div class="mobile-accordion-drop drop-content">
-                            <h3>Subject editor</h3>
+                            <?php foreach ($authorsRoles as $role => $authors): ?>
+                            <h3><?= Yii::t('app/text', $roleLabel->getTypeByKey($role)) ?></h3>
                             <div class="article-user-list">
+                                <?php foreach($authors as $author): ?>
                                 <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
+                                    <div class="img">
+                                        <a href=""><img src="<?= $authorsValue[$author]['avatar'] ?? '' ?>" alt=""></a>
+                                    </div>
                                     <div class="desc">
                                         <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
+                                            <a href="/"><?= $authorsValue[$author]['name'] ?? '' ?></a>
+                                        </div>
+                                        <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
                                     </div>
                                 </div>
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
-                            <h3>Associate editors</h3>
-                            <div class="article-user-list">
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
-                                <div class="article-user">
-                                    <div class="img"><a href=""><img src="https://secure.gravatar.com/avatar/52479abb5994174aedf461298693e455.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0017-48.png" alt=""></a></div>
-                                    <div class="desc">
-                                        <div class="name">
-                                            <a href="/">Daniel S. Hamermesh</a>        </div>
-                                        <p>Royal Holloway University of London, UK, and IZA, Germany</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -142,7 +98,7 @@ $this->registerMetaTag([
                             $params = [$category->url_key, 'limit' => $limit, 'sort' => 1];
                         }
                     ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update', 'data-pjax'=> '#w0']) ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update']) ?>
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
                         <?php

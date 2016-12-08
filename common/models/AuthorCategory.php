@@ -56,6 +56,10 @@ class AuthorCategory extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Author::className(), ['id' => 'author_id']);
     }
+    
+    public function getAuthorRoles() {
+        return $this->hasMany(AuthorRoles::class, ['author_id' => 'author_id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

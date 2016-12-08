@@ -37,7 +37,7 @@ $this->registerMetaTag([
             </a>
             <h1>References for <?= $attributes['title']->getData('title') ?></h1>
         </div>
-        Author: <a href="">Julia Bredtmann</a>
+        Author: <a href=""><?= $article->availability ?></a>
     </div>
 
     <div class="content-inner">

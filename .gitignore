@@ -1,6 +1,9 @@
 # yii console command
 /yii
 
+#composer
+composer.lock
+
 # phpstorm project files
 .idea
 
