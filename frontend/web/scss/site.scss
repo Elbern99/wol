@@ -23,12 +23,13 @@
 
 /******* FORMS *******/
 @import '04-forms/_form-controls',
-'04-forms/_forms';
+        '04-forms/_form-elements',
+        '04-forms/_forms';
 /******* // FORMS *******/
 
 /******* WIDJETS *******/
 @import '05-widgets/_map',
-'05-widgets/_widgets';
+        '05-widgets/_widgets';
 /******* // WIDJETS *******/
 
 /******* LAYOUT *******/
@@ -43,5 +44,8 @@
         '07-pages/_article',
         '07-pages/_articles',
         '07-pages/_references',
+        '07-pages/_subscribe-to-newsletter',
+        '07-pages/_search-results',
+        '07-pages/_search-site',
         '07-pages/_map';
 /******* // PAGES *******/

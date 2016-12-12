@@ -30,9 +30,6 @@ $this->registerMetaTag([
     </div>
 
     <h1><?= $category->meta_title ?></h1>
-    <div class="articles-list-mobile">
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
-    </div>
     <p><?= $category->description ?></p>
     
     <div class="content-inner">

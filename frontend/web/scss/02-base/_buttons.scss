@@ -1,5 +1,4 @@
 //BUTTONS
-
 [class^="btn-"],
 [class*=" btn-"],
 .btn {
@@ -105,15 +104,33 @@
       display: block;
     }
   }
+
+  &.btn-border-blue-large {
+    height: 39px;
+    padding: 0 18px;
+    font-size: 11px;
+    font-family: $lucida-sans-demi-bold;
+
+    .icon-save {
+      margin-right: 17px;
+    }
+  }
+  
+  &.btn-no-style {
+    color: #454545;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
 }
 
+//border-blue
 .btn-border-blue,
 [class^="btn-border-blue-"],
 [class*=" btn-border-blue-"]{
   border-color: #0053a0;
   color: $blue;
-  line-height: 12px;
   height: 30px;
+  line-height: 30px;
 
   [class*='icon-'] {
     color: $blue;
@@ -138,15 +155,18 @@
   }
 
   &:hover {
-    background: #0053a0;
-    color: $white;
+    @include breakpoint('tablet') {
+      background: #0053a0;
+      color: $white;
 
-    span {
-      color: inherit;
+      span {
+        color: inherit;
+      }
     }
   }
 }
 
+//gray
 .btn-border-gray,
 [class^="btn-border-gray-"],
 [class*=" btn-border-gray-"] {
@@ -154,11 +174,13 @@
   color: #323232;
 
   &:hover {
-    background: #aaa;
-    color: $white;
+    @include breakpoint('tablet') {
+      background: #aaa;
+      color: $white;
 
-    span {
-      color: inherit;
+      span {
+        color: inherit;
+      }
     }
   }
 
@@ -193,7 +215,42 @@
   font-size: 11px;
 }
 
-.btn-blue {
+.btn-gray {
+  background: #eaeaea;
+  color: #7b7b7b;
+  height: 36px;
+  line-height: 19px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    color: #1e1e1e;
+  }
+
+  &:hover {
+
+    @include breakpoint('tablet') {
+      background: #7b7b7b;
+      color: #eaeaea;
+    }
+  }
+
+  &.align-center {
+    display: block;
+    margin: 27px auto 29px;
+    max-width: 107px;
+
+    @include breakpoint('tablet') {
+      margin: 0 auto;
+    }
+  }
+}
+
+//blue
+.btn-blue,
+[class^="btn-blue-"],
+[class*=" btn-blue-"]{
   background: #0094f2;
   
   &:hover {
@@ -203,17 +260,34 @@
   }
 }
 
+.btn-light-blue {
+  background: #0094f2;
+}
+
+.btn-blue-large {
+  font-size: 16px;
+  height: 50px;
+  line-height: 33px;
+  letter-spacing: 0.06em;
+
+  @include breakpoint('tablet') {
+    font-size: 15px;
+    height: 48px;
+    line-height: 31px;
+    letter-spacing: 0em;
+  }
+}
+
+//transparent
 .btn-transparent {
   color: $light-blue;
 
   &:hover {
-    background: $white;
-    border-color: $light-blue;
+    @include breakpoint('tablet') {
+      background: $white;
+      border-color: $light-blue;
+    }
   }
-}
-
-.btn-light-blue {
-  background: #0094f2;
 }
 
 .btn-mobile-icon {
@@ -225,34 +299,5 @@
 
   >span {
     @extend .icon-to-center;
-  }
-}
-
-.btn-gray {
-  background: #eaeaea;
-  color: #7b7b7b;
-  height: 36px;
-  line-height: 19px;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  border-radius: 2px;
-  
-  @include breakpoint_custom($breakpoint-tablet) {
-    color: #1e1e1e;
-  }
-  
-  &:hover {
-    background: #7b7b7b;
-    color: #eaeaea;
-  }
-
-  &.align-center {
-    display: block;
-    margin: 27px auto 29px;
-    max-width: 107px;
-
-    @include breakpoint('tablet') {
-      margin: 0 auto;
-    }
   }
 }
