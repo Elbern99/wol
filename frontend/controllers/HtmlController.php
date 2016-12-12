@@ -25,7 +25,7 @@ class HtmlController extends Controller {
                 'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article', 'article','articles-list'],
+                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article', 'article','articles-list', 'advanced-search', 'subscribe-to-newsletter', 'search-results'],
                         'allow' => true,
                     ]
                 ],
@@ -87,6 +87,18 @@ class HtmlController extends Controller {
 								
 				public function actionArticlesList() {
 								return $this->render('articles-list');
+				}
+				
+				public function actionAdvancedSearch() {
+								return $this->render('advanced-search');
+				}
+				
+				public function actionSubscribeToNewsletter() {
+								return $this->render('subscribe-to-newsletter');
+				}
+								
+				public function actionSearchResults() {
+									return $this->render('search-results');
 				}
 
 }

@@ -1,0 +1,51 @@
+//LABELS
+label {
+  cursor: pointer;
+}
+
+.label-text,
+label {
+  color: #6e6e6e;
+}
+
+.label-holder {
+  margin: 0 0 2px;
+}
+
+//FORM-ITEM
+.form-item {
+  position: relative;
+  height: 100%;
+
+  .info {
+    position: absolute;
+    color: #3d3d3d;
+    top: 1px;
+    right: 19px;
+    font-size: 10px;
+
+    @include breakpoint('tablet') {
+      top: 3px;
+      right: 0;
+      font-size: 9px;
+    }
+  }
+
+  label,
+  .label-text {
+    text-transform: uppercase;
+    font-size: 13px;
+
+    @include breakpoint('tablet') {
+      font-size: 12px;
+    }
+  }
+
+  .label-holder {
+    margin: 0 0 5px;
+  }
+}
+
+.form-line {
+  margin: 0 0 8px;
+}

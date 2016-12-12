@@ -2,7 +2,7 @@
     <div class="header-top">
         <div class="container">
             <?= $this->renderFile('@app/views/components/header/menu/top.php'); ?>
-            <?= $this->renderFile('@app/views/components/header/login-registration.php'); ?>
+            <?= $this->renderFile('@app/views/components/header/desktop/login-registration.php'); ?>
         </div>
     </div>
     <div class="header-bottom">

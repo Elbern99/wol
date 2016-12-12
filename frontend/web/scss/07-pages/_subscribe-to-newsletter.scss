@@ -1,0 +1,133 @@
+.subscribe-to-newsletter {
+
+  p {
+    margin: 0 0 16px;
+    font-size: 13px;
+
+    @include breakpoint('tablet') {
+      font-size: 16px;
+      margin: 0 0 13px;
+    }
+  }
+
+  .small-paragraph {
+    display: none;
+
+    @include breakpoint('tablet') {
+      font-size: 13px;
+      margin: 0 0 43px;
+      display: block;
+    }
+  }
+
+  .select-clear-all {
+    float: right;
+  }
+
+  .tooltip-dropdown {
+    margin: 0 0 0 10px;
+    height: 20px;
+
+    @include breakpoint('tablet') {
+      position: absolute;
+      right: -37px;
+      top: 38px;
+      margin: 0;
+    }
+  }
+
+  .icon-question {
+    font-size: 16px;
+    padding: 1px;
+  }
+
+  form {
+    max-width: 744px;
+  }
+
+  .form-line {
+    margin: 0 0 20px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 14px;
+    }
+  }
+
+  .title-checkboxes {
+    margin: 0 0 2px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 5px;
+
+      .grid-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        line-height: 1;
+
+        .label-holder {
+          order: -2;
+        }
+      }
+    }
+
+    .grid-item,
+    .label-holder {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .checkboxes {
+    margin: 24px 0 33px;
+  }
+
+  .btn-blue-large {
+    margin-top: 15px;
+    width: 100%;
+
+    @include breakpoint('tablet') {
+      max-width: 191px;
+      margin-top: 49px;
+    }
+  }
+}
+
+.select-clear-all {
+  margin-right: -5px;
+  position: relative;
+
+  span {
+    cursor: pointer;
+    color: $light-blue;
+    transition: color 0.3s ease;
+    font-size: 8px;
+    display: inline-block;
+    margin: 0 0 0 8px;
+    padding: 0 5px;
+    background: #fff;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-transform: uppercase;
+      position: absolute;
+      right: 20px;
+      width: 60px;
+      text-align: center;
+      padding: 7px 5px;
+
+      &.active {
+        z-index: -1;
+      }
+    }
+    
+    &.active {
+      color: $blue;
+    }
+
+    @include breakpoint('tablet') {
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}

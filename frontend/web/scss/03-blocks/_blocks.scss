@@ -69,6 +69,7 @@
   }
 }
 
+//HEADER-BACKGROUND
 .header-background {
   height: calc(50vw*.6);
   max-height: 445px;
@@ -211,16 +212,10 @@
   }
 }
 
-//ARTICLES
-.articles {
-
-}
-
 //CONTRIBUTOR-PROFILE
 .contributor-profile {
   margin: 0 0 30px;
 }
-
 
 //ARTICLES-LIST
 .articles-list {
@@ -292,26 +287,26 @@
     display: none;
     margin-bottom: 10px;
   }
+}
 
-  .article-more {
-    font-size: 13px;
-    color: $light-blue;
+.article-more {
+  font-size: 13px;
+  color: $light-blue ;
 
-    @include breakpoint('tablet') {
-      font-size: 10px;
-    }
+  @include breakpoint('tablet') {
+    font-size: 10px;
+  }
 
-    .less {
+  .less {
+    display: none;
+  }
+
+  &.opened {
+    span {
       display: none;
-    }
 
-    &.opened {
-      span {
-        display: none;
-
-        &.less {
-          display: block;
-        }
+      &.less {
+        display: block;
       }
     }
   }
@@ -448,7 +443,6 @@
 
   li {
     margin: -2px 0 17px;
-    display: none;
     position: relative;
 
     @include breakpoint('tablet') {
@@ -460,10 +454,6 @@
         font-size: 10px;
         padding: 0;
       }
-    }
-
-    &:nth-child(-n+5) {
-      display: block;
     }
 
     &:last-child {
@@ -494,8 +484,9 @@
   }
 }
 
-.sidebar-accrodion-item {
-  text-transform: uppercase;
+.sidebar-accrodion-item,
+.mobile-accordion-item {
+  //text-transform: uppercase;
 
   .title {
     display: block;
@@ -504,6 +495,7 @@
     padding: 5px 0 5px;
     font-size: 13px;
     color: #323232;
+    text-transform: uppercase;
     
     &:hover {
       color: $light-blue;
@@ -534,6 +526,12 @@
     }
   }
 
+  .title.active {
+    &:before {
+      transform: translateY(-50%) rotate(-90deg);
+    }
+  }
+
   .more-link {
     font-size: 10px;
     text-transform: none;
@@ -561,6 +559,23 @@
 
   .evidence-map-list {
     padding: 20px 0 0;
+  }
+}
+
+.mobile-accordion-item {
+  .title {
+    margin: 0 0 20px;
+
+    @include breakpoint('tablet') {
+      display: none;
+    }
+  }
+
+  .mobile-accordion-drop {
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
   }
 }
 
@@ -612,31 +627,24 @@
   }
 }
 
-//btn-like
-.btn-like {
-  overflow: hidden;
-
+//BTN-LIKE
+.btn-like,
+.btn-save-search {
   &.added {
     background: $light-blue;
     border-color: $light-blue;
     overflow: visible;
 
-    .icon-heart {
-      color: $white;
-
-      &:before {
-        content:'\0049';
-      }
-    }
-
-    .btn-like-inner {
+    .btn-like-inner,
+    .btn-save-search-inner {
       display: block;
       opacity: 1;
       transform: translate(-50%, 0);
     }
   }
 
-  .btn-like-inner {
+  .btn-like-inner,
+  .btn-save-search-inner  {
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -652,6 +660,7 @@
     text-align: center;
     opacity: 0;
     transition: all 0.3s ease;
+    border: 1px solid #d8d8d8;
 
     &:after {
       position: absolute;
@@ -668,7 +677,40 @@
   }
 }
 
-//reference-popup
+.btn-save-search {
+  &.added {
+    color: #fff;
+
+    [class*='icon-'] {
+      &:before {
+        content: '';
+        width: 4px;
+        height: 7px;
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        display: inline-block;
+        transform: rotate(41deg);
+        margin: 0 0 2px 0;
+      }
+    }
+  }
+}
+
+.btn-like {
+  overflow: hidden;
+
+  &.added {
+    .icon-heart {
+      color: $white;
+
+      &:before {
+        content:'\004b';
+      }
+    }
+  }
+}
+
+//REFERENCE-POPUP
 .reference-popup {
   bottom: 0;
   left: 0;
@@ -812,6 +854,10 @@
     height: 28px;
     margin: 0 8px;
 
+    .icon-arrow {
+      height: 12px;
+    }
+
     &.disabled {
       display: none;
     }
@@ -867,7 +913,7 @@
   }
 }
 
-//sidebar-buttons-holder
+//SIDEBAR-BUTTONS-HOLDER
 .sidebar-buttons-holder {
 
   @include breakpoint_custom($breakpoint-tablet) {
@@ -877,7 +923,7 @@
   }
 }
 
-//share-buttons-list
+//SHARE-BUTTONS-LIST
 .share-buttons-list {
   margin: 4px -2px 0px -4px;
   display: flex;
@@ -901,7 +947,7 @@
   }
 }
 
-//sidebar-email-holder
+//SIDEBAR-EMAIL-HOLDER
 .sidebar-email-holder {
 
   .btn-border-gray-small {
@@ -916,35 +962,94 @@
   }
 }
 
-.tooltip {
+//TOOLTIP
+.tooltip-dropdown {
   position: relative;
-  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  //overflow: hidden;
 
-  &:hover {
+  /* &:hover {
     overflow: visible;
 
     .tooltip-content {
       margin: 0 0 10px 0;
       opacity: 1;
     }
+  } */
+
+  &.left {
+
+    .tooltip-content {
+      top: 100%;
+      bottom: auto;
+      width: 239px;
+      margin: -53px 12px 0 0;
+      box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+      display: block;
+      font-size: 10px;
+      line-height: 16px;
+      padding: 18px 20px 12px;
+      display: block;
+
+      &.open {
+        right: 100%;
+        margin: -41px 12px 0 0;
+      }
+
+      .icon-close {
+        width: 20px;
+        height: 20px;
+        top: 6px;
+        right: 11px;
+        transform: scale(0.8);
+
+        &:after,
+        &:before {
+          left: 3px;
+        }
+      }
+
+      strong {
+        display: block;
+        margin: 0 0 4px;
+        font-size: 12px;
+      }
+
+      &:after {
+        position: absolute;
+        top: 25px;
+        right: -9px;
+        transform: translateX(-50%) rotate(-137deg);
+        box-shadow: -3px 1px 1px rgba(0, 0, 0, 0.2);
+        bottom: auto;
+      }
+    }
   }
 
   .tooltip-content {
-    position: absolute;
+    position: fixed;
     background: #f5f5f5;
     border: 1px solid #d8d8d8;
     padding: 13px 10px;
     border-radius: 4px;
-    right: -11px;
+    right: -11000px;
     bottom: 100%;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     min-width: 132px;
     color: #262626;
     font-size: 12px;
     text-transform: capitalize;
     opacity: 0;
-    transition: margin 0.3s ease;
+    transition: margin 0.3s ease, opacity 0.3s ease;
     margin: 0 0 5px 0;
+    z-index: 10;
+
+    &.open {
+      opacity: 1;
+      position: absolute;
+      right: -11px;
+    }
 
     &:after {
       position: absolute;
@@ -956,6 +1061,57 @@
       height: 10px;
       box-shadow: -2px 2px 1px rgba(0, 0, 0, 0.1);
       background: #f5f5f5;
+    }
+  }
+}
+
+//GRID
+.grid {
+  margin: 0 -4px;
+
+  .grid-line {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 0 20px;
+
+    .grid-item {
+      padding: 0 4px 8px;
+    }
+
+    &.one {
+      .grid-item {
+        width: 100%;
+      }
+    }
+
+    &.two {
+      .grid-item {
+        width: 100%;
+
+        @include breakpoint('tablet') {
+          width: 50%;
+        }
+      }
+    }
+
+    &.four {
+      .grid-item {
+        width: 50%;
+
+        @include breakpoint('tablet') {
+          width: 25%;
+        }
+      }
+    }
+
+    &.three {
+      .grid-item {
+        width: 50%;
+
+        @include breakpoint('tablet') {
+          width: 33.3%;
+        }
+      }
     }
   }
 }

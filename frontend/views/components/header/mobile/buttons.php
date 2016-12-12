@@ -5,7 +5,7 @@
         </div>
         <div class="mobile-login drop-content">
             <div class="btn-mobile-icon btn-mobile-login-close"><span class="icon-cross dark"></span></div>
-            <?= $this->renderFile('@app/views/components/header/login-registration.php'); ?>
+            <?= $this->renderFile('@app/views/components/header/mobile/login-registration.php'); ?>
         </div>
     </div>
     <div class="dropdown">

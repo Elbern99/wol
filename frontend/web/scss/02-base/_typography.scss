@@ -127,13 +127,16 @@ ol {
 .share-buttons-list,
 .further-reading-popup-list,
 .key-references-popup-list,
-.all-references-list {
+.all-references-list,
+.my-tags-list,
+.search-results-media-list,
+.pagination-list {
   list-style: none;
   padding: 0;
 
   li {
     margin: 0;
-    padding: 0;
+    padding: 0 ;
 
     &:before {
       display: none;

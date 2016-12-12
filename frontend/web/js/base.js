@@ -253,6 +253,14 @@
             $(container).on('pjax:end',   function() {
                 articleList.openMoreText('.article-more','.description');
             });
+        },
+        accrodionSingleItem: function(btn,container) {
+            $(btn).click(function(e) {
+                var cur = $(this);
+                    cur.toggleClass('active');
+                    cur.parent().find(container).slideToggle();
+                e.preventDefault();
+            });
         }
     };
     /* end */
@@ -278,6 +286,25 @@
     };
     /* end */
 
+    // 2.7 SUBSCRIBE
+    var forms = {
+        clearAll: function(btnClear,btnSelect,checkboxes) {
+            $(btnClear).click(function(e) {
+                $(this).addClass('active');
+                $(btnSelect).removeClass('active');
+                $(checkboxes).find(':checkbox').prop('checked', false);
+            });
+        },
+        selectAll: function(btnClear,btnSelect,checkboxes) {
+            $(btnSelect).click(function(e) {
+                $(this).addClass('active');
+                $(btnClear).removeClass('active');
+                $(checkboxes).find(':checkbox').prop('checked', true);
+            });
+        }
+    };
+    /* end */
+
 // 3. SIDEBAR WIDGETS ---------
 
     // 3.1 MORE SIDEBAR NEWS
@@ -287,12 +314,13 @@
                 var cur = $(this),
                     itemStep = 5,
                     curParent =  cur.parents('li');
-                    curParent.find('li').slideDown();
-                    if(curParent.find('li').is(":visible")) cur.css('opacity','0');
+                    cur.toggleClass('showed');
 
-                setTimeout(function(){
-                    _doc_height = $(document).height();
-                }, 600);
+                    if(cur.hasClass('showed')) {
+                        curParent.find('li').slideDown();
+                    } else {
+                        curParent.find('li').slideUp();
+                    }
 
                 e.preventDefault();
             });
@@ -355,7 +383,9 @@
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
         dropDown($('.sidebar-widget-sort-by .dropdown-link'), $('.drop-content'));
         dropDown($('.sidebar-widget-reference-popup .dropdown-link'), $('.drop-content'));
+        dropDown($('.tooltip-dropdown .icon-question'), $('.drop-content'));
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
+        closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
         if(_window_width < _tablet ) {
             tabsFn($('.login-registration-list'), '.dropdown-widget');
@@ -391,17 +421,14 @@
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
         articleList.pajax('#w0');
+        articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
         articlesFilter.sort('.custom-select-title');
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
-
-        $('.btn-gray').click(function(event){
-            console.log(1);
-            event.preventDefault();
-        });
-        $('.btn-gray').unbind('click');
+        forms.clearAll('.clear-all', '.select-all', '.checkboxes');
+        forms.selectAll('.clear-all', '.select-all', '.checkboxes');
     });
 
 })(jQuery);

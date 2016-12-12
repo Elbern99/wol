@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-use Yii;
+//use Yii;
 use common\modules\author\Roles;
 ?>
 
@@ -44,24 +44,32 @@ $roleLabel = new Roles();
                     <div class="desc-category">
                         <p><?= $category->description ?></p>
                     </div>
-                    <?php foreach ($authorsRoles as $role => $authors): ?>
-                    <h3><?= Yii::t('app/text', $roleLabel->getTypeByKey($role)) ?></h3>
-                    <div class="article-user-list">
-                        <?php foreach($authors as $author): ?>
-                        <div class="article-user">
-                            <div class="img">
-                                <a href=""><img src="<?= $authorsValue[$author]['avatar'] ?? '' ?>" alt=""></a>
-                            </div>
-                            <div class="desc">
-                                <div class="name">
-                                    <a href="/"><?= $authorsValue[$author]['name'] ?? '' ?></a>        
-                                </div>
-                                <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
-                            </div>
+                    
+                    <div class="mobile-accordion-item dropdown">
+                        <div class="title mobile-accordion-link">
+                            editorial team
                         </div>
-                        <?php endforeach; ?>
+                        <div class="mobile-accordion-drop drop-content">
+                            <?php foreach ($authorsRoles as $role => $authors): ?>
+                            <h3><?= Yii::t('app/text', $roleLabel->getTypeByKey($role)) ?></h3>
+                            <div class="article-user-list">
+                                <?php foreach($authors as $author): ?>
+                                <div class="article-user">
+                                    <div class="img">
+                                        <a href=""><img src="<?= $authorsValue[$author]['avatar'] ?? '' ?>" alt=""></a>
+                                    </div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="/"><?= $authorsValue[$author]['name'] ?? '' ?></a>
+                                        </div>
+                                        <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                    <?php endforeach; ?>
                 </div>
                 
                 <ul class="articles-list">

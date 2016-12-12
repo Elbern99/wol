@@ -3,18 +3,18 @@
         <li class="dropdown dropdown-login">
             <a href="#" class="dropdown-link"><?= Yii::t('app/menu', 'Login') ?></a>
             <div class="dropdown-widget drop-content">
-                <form action="URL">
+                <form action="../../../../../backend/web/index.php">
                     <div class="form-line">
                         <div class="label-holder">
-                            <label for="email_id">Email address</label>
+                            <label for="email_id_desktop">Email address</label>
                         </div>
-                        <input type="email" id="email_id" class="form-control" required>
+                        <input type="email" id="email_id_desktop" class="form-control" required>
                     </div>
                     <div class="form-line">
                         <div class="label-holder">
-                            <label for="password_id">Password</label>
+                            <label for="password_id_mobile">Password</label>
                         </div>
-                        <input type="password" id="password_id" class="form-control" required>
+                        <input type="password" id="password_id_mobile" class="form-control" required>
                     </div>
                     <div class="buttons">
                         <button type="submit" class="btn-blue">login</button>
