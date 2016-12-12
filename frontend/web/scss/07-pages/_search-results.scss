@@ -1,0 +1,660 @@
+.search-results {
+
+  .sidebar-right {
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
+
+.search-results-top {
+  margin: 0 0 27px;
+  text-align: center;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 57px;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .btn-border-blue-large {
+      height: 33px;
+      width: 33px;
+
+      .btn-save-search-inner {
+        top: auto;
+        left: auto;
+        right: 0;
+        transform: translateX(0);
+        margin: 0 0 13px !important;
+
+        &:after {
+          left: auto;
+          right: 8px;
+        }
+      }
+
+    }
+
+    .btn-save-search-inner {
+      padding: 15px 16px 13px;
+      width: auto;
+    }
+
+    .search-results-top-text {
+      display: none;
+    }
+  }
+
+  .search {
+    width: 100%;
+    max-width: 710px;
+    margin: 0 auto 28px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      position: relative;
+      padding-right: 49px;
+    }
+
+    @include breakpoint('tablet') {
+      margin: 0 auto 48px;
+    }
+
+    .btn-blue,
+    input[type="search"] {
+      height: 33px;
+
+      @include breakpoint('tablet') {
+        height: 39px;
+      }
+    }
+
+    .btn-blue {
+      font-size: 15px;
+      width: 110px;
+      margin: 0 0 0 10px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        display: none;
+      }
+    }
+
+    input[type="search"] {
+      font-size: 17px;
+      padding: 0 0 7px 21px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        border-bottom-width: 1px;
+      }
+
+      @include breakpoint('tablet') {
+        font-size: 23px;
+        padding: 0 0 7px 27px;
+      }
+    }
+
+    .icon-search {
+      left: 1px;
+      font-size: 11px;
+      margin: -3px 0 0;
+      height: 12px;
+
+      @include breakpoint('tablet') {
+        font-size: 13px;
+        margin: -4px 0 0;
+        height: 14px;
+        color: #989898;
+      }
+    }
+
+    .search-bottom {
+      float: right;
+      padding: 10px 0 0 27px;
+      font-size: 9px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        display: none;
+      }
+      
+      a {
+        color: $blue;
+        
+        &:hover {
+          color: $light-blue;
+        }
+      }
+    }
+
+    .search-top {
+      overflow: hidden;
+    }
+
+    .btn-border-blue-large {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      @include breakpoint('tablet') {
+        display: none;
+      }
+    }
+  }
+
+  .refine-link {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 10px;
+    margin: 0 0 -1px 10px;
+  }
+
+  .search-results-top-filter {
+    @extend .clearfix;
+    margin: 0px -16px 10px;
+    border-bottom: 1px solid #c0c0c0;
+    font-size: 12px;
+    padding: 0 16px;
+
+    strong {
+      float: left;
+    }
+
+    strong,a {
+      display: inline-block;
+      padding: 4px 0;
+    }
+
+    a {
+      float: right;
+      display: inline-block;
+      color: $light-blue;
+      margin-left: 12px;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+
+      &.active {
+        border-bottom-color: #0094f2;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      display: none;
+    }
+  }
+}
+
+.search-results-media-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -5px;
+
+  @include breakpoint('tablet') {
+    margin: 0 -10px;
+  }
+
+  li {
+    width: 33.3%;
+    padding: 0px 5px 18px;
+
+    @include breakpoint('tablet') {
+      padding: 0 10px 33px;
+    }
+  }
+}
+
+.search-results-table {
+  margin: 0 0 41px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 92px;
+  }
+}
+
+.search-results-media-item {
+  text-align: center;
+
+  .img {
+    width: 79px;
+    height: 79px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+
+    @include breakpoint('tablet') {
+      width: 101px;
+      height: 101px;
+      margin: 0 auto 8px;
+    }
+
+    a,img {
+      display: block;
+      min-height: 100%;
+    }
+  }
+
+  .link {
+    font-size: 10px;
+    margin: 0 0 -2px;
+    
+    @include breakpoint_custom($breakpoint-tablet) {
+      a {
+        color: $light-blue;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      margin: 0 0 1px;
+    }
+  }
+
+  .name {
+    font-size: 14px;
+    margin: 0 0 15px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.3em;
+    }
+
+    @include breakpoint('tablet') {
+      font-size: 19px;
+      margin: 0 0 5px;
+    }
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 1.4em;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
+
+.search-results-table {
+  .search-results-table-top {
+    color: #4e6071;
+    font-size: 11px;
+    margin: 0 0 29px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c3c3c3;
+    padding: 0 0 4px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
+
+.search-results-item {
+  overflow: hidden;
+
+  .publication-date {
+    display: none;
+
+    @include breakpoint('tablet') {
+      float: right;
+      display: block;
+      max-width: 143px;
+      min-height: 1px;
+      width: 20%;
+    }
+  }
+
+  .description-center {
+    overflow: hidden;
+
+    @include breakpoint('tablet') {
+      padding: 0 50px 0 10px;
+      min-height: 1px;
+    }
+  }
+
+  .type {
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-transform: uppercase;
+      padding: 0;
+    }
+
+    @include breakpoint('tablet') {
+      float: left;
+      max-width: 125px;
+      min-height: 1px;
+      width: 15%;
+    }
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 0 0 1px;
+    line-height: 1.27em;
+
+    @include breakpoint('tablet') {
+      font-size: 19px;
+      margin: 0 0 2px;
+    }
+  }
+
+  h3 {
+    font-size: 13px;
+    margin: 0 0 8px;
+    line-height: 1.5em;
+
+    @include breakpoint('tablet') {
+      font-size: 13px;
+      margin: 0 0 4px;
+    }
+  }
+
+  .name {
+    font-size: 12px;
+
+    @include breakpoint('tablet') {
+      font-size: 10px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 4px;
+    }
+  }
+
+  .article-more {
+    @include breakpoint_custom($breakpoint-tablet) {
+      font-size: 12px;
+    }
+  }
+
+  .description {
+    display: none;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.5em;
+  }
+
+  .icon-link {
+    font-size: 14px;
+    margin: 2px 0 0 8px;
+  }
+
+  mark {
+    background: #ffeb67;
+    color: #0053a0;
+    padding: 0 3px;
+  }
+
+  .date-in-name {
+    @include breakpoint('tablet') {
+      display: none;
+    }
+  }
+}
+
+.search-results-table-body {
+
+  .type,
+  .publication-date {
+    padding-top: 2px;
+    font-size: 12px;
+  }
+
+  .search-results-item {
+    margin-bottom: 21px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 28px;
+    }
+  }
+}
+
+//PAGINATION
+.pagination {
+  text-align: center;
+  position: relative;
+  padding: 0 0 30px;
+
+  @include breakpoint('tablet') {
+    padding: 0 150px 0 0;
+  }
+
+  .pagination-select {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -14px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
+
+.pagination-list {
+
+  li {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1em;
+    margin: 0 4px;
+    vertical-align: middle;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+      font-size: 15px;
+      
+      a {
+        color: #262626;
+      }
+
+      &.next,
+      &.prev {
+        a {
+          font-size: 0;
+          width: 26px;
+          height: 26px;
+          border: 1px solid $blue;
+          border-radius: 50%;
+
+          &:after {
+            display: block !important;
+            font-size: 12px;
+            color: $blue;
+            height: 11px;
+          }
+        }
+      }
+
+      &.prev {
+        a {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.all {
+        &:after {
+          content: '';
+          position: absolute;
+          top: 5px;
+          width: 1px;
+          height: 11px;
+          left: -6px;
+          background: #262626;
+          transform: rotate(12deg);
+        }
+      }
+
+      &.next,
+      &.prev,
+      &.active,
+      &.all {
+        display: inline-block;
+      }
+
+    }
+    
+    &.next,
+    &.prev {
+      margin: 0 8px;
+
+      &.disabled {
+        a {
+          color: #c7c7c7 !important;
+          cursor: default !important;
+
+          @include breakpoint_custom($breakpoint-tablet) {
+            border-color: #c7c7c7 !important;
+
+            &:after {
+              color: #c7c7c7 !important;
+            }
+          }
+
+          &:after {
+            @extend .icon-styles;
+            content: '\0050';
+            display: none;
+            @extend .icon-to-center;
+          }
+        }
+      }
+
+      a {
+        color: #323232;
+
+        &:after {
+          @extend .icon-styles;
+          content: '\0050';
+          display: none;
+          @extend .icon-to-center;
+        }
+      }
+    }
+
+    &.active {
+      a {
+        color: $blue;
+        border-bottom-color: $blue;
+        cursor: default !important;
+      }
+    }
+
+    &:hover {
+      a {
+        color: $blue;
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    padding: 3px 1px 3px;
+    color: #999;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.pagination-select {
+  display: flex;
+  align-items: center;
+
+  .custom-select-def {
+    width: 80px;
+  }
+
+  .label-text {
+    margin: 0 16px 0 0;
+    color: #323232;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+}
+
+//MOBILE-FILTER
+.search-results-top {
+  position: relative;
+}
+
+.mobile-filter {
+  text-align: left;
+  background: #fff;
+  position: absolute;
+  left: -15px;
+  right: -15px;
+  z-index: 100;
+  padding: 21px 15px 30px;
+  border-bottom: 1px solid #b3b3b3;
+  top: 100%;
+  display: none;
+
+  .mobile-filter-bottom {
+    margin: -6px 0 0 0;
+  }
+
+  [class^="btn-"],
+  [class*=" btn-"] {
+    height: 42px;
+    line-height: 38px;
+    padding: 2px 13px;
+    font-size: 12px;
+
+    &.btn-blue-large {
+      font-size: 14px;
+      padding: 0 26px;
+    }
+  }
+}
+
+.mobile-filter-container {
+  .sidebar-widget-filter {
+    h3 {
+      display: none;
+    }
+  }
+
+  .checkbox-list {
+    li {
+      margin: 0 0 10px;
+    }
+  }
+
+  .def-checkbox {
+    &.light {
+      .label-text {
+        font-size: 13px;
+
+        &:before {
+          top: -1px;
+        }
+
+        &:after {
+          top: 3px;
+        }
+      }
+    }
+  }
+
+  .sidebar-widget-sort-by {
+    display: block;
+    margin: 0 -15px 18px;
+    padding: 0 15px;
+    border-bottom: 1px solid #b3b3b3;
+
+    label {
+      text-transform: uppercase;
+      margin: 0 0 7px;
+      cursor: text;
+      display: block;
+      font-size: 14px;
+    }
+
+    .custom-select-title {
+      height: 33px;
+
+      &:after {
+        width: 28px;
+      }
+
+      &:before {
+        right: 10px;
+      }
+    }
+  }
+}
