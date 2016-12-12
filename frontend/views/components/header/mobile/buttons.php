@@ -14,7 +14,7 @@
         </div>
         <div class="mobile-search drop-content">
             <div class="btn-mobile-icon btn-mobile-search-close"><span class="icon-cross dark"></span></div>
-            <?= $this->renderFile('@app/views/components/header/mobile/search.php'); ?>
+            <?= $this->renderFile('@app/views/search/header_search.php'); ?>
         </div>
     </div>
     <div class="dropdown">

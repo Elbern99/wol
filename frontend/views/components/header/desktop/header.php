@@ -12,7 +12,7 @@
             </a>
 
             <?= $this->renderFile('@app/views/components/header/menu/main.php'); ?>
-            <?= $this->renderFile('@app/views/components/header/desktop/search.php'); ?>
+            <?= $this->renderFile('@app/views/search/header_search.php'); ?>
         </div>
     </div>
 </header>
