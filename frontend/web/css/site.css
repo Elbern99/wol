@@ -2017,6 +2017,12 @@ img {
     -ms-flex-flow: row wrap;
         flex-flow: row wrap;
     margin: 0 0 20px; }
+    .grid .grid-line #searchform-types {
+      width: 100%;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap; }
     .grid .grid-line .grid-item {
       padding: 0 4px 8px; }
     .grid .grid-line.one .grid-item {
@@ -3309,14 +3315,13 @@ label {
 
 /******* // WIDJETS *******/
 /******* LAYOUT *******/
-.wrapper {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column; }
-  @media only screen and (min-width: 769px) {
-    .wrapper {
-      min-height: 100%; } }
+@media only screen and (min-width: 769px) {
+  .wrapper {
+    min-height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column; } }
 
 .content {
   -ms-flex: 1 0 auto;
@@ -5199,7 +5204,7 @@ iframe[name = advpp_manager] {
       width: 355px;
       top: 4px;
       right: -400px;
-      min-height: 1px !important;
+      height: auto !important;
       transition: all 0.3s ease;
       max-height: 534px; } }
   .map-info.map-info-open {
@@ -5244,6 +5249,8 @@ iframe[name = advpp_manager] {
   .map-info-content .ref-item {
     margin: 0 0 18px;
     font-size: 9px; }
+    .map-info-content .ref-item:last-child {
+      margin-bottom: 0; }
     .map-info-content .ref-item .authors {
       margin: 0 0 4px; }
     .map-info-content .ref-item .link {

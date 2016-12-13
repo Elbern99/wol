@@ -31,7 +31,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
     </div>
     <h1>Search the site</h1>
 
-    <?php $form = ActiveForm::begin(['id' => 'header-search-form']); ?>
+    <?php $form = ActiveForm::begin(['class' => 'header-search-form']); ?>
         <div class="search">
             <span class="icon-search"></span>
             <div class="search-holder">
@@ -72,7 +72,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                     <div class="label-text">all of these words</div>
                 </div>
                 <ul class="my-tags-list all-words-tags-list"></ul>
-                <?= Html::activeInput('text', $search, 'all_words') ?>
+                <?= Html::activeInput('hidden', $search, 'all_words', ['class'=>"my-single-field"]) ?>
             </div>
 
             <div class="form-line">
@@ -89,7 +89,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                     <div class="label-text">one or more of these words</div>
                 </div>
                 <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                <?= Html::activeInput('text', $search, 'one_more_words') ?>
+                <?= Html::activeInput('hidden', $search, 'one_more_words', ['class'=>"my-single-field"]) ?>
             </div>
         </div>
 
@@ -100,7 +100,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                     <div class="label-text">any of these words</div>
                 </div>
                 <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                <?= Html::activeInput('text', $search, 'any_words') ?>
+                <?= Html::activeInput('hidden', $search, 'any_words', ['class'=>"my-single-field"]) ?>
             </div>
         </div>
         <button class="btn-blue-large" type="submit">search</button>

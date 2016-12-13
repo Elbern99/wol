@@ -1083,6 +1083,12 @@
     flex-flow: row wrap;
     margin: 0 0 20px;
 
+    #searchform-types {
+      width: 100%;
+      display: flex;
+      flex-flow: row wrap;
+    }
+
     .grid-item {
       padding: 0 4px 8px;
     }

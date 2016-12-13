@@ -296,7 +296,7 @@
     top: 4px;
     //bottom: 4px;
     right: -400px;
-    min-height: 1px !important;
+    height: auto !important;
     transition: all 0.3s ease;
     max-height: 534px;
   }
@@ -357,6 +357,10 @@
   .ref-item {
     margin: 0 0 18px;
     font-size: 9px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     .authors {
       margin: 0 0 4px;

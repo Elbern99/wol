@@ -226,16 +226,23 @@
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
 
-            elements.css('min-height', '1px');
-            elements.css('min-height',$(document).height());
+            elements.css('height', '100%');
+            elements.css('height', $(document).height());
+            elements.css('max-height',$(document).height());
 
-            $(window).resize(function() {
-                elements.css('min-height', '1px');
+
+            $(window).on("orientationchange",function(){
+                elements.css({
+                    'height': '1px',
+                    'max-height': '1px'
+                });
                 setTimeout(function(){
-                    elements.css('min-height',$(document).height());
+                    elements.css({
+                        'height': $(document).height(),
+                        'max-height': $(document).height(),
+                    });
                 }, 0);
             });
-
         }
     };
     /* end */
