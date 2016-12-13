@@ -6,5 +6,8 @@ return [
         'name' => 'English',
         'image' => '/images/lang/english.jpg'
     ],
-    'article_limit' => 1
+    'search' => [
+        'article' => '\common\models\ArticleSearch'
+    ],
+    'article_limit' => 1,
 ];

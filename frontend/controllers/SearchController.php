@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use common\models\ArticleSearch;
 use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
+use frontend\models\SearchForm;
 /**
  * Search controller
  */
@@ -22,7 +23,6 @@ class SearchController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'ajax' => ['post'],
-                    'result' => ['post'],
                 ],
             ],
         ];
@@ -46,7 +46,8 @@ class SearchController extends Controller
      * @return mixed
      */
     public function actionIndex() {
-        var_dump('advanced search');exit;
+        
+        var_dump(Yii::$app->getSession()->getFlash('search'));exit;
     }
     
     public function actionAjax()
@@ -72,8 +73,26 @@ class SearchController extends Controller
         }
     }
     
-    public function actionResult() {
-        var_dump(Yii::$app->request->post());exit;
+    public function actionAdvanced() {
+        
+        $model = new SearchForm();
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+            
+            try {
+                
+                $result = $model->search();
+
+                Yii::$app->getSession()->setFlash('search', serialize($result));
+                return $this->redirect('/search');
+            
+            } catch (\Exception $e) { 
+                Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Error in Result'));
+            }
+            
+        }
+        
+        return $this->render('advanced', ['search' => $model]);
     }
     
 }
