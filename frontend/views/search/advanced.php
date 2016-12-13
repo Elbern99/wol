@@ -31,7 +31,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
     </div>
     <h1>Search the site</h1>
 
-    <?php $form = ActiveForm::begin(['id' => 'header-search-form']); ?>
+    <?php $form = ActiveForm::begin(['class' => 'header-search-form']); ?>
         <div class="search">
             <span class="icon-search"></span>
             <div class="search-holder">
@@ -51,14 +51,14 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
             </div>
             <div class="grid checkboxes">
                 <div class="grid-line three">
-                    <?= Html::activeCheckboxList($search, 'types', $search->getHeadingFilter(),[
+                    <?= $form->field($search, 'types')->checkboxList($search->getHeadingFilter(),[
                             'item'=> function($index, $label, $name, $checked, $value) { 
                                 return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
                                 Html::checkbox($name, $checked, [
                                     'value' => $value,
                                 ]).'<span class="label-text">'.$label.'</span></label></div></div>'; 
                             } 
-                        ]);
+                        ])->label('');
                     ?>
                 </div>
             </div>
