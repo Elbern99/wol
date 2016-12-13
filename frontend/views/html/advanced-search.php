@@ -125,6 +125,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                 <div class="label-holder">
                     <div class="label-text">all of these words</div>
                 </div>
+                <input name="tags" class="my-single-field" disabled="true">
                 <ul class="my-tags-list all-words-tags-list"></ul>
             </div>
 
@@ -141,6 +142,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                 <div class="label-holder">
                     <div class="label-text">one or more of these words</div>
                 </div>
+                <input name="tags" class="my-single-field" disabled="true">
                 <ul class="my-tags-list one-or-more-my-tags-list"></ul>
             </div>
         </div>
@@ -151,6 +153,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
                 <div class="label-holder">
                     <div class="label-text">any of these words</div>
                 </div>
+                <input name="tags" class="my-single-field" disabled="true">
                 <ul class="my-tags-list one-or-more-my-tags-list"></ul>
             </div>
         </div>

@@ -27,6 +27,7 @@ $this->registerMetaTag([
     )
 ]);
 
+$this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/icon.label.js');
 $this->registerJsFile('/js/pages/map.js', ['depends' => ['yii\web\YiiAsset']]);
@@ -118,10 +119,6 @@ $this->registerCssFile('/css/leaflet.css');
 
     <div class="content-inner">
         <div class="content-inner-text">
-            <div class="evidence-map-text-mobile">
-                <p>The colored countries below have empirical evidence for this topic. The color indicates the country's development status, based on the country classification shown in the legend, and the number on the flag indicates how many relevant academic studies address this policy question. If you click on the flag, an overlay pops up that shows the key and additional references for an article.</p>
-                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
-            </div>
             <div class="map-holder">
                 
                 <div class="map-info">
@@ -144,6 +141,7 @@ $this->registerCssFile('/css/leaflet.css');
 
             <div class="evidence-map-text">
                 <p>The colored countries below have empirical evidence for this topic. The color indicates the country's development status, based on the country classification shown in the legend, and the number on the flag indicates how many relevant academic studies address this policy question. If you click on the flag, an overlay pops up that shows the key and additional references for an article.</p>
+                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
             </div>
         </div>
 

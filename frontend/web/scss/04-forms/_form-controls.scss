@@ -73,16 +73,17 @@ input[type=url]{
     border-radius: 5px;
     height: 28px;
     cursor: pointer;
-    padding: 5px 30px 7px 10px;
+    padding: 0 30px 0 10px;
     background: #fff;
     overflow: hidden;
     margin: 0;
     color: #323232;
-    font: normal 11px/1em $lucida-grande;
+    font: normal 11px/28px $lucida-grande;
     width: 100%;
     position: relative;
     display: flex;
     align-items: center;
+    -webkit-appearance:none;
   }
 
   &:after {
@@ -157,12 +158,12 @@ input[type=url]{
     border-radius: 5px;
     height: 29px;
     cursor: pointer;
-    padding: 5px 50px 7px 10px;
+    padding: 0 50px 0 10px;
     background: #fff;
     overflow: hidden;
     margin: 0;
     color: #323232;
-    font: normal 11px/1em $lucida-grande;
+    font: normal 11px/29px $lucida-grande;
     width: 100%;
     position: relative;
     display: flex;
@@ -215,7 +216,7 @@ input[type=url]{
     align-items: center;
     text-align: center;
     justify-content: center;
-    padding: 9px 26px 6px;
+    padding: 9px 26px 9px;
     transition: color 0.3s ease;
     line-height: 1.3em;
     text-transform: capitalize !important;

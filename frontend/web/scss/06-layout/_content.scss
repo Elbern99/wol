@@ -1,7 +1,10 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+
+  @include breakpoint('tablet') {
+    min-height: 100%;
+  }
 }
 
 .content {

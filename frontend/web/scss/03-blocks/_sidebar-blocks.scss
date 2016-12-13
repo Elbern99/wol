@@ -180,16 +180,6 @@
         @include breakpoint('tablet') {
           margin: 0 0 17px;
         }
-
-        .icon-question {
-          position: absolute;
-          top: 0;
-          right: 0;
-
-          @include breakpoint('tablet') {
-            top: -1px;
-          }
-        }
       }
 
       .date {
@@ -349,16 +339,6 @@
     text-transform: capitalize;
     padding-right: 20px;
   }
-
-  .icon-question {
-    position: absolute;
-    top: 1px;
-    right: 0;
-
-    @include breakpoint('tablet') {
-      top: -1px;
-    }
-  }
 }
 
 //key-references-list
@@ -385,16 +365,6 @@
     font-size: 12px;
   }
 
-  .icon-question {
-    position: absolute;
-    top: 1px;
-    right: 0px;
-
-    @include breakpoint('tablet') {
-      top: -1px;
-    }
-  }
-
   a {
     display: inline-block;
     margin: 0 20px 0 0;
@@ -416,16 +386,6 @@
     font-size: 12px;
     text-transform: capitalize;
 
-  }
-
-  .icon-question {
-    position: absolute;
-    top: 1px;
-    right: 0px;
-
-    @include breakpoint('tablet') {
-      top: -1px;
-    }
   }
 }
 
@@ -693,6 +653,19 @@
       display: block !important;
       opacity: 1 !important;
       height: auto !important;
+    }
+
+    .icon-exclamatory-circle {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      color: $light-blue;
+      cursor: pointer;
+      font-size: 14px;
+
+      @include breakpoint('tablet') {
+        top: 0;
+      }
     }
   }
 }

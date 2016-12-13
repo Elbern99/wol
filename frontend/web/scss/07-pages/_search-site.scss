@@ -37,6 +37,7 @@
     .icon-search {
       font-size: 12px;
       margin: 0;
+      height: 12px;
 
       @include breakpoint('tablet') {
         font-size: 13px;
@@ -49,13 +50,13 @@
       font-size: 15px;
       border-bottom-width: 1px;
       height: 38px;
-      line-height: 16px;
+      line-height: 38px;
 
       @include breakpoint('tablet') {
         font-size: 25px;
         height: 50px;
         padding-left: 24px;
-        line-height: 26px;
+        line-height: 50px;
       }
     }
   }
@@ -86,7 +87,11 @@
     }
 
     .custom-checkbox {
-      min-height: 43px;
+
+
+      .label-text {
+        min-height: 43px;
+      }
     }
 
     .label-text {
@@ -132,13 +137,14 @@
     }
 
     li {
-      padding: 6px 28px 6px 11px;
+      padding: 0 28px 0 11px;
       margin: 0 0 6px 3px;
       height: 31px;
       font-size: 11px;
+      line-height: 31px;
 
       @include breakpoint('tablet') {
-        padding: 4px 28px 6px 11px;
+        padding: 0 28px 0 11px;
       }
 
       &.tagit-choice {
@@ -147,19 +153,27 @@
       }
 
       &.tagit-new {
-        padding: 7px 28px 5px 13px;
+        padding: 0 28px 0 13px;
+
+        display: flex;
+        align-items: center;
+        line-height: 12px;
+        width: 100%;
+
 
         input {
-          line-height: 12px;
+          line-height: 31px;
+          height: 31px;
         }
 
         @include breakpoint('tablet') {
-          padding: 5px 28px 5px 18px;
+
         }
       }
 
       .tagit-close {
         padding: 0 4px;
+        margin-top: -7px;
       }
     }
   }
@@ -185,7 +199,7 @@
     @include breakpoint('tablet') {
       float: left;
       width: 199px;
-      padding: 12px 17px 0 0;
+      padding: 11px 17px 0 0;
       text-align: right;
     }
 

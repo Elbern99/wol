@@ -11,6 +11,10 @@
   @include breakpoint_custom($breakpoint-tablet) {
     display: block;
     margin: 0 0 20px;
+
+    .logo-main {
+      z-index: 1002 ;
+    }
   }
 }
 
@@ -167,6 +171,11 @@
       background: white;
       max-width: none;
       width: auto;
+
+      .btn-border-blue,
+      .search-bottom {
+        display: none;
+      }
     }
   }
 }
@@ -377,7 +386,7 @@
     top: 0;
     width: 100%;
     right: 0;
-    z-index: 1000;
+    z-index: 1001;
     background: #fff;
     left: -100%;
     transition: all 0.3s ease;
@@ -566,3 +575,29 @@
   }
 }
 
+//HEADER-SEARCH-DROPDOWN
+.header-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 5px;
+}
+
+.auto-search-list {
+  padding: 0;
+
+  li {
+    margin: 0 0 5px;
+  }
+
+  span {
+    color: $blue;
+    cursor: pointer;
+    
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}

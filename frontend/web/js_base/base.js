@@ -231,7 +231,9 @@
 
             $(window).resize(function() {
                 elements.css('min-height', '1px');
-                elements.css('min-height',$(document).height());
+                setTimeout(function(){
+                    elements.css('min-height',$(document).height());
+                }, 0);
             });
 
         }
@@ -312,14 +314,13 @@
         moreSidebarNews: function(btnMore,parent) {
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
-                    itemStep = 5,
                     curParent =  cur.parents('li');
                     cur.toggleClass('showed');
 
                     if(cur.hasClass('showed')) {
-                        curParent.find('li').slideDown();
+                        curParent.find('li').slideDown(0);
                     } else {
-                        curParent.find('li').slideUp();
+                        curParent.find('li').slideUp(0);
                     }
 
                 e.preventDefault();

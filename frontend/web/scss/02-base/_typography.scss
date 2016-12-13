@@ -130,13 +130,14 @@ ol {
 .all-references-list,
 .my-tags-list,
 .search-results-media-list,
-.pagination-list {
+.pagination-list,
+.auto-search-list {
   list-style: none;
   padding: 0;
 
   li {
     margin: 0;
-    padding: 0 ;
+    padding: 0;
 
     &:before {
       display: none;

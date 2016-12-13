@@ -16,9 +16,13 @@
         customTagList: function(list,holder) {
             if($(list).length){
                 $(holder).each(function( index ) {
-                    $(this).find(list).tagit({
+                    var cur = $(this),
+                        curInput = $(this).find('.my-single-field');
+
+                    cur.find(list).tagit({
                         singleField: true,
-                        placeholderText: 'Enter words seperated with spaces'
+                        placeholderText: 'Enter words seperated with spaces',
+                        singleFieldNode: curInput
                     });
                 });
             }
@@ -57,6 +61,11 @@
                     var cur = $(this);
                     cur.toggleClass('active');
                     $(content).slideToggle();
+                    e.preventDefault();
+                });
+
+                $('.mobile-filter-bottom .btn-no-style').click(function(e) {
+                    $(btn).trigger('click');
                     e.preventDefault();
                 });
             }

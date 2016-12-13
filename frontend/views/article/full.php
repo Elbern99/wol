@@ -30,6 +30,7 @@ $this->registerMetaTag([
     'content' => Html::encode($attributes['teaser']->getData('teaser'))
 ]);
 
+$this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
@@ -44,40 +45,76 @@ $config = [
 ?>
 <div class="container article-full">
 
-    <div class="breadcrumbs">
-        <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+    <div class="article-buttons article-buttons-mobile">
+        <?php if (isset($attributes['full_pdf'])): ?>
+            <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <div class="inner">
+                    <span class="icon-download"></span>
+                    <span class="text">download pdf</span>
+                </div>
+            </a>
+        <?php endif; ?>
+        <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+            <span class="inner">
+                <span class="icon-quote"></span>
+            </span>
+        </a>
+        <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
+                    &body=<?= urlencode('Title:') ?>
+                    <?= urlencode($attributes['title']->getData('title')) ?>
+                    <?= urlencode($attributes['teaser']->getData('teaser')) ?>
+                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode('Elevator pitch:') ?>
+                    <?= urlencode($attributes['abstract']->getData('abstract')) ?>
+                    <?= urlencode('View the article') ?>
+                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode('Copyright © IZA') ?>
+                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+            <span class="icon-message"></span>
+        </a>
+        <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+        <a href="" class="btn-border-gray-middle btn-like short">
+            <span class="icon-heart"></span>
+            <div class="btn-like-inner">article added to favorites</div>
+        </a>
     </div>
 
-    <div class="article-top">
-        <h1><?= $attributes['title']->getData('title') ?></h1>
-        <h3><?= $attributes['teaser']->getData('teaser') ?></h3>
-    </div>
-
-    <?php foreach ($authors as $author): ?>
-    <div class="article-user">
-        <div class="img"><a href=""><img src="<?= $author['avatar'] ?>" alt=""></a></div>
-        
-        <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
-
-        <div class="desc">
-           <div class="name">
-            <?php
-            
-                $link = Html::a($authorAttributes['name']->getData('first_name').' '.
-                    $authorAttributes['name']->getData('middle_name').' '.
-                    $authorAttributes['name']->getData('last_name')
-                    ,'/'
-                );
-
-                $authorLink[] = $link;
-                echo $link;
-            ?>
-            </div>
-            <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>
-        
+
+        <div class="article-top">
+            <h1><?= $attributes['title']->getData('title') ?></h1>
+            <h3><?= $attributes['teaser']->getData('teaser') ?></h3>
+        </div>
+
+        <?php foreach ($authors as $author): ?>
+            <div class="article-user">
+                <div class="img"><a href=""><img src="<?= $author['avatar'] ?>" alt=""></a></div>
+
+                <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
+
+                <div class="desc">
+                    <div class="name">
+                        <?php
+
+                        $link = Html::a($authorAttributes['name']->getData('first_name').' '.
+                            $authorAttributes['name']->getData('middle_name').' '.
+                            $authorAttributes['name']->getData('last_name')
+                            ,'/'
+                        );
+
+                        $authorLink[] = $link;
+                        echo $link;
+                        ?>
+                    </div>
+                    <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
     </div>
-    <?php endforeach; ?>
 
     <div class="content-inner">
         <div class="content-inner-text">
@@ -175,7 +212,19 @@ $config = [
                                 <div class="btn-like-inner">article added to favorites</div>
                             </a>
                             <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                            <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+                            <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
+                                &body=<?= urlencode('Title:') ?>
+                                <?= urlencode($attributes['title']->getData('title')) ?>
+                                <?= urlencode($attributes['teaser']->getData('teaser')) ?>
+                                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                                <?= urlencode('Elevator pitch:') ?>
+                                <?= urlencode($attributes['abstract']->getData('abstract')) ?>
+                                <?= urlencode('View the article') ?>
+                                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                                <?= urlencode('Copyright © IZA') ?>
+                                <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+                                <span class="icon-message"></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -200,7 +249,37 @@ $config = [
                     <div class="btn-like-inner">article added to favorites</div>
                 </a>
                 <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-                <a href="" class="btn-border-gray-middle short"><span class="icon-message"></span></a>
+                <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
+                    &body=<?= urlencode('Title:') ?>
+                    <?= urlencode($attributes['title']->getData('title')) ?>
+                    <?= urlencode($attributes['teaser']->getData('teaser')) ?>
+                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode('Elevator pitch:') ?>
+                    <?= urlencode($attributes['abstract']->getData('abstract')) ?>
+                    <?= urlencode('View the article') ?>
+                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode('Copyright © IZA') ?>
+                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+                    <span class="icon-message"></span>
+                </a>
+            </div>
+
+            <div class="sidebar-widget sidebar-widget-share-buttons">
+                <div class="share-buttons">
+                    <ul class="share-buttons-list">
+                        <li class="share-facebook">
+                            <div id="fb-root"></div>
+                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                        </li>
+                        <li class="share-twitter">
+                            <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+                        </li>
+                        <li class="share-ln">
+                            <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                            <script type="IN/Share"></script>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="sidebar-widget">
@@ -258,13 +337,16 @@ $config = [
                                         <?php foreach($backgrounds as $key=>$value): ?>
                                             <li>
                                                 <a href="#<?=$key?>"><?= $value->title ?></a>
-                                                <div class="icon-question rel-tooltip"></div>
+                                                <div class="icon-exclamatory-circle rel-tooltip"></div>
                                                 <div class="bg-info"><?= $value->text ?></div>
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
                                     <?php if(count($backgrounds) > 10): ?>
-                                        <a href="" class="more-link">More</a>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
                                     <?php endif ?>
                                 </div>
                             </div>
@@ -288,7 +370,10 @@ $config = [
                                         <?php endforeach; unset($related); ?>
                                     </ul>
                                     <?php if(count($count_related) > 10): ?>
-                                        <a href="" class="more-link">More</a>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
                                     <?php endif ?>
                                 </div>
                             <?php endif; ?>
@@ -305,7 +390,7 @@ $config = [
                                 <?php foreach ($furthers as $further): ?>
                                     <li>
                                         <a href=""><?= $further->title ?></a>
-                                        <div class="icon-question rel-tooltip"></div>
+                                        <div class="icon-exclamatory-circle rel-tooltip"></div>
                                         <div class="further-reading-info">
                                             <?= $further->full_citation ?>
                                         </div>
@@ -313,7 +398,10 @@ $config = [
                                 <?php endforeach; ?>
                             </ul>
                             <?php if(count($furthers) > 10): ?>
-                                <a href="" class="more-link">More</a>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
                             <?php endif ?>
                         </div>
                     </li>
@@ -334,7 +422,7 @@ $config = [
                                 <?php endif; ?>
                                 <li>
                                     <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
-                                    <div class="icon-question rel-tooltip"></div>
+                                    <div class="icon-exclamatory-circle rel-tooltip"></div>
                                     <div class="key-references-info">
                                         <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
                                         <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
@@ -346,7 +434,10 @@ $config = [
                                 <?php endforeach; ?>
                             </ul>
                             <?php if(count($references) > 10): ?>
-                                <a href="" class="more-link">More</a>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
                             <?php endif ?>
                         </div>
                     </li>
@@ -364,7 +455,7 @@ $config = [
                                 <?php endif; ?>
                                 <li>
                                     <a href=""><?= $additional->title ?></a>
-                                    <div class="icon-question rel-tooltip"></div>
+                                    <div class="icon-exclamatory-circle rel-tooltip"></div>
                                     <div class="additional-references-info">
                                         <?= $additional->full_citation ?>
                                     </div>
@@ -372,7 +463,10 @@ $config = [
                                 <?php endforeach; ?>
                             </ul>
                             <?php if(count($additionals) > 10): ?>
-                                <a href="" class="more-link">More</a>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
                             <?php endif ?>
                         </div>
                     </li>

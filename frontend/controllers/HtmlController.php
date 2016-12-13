@@ -15,43 +15,6 @@ use yii\filters\AccessControl;
  */
 class HtmlController extends Controller {
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'contact', 'faq', 'editorial-board', 'contributor-profile', 'for-contributor', 'about', 'news-article', 'article','articles-list', 'advanced-search', 'subscribe-to-newsletter', 'search-results'],
-                        'allow' => true,
-                    ]
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actions() {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
 
     public function actionContact() {
         return $this->render('contact');

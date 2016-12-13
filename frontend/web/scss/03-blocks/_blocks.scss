@@ -4,7 +4,6 @@
   display: inline-block;
   width: 85px;
   position: relative;
-  z-index: 1002;
 
   @include breakpoint('tablet') {
     width: 149px;
@@ -472,16 +471,6 @@
       display: inline-block;
     }
   }
-
-  .icon-question {
-    position: absolute;
-    top: 1px;
-    right: 0;
-
-    @include breakpoint('tablet') {
-      top: 0;
-    }
-  }
 }
 
 .sidebar-accrodion-item,
@@ -541,6 +530,19 @@
     font-family: $lucida-grande;
     display: inline-block;
     margin: 9px 0;
+
+    .less {
+      display: none;
+    }
+
+    &.showed {
+      .more {
+        display: none;
+      }
+      .less {
+        display: block;
+      }
+    }
     
     &:hover {
       color: $blue;
@@ -753,6 +755,13 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     top: 0 !important;
+
+    .reference-popup-inner {
+      position: absolute;
+      max-height: 100vh;
+      left: 0;
+      right: 0;
+    }
   }
 
   .container {

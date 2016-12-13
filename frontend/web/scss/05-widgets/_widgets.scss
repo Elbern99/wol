@@ -419,7 +419,7 @@
   &.active {
     opacity: 1;
     transform: translateY(1px);
-    z-index: 999
+    z-index: 9999
   }
 
   .share-selected-text-inner {
@@ -477,18 +477,18 @@
 
 .icon-sst-linkedin {
   &:before {
-    content: '\0047';
+    content: '\0049';
   }
 }
 
 .icon-sst-tumblr {
   &:before {
-    content: '\004b';
+    content: '\004d';
   }
 }
 
-.icon-sst-digg {
+.fa-facebook {
   &:before {
-    content: '\004c';
+    content: '\004e';
   }
 }

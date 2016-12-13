@@ -31,6 +31,7 @@
 .icon-download:before{content:'\004f';}
 .icon-arrow:before{content:'\0050';}
 .icon-save:before{content:'\0051';}
+.icon-exclamatory-circle:before{content:'\0052';}
 
 .icon-burger {
   position: relative;
@@ -233,13 +234,17 @@
   border: 2px solid #0053a0;
   border-radius: 50%;
   text-align: center;
-  font: 8px/19px $lucida-sans-bold;
+  font: 8px/14px $lucida-sans-bold;
   margin-bottom: 10px;
   background: $white;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px 0 0 0;
+  padding: 1px 0 0 0;
+
+  @include breakpoint('tablet') {
+    padding: 2px 0 0 0;
+  }
 
   &:before {
     content: '';

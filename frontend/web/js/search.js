@@ -10,10 +10,10 @@
     
     function addDropDown(data) {
         
-        var html = '<ul>';
+        var html = '<ul class="auto-search-list">';
         
         for (el in data) {
-            html += '<li>'+data[el]+'</li>';
+            html += '<li><span class="item">'+data[el]+'</span></li>';
         }
         
         html += '</ul>';

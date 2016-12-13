@@ -10,69 +10,6 @@
   }
 }
 
-.evidence-map-text-mobile {
-  position: relative;
-  max-height: 34px;
-  overflow: hidden;
-  margin: 0 0 16px;
-  transition: all 0.3s ease;
-  display: block;
-
-  @include breakpoint('tablet') {
-    display: none;
-  }
-
-  .less {
-    display: none;
-  }
-
-  &.open-text-map {
-    max-height: 1000px;
-
-    &:after {
-      display: none;
-    }
-
-    .more-evidence-map-text-mobile {
-      left: 0;
-
-      .more {
-        display: none;
-      }
-
-      .less {
-        display: block;
-      }
-    }
-  }
-
-  .more-evidence-map-text-mobile {
-    position: absolute;
-    bottom: 2px;
-    left: 150px;
-    z-index: 2;
-    line-height: 1;
-    height: 12px;
-  }
-
-  &:after {
-    position: absolute;
-    bottom: 01px;
-    height: 14px;
-    content: '';
-    background: #fff;
-    left: 147px;
-    right: 0;
-    z-index: 1;
-  }
-
-  p {
-    &:last-child {
-      margin: 0;
-    }
-  }
-}
-
 .article-map {
   h1 {
     margin: 0 0 7px;
@@ -101,10 +38,78 @@
     }
   }
 
+  .more-evidence-map-text-mobile {
+    display: none;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .evidence-map-text {
+      position: relative;
+      max-height: 34px;
+      overflow: hidden;
+      margin: 0 0 16px;
+      transition: all 0.3s ease;
+      display: block;
+
+      .more-evidence-map-text-mobile {
+        display: block;
+      }
+
+      .less {
+        display: none;
+      }
+
+      &.open-text-map {
+        max-height: 1000px;
+
+        &:after {
+          display: none;
+        }
+
+        .more-evidence-map-text-mobile {
+          left: 0;
+
+          .more {
+            display: none;
+          }
+
+          .less {
+            display: block;
+          }
+        }
+      }
+
+      .more-evidence-map-text-mobile {
+        position: absolute;
+        bottom: 1px;
+        left: 150px;
+        z-index: 2;
+        line-height: 13px;
+        height: 12px;
+      }
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        height: 14px;
+        content: '';
+        background: #fff;
+        left: 147px;
+        right: 0;
+        z-index: 1;
+      }
+
+      p {
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
   .content-inner-text {
 
-    .evidence-map-list,
-    .evidence-map-text {
+    .evidence-map-list {
       display: none;
 
       @include breakpoint('tablet') {
@@ -276,6 +281,40 @@
   }
 }
 
+.map-info {
+  position: absolute;
+  width: 100%;
+  z-index: 2000;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  opacity: 0;
+  top: -99999px;
+  overflow: hidden;
+
+  @include breakpoint('tablet') {
+    width: 355px;
+    top: 4px;
+    //bottom: 4px;
+    right: -400px;
+    min-height: 1px !important;
+    transition: all 0.3s ease;
+    max-height: 534px;
+  }
+
+  &.map-info-open {
+    right: 0;
+    opacity: 1;
+
+    @include breakpoint('tablet') {
+      right: 4px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      top: 0;
+    }
+  }
+}
+
 .map-info-inner {
   background: #fff;
   padding: 40px 19px 13px 19px;
@@ -298,35 +337,54 @@
   }
 }
 
-.map-info {
-  position: absolute;
-  width: 100%;
-  z-index: 2000;
-  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
-  opacity: 0;
-  top: -99999px;
+.map-info-content {
   overflow: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+  line-height: 1.1em;
 
   @include breakpoint('tablet') {
-    width: 355px;
-    top: 4px;
-    bottom: 4px;
-    right: -400px;
-    min-height: 1px !important;
-    transition: all 0.3s ease;
+    padding: 0 10px 0 0;
+    max-height: 508px;
   }
 
-  &.map-info-open {
-    right: 0;
-    opacity: 1;
+  h3 {
+    font-size: 14px;
+    line-height: 1.4em;
+    margin: 0 0 10px;
+  }
 
-    @include breakpoint('tablet') {
-      right: 4px;
+  .ref-item {
+    margin: 0 0 18px;
+    font-size: 9px;
+
+    .authors {
+      margin: 0 0 4px;
     }
 
-    @include breakpoint_custom($breakpoint-tablet) {
-      top: 0;
+    .link {
+      font-size: 10px;
+      margin: 0px 0 3px;
+
+      @include breakpoint('tablet') {
+        font-style: italic;
+      }
+    }
+
+    .text {
+      margin: 0 0 2px;
+    }
+
+    .dates {
+      margin: 0 0 6px;
+    }
+
+    .types {
+      margin: 0 0 3px;
+    }
+
+    .method {
+      margin: 0 0 10px;
     }
   }
 }
@@ -423,57 +481,6 @@
       left: 0;
       transform: translateY(-50%);
       margin: -2px 0 0 0;
-    }
-  }
-}
-
-.map-info-content {
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 100%;
-  line-height: 1.1em;
-
-  @include breakpoint('tablet') {
-    padding: 0 10px 0 0;
-  }
-
-  h3 {
-    font-size: 14px;
-    line-height: 1.4em;
-    margin: 0 0 10px;
-  }
-
-  .ref-item {
-    margin: 0 0 18px;
-    font-size: 9px;
-
-    .authors {
-      margin: 0 0 4px;
-    }
-
-    .link {
-      font-size: 10px;
-      margin: 0px 0 3px;
-
-      @include breakpoint('tablet') {
-        font-style: italic;
-      }
-    }
-
-    .text {
-      margin: 0 0 2px;
-    }
-
-    .dates {
-      margin: 0 0 6px;
-    }
-
-    .types {
-      margin: 0 0 3px;
-    }
-
-    .method {
-      margin: 0 0 10px;
     }
   }
 }
