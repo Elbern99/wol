@@ -17,7 +17,7 @@ use yii\helpers\Url;
             </div>
     </div>
     <div class="search-bottom">
-        <a href="<?= Url::to('/search') ?>">advanced search</a>
+        <a href="<?= Url::to('/search/advanced') ?>">advanced search</a>
     </div>
 </div>
 <?php $this->registerJsFile('/js/search.js', ['depends' => ['yii\web\YiiAsset']]); ?>
