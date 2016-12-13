@@ -51,14 +51,14 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
             </div>
             <div class="grid checkboxes">
                 <div class="grid-line three">
-                    <?= Html::activeCheckboxList($search, 'types', $search->getHeadingFilter(),[
+                    <?= $form->field($search, 'types')->checkboxList($search->getHeadingFilter(),[
                             'item'=> function($index, $label, $name, $checked, $value) { 
                                 return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
                                 Html::checkbox($name, $checked, [
                                     'value' => $value,
                                 ]).'<span class="label-text">'.$label.'</span></label></div></div>'; 
                             } 
-                        ]);
+                        ])->label('');
                     ?>
                 </div>
             </div>
