@@ -119,6 +119,10 @@
                 // }
 
                 article.changeContentPupop(cur);
+
+                if(_window_width < _tablet){
+                    article.detectCoordinate(cur,parent);
+                }
             });
         },
         openReference: function(btn,parent) {
@@ -227,13 +231,20 @@
                 var CurCord = cur.offset().top;
 
                 if(_window_width > _mobile){
-                   $('html, body').animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+
+
+                    if($('.text-reference-opened').length) {
+                        $('html, body').animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+                    }
                 } else {
 
-                    $('html, body').animate({ scrollTop: CurCord - _window_height+20 }, article.delay+200);
+                    if($('.text-reference-opened').length) {
+                        $('html, body').animate({ scrollTop: CurCord - _window_height+20 }, article.delay+200);
+                    }
 
-                    $(parent).find('.reference-popup-inner').css('top',  CurCord - _window_height+20);
-                    $('html, body').css('overflow', 'hidden');
+                    setTimeout(function(){
+                        $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
+                    }, article.delay+402);
                 }
             }
         },

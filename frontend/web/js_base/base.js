@@ -226,9 +226,9 @@
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
 
-            elements.css('height', '100%');
+            elements.css('height', '1px');
             elements.css('height', $(document).height());
-            elements.css('max-height',$(document).height());
+            elements.css('max-height', $(document).height());
 
 
             $(window).on("orientationchange",function(){
@@ -241,7 +241,7 @@
                         'height': $(document).height(),
                         'max-height': $(document).height(),
                     });
-                }, 0);
+                }, 100);
             });
         }
     };

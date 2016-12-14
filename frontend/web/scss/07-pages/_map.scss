@@ -322,7 +322,6 @@
 
   @include breakpoint('tablet') {
     padding: 13px 43px 13px 19px;
-    height: 100%;
   }
 
   &:after {
@@ -330,6 +329,8 @@
     background: rgba(0,0,0,0.7);
     top: 100%;
     bottom: -9999px;
+    pointer-events: none;
+    touch-action: none;
 
     @include breakpoint('tablet') {
       display: none;
@@ -338,10 +339,9 @@
 }
 
 .map-info-content {
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 100%;
+  @extend .scroll-vertical;
   line-height: 1.1em;
+  max-height: 70vh;
 
   @include breakpoint('tablet') {
     padding: 0 10px 0 0;

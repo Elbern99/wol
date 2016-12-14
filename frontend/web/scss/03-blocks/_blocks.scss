@@ -729,7 +729,7 @@
   }
 
   @include breakpoint('tablet') {
-    min-height: 1px !important;
+    height: auto !important;
     bottom: 0;
     top: auto;
     position: fixed;
@@ -741,15 +741,25 @@
     position: relative;
     min-height: 202px;
 
+    &:before,
     &:after {
-      background: rgba(0,0,0,0.5);
       @extend .pinout;
-      top: 100%;
-      bottom: -99999999px;
+      background: rgba(0,0,0,0.5);
 
       @include breakpoint('tablet') {
         display: none;
       }
+    }
+
+
+    &:before {
+      bottom: 100%;
+      top: -99999999px;
+    }
+
+    &:after {
+      top: 100%;
+      bottom: -99999999px;
     }
   }
 
@@ -758,7 +768,7 @@
 
     .reference-popup-inner {
       position: absolute;
-      max-height: 100vh;
+      //max-height: 100vh;
       left: 0;
       right: 0;
     }
@@ -779,10 +789,6 @@
 
   .arrows {
     text-align: center;
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      display: block !important;
-    }
 
     @include breakpoint_custom($breakpoint-desktop-large) {
       padding: 27px 0 5px;
@@ -1083,14 +1089,20 @@
     flex-flow: row wrap;
     margin: 0 0 20px;
 
-    #searchform-types {
+    .help-block {
+      padding: 0 4px;
+      color: red;
+    }
+
+    #searchform-types,
+    .form-group {
       width: 100%;
       display: flex;
       flex-flow: row wrap;
     }
 
     .grid-item {
-      padding: 0 4px 8px;
+      padding: 0 4px 8px ;
     }
 
     &.one {

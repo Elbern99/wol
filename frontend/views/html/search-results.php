@@ -54,11 +54,13 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 <a href="" class="refine-mobile-link">Refine</a>
             </div>
             <div class="mobile-filter">
-                <div class="mobile-filter-container"></div>
-                <div class="mobile-filter-bottom">
-                    <button type="submit" class="btn-blue-large">update</button>
-                    <a href="" class="btn-no-style">Cancel</a>
-                </div>
+                <form action="">
+                    <div class="mobile-filter-container"></div>
+                    <div class="mobile-filter-bottom">
+                        <button type="submit" class="btn-blue-large">update</button>
+                        <a href="" class="btn-no-style">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
