@@ -118,8 +118,12 @@ class SearchForm extends Model
                             ->asArray()
                             ->all();
 
-
-            $result[$modelType] = ArrayHelper::getColumn($data, 'id');
+            foreach ($data as $d) {
+                $result[] = [
+                    'type' => $modelType,
+                    'id' => $d['id']
+                ];
+            }
 
         }
         

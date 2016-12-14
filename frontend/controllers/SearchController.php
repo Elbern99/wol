@@ -10,6 +10,9 @@ use common\models\ArticleSearch;
 use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
 use frontend\models\SearchForm;
+use yii\data\Pagination;
+use frontend\models\Result;
+
 /**
  * Search controller
  */
@@ -47,7 +50,25 @@ class SearchController extends Controller
      */
     public function actionIndex() {
         
-        var_dump(Yii::$app->getSession()->getFlash('search'));exit;
+        $searchResult = Yii::$app->getSession()->get('search');
+        $results = $searchResult ? unserialize($searchResult) : [];
+        $resultData = [];
+        $resultCount = count($results);
+        unset($searchResult);
+
+        $paginate = new Pagination(['totalCount' => $resultCount]);
+        
+        if (true) {
+            $paginate->defaultPageSize = 2;
+        }
+        
+        if ($resultCount) {
+            $resultData = array_slice($results, $paginate->offset, $paginate->limit);
+            Result::initData($resultData);
+        }
+        
+        return $this->render('result', ['paginate' => $paginate, 'resultData' => $resultData, 'resultCount'=>$resultCount]);
+        die;
     }
     
     public function actionAjax()
@@ -83,7 +104,7 @@ class SearchController extends Controller
                 
                 $result = $model->search();
 
-                Yii::$app->getSession()->setFlash('search', serialize($result));
+                Yii::$app->getSession()->set('search', serialize($result));
                 return $this->redirect('/search');
             
             } catch (\Exception $e) { 
