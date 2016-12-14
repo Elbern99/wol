@@ -25,12 +25,14 @@ $this->registerMetaTag([
 ?>
 
 <div class="container">
-    <div class="breadcrumbs">
-        <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
-    </div>
 
-    <h1><?= $category->meta_title ?></h1>
-    <p><?= $category->description ?></p>
+    <div class="articles-head">
+        <div class="breadcrumbs">
+            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+        </div>
+        <h1><?= $category->meta_title ?></h1>
+        <p><?= $category->description ?></p>
+    </div>
     
     <div class="content-inner">
         <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>

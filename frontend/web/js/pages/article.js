@@ -20,11 +20,13 @@
         delay: 0,
         closeReference: function(btn,parent) {
             $(btn).click(function(e) {
-                $('a').removeClass('opened-reflink');
+                $('a,li').removeClass('opened-reflink');
+                $('a').removeClass('text-reference-opened');
                 $(this).parents(parent).fadeOut(article.delay);
                 $('.icon-circle-arrow').removeClass('disabled');
                 $(parent).find('.arrows').fadeOut(0);
                 e.preventDefault();
+                $('body').unbind('touchmove');
             });
         },
         changeContentPupop: function(cur){
@@ -109,19 +111,16 @@
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
                 var cur = $(this);
-                $(parent).fadeIn(article.delay);
+
                 $('li').removeClass('opened-reflink');
                 cur.parent('li').addClass('opened-reflink');
                 $(parent).find('.arrows').fadeOut(0);
 
-                // if(_window_width < _mobile){
-                //     $("html, body").animate({ scrollTop: 0 }, 0);
-                // }
-
                 article.changeContentPupop(cur);
+                $(parent).fadeIn(article.delay);
 
                 if(_window_width < _tablet){
-                    article.detectCoordinate(cur,parent);
+                    article.showPopupMobile(parent);
                 }
             });
         },
@@ -135,11 +134,11 @@
                 $('li').removeClass('opened-reflink');
                 cur.parent().addClass('opened-reflink');
                 $(parent).fadeOut(article.delay);
-                $(parent).fadeIn(article.delay);
 
-                // if(_window_width < _mobile){
-                //     $("html, body").animate({ scrollTop: 0 }, "slow");
-                // }
+
+                if(_window_width > _mobile){
+                    $(parent).fadeIn(article.delay);
+                }
 
                 if(keyLink.length>0){
                     keyLink.trigger('click');
@@ -162,41 +161,18 @@
                 $('li').removeClass('opened-reflink');
                 article.changeContentPupop(keyLink);
                 article.detectCoordinate(cur,parent);
+                article.showPopupMobile(parent);
                 keyLink.parent().addClass('opened-reflink');
                 var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
                 $(parent).fadeOut(article.delay);
-                $(parent).fadeIn(article.delay);
+
                 $(allLinks).each(function( index ) {
                     $(this).attr('data-index', index+1);
                 });
 
-                // if(_window_width < _mobile){
-                //     $("html, body").animate({ scrollTop: 0 }, 0);
-                // }
-
-                // if(_window_width > _mobile){
-                //     var
-                //         curAttrIndex = cur.data('index'),
-                //         nextAttrIndex = curAttrIndex+1,
-                //         nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
-                //
-                //     var
-                //         prevAttrIndex = curAttrIndex-1,
-                //         prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']');
-                //
-                //     $(btnPrev).css('opacity','1');
-                //     $(btnNext).css('opacity','1');
-                //
-                //     if(prevCur.length == 0) {
-                //         $(btnPrev).css('opacity','0.5');
-                //     }
-                //
-                //     if(nextCur.length == 0) {
-                //         $(btnNext).css('opacity','0.5');
-                //     }
-                //
-                //     $(parent).find('.arrows').fadeIn(0);
-                // }
+                if(_window_width > _mobile) {
+                    $(parent).fadeIn(article.delay);
+                }
 
                 var
                     curAttrIndex = cur.data('index'),
@@ -220,9 +196,25 @@
 
                 $(parent).find('.arrows').fadeIn(0);
 
-
                 e.preventDefault();
             });
+        },
+        showPopupMobile: function(parent) {
+            if(_window_width < _tablet){
+                setTimeout(function(){
+                    $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
+                }, article.delay+402);
+
+                $(window).bind('scrollstop', function(e){
+                    if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
+                        $(parent).fadeIn(article.delay+200);
+                        $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
+                        $(parent).css('height', $(document).height());
+                        $(parent).css('max-height', $(document).height());
+                    }
+                });
+
+            }
         },
         detectCoordinate: function(cur,parent) {
             if($('.text-reference').length) {
@@ -230,20 +222,9 @@
                 var CurCord = cur.offset().top;
 
                 if(_window_width > _mobile){
-
-
-                    if($('.text-reference-opened').length) {
-                        $('html, body').animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
-                    }
+                    $('html, body').animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
                 } else {
-
-                    if($('.text-reference-opened').length) {
-                        $('html, body').animate({ scrollTop: CurCord - _window_height+20 }, article.delay+200);
-                    }
-
-                    setTimeout(function(){
-                        $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
-                    }, article.delay+402);
+                    $('html, body').animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
                 }
             }
         },

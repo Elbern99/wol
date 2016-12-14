@@ -509,7 +509,7 @@
 
           &:after {
             @extend .icon-styles;
-            content: '\0050';
+            content: '\e906';
             display: none;
             @extend .icon-to-center;
           }
@@ -521,7 +521,7 @@
 
         &:after {
           @extend .icon-styles;
-          content: '\0050';
+          content: '\e906';
           display: none;
           @extend .icon-to-center;
         }

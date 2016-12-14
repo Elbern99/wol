@@ -54,13 +54,24 @@
   font-style: normal;
 }
 
+//@font-face {
+//  font-family: 'Glyphter';
+//  src: url('../fonts/glyphter/Glyphter.eot');
+//  src: url('../fonts/glyphter/Glyphter.eot?#iefix') format('embedded-opentype'),
+//  url('../fonts/glyphter/Glyphter.woff') format('woff'),
+//  url('../fonts/glyphter/Glyphter.ttf') format('truetype'),
+//  url('../fonts/glyphter/Glyphter.svg#Glyphter') format('svg');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
 @font-face {
-  font-family: 'Glyphter';
-  src: url('../fonts/glyphter/Glyphter.eot');
-  src: url('../fonts/glyphter/Glyphter.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/glyphter/Glyphter.woff') format('woff'),
-  url('../fonts/glyphter/Glyphter.ttf') format('truetype'),
-  url('../fonts/glyphter/Glyphter.svg#Glyphter') format('svg');
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon/icomoon.eot?n7yh2g');
+  src:  url('../fonts/icomoon/icomoon.eot?n7yh2g#iefix') format('embedded-opentype'),
+  url('../fonts/icomoon/icomoon.ttf?n7yh2g') format('truetype'),
+  url('../fonts/icomoon/icomoon.woff?n7yh2g') format('woff'),
+  url('../fonts/icomoon/icomoon.svg?n7yh2g#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

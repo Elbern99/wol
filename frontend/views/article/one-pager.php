@@ -33,6 +33,7 @@ $this->registerMetaTag([
 $authorLink = [];
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);

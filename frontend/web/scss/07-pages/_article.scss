@@ -1,3 +1,11 @@
+.article-head,
+.articles-head{
+
+  @include breakpoint('tablet') {
+    padding-right: 308px;
+  }
+}
+
 //ARTICLE FULL
 .article-full {
 
@@ -5,16 +13,13 @@
     margin-bottom: 26px;
   }
 
-  .article-head {
-
-    @include breakpoint('tablet') {
-      padding-right: 308px;
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-widget-share-buttons {
+      display: none;
     }
-  }
 
-  article {
-    @include breakpoint_custom($breakpoint-tablet) {
-      margin-bottom: 30px ;
+    article {
+      margin-bottom: 30px;
     }
   }
 
@@ -324,7 +329,7 @@
 //article-buttons
 .article-buttons {
   border-top: 1px solid #b0b0b0;
-  padding: 37px 0 0;
+  padding: 30px 0 0;
   position: relative;
 
   @include breakpoint('tablet') {
@@ -394,6 +399,7 @@
 
   &.article-buttons-sidebar {
     display: none;
+    padding: 0;
 
     @include breakpoint('tablet') {
       border: 0;
@@ -410,7 +416,7 @@
     margin: 0;
     border: 0;
     padding: 10px 0 20px;
-    overflow: hidden;
+    @extend .clearfix;
 
     [class^="btn-"],
     [class*=" btn-"] {

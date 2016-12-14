@@ -28,12 +28,17 @@ $roleLabel = new Roles();
 ?>
 
 <div class="container">
-    <div class="breadcrumbs">
-        <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+
+    <div class="articles-head">
+        <div class="breadcrumbs">
+            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+        </div>
+        <h1><?= $category->meta_title ?></h1>
+        <div class="desc-category">
+            <p><?= $category->description ?></p>
+        </div>
     </div>
 
-    <h1><?= $category->meta_title ?></h1>
-    
     <div class="content-inner">
         
         <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
@@ -41,9 +46,6 @@ $roleLabel = new Roles();
         <div class="content-inner-text">
             <div class="articles">
                 <div class="article-user-list-holder">
-                    <div class="desc-category">
-                        <p><?= $category->description ?></p>
-                    </div>
                     
                     <div class="mobile-accordion-item dropdown">
                         <div class="title mobile-accordion-link">

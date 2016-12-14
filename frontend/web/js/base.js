@@ -230,7 +230,6 @@
             elements.css('height', $(document).height());
             elements.css('max-height', $(document).height());
 
-
             $(window).on("orientationchange",function(){
                 elements.css({
                     'height': '1px',

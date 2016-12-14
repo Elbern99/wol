@@ -439,7 +439,7 @@
       position: absolute;
       left: 0px;
       top: 1px;
-      content: '\0050';
+      content: '\e906';
       font-size: 6px;
       @extend .icon-styles;
       color: #1d1d1b;
@@ -646,8 +646,16 @@
 .sidebar-news-list,
 .further-reading-list {
 
+  + .more-link {
+    margin-top: 20px;
+  }
+
   li {
     display: none;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &:nth-child(-n+10) {
       display: block !important;

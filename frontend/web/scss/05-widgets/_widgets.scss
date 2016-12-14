@@ -134,7 +134,7 @@
     }
 
     &:before {
-      content: '\0050';
+      content: '\e906';
       @extend .icon-styles;
       position: absolute;
       top: 15px;
@@ -469,26 +469,44 @@
   }
 }
 
+.share-selected-text-btn {
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+
+  &.share-selected-text-btn-tumblr {
+    border: 1px solid $blue;
+
+    &:hover {
+      border-color: $light-blue;
+    }
+  }
+}
+
 .icon-sst-twitter {
   &:before {
-    content: '\0042';
+    content: '\e900';
   }
 }
 
 .icon-sst-linkedin {
   &:before {
-    content: '\0049';
+    content: '\e908';
   }
 }
 
 .icon-sst-tumblr {
+  font-size: 15px;
+
   &:before {
-    content: '\004d';
+    content: '\e903';
+    @extend .icon-to-center;
   }
 }
 
 .fa-facebook {
+
   &:before {
-    content: '\004e';
+    content: '\e901';
   }
 }

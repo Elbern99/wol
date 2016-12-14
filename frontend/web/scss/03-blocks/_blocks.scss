@@ -496,7 +496,7 @@
     }
 
     &:before {
-      content: '\0050';
+      content: '\e906';
       @extend .icon-styles;
       position: absolute;
       color: #1d1d1b;
@@ -654,7 +654,7 @@
     background: #f5f5f5;
     width: 208px;
     padding: 15px 10px 13px;
-    margin: 0 0 16px 0;
+    margin: 0 0 16px 0 !important;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
     color: #262626 !important;
     font-size: 11px;
@@ -706,7 +706,7 @@
       color: $white;
 
       &:before {
-        content:'\004b';
+        content:'\e90b';
       }
     }
   }
@@ -741,6 +741,20 @@
     position: relative;
     min-height: 202px;
 
+    @include breakpoint('tablet') {
+      top: 0 !important;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+
+      .container {
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
+      }
+    }
+
     &:before,
     &:after {
       @extend .pinout;
@@ -753,12 +767,12 @@
 
 
     &:before {
-      bottom: 100%;
+      bottom: 98%;
       top: -99999999px;
     }
 
     &:after {
-      top: 100%;
+      top: 98%;
       bottom: -99999999px;
     }
   }
@@ -771,6 +785,41 @@
       //max-height: 100vh;
       left: 0;
       right: 0;
+      //transition: top 0.1s ease;
+
+      .container {
+        /* iphone6plus */
+        @media only screen
+        and (min-device-width : 414px)
+        and (max-device-width : 736px)
+        and (orientation : landscape)
+        and (-webkit-min-device-pixel-ratio : 3)  {
+          max-height: 44vh;
+        }
+
+        /* iphone6 */
+        @media only screen
+        and (min-device-width : 375px) // or 213.4375em or 3in or 9cm
+        and (max-device-width : 667px) // or 41.6875em
+        and (width : 667px) // or 41.6875em
+        and (height : 375px) // or 23.4375em
+        and (orientation : landscape)
+        and (color : 8)
+        and (device-aspect-ratio : 375/667)
+        and (aspect-ratio : 667/375)
+        and (device-pixel-ratio : 2)
+        and (-webkit-min-device-pixel-ratio : 2) {
+          max-height: 44vh;
+        }
+
+        @media only screen
+        and (min-device-width : 320px)
+        and (max-device-width : 568px)
+        and (orientation : landscape) {
+          max-height: 44vh;
+        }
+
+      }
     }
   }
 
@@ -868,9 +917,10 @@
     width: 28px;
     height: 28px;
     margin: 0 8px;
+    transition: all 0.3s ease;
 
     .icon-arrow {
-      height: 12px;
+      height: 8px;
     }
 
     &.disabled {
@@ -915,10 +965,6 @@
 
       .icon-arrow {
         height: 10px;
-
-        @include breakpoint_custom($breakpoint-desktop-large) {
-          margin-top: -1px;
-        }
 
         &:before {
           transform: rotate(180deg);

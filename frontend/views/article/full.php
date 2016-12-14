@@ -31,6 +31,7 @@ $this->registerMetaTag([
 ]);
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
@@ -338,7 +339,10 @@ $config = [
                                             <li>
                                                 <a href="#<?=$key?>"><?= $value->title ?></a>
                                                 <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                                <div class="bg-info"><?= $value->text ?></div>
+                                                <div class="bg-info">
+                                                    <h3><?= $value->title ?></h3>
+                                                    <?= $value->text ?>
+                                                </div>
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
