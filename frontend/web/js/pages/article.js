@@ -198,7 +198,6 @@
                 //     $(parent).find('.arrows').fadeIn(0);
                 // }
 
-
                 var
                     curAttrIndex = cur.data('index'),
                     nextAttrIndex = curAttrIndex+1,
