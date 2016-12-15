@@ -35,10 +35,10 @@ class LinkPager extends Base {
         for ($i = $beginPage; $i <= $endPage; ++$i) {
             $buttons[] = $this->renderPageButton($i + 1, $i, null, false, $i == $currentPage);
         }
-        
+
         // last page
         $lastPageLabel = $this->lastPageLabel === true ? $pageCount : $this->lastPageLabel;
-        if ($lastPageLabel !== false) {
+        if ($lastPageLabel !== false && ($this->pagination->totalCount > $this->maxButtonCount)) {
             $buttons[] = $this->renderPageButton(' ... '.$lastPageLabel, $pageCount - 1, $this->lastPageCssClass, $currentPage >= $pageCount - 1, false);
         }
 
