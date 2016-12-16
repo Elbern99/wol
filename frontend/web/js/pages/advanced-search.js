@@ -28,22 +28,26 @@
             }
         },
         searchHightLight: function(input,body){
+
             var mark = function() {
                 var keyword = $(input).val();
                 $(body).unmark().mark(keyword);
             };
 
             if($(body).length) {
+                mark();
                 $(input).on("input", mark);
             }
         },
         cloneEl: function(el,elToMobile,elToDesktop) {
             function appendElements(el,elToMobile,elToDesktop) {
                 if($(elToMobile).length) {
-                    var elHtml = $(el).html();
+                    var elHtml = $(el);
 
                     if (_window_width < _mobile) {
                         $(elToMobile).append(elHtml);
+                    } else {
+                        $(elToDesktop).append(elHtml);
                     }
                 }
             }
@@ -96,7 +100,7 @@
             $(el).on('click', function(e) {
                 $(el).removeClass('focus');
                 $(this).addClass('focus');
-            })
+            });
 
             $(document).mouseup(function (e) {
                 var container = $(el);

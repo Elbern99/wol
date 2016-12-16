@@ -261,7 +261,7 @@
   }
 
   .search-holder {
-
+    width: 100%;
   }
 
   .btn-border-blue,
@@ -598,6 +598,8 @@
   position: absolute;
   top: 100%;
   left: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .auto-search-list {
@@ -606,7 +608,9 @@
   padding: 5px;
 
   li {
-    margin: 0 0 5px;
+    margin: 5px 5px 5px;
+    line-height: 13px;
+    font-size: 12px;
   }
 
   span {

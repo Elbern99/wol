@@ -103,7 +103,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                     <div class="search-results-table-body">
                         <?php foreach ($resultData as $result): ?>
 
-                            <?php 
+                            <?php
                                 switch ($result['type']) {
                                     case 'article':
                                         if(isset(Result::$value[$result['type']][$result['id']])) {
@@ -112,7 +112,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                     break;
                                 }
                             ?>
-                        
+
                         <?php endforeach; ?>
                     </div>
                 </div>

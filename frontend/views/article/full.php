@@ -58,11 +58,11 @@ $config = [
                     &body=<?= urlencode('Title:') ?>
                     <?= urlencode($attributes['title']->getData('title')) ?>
                     <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                     <?= urlencode('Elevator pitch:') ?>
                     <?= urlencode($attributes['abstract']->getData('abstract')) ?>
                     <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                     <?= urlencode('Copyright © IZA') ?>
                     <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
             <span class="icon-message"></span>
@@ -211,11 +211,11 @@ $config = [
                                 &body=<?= urlencode('Title:') ?>
                                 <?= urlencode($attributes['title']->getData('title')) ?>
                                 <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                                <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                                 <?= urlencode('Elevator pitch:') ?>
                                 <?= urlencode($attributes['abstract']->getData('abstract')) ?>
                                 <?= urlencode('View the article') ?>
-                                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                                <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                                 <?= urlencode('Copyright © IZA') ?>
                                 <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
                                 <span class="icon-message"></span>
@@ -248,11 +248,11 @@ $config = [
                     &body=<?= urlencode('Title:') ?>
                     <?= urlencode($attributes['title']->getData('title')) ?>
                     <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                     <?= urlencode('Elevator pitch:') ?>
                     <?= urlencode($attributes['abstract']->getData('abstract')) ?>
                     <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                     <?= urlencode('Copyright © IZA') ?>
                     <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
                     <span class="icon-message"></span>

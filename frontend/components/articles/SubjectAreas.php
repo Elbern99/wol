@@ -20,7 +20,7 @@ class SubjectAreas extends Widget
 
         if (is_array($this->category) && count($this->category)) {
             
-            $nodeDepth = $currDepth = $counter = 1;
+            $nodeDepth = $currDepth = $counter = 0;
             $content .= Html::beginTag('ul', ['class' => 'articles-filter-list']);
 
             foreach ($this->category as $node) {

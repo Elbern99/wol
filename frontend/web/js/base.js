@@ -1,5 +1,10 @@
 (function($) {
 
+// ELEMENTS
+var elements = {
+
+}
+
 //GLOBAL VARIABLE ---------
 
     var _window_height = $(window).height(),
@@ -14,10 +19,6 @@
         _window_width = $(window).width();
         _doc_height = $(document).height();
     });
-// ELEMENTS
-    var elements = {
-
-    }
 
 // 1. HEADER ---------
 
@@ -109,6 +110,19 @@
     };
 
     // 1.2 HEADER SEARCH
+
+    var search = {
+        autoSelect: function(btn,parent) {
+            $(parent).on('click', btn, function(e) {
+                var cur = $(this),
+                    curText = cur.text();
+                cur.parents(parent).find(':text').val(curText);
+
+                console.log(1);
+                e.preventDefault();
+            });
+        }
+    };
 
     /* dropDown */
     function dropDown(btn, dropWidget) {
@@ -433,6 +447,7 @@
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.checkboxes');
         forms.selectAll('.clear-all', '.select-all', '.checkboxes');
+        search.autoSelect('.auto-search-list span','.search');
     });
 
 })(jQuery);

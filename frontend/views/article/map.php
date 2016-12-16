@@ -186,7 +186,7 @@ $this->registerCssFile('/css/leaflet.css');
                     &body=<?= urlencode('Title:') ?>
                     <?= urlencode($attributes['title']->getData('title')) ?>
                     <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                     <?= urlencode('Copyright © IZA') ?>
                     <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
