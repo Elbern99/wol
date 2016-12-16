@@ -28,12 +28,10 @@
             }
         },
         searchHightLight: function(input,body){
-
             var mark = function() {
                 var keyword = $(input).val();
                 $(body).unmark().mark(keyword);
             };
-
             if($(body).length) {
                 mark();
                 $(input).on("input", mark);
