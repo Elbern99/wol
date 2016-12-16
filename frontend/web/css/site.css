@@ -3467,7 +3467,7 @@ label {
 .content {
   -ms-flex: 1 0 auto;
       flex: 1 0 auto;
-  overflow: hidden;
+  overflow-y: hidden;
   padding-bottom: 20px; }
   @media only screen and (min-width: 769px) {
     .content {
@@ -3628,6 +3628,9 @@ iframe[name = advpp_manager] {
 .header-bottom {
   border-bottom: 1px solid #bcbcbc;
   position: relative; }
+  @media only screen and (max-width: 1024px) {
+    .header-bottom {
+      overflow: hidden; } }
   @media only screen and (min-width: 769px) {
     .header-bottom {
       padding: 23px 0 18px; }

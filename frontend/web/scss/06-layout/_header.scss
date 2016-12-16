@@ -71,6 +71,10 @@
   border-bottom: 1px solid #bcbcbc;
   position: relative;
 
+  @include breakpoint_custom($breakpoint-desktop) {
+    overflow: hidden;
+  }
+
   @include breakpoint('tablet') {
     padding: 23px 0 18px;
 
