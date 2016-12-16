@@ -75,7 +75,7 @@ class SubjectAreasWidget extends Widget
                 ++$counter;
             }
 
-            $content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
+            //$content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
             $content .= "</ul>";
         }
 
