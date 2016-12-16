@@ -1753,6 +1753,7 @@ img {
         left: 0;
         right: 0; }
         .reference-popup .reference-popup-inner .container {
+          max-height: 58vh;
           /* iphone6plus */
           /* iphone6 */ } }
       @media only screen and (max-width: 769px) and (min-device-width: 414px) and (max-device-width: 736px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
@@ -5008,6 +5009,9 @@ iframe[name = advpp_manager] {
   display: none; }
   .mobile-filter .mobile-filter-bottom {
     margin: -6px 0 0 0; }
+    @media only screen and (min-width: 769px) {
+      .mobile-filter .mobile-filter-bottom {
+        display: none; } }
   .mobile-filter [class^="btn-"],
   .mobile-filter [class*=" btn-"] {
     height: 42px;

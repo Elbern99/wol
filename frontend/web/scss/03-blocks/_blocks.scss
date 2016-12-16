@@ -751,6 +751,8 @@
       //transition: top 0.1s ease;
 
       .container {
+        max-height: 58vh;
+        
         /* iphone6plus */
         @media only screen
         and (min-device-width : 414px)
