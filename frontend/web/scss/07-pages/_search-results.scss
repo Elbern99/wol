@@ -50,6 +50,14 @@
     max-width: 710px;
     margin: 0 auto 28px;
 
+    .search-holder {
+      display: flex;
+
+      .form-group {
+        width: 100%;
+      }
+    }
+
     @include breakpoint_custom($breakpoint-tablet) {
       position: relative;
       padding-right: 49px;
@@ -60,7 +68,7 @@
     }
 
     .btn-blue,
-    input[type="search"] {
+    input[type="text"] {
       height: 33px;
 
       @include breakpoint('tablet') {
@@ -78,7 +86,7 @@
       }
     }
 
-    input[type="search"] {
+    input[type="text"] {
       font-size: 17px;
       padding: 0 0 7px 21px;
 
@@ -95,14 +103,15 @@
     .icon-search {
       left: 1px;
       font-size: 11px;
-      margin: -3px 0 0;
+      margin: 0;
       height: 12px;
+      top: 8px;
 
       @include breakpoint('tablet') {
         font-size: 13px;
-        margin: -4px 0 0;
         height: 14px;
         color: #989898;
+        top: 10px;
       }
     }
 
@@ -555,8 +564,9 @@
   display: flex;
   align-items: center;
 
-  .custom-select-def {
+  .custom-select {
     width: 80px;
+    margin: 0;
   }
 
   .label-text {

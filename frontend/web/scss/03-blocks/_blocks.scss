@@ -1099,11 +1099,12 @@
     margin: 0 0 20px;
 
     .help-block {
-      padding: 0 4px;
+      margin: 0 4px;
       color: red;
     }
 
     #searchform-types,
+    #advancedsearchform-types,
     .form-group {
       width: 100%;
       display: flex;

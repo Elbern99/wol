@@ -77,7 +77,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
 
             <div class="form-line">
                 <div class="label-holder">
-                    <label for="searchform-exact_phrase">this exact phrase</label>
+                    <label for="advancedsearchform-exact_phrase">this exact phrase</label>
                 </div>
                 <div class="form-control-holder">
                     <?= Html::activeInput('text', $search, 'exact_phrase', ['class'=>"form-control", 'placeholder'=>"Enter phrase without quotes"]) ?>

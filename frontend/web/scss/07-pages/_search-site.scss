@@ -38,6 +38,11 @@
       font-size: 12px;
       margin: 0;
       height: 12px;
+      top: 13px;
+
+      @include breakpoint('tablet') {
+        top: 18px;
+      }
 
       @include breakpoint('tablet') {
         font-size: 13px;
@@ -45,7 +50,7 @@
       }
     }
 
-    input[type="search"] {
+    input[type="text"] {
       padding-left: 21px;
       font-size: 15px;
       border-bottom-width: 1px;

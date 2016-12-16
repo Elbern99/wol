@@ -341,11 +341,15 @@
             });
         },
         sort: function(btn,item) {
-            var selectItem = $('[data-select=selected]'),
-                selectText = selectItem.find('a').text();
-            if(selectText.length > 0) {
-                $(btn).text(selectText);
-            }
+            $(item).each(function( index ) {
+                var itemCur = $(this);
+
+                var selectItem = itemCur.find('[data-select=selected]'),
+                    selectText = selectItem.find('a').text();
+                if(selectText.length > 0) {
+                    itemCur.find(btn).text(selectText);
+                }
+            });
         },
         openItem: function(cur) {
             cur.parent().find('>ul').slideDown(headerMenu.delay);
@@ -381,7 +385,7 @@
         headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .header-menu-bottom-list'));
 
         dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
-        dropDown($('.sidebar-widget-sort-by .dropdown-link'), $('.drop-content'));
+        dropDown($('.custom-select .dropdown-link'), $('.drop-content'));
         dropDown($('.sidebar-widget-reference-popup .dropdown-link'), $('.drop-content'));
         dropDown($('.tooltip-dropdown .icon-question'), $('.drop-content'));
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
@@ -423,7 +427,7 @@
         articleList.pajax('#w0');
         articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
-        articlesFilter.sort('.custom-select-title');
+        articlesFilter.sort('.custom-select-title','.custom-select');
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));

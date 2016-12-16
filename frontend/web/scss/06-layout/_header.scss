@@ -191,6 +191,17 @@
   margin: 20px 0 -9px;
   position: relative;
 
+  form {
+    @include breakpoint('tablet') {
+      display: flex;
+
+      button {
+        order: 1;
+      }
+    }
+  }
+
+
   .search-top {
     @extend .clearfix;
     margin: 0 0 9px;
@@ -199,12 +210,12 @@
 
   .icon-search {
     position: absolute;
-    top: 50%;
+    top: 12px;
     left: 0;
-    transform: translateY(-50%);
     font-size: 10px;
     margin: 0;
     height: 10px;
+    z-index: 10;
 
     @include breakpoint_custom($breakpoint-tablet) {
       font-size: 11px;
@@ -226,7 +237,7 @@
     }
   }
 
-  input[type="search"],
+  input[type="text"],
   .btn-border-blue,
   .btn-blue {
     height: 31px;
@@ -234,7 +245,7 @@
     padding: 0 13px 0;
   }
 
-  input[type="search"] {
+  input[type="text"] {
     padding-left: 16px;
     padding-right: 0;
 
@@ -249,7 +260,9 @@
     }
   }
 
-  .search-holder { overflow: hidden; }
+  .search-holder {
+
+  }
 
   .btn-border-blue,
   .btn-blue {

@@ -98,16 +98,7 @@ $this->registerMetaTag([
                     </div>
                 </div>
             </div>
-            <div class="sidebar-widget sidebar-widget-articles-filter">
-                <ul class="sidebar-accrodion-list">
-                    <li class="sidebar-accrodion-item is-open">
-                        <a href="" class="title">subject areas</a>
-                        <div class="text is-open">
-                             <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+
             <div class="sidebar-widget">
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
