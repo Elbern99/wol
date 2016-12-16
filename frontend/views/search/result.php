@@ -24,7 +24,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
     </div>
     <h1>Search the site</h1>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => $fromUrl]); ?>
         <div class="search-results-top">
             <div class="search">
                 <a href="" class="btn-border-blue-large with-icon-r btn-save-search">
