@@ -12,7 +12,7 @@ use frontend\models\SearchForm;
             <span class="icon-search"></span>
              <?= Html::submitButton(Html::tag('span',Yii::t('app/form', 'search')), ['class' => 'btn-border-blue btn-center']) ?>
             <div class="search-holder">
-                <?= $form->field($model, 'search_phrase')->textInput(['class'=>"form-control-decor header-search-input", 'placeholder'=>"Keyword(s) or name"])->label('') ?>
+                <?= $form->field($model, 'search_phrase')->textInput(['class'=>"form-control-decor header-search-input", 'placeholder'=>"Keyword(s) or name", 'autocomplete'=>"off"])->label('') ?>
             </div>
         <?php ActiveForm::end(); ?>
         <div class="header-search-dropdown"></div>

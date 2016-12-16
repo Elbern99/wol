@@ -122,3 +122,46 @@ label {
     }
   }
 }
+
+.alert {
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 20px 0 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+  
+  .close {
+    background: none;
+    border: 0;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.alert-danger {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}

@@ -316,6 +316,11 @@ var elements = {
                 $(btnClear).removeClass('active');
                 $(checkboxes).find(':checkbox').prop('checked', true);
             });
+        },
+        close: function(btn,alert) {
+            $(alert).on('click', btn, function() {
+                $(this).parents(alert).fadeOut();
+            });
         }
     };
     /* end */
@@ -447,6 +452,7 @@ var elements = {
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.checkboxes');
         forms.selectAll('.clear-all', '.select-all', '.checkboxes');
+        forms.close('.close','.alert');
         search.autoSelect('.auto-search-list span','.search');
     });
 

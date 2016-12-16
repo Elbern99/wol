@@ -53,7 +53,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 <div class="search-results-top-filter">
                     <strong><?=$resultCount?> results</strong>
                     <a href="" class="filter-mobile-link">Filter</a>
-                    <a href="" class="refine-mobile-link">Refine</a>
+                    <a href="<?= Url::to(['/search/refine']) ?>" class="refine-mobile-link">Refine</a>
                 </div>
                 <div class="mobile-filter">
                     <div class="mobile-filter-container"></div>
@@ -182,18 +182,6 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                         <?= SubjectAreasWidget::widget(['category' => $subjectArea, 'selected' => Result::$articleCategoryIds, 'filtered' => Result::getFilter('subject')]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
-                                </li>
-                                <li class="sidebar-accrodion-item">
-                                    <a href="" class="title">key topics <strong>(39)</strong></a>
-                                    <div class="text">
-                                    </div>
-                                    <a href="" class="clear-all">Clear all</a>
-                                </li>
-                                <li class="sidebar-accrodion-item">
-                                    <a href="" class="title">authors <strong>(39)</strong></a>
-                                    <div class="text">
-                                    </div>
-                                    <a href="" class="clear-all">Clear all</a>
                                 </li>
                             </ul>
                         </div>
