@@ -76,7 +76,7 @@ class SearchController extends Controller
             $model->search_phrase = $phrase;
         }
 
-        $results = $searchResult ?? [];
+        $results = is_array($searchResult) ? $searchResult : [];
         $resultData = [];
         $resultCount = count($results);
         unset($searchResult);
@@ -90,7 +90,7 @@ class SearchController extends Controller
         }
         
         return $this->render('result', [
-            'fromUrl' => Url::to(['/search', 'phrase' => $phrase]),
+            'phrase' => $phrase,
             'search' => $model,
             'paginate' => $paginate, 
             'resultData' => $resultData, 
