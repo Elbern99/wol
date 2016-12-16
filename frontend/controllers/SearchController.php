@@ -56,7 +56,7 @@ class SearchController extends Controller
         Result::setModel($model);
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
-            
+
             $result = $model->search();
             
             /*if (count($result)) {
@@ -94,18 +94,18 @@ class SearchController extends Controller
     public function actionAjax()
     {
         try {
-            
+            $model = new SearchForm();
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            $searchPhrase = Yii::$app->request->post('search');
+            
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            if (strlen(str_replace(' ','',$searchPhrase)) >= 3) {
-
-                $matches = ArticleSearch::find()->select(['id', 'title'])->match($searchPhrase)->asArray()->all();
+                $matches = ArticleSearch::find()->select(['id', 'title'])->match($model->search_phrase)->asArray()->all();
 
                 if (count($matches)) {
                     $columns = ArrayHelper::getColumn($matches, 'title');
                     return $columns;
                 }
+                
             }
 
             return [];

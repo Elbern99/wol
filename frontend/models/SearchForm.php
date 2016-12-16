@@ -21,7 +21,7 @@ class SearchForm extends Model implements SearchInterface
     {
         return [
             ['search_phrase', 'required'],
-            ['search_phrase', 'string', 'max'=>100],
+            ['search_phrase', 'string', 'min'=>3,'max'=>100],
         ];
     }
     
