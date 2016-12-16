@@ -48,7 +48,7 @@ class SearchForm extends Model implements SearchInterface
             $class = $types[$modelType];
 
             $match = new MatchExpression();
-            $searchPhrase = str_replace(' ', ' ?* ', Yii::$app->sphinx->escapeMatchValue($this->search_phrase));
+            $searchPhrase = Yii::$app->sphinx->escapeMatchValue($this->search_phrase);
             $match->match($searchPhrase);
 
             $data = $class::find()
