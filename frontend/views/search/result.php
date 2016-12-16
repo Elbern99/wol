@@ -125,10 +125,10 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         <div class="custom-select dropdown">
                             <div class="custom-select-title dropdown-link">10</div>
                             <div class="sort-list drop-content">
-                                <div <?= $requestCount == 10 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 10]) ?>">10</a></div>
-                                <div <?= $requestCount == 25 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 25]) ?>">25</a></div>
-                                <div <?= (!$requestCount || $requestCount == 50) ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 50]) ?>">50</a></div>
-                                <div <?= $requestCount == 100 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 100]) ?>">100</a></div>
+                                <div <?= $requestCount == 10 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 10, 'phrase' => $phrase]) ?>">10</a></div>
+                                <div <?= $requestCount == 25 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 25, 'phrase' => $phrase]) ?>">25</a></div>
+                                <div <?= (!$requestCount || $requestCount == 50) ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 50, 'phrase' => $phrase]) ?>">50</a></div>
+                                <div <?= $requestCount == 100 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 100, 'phrase' => $phrase]) ?>">100</a></div>
                             </div>
                         </div>
                     </div>
@@ -157,10 +157,10 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                 </div>
                                 <div class="sort-list drop-content">
                                     <div>
-                                        <a href="<?=Url::current(['sort' => 0]) ?>">Publication date (descending)</a>
+                                        <a href="<?=Url::current(['sort' => 0, 'phrase' => $phrase]) ?>">Publication date (descending)</a>
                                     </div>
                                     <div <?= Yii::$app->request->get('sort') ? 'data-select="selected"' : '' ?>>
-                                        <a href="<?=Url::current(['sort' => 1]) ?>">Publication date (ascending)</a>
+                                        <a href="<?=Url::current(['sort' => 1, 'phrase' => $phrase]) ?>">Publication date (ascending)</a>
                                     </div>
                                 </div>
                             </div>
