@@ -24,7 +24,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
     </div>
     <h1>Search the site</h1>
 
-    <?php $form = ActiveForm::begin(['action' => $fromUrl]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase])]); ?>
         <div class="search-results-top">
             <div class="search">
                 <a href="" class="btn-border-blue-large with-icon-r btn-save-search">
@@ -47,7 +47,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 </div>
             </div>
             <div class="search-results-top-text">
-                Your search for <strong>China Lehmann</strong> returned <strong><?=$resultCount?></strong> results <a href="" class="refine-link">Refine</a>
+                Your search for <strong><?=$phrase?></strong> returned <strong><?=$resultCount?></strong> results <a href="" class="refine-link">Refine</a>
             </div>
             <div class="mobile-filter-holder">
                 <div class="search-results-top-filter">
