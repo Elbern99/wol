@@ -35,7 +35,7 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
         <div class="search">
             <span class="icon-search"></span>
             <div class="search-holder">
-                <?= Html::activeInput('search', $search, 'search_phrase', ['name'=>"search", 'class'=>"form-control-decor", 'placeholder'=>"Search for "]) ?>
+                <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Search for "])->label('') ?>
             </div>
         </div>
 

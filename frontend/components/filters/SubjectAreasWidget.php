@@ -1,13 +1,15 @@
 <?php
-namespace frontend\components\articles;
+namespace frontend\components\filters;
 
 use yii\base\Widget;
 use yii\helpers\Html;
 
-class SubjectAreas extends Widget
+class SubjectAreasWidget extends Widget
 {
-    public $category= null;
-    public $currentId = null;
+    public $category = [];
+    public $selected = [];
+    
+    private $prefix = 'filter_subject_type';
     
     public function init()
     {
@@ -21,8 +23,7 @@ class SubjectAreas extends Widget
         if (is_array($this->category) && count($this->category)) {
             
             $nodeDepth = $currDepth = $counter = 1;
-            $content .= Html::beginTag('ul', ['class' => 'articles-filter-list']);
-
+            $content .= Html::beginTag('ul', ['class' => 'checkbox-list']);
             foreach ($this->category as $node) {
 
                 $nodeDepth = $node['lvl'];
@@ -43,7 +44,7 @@ class SubjectAreas extends Widget
                     
                 } elseif ($nodeDepth > $currDepth) {
 
-                    $content .= Html::beginTag('ul', ['class' => 'submenu']);
+                    $content .= Html::beginTag('ul', ['class' => 'subcheckbox-list']);
                     $currDepth = $currDepth + ($nodeDepth - $currDepth);
                     
                 } elseif ($nodeDepth < $currDepth) {
@@ -52,28 +53,31 @@ class SubjectAreas extends Widget
                     $currDepth = $currDepth - ($currDepth - $nodeDepth);
                 }
 
-                /*if ($isChild) {
-                    $css = ' item ';
-                }*/
-                
-                if ($node['id'] == $this->currentId) {
-                    $css .= ' open ';
-                }
-
-                $css .= ' item';
+                $css .= '';
                 $css = trim($css);
-
+                
+                $labelContent = '';
+                
+                if (isset($this->selected[$node['id']])) {
+                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id'], ['checked'=>'checked']);
+                    $spanContent = $nodeTitle;
+                    $spanContent .= Html::tag('strong', '('.$this->selected[$node['id']].')',['class'=>"count"]);
+                    $labelContent .= Html::tag('span', $spanContent, ['class'=>"label-text"]);
+                } else {
+                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id']);
+                    $labelContent .= Html::tag('span', $nodeTitle, ['class'=>"label-text"]);
+                }
+                
                 $content .= Html::beginTag('li', ['class' => $css]) .
-                        '<div class="icon-arrow"></div>'.
-                        Html::a($nodeTitle, $nodeUrlKey);
-
+                        Html::tag('label', $labelContent, ['class' => 'def-checkbox light']);
+                
                 ++$counter;
             }
 
             $content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
             $content .= "</ul>";
         }
-        
+
         return $content;
     }
 

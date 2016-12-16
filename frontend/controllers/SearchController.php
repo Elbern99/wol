@@ -9,13 +9,18 @@ use yii\filters\VerbFilter;
 use common\models\ArticleSearch;
 use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
+use frontend\models\AdvancedSearchForm;
 use frontend\models\SearchForm;
+use yii\data\Pagination;
+use frontend\models\Result;
+
 /**
  * Search controller
  */
 class SearchController extends Controller
 {
 
+    use \frontend\components\articles\SubjectTrait;
     public function behaviors()
     {
         return [
@@ -47,23 +52,60 @@ class SearchController extends Controller
      */
     public function actionIndex() {
         
-        var_dump(Yii::$app->getSession()->getFlash('search'));exit;
+        $model = new SearchForm();
+        Result::setModel($model);
+        
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $result = $model->search();
+            
+            /*if (count($result)) {
+                Yii::$app->getSession()->set('search', serialize($result));
+            }*/
+
+            Result::setFilter('types',Yii::$app->request->post('filter_content_type'));
+            Result::setFilter('subject',Yii::$app->request->post('filter_subject_type'));
+            
+        }
+        
+        $searchResult = Yii::$app->getSession()->get('search');
+        $results = $searchResult ? unserialize($searchResult) : [];
+        $resultData = [];
+        $resultCount = count($results);
+        unset($searchResult);
+
+        $paginate = new Pagination(['totalCount' => $resultCount]);
+        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
+
+        if ($resultCount) {
+            $resultData = array_slice($results, $paginate->offset, $paginate->limit);
+            Result::initData($resultData);
+        }
+        
+        return $this->render('result', [
+            'search' => $model,
+            'paginate' => $paginate, 
+            'resultData' => $resultData, 
+            'resultCount' => $resultCount, 
+            'subjectArea' => $this->getSubjectAreas()
+        ]);
     }
     
     public function actionAjax()
     {
         try {
+            $model = new SearchForm();
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            $searchPhrase = Yii::$app->request->post('search');
+            
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            if (strlen(str_replace(' ','',$searchPhrase)) >= 3) {
-
-                $matches = ArticleSearch::find()->select(['id', 'title'])->match($searchPhrase)->asArray()->all();
+                $matches = ArticleSearch::find()->select(['id', 'title'])->match($model->search_phrase)->asArray()->all();
 
                 if (count($matches)) {
                     $columns = ArrayHelper::getColumn($matches, 'title');
                     return $columns;
                 }
+                
             }
 
             return [];
@@ -75,7 +117,7 @@ class SearchController extends Controller
     
     public function actionAdvanced() {
         
-        $model = new SearchForm();
+        $model = new AdvancedSearchForm();
 
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             
@@ -83,7 +125,7 @@ class SearchController extends Controller
                 
                 $result = $model->search();
 
-                Yii::$app->getSession()->setFlash('search', serialize($result));
+                Yii::$app->getSession()->set('search', serialize($result));
                 return $this->redirect('/search');
             
             } catch (\Exception $e) { 

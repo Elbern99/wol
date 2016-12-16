@@ -1,58 +1,64 @@
 (function($) {
     
-    var search = $('#header-search-input');
-    var dropdown = $('#header-search-dropdown');
-    var searchRequest = null;
+    var search = $('.header-search-input');
     
-    function clearDropDown() {
-        dropdown.html('');
-    }
-    
-    function addDropDown(data) {
+    function searchForm(element) {
+       
+        var searchRequest = null;
         
-        var html = '<ul class="auto-search-list">';
-        
-        for (el in data) {
-            html += '<li><span class="item">'+data[el]+'</span></li>';
+        function clearDropDown(_current) {
+            _current.next('.header-search-dropdown').html('');
         }
-        
-        html += '</ul>';
-        
-        dropdown.html(html);
-    }
-    
-    function sendSearchRequest(event) {
-        
-        var str = event.currentTarget.value;
-        
-        clearDropDown();
-        
-        if (str.replace(/\s/g, '').length >= 3  && !/\s/.test(event.key)) {
-            
-            var postData = $('#header-search-form').serialize();
-            
-            if (searchRequest != null) {
-                searchRequest.abort();
+
+        function addDropDown(data, _current) {
+
+            var html = '<ul class="auto-search-list">';
+
+            for (var el in data) {
+                html += '<li><span class="item">'+data[el]+'</span></li>';
             }
-             
-            searchRequest = $.ajax({
-                url : '/search/ajax',
-                type: 'POST',
-                data : postData,
-                success:function(data, textStatus, jqXHR)  {
-                    
-                    if (data.length) {
-                        addDropDown(data);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                }
-            });
+
+            html += '</ul>';
+
+            _current.next('.header-search-dropdown').html(html);
         }
-    };
+
+        element.on('keyup',function(event) {
+
+            var str = event.currentTarget.value;
+            var form = $(event.currentTarget).closest('form');
+            clearDropDown(form);
+
+            if (str.replace(/\s/g, '').length >= 3  && !/\s/.test(event.key)) {
+
+                var postData = form.serialize();
+
+                if (searchRequest != null) {
+                    searchRequest.abort();
+                }
+
+                searchRequest = $.ajax({
+                    url : '/search/ajax',
+                    type: 'POST',
+                    data : postData,
+                    success:function(data, textStatus, jqXHR)  {
+
+                        if (data.length) {
+                            addDropDown(data, form);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                    }
+                });
+            }
+        });
+    }
 
     $(document).ready(function() {
-        search.bind('keyup', sendSearchRequest);
+        $.each(search, function() {
+            var element = $(this);
+            searchForm(element);
+        });
     });
     
 })(jQuery);

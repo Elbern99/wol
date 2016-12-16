@@ -2,22 +2,23 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\models\SearchForm;
 ?>
+
+<?php $model = new SearchForm(); ?>
 <div class="search">
     <div class="search-top">
-        <?php $form = ActiveForm::begin(['action'=>'/search/result', 'id' => 'header-search-form']); ?>
+        <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'header-search-form']]); ?>
             <span class="icon-search"></span>
              <?= Html::submitButton(Html::tag('span',Yii::t('app/form', 'search')), ['class' => 'btn-border-blue btn-center']) ?>
             <div class="search-holder">
-                <?= Html::input('search', 'search', null, ['placeholder'=>"Keyword(s) or name", 'class'=>"form-control-decor", 'id'=>'header-search-input']) ?>
+                <?= $form->field($model, 'search_phrase')->textInput(['class'=>"form-control-decor header-search-input", 'placeholder'=>"Keyword(s) or name"])->label('') ?>
             </div>
         <?php ActiveForm::end(); ?>
-            <div id="header-search-dropdown">
-                
-            </div>
+        <div class="header-search-dropdown"></div>
     </div>
     <div class="search-bottom">
         <a href="<?= Url::to('/search/advanced') ?>">advanced search</a>
     </div>
-</div>
+</div> 
 <?php $this->registerJsFile('/js/search.js', ['depends' => ['yii\web\YiiAsset']]); ?>
