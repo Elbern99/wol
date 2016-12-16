@@ -4,6 +4,16 @@
 
   .dropdown-widget {
     margin-top: -5px;
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      left: auto;
+      right: -75px;
+      margin-left: 0;
+
+      &:after {
+        left: 173px;
+      }
+    }
   }
 
   label {

@@ -141,7 +141,7 @@
       margin: 0 0 6px 3px;
       height: 31px;
       font-size: 11px;
-      line-height: 31px;
+      line-height: 30px;
 
       @include breakpoint('tablet') {
         padding: 0 28px 0 11px;
@@ -154,26 +154,24 @@
 
       &.tagit-new {
         padding: 0 28px 0 13px;
-
         display: flex;
         align-items: center;
         line-height: 12px;
         width: 100%;
 
+        @include breakpoint('tablet') {
+          padding: 0 28px 0 18px;
+        }
 
         input {
           line-height: 31px;
           height: 31px;
         }
-
-        @include breakpoint('tablet') {
-
-        }
       }
 
       .tagit-close {
         padding: 0 4px;
-        margin-top: -7px;
+        margin-top: -8px;
       }
     }
   }
@@ -225,4 +223,8 @@
       margin: 54px auto 0;
     }
   }
+}
+
+.label-text-custom {
+  cursor: pointer;
 }

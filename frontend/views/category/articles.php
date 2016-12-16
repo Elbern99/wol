@@ -45,8 +45,8 @@ $roleLabel = new Roles();
         
         <div class="content-inner-text">
             <div class="articles">
+                <?php if ( count($authorsRoles) > 0): ?>
                 <div class="article-user-list-holder">
-                    
                     <div class="mobile-accordion-item dropdown">
                         <div class="title mobile-accordion-link">
                             editorial team
@@ -73,7 +73,8 @@ $roleLabel = new Roles();
                         </div>
                     </div>
                 </div>
-                
+                <?php endif; ?>
+
                 <ul class="articles-list">
                     <?php foreach($collection as $article): ?>
                     <li class="article-item">
@@ -134,19 +135,17 @@ $roleLabel = new Roles();
                     </div>
                 </div>
             </div>
-            <div class="sidebar-widget">
-                <div class="sidebar-widget sidebar-widget-articles-filter">
-                    <ul class="sidebar-accrodion-list">
-                        <li class="sidebar-accrodion-item is-open">
-                            <a href="" class="title">subject areas</a>
-                            <div class="text is-open">
-                                <div class="text-inner">
-                                    <?= SubjectAreas::widget(['category' => $subjectAreas, 'currentId' => $category->id]) ?>
-                                </div>
+            <div class="sidebar-widget sidebar-widget-articles-filter">
+                <ul class="sidebar-accrodion-list">
+                    <li class="sidebar-accrodion-item is-open">
+                        <a href="" class="title">subject areas</a>
+                        <div class="text is-open">
+                            <div class="text-inner">
+                                <?= SubjectAreas::widget(['category' => $subjectAreas, 'currentId' => $category->id]) ?>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="sidebar-widget">
                <div class="widget-title">data & methods</div>

@@ -29,12 +29,20 @@
 
 .content-inner {
 
+  >.content-inner-text,
+  #w0 {
+    padding-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      padding-bottom: 0;
+    }
+  }
+
   @include breakpoint('tablet') {
     display: flex;
     flex-direction: row;
     min-height: 100%;
     align-items: stretch;
-
 
     >.content-inner-text,
     #w0 {

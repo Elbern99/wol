@@ -303,6 +303,46 @@
   }
 }
 
+//sidebar-news-list
+.sidebar-news-list {
+
+  .bg-info {
+    display: none;
+  }
+
+  li {
+    margin: -2px 0 17px;
+    position: relative;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 17px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      .writer {
+        font-size: 10px;
+        padding: 0;
+      }
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+    line-height: 1.45em;
+    text-transform: none;
+    margin: 0 20px 0 0;
+    display: inline-block;
+
+    a {
+      display: inline-block;
+    }
+  }
+}
+
 //classification-list
 .classification-list {
   li {
@@ -322,7 +362,6 @@
 
 //further-reading-list
 .further-reading-list {
-  padding: 10px 0 0;
 
   .further-reading-info {
     display: none;
@@ -343,7 +382,6 @@
 
 //key-references-list
 .key-references-list {
-  padding: 15px 0 0;
 
   .key-references-info {
     display: none;
@@ -373,7 +411,6 @@
 
 //additional-references-list
 .additional-references-list {
-  padding: 16px 0 3px;
 
   .additional-references-info {
     display: none;
@@ -390,7 +427,6 @@
 }
 
 .articles-filter-list {
-  padding: 10px 0 0;
 
   li {
     text-transform: none;
@@ -428,17 +464,20 @@
 
         >.icon-arrow {
           color: $blue;
-          transform: translateY(-50%) rotate(90deg);
-          margin: 6px 0 0 0px;
+          top: 4px;
+          transform: rotate(90deg);
 
+          @include breakpoint('tablet') {
+            top: 2px;
+          }
         }
       }
     }
 
     .icon-arrow {
       position: absolute;
-      left: 0px;
-      top: 1px;
+      left: 0;
+      top: 2px;
       content: '\e906';
       font-size: 6px;
       @extend .icon-styles;
@@ -448,10 +487,17 @@
       height: 10px;
       text-align: center;
       display: none;
-      padding: 2px 0 0;
+      padding: 0;
 
-      @include breakpoint_custom($breakpoint-tablet){
-        top: 3px;
+      @include breakpoint('tablet') {
+        top: 1px;
+      }
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -3px 0 0 -3px;
       }
     }
   }
@@ -473,7 +519,15 @@
   }
 
   li {
-    margin: 7px 0 7px;
+    margin: 0 0 7px;
+
+    li {
+      margin: 7px 0 7px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   >.submenu {
@@ -644,10 +698,12 @@
 .key-references-list,
 .additional-references-list,
 .sidebar-news-list,
-.further-reading-list {
+.further-reading-list,
+.sidebar-news-list {
+  padding: 0;
 
   + .more-link {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   li {

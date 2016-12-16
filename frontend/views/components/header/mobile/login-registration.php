@@ -1,4 +1,4 @@
-<div class="login-registration">
+<div class="login-registration logged">
     <ul class="login-registration-list">
         <li class="dropdown dropdown-login">
             <a href="#" class="dropdown-link"><?= Yii::t('app/menu', 'Login') ?></a>

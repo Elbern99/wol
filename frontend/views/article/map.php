@@ -110,12 +110,14 @@ $this->registerCssFile('/css/leaflet.css');
 
 <div class="container article-map">
 
-    <div class="breadcrumbs">
-        <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
-    </div>
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+        </div>
 
-    <div class="map-title">Evidence map</div>
-    <h1>Can cash transfers reduce child labor?</h1>
+        <div class="map-title">Evidence map</div>
+        <h1><?= $attributes['title']->getData('title'); ?></h1>
+    </div>
 
     <div class="content-inner">
         <div class="content-inner-text">
@@ -180,7 +182,13 @@ $this->registerCssFile('/css/leaflet.css');
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="" class="btn-border-gray-small with-icon-r">
+                    <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
+                    &body=<?= urlencode('Title:') ?>
+                    <?= urlencode($attributes['title']->getData('title')) ?>
+                    <?= urlencode('View the article') ?>
+                    <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                    <?= urlencode('Copyright © IZA') ?>
+                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
@@ -230,24 +238,26 @@ $this->registerCssFile('/css/leaflet.css');
                 <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                 <?php $count_related = count($related) ?>
 
-                <?php if ($count_related > 0): ?>
-                    <div class="widget-title">Related Articles</div>
-                    <ul class="sidebar-news-list">
-                        <?php foreach ($related as $relate): ?>
-                            <li>
-                                <h3><a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                <div class="writer"><?= $relate['availability'] ?></div>
-                            </li>
-                        <?php endforeach;
-                        unset($related); ?>
-                    </ul>
-                <?php endif; ?>
-                
-                <?php
-                    if($count_related > 10) {
-                        echo '<a href="" class="more-link">More</a>';
-                    }
-                ?>
+                <div class="sidebar-widget">
+                    <?php if ($count_related > 0): ?>
+                        <div class="widget-title">Related Articles</div>
+                        <ul class="sidebar-news-list">
+                            <?php foreach ($related as $relate): ?>
+                                <li>
+                                    <h3><a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                    <div class="writer"><?= $relate['availability'] ?></div>
+                                </li>
+                            <?php endforeach;
+                            unset($related); ?>
+                        </ul>
+                    <?php endif; ?>
+
+                    <?php
+                        if($count_related > 10) {
+                            echo '<a href="" class="more-link">More</a>';
+                        }
+                    ?>
+                </div>
                 
             <?php endif; ?>
         </aside>

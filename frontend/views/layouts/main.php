@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
+$this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

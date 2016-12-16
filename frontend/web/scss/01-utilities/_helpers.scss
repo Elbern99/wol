@@ -44,3 +44,9 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+.clip {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

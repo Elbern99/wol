@@ -49,6 +49,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-minus-circle:before {
+  content: "\e913";
+}
+.icon-plus-circle:before {
+  content: "\e914";
+}
 .icon-heart-flooded:before {
   content: "\e90b";
 }

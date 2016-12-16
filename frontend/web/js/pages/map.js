@@ -37,7 +37,7 @@
 
   $(document).ready(function() {
 
-    shareSelected('.evidence-map-text, .map-info');
+    shareSelected('.evidence-map-text, .map-info, .article-map h1, .evidence-map-list');
 
     var countries_array = JSON.parse(mapConfig.source);
 

@@ -45,20 +45,14 @@ $config = [
 
 ?>
 <div class="container article-full">
-
     <div class="article-buttons article-buttons-mobile">
         <?php if (isset($attributes['full_pdf'])): ?>
-            <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-                <div class="inner">
-                    <span class="icon-download"></span>
-                    <span class="text">download pdf</span>
-                </div>
-            </a>
+        <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+            <span class="icon-download"></span>
+        </a>
         <?php endif; ?>
         <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
-            <span class="inner">
-                <span class="icon-quote"></span>
-            </span>
+            <span class="icon-quote"></span>
         </a>
         <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
                     &body=<?= urlencode('Title:') ?>

@@ -123,7 +123,7 @@
             linkedin: 'https://www.linkedin.com/shareArticle?url=' + PAGE_URL + '&title=' + text,
             stumbleupon: 'http://www.stumbleupon.com/submit?url=' + PAGE_URL + '&title=' + text,
             reddit: 'https://reddit.com/submit?url=' + PAGE_URL + '&title=' + text,
-            tumblr: 'mailto:?subject="Article from IZA World of Labor"&body="'+PAGE_URL+' + '+text+'"',
+            tumblr: 'mailto:?subject=Article from IZA World of Labor&body='+PAGE_URL+' + '+text+'',
             facebook: facebookUrl
         };
         if (urls.hasOwnProperty(socialType)) {

@@ -44,24 +44,31 @@ class HtmlController extends Controller {
         return $this->render('news-article');
     }
 								
-				public function actionArticle() {
-								return $this->render('article');
-				}
-								
-				public function actionArticlesList() {
-								return $this->render('articles-list');
-				}
-				
-				public function actionAdvancedSearch() {
-								return $this->render('advanced-search');
-				}
-				
-				public function actionSubscribeToNewsletter() {
-								return $this->render('subscribe-to-newsletter');
-				}
-								
-				public function actionSearchResults() {
-									return $this->render('search-results');
-				}
+    public function actionArticle() {
+        return $this->render('article');
+    }
 
+    public function actionArticlesList() {
+        return $this->render('articles-list');
+    }
+
+    public function actionAdvancedSearch() {
+        return $this->render('advanced-search');
+    }
+
+    public function actionSubscribeToNewsletter() {
+        return $this->render('subscribe-to-newsletter');
+    }
+
+    public function actionSearchResults() {
+        return $this->render('search-results');
+    }
+
+    public function actionRegister() {
+        return $this->render('register');
+    }
+
+    public function actionMyAccount() {
+        return $this->render('my-account');
+    }
 }

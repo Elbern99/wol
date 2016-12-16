@@ -243,8 +243,48 @@
   @include breakpoint_custom($breakpoint-tablet) {
     padding: 10px 0 0 0;
 
-    .column {
+    .clumn {
       padding: 0 0 6px;
+    }
+  }
+
+  .clumn {
+
+    &:last-child {
+      p {
+        &:after {
+          content: '\e913';
+          line-height: 14px;
+        }
+      }
+    }
+
+    p {
+      position: relative;
+      padding: 0 0 0 25px;
+
+      @include breakpoint('tablet') {
+        &:hover {
+          &:after {
+            color: $blue;
+          }
+        }
+      }
+
+      &:after {
+        content: '\e914';
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        left: 0;
+        color: $light-blue;
+        line-height: 15px;
+        @extend .icon-styles;
+        text-align: center;
+        transition: color 0.3s ease;
+      }
     }
   }
 
@@ -253,7 +293,7 @@
     margin: 26px 31px 59px -6%;
     flex-flow: row wrap;
 
-    >div {
+    >.clumn {
       width: 50%;
       padding: 0 6%;
     }

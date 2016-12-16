@@ -10,6 +10,7 @@
   z-index: 10000000;
   -webkit-overflow-scrolling: touch;
   display: none;
+  opacity: 0.8;
 }
 
 .loading-ball{
@@ -305,7 +306,7 @@
       overflow: visible !important;
 
       .jspContainer {
-        height: 48px !important;
+        height: 38px !important;
         overflow: visible;
       }
 
@@ -324,7 +325,7 @@
         .jspArrow {
           position: absolute;
           top: 0;
-          height: 48px;
+          height: 38px;
           width: 35px;
           background: none;
 
@@ -412,7 +413,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  z-index: 99;
+  z-index: -1;
   pointer-events: none;
   width: auto !important;
 
@@ -476,6 +477,7 @@
 
   &.share-selected-text-btn-tumblr {
     border: 1px solid $blue;
+    box-shadow: 0 0 1px 0 #0053a0 inset;
 
     &:hover {
       border-color: $light-blue;

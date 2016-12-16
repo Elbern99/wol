@@ -94,6 +94,7 @@
         },
         focusCustom: function(el) {
             $(el).on('click', function(e) {
+                $(el).removeClass('focus');
                 $(this).addClass('focus');
             })
 
@@ -103,6 +104,12 @@
                     container.removeClass('focus');
                 }
             });
+        },
+        customTriggerFocus: function(btn,elClick,parent) {
+            $(btn).on('click', function(e) {
+                console.log($(this).parents(parent).find(elClick));
+                $(this).parents(parent).find(elClick).trigger('click');
+            })
         }
     }
 
@@ -114,5 +121,6 @@
         advancedSearch.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         advancedSearch.saveSearch('.btn-save-search');
         advancedSearch.focusCustom('.my-tags-list');
-});
+        advancedSearch.customTriggerFocus('.label-text-custom','.my-tags-list','.my-tags-holder');
+    });
 })(jQuery);

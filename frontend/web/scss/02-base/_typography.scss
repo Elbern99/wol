@@ -70,10 +70,9 @@ p {
 
 ul,
 ol {
-  padding: 0 0 20px;
+  padding: 0 0 20px 10px;
 
   li {
-    padding: 0 0 0px 13px;
     position: relative;
     
     &:before {
@@ -82,14 +81,9 @@ ol {
       height: 3px;
       border-radius: 50%;
       background: #262626;
-      position: absolute;
-      top: 8px;
-      left: 2px;
-
-      @include breakpoint('tablet') {
-        top: 10px;
-        left: 2px;
-      }
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 7px 0 0;
     }
   }
 }
@@ -97,43 +91,55 @@ ol {
 ol {
   li {
     counter-increment: step-counter;
-    padding-left: 15px;
 
     &:before {
       content: counter(step-counter)'.';
-      top: 0;
       background: none;
+      vertical-align: top;
+      height: auto;
+      width: auto;
     }
   }
 }
 
+table {
+  margin: 0 0 10px;
+
+  td,th{
+    padding: 5px;
+    border: 1px solid #00A6C7;
+  }
+
+  th {
+    font-weight: 800;
+  }
+}
+
 .reset-list,
-.header-menu-top-list,
-.header-menu-bottom-list,
-.footer-menu-list,
-.socials-list,
-.login-registration-list,
-.breadcrumbs-list,
-.faq-accordion-list,
-.editors-list,
-.articles-list,
-.reset-style-list,
-.sidebar-news-list,
-.sidebar-accrodion-list,
-.classification-list,
-.authors-list,
-.data-method-list,
-.evidence-map-list,
-.share-buttons-list,
-.further-reading-popup-list,
-.key-references-popup-list,
-.all-references-list,
-.my-tags-list,
-.search-results-media-list,
-.pagination-list,
-.auto-search-list {
+[class$="-list"],
+[class*="-list "] {
   list-style: none;
   padding: 0;
+
+  >li {
+    margin: 0;
+    padding: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.reset-all-list,
+.articles-filter-list,
+.all-references-list {
+  list-style: none;
+  padding: 0;
+
+  ul {
+    padding: 0;
+  }
 
   li {
     margin: 0;

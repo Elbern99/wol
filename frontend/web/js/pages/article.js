@@ -1,18 +1,25 @@
 (function($) {
 
+//ELEMENTS
+    var elements = {
+        window: $(window),
+        document: $(document),
+        mapMini: 'map-mini',
+        mapMedium: 'article-map-medium'
+    }
 
 //GLOBAL VARIABLE ---------
-    var _window_height = $(window).height(),
-        _window_width = $(window).width(),
-        _doc_height = $(document).height(),
+    var _window_height = elements.window.height(),
+        _window_width = elements.window.width(),
+        _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
         _mobile = 769,
         _tablet = 1025;
 
-    $(window).resize(function() {
-        _window_height = $(window).height();
-        _window_width = $(window).width();
-        _doc_height = $(document).height();
+    elements.window.resize(function() {
+        _window_height = elements.window.height();
+        _window_width = elements.window.width();
+        _doc_height = elements.document.height();
     });
 
     //ARTICLE
@@ -22,11 +29,10 @@
             $(btn).click(function(e) {
                 $('a,li').removeClass('opened-reflink');
                 $('a').removeClass('text-reference-opened');
-                $(this).parents(parent).fadeOut(article.delay);
+                $(this).parents(parent).fadeOut(article.delay+200);
                 $('.icon-circle-arrow').removeClass('disabled');
-                $(parent).find('.arrows').fadeOut(0);
+                $(parent).find('.arrows').fadeOut(article.delay+200);
                 e.preventDefault();
-                $('body').unbind('touchmove');
             });
         },
         changeContentPupop: function(cur){
@@ -117,7 +123,7 @@
                 $(parent).find('.arrows').fadeOut(0);
 
                 article.changeContentPupop(cur);
-                $(parent).fadeIn(article.delay);
+                $(parent).fadeIn(article.delay+200);
 
                 if(_window_width < _tablet){
                     article.showPopupMobile(parent);
@@ -202,15 +208,15 @@
         showPopupMobile: function(parent) {
             if(_window_width < _tablet){
                 setTimeout(function(){
-                    $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
+                    $(parent).find('.reference-popup-inner').css('top',  elements.window.scrollTop() - 2);
                 }, article.delay+402);
 
-                $(window).bind('scrollstop', function(e){
+                elements.window.bind('scrollstop', function(e){
                     if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
                         $(parent).fadeIn(article.delay+200);
-                        $(parent).find('.reference-popup-inner').css('top',  $(window).scrollTop() - 2);
-                        $(parent).css('height', $(document).height());
-                        $(parent).css('max-height', $(document).height());
+                        $(parent).find('.reference-popup-inner').css('top',  elements.window.scrollTop() - 2);
+                        $(parent).css('height', elements.document.height());
+                        $(parent).css('max-height', elements.document.height());
                     }
                 });
 
@@ -378,7 +384,7 @@
     }
 
     //EVENTS
-    $(document).ready(function() {
+    elements.document.ready(function() {
         article.closeReference('.icon-close-popup ','.reference-popup');
         article.openReferencePopup('.sidebar-widget-articles-references ul li li>a');
         article.openReference('.key-references-list a','.reference-popup');
@@ -392,7 +398,7 @@
         article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
     });
 
-    $(window).load(function() {
+    elements.window.load(function() {
 
         shareSelected('.article-full article');
 
@@ -401,11 +407,6 @@
 
         for (var prop in countries_arrays) {
             countries_array[countries_arrays[prop]] = {};
-        }
-
-        var elements = {
-            mapMini: 'map-mini',
-            mapMedium: 'article-map-medium'
         }
 
         var mapObj = {

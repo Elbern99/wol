@@ -32,7 +32,7 @@
             </div>
 
             <div class="mobile-menu-section">
-                <a href="">advanced search</a>
+                <a href="/search/advanced">advanced search</a>
             </div>
 
             <div class="mobile-menu-section">
