@@ -36,7 +36,7 @@ class SubjectAreas extends Widget
 
                 if ($nodeDepth == $currDepth) {
 
-                    if ($counter > 0) {
+                    if ($counter > 1) {
 
                         $content .= "</li>";
                     }
@@ -70,7 +70,7 @@ class SubjectAreas extends Widget
                 ++$counter;
             }
 
-            //$content .= str_repeat("</li></ul>", $nodeDepth) . "</li>";
+            $content .= str_repeat("</li></ul>", $nodeDepth-1) . "</li>";
             $content .= "</ul>";
         }
         
