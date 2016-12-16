@@ -1,0 +1,206 @@
+.account-head-tabs {
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: flex;
+    flex-direction: column;
+
+    .account-head-holder {
+      order: 2;
+    }
+  }
+}
+
+.my-account-page {
+  .edit-password,
+  .edit,
+  .account-delete {
+    text-transform: uppercase;
+    color: $light-blue;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+//ACCOUNT-HEAD
+.account-head {
+  display: flex;
+  align-items: center;
+  margin: 0 0 20px;
+
+  h1 {
+    margin: 0;
+    max-width: 90%;
+    overflow: hidden;
+    @extend .clip;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .img {
+    width: 100px;
+    height: 100px;
+    background: #000;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+
+    @include breakpoint('tablet') {
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+//ACCOUNT-TABS
+.account-tabs {
+  border-bottom: 1px solid #a8a8a8;
+  margin: 0 0 20px;
+  @extend .clearfix;
+
+  @include breakpoint('tablet') {
+    font-size: 16px;
+  }
+
+  .account-delete {
+    float: right;
+    font-size: 10px;
+    margin: 1px 0 0 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
+
+.account-tabs-list {
+  margin: 0 0 -1px 0;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: table;
+    width: 100%;
+  }
+
+  li {
+    font-size: 11px;
+
+    @include breakpoint('tablet') {
+      font-size: 16px;
+      margin: 0 3% -1px 0;
+      float: left;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: table-cell;
+    }
+
+    &.active {
+      a {
+        border-bottom-color: $light-blue;
+        color: #323232 !important;
+        cursor: default;
+      }
+    }
+  }
+
+  a {
+    padding: 6px 4px;
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    color: #323232;
+
+    @include breakpoint('tablet') {
+      display: block;
+    }
+    
+    &:hover {
+      border-color: $blue;
+    }
+  }
+}
+
+//ACCOUNT-CONTENT
+.account-content {
+  max-width: 900px;
+
+  .select-clear-all {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 0 3px;
+    }
+
+    .tooltip-dropdown {
+      @include breakpoint_custom($breakpoint-tablet) {
+        float: right;
+        margin: 5px 0 0 0;
+      }
+
+      @include breakpoint('tablet') {
+        position: absolute;
+        right: -37px;
+        top: 38px;
+        margin: 0;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      float: right;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: left;
+
+      span {
+        position: relative;
+      }
+    }
+  }
+
+  .grid-line {
+    &.one {
+      margin: 0;
+    }
+  }
+
+  .line {
+    margin: 0 0 10px;
+    text-align: center;
+
+    &.line-subscriptions {
+      .form-line {
+        text-align: left;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      display: flex;
+      text-align: left;
+    }
+  }
+
+  .desc  {
+    width: 100%;
+  }
+
+  .edit {
+    font-size: 8px;
+  }
+
+  .edit-password {
+    font-size: 11px;
+  }
+
+  .label-holder {
+    margin: 0 0 20px 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      color: #6e6e6e;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    @include breakpoint('tablet') {
+      width: 150px;
+      margin: 0 10px 0 0;
+    }
+  }
+}
