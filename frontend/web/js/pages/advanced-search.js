@@ -78,7 +78,7 @@
             if($(btn).length) {
                 $(btn).click(function(e) {
                     var cur = $(this);
-                    cur.parent().find(':checkbox').prop('checked', false);
+                    cur.parents('li').find(':checkbox').prop('checked', false);
                     e.preventDefault();
                 });
             }

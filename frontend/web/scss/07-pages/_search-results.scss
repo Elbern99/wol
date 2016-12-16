@@ -595,6 +595,10 @@
 
   .mobile-filter-bottom {
     margin: -6px 0 0 0;
+
+    @include breakpoint('tablet') {
+      display: none;
+    }
   }
 
   [class^="btn-"],
