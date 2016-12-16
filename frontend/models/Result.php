@@ -15,7 +15,7 @@ class Result
     public static $value = [];
     public static $formatData = [];
     public static $articleCategoryIds = [];
-    private static $filters = [];
+    private static $filters = false;
     private static $model;
     
     public function setModel(SearchInterface $model) {
@@ -23,9 +23,17 @@ class Result
     }
     
     public static function initData($resultData) {
-        
         self::$formatData = self::formatData($resultData);
         self::setValue(self::$formatData);
+    }
+    
+    public static function getFilter($key = null) {
+        
+        if (is_array(self::$filters) && !is_null($key)) {
+            return self::$filters[$key] ?? null;
+        }
+        
+        return self::$filters;
     }
     
     public static function setFilter($key, $filter) {
@@ -37,29 +45,34 @@ class Result
         
         $filtered = false;
 
-        if (array_key_exists('types', self::$filters)) {
-            
-            if (is_null(self::$filters['types'])) {
-                return;
-            }
-            
+        if (is_array(self::$filters) && array_key_exists('types', self::$filters)) {
             $filtered = true;
         }
 
         foreach ($formatData as $k => $v) {
 
-            if ($filtered) {
-
-                $id = self::$model->getHeadingModelKey($k);
-
-                if(isset($id) && (array_search($id, self::$filters['types']) === false)) {
-                    continue;
-                }
-
-            }
-
             switch ($k) {
                 case 'article':
+                    
+                    $categories = ArticleCategory::find()
+                                        ->select(['category_id', 'COUNT(article_id) AS cnt'])
+                                        ->where(['article_id'=>$v])
+                                        ->groupBy('category_id')
+                                        ->asArray()
+                                        ->all();
+        
+                    self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
+                    
+                    if ($filtered) {
+
+                        $id = self::$model->getHeadingModelKey($k);
+
+                        if(is_null(self::$filters['types']) || (isset($id) && (array_search($id, self::$filters['types']) === false))) {
+                            continue;
+                        }
+
+                    }
+                    
                     self::$value[$k] = self::getArticles($v);
                     break;
             }
@@ -73,7 +86,7 @@ class Result
         $articlesCollection = [];
         $filtered = false;
 
-        if (array_key_exists('subject', self::$filters)) {
+        if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
             
             if (is_null(self::$filters['subject'])) {
                 return $articlesCollection;
@@ -94,20 +107,12 @@ class Result
         }
         
         $articles = $articles->orderBy(['created_at' => $order])->all();
-        
-        $categories = ArticleCategory::find()
-                                        ->select(['category_id', 'COUNT(article_id) AS cnt'])
-                                        ->groupBy('category_id')
-                                        ->asArray()
-                                        ->all();
-        
-        self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
-        
+
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $ids);
         $values = $categoryCollection->getValues();
-       
+        
 
         foreach ($articles as $article) {
     

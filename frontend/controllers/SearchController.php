@@ -3,11 +3,8 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\BadRequestHttpException;
-use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use common\models\ArticleSearch;
-use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
 use frontend\models\AdvancedSearchForm;
 use frontend\models\SearchForm;
@@ -60,7 +57,12 @@ class SearchController extends Controller
 
             if ($phrase != $model->search_phrase) {
                 
-                $searchResult = $model->search();
+                try {
+                    $searchResult = $model->search();
+                } catch(\Exception $e) {
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Have problems in search request'));
+                    $searchResult = [];
+                }
 
                 $phrase = $model->search_phrase;
                 Yii::$app->getSession()->set('search', serialize($searchResult));
@@ -143,6 +145,13 @@ class SearchController extends Controller
         }
         
         return $this->render('advanced', ['search' => $model]);
+    }
+    
+    public function actionRefine() {
+        
+        Yii::$app->getSession()->remove('search');
+        
+        return $this->redirect(Url::to(['/search']));
     }
     
 }
