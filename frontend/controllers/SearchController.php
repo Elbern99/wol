@@ -13,6 +13,7 @@ use frontend\models\AdvancedSearchForm;
 use frontend\models\SearchForm;
 use yii\data\Pagination;
 use frontend\models\Result;
+use yii\helpers\Url;
 
 /**
  * Search controller
@@ -50,26 +51,32 @@ class SearchController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex($phrase = null) {
         
         $model = new SearchForm();
         Result::setModel($model);
-        
+
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $result = $model->search();
-            
-            /*if (count($result)) {
-                Yii::$app->getSession()->set('search', serialize($result));
-            }*/
+            if ($phrase != $model->search_phrase) {
+                
+                $searchResult = $model->search();
 
-            Result::setFilter('types',Yii::$app->request->post('filter_content_type'));
-            Result::setFilter('subject',Yii::$app->request->post('filter_subject_type'));
+                $phrase = $model->search_phrase;
+                Yii::$app->getSession()->set('search', serialize($searchResult));
+                
+            } else {
+                $searchResult = unserialize(Yii::$app->getSession()->get('search'));
+                Result::setFilter('types',Yii::$app->request->post('filter_content_type'));
+                Result::setFilter('subject',Yii::$app->request->post('filter_subject_type'));
+            }
             
+        } else {
+            $searchResult = unserialize(Yii::$app->getSession()->get('search'));
+            $model->search_phrase = $phrase;
         }
-        
-        $searchResult = Yii::$app->getSession()->get('search');
-        $results = $searchResult ? unserialize($searchResult) : [];
+
+        $results = $searchResult ?? [];
         $resultData = [];
         $resultCount = count($results);
         unset($searchResult);
@@ -83,6 +90,7 @@ class SearchController extends Controller
         }
         
         return $this->render('result', [
+            'fromUrl' => Url::to(['/search', 'phrase' => $phrase]),
             'search' => $model,
             'paginate' => $paginate, 
             'resultData' => $resultData, 
@@ -99,7 +107,7 @@ class SearchController extends Controller
             
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-                $matches = ArticleSearch::find()->select(['id', 'title'])->match($model->search_phrase)->asArray()->all();
+                $matches = $model->search(['title']);
 
                 if (count($matches)) {
                     $columns = ArrayHelper::getColumn($matches, 'title');
@@ -124,11 +132,11 @@ class SearchController extends Controller
             try {
                 
                 $result = $model->search();
-
                 Yii::$app->getSession()->set('search', serialize($result));
-                return $this->redirect('/search');
+                
+                return $this->redirect(Url::to(['/search', 'phrase' => $model->search_phrase]));
             
-            } catch (\Exception $e) { 
+            } catch (\Exception $e) {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Error in Result'));
             }
             

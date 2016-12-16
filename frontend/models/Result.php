@@ -2,7 +2,6 @@
 namespace frontend\models;
 
 use Yii;
-use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
 use common\models\Article;
 use common\models\ArticleCategory;
@@ -46,7 +45,7 @@ class Result
             
             $filtered = true;
         }
-        
+
         foreach ($formatData as $k => $v) {
 
             if ($filtered) {
@@ -71,12 +70,30 @@ class Result
     protected static function getArticles($ids) {
         
         $order = !Yii::$app->request->get('sort') ? SORT_DESC : SORT_ASC;
+        $articlesCollection = [];
+        $filtered = false;
+
+        if (array_key_exists('subject', self::$filters)) {
+            
+            if (is_null(self::$filters['subject'])) {
+                return $articlesCollection;
+            }
+            
+            $filtered = true;
+        }
         
         $articles = Article::find()
-                        ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                        ->where(['enabled' => 1, 'id' => $ids])
-                        ->orderBy(['created_at' => $order])
-                        ->all();
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1, 'a.id' => $ids]);
+        
+        if ($filtered) {
+
+            $articles->innerJoin(ArticleCategory::tableName().' AS ac', 'ac.article_id = a.id');
+            $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
+        }
+        
+        $articles = $articles->orderBy(['created_at' => $order])->all();
         
         $categories = ArticleCategory::find()
                                         ->select(['category_id', 'COUNT(article_id) AS cnt'])
@@ -90,10 +107,10 @@ class Result
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $ids);
         $values = $categoryCollection->getValues();
-        $articlesCollection = [];
+       
 
         foreach ($articles as $article) {
-                 
+    
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/' . $article->seo,

@@ -30,11 +30,15 @@ class SearchForm extends Model implements SearchInterface
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function search() {
+    public function search($fields = []) {
 
         $types = Yii::$app->params['search'];
         $result = [];
-
+        
+        if (array_search('id', $fields) === false) {
+            $fields = array_merge($fields, ['id']);
+        }
+        
         foreach($this->getheadingModelFilter() as $modelType) {
             
             if (!isset($types[$modelType])) {
@@ -48,16 +52,13 @@ class SearchForm extends Model implements SearchInterface
             $match->match($searchPhrase);
 
             $data = $class::find()
-                            ->select(['id'])
+                            ->select($fields)
                             ->match($match)
                             ->asArray()
                             ->all();
 
             foreach ($data as $d) {
-                $result[] = [
-                    'type' => $modelType,
-                    'id' => $d['id']
-                ];
+                $result[] = array_merge(['type' => $modelType], $d);
             }
 
         }
