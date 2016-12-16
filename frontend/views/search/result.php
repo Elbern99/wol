@@ -47,7 +47,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 </div>
             </div>
             <div class="search-results-top-text">
-                Your search for <strong><?=$phrase?></strong> returned <strong><?=$resultCount?></strong> results <a href="" class="refine-link">Refine</a>
+                Your search for <strong><?=$phrase?></strong> returned <strong><?=$resultCount?></strong> results <a href="<?= Url::to(['/search/refine']) ?>" class="refine-link">Refine</a>
             </div>
             <div class="mobile-filter-holder">
                 <div class="search-results-top-filter">
@@ -172,14 +172,14 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
                                     <div class="text">
-                                        <?= ContentTypesWidget::widget(['dataClass' => SearchForm::class, 'dataSelect' => Result::$formatData]); ?>
+                                        <?= ContentTypesWidget::widget(['dataClass' => SearchForm::class, 'dataSelect' => Result::$formatData, 'filtered' => Result::getFilter('types')]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item">
                                     <a href="" class="title">subject areas <strong>(<?= array_sum(Result::$articleCategoryIds) ?>)</strong></a>
                                     <div class="text">
-                                        <?= SubjectAreasWidget::widget(['category' => $subjectArea, 'selected' => Result::$articleCategoryIds]); ?>
+                                        <?= SubjectAreasWidget::widget(['category' => $subjectArea, 'selected' => Result::$articleCategoryIds, 'filtered' => Result::getFilter('subject')]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
                                 </li>

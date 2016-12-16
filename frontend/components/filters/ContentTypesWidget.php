@@ -9,6 +9,8 @@ class ContentTypesWidget extends Widget {
     
     public $dataClass;
     public $dataSelect;
+    public $filtered = false;
+    
     protected $data;
     protected $prefix = 'filter_content_type';
     
@@ -34,12 +36,12 @@ class ContentTypesWidget extends Widget {
             $content .= Html::beginTag('label', ['class'=>"def-checkbox light"]);
             
             if (isset($this->dataSelect[$model])) {
-                $content .= Html::input('checkbox', $this->prefix.'[]', $key, ['checked'=>'checked']);
+                $content .= Html::input('checkbox', $this->prefix.'[]', $key, $this->isChecked($key));
                 $spanContent = $item;
                 $spanContent .= Html::tag('strong', '('.count($this->dataSelect[$model]).')',['class'=>"count"]);
                 $content .= Html::tag('span', $spanContent, ['class'=>"label-text"]);
             } else {
-                $content .= Html::input('checkbox', $this->prefix.'[]', $key);
+                $content .= Html::input('checkbox', $this->prefix.'[]', $key, ['disabled'=>'disabled']);
                 $content .= Html::tag('span', $item, ['class'=>"label-text"]);
             }
             
@@ -52,6 +54,17 @@ class ContentTypesWidget extends Widget {
         }
         
         return Html::tag('ul', $content, ['class'=>"checkbox-list"]);
+    }
+    
+    protected function isChecked($id) {
+        
+        if (is_null($this->filtered)) {
+            return [];
+        } elseif(is_array($this->filtered) && (array_search($id, $this->filtered) === false)) {
+            return [];
+        }
+        
+        return ['checked'=>'checked'];
     }
 
     public function run()

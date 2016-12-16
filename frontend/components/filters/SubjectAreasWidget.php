@@ -8,6 +8,7 @@ class SubjectAreasWidget extends Widget
 {
     public $category = [];
     public $selected = [];
+    public $filtered = false;
     
     private $prefix = 'filter_subject_type';
     
@@ -59,12 +60,12 @@ class SubjectAreasWidget extends Widget
                 $labelContent = '';
                 
                 if (isset($this->selected[$node['id']])) {
-                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id'], ['checked'=>'checked']);
+                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id'], $this->isChecked($node['id']));
                     $spanContent = $nodeTitle;
                     $spanContent .= Html::tag('strong', '('.$this->selected[$node['id']].')',['class'=>"count"]);
                     $labelContent .= Html::tag('span', $spanContent, ['class'=>"label-text"]);
                 } else {
-                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id']);
+                    $labelContent .= Html::input('checkbox', $this->prefix.'[]', $node['id'], ['disabled'=>'disabled']);
                     $labelContent .= Html::tag('span', $nodeTitle, ['class'=>"label-text"]);
                 }
                 
@@ -79,6 +80,17 @@ class SubjectAreasWidget extends Widget
         }
 
         return $content;
+    }
+    
+    protected function isChecked($id) {
+        
+        if (is_null($this->filtered)) {
+            return [];
+        } elseif(is_array($this->filtered) && (array_search($id, $this->filtered) === false)) {
+            return [];
+        }
+        
+        return ['checked'=>'checked'];
     }
 
     public function run()
