@@ -150,7 +150,6 @@ class SearchController extends Controller
     public function actionRefine() {
         
         Yii::$app->getSession()->remove('search');
-        
         return $this->redirect(Url::to(['/search']));
     }
     

@@ -50,6 +50,10 @@ return [
                 'articles/<slug:[1-9a-z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
                 'articles/<slug:[0-9a-z-]+>/references' => 'article/references',
                 'category/<id:[0-9]+>' => 'category/index',
+                'register' => 'site/signup',
+                'reset' => 'site/request-password-reset',
+                'my-account' => 'my-account/index',
+                'site/login' => 'site/index'
             ],
         ],
         'assetManager' => [
