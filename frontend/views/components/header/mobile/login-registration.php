@@ -1,3 +1,4 @@
+<?php use yii\helpers\Html ?>
 <div class="login-registration logged">
     <?php if (Yii::$app->user->isGuest) : ?>
     <ul class="login-registration-list">
