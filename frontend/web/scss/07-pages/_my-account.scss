@@ -69,18 +69,32 @@
   }
 
   .img {
-    background: #000;
     margin: 0 auto;
-    border-radius: 50%;
     width: 118px;
     height: 118px;
     position: relative;
     color: $light-blue;
 
+    .inner {
+      overflow: hidden;
+      @extend .pinout;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    input[type="file"] {
+      @extend .pinout;
+      border: 0;
+      background: none;
+      z-index: 4;
+      opacity: 0;
+      width: 100%;
+      cursor: pointer;
+    }
+
     img {
       min-height: 100%;
       min-width: 100%;
-      border-radius: 50%;
     }
 
     @include breakpoint('tablet') {
@@ -92,6 +106,11 @@
         .icon-photo {
           opacity: 1;
           transform: translate(-50%,-50%);
+        }
+
+        .text {
+          bottom: -20px;
+          opacity: 1;
         }
       }
     }
@@ -117,11 +136,13 @@
       @include breakpoint('tablet') {
         display: block;
         position: absolute;
-        bottom: -20px;
         font-size: 8px;
         text-align: center;
         left: 0;
         right: 0;
+        bottom: 0;
+        opacity: 0;
+        transition: all 0.3s ease;
       }
     }
 
@@ -133,7 +154,7 @@
       transition: all 0.3s ease;
 
       @include breakpoint('tablet') {
-        transform: translate(-150%,-50%);
+        transform: translate(-50%,-150%);
         top: 50%;
         left: 50%;
         opacity: 0;

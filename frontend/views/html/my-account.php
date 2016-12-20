@@ -24,8 +24,11 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
 
                     <div class="account-head">
                         <div class="img">
-                            <img src="https://codepo8.github.io/canvas-images-and-pixels/img/horse.png" alt="">
-                            <div class="icon-photo"></div>
+                            <div class="inner">
+                                <input type="file" name="name">
+                                <img src="https://codepo8.github.io/canvas-images-and-pixels/img/horse.png" alt="">
+                                <div class="icon-photo"></div>
+                            </div>
                             <div class="text">change photo</div>
                         </div>
                         <h1>Steve Smith</h1>
@@ -53,13 +56,9 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <div class="label-holder">Name</div>
                             <div class="desc">
                                 <div class="form-item form-item-edit">
-                                    <label for="name_edit">Steve Smith</label> <a href="" class="edit">edit</a>
+                                    Steve Smith <a href="" class="edit">edit</a>
                                     <div class="hidden">
                                         <input type="text" name="name_edit" id="name_edit" class="form-control">
-                                        <div class="buttons">
-                                            <button class="btn-border-blue btn-save">Save</button>
-                                            <button class="btn-border-blue btn-cancel">Cancel</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -68,13 +67,9 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <div class="label-holder">Email address</div>
                             <div class="desc">
                                 <div class="form-item form-item-edit">
-                                    <label for="email_edit">steve@smith.com</label> <a href="" class="edit">edit</a>
+                                    steve@smith.com <a href="" class="edit">edit</a>
                                     <div class="hidden">
-                                        <input type="text" name="email_edit" id="email_edit" class="form-control">
-                                        <div class="buttons">
-                                            <button class="btn-border-blue btn-save">Save</button>
-                                            <button class="btn-border-blue btn-cancel">Cancel</button>
-                                        </div>
+                                        <input type="text" name="email_edit" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -86,10 +81,6 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                     <a href="" class="edit-password">change password</a>
                                     <div class="hidden">
                                         <input type="text" name="pass_edit" id="pass_edit" class="form-control">
-                                        <div class="buttons">
-                                            <button class="btn-border-blue btn-save">Save</button>
-                                            <button class="btn-border-blue btn-cancel">Cancel</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +111,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Program evaluation</span>
                                                 </label>
                                             </div>
@@ -128,7 +119,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Behavioral and personnel economics</span>
                                                 </label>
                                             </div>
@@ -136,7 +127,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Migration and ethnicity</span>
                                                 </label>
                                             </div>
@@ -144,7 +135,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Labor markets and institutions</span>
                                                 </label>
                                             </div>
@@ -152,7 +143,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Transition and emerging economies</span>
                                                 </label>
                                             </div>
@@ -160,7 +151,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Development</span>
                                                 </label>
                                             </div>
@@ -168,7 +159,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Environment</span>
                                                 </label>
                                             </div>
@@ -176,7 +167,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Education and human capital</span>
                                                 </label>
                                             </div>
@@ -184,7 +175,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Demography, family, and gender</span>
                                                 </label>
                                             </div>
@@ -192,7 +183,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                                         <div class="grid-item">
                                             <div class="form-item">
                                                 <label class="custom-checkbox">
-                                                    <input type="checkbox" name="">
+                                                    <input type="checkbox" name="name">
                                                     <span class="label-text">Data and methods</span>
                                                 </label>
                                             </div>
@@ -206,13 +197,13 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <div class="desc">
                                 <div class="form-line">
                                     <label class="def-checkbox">
-                                        <input type="checkbox" name="">
+                                        <input type="checkbox" name="name">
                                         <span class="label-text">Subscribe to IZA World of Labor newsletter</span>
                                     </label>
                                 </div>
                                 <div class="form-line">
                                     <label class="def-checkbox">
-                                        <input type="checkbox" name="">
+                                        <input type="checkbox" name="name">
                                         <span class="label-text">Subscribe to Article Alerts</span>
                                     </label>
                                 </div>
@@ -385,7 +376,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <td><span class="gray">Nothing</span></td>
                             <td><span class="gray">All</span></td>
                             <td><button type="submit" class="btn-blue">search</button></td>
-                            <td><a href="" class="btn-border-gray-middle short btn-print"><span class="icon-trash"></span></a></td>
+                            <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
                         </tr>
                         <tr>
                             <td>South America</td>
@@ -393,7 +384,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <td>Peru, Bolivia</td>
                             <td>Development, Environment, Transition and emerging economies</td>
                             <td><button type="submit" class="btn-blue">search</button></td>
-                            <td><a href="" class="btn-border-gray-middle short btn-print"><span class="icon-trash"></span></a></td>
+                            <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
                         </tr>
                     </table>
                 </div>

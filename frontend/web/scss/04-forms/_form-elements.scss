@@ -23,7 +23,9 @@ label {
     }
 
     &.opened {
-      cursor: pointer;
+      label {
+        cursor: pointer;
+      }
     }
   }
 
@@ -95,6 +97,10 @@ label {
 
   &.has-error {
     overflow: visible;
+
+    .hidden {
+      display: block;
+    }
 
     textarea,
     input[type=text],

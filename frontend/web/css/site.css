@@ -455,7 +455,7 @@ th {
   transform: translate(-50%, -50%); }
 
 .pinout, .reference-popup .reference-popup-inner:before, .reference-popup .reference-popup-inner:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .article-pagers:after, #article-map-medium,
-#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .account-head .img:after, .map-info-inner:after {
+#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .account-head .img .inner, .account-head .img input[type="file"], .account-head .img:after, .map-info-inner:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -2003,9 +2003,8 @@ img {
       margin: 0 4px; }
     .grid .grid-line .help-block {
       color: red; }
-    .grid .grid-line #searchform-types,
-    .grid .grid-line #advancedsearchform-types,
-    .grid .grid-line .form-group {
+    .grid .grid-line .form-group,
+    .grid .grid-line .form-group > div {
       width: 100%;
       display: -ms-flexbox;
       display: flex;
@@ -2933,7 +2932,7 @@ label {
   height: 100%; }
   .form-item.form-item-edit label {
     cursor: text; }
-  .form-item.form-item-edit.opened {
+  .form-item.form-item-edit.opened label {
     cursor: pointer; }
   .form-item .hidden {
     display: none; }
@@ -2980,6 +2979,9 @@ label {
   .form-group.has-error,
   .form-item.has-error {
     overflow: visible; }
+    .form-group.has-error .hidden,
+    .form-item.has-error .hidden {
+      display: block; }
     .form-group.has-error textarea,
     .form-group.has-error input[type=text],
     .form-group.has-error input[type=password],
@@ -5325,23 +5327,34 @@ iframe[name = advpp_manager] {
       .account-head h1 {
         display: none; } }
   .account-head .img {
-    background: #000;
     margin: 0 auto;
-    border-radius: 50%;
     width: 118px;
     height: 118px;
     position: relative;
     color: #0094f2; }
+    .account-head .img .inner {
+      overflow: hidden;
+      background: #000;
+      border-radius: 50%; }
+    .account-head .img input[type="file"] {
+      border: 0;
+      background: none;
+      z-index: 4;
+      opacity: 0;
+      width: 100%;
+      cursor: pointer; }
     .account-head .img img {
       min-height: 100%;
-      min-width: 100%;
-      border-radius: 50%; }
+      min-width: 100%; }
     @media only screen and (min-width: 769px) {
       .account-head .img:hover:after {
         opacity: 1; }
       .account-head .img:hover .icon-photo {
         opacity: 1;
-        transform: translate(-50%, -50%); } }
+        transform: translate(-50%, -50%); }
+      .account-head .img:hover .text {
+        bottom: -20px;
+        opacity: 1; } }
     .account-head .img:after {
       background: rgba(0, 148, 242, 0.8);
       border-radius: 50%;
@@ -5359,11 +5372,13 @@ iframe[name = advpp_manager] {
         .account-head .img .text {
           display: block;
           position: absolute;
-          bottom: -20px;
           font-size: 8px;
           text-align: center;
           left: 0;
-          right: 0; } }
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          transition: all 0.3s ease; } }
     .account-head .img .icon-photo {
       position: absolute;
       font-size: 24px;
@@ -5372,7 +5387,7 @@ iframe[name = advpp_manager] {
       transition: all 0.3s ease; }
       @media only screen and (min-width: 769px) {
         .account-head .img .icon-photo {
-          transform: translate(-150%, -50%);
+          transform: translate(-50%, -150%);
           top: 50%;
           left: 50%;
           opacity: 0; } }

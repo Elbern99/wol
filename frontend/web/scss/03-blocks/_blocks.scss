@@ -1110,9 +1110,8 @@
       color: red;
     }
 
-    #searchform-types,
-    #advancedsearchform-types,
-    .form-group {
+    .form-group,
+    .form-group>div{
       width: 100%;
       display: flex;
       flex-flow: row wrap;
