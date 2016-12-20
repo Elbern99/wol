@@ -11,7 +11,6 @@
         <li class="hide-desktop dropdown">
             <a href="#" class="mobile-dropdown-link dropdown-link"><?= Yii::t('app/menu', 'register') ?></a>
             <div class="dropdown-widget">
-                test
             </div>
         </li>
     </ul>

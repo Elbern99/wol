@@ -17,17 +17,39 @@ label {
   position: relative;
   height: 100%;
 
-  .info {
-    position: absolute;
-    color: #3d3d3d;
-    top: 1px;
-    right: 19px;
-    font-size: 10px;
+  &.form-item-edit {
+    label {
+      cursor: text;
+    }
 
-    @include breakpoint('tablet') {
-      top: 3px;
-      right: 0;
-      font-size: 9px;
+    &.opened {
+      cursor: pointer;
+    }
+  }
+
+  .hidden {
+    display: none;
+
+    .form-control {
+      width: 40%;
+      margin: 0 5px 5px 0;
+    }
+  }
+
+  &.required {
+    &:after {
+      position: absolute;
+      color: $light-blue;
+      top: 1px;
+      right: 19px;
+      font-size: 10px;
+      content: 'Required';
+
+      @include breakpoint('tablet') {
+        top: 3px;
+        right: 0;
+        font-size: 9px;
+      }
     }
   }
 
@@ -41,8 +63,9 @@ label {
     }
   }
 
-  .label-holder {
+  .control-label {
     margin: 0 0 5px;
+    display: inline-block;
   }
 }
 
@@ -65,9 +88,10 @@ label {
   }
 }
 
-.form-group {
+.form-group,
+.form-item {
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
 
   &.has-error {
     overflow: visible;

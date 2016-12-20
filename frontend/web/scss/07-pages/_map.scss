@@ -11,7 +11,7 @@
 }
 
 .article-map {
-  
+
   .sidebar-buttons-holder {
 
     @include breakpoint('tablet') {
@@ -55,7 +55,7 @@
       position: relative;
       max-height: 34px;
       overflow: hidden;
-      margin: 0 0 16px;
+      //margin: 0 0 16px;
       transition: all 0.3s ease;
       display: block;
 
@@ -168,10 +168,10 @@
     height: 24px !important;
     position: relative;
     border: 0;
-    
+
     &.leaflet-disabled {
       background: #fff !important;
-      
+
       &:after,
       &:before {
         background: #d1d1d1 !important;
@@ -283,10 +283,10 @@
 
   &:hover {
     background: $blue;
-    
+
     &:after,
     &:before {
-      background: $white;  
+      background: $white;
     }
   }
 }

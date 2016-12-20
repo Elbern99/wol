@@ -294,7 +294,7 @@ var elements = {
     // 2.6 REFERENCES
     var references = {
         openPrintWindow: function(btn) {
-            if(window.location.hash && $(btn).length) {
+            if(window.location.hash == "#print" && $(btn).length) {
                 $(btn).first().trigger('click')
             }
         }

@@ -455,7 +455,7 @@ th {
   transform: translate(-50%, -50%); }
 
 .pinout, .reference-popup .reference-popup-inner:before, .reference-popup .reference-popup-inner:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .article-pagers:after, #article-map-medium,
-#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .map-info-inner:after {
+#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .account-head .img:after, .map-info-inner:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -569,6 +569,12 @@ th {
 
 .icon-question:before {
   content: "\e902"; }
+
+.icon-photo:before {
+  content: "\e915"; }
+
+.icon-trash:before {
+  content: "\e916"; }
 
 .icon-burger {
   position: relative;
@@ -750,7 +756,7 @@ th {
 .mobile-menu .subscribe-link {
   color: #FFFFFF;
   font: normal 10px/1.42857 "lucidaSans", Helvetica, Arial, Sans-serif;
-  padding: 8px 11px 9px;
+  padding: 0 11px;
   position: relative;
   text-align: center;
   text-decoration: none !important;
@@ -1151,7 +1157,9 @@ ol li {
     width: auto; }
 
 table {
-  margin: 0 0 10px; }
+  margin: 0 0 10px;
+  width: 100%;
+  border-collapse: collapse; }
   table td, table th {
     padding: 5px;
     border: 1px solid #00A6C7; }
@@ -1393,19 +1401,19 @@ img {
   @media only screen and (min-width: 769px) {
     .articles-list > li {
       margin: 0 0 35px; } }
+  .articles-list > li:first-child h2 {
+    font-size: 28px;
+    margin: 0 0 5px; }
+  .articles-list > li:first-child h3 {
+    font-size: 14px;
+    margin: 0 0 5px;
+    line-height: 1.5em; }
+  .articles-list > li:first-child .publish {
+    margin: 0 0 4px; }
 
 .article-item {
   margin: 0 0 20px;
   overflow: hidden; }
-  .article-item:first-child h2 {
-    font-size: 28px;
-    margin: 0 0 5px; }
-  .article-item:first-child h3 {
-    font-size: 14px;
-    margin: 0 0 5px;
-    line-height: 1.5em; }
-  .article-item:first-child .publish {
-    margin: 0 0 4px; }
   .article-item h2 {
     font-size: 20px;
     margin: 0 0 9px; }
@@ -1579,7 +1587,7 @@ img {
   display: none; }
 .sidebar-accrodion-item .evidence-map-list,
 .mobile-accordion-item .evidence-map-list {
-  padding: 20px 0 0; }
+  padding: 5px 0 0; }
 
 .mobile-accordion-item .title {
   margin: 0 0 20px; }
@@ -1991,8 +1999,9 @@ img {
     -ms-flex-flow: row wrap;
         flex-flow: row wrap;
     margin: 0 0 20px; }
+    .grid .grid-line .form-group .help-block {
+      margin: 0 4px; }
     .grid .grid-line .help-block {
-      margin: 0 4px;
       color: red; }
     .grid .grid-line #searchform-types,
     .grid .grid-line #advancedsearchform-types,
@@ -2922,14 +2931,24 @@ label {
 .form-item {
   position: relative;
   height: 100%; }
-  .form-item .info {
+  .form-item.form-item-edit label {
+    cursor: text; }
+  .form-item.form-item-edit.opened {
+    cursor: pointer; }
+  .form-item .hidden {
+    display: none; }
+    .form-item .hidden .form-control {
+      width: 40%;
+      margin: 0 5px 5px 0; }
+  .form-item.required:after {
     position: absolute;
-    color: #3d3d3d;
+    color: #0094f2;
     top: 1px;
     right: 19px;
-    font-size: 10px; }
+    font-size: 10px;
+    content: 'Required'; }
     @media only screen and (min-width: 769px) {
-      .form-item .info {
+      .form-item.required:after {
         top: 3px;
         right: 0;
         font-size: 9px; } }
@@ -2941,8 +2960,9 @@ label {
       .form-item label,
       .form-item .label-text {
         font-size: 12px; } }
-  .form-item .label-holder {
-    margin: 0 0 5px; }
+  .form-item .control-label {
+    margin: 0 0 5px;
+    display: inline-block; }
 
 .form-line {
   margin: 0 0 8px; }
@@ -2954,10 +2974,11 @@ label {
   left: 0;
   margin: 10px 0 0; }
 
-.form-group {
-  position: relative;
-  overflow: hidden; }
-  .form-group.has-error {
+.form-group,
+.form-item {
+  position: relative; }
+  .form-group.has-error,
+  .form-item.has-error {
     overflow: visible; }
     .form-group.has-error textarea,
     .form-group.has-error input[type=text],
@@ -2969,13 +2990,26 @@ label {
     .form-group.has-error input[type=search],
     .form-group.has-error input[type=tel],
     .form-group.has-error input[type=time],
-    .form-group.has-error input[type=url] {
+    .form-group.has-error input[type=url],
+    .form-item.has-error textarea,
+    .form-item.has-error input[type=text],
+    .form-item.has-error input[type=password],
+    .form-item.has-error input[type=date],
+    .form-item.has-error input[type=datetime],
+    .form-item.has-error input[type=email],
+    .form-item.has-error input[type=number],
+    .form-item.has-error input[type=search],
+    .form-item.has-error input[type=tel],
+    .form-item.has-error input[type=time],
+    .form-item.has-error input[type=url] {
       border-bottom: 1px solid red !important; }
-    .form-group.has-error .help-block {
+    .form-group.has-error .help-block,
+    .form-item.has-error .help-block {
       opacity: 1;
       z-index: 100;
       position: relative; }
-  .form-group .help-block {
+  .form-group .help-block,
+  .form-item .help-block {
     padding: 15px;
     text-transform: uppercase;
     font-size: 10px;
@@ -2991,7 +3025,8 @@ label {
     z-index: -1;
     width: 100%;
     text-align: left; }
-    .form-group .help-block:after {
+    .form-group .help-block:after,
+    .form-item .help-block:after {
       content: '';
       position: absolute;
       left: 10px;
@@ -3108,6 +3143,8 @@ label {
       text-transform: uppercase; } }
   .dropdown-login .forgot-link:hover {
     color: #0053a0; }
+.dropdown-login .field-loginform-rememberme {
+  display: none; }
 
 /******* // FORMS *******/
 /******* WIDJETS *******/
@@ -4524,6 +4561,16 @@ iframe[name = advpp_manager] {
 @media print {
   .btn-print {
     display: none; } }
+.subscribe-to-newsletter h1 {
+  margin-bottom: 15px; }
+  @media only screen and (min-width: 769px) {
+    .subscribe-to-newsletter h1 {
+      margin-bottom: 22px; } }
+.subscribe-to-newsletter .article-header {
+  margin-bottom: 20px; }
+  @media only screen and (min-width: 769px) {
+    .subscribe-to-newsletter .article-header {
+      margin-bottom: 40px; } }
 .subscribe-to-newsletter p {
   margin: 0 0 16px;
   font-size: 13px; }
@@ -5231,11 +5278,30 @@ iframe[name = advpp_manager] {
       -ms-flex-order: 2;
           order: 2; } }
 
+.my-account-page .tabs {
+  overflow: hidden; }
+.my-account-page .tab {
+  display: none; }
+  .my-account-page .tab.active {
+    display: block; }
 .my-account-page .edit-password,
 .my-account-page .edit,
 .my-account-page .account-delete {
   text-transform: uppercase;
-  color: #0094f2; }
+  color: #0094f2;
+  font-size: 11px;
+  display: block; }
+  @media only screen and (min-width: 769px) {
+    .my-account-page .edit-password,
+    .my-account-page .edit,
+    .my-account-page .account-delete {
+      display: inline;
+      font-size: 8px; } }
+  @media only screen and (max-width: 769px) {
+    .my-account-page .edit-password,
+    .my-account-page .edit,
+    .my-account-page .account-delete {
+      padding: 3px 0; } }
   .my-account-page .edit-password:hover,
   .my-account-page .edit:hover,
   .my-account-page .account-delete:hover {
@@ -5246,34 +5312,98 @@ iframe[name = advpp_manager] {
   display: flex;
   -ms-flex-align: center;
       align-items: center;
-  margin: 0 0 20px; }
+  margin: 0 0 23px; }
+  @media only screen and (min-width: 769px) {
+    .account-head {
+      margin: 0 0 33px; } }
   .account-head h1 {
     margin: 0;
     max-width: 90%;
-    overflow: hidden; }
+    overflow: hidden;
+    font-size: 28px; }
     @media only screen and (max-width: 769px) {
       .account-head h1 {
         display: none; } }
   .account-head .img {
-    width: 100px;
-    height: 100px;
     background: #000;
-    margin: 0 auto 10px;
-    border-radius: 50%; }
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 118px;
+    height: 118px;
+    position: relative;
+    color: #0094f2; }
+    .account-head .img img {
+      min-height: 100%;
+      min-width: 100%;
+      border-radius: 50%; }
+    @media only screen and (min-width: 769px) {
+      .account-head .img:hover:after {
+        opacity: 1; }
+      .account-head .img:hover .icon-photo {
+        opacity: 1;
+        transform: translate(-50%, -50%); } }
+    .account-head .img:after {
+      background: rgba(0, 148, 242, 0.8);
+      border-radius: 50%;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+      opacity: 0; }
     @media only screen and (min-width: 769px) {
       .account-head .img {
-        margin: 0 10px 0 0; } }
+        margin: 0 31px 0 0;
+        width: 100px;
+        height: 100px; } }
+    .account-head .img .text {
+      display: none; }
+      @media only screen and (min-width: 769px) {
+        .account-head .img .text {
+          display: block;
+          position: absolute;
+          bottom: -20px;
+          font-size: 8px;
+          text-align: center;
+          left: 0;
+          right: 0; } }
+    .account-head .img .icon-photo {
+      position: absolute;
+      font-size: 24px;
+      color: #fff;
+      z-index: 3;
+      transition: all 0.3s ease; }
+      @media only screen and (min-width: 769px) {
+        .account-head .img .icon-photo {
+          transform: translate(-150%, -50%);
+          top: 50%;
+          left: 50%;
+          opacity: 0; } }
+      @media only screen and (max-width: 769px) {
+        .account-head .img .icon-photo {
+          bottom: 2px;
+          right: 7px;
+          width: 30px;
+          height: 30px;
+          background: #0094f2;
+          border-radius: 50%;
+          font-size: 12px;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-align: center;
+              align-items: center;
+          -ms-flex-pack: center;
+              justify-content: center; } }
 
 .account-tabs {
   border-bottom: 1px solid #a8a8a8;
-  margin: 0 0 20px; }
+  margin: 0 0 30px; }
   @media only screen and (min-width: 769px) {
     .account-tabs {
-      font-size: 16px; } }
+      font-size: 16px;
+      margin: 0 0 44px; } }
   .account-tabs .account-delete {
     float: right;
-    font-size: 10px;
-    margin: 1px 0 0 0; }
+    font-size: 8px;
+    margin: 15px 0 0 0;
+    letter-spacing: 0.4px; }
     @media only screen and (max-width: 769px) {
       .account-tabs .account-delete {
         display: none; } }
@@ -5282,14 +5412,16 @@ iframe[name = advpp_manager] {
   margin: 0 0 -1px 0; }
   @media only screen and (max-width: 769px) {
     .account-tabs-list {
-      display: table;
-      width: 100%; } }
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: justify;
+          justify-content: space-between; } }
   .account-tabs-list li {
     font-size: 11px; }
     @media only screen and (min-width: 769px) {
       .account-tabs-list li {
         font-size: 16px;
-        margin: 0 3% -1px 0;
+        margin: 0 5.8% -1px 0;
         float: left; } }
     @media only screen and (max-width: 769px) {
       .account-tabs-list li {
@@ -5299,30 +5431,39 @@ iframe[name = advpp_manager] {
       color: #323232 !important;
       cursor: default; }
   .account-tabs-list a {
-    padding: 6px 4px;
+    padding: 6px 0;
     border-bottom: 2px solid transparent;
     display: inline-block;
     color: #323232; }
     @media only screen and (min-width: 769px) {
       .account-tabs-list a {
-        display: block; } }
+        display: block;
+        padding: 10px 0; } }
     .account-tabs-list a:hover {
       border-color: #0053a0; }
 
 .account-content {
-  max-width: 900px; }
+  max-width: 902px;
+  font-size: 14px; }
+  @media only screen and (max-width: 769px) {
+    .account-content .custom-checkbox .label-text {
+      min-height: 63px; } }
   @media only screen and (max-width: 769px) {
     .account-content .select-clear-all {
-      margin: 0 0 0 3px; } }
+      margin: 0 0 0 -2px; }
+      .account-content .select-clear-all span {
+        text-transform: capitalize; } }
   @media only screen and (max-width: 769px) {
     .account-content .select-clear-all .tooltip-dropdown {
       float: right;
       margin: 5px 0 0 0; } }
+  .account-content .select-clear-all .tooltip-dropdown .icon-question {
+    font-size: 16px; }
   @media only screen and (min-width: 769px) {
     .account-content .select-clear-all .tooltip-dropdown {
       position: absolute;
-      right: -37px;
-      top: 38px;
+      right: -31px;
+      top: 36px;
       margin: 0; } }
   @media only screen and (min-width: 769px) {
     .account-content .select-clear-all {
@@ -5332,26 +5473,40 @@ iframe[name = advpp_manager] {
       text-align: left; }
       .account-content .select-clear-all span {
         position: relative; } }
-  .account-content .grid-line.one {
-    margin: 0; }
+  .account-content .grid-line {
+    margin: 0 0 8px; }
+    .account-content .grid-line.one {
+      margin: 0; }
+      @media only screen and (min-width: 769px) {
+        .account-content .grid-line.one {
+          margin: -24px 0 0 0; } }
+      .account-content .grid-line.one .grid-item {
+        padding-bottom: 1px; }
   .account-content .line {
-    margin: 0 0 10px;
-    text-align: center; }
-    .account-content .line.line-subscriptions .form-line {
-      text-align: left; }
+    text-align: center;
+    margin: 0 0 18px; }
+    @media only screen and (max-width: 769px) {
+      .account-content .line {
+        font-size: 19px; } }
     @media only screen and (min-width: 769px) {
       .account-content .line {
         display: -ms-flexbox;
         display: flex;
-        text-align: left; } }
+        text-align: left;
+        margin: 0 0 24px; } }
+    .account-content .line.line-subscriptions .account-delete {
+      display: none; }
+    @media only screen and (max-width: 769px) {
+      .account-content .line.line-subscriptions .account-delete {
+        display: block; }
+      .account-content .line.line-subscriptions .desc {
+        padding: 10px 0 10px; } }
+    .account-content .line.line-subscriptions .form-line {
+      text-align: left; }
   .account-content .desc {
     width: 100%; }
-  .account-content .edit {
-    font-size: 8px; }
-  .account-content .edit-password {
-    font-size: 11px; }
   .account-content .label-holder {
-    margin: 0 0 20px 0; }
+    margin: 0 0 6px 0; }
     @media only screen and (max-width: 769px) {
       .account-content .label-holder {
         color: #6e6e6e;
@@ -5359,8 +5514,62 @@ iframe[name = advpp_manager] {
         font-size: 12px; } }
     @media only screen and (min-width: 769px) {
       .account-content .label-holder {
-        width: 150px;
+        width: 179px;
         margin: 0 10px 0 0; } }
+
+@media only screen and (min-width: 769px) {
+  .favourite-articles-list {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+    margin: 0 -35px 0 -35px; } }
+.favourite-articles-list > li {
+  padding: 0 0 20px 0;
+  overflow: visible; }
+  @media only screen and (min-width: 769px) {
+    .favourite-articles-list > li {
+      width: 50%;
+      padding: 0 55px 20px 35px; } }
+  @media only screen and (min-width: 1024px) {
+    .favourite-articles-list > li {
+      width: 33.3%; } }
+.favourite-articles-list .icon-close {
+  transform: scale(0.5);
+  right: 24px;
+  top: -12px; }
+  .favourite-articles-list .icon-close:before, .favourite-articles-list .icon-close:after {
+    background: #acacac; }
+
+.save-search-table td, .save-search-table th {
+  border: 0;
+  border-bottom: 1px solid #d8d8d8;
+  text-align: left;
+  padding: 10px 5px;
+  font-family: "LucidaGrande", Helvetica, Arial, Sans-serif;
+  font-weight: normal; }
+.save-search-table .gray {
+  color: #989898; }
+.save-search-table th {
+  text-transform: uppercase;
+  color: #989898; }
+.save-search-table td {
+  padding: 25px 5px;
+  vertical-align: middle; }
+  .save-search-table td:last-child {
+    width: 30px; }
+  .save-search-table td:first-child {
+    width: 350px; }
+  .save-search-table td:nth-child(2) {
+    width: 172px; }
+  .save-search-table td:nth-child(3) {
+    width: 172px; }
+  .save-search-table td:nth-child(5) {
+    width: 72px; }
+.save-search-table [class^="btn-"],
+.save-search-table [class*=" btn-"] {
+  height: 35px;
+  line-height: 19px; }
 
 .map-title {
   color: #717171;
@@ -5400,7 +5609,6 @@ iframe[name = advpp_manager] {
     position: relative;
     max-height: 34px;
     overflow: hidden;
-    margin: 0 0 16px;
     transition: all 0.3s ease;
     display: block; }
     .article-map .evidence-map-text .more-evidence-map-text-mobile {

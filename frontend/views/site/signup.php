@@ -16,51 +16,39 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
         <h1>Create your IZA World of Labor account</h1>
+        <p>Register to personalise your IZA World of Labor site, save your favourite articles and more.</p>
     </div>
 
-    <p>Register to personalise your IZA World of Labor site, save your favourite articles and more.</p>
-    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+    <?php $form = ActiveForm::begin(); ?>
         <div class="grid">
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'first_name', ['options'=>['class' => 'label-holder']]) ?>
-                    </div>
+                    <?= $form->field($model, 'first_name', ['options'=>['class' => 'form-item']])->textInput(['id' => 'first_name_desktop']) ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'last_name', ['options'=>['class' => 'label-holder']]) ?>
-                    </div>
+                    <?= $form->field($model, 'last_name', ['options'=>['class' => 'form-item']])->textInput(['id' => 'last_name_desktop']) ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'email', ['options'=>['class' => 'label-holder']]) ?>
-                    </div>
+                    <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput(['id' => 'email_desktop']) ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'confirm_email', ['options'=>['class' => 'label-holder']])->textInput()->label('re-type your email address') ?>
-                    </div>
+                    <?= $form->field($model, 'confirm_email', ['options'=>['class' => 'form-item']])->textInput(['id' => 'confirm_email_desktop'])->label('re-type your email address') ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'password', ['options'=>['class' => 'label-holder']])->passwordInput() ?>
-                    </div>
+                    <?= $form->field($model, 'password', ['options'=>['class' => 'form-item']])->passwordInput(['id' => 'password_desktop']) ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <div class="form-item">
-                        <?= $form->field($model, 'confirm_password', ['options'=>['class' => 'label-holder']])->passwordInput()->label('re-type your password') ?>
-                    </div>
+                    <?= $form->field($model, 'confirm_password', ['options'=>['class' => 'form-item']])->passwordInput(['id' => 'confirm_password_desktop'])->label('re-type your password')?>
                 </div>
             </div>
 

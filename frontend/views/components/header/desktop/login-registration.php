@@ -6,13 +6,7 @@
             <?= $this->renderFile('@app/views/site/login.php'); ?>
         </li>
         <li class="hide-mobile">
-            <a href="#"><?= Yii::t('app/menu', 'register') ?></a>
-        </li>
-        <li class="hide-desktop dropdown">
-            <a href="#" class="mobile-dropdown-link dropdown-link"><?= Yii::t('app/menu', 'register') ?></a>
-            <div class="dropdown-widget">
-                test
-            </div>
+            <a href="/register"><?= Yii::t('app/menu', 'register') ?></a>
         </li>
     </ul>
     <?php else: ?>

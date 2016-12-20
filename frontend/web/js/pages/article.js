@@ -328,7 +328,6 @@
                 // }
             });
         },
-
         addToFavourite: function(btn) {
             $(btn).click(function(e) {
                 var cur = $(this);
