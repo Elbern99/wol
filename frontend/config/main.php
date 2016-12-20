@@ -53,6 +53,7 @@ return [
                 'register' => 'site/signup',
                 'reset' => 'site/request-password-reset',
                 'my-account' => 'my-account/index',
+                'subscribe' => 'site/subscribe'
             ],
         ],
         'assetManager' => [

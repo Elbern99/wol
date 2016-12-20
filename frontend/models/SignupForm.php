@@ -9,6 +9,8 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
+    use \frontend\models\traits\AreasOfInterest;
+    
     public $username = null;
     public $email;
     public $password;
@@ -17,6 +19,7 @@ class SignupForm extends Model
     public $confirm_email;
     public $confirm_password;
     public $agree;
+    public $items;
 
     /**
      * @inheritdoc
@@ -46,10 +49,11 @@ class SignupForm extends Model
             ['confirm_password', 'required'],
             ['confirm_password', 'string', 'min' => 6],
             ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>"Password don't match"],
-            ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions']
+            ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions'],
+
         ];
     }
-
+    
     /**
      * Signs user up.
      *

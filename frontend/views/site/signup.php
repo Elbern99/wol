@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Subscribe to newsletter';
+$this->title = 'Register';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container subscribe-to-newsletter">
@@ -86,14 +86,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="grid-line four">
-                    <div class="grid-item">
-                        <div class="form-item">
-                            <label class="custom-checkbox">
-                                <input type="checkbox" name="">
-                                <span class="label-text">Program evaluation</span>
-                            </label>
-                        </div>
-                    </div>
+                    <?= $form->field($model, 'items')->checkboxList($model->getSubjectItems(),[
+                            'item'=> function($index, $label, $name, $checked, $value) { 
+                                return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
+                                Html::checkbox($name, $checked, [
+                                    'value' => $value,
+                                ]).'<span class="label-text">'.$label.'</span></label></div></div>'; 
+                            } 
+                    ])->label('');
+                    ?>
                 </div>
                 
             </div>
