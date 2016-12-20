@@ -12,6 +12,7 @@ use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\NewsletterForm;
 
 /**
  * Site controller
@@ -22,13 +23,14 @@ class SiteController extends Controller {
      * @inheritdoc
      */
     public function behaviors() {
+        
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'login'],
+                'only' => ['logout', 'signup', 'login', 'subscribe'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login'],
+                        'actions' => ['signup', 'login', 'subscribe'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -42,7 +44,7 @@ class SiteController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post', 'get'],
+                    'logout' => ['post'],
                     'login' => ['post']
                 ],
             ],
@@ -53,6 +55,7 @@ class SiteController extends Controller {
      * @inheritdoc
      */
     public function actions() {
+        
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -70,7 +73,14 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        
         return $this->render('index');
+    }
+    
+    public function actionSubscribe() {
+        
+        $model = new NewsletterForm();
+        return $this->render('subscribe', ['model'=>$model]);
     }
 
     /**
@@ -115,7 +125,9 @@ class SiteController extends Controller {
         $model = new SignupForm();
         
         if ($model->load(Yii::$app->request->post())) {
+
             if ($user = $model->signup()) {
+                
                 return $this->goHome();
             }
         }
@@ -131,13 +143,18 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionRequestPasswordReset() {
+        
         $model = new PasswordResetRequestForm();
+        
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
                 return $this->goHome();
+                
             } else {
+                
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
         }
@@ -156,14 +173,16 @@ class SiteController extends Controller {
      */
     public function actionResetPassword($token) {
         try {
+            
             $model = new ResetPasswordForm($token);
+            
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            
             Yii::$app->session->setFlash('success', 'New password was saved.');
-
             return $this->goHome();
         }
 
