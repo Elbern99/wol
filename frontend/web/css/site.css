@@ -455,7 +455,7 @@ th {
   transform: translate(-50%, -50%); }
 
 .pinout, .reference-popup .reference-popup-inner:before, .reference-popup .reference-popup-inner:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .article-pagers:after, #article-map-medium,
-#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .account-head .img .inner, .account-head .img input[type="file"], .account-head .img:after, .map-info-inner:after {
+#map-mini, #article-map-medium:after, .text-reference.text-reference-opened:after, .account-head .img .inner, .account-head .img .field-load_image, .account-head .img input[type="file"], .account-head .img:after, .map-info-inner:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -3133,6 +3133,9 @@ label {
   background-color: #f2dede;
   border-color: #ebccd1; }
 
+form {
+  width: 100%; }
+
 .dropdown-login .dropdown-widget {
   margin-top: -5px; }
   @media only screen and (max-width: 1330px) {
@@ -5391,16 +5394,18 @@ iframe[name = advpp_manager] {
       -ms-flex-order: 2;
           order: 2; } }
 
-.my-account-page .tabs {
+.tabs {
   overflow: hidden; }
-.my-account-page .tab {
+
+.tab {
   transform: translateX(-250%);
   transition: transform .5s ease, opacity .5s ease;
   overflow: hidden;
   opacity: 0; }
-  .my-account-page .tab.active {
+  .tab.active {
     transform: translateX(0);
     opacity: 1; }
+
 .my-account-page .edit-password,
 .my-account-page .edit,
 .my-account-page .account-delete {

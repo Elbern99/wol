@@ -55,7 +55,6 @@
     //EVENTS
     elements.document.ready(function() {
         account.tabsLocation('.account-tabs-list li', '.tab');
-
     });
 
     elements.window.load(function() {
@@ -63,5 +62,5 @@
         account.formEdit('.form-item-edit .edit');
         account.formEdit('.form-item-edit .edit-password');
     });
-
+    
 })(jQuery);

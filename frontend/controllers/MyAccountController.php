@@ -8,6 +8,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use frontend\models\UserProfileForm;
 
 /**
  * Site controller
@@ -23,7 +24,7 @@ class MyAccountController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'change-avatar', 'edit-user-data', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -32,6 +33,8 @@ class MyAccountController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'change-avatar' => ['post'],
+                    'edit-user-data' => ['post']
                 ],
             ],
         ];
@@ -51,9 +54,91 @@ class MyAccountController extends Controller {
             ],
         ];
     }
+    
+    protected function getTabs() {
+        
+        return [
+            'account' => ['path'=>'tabs/account.php', 'params' => $this->getAccountParams()],
+            'article' => ['path'=>'tabs/article.php', 'params' => []],
+            'search' => ['path'=>'tabs/search.php', 'params' => []]
+        ];
+    }
+    
+    protected function getAccountParams() {
+        
+        $form = new UserProfileForm();
+
+        return [
+            'model' => $form
+        ];
+    }
 
     public function actionIndex() {
-        die('my Account');
+
+        return $this->render('index', ['tabs' => $this->getTabs(), 'user' => Yii::$app->user->identity]);
+    }
+    
+    public function actionChangeAvatar() {
+
+        if (Yii::$app->request->getIsAjax()) {
+            
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            
+            $user = new UserProfileForm();
+            $user->initUploadProperty();
+
+            $result = $user->upload();
+
+            if ($result && $user->saveAvatar()) {
+                return ['success' => $user->getAvatarUrl($user->avatar->name)];
+            }
+            
+            return [];
+        }
+        
+        return $this->goHome();
+    }
+    
+    public function actionEditUserData() {
+        
+        if (Yii::$app->request->isPost) {
+            
+            $user = new UserProfileForm();
+
+            if ($user->load(Yii::$app->request->post()) && $user->validate()) {
+
+                if ($user->saveUserData()) {
+                    
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Your data was change'), false);
+                }
+                
+                return $this->redirect('/my-account');
+            }
+            
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Your data was not change'), false);
+            return $this->redirect('/my-account');
+        }
+        
+        return $this->goHome();
+    }
+    
+    public function actionDelete() {
+        
+        try {
+            $model = Yii::$app->user->identity;
+            if (!is_object($model)) {
+                throw new BadRequestHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $model->delete();
+            Yii::$app->user->logout();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Account was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Account was not delete!'));
+        }
+
+        return $this->goHome();
     }
 
 }

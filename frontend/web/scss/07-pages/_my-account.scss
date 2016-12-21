@@ -9,23 +9,23 @@
   }
 }
 
+.tabs {
+  overflow: hidden;
+}
+
+.tab {
+  transform: translateX(-250%);
+  transition: transform .5s ease, opacity .5s ease;
+  overflow: hidden;
+  opacity: 0;
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .my-account-page {
-
-  .tabs {
-    overflow: hidden;
-  }
-
-  .tab {
-    transform: translateX(-250%);
-    transition: transform .5s ease, opacity .5s ease;
-    overflow: hidden;
-    opacity: 0;
-
-    &.active {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
 
   .edit-password,
   .edit,
@@ -84,6 +84,10 @@
       @extend .pinout;
       background: #000;
       border-radius: 50%;
+    }
+
+    .field-load_image {
+      @extend .pinout;
     }
 
     input[type="file"] {
