@@ -61,8 +61,8 @@
         account.tabs('.account-tabs-list a','.tab');
         account.formEdit('.form-item-edit .edit');
         account.formEdit('.form-item-edit .edit-password');
-        account.formEditSave('.form-item-edit .btn-save');
-        account.formEditCancel('.form-item-edit .btn-cancel');
+        //account.formEditSave('.form-item-edit .btn-save');
+        //account.formEditCancel('.form-item-edit .btn-cancel');
     });
-
+    
 })(jQuery);
