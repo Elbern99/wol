@@ -67,10 +67,10 @@ $config = [
                     <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
             <span class="icon-message"></span>
         </a>
-        <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+        <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
         <a href="" class="btn-border-gray-middle btn-like short">
             <span class="icon-heart"></span>
-            <div class="btn-like-inner">article added to favorites</div>
+            <div class="btn-like-inner"></div>
         </a>
     </div>
 
@@ -202,9 +202,9 @@ $config = [
                             </div>
                         </a>
                         <div class="article-buttons-short">
-                            <a href="" class="btn-border-gray-middle btn-like short">
+                            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                                 <span class="icon-heart"></span>
-                                <div class="btn-like-inner">article added to favorites</div>
+                                <div class="btn-like-inner"></div>
                             </a>
                             <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
                             <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
@@ -239,9 +239,9 @@ $config = [
                         <span>cite</span>
                     </span>
                 </a>
-                <a href="" class="btn-border-gray-middle btn-like short">
+                <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
-                    <div class="btn-like-inner">article added to favorites</div>
+                    <div class="btn-like-inner"></div>
                 </a>
                 <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
                 <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>

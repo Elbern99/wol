@@ -8,7 +8,7 @@ use yii\web\Controller;
 use common\models\Article;
 use common\modules\eav\Collection;
 use yii\helpers\ArrayHelper;
-
+use common\models\FavoritArticle;
 use common\modules\eav\CategoryCollection;
 
 /**
@@ -154,6 +154,33 @@ class ArticleController extends Controller {
             'article' => $model,
             'collection' => $articleCollection,
         ]);
+    }
+    
+    public function actionLike($id) {
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        if (Yii::$app->user->isGuest || !is_object(Yii::$app->user->identity)) {
+            return ['message' => 'You have not logged'];
+        }
+        
+        try {
+            
+            $userId = Yii::$app->user->identity->id;
+            $model = new FavoritArticle();
+            $model->user_id = $userId;
+            $model->article_id = $id;
+            
+            if ($model->save()) {
+                return ['message' => 'Article added to favorites'];
+            }
+            
+        } catch (Exception $ex) {
+        } catch (\yii\db\Exception $e) {
+            return ['message' => 'You already added this article'];
+        }
+
+        return ['message' => 'Bad Request'];
     }
 
 }

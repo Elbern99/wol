@@ -329,12 +329,22 @@
             });
         },
         addToFavourite: function(btn) {
+            
             $(btn).click(function(e) {
+                
                 var cur = $(this);
-                cur.addClass('added');
-                setTimeout(function(){
-                    cur.removeClass('added');
-                }, 5000);
+                
+                $.get(cur.prop('href'), function(data, status) {
+                    
+                    cur.children('.btn-like-inner').html(data.message);
+                    cur.addClass('added');
+                    
+                    setTimeout(function() {
+                        cur.removeClass('added');
+                    }, 5000);
+                });
+
+                
                 e.preventDefault();
             });
         },
