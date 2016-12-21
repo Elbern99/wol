@@ -1,0 +1,32 @@
+@keyframes hide {
+  0% {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  99% {
+    display: block;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.slideAnimate {
+  transform: translateY(-150%);
+  transition: transform .5s ease;
+  overflow: hidden;
+
+  &.active {
+    transform: translateY(0);
+  }
+}
+
+.js-tab-hidden {
+  display: block !important;
+  left: -9999px !important;
+  position: absolute !important;
+  top: -9999px !important;
+}
