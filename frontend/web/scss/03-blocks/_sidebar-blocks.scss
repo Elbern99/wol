@@ -707,16 +707,25 @@
   }
 
   li {
-    display: none;
+    left: -9999px !important;
+    position: absolute !important;
+    top: -9999px !important;
+    opacity: 0;
+    transform: translateY(-30%);
+    transition: transform .5s ease, opacity .5s ease;
 
     &:last-child {
       margin-bottom: 0;
     }
 
-    &:nth-child(-n+10) {
-      display: block !important;
+    &:nth-child(-n+13),
+    &.opened {
       opacity: 1 !important;
       height: auto !important;
+      left: auto !important;
+      position: relative !important;
+      top: auto !important;
+      transform: translateX(0);
     }
 
     .icon-exclamatory-circle {

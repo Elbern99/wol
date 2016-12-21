@@ -16,10 +16,14 @@
   }
 
   .tab {
-    display: none;
+    transform: translateX(-250%);
+    transition: transform .5s ease, opacity .5s ease;
+    overflow: hidden;
+    opacity: 0;
 
     &.active {
-      display: block;
+      transform: translateX(0);
+      opacity: 1;
     }
   }
 
@@ -388,7 +392,7 @@
   @include breakpoint('tablet') {
     display: flex;
     flex-flow: row wrap;
-    margin: 0 -35px 0 -35px;
+    margin: 0 -35px 0 -30px;
   }
 
   >li {
@@ -397,7 +401,7 @@
 
     @include breakpoint('tablet') {
       width: 50%;
-      padding: 0 55px 20px 35px;
+      padding: 10px 55px 10px 30px;
     }
 
     @include breakpoint('desktop') {
@@ -406,9 +410,9 @@
   }
 
   .icon-close {
-    transform: scale(0.5);
-    right: 24px;
-    top: -12px;
+    transform: scale(0.55);
+    right: 16px;
+    top: -5px;
     
     &:before,
     &:after {
@@ -426,8 +430,7 @@
     border-bottom: 1px solid #d8d8d8;
     text-align: left;
     padding: 10px 5px;
-    font-family: $lucida-grande;
-    font-weight: normal;
+    font: normal 11px/18px $lucida-grande;
   }
   
   .gray {
@@ -437,36 +440,44 @@
   th {
     text-transform: uppercase;
     color: #989898;
+    font-size: 11px;
+    padding: 0 0 6px;
+    letter-spacing: 0.07em;
   }
 
   td {
-    padding: 25px 5px;
+    padding: 21px 11px 21px 0;
     vertical-align: middle;
 
-    &:last-child {
-      width: 30px;
-    }
-
     &:first-child {
-      width: 350px;
+      width: 34%;
+      font-size: 16px;
     }
 
     &:nth-child(2) {
-      width: 172px;
+      width: 17.5%;
     }
 
     &:nth-child(3) {
-      width: 172px;
+      width: 12.9%;
     }
 
     &:nth-child(5) {
-      width: 72px;
+      width: 89px;
     }
+
+    &:last-child {
+      width: 35px;
+      padding-right: 0;
+    }
+
   }
 
   [class^="btn-"],
   [class*=" btn-"] {
-    height: 35px;
-    line-height: 19px;
+    height: 30px;
+    width: 100%;
+    font-size: 11px;
+    line-height: 30px;
   }
 }

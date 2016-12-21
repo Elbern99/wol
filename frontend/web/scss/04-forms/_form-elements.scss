@@ -43,9 +43,10 @@ label {
       position: absolute;
       color: $light-blue;
       top: 1px;
-      right: 19px;
+      right: 0;
       font-size: 10px;
       content: 'Required';
+      text-transform: capitalize;
 
       @include breakpoint('tablet') {
         top: 3px;
@@ -74,7 +75,6 @@ label {
 .form-line {
   margin: 0 0 8px;
 }
-
 
 .header-bottom {
   .search {

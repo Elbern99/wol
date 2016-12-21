@@ -23,32 +23,32 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="grid">
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'first_name', ['options'=>['class' => 'form-item']])->textInput(['id' => 'first_name_desktop']) ?>
+                    <?= $form->field($model, 'first_name', ['options'=>['class' => 'form-item']])->textInput() ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'last_name', ['options'=>['class' => 'form-item']])->textInput(['id' => 'last_name_desktop']) ?>
+                    <?= $form->field($model, 'last_name', ['options'=>['class' => 'form-item']])->textInput() ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput(['id' => 'email_desktop']) ?>
+                    <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput() ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'confirm_email', ['options'=>['class' => 'form-item']])->textInput(['id' => 'confirm_email_desktop'])->label('re-type your email address') ?>
+                    <?= $form->field($model, 'confirm_email', ['options'=>['class' => 'form-item']])->textInput()->label('re-type your email address') ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'password', ['options'=>['class' => 'form-item']])->passwordInput(['id' => 'password_desktop']) ?>
+                    <?= $form->field($model, 'password', ['options'=>['class' => 'form-item']])->passwordInput() ?>
                 </div>
             </div>
             <div class="grid-line two">
                 <div class="grid-item">
-                    <?= $form->field($model, 'confirm_password', ['options'=>['class' => 'form-item']])->passwordInput(['id' => 'confirm_password_desktop'])->label('re-type your password')?>
+                    <?= $form->field($model, 'confirm_password', ['options'=>['class' => 'form-item']])->passwordInput()->label('re-type your password')?>
                 </div>
             </div>
 
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="form-line">
-            <?= $form->field($model, 'agree')->checkbox()->label('<span class="label-text">I agree to the <a href="">terms and conditions</a> and <a href="">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
+            <?= $form->field($model, 'agree')->checkbox(['id' => 'agree_desktop'])->label('<span class="label-text">I agree to the <a href="">terms and conditions</a> and <a href="">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
         </div>
 
         <?= Html::submitButton('Signup', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>

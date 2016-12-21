@@ -552,19 +552,21 @@
 .dropdown-widget,
 .header-desktop .header-menu-bottom-list >.has-drop >.submenu,
 .owl-item >.has-drop >.submenu {
-  max-height: 0;
-  z-index: -1;
-  opacity: 0;
-  transition: all 0.3s ease;
+
   display: block;
 
-  &.open {
-    max-height: 800px;
-    z-index: 1300;
-    opacity: 1;
-  }
-
   @include breakpoint('tablet') {
+    max-height: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    &.open {
+      max-height: 800px;
+      z-index: 1300;
+      opacity: 1;
+    }
+
     position: absolute;
     background: #f5f5f5;
     padding: 13px 20px 20px;
@@ -626,6 +628,7 @@
     opacity: 0;
     transition: all 0.3s ease;
     border: 1px solid #d8d8d8;
+    height: auto;
 
     &:after {
       position: absolute;

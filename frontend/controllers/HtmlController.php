@@ -71,4 +71,8 @@ class HtmlController extends Controller {
     public function actionMyAccount() {
         return $this->render('my-account');
     }
+
+    public function actionUi() {
+        return $this->render('ui');
+    }
 }

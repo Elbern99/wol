@@ -125,14 +125,19 @@ var elements = {
     };
 
     /* dropDown */
-    function dropDown(btn, dropWidget) {
+    function dropDown(btn, dropWidget, mobile) {
         if ( dropWidget.length ) {
+
+
+
             btn.on('click',function(e) {
                 var cur = $(this);
                 $(document).unbind('click.drop-content');
 
+                console.log(mobile);
+
                 if(_window_width > _mobile ) {
-                    dropWidget.removeClass('open');
+                    //dropWidget.removeClass('open');
                 }
 
                 btn.not(cur).removeClass('active');
@@ -176,25 +181,42 @@ var elements = {
     /* tabs */
     function tabsFn(list, content){
 
-        //list.find('li').eq(0).find('a').addClass('active');
-        //list.find('li').eq(0).find(content).addClass('open');
+        console.log(list.find('li'));
 
-        list.find('a').on('click', function(e) {
+        list.find('li').eq(0).find('a').addClass('active');
+        list.find('li').eq(0).find(content).addClass('active');
+
+        list.find('>li>a').on('click', function(e) {
             var  cur = $(this),
                 curParent = cur.parents('li');
 
             list.find('a').removeClass('active');
-            list.find(content).removeClass('open');
+            list.find(content).removeClass('active').addClass('js-tab-hidden');
 
             if ( !cur.hasClass('active') ) {
                 cur.addClass('active');
-                curParent.find(content).addClass('open');
+                curParent.find(content).addClass('active').removeClass('js-tab-hidden');
             } else {
                 cur.removeClass('active');
-                curParent.find(content).removeClass('open');
+                curParent.find(content).removeClass('active').addClass('js-tab-hidden');
             }
             e.preventDefault();
         });
+
+        $('.open-mobile-login').on('click', function(e) {
+            $('.btn-mobile-menu-show').trigger('click');
+            $('.btn-mobile-login-show').trigger('click');
+            $('.login-registration-list.mobile li').eq(0).find('a').trigger('click');
+            e.preventDefault();
+        });
+
+        $('.open-mobile-register').on('click', function(e) {
+            $('.btn-mobile-menu-show').trigger('click');
+            $('.btn-mobile-login-show').trigger('click');
+            $('.login-registration-list.mobile li').eq(1).find('a').trigger('click');
+            e.preventDefault();
+        });
+
     }
     /* tabs end */
 
@@ -336,9 +358,9 @@ var elements = {
                     cur.toggleClass('showed');
 
                     if(cur.hasClass('showed')) {
-                        curParent.find('li').slideDown(0);
+                        curParent.find('li').addClass('opened');
                     } else {
-                        curParent.find('li').slideUp(0);
+                        curParent.find('li').removeClass('opened');
                     }
 
                 e.preventDefault();
@@ -411,10 +433,10 @@ var elements = {
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
         if(_window_width < _tablet ) {
-            tabsFn($('.login-registration-list'), '.dropdown-widget');
+            tabsFn($('.login-registration-list.mobile'), '.dropdown-widget');
             dropDown($('.btn-mobile-menu-show'), $('.drop-content'));
             dropDown($('.btn-mobile-search-show'), $('.drop-content'));
-            dropDown($('.btn-mobile-login-show'), $('.drop-content'));
+            dropDown($('.btn-mobile-login-show'), $('.drop-content'), true);
             closeDropDown($('.btn-mobile-menu-close'), $('.mobile-menu'), $('.btn-mobile-menu-show'));
             closeDropDown($('.btn-mobile-search-close'), $('.mobile-search'), $('.btn-mobile-search-show'));
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
@@ -431,13 +453,7 @@ var elements = {
     });
 
     $(window).resize(function() {
-        //HEADER
-        dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
 
-        if(_window_width < _mobile ) {
-            tabsFn($('.login-registration-list'), '.dropdown-widget');
-        }
-        //CONTENT
     });
 
     $(window).load(function() {

@@ -91,6 +91,7 @@ ol {
 ol {
   li {
     counter-increment: step-counter;
+    margin: 0 0 4px;
 
     &:before {
       content: counter(step-counter)'.';

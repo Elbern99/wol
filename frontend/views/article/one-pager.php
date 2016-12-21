@@ -283,7 +283,7 @@ $config = [
                                     </li>
                                 <?php endforeach; unset($related); ?>
                             </ul>
-                            <?php if(count($count_related) > 10): ?>
+                            <?php if(count($count_related) > 13): ?>
                                 <a href="" class="more-link">
                                     <span class="more">More</span>
                                     <span class="less">Less</span>
@@ -312,7 +312,7 @@ $config = [
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <?php if(count($furthers) > 10): ?>
+                                <?php if(count($furthers) > 13): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>
@@ -349,7 +349,7 @@ $config = [
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                        <?php if(count($references) > 10): ?>
+                        <?php if(count($references) > 13): ?>
                             <a href="" class="more-link">
                                 <span class="more">More</span>
                                 <span class="less">Less</span>
@@ -380,7 +380,7 @@ $config = [
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <?php if(count($additionals) > 10): ?>
+                                <?php if(count($additionals) > 13): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>
@@ -424,6 +424,18 @@ $config = [
                                     <li>
                                         <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                         <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <?php if (isset($attributes['add_references'])): ?>
+                            <?php $additionals = $attributes['add_references']->getData(null, $currentLang); ?>
+                            <h3>Additional References</h3>
+                            <ul class="additional-references-popup-list">
+                                <?php foreach($additionals as $additional): ?>
+                                    <li>
+                                        <?= $additional->full_citation ?>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

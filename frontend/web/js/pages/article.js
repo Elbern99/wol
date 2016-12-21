@@ -360,6 +360,15 @@
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });
+        },
+        openListInpopup: function(btn,parent) {
+            $(btn).click(function(e) {
+                var cur = $(this),
+                    curIndex = cur.parent().index();
+
+                $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
+                e.preventDefault();
+            });
         }
     };
     /* end */

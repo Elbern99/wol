@@ -71,7 +71,7 @@
   border-bottom: 1px solid #bcbcbc;
   position: relative;
 
-  @include breakpoint_custom($breakpoint-desktop) {
+  @include breakpoint_custom($breakpoint-tablet) {
     overflow: hidden;
   }
 
@@ -278,7 +278,7 @@
 //LOGIN-REGISTRATION
 .login-registration {
   @include breakpoint_custom($breakpoint-tablet) {
-    padding: 29px 0 0;
+    padding: 29px 0 20px;
 
     .login-registration-list {
       text-align: center;
@@ -286,12 +286,12 @@
       text-transform: none;
       border-bottom: 1px solid  #a8a8a8;
 
-      li {
+      >li {
         margin: 0 10px;
         text-transform: capitalize;
         position: static;
 
-        a {
+        >a {
           display: block;
           padding: 17px 10px 17px;
         }
@@ -304,27 +304,35 @@
       left: 25px;
       right: 25px;
       text-align: left;
+
+      form {
+        padding-bottom: 20px;
+      }
     }
   }
 }
 
+//login-registration-list
 .login-registration-list {
   font-size: 10px;
   margin: 0 0 -1px;
 
   @include breakpoint_custom($breakpoint-tablet) {
     .dropdown-widget {
-      display: none;
+      transform: translateX(-50%);
+      transition: transform .3s ease, opacity .3s ease;
+      overflow: hidden;
+      opacity: 0;
 
-      &.open {
-        display: block;
+      &.active {
+        transform: translateX(0);
+        opacity: 1;
       }
     }
   }
 
   li {
     display: inline-block;
-    text-transform: uppercase;
     position: relative;
     margin: 0 0 0 27px;
 
@@ -342,24 +350,29 @@
   }
 
   >li {
-    >a {
+    >a,
+    .logout-link{
       display: block;
       padding: 9px 0;
+      text-transform: uppercase;
 
       @include breakpoint('tablet') {
+        border: 0;
         border-bottom: 1px solid transparent;
       }
     }
   }
 
-  a {
+  a,
+  .logout-link {
     text-decoration: none;
+    background: none;
 
     @include breakpoint('tablet') {
 
       &:hover,
       &.active {
-        border-color: #008ef1;
+        border-bottom-color: #008ef1;
       }
     }
 
@@ -393,9 +406,30 @@
     }
 
     &.active,
-    &hover {
+    &:hover {
       color: $blue;
     }
+  }
+
+  //my-account
+  .logout-link {
+    color: $light-blue;
+  }
+
+  &.logout {
+    li {
+      margin: 0 0 0 17px;
+    }
+  }
+
+  .welcome-link {
+    color: #323232;
+    background: #fff;
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-shadow: 0 1px 0 0px #fff;
   }
 }
 

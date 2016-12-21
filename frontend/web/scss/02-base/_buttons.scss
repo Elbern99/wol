@@ -3,9 +3,10 @@
 [class*=" btn-"],
 .btn {
   color: #FFFFFF;
-  font: normal 10px/1.42857143 $lucida-sans;
+  font: normal 10px/32px $lucida-sans;
   //padding: 8px 11px 9px;
   padding: 0 11px;
+  height: 33px;
   position: relative;
   text-align: center;
   text-decoration: none !important;
@@ -32,7 +33,13 @@
   &.with-icon,
   &.with-icon-r,
   &.btn-center {
-    padding: 7px 11px;
+    padding: 0 11px;
+
+    span {
+      &:last-child {
+        padding-top: 1px;
+      }
+    }
 
     .inner {
       display: flex;
@@ -100,7 +107,7 @@
   .lang {
     width: 15px;
     height: 11px;
-    margin: 0 5px 0 0;
+    margin: 0 5px 2px 0;
 
     img {
       width: 100%;
@@ -130,7 +137,8 @@
 //border-blue
 .btn-border-blue,
 [class^="btn-border-blue-"],
-[class*=" btn-border-blue-"]{
+[class*=" btn-border-blue-"],
+.btn-primary {
   border-color: #0053a0;
   color: $blue;
   height: 30px;
@@ -215,7 +223,7 @@
 .btn-border-blue-middle,
 .btn-border-gray-middle {
   height: 32px;
-  line-height: 15px;
+  line-height: 32px;
   font-size: 11px;
 }
 
@@ -223,7 +231,7 @@
   background: #eaeaea;
   color: #7b7b7b;
   height: 36px;
-  line-height: 19px;
+  line-height: 36px;
   font-size: 11px;
   letter-spacing: 0.05em;
   border-radius: 2px;
@@ -277,7 +285,7 @@
   @include breakpoint('tablet') {
     font-size: 15px;
     height: 48px;
-    line-height: 31px;
+    line-height: 48px;
     letter-spacing: 0em;
   }
 }

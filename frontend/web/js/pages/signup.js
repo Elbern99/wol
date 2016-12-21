@@ -26,7 +26,7 @@
                 var hashArray = window.location.hash.split('-'),
                     hashIndex = parseInt(hashArray[1]) - 1;
                 $(tabsMenu).eq(hashIndex).addClass('active').siblings().removeClass("active");
-                $(tab).fadeOut(0).siblings().eq(hashIndex).fadeIn(0);
+                $(tab).removeClass("active").addClass('js-tab-hidden').eq(hashIndex).removeClass('js-tab-hidden').addClass('active');
             }
         },
         tabs: function(tabsMenu,tab) {
@@ -36,8 +36,8 @@
                 $(this).parent().siblings().removeClass("active");
                 var tabCur = $(this).attr("href");
                 window.location.hash = tabCur;
-                $(tab).not(tabCur).css("display", "none");
-                $(tabCur).fadeIn();
+                $(tab).not(tabCur).removeClass('active').addClass('js-tab-hidden');
+                $(tabCur).addClass('active').removeClass('js-tab-hidden');
             });
         },
         formEdit: function(btn) {
@@ -55,14 +55,13 @@
     //EVENTS
     elements.document.ready(function() {
         account.tabsLocation('.account-tabs-list li', '.tab');
+
     });
 
     elements.window.load(function() {
         account.tabs('.account-tabs-list a','.tab');
         account.formEdit('.form-item-edit .edit');
         account.formEdit('.form-item-edit .edit-password');
-        account.formEditSave('.form-item-edit .btn-save');
-        account.formEditCancel('.form-item-edit .btn-cancel');
     });
 
 })(jQuery);

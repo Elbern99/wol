@@ -27,9 +27,9 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <div class="inner">
                                 <input type="file" name="name">
                                 <img src="https://codepo8.github.io/canvas-images-and-pixels/img/horse.png" alt="">
-                                <div class="icon-photo"></div>
                             </div>
                             <div class="text">change photo</div>
+                            <div class="icon-photo"></div>
                         </div>
                         <h1>Steve Smith</h1>
                     </div>
@@ -213,7 +213,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                     </div>
                 </div>
                 <!-- tab -->
-                <div class="tab" id="tab-2">
+                <div class="tab js-tab-hidden" id="tab-2">
                     <ul class="favourite-articles-list">
                         <li class="article-item">
                             <div class="icon-close"></div>
@@ -362,7 +362,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                     </ul>
                 </div>
                 <!-- tab -->
-                <div class="tab" id="tab-3">
+                <div class="tab js-tab-hidden" id="tab-3">
                     <table class="save-search-table">
                         <tr>
                             <th>search term</th>
@@ -375,7 +375,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <td><span class="gray">Everything</span></td>
                             <td><span class="gray">Nothing</span></td>
                             <td><span class="gray">All</span></td>
-                            <td><button type="submit" class="btn-blue">search</button></td>
+                            <td><a href="" class="btn-blue">search</a></td>
                             <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
                         </tr>
                         <tr>
@@ -383,7 +383,7 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
                             <td>2016, Brazil</td>
                             <td>Peru, Bolivia</td>
                             <td>Development, Environment, Transition and emerging economies</td>
-                            <td><button type="submit" class="btn-blue">search</button></td>
+                            <td><a href="" class="btn-blue">search</a></td>
                             <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
                         </tr>
                     </table>

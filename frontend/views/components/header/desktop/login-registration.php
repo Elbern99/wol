@@ -10,15 +10,15 @@
         </li>
     </ul>
     <?php else: ?>
-    <ul class="login-registration-list">
+    <ul class="login-registration-list logout">
         <li class="dropdown dropdown-login">
-            <a href ="/my-account">Welcome, <?= Yii::$app->user->identity->first_name ?? '' ?></a>
+            <a href ="/my-account" class="welcome-link">Welcome, <strong><?= Yii::$app->user->identity->first_name ?? '' ?></strong></a>
         </li>
         <li class="hide-mobile">
             <?= Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout',
-                ['class' => '']
+                ['class' => 'logout-link']
             )
             . Html::endForm() ?>
         </li>

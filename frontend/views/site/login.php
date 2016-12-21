@@ -13,14 +13,14 @@ use frontend\models\LoginForm;
 <div class="dropdown-widget drop-content">
     <?php $form = ActiveForm::begin(['action' => '/site/login']); ?>
         <div class="form-line">
-            <?= $form->field($model, 'email')->textInput() ?>
+            <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput() ?>
         </div>
         <div class="form-line">
-            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'password', ['options'=>['class' => 'form-item']])->passwordInput() ?>
         </div>
         <div class="buttons">
-            <?= Html::submitButton('Login', ['class' => 'btn btn-blue', 'name' => 'login-button']) ?>
-            <?= Html::a('forgot your password?', ['/reset']) ?>
+            <?= Html::submitButton('Login', ['class' => 'btn-blue', 'name' => 'login-button']) ?>
+            <?= Html::a('forgot your password?', ['/reset'], ['class'=>'forgot-link']) ?>
         </div>
         <?= $form->field($model, 'rememberMe')->checkbox() ?>
     <?php ActiveForm::end(); ?>
