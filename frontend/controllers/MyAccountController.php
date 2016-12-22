@@ -10,6 +10,10 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\UserProfileForm;
 use common\models\FavoritArticle;
+use yii\helpers\ArrayHelper;
+use common\models\Article;
+use common\modules\eav\CategoryCollection;
+use common\models\Category;
 /**
  * Site controller
  */
@@ -75,10 +79,61 @@ class MyAccountController extends Controller {
     
     protected function getFavoritArticle() {
         
-        $articles = FavoritArticle::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        $articlesCollection = [];
         
+        $favorit = FavoritArticle::find()
+                    ->with(['article' => function($query){
+                        return $query->alias('a')
+                                ->with(['articleCategories' => function($query) {
+                                    return $query->alias('ac')->select(['ac.article_id','ac.category_id', 'c.title', 'c.url_key'])
+                                           ->innerJoin(Category::tableName().' AS c', 'c.id = ac.category_id')->asArray();
+                                }])
+                                ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                                ->where(['a.enabled' => 1]);
+                    }])
+                    ->where(['user_id' => Yii::$app->user->identity->id])
+                    ->orderBy(['created_at' => SORT_DESC])
+                    ->all();
+
+        $articlesIds = ArrayHelper::getColumn($favorit, 'article_id');
+        
+        if (count($articlesIds)) {
+            
+            $categoryCollection = Yii::createObject(CategoryCollection::class);
+            $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
+            $categoryCollection->initCollection(Article::tableName(), $articlesIds);
+            $values = $categoryCollection->getValues();
+
+
+            foreach ($favorit as $relation) {
+                
+                if (!$relation->article) {
+                    continue;
+                }
+                
+                $article = $relation->article;
+                $articleCategory = [];
+
+                foreach ($article->articleCategories as $c) {
+                    $articleCategory[] = '<a href="' . $c['url_key'] . '" >' . $c['title'] . '</a>';
+                }
+
+                $articlesCollection[$article->id] = [
+                    'title' => $article->title,
+                    'url' => '/articles/' . $article->seo,
+                    'availability' => $article->availability,
+                    'teaser' => unserialize($values[$article->id]['teaser']),
+                    'abstract' => unserialize($values[$article->id]['abstract']),
+                    'created_at' => $article->created_at,
+                    'category' => $articleCategory,
+                    'fovorit_id' => $relation->id
+                ];
+            }
+        }
+        
+
         return [
-            'articles' => $articles  
+            'articlesCollection' => $articlesCollection
         ];
     }
 

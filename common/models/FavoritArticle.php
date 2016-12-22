@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\TimestampBehavior;
 use Yii;
 
 /**
@@ -16,6 +17,12 @@ use Yii;
  */
 class FavoritArticle extends \yii\db\ActiveRecord
 {
+    public function behaviors() {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -31,7 +38,7 @@ class FavoritArticle extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'article_id'], 'required'],
-            [['user_id', 'article_id'], 'integer'],
+            [['user_id', 'article_id', 'created_at'], 'integer'],
             [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Article::className(), 'targetAttribute' => ['article_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
