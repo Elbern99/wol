@@ -14,6 +14,8 @@ use yii\helpers\ArrayHelper;
 use common\models\Article;
 use common\modules\eav\CategoryCollection;
 use common\models\Category;
+use frontend\models\SavedSearch;
+use yii\data\ActiveDataProvider;
 /**
  * Site controller
  */
@@ -28,7 +30,7 @@ class MyAccountController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'change-avatar', 'edit-user-data', 'delete', 'remove-favorite'],
+                        'actions' => ['index', 'change-avatar', 'edit-user-data', 'delete', 'remove-favorite', 'search-delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -38,7 +40,8 @@ class MyAccountController extends Controller {
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'change-avatar' => ['post'],
-                    'edit-user-data' => ['post']
+                    'edit-user-data' => ['post'],
+                    'search-delete' => ['post']
                 ],
             ],
         ];
@@ -64,7 +67,7 @@ class MyAccountController extends Controller {
         return [
             'account' => ['path'=>'tabs/account.php', 'params' => $this->getAccountParams()],
             'article' => ['path'=>'tabs/article.php', 'params' => $this->getFavoritArticle()],
-            'search' => ['path'=>'tabs/search.php', 'params' => []]
+            'search' => ['path'=>'tabs/search.php', 'params' => $this->getSavedSearch()]
         ];
     }
     
@@ -74,6 +77,15 @@ class MyAccountController extends Controller {
 
         return [
             'model' => $form
+        ];
+    }
+    
+    protected function getSavedSearch() {
+        $data = SavedSearch::find()->where(['user_id' => Yii::$app->user->identity->id])
+                    ->orderBy(['created_at' => SORT_DESC]);
+        
+        return [
+            'dataProvider' => new ActiveDataProvider(['query' => $data, 'pagination' => ['pageSize' => 1, 'params' => ['#'=>'tab-3']]])
         ];
     }
     
@@ -212,6 +224,25 @@ class MyAccountController extends Controller {
         return $this->goHome();
     }
     
+    public function actionSearchDelete($id) {
+        
+        try {
+            
+            $model = SavedSearch::find()->where(['user_id' => Yii::$app->user->identity->id, 'id'=>$id])->one();
+            if (!is_object($model)) {
+                throw new BadRequestHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Saved search data deleted success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Saved search data not deleted'));
+        }
+
+        return $this->redirect('/my-account#tab-3');
+    }
+
     public function actionRemoveFavorite($id) {
         
         try {

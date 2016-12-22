@@ -24,7 +24,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
     </div>
     <h1>Search the site</h1>
 
-    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase])]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
         <div class="search-results-top">
             <div class="search">
                 <a href="" class="btn-border-blue-large with-icon-r btn-save-search">
@@ -147,6 +147,16 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
             </div>
 
             <aside class="sidebar-right">
+                
+                <div class="sidebar-widget sidebar-widget-save">
+                    <a href="/search/save" class="btn-border-blue-large with-icon btn-save-search">
+                        <span class="inner">
+                            <span class="icon-save"></span>save search
+                        </span>
+                        <div class="btn-save-search-inner">search saved to your account</div>
+                    </a>
+                </div>
+                
                 <div class="filter-clone-holder">
                     <div class="filter-clone">
                         <div class="sidebar-widget sidebar-widget-sort-by">
