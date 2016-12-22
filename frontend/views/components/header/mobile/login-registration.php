@@ -1,8 +1,9 @@
 <?php
     use yii\helpers\Html;
     use yii\bootstrap\ActiveForm;
-    use frontend\models\SignupForm;
-    $model = new SignupForm();
+    use frontend\models\SignupPopupForm;
+    
+    $model = new SignupPopupForm();
 ?>
 
 <div class="login-registration">

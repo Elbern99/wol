@@ -14,7 +14,9 @@
 
     var advancedSearch = {
         customTagList: function(list,holder) {
+            
             if($(list).length){
+                
                 $(holder).each(function( index ) {
                     var cur = $(this),
                         curInput = $(this).find('.my-single-field');
@@ -82,17 +84,32 @@
             }
         },
         saveSearch: function(btn) {
-            if($(btn).length) {
-                $(btn).click(function(e) {
-                    var cur = $(this);
-                    cur.addClass('added');
+            
+            function addToSave(element) {
 
-                    setTimeout(function(){
-                        cur.removeClass('added');
-                    }, 1600);
+                element.click(function(e) {
+                    
+                    $.get(element.prop('href'), function(data, status) {
+                    
+                        if ('message' in data) {
+                                
+                            element.children('.btn-save-search-inner').html(data.message);
+                            element.addClass('added');
+
+                            setTimeout(function(){
+                                element.removeClass('added');
+                            }, 1600);
+                        }
+                    });
+
                     e.preventDefault();
                 });
             }
+            
+            $(btn).each(function(){
+                var element = $(this);
+                addToSave(element);
+            });
         },
         focusCustom: function(el) {
             $(el).on('click', function(e) {
@@ -114,7 +131,7 @@
             })
         }
     }
-
+   
     $(document).ready(function() {
         advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .description-center');
@@ -123,6 +140,6 @@
         advancedSearch.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         advancedSearch.saveSearch('.btn-save-search');
         advancedSearch.focusCustom('.my-tags-list');
-        advancedSearch.customTriggerFocus('.label-text-custom','.my-tags-list','.my-tags-holder');
+        advancedSearch.customTriggerFocus('.label-text-custom','.my-tags-list','.my-tags-holder');     
     });
 })(jQuery);

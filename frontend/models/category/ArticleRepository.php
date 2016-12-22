@@ -85,8 +85,8 @@ class ArticleRepository implements RepositoryInterface {
         $authorRoleIds = $this->getAuthorIds();
         
         if (count($authorRoleIds)) {
-            $authorIds = ArrayHelper::getColumn($authorRoleIds, 'author_id');
             
+            $authorIds = ArrayHelper::getColumn($authorRoleIds, 'author_id');
             $authors = Author::find()
                                 ->select(['id', 'avatar'])
                                 ->where(['id' => $authorIds])

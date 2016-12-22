@@ -1,26 +1,46 @@
+<?php 
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+?>
 <div class="tab js-tab-hidden" id="tab-3">
-    <table class="save-search-table">
-        <tr>
-            <th>search term</th>
-            <th>include</th>
-            <th>exclude</th>
-            <th colspan="3">content types</th>
-        </tr>
-        <tr>
-            <td>China Lehmann</td>
-            <td><span class="gray">Everything</span></td>
-            <td><span class="gray">Nothing</span></td>
-            <td><span class="gray">All</span></td>
-            <td><button type="submit" class="btn-blue">search</button></td>
-            <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
-        </tr>
-        <tr>
-            <td>South America</td>
-            <td>2016, Brazil</td>
-            <td>Peru, Bolivia</td>
-            <td>Development, Environment, Transition and emerging economies</td>
-            <td><button type="submit" class="btn-blue">search</button></td>
-            <td><a href="" class="btn-border-gray-middle short"><span class="icon-trash"></span></a></td>
-        </tr>
-    </table>
+    <?=
+    GridView::widget([
+        'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' =>'save-search-table'],
+        'columns' => [
+            'search_phrase',
+            'all_words',
+            'any_words',
+            [
+                'attribute' => 'types',
+                'value' => function($model) {
+                    return implode(', ', $model->getTypeNamesByIds());
+                }
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{search}{search-delete}',
+                'header' => 'Actions',
+                'buttons' => [
+                    'search' => function ($url, $model) {
+                        return Html::a('Search', Url::to(['/search/advanced', 'id'=>$model->id]), [
+                            'title' => Yii::t('app', 'Search'),
+                        ]);
+                    },
+                    'search-delete' => function ($url, $model) {
+                        return Html::a('<span class="icon-trash">', $url, [
+                            'title' => Yii::t('app', 'Delete'),
+                            'data-confirm' => Yii::t('yii', 'Are you sure to delete this item?'),
+                            'data-method' => 'post',
+                            'class' => 'btn-border-gray-middle short'
+                        ]);
+                    },
+                    
+                ]
+                
+            ]
+        ],
+    ]);
+    ?>
 </div>
