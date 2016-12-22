@@ -48,5 +48,5 @@ gulp.task('sass', function () {
 
 gulp.task('sass:watch', function () {
     gulp.watch('./frontend/web/scss/**/*.scss', ['sass']);
-    gulp.watch('./frontend/web/js_base/**/base.js', ['lint']);
+    //gulp.watch('./frontend/web/js_base/**/base.js', ['lint']);
 });

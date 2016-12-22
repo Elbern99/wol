@@ -125,13 +125,13 @@ $config = [
                         <?php foreach($langs as $lang): ?> 
                         <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
                             <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
-                            <span class="text">in <?= $lang['name'] ?> lesen</span>
+                            <span class="text"><?= $lang['name'] ?></span>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
                             <div class="lang"><img src="<?= Yii::$app->params['default_lang']['image'] ?>" alt=""></div>
-                            <span class="text">in <?= Yii::$app->params['default_lang']['name'] ?> language</span>
+                            <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -292,75 +292,13 @@ $config = [
                         </div>
                         <?php endif; ?>
                     </li>
-                
                 <?php endif; ?>
 
-                <?php if (isset($attributes['further_reading'])): ?>
-                    <?php $furthers = $attributes['further_reading']->getData(null, $currentLang); ?>
-                    <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Further reading</a>
-                        <div class="text">
-                            <div class="text-inner">
-                                <ul class="further-reading-list">
-                                    <?php foreach ($furthers as $further): ?>
-                                        <li>
-                                            <a href=""><?= $further->title ?></a>
-                                            <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                            <div class="further-reading-info">
-                                                <?= $further->full_citation ?>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <?php if(count($furthers) > 13): ?>
-                                    <a href="" class="more-link">
-                                        <span class="more">More</span>
-                                        <span class="less">Less</span>
-                                    </a>
-                                <?php endif ?>
-                            </div>
-                        </div>
-                    </li>
-                <?php endif; ?>
-                    
                 <?php $source = []; ?>
-                    
-                <?php if (isset($attributes['key_references'])): ?>
-                    <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
-                    <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Key references</a>
-                    <div class="text">
-                        <?php $i = 1; ?>
-                        <ul class="key-references-list">
-                            <?php foreach($references as $reference): ?>
-                                <?php if(count($reference->country_codes)): ?>
-                                    <?php $source = array_merge($source, $reference->country_codes); ?>
-                                <?php endif; ?>
-                                <li>
-                                    <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
-                                    <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                    <div class="key-references-info">
-                                        <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
-                                        <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
-                                        <div class="types"><?= (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type ?></div>
-                                        <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
-                                        <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <?php if(count($references) > 13): ?>
-                            <a href="" class="more-link">
-                                <span class="more">More</span>
-                                <span class="less">Less</span>
-                            </a>
-                        <?php endif ?>
-                        </div>
-                    </li>
-                <?php endif; ?>
 
                 <?php if (isset($attributes['add_references'])): ?>
                     <?php $additionals = $attributes['add_references']->getData(null, $currentLang); ?>
+                    <?php $i = 1; ?>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Additional References</a>
                         <div class="text">
@@ -515,7 +453,6 @@ $config = [
                 <div class="countries"></div>
             </div>
         </div>
-        <div class="icon-close-popup"></div>
         <div class="arrows">
             <div class="icon-circle-arrow left">
                 <div class="icon-arrow"></div>
@@ -525,6 +462,7 @@ $config = [
             </div>
         </div>
     </div>
+    <div class="icon-close-popup"></div>
 </div>
 <?php
 $config['source'] = array_unique($source);

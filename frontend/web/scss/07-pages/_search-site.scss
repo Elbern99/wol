@@ -219,12 +219,10 @@
   }
 
   .btn-blue-large {
-    display: block;
     margin: 31px auto 0;
-    width: 100%;
+    display: block;
 
     @include breakpoint('tablet') {
-      max-width: 182px;
       margin: 54px auto 0;
     }
   }

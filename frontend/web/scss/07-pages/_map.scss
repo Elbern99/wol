@@ -1,3 +1,21 @@
+.leaflet-marker-icon-wrapper {
+  position: absolute
+}
+
+.leaflet-marker-iconlabel {
+  background: #fff;
+  border-radius: 7px;
+  font: 11px/1 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  padding: 3px 3px;
+  user-select: none;
+  white-space: nowrap;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  position: absolute;
+}
+
 .map-title {
   color: #717171;
   text-transform: uppercase;
@@ -54,7 +72,7 @@
     .evidence-map-text {
       position: relative;
       max-height: 34px;
-      overflow: hidden;
+      overflow: hidden ;
       //margin: 0 0 16px;
       transition: all 0.3s ease;
       display: block;
@@ -407,7 +425,7 @@
   background: none;
   text-align: center;
   border: 0;
-  overflow: hidden;
+  //overflow: hidden;
   cursor: pointer !important;
   transition: all 0.3s ease;
   width: 47px !important;
@@ -421,6 +439,7 @@
   }
 
   &:hover {
+    z-index: 100 !important;
     @include breakpoint('tablet') {
       margin: -31px 0 0 -11px !important;
     }

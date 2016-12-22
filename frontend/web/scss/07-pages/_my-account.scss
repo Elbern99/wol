@@ -14,7 +14,7 @@
 }
 
 .tab {
-  transform: translateX(-250%);
+  transform: translateX(-10%);
   transition: transform .5s ease, opacity .5s ease;
   overflow: hidden;
   opacity: 0;
@@ -60,6 +60,12 @@
     margin: 0 0 33px;
   }
 
+  @include breakpoint_custom($breakpoint-tablet) {
+    form {
+      width: 100%;
+    }
+  }
+
   h1 {
     margin: 0;
     max-width: 90%;
@@ -82,12 +88,35 @@
     .inner {
       overflow: hidden;
       @extend .pinout;
-      background: #000;
       border-radius: 50%;
+
+      &:after {
+        content: 'No image';
+        background: $blue;
+        font-size: 10px;
+      }
     }
 
-    .field-load_image {
+    .help-block,
+    .inner:after {
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      height: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .field-load_image,
+    .help-block {
       @extend .pinout;
+      margin: 0;
+      border-radius: 50%;
+      font-size: 7px;
+
+      &:after {
+        display: none;
+      }
     }
 
     input[type="file"] {
@@ -429,12 +458,39 @@
 //TAB 03
 .save-search-table {
 
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: block;
+  }
+
+  tbody,
+  td,
+  th,
+  tr {
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: block;
+    }
+  }
+
+  tr {
+    @include breakpoint_custom($breakpoint-tablet) {
+      position: relative;
+      margin: 0 0 18px;
+    }
+  }
+
   td,th {
     border: 0;
     border-bottom: 1px solid #d8d8d8;
     text-align: left;
     padding: 10px 5px;
     font: normal 11px/18px $lucida-grande;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      border: 0;
+      width: 100% !important;
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
   
   .gray {
@@ -447,34 +503,83 @@
     font-size: 11px;
     padding: 0 0 6px;
     letter-spacing: 0.07em;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
   }
 
   td {
     padding: 21px 11px 21px 0;
     vertical-align: middle;
 
-    &:first-child {
-      width: 34%;
-      font-size: 16px;
+    &:before {
+      display: none;
     }
 
-    &:nth-child(2) {
-      width: 17.5%;
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding: 5px 11px 10px 0;
+
+      &:before {
+        text-transform: uppercase;
+        color: #989898;
+        font-size: 11px;
+        margin: 0 0 2px;
+        letter-spacing: 0.07em;
+        display: block !important;
+      }
+
+      &:nth-child(5) {
+        border-bottom: 1px solid #d8d8d8;
+        padding: 10px 11px 19px 0;
+      }
+
+      &:last-child {
+        padding: 0;
+      }
     }
 
-    &:nth-child(3) {
-      width: 12.9%;
-    }
+    @include breakpoint('tablet') {
+      &:first-child {
+        width: 34%;
+        font-size: 16px;
 
-    &:nth-child(5) {
-      width: 89px;
-    }
+        &:before {
+          content: 'search team';
+        }
+      }
 
-    &:last-child {
-      width: 35px;
-      padding-right: 0;
-    }
+      &:nth-child(2) {
+        width: 17.5%;
 
+        &:before {
+          content: 'include';
+        }
+      }
+
+      &:nth-child(3) {
+        width: 12.9%;
+
+        &:before {
+          content: 'exclude';
+        }
+      }
+
+      &:nth-child(4) {
+        &:before {
+          content: 'content types';
+        }
+      }
+
+      &:nth-child(5) {
+        width: 89px;
+      }
+
+      &:last-child {
+        width: 35px;
+        padding-right: 0;
+      }
+    }
   }
 
   [class^="btn-"],
@@ -483,5 +588,53 @@
     width: 100%;
     font-size: 11px;
     line-height: 30px;
+    max-width: 82px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 34px;
+      font-size: 12px;
+      max-width: 86px;
+      line-height: 34px;
+    }
+  }
+
+  .btn-border-gray-middle {
+    @include breakpoint_custom($breakpoint-tablet) {
+      position: absolute;
+      top: -1px;
+      right: -16px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+
+      .icon-trash {
+        width: 40px;
+        height: 40px;
+
+        &:after,
+        &:before {
+          content: '';
+          height: 1px;
+          position: absolute;
+          top: 7px;
+          left: 15px;
+          right: 15px;
+          transform: rotate(45deg);
+          margin: 12px 0 0 0;
+          background: #262626;
+
+          @include breakpoint('tablet') {
+            left: 12px;
+            right: 12px;
+            height: 2px;
+            background: #646464;
+          }
+        }
+
+        &:after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
   }
 }

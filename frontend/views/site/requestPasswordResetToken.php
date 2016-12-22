@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>Please fill out your email. A link to reset password will be sent there.</p>
         <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
         <div class="grid">
-            <div class="grid-line three">
+            <div class="grid-line two">
                 <div class="grid-item">
                     <div class="form-item">
                         <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput(['autofocus' => true]) ?>
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="form-group">
-            <?= Html::submitButton('Send', ['class' => 'btn-blue']) ?>
+            <?= Html::submitButton('Send', ['class' => 'btn-blue-large']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

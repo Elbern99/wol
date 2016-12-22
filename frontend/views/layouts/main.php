@@ -27,11 +27,6 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-
-    <!-- .preloader -->
-    <div class="preloader">
-        <div class="loading-ball"></div>
-    </div><!-- / .preloader -->
     
     <main class="content">
         

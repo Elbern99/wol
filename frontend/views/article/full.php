@@ -157,16 +157,16 @@ $config = [
                 <p><a href="">&copy; <?=$article->availability?></a></p>
 
                 <div class="article-map-medium">
-                    <div class="article-map-medium-text">
-                        <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                        <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p>Can cash transfers reduce child labor?</p>
                             <div class="icon-circle-arrow">
                                 <div class="icon-arrow"></div>
                             </div>
-                        </a>
-                    </div>
-                    <div id="article-map-medium"></div>
+                        </div>
+                        <div id="article-map-medium"></div>
+                    </a>
                 </div>
                 
                 <div class="article-buttons">
@@ -594,7 +594,6 @@ $config = [
                 <div class="countries"></div>
             </div>
         </div>
-        <div class="icon-close-popup"></div>
         <div class="arrows">
             <div class="icon-circle-arrow left">
                 <div class="icon-arrow"></div>
@@ -604,6 +603,7 @@ $config = [
             </div>
         </div>
     </div>
+    <div class="icon-close-popup"></div>
 </div>
 <?php
 $config['source'] = array_unique($source);

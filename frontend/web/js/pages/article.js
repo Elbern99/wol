@@ -193,11 +193,11 @@
                 $(btnNext).css('opacity','1');
 
                 if(prevCur.length == 0) {
-                    $(btnPrev).css('opacity','0.5');
+                    $(btnPrev).css('opacity','0');
                 }
 
                 if(nextCur.length == 0) {
-                    $(btnNext).css('opacity','0.5');
+                    $(btnNext).css('opacity','0');
                 }
 
                 $(parent).find('.arrows').fadeIn(0);
@@ -243,7 +243,7 @@
                     nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
 
                 if(nextCur.length == 0) {
-                    $(btnNext).css('opacity','0.5');
+                    $(btnNext).css('opacity','0');
 
                 } else {
                     $(btnNext).css('opacity','1');
@@ -289,7 +289,7 @@
                     prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
 
                 if(prevCur.length == 0) {
-                    $(btnPrev).css('opacity','0.5');
+                    $(btnPrev).css('opacity','0');
 
                 } else {
                     $(btnPrev).css('opacity','1');
@@ -446,7 +446,7 @@
                     d === 'factor' ? '#f6ff00' :
                         d === 'efficiency-innovation' ? '#008954' :
                             d === 'efficiency' ? '#49da2c' :
-                                d === 'innovation' ? '#00453a' :
+                                d === 'innovation' ? '#00806a' :
                                     d === 'none' ? '#d2e1e8' :
                                         '#d2e1e8';
             },
@@ -455,7 +455,7 @@
                     d === 'factor' ? '#cfd700' :
                         d === 'efficiency-innovation' ? '#006c42' :
                             d === 'efficiency' ? '#3bc81f' :
-                                d === 'innovation' ? '#00352d' :
+                                d === 'innovation' ? '#006655' :
                                     d === 'none' ? '#e2ecf3' :
                                         '#e2ecf3';
             },

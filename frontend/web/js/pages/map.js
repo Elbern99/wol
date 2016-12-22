@@ -66,6 +66,9 @@
           tap: false,
           trackResize: true,
           center: [30, 10],
+          load: function(){
+              console.log('load')
+          }
       },
       style: function(feature) {
         return {
@@ -94,7 +97,7 @@
                 d === 'factor' ? '#f6ff00' :
                 d === 'efficiency-innovation' ? '#008954' :
                 d === 'efficiency' ? '#49da2c' :
-                d === 'innovation' ? '#00453a' :
+                d === 'innovation' ? '#00806a' :
                 d === 'none' ? '#c1d2d9' :
                 '#c1d2d9';
       },
@@ -103,7 +106,7 @@
                 d === 'factor' ? '#cfd700' :
                 d === 'efficiency-innovation' ? '#006c42' :
                 d === 'efficiency' ? '#3bc81f' :
-                d === 'innovation' ? '#00352d' :
+                d === 'innovation' ? '#006655' :
                 d === 'none' ? '#a4b5bd' :
                 '#a4b5bd';
       },
@@ -133,6 +136,16 @@
                   $("html, body").animate({ scrollTop: 0 }, 0);
               }
           }
+      },
+      zoomControl:  function() {
+        var zoomCount = map.getZoom(),
+        label = $('.leaflet-marker-iconlabel');
+
+        if(zoomCount > 4) {
+          label.fadeIn();
+        } else {
+          label.fadeOut();
+        }
       }
     };
 
@@ -151,6 +164,10 @@
 
     map.zoomControl.setPosition('bottomright');
     mapObj.hideInfoMap();
+
+    map.on('zoomend', function() {
+          mapObj.zoomControl();
+    });
 
     //----------1 get
     $.getJSON(mapConfig.json_path_country, function( data ) {
@@ -267,10 +284,10 @@
 
         var LeafIcon = L.divIcon({
             iconSize: new L.Point(24, 35),
-            html: '<div class="icon-number-reference">'+ articles_count +'</div>'
+            html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
         });
 
-        var marker = L.marker([y,x], {icon: LeafIcon}).bindPopup(key_ref_tpl).addTo(map);
+        var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
 
         marker.on('click', mapObj.onMapClick );
     });

@@ -101,10 +101,8 @@
 
   .btn-blue-large {
     margin-top: 15px;
-    width: 100%;
 
     @include breakpoint('tablet') {
-      max-width: 191px;
       margin-top: 49px;
     }
   }

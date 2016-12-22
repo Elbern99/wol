@@ -105,6 +105,7 @@ use yii\helpers\Html;
                     </label>
                 </div>
             </div>
+            <a href="/my-account/delete" class="account-delete">delete account</a>
         </div>
         <?= Html::submitButton('Update', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
         <?php ActiveForm::end(); ?>

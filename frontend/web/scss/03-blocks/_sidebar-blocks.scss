@@ -701,7 +701,7 @@
 .further-reading-list,
 .sidebar-news-list {
   padding: 0;
-
+  
   + .more-link {
     margin-top: 10px;
   }
@@ -713,6 +713,12 @@
     opacity: 0;
     transform: translateY(-30%);
     transition: transform .5s ease, opacity .5s ease;
+
+    &.opened-reflink {
+      a {
+        color: $light-blue;
+      }
+    }
 
     &:last-child {
       margin-bottom: 0;
