@@ -34,12 +34,19 @@ $this->registerJsFile('/js/pages/my-account.js', ['depends'=>['yii\web\YiiAsset'
         </div>
     </div>
     <div class="container my-account-page">
-        <div class="tabs">
-            <?php foreach($tabs as $tab): ?>
-                <?php if (file_exists(__DIR__.'/'.$tab['path'])): ?>
-                    <?= $this->renderFile(__DIR__.'/'.$tab['path'], $tab['params']) ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
+        <div class="tabs-holder">
+            <!-- .preloader -->
+            <div class="preloader">
+                <div class="loading-ball"></div>
+            </div>
+            <!-- / .preloader -->
+            <div class="tabs">
+                <?php foreach($tabs as $tab): ?>
+                    <?php if (file_exists(__DIR__.'/'.$tab['path'])): ?>
+                        <?= $this->renderFile(__DIR__.'/'.$tab['path'], $tab['params']) ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </div>

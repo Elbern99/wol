@@ -21,11 +21,11 @@ use yii\helpers\Url;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{search}{search-delete}',
-                'header' => 'Actions',
+                'header' => '',
                 'buttons' => [
                     'search' => function ($url, $model) {
                         return Html::a('Search', Url::to(['/search/advanced', 'id'=>$model->id]), [
-                            'title' => Yii::t('app', 'Search'),
+                            'title' => Yii::t('app', 'Search'), 'class'=>'btn-blue'
                         ]);
                     },
                     'search-delete' => function ($url, $model) {

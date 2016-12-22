@@ -118,7 +118,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 </div>
                 
                 <?php $requestCount = Yii::$app->request->get('count') ?>
-                <div class="pagination">
+                <div class="pagination-holder">
                     
                     <div class="pagination-select">
                         <div class="label-text">show</div>
@@ -135,7 +135,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                     
                     <?= LinkPager::widget([
                             'pagination' => $paginate, 
-                            'options' => ['class' => 'pagination-list'], 
+                            'options' => ['class' => 'pagination'],
                             'nextPageLabel' => 'Next', 
                             'prevPageLabel' => 'Previous',
                             'lastPageLabel' => true,

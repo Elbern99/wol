@@ -27,6 +27,10 @@
 
 .my-account-page {
 
+  .summary {
+    display: none;
+  }
+
   .edit-password,
   .edit,
   .account-delete {
@@ -457,6 +461,7 @@
 
 //TAB 03
 .save-search-table {
+  margin: 0 0 30px;
 
   @include breakpoint_custom($breakpoint-tablet) {
     display: block;
@@ -465,7 +470,8 @@
   tbody,
   td,
   th,
-  tr {
+  tr,
+  thead {
     @include breakpoint_custom($breakpoint-tablet) {
       display: block;
     }
@@ -493,7 +499,7 @@
     }
   }
   
-  .gray {
+  .not-set {
     color: #989898;
   }
 
@@ -529,72 +535,63 @@
         display: block !important;
       }
 
-      &:nth-child(5) {
+      &:last-child {
         border-bottom: 1px solid #d8d8d8;
         padding: 10px 11px 19px 0;
       }
+    }
 
-      &:last-child {
-        padding: 0;
+    &:first-child {
+      width: 34%;
+      font-size: 16px;
+
+      &:before {
+        content: 'search team';
       }
     }
 
-    @include breakpoint('tablet') {
-      &:first-child {
-        width: 34%;
-        font-size: 16px;
+    &:nth-child(2) {
+      width: 17.5%;
 
-        &:before {
-          content: 'search team';
-        }
+      &:before {
+        content: 'include';
       }
+    }
 
-      &:nth-child(2) {
-        width: 17.5%;
+    &:nth-child(3) {
+      width: 12.9%;
 
-        &:before {
-          content: 'include';
-        }
+      &:before {
+        content: 'exclude';
       }
+    }
 
-      &:nth-child(3) {
-        width: 12.9%;
-
-        &:before {
-          content: 'exclude';
-        }
+    &:nth-child(4) {
+      &:before {
+        content: 'content types';
       }
+    }
 
-      &:nth-child(4) {
-        &:before {
-          content: 'content types';
-        }
-      }
-
-      &:nth-child(5) {
-        width: 89px;
-      }
-
-      &:last-child {
-        width: 35px;
-        padding-right: 0;
-      }
+    &:last-child {
+      width: 125px;
+      padding-right: 0;
     }
   }
 
   [class^="btn-"],
   [class*=" btn-"] {
     height: 30px;
-    width: 100%;
     font-size: 11px;
     line-height: 30px;
     max-width: 82px;
+    margin-left: 11px;
 
     @include breakpoint_custom($breakpoint-tablet) {
       height: 34px;
       font-size: 12px;
       max-width: 86px;
       line-height: 34px;
+      margin: 0;
     }
   }
 

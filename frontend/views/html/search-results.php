@@ -134,7 +134,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                     </div>
                 </div>
 
-                <div class="pagination">
+                <div class="pagination-holder">
                     <div class="pagination-select">
                         <div class="label-text">show</div>
                         <label class="custom-select-def">
@@ -147,7 +147,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         </label>
                     </div>
 
-                    <ul class="pagination-list">
+                    <ul class="pagination">
                         <li class="disabled prev"><a href="">Previous</a></li>
                         <li class="active"><a href="">1</a></li>
                         <li><a href="">2</a></li>

@@ -591,3 +591,275 @@
 .sidebar-widget-reference-popup {
   position: relative;
 }
+
+//REFERENCE-POPUP
+.reference-popup {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1003;
+  font-size: 12px;
+  line-height: 1.4em;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+
+  .arrows {
+    display: none;
+  }
+
+  @include breakpoint('tablet') {
+    height: auto !important;
+    bottom: 0;
+    top: auto;
+    position: fixed;
+  }
+
+  .reference-popup-inner {
+    background: #fff;
+    padding: 45px 0 22px;
+    position: relative;
+    //min-height: 202px;
+    max-width: $content-area-width;
+    margin: 0 auto;
+
+    @include breakpoint('tablet') {
+      top: 0 !important;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+
+      .container {
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
+      }
+    }
+
+    &:before,
+    &:after {
+      @extend .pinout;
+      background: rgba(0,0,0,0.5);
+
+      @include breakpoint('tablet') {
+        display: none;
+      }
+    }
+
+
+    &:before {
+      bottom: 98%;
+      top: -99999999px;
+    }
+
+    &:after {
+      top: 98%;
+      bottom: -99999999px;
+    }
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    top: 0 !important;
+
+    .reference-popup-inner {
+      position: absolute;
+      //max-height: 100vh;
+      left: 0;
+      right: 0;
+      //transition: top 0.1s ease;
+
+      .container {
+        max-height: 58vh;
+
+        /* iphone6plus */
+        @media only screen
+        and (min-device-width : 414px)
+        and (max-device-width : 736px)
+        and (orientation : landscape)
+        and (-webkit-min-device-pixel-ratio : 3)  {
+          max-height: 44vh;
+        }
+
+        /* iphone6 */
+        @media only screen
+        and (min-device-width : 375px) // or 213.4375em or 3in or 9cm
+        and (max-device-width : 667px) // or 41.6875em
+        and (width : 667px) // or 41.6875em
+        and (height : 375px) // or 23.4375em
+        and (orientation : landscape)
+        and (color : 8)
+        and (device-aspect-ratio : 375/667)
+        and (aspect-ratio : 667/375)
+        and (device-pixel-ratio : 2)
+        and (-webkit-min-device-pixel-ratio : 2) {
+          max-height: 44vh;
+        }
+
+        @media only screen
+        and (min-device-width : 320px)
+        and (max-device-width : 568px)
+        and (orientation : landscape) {
+          max-height: 44vh;
+        }
+
+      }
+    }
+  }
+
+  .container {
+    overflow: hidden;
+  }
+
+  @include breakpoint('tablet') {
+    font-size: 11px;
+    line-height: 1.2em;
+  }
+
+  @include breakpoint('tablet') {
+    border-top: 1px solid #535353;
+  }
+
+  .arrows {
+    text-align: center;
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      padding: 27px 0 5px;
+    }
+  }
+
+  .icon-close-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+
+    @include breakpoint('desktop-large') {
+      top: 15px;
+      right: 15px;
+    }
+  }
+
+  h3 {
+    font-size: 15px;
+    margin: 0 0 3px;
+    font-family: $lucida-grande;
+
+    @include breakpoint('tablet') {
+      font-size: 13px;
+      margin: 0 0 8px;
+    }
+  }
+
+  .caption {
+    margin: 0 0 20px;
+  }
+
+  p {
+    margin-bottom: 6px
+  }
+
+  .column-caption,
+  .column,
+  .column-types,
+  .column-methods,
+  .column-countries,
+  .column-furniture-reading,
+  .column-bg-info,
+  .column-additional-references {
+    display: none;
+    margin-bottom: 16px;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .columns {
+    margin: 0 -24px 0px;
+
+    @include breakpoint('tablet') {
+      margin: 0 -24px 16px;
+    }
+
+    .column {
+      padding: 0 24px 23px;
+      margin: 0;
+
+      @include breakpoint('tablet') {
+        max-width: 33.3%;
+
+        &.visible {
+          display: inline-block;
+        }
+        padding: 0 24px;
+        vertical-align: top;
+      }
+    }
+  }
+
+  .icon-circle-arrow {
+    border: 1px solid $blue;
+    background: $white;
+    color: $blue;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+
+    .icon-arrow {
+      height: 8px;
+    }
+
+    &.disabled {
+      display: none;
+    }
+
+    &.left {
+      transform: rotate(180deg);
+    }
+
+    @include breakpoint('desktop-large') {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+
+      &:hover {
+        background: $blue;
+        color: $white;
+      }
+
+      &:active {
+        box-shadow: 0 2px 2px rgba(0,0,0,0.2) inset;
+      }
+
+      &.left {
+        left: -34px;
+      }
+
+      &.right {
+        right: -34px;
+      }
+    }
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      display: inline-block;
+    }
+
+    &.left {
+
+      .icon-arrow {
+        height: 10px;
+
+        &:before {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
