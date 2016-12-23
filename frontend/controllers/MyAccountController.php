@@ -85,7 +85,7 @@ class MyAccountController extends Controller {
                     ->orderBy(['created_at' => SORT_DESC]);
         
         return [
-            'dataProvider' => new ActiveDataProvider(['query' => $data, 'pagination' => ['pageSize' => 1, 'params' => ['#'=>'tab-3']]])
+            'dataProvider' => new ActiveDataProvider(['query' => $data, 'pagination' => ['pageSize' => 1, 'params' =>  array_merge(Yii::$app->request->get(), ['#' => 'tab-3'])]])
         ];
     }
     
