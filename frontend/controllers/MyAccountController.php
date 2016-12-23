@@ -16,6 +16,7 @@ use common\modules\eav\CategoryCollection;
 use common\models\Category;
 use frontend\models\SavedSearch;
 use yii\data\ActiveDataProvider;
+use frontend\models\NewsletterForm;
 /**
  * Site controller
  */
@@ -74,8 +75,14 @@ class MyAccountController extends Controller {
     protected function getAccountParams() {
         
         $form = new UserProfileForm();
+        $newslatter = Yii::$container->get('newsletter');
+        $newslatter->getSubscriber(Yii::$app->user->identity->email);
+        
+        $newslatterModel = new NewsletterForm();
+        $newslatterModel->load($newslatter->getNewsletterAttributes(), '');
 
         return [
+            'newslatterModel' => $newslatterModel,
             'model' => $form
         ];
     }
@@ -186,12 +193,26 @@ class MyAccountController extends Controller {
         if (Yii::$app->request->isPost) {
             
             $user = new UserProfileForm();
+            $newslatter = new NewsletterForm();
 
             if ($user->load(Yii::$app->request->post()) && $user->validate()) {
 
                 if ($user->saveUserData()) {
                     
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Your data was change'), false);
+                }
+                
+                if ($newslatter->load(Yii::$app->request->post())) {
+
+                    $facade = Yii::$container->get('newsletter');
+                    $facade->getSubscriber(Yii::$app->user->identity->email);
+                    $newslatter->first_name = Yii::$app->user->identity->first_name;
+                    $newslatter->last_name = Yii::$app->user->identity->last_name;
+                    $newslatter->email = Yii::$app->user->identity->email;
+                    
+                    if ($facade->setSubscriber($newslatter->getAttributes())) {
+                        Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'You subscribed.'), false);
+                    }
                 }
                 
                 return $this->redirect('/my-account');

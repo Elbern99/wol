@@ -8,7 +8,6 @@ use Yii;
  */
 class UserProfileForm extends Model
 {
-    use \frontend\models\traits\AreasOfInterest;
     use \common\helpers\FileUploadTrait;
     
     protected $user;
@@ -23,7 +22,6 @@ class UserProfileForm extends Model
     public $password_old;
     public $first_name;
     public $last_name;
-    public $items;
     public $avatar;
     
     public function __construct() {

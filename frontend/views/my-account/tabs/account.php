@@ -76,13 +76,13 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="grid-line four">
-                        <?= $form->field($model, 'items')->checkboxList($model->getSubjectItems(),[
-                            'item'=> function($index, $label, $name, $checked, $value) { 
+                        <?= $form->field($newslatterModel, 'areas_interest')->checkboxList($newslatterModel->getSubjectItems(),[
+                            'item'=> function($index, $label, $name, $checked, $value) {
                                 return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
                                 Html::checkbox($name, $checked, [
                                     'value' => $value,
-                                ]).'<span class="label-text">'.$label.'</span></label></div></div>'; 
-                            } 
+                                ]).'<span class="label-text">'.$label.'</span></label></div></div>';
+                            }
                         ])->label('');
                         ?>
                     </div>
@@ -93,16 +93,17 @@ use yii\helpers\Html;
             <div class="label-holder">Subscriptions</div>
             <div class="desc">
                 <div class="form-line">
-                    <label class="def-checkbox">
-                        <input type="checkbox" name="name">
-                        <span class="label-text">Subscribe to IZA World of Labor newsletter</span>
-                    </label>
+                    <?= Html::activeCheckbox($newslatterModel, 'iza_world', 
+                        ['labelOptions' => ['class'=>'def-checkbox'],
+                        'label' => '<span class="label-text">Subscribe to IZA World of Labor newsletter</span>']
+                    ) ?>
                 </div>
+
                 <div class="form-line">
-                    <label class="def-checkbox">
-                        <input type="checkbox" name="name">
-                        <span class="label-text">Subscribe to Article Alerts</span>
-                    </label>
+                    <?= Html::activeCheckbox($newslatterModel, 'interest', 
+                        ['labelOptions' => ['class'=>'def-checkbox'],
+                        'label' => '<span class="label-text">Subscribe to Article Alerts</span>']
+                    ) ?>
                 </div>
             </div>
             <a href="/my-account/delete" class="account-delete">delete account</a>

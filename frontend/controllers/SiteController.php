@@ -27,10 +27,10 @@ class SiteController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'login', 'subscribe'],
+                'only' => ['logout', 'signup', 'login'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login', 'subscribe'],
+                        'actions' => ['signup', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -80,6 +80,20 @@ class SiteController extends Controller {
     public function actionSubscribe() {
         
         $model = new NewsletterForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            
+            $newslatter = Yii::$container->get('newsletter');
+            $newslatter->getSubscriber($model->email);
+
+            if ($newslatter->setSubscriber($model->getAttributes())) {
+                Yii::$app->getSession()->setFlash('success', 'You subscribed.');
+            } else {
+                Yii::$app->getSession()->setFlash('error', 'You not subscribed.');
+            }
+                
+        }
+        
         return $this->render('subscribe', ['model'=>$model]);
     }
 
