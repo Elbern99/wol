@@ -4246,19 +4246,19 @@ iframe[name=advpp_manager] {
   .about-page p + br {
     margin-bottom: 53px !important; } }
 
-.article-head h1 {
-  margin-bottom: 15px; }
-  @media only screen and (min-width: 769px) {
-    .article-head h1 {
-      margin-bottom: 22px; } }
-.article-head .article-head {
+.article-head {
   margin-bottom: 20px; }
   @media only screen and (min-width: 769px) {
-    .article-head .article-head {
+    .article-head {
       margin-bottom: 40px; } }
-@media only screen and (min-width: 769px) {
-  .article-head {
-    padding-right: 308px; } }
+  .article-head h1 {
+    margin-bottom: 15px; }
+    @media only screen and (min-width: 769px) {
+      .article-head h1 {
+        margin-bottom: 22px; } }
+  @media only screen and (min-width: 769px) {
+    .article-head {
+      padding-right: 308px; } }
 
 .article-full .sidebar-widget-share-buttons {
   margin-bottom: 26px; }
@@ -6443,11 +6443,22 @@ path {
   font-size: 23px;
   margin: 0 0 13px; }
 @media only screen and (min-width: 769px) {
-  .event-page .more-event {
+  .event-page .more-event,
+  .event-page .mobile-filter-holder {
     display: none; } }
 @media only screen and (max-width: 769px) {
+  .event-page .sidebar-right .sidebar-widget-articles-filter {
+    display: none; }
   .event-page .sidebar-right .event-page-buttons {
     display: none; } }
+@media only screen and (max-width: 769px) {
+  .event-page .mobile-filter-holder {
+    margin-bottom: -5px; } }
+.event-page .mobile-filter-holder .tab-item:last-child {
+  margin: -20px -15px 30px; }
+  @media only screen and (min-width: 769px) {
+    .event-page .mobile-filter-holder .tab-item:last-child {
+      display: none !important; } }
 .event-page .event-buttons-top {
   display: -ms-flexbox;
   display: flex;
@@ -6530,9 +6541,9 @@ path {
       font-size: 11px;
       font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif; }
 
-.event-text-holder {
-  max-height: 700px;
-  overflow: hidden;
-  transition: max-height 0.6s ease; }
+@media only screen and (max-width: 769px) {
+  .event-text-holder {
+    max-height: 700px;
+    overflow: hidden; } }
 
 /******* // PAGES *******/

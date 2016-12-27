@@ -4,17 +4,36 @@
     margin: 0 0 13px;
   }
 
-  .more-event {
-    @include breakpoint('tablet') {
+  @include breakpoint('tablet') {
+    .more-event,
+    .mobile-filter-holder {
       display: none;
     }
   }
 
-  .sidebar-right {
-    .event-page-buttons {
-
-      @include breakpoint_custom($breakpoint-tablet) {
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-right {
+      .sidebar-widget-articles-filter {
         display: none;
+      }
+      .event-page-buttons {
+        display: none;
+      }
+    }
+  }
+
+  .mobile-filter-holder {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: -5px;
+    }
+
+    .tab-item {
+      &:last-child {
+        margin: -20px -15px 30px;
+
+        @include breakpoint('tablet') {
+          display: none !important;
+        }
       }
     }
   }
@@ -133,7 +152,10 @@
 }
 
 .event-text-holder {
-  max-height: 700px;
-  overflow: hidden;
-  transition: max-height 0.6s ease;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    max-height: 700px;
+    overflow: hidden;
+    //transition: max-height 0.6s ease;
+  }
 }

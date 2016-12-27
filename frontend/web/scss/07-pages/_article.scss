@@ -1,18 +1,15 @@
 .article-head {
+  margin-bottom: 20px;
 
+  @include breakpoint('tablet') {
+    margin-bottom: 40px;
+  }
+  
   h1 {
     margin-bottom: 15px;
 
     @include breakpoint('tablet') {
       margin-bottom: 22px;
-    }
-  }
-
-  .article-head {
-    margin-bottom: 20px;
-
-    @include breakpoint('tablet') {
-      margin-bottom: 40px;
     }
   }
 
