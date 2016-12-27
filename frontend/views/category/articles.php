@@ -29,7 +29,7 @@ $roleLabel = new Roles();
 
 <div class="container">
 
-    <div class="articles-head">
+    <div class="article-head">
         <div class="breadcrumbs">
             <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>

@@ -40,6 +40,7 @@
       height: 47px !important;
       padding-left: 18px;
       padding-right: 18px;
+      line-height: 47px !important;
     }
   }
 
@@ -77,7 +78,6 @@
     @include breakpoint_custom($breakpoint-tablet) {
       display: block;
       width: 100%;
-      padding: 10px 5px;
       font-size: 16px;
       margin: 0 0 14px;
     }

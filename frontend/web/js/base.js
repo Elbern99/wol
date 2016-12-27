@@ -40,7 +40,7 @@ var elements = {
                 showArrows: true,
                 autoReinitialise: true,
                 animateScroll: true
-            }
+            };
 
             if(_window_width < _mobile) {
                 $(item).jScrollPane(scrollPaneOption);
@@ -127,18 +127,9 @@ var elements = {
     /* dropDown */
     function dropDown(btn, dropWidget, mobile) {
         if ( dropWidget.length ) {
-
-
-
             btn.on('click',function(e) {
                 var cur = $(this);
                 $(document).unbind('click.drop-content');
-
-                console.log(mobile);
-
-                if(_window_width > _mobile ) {
-                    //dropWidget.removeClass('open');
-                }
 
                 btn.not(cur).removeClass('active');
                 if ( !cur.hasClass('active') ) {
@@ -178,70 +169,91 @@ var elements = {
     }
     /* closeDropDown end */
 
+    /* tabsForm */
+    var tabsForm = {
+								init: function(list, content) {
+												list.find('li').eq(0).find('a').addClass('active');
+												list.find('li').eq(0).find(content).addClass('active');
+
+												list.find('>li>a').on('click', function(e) {
+																var  cur = $(this),
+																				curParent = cur.parents('li');
+
+																list.find('a').removeClass('active');
+																list.find(content).removeClass('active').addClass('js-tab-hidden');
+
+																if ( !cur.hasClass('active') ) {
+																				cur.addClass('active');
+																				curParent.find(content).addClass('active').removeClass('js-tab-hidden');
+																} else {
+																				cur.removeClass('active');
+																				curParent.find(content).removeClass('active').addClass('js-tab-hidden');
+																}
+																e.preventDefault();
+												});
+								},
+								openLogin: function() {
+												$('.open-mobile-register').on('click', function(e) {
+																$('.btn-mobile-menu-show').trigger('click');
+																$('.btn-mobile-login-show').trigger('click');
+																$('.login-registration-list.mobile li').eq(1).find('a').trigger('click');
+																e.preventDefault();
+												});
+								},
+								openRegister: function() {
+												$('.open-mobile-login').on('click', function(e) {
+																$('.btn-mobile-menu-show').trigger('click');
+																$('.btn-mobile-login-show').trigger('click');
+																$('.login-registration-list.mobile li').eq(0).find('a').trigger('click');
+																e.preventDefault();
+												});
+								}
+				};
+    /* tabsForm end */
+
     /* tabs */
-    function tabsFn(list, content){
+    var tabs = {
+        switcher: function(list,tabs,item) {
+            $(list).on('click', 'a', function(e) {
+                var cur = $(this),
+                    curParent = cur.parent(),
+                    curParentIndex = curParent.index();
+                curParent.addClass('active').siblings().removeClass('active');
+                $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                e.preventDefault();
+            });
 
-        console.log(list.find('li'));
-
-        list.find('li').eq(0).find('a').addClass('active');
-        list.find('li').eq(0).find(content).addClass('active');
-
-        list.find('>li>a').on('click', function(e) {
-            var  cur = $(this),
-                curParent = cur.parents('li');
-
-            list.find('a').removeClass('active');
-            list.find(content).removeClass('active').addClass('js-tab-hidden');
-
-            if ( !cur.hasClass('active') ) {
-                cur.addClass('active');
-                curParent.find(content).addClass('active').removeClass('js-tab-hidden');
-            } else {
-                cur.removeClass('active');
-                curParent.find(content).removeClass('active').addClass('js-tab-hidden');
-            }
-            e.preventDefault();
-        });
-
-        $('.open-mobile-login').on('click', function(e) {
-            $('.btn-mobile-menu-show').trigger('click');
-            $('.btn-mobile-login-show').trigger('click');
-            $('.login-registration-list.mobile li').eq(0).find('a').trigger('click');
-            e.preventDefault();
-        });
-
-        $('.open-mobile-register').on('click', function(e) {
-            $('.btn-mobile-menu-show').trigger('click');
-            $('.btn-mobile-login-show').trigger('click');
-            $('.login-registration-list.mobile li').eq(1).find('a').trigger('click');
-            e.preventDefault();
-        });
-
+            $(window).resize(function() {
+               if(_window_width > _mobile) {
+                   $(list).find('li').eq(0).find('a').trigger('click');
+               }
+            });
+        }
     }
     /* tabs end */
 
 // 2. CONTENT ---------
 
     // 2.1 ACCORDION
-    var faqAccordion = {
+    var accordion = {
         classes: 'is-open',
         delay: 200,
         openItem: function(cur) {
-            cur.next().slideDown(faqAccordion.delay);
+            cur.next().slideDown(accordion.delay);
             cur.parent().addClass('is-open');
         },
         closeItem: function(cur) {
-            cur.next().slideUp(faqAccordion.delay);
+            cur.next().slideUp(accordion.delay);
             cur.parent().removeClass('is-open');
         },
         toggleItem: function(btn,content,parent) {
-            parent.find('.'+faqAccordion.classes).find(content).slideDown(0);
+            parent.find('.'+accordion.classes).find(content).slideDown(0);
             btn.click(function(e) {
                 var cur = $(this);
-                if(cur.parent().hasClass(faqAccordion.classes)){
-                    faqAccordion.closeItem(cur);
+                if(cur.parent().hasClass(accordion.classes)){
+                    accordion.closeItem(cur);
                 } else {
-                    faqAccordion.openItem(cur);
+                    accordion.openItem(cur);
                 }
                 e.preventDefault();
             });
@@ -251,7 +263,7 @@ var elements = {
 
     // 2.2 DOC HEIGHT FOR ELEMENTS
     var docHeightForElement = {
-        elements: ['.reference-popup, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
+        elements: ['.overlay, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
 
@@ -271,6 +283,10 @@ var elements = {
                     });
                 }, 100);
             });
+
+												$(document).resize(function() {
+															console.log(1);
+												});
         }
     };
     /* end */
@@ -342,6 +358,21 @@ var elements = {
         close: function(btn,alert) {
             $(alert).on('click', btn, function() {
                 $(this).parents(alert).fadeOut();
+            });
+        }
+    };
+    /* end */
+
+    // 2.8 TEXT
+    var text = {
+        showMore: function(btn,text,wrapper,startHeight) {
+            $(btn).on('click', function(e) {
+                if ($(wrapper).height() == $(text).height()) {
+                    $(wrapper).css('max-height', startHeight + "px");
+                } else {
+                    $(wrapper).css('max-height', $(text).height() + "px");
+                }
+                e.preventDefault();
             });
         }
     };
@@ -433,27 +464,28 @@ var elements = {
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
         if(_window_width < _tablet ) {
-            tabsFn($('.login-registration-list.mobile'), '.dropdown-widget');
+												tabsForm.init($('.login-registration-list.mobile'), '.dropdown-widget');
+												tabsForm.openLogin();
+												tabsForm.openRegister();
             dropDown($('.btn-mobile-menu-show'), $('.drop-content'));
             dropDown($('.btn-mobile-search-show'), $('.drop-content'));
             dropDown($('.btn-mobile-login-show'), $('.drop-content'), true);
             closeDropDown($('.btn-mobile-menu-close'), $('.mobile-menu'), $('.btn-mobile-menu-show'));
             closeDropDown($('.btn-mobile-search-close'), $('.mobile-search'), $('.btn-mobile-search-show'));
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
+            accordion.toggleItem($('.events-list .title'), '.text',$('.events-list'));
+            tabs.switcher('.mobile-filter-list','.mobile-filter-items','.tab-item');
+            text.showMore('.more-event', '.event-text', '.event-text-holder', 700);
         }
         //CONTENT
         article.openPrintWindow('.btn-print');
         references.openPrintWindow('.btn-print');
-        faqAccordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
-        faqAccordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
+        accordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
+        accordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
         sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list');
         sidebarNews.moreSidebarNews('.more-link','.additional-references-list');
         sidebarNews.moreSidebarNews('.more-link','.key-references-list');
         sidebarNews.moreSidebarNews('.more-link','.further-reading-list');
-    });
-
-    $(window).resize(function() {
-
     });
 
     $(window).load(function() {
@@ -466,8 +498,8 @@ var elements = {
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
-        forms.clearAll('.clear-all', '.select-all', '.checkboxes');
-        forms.selectAll('.clear-all', '.select-all', '.checkboxes');
+        forms.clearAll('.clear-all', '.select-all', '.grid');
+        forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
         search.autoSelect('.auto-search-list span','.search');
     });

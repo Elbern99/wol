@@ -25,13 +25,26 @@
     //ARTICLE
     var article = {
         delay: 0,
-        closeReference: function(btn,parent) {
+        overlayOpen: function(overlay) {
+            $(overlay).removeClass('js-tab-hidden').addClass('active');
+            $(overlay).css('height', '1px');
+            $(overlay).css('height', $(document).height());
+            $(overlay).css('max-height', $(document).height());
+        },
+        closeOverlay: function(overlay,triggerEl) {
+            $(overlay).click(function(e) {
+                $(overlay).addClass('js-tab-hidden').removeClass('active');
+                $(triggerEl).trigger('click');
+            });
+        },
+        closeReference: function(btn,parent,overlay) {
             $(btn).click(function(e) {
                 $('a,li').removeClass('opened-reflink');
                 $('a').removeClass('text-reference-opened');
                 $(this).parents(parent).fadeOut(article.delay+200);
                 $('.icon-circle-arrow').removeClass('disabled');
                 $(parent).find('.arrows').fadeOut(article.delay+200);
+                $(overlay).addClass('js-tab-hidden').removeClass('active');
                 e.preventDefault();
             });
         },
@@ -189,15 +202,15 @@
                     prevAttrIndex = curAttrIndex-1,
                     prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']');
 
-                $(btnPrev).css('opacity','1');
-                $(btnNext).css('opacity','1');
+                $(btnPrev).fadeIn();
+                $(btnNext).fadeIn();
 
                 if(prevCur.length == 0) {
-                    $(btnPrev).css('opacity','0');
+                    $(btnPrev).fadeOut();
                 }
 
                 if(nextCur.length == 0) {
-                    $(btnNext).css('opacity','0');
+                    $(btnNext).fadeOut();
                 }
 
                 $(parent).find('.arrows').fadeIn(0);
@@ -207,19 +220,19 @@
         },
         showPopupMobile: function(parent) {
             if(_window_width < _tablet){
+                article.overlayOpen('.overlay');
+
                 setTimeout(function(){
-                    $(parent).find('.reference-popup-inner').css('top',  elements.window.scrollTop() - 2);
+                    $(parent).css('top',  elements.window.scrollTop() - 2);
+                    $(parent).fadeIn(0);
                 }, article.delay+402);
 
                 elements.window.bind('scrollstop', function(e){
                     if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
-                        $(parent).fadeIn(article.delay+200);
-                        $(parent).find('.reference-popup-inner').css('top',  elements.window.scrollTop() - 2);
-                        $(parent).css('height', elements.document.height());
-                        $(parent).css('max-height', elements.document.height());
+                        //$(parent).fadeIn(article.delay+200);
+                        $(parent).css('top',  elements.window.scrollTop() - 2);
                     }
                 });
-
             }
         },
         detectCoordinate: function(cur,parent) {
@@ -289,61 +302,26 @@
                     prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
 
                 if(prevCur.length == 0) {
-                    $(btnPrev).css('opacity','0');
+                    $(btnPrev).fadeOut();
 
                 } else {
-                    $(btnPrev).css('opacity','1');
-                    $(btnNext).css('opacity','1');
+                    $(btnPrev).fadeIn();
+                    $(btnNext).fadeIn();
                 }
 
                 prevCur.trigger('click');
-
-                // if(_window_width > _mobile){
-                //     if(prevCur.length == 0) {
-                //         $(btnPrev).css('opacity','0.5');
-                //
-                //     } else {
-                //         $(btnPrev).css('opacity','1');
-                //         $(btnNext).css('opacity','1');
-                //     }
-                //
-                //     prevCur.trigger('click');
-                // } else {
-                //     var curMobileItem = $('.sidebar-widget-articles-references .opened-reflink'),
-                //         curMobileItemIndex = curMobileItem.data('li-index'),
-                //         curMobileItemPrevIndex = curMobileItemIndex-1,
-                //         curMobileItemParentPrev = $('li[data-li-index='+curMobileItemPrevIndex+']'),
-                //         curMobileItemPrev = curMobileItemParentPrev.find('>a');
-                //
-                //     if(curMobileItemParentPrev.length == 0) {
-                //         $(btnPrev).css('opacity','0.5');
-                //     } else {
-                //         $(btnPrev).css('opacity','1');
-                //         $(btnNext).css('opacity','1');
-                //         article.changeContentPupop(curMobileItemPrev);
-                //         curMobileItem.removeClass('opened-reflink');
-                //         curMobileItemParentPrev.addClass('opened-reflink');
-                //     }
-                //
-                // }
             });
         },
         addToFavourite: function(btn) {
-            
             $(btn).click(function(e) {
-                
                 var cur = $(this);
-                
                 $.get(cur.prop('href'), function(data, status) {
-                    
                     cur.children('.btn-like-inner').html(data.message);
                     cur.addClass('added');
-                    
                     setTimeout(function() {
                         cur.removeClass('added');
-                    }, 5000);
+                    }, 3000);
                 });
-
                 
                 e.preventDefault();
             });
@@ -403,7 +381,7 @@
 
     //EVENTS
     elements.document.ready(function() {
-        article.closeReference('.icon-close-popup ','.reference-popup');
+        article.closeReference('.icon-close-popup ','.reference-popup','.overlay');
         article.openReferencePopup('.sidebar-widget-articles-references ul li li>a');
         article.openReference('.key-references-list a','.reference-popup');
         article.openReference('.bg-news-list a','.reference-popup');
@@ -414,6 +392,7 @@
         article.arrowsSwitchPrev('.reference-popup .left','.reference-popup .right');
         article.articleReference('.sidebar-widget-articles-references','li:not(.sidebar-articles-item) ul>li');
         article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
+        article.closeOverlay('.overlay','.icon-close-popup');
     });
 
     elements.window.load(function() {
@@ -443,31 +422,18 @@
             },
             style: function(feature) {
                 return {
-                    weight: 1,
-                    opacity: 1,
-                    color: mapObj.getBorderColor(feature.properties.economy),
-                    dashArray: '1',
-                    fillOpacity: 1,
-                    fillColor: mapObj.getColor(feature.properties.economy)
+                    stroke: false,
+                    fill: false,
+                    className: mapObj.getColor(feature.properties.economy)
                 };
             },
             getColor: function(d) {
-                return  d === 'factor-efficiency' ? '#9ced10' :
-                    d === 'factor' ? '#f6ff00' :
-                        d === 'efficiency-innovation' ? '#008954' :
-                            d === 'efficiency' ? '#49da2c' :
-                                d === 'innovation' ? '#00806a' :
-                                    d === 'none' ? '#d2e1e8' :
-                                        '#d2e1e8';
-            },
-            getBorderColor: function(d) {
-                return  d === 'factor-efficiency' ? '#86d400' :
-                    d === 'factor' ? '#cfd700' :
-                        d === 'efficiency-innovation' ? '#006c42' :
-                            d === 'efficiency' ? '#3bc81f' :
-                                d === 'innovation' ? '#006655' :
-                                    d === 'none' ? '#e2ecf3' :
-                                        '#e2ecf3';
+                return  d === 'factor-efficiency' ? 'factor-efficiency' :
+                    d === 'factor' ? 'factor' :
+                        d === 'efficiency-innovation' ? 'efficiency-innovation' :
+                            d === 'efficiency' ? 'efficiency' :
+                                d === 'innovation' ? 'innovation' :
+                                d === 'none';
             },
             onEachFeature: function(feature, layer) {
                 layer.on({});

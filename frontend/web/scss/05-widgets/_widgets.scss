@@ -1,3 +1,15 @@
+//overlay
+.overlay {
+  @extend .pinout;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  @extend .opacityAnimate;
+
+  @include breakpoint('tablet') {
+    display: none;
+  }
+}
+
 //tabs
 .tabs-holder {
   position: relative;
@@ -6,6 +18,9 @@
     position: absolute;
 
     @include breakpoint_custom($breakpoint-tablet) {
+      left: -15px;
+      right: -15px;
+
       .loading-ball {
         top: 40px;
       }

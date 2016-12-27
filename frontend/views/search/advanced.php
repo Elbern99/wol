@@ -26,10 +26,12 @@ $this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
 ?>
 
 <div class="container search-site">
-    <div class="breadcrumbs">
-        <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+        </div>
+        <h1>Search the site</h1>
     </div>
-    <h1>Search the site</h1>
 
     <?php $form = ActiveForm::begin(['class' => 'header-search-form']); ?>
         <div class="search">

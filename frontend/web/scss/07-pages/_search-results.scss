@@ -158,7 +158,7 @@
 
   .search-results-top-filter {
     @extend .clearfix;
-    margin: 0px -16px 10px;
+    margin: 0px -15px 10px;
     border-bottom: 1px solid #c0c0c0;
     font-size: 12px;
     padding: 0 16px;
@@ -448,6 +448,7 @@
     &.btn-blue-large {
       font-size: 14px;
       padding: 0 26px;
+      max-width: 130px;
     }
   }
 }
