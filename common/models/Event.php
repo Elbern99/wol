@@ -55,31 +55,23 @@ class Event extends \yii\db\ActiveRecord
         ];
     }
     
-    public function afterFind()
-    {
-        $this->normalizeDate();
-    }
     
     public function saveFormatted()
     {
         if (!$this->validate())
             return false;
         
-        $this->convertDatesToTimestamp();
+        $this->convertDates();
       
         return $this->save();
     }
     
-    protected function convertDatesToTimestamp()
+    protected function convertDates()
     {
-        $this->date_from = strtotime($this->date_from);
-        $this->date_to = strtotime($this->date_to);
-    }
-    
-    public function normalizeDate()
-    {
-        $this->date_from = date('d-m-Y', $this->date_from);
-        $this->date_to = date('d-m-Y', $this->date_to);
+        $date_from = new \DateTime($this->date_from);
+        $this->date_from = $date_from->format('Y-m-d');
+        $date_to = new \DateTime($this->date_to);
+        $this->date_to = $date_to->format('Y-m-d');
     }
 
 }
