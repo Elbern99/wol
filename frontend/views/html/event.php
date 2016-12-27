@@ -24,6 +24,100 @@
 
     <div class="content-inner">
         <div class="content-inner-text">
+
+            <div class="mobile-filter-holder custom-tabs-holder">
+                <ul class="mobile-filter-list">
+                    <li><a href="">Latest events</a></li>
+                    <li><a href="">Events archive</a></li>
+                </ul>
+                <div class="mobile-filter-items custom-tabs">
+                    <div class="tab-item js-tab-hidden">
+                        <ul class="events-list">
+                            <li class="event-item only-mibile-accordion-item">
+                                <div class="title">SEPTEMBER 2016</div>
+                                <div class="text">
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">September 1<span class="year">, 2016</span></a><span class="to-word">TO</span>
+                                            <div class="last"><a href="">September 2<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">4th IZA Conference on Labor Market Effects of Environmental Policies</a></h2>
+                                            <div class="name">Bonn, Germany</div>
+                                            <p>Many industrialized countries have implemented environmental policies in order to reduce emissions that are harmful to the environment and global climate. While the benefits of such policies accrue.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="event-item only-mibile-accordion-item">
+                                <div class="title">JULY 2016</div>
+                                <div class="text">
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">July 27<span class="year">, 2016</span></a><span class="to-word">TO</span>
+                                            <div class="last"><a href="">July 31<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">15th IZA/SOLE Transatlantic Meeting of Labor Economists</a></h2>
+                                            <div class="name">Buch/Amersee, Germany</div>
+                                            <p>This year's meeting will be held in Bavaria, Germany. The deadline for submission of abstracts is February 29, 2016.</p>
+                                        </div>
+                                    </div>
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">July 21<span class="year">, 2016</span></a> <span class="to-word">TO</span>
+                                            <div class="last"><a href="">July 22<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">London Conference on Employer Engagement in Education and Training 2016</a></h2>
+                                            <div class="name">BIS Conference Center, London</div>
+                                            <p>Conference registration open and call for papers now open. What difference does it make when employers work with education and training providers?  How can employer engagement best be delivered?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-item js-tab-hidden">
+                        <ul class="articles-filter-list date-list blue-list">
+                            <li class="item open has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2016</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                            <li class="item has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2015</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                            <li class="item has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2014</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="event-date">JUNE 20, 2016</div>
 
             <div class="event-buttons-top">
@@ -31,7 +125,7 @@
                 <div><a href="" class="btn-border-blue">contact</a></div>
             </div>
 
-            <div class="event-text-holder">
+            <div class="event-text-holder" id="more-event">
                 <div class="event-text">
                     <h3>Dawn or Doom: The effects of Brexit on immigration, wages, and employment</h3>
                     <p>A panel discussion with economist <strong>Jonathan Portes</strong> (National Institute of Economic and Social Research), Conservative politician <strong>Geoffrey Van Orden</strong> (Member of the European Parliament), <strong>Professor L. Alan Winters</strong> (Sussex University and IZA), <strong>Allie Renison</strong> (Head of Europe and Trade Policy at the Institute of Directors), and moderated by Economist journalist <strong>Philip Coggan</strong>.</p>
@@ -51,7 +145,7 @@
                 </div>
             </div>
 
-            <a class="btn-gray align-center more-event" href="">read more</a>
+            <a class="btn-gray align-center more-event" href="#more-event">read more</a>
 
             <div class="other-events">
                 <div class="widget-title medium">other events in june</div>

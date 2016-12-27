@@ -369,8 +369,13 @@ var elements = {
             $(btn).on('click', function(e) {
                 if ($(wrapper).height() == $(text).height()) {
                     $(wrapper).css('max-height', startHeight + "px");
+                    $('html, body').animate({
+                        scrollTop: $(btn).offset().top - (_window_height/2)
+                    }, 0);
+                    $(btn).text('read more');
                 } else {
                     $(wrapper).css('max-height', $(text).height() + "px");
+                    $(btn).text('hide');
                 }
                 e.preventDefault();
             });
