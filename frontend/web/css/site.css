@@ -3633,7 +3633,8 @@ label {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-      flex-direction: column; }
+      flex-direction: column;
+  overflow: hidden; }
 
 @media only screen and (min-width: 769px) {
   .without-breadcrumbs {
@@ -3642,7 +3643,6 @@ label {
 .content {
   -ms-flex: 1 0 auto;
       flex: 1 0 auto;
-  overflow-y: hidden;
   padding-bottom: 20px; }
   @media only screen and (min-width: 769px) {
     .content {
@@ -5289,7 +5289,7 @@ iframe[name=advpp_manager] {
   border-bottom: 1px solid #b3b3b3;
   display: none; }
   .mobile-filter .mobile-filter-bottom {
-    margin: -6px 0 0 0; }
+    margin: 24px 0 -5px 0; }
     @media only screen and (min-width: 769px) {
       .mobile-filter .mobile-filter-bottom {
         display: none; } }
