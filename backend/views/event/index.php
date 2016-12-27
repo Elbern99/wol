@@ -29,16 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'label' => 'Date From',
                         'value' => function ($model) {
-                            $date = new \DateTime($model->date_from);
-                            return $date->format('d F Y');
+                            return $model->date_from->format('d F Y');
                         }
                     ],
                     [
                         'format' => 'raw',
                         'label' => 'Date To',
                         'value' => function ($model) {
-                            $date = new \DateTime($model->date_to);
-                            return $date->format('d F Y');
+                            return $model->date_from->format('d F Y');
                         }
                     ],
                     [

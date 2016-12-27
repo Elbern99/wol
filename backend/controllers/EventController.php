@@ -49,6 +49,8 @@ class EventController extends Controller
             $model = new Event();
         } else {
             $model = Event::findOne($id);
+            $model->date_from = $model->date_from->format('d-m-Y');
+            $model->date_to = $model->date_to->format('d-m-Y');
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {

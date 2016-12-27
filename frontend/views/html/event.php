@@ -5,30 +5,126 @@
 
 <?php
     $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+    $this->registerJsFile('/js/pages/event.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-
 
 <div class="header-background" style="background-image: url('../images/temp/img-05.jpg');"></div>
 
 <div class="container event-page">
 
-    <div class="article-head">
-        <div class="breadcrumbs">
-            <ul class="breadcrumbs-list">
-                <li><a href="">home</a></li>
-                <li>about</li>
-            </ul>
+    <div class="article-head-holder">
+        <div class="article-head">
+            <div class="breadcrumbs">
+                <ul class="breadcrumbs-list">
+                    <li><a href="">home</a></li>
+                    <li>about</li>
+                </ul>
+            </div>
+            <h1>Bloomsbury Institute and IZA World of Labor Brexit Debate</h1>
         </div>
-        <h1>Bloomsbury Institute and IZA World of Labor Brexit Debate</h1>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text">
+
+            <div class="mobile-filter-holder custom-tabs-holder">
+                <ul class="mobile-filter-list">
+                    <li><a href="">Latest events</a></li>
+                    <li><a href="">Events archive</a></li>
+                </ul>
+                <div class="mobile-filter-items custom-tabs">
+                    <div class="tab-item js-tab-hidden">
+                        <ul class="events-list">
+                            <li class="event-item only-mibile-accordion-item">
+                                <div class="title">SEPTEMBER 2016</div>
+                                <div class="text">
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">September 1<span class="year">, 2016</span></a><span class="to-word">TO</span>
+                                            <div class="last"><a href="">September 2<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">4th IZA Conference on Labor Market Effects of Environmental Policies</a></h2>
+                                            <div class="name">Bonn, Germany</div>
+                                            <p>Many industrialized countries have implemented environmental policies in order to reduce emissions that are harmful to the environment and global climate. While the benefits of such policies accrue.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="event-item only-mibile-accordion-item">
+                                <div class="title">JULY 2016</div>
+                                <div class="text">
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">July 27<span class="year">, 2016</span></a><span class="to-word">TO</span>
+                                            <div class="last"><a href="">July 31<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">15th IZA/SOLE Transatlantic Meeting of Labor Economists</a></h2>
+                                            <div class="name">Buch/Amersee, Germany</div>
+                                            <p>This year's meeting will be held in Bavaria, Germany. The deadline for submission of abstracts is February 29, 2016.</p>
+                                        </div>
+                                    </div>
+                                    <div class="sub-event-item">
+                                        <div class="date-part">
+                                            <a href="">July 21<span class="year">, 2016</span></a> <span class="to-word">TO</span>
+                                            <div class="last"><a href="">July 22<span class="year">, 2016</span></a></div>
+                                        </div>
+                                        <div class="desc">
+                                            <h2><a href="">London Conference on Employer Engagement in Education and Training 2016</a></h2>
+                                            <div class="name">BIS Conference Center, London</div>
+                                            <p>Conference registration open and call for papers now open. What difference does it make when employers work with education and training providers?  How can employer engagement best be delivered?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-item js-tab-hidden">
+                        <ul class="articles-filter-list date-list blue-list">
+                            <li class="item open has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2016</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                            <li class="item has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2015</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                            <li class="item has-drop">
+                                <div class="icon-arrow"></div>
+                                <a href="">2014</a>
+                                <ul class="submenu">
+                                    <li class="item"><a href="">September 2016</a></li>
+                                    <li class="item"><a href="">July 2016</a></li>
+                                    <li class="item"><a href="">June 2016</a></li>
+                                    <li class="item"><a href="">May 2016</a></li>
+                                    <li class="item"><a href="">March 2016</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="event-date">JUNE 20, 2016</div>
 
             <div class="event-buttons-top">
-                <div><a href="" class="btn-blue">book tickets</a></div>
-                <div><a href="" class="btn-border-blue">contact</a></div>
+                <div><a href="/book-tickets" class="btn-blue">book tickets</a></div>
+                <div><a href="/contact" class="btn-border-blue">contact</a></div>
             </div>
 
             <div class="event-text-holder">
@@ -51,40 +147,42 @@
                 </div>
             </div>
 
-            <a class="btn-gray align-center more-event" href="">read more</a>
+            <a class="btn-gray-large align-center more-event" href="">read more</a>
 
-            <div class="other-events">
-                <div class="widget-title medium">other events in june</div>
-                <ul class="other-events-list">
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 13, 2016 - June 14, 2016</a></div>
-                        <h3><a href="">9th International Conference on Migration and Developmen</a></h3>
-                        <div class="country">Florence, Italy</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 15, 2016 - June 18, 2016</a></div>
-                        <h3><a href="">30th Annual Conference of the European Society for Population Economics (ESPE)</a></h3>
-                        <div class="country">Berlin, Germany</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
-                        <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
-                        <div class="country">Madrid, Spain</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
-                        <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
-                        <div class="country">Madrid, Spain</div>
-                    </li>
-                </ul>
+            <div class="other-events-holder">
+                <div class="other-events">
+                    <div class="widget-title medium">other events in june</div>
+                    <ul class="other-events-list">
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 13, 2016 - June 14, 2016</a></div>
+                            <h3><a href="">9th International Conference on Migration and Developmen</a></h3>
+                            <div class="country">Florence, Italy</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 15, 2016 - June 18, 2016</a></div>
+                            <h3><a href="">30th Annual Conference of the European Society for Population Economics (ESPE)</a></h3>
+                            <div class="country">Berlin, Germany</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
+                            <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
+                            <div class="country">Madrid, Spain</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
+                            <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
+                            <div class="country">Madrid, Spain</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <aside class="sidebar-right">
             <div class="sidebar-buttons-holder">
                 <div class="event-page-buttons">
-                    <div><a href="" class="btn-blue">book your ticket</a></div>
-                    <div><a href="" class="btn-border-blue">contact organiser</a></div>
+                    <div><a href="/book-ticket" class="btn-blue">book your ticket</a></div>
+                    <div><a href="/contact" class="btn-border-blue">contact organiser</a></div>
                 </div>
 
                 <ul class="share-buttons-list">

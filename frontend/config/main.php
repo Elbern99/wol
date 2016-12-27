@@ -53,7 +53,9 @@ return [
                 'register' => 'site/signup',
                 'reset' => 'site/request-password-reset',
                 'my-account' => 'my-account/index',
-                'subscribe' => 'site/subscribe'
+                'subscribe' => 'site/subscribe',
+                'events' => 'event/index',
+                'events/<slug:[0-9a-z-]+>' => 'event/view',
             ],
         ],
         'assetManager' => [

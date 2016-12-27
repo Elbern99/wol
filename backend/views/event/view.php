@@ -44,6 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         'shiftEnterMode'=>1
                     ]
                 ]) ?>
+                
+                <?= $form->field($model, 'short_description')->widget(CKEditor::className(), [
+                    'options' => ['rows' => 8],
+                    'preset' => 'standard',
+                    'clientOptions'=>[
+                        'enterMode' => 2,
+                        'forceEnterMode'=>false,
+                        'shiftEnterMode'=>1
+                    ]
+                ]) ?>
+            
+                <?= $form->field($model, 'book_link') ?>
+                <?= $form->field($model, 'contact_link') ?>
+            
 
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>

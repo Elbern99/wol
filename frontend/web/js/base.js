@@ -363,21 +363,6 @@ var elements = {
     };
     /* end */
 
-    // 2.8 TEXT
-    var text = {
-        showMore: function(btn,text,wrapper,startHeight) {
-            $(btn).on('click', function(e) {
-                if ($(wrapper).height() == $(text).height()) {
-                    $(wrapper).css('max-height', startHeight + "px");
-                } else {
-                    $(wrapper).css('max-height', $(text).height() + "px");
-                }
-                e.preventDefault();
-            });
-        }
-    };
-    /* end */
-
 // 3. SIDEBAR WIDGETS ---------
 
     // 3.1 MORE SIDEBAR NEWS
@@ -475,7 +460,6 @@ var elements = {
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
             accordion.toggleItem($('.events-list .title'), '.text',$('.events-list'));
             tabs.switcher('.mobile-filter-list','.mobile-filter-items','.tab-item');
-            text.showMore('.more-event', '.event-text', '.event-text-holder', 700);
         }
         //CONTENT
         article.openPrintWindow('.btn-print');

@@ -31,8 +31,8 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url_key', 'title', 'location', 'date_from', 'date_to'], 'required'],
-            [['body'], 'string'],
+            [['url_key', 'title', 'location', 'date_from', 'date_to', 'book_link', 'contact_link'], 'required'],
+            [['body', 'short_description'], 'string'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -52,9 +52,17 @@ class Event extends \yii\db\ActiveRecord
             'date_from' => Yii::t('app', 'Date From'),
             'date_to' => Yii::t('app', 'Date To'),
             'location' => Yii::t('app', 'Location'),
+            'short_decription' => Yii::t('app', 'Short Description'),
+            'book_link' => Yii::t('app', 'Book Link'),
+            'contact_link' => Yii::t('app', 'Contact Link'),
         ];
     }
     
+    public function afterFind()
+    {
+        $this->date_from = new \DateTime($this->date_from);
+        $this->date_to = new \DateTime($this->date_to);
+    }
     
     public function saveFormatted()
     {

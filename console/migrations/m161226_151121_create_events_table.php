@@ -20,6 +20,11 @@ class m161226_151121_create_events_table extends Migration
             'date_to' => $this->dateTime()->null(),
             'location' => $this->string()->notNull(),
             'body' => $this->text()->null(),
+            //New fields
+            'short_description' => $this->text()->null(),
+            'book_link' => $this->string()->notNull(),
+            'contact_link' => $this->string()->notNull(),
+            'image_link' => $this->string()->null(),
         ]);
     }
 
