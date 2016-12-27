@@ -242,6 +242,7 @@
 .icon-close-popup {
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 4px;
 
   @include breakpoint('tablet') {
     &:hover {
@@ -358,5 +359,53 @@
     top: 12px;
     margin-left: -5px;
     z-index: -1;
+  }
+}
+
+.icon-close {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 4px;
+
+  &:active {
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  }
+
+  @include breakpoint('tablet') {
+    &:hover {
+      background: $blue;
+
+      &:after,
+      &:before {
+        background: $white;
+      }
+    }
+  }
+
+  &:after,
+  &:before {
+    width: 14px;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    right: 10px;
+    height: 2px;
+    background: #1d1d1b;
+    transform: rotate(-45deg);
+    margin-top: -1px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 1px;
+    }
+  }
+
+  &:after {
+    transform: rotate(45deg);
   }
 }

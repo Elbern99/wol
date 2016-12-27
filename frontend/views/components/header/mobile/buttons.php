@@ -1,3 +1,4 @@
+<?php use yii\helpers\Html ?>
 <div class="header-mobile-buttons">
     <?php if (Yii::$app->user->isGuest) : ?>
     <div class="dropdown">
@@ -35,12 +36,17 @@
                 <?= $this->renderFile('@app/views/components/header/menu/main.php'); ?>
             </div>
             <div class="mobile-menu-section">
-
                 <?php if (Yii::$app->user->isGuest) : ?>
                 <a href="" class="open-mobile-login"><?= Yii::t('app/menu', 'login') ?></a>
                 <a href="" class="open-mobile-register"><?= Yii::t('app/menu', 'register') ?></a>
                 <?php else: ?>
                 <a href="/my-account"><?= Yii::t('app/menu', 'my-account') ?></a>
+                <?= Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout',
+                    ['class' => 'logout-link']
+                )
+                . Html::endForm() ?>
                 <?php endif; ?>
             </div>
             <div class="mobile-menu-section">

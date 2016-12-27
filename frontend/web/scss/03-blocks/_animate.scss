@@ -13,20 +13,3 @@
     transform: translateX(-100%);
   }
 }
-
-.slideAnimate {
-  transform: translateY(-150%);
-  transition: transform .5s ease;
-  overflow: hidden;
-
-  &.active {
-    transform: translateY(0);
-  }
-}
-
-.js-tab-hidden {
-  display: block !important;
-  left: -9999px !important;
-  position: absolute !important;
-  top: -9999px !important;
-}

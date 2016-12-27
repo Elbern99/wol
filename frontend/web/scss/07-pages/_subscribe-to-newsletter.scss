@@ -1,21 +1,5 @@
 .subscribe-to-newsletter {
 
-  h1 {
-    margin-bottom: 15px;
-
-    @include breakpoint('tablet') {
-      margin-bottom: 22px;
-    }
-  }
-
-  .article-header {
-    margin-bottom: 20px;
-
-    @include breakpoint('tablet') {
-      margin-bottom: 40px;
-    }
-  }
-
   p {
     margin: 0 0 16px;
     font-size: 13px;
@@ -30,8 +14,6 @@
     display: none;
 
     @include breakpoint('tablet') {
-      font-size: 13px;
-      margin: 0 0 43px;
       display: block;
     }
   }
@@ -103,7 +85,7 @@
     margin-top: 15px;
 
     @include breakpoint('tablet') {
-      margin-top: 49px;
+      margin-top: 29px;
     }
   }
 }

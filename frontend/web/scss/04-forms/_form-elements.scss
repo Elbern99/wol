@@ -76,20 +76,6 @@ label {
   margin: 0 0 8px;
 }
 
-.header-bottom {
-  .search {
-    .form-group {
-      .help-block {
-        padding: 5px;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        margin: 10px 0 0;
-      }
-    }
-  }
-}
-
 .form-group,
 .form-item {
   position: relative;
@@ -153,6 +139,7 @@ label {
   }
 }
 
+//ALERTS
 .alert {
   padding: 10px;
   border: 1px solid transparent;
@@ -194,4 +181,18 @@ label {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
+}
+
+//CHECKBOX-LIST
+.checkbox-list {
+  padding: 0 0 10px 0;
+
+  li {
+    text-transform: capitalize;
+    margin: 0 0 12px;
+  }
+
+  .subcheckbox-list {
+    padding: 12px 0 0 20px;
+  }
 }

@@ -71,10 +71,7 @@
   border-bottom: 1px solid #bcbcbc;
   position: relative;
 
-  @include breakpoint_custom($breakpoint-tablet) {
-    overflow: hidden;
-  }
-
+  //desktop
   @include breakpoint('tablet') {
     padding: 23px 0 18px;
 
@@ -146,7 +143,10 @@
 
   }
 
+  //mobile
   @include breakpoint_custom($breakpoint-tablet) {
+    overflow: hidden;
+
     .header-menu-bottom-list {
       padding: 0;
       white-space: nowrap;
@@ -166,10 +166,21 @@
       }
     }
   }
+
+  .search {
+    .form-group {
+      .help-block {
+        padding: 5px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin: 10px 0 0;
+      }
+    }
+  }
 }
 
 //SEARCH
-
 .header {
   .search {
     @include breakpoint_custom($breakpoint-tablet) {
@@ -335,6 +346,7 @@
     display: inline-block;
     position: relative;
     margin: 0 0 0 27px;
+    vertical-align: top;
 
     &.hide-desktop {
       @include breakpoint('tablet') {
@@ -540,7 +552,8 @@
 
     .item,
     .btn-light-blue,
-    a {
+    a,
+    .logout-link {
       display: block;
       font-size: 14px;
       text-transform: uppercase;
@@ -548,9 +561,12 @@
       text-decoration: none;
     }
 
-    a {
+    a,
+    .logout-link {
       color: $white !important;
       padding: 7px 32px 7px 0;
+      background: none;
+      border: 0;
     }
 
     .subscribe-link {

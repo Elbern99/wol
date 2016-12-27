@@ -19,10 +19,13 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
 ?>
 
 <div class="container search-results">
-    <div class="breadcrumbs">
-        <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+        </div>
+        <h1>Search the site</h1>
     </div>
-    <h1>Search the site</h1>
 
     <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
         <div class="search-results-top">

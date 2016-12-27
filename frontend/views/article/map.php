@@ -263,3 +263,5 @@ $this->registerCssFile('/css/leaflet.css');
         </aside>
     </div>
 </div>
+
+<div class="overlay js-tab-hidden"></div>

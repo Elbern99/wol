@@ -7,7 +7,7 @@ $this->title = 'Subscribe to newsletter';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container subscribe-to-newsletter">
-    <div class="article-header">
+    <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
@@ -106,74 +106,72 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">newsletter archives</a>
                         <div class="text is-open">
-                            <div class="text-inner">
-                                <ul class="articles-filter-list">
-                                    <ul class="submenu">
-                                        <li class="item open">
-                                            <div class="icon-arrow"></div>
-                                            <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
-                                            <ul class="submenu">
-                                                <li class="item">
-                                                    <div class="date">July 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">June 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">May 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">April 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">March 2016</div>
-                                                    <a href="">IZA WoL Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">February 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">January 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="item">
-                                            <div class="icon-arrow"></div>
-                                            <a href="/subject-areas/program-evaluation"><strong>2015</strong></a>
-                                            <ul class="submenu">
-                                                <li class="item">
-                                                    <div class="date">July 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">June 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="item">
-                                            <div class="icon-arrow"></div>
-                                            <a href="/subject-areas/program-evaluation"><strong>2014</strong></a>
-                                            <ul class="submenu">
-                                                <li class="item">
-                                                    <div class="date">July 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                                <li class="item">
-                                                    <div class="date">June 2016</div>
-                                                    <a href="">IZA World of Labor Newsletter</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </ul>
-                            </div>
+                            <ul class="articles-filter-list date-list">
+                                <li class="submenu">
+                                    <li class="item open">
+                                        <div class="icon-arrow"></div>
+                                        <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
+                                        <ul class="submenu">
+                                            <li class="item">
+                                                <div class="date">July 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">June 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">May 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">April 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">March 2016</div>
+                                                <a href="">IZA WoL Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">February 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">January 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="item">
+                                        <div class="icon-arrow"></div>
+                                        <a href="/subject-areas/program-evaluation"><strong>2015</strong></a>
+                                        <ul class="submenu">
+                                            <li class="item">
+                                                <div class="date">July 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">June 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="item">
+                                        <div class="icon-arrow"></div>
+                                        <a href="/subject-areas/program-evaluation"><strong>2014</strong></a>
+                                        <ul class="submenu">
+                                            <li class="item">
+                                                <div class="date">July 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                            <li class="item">
+                                                <div class="date">June 2016</div>
+                                                <a href="">IZA World of Labor Newsletter</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                 </ul>

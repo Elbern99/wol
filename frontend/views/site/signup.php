@@ -11,7 +11,7 @@ $this->title = 'Register';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container subscribe-to-newsletter">
-    <div class="article-header">
+    <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>

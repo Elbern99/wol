@@ -40,13 +40,15 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
     </main>
   
   <footer class="footer">
-      <div class="container">
-            <div class="container-top">
-                <?= $this->renderFile('@app/views/components/footer/footer.php'); ?>
-            </div>
-            <p class="copyright">
-              Copyright &copy; IZA <?= date('Y') ?> <a href="#" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571
-            </p>
+      <div class="footer-inner">
+          <div class="container">
+              <div class="container-top">
+                  <?= $this->renderFile('@app/views/components/footer/footer.php'); ?>
+              </div>
+              <p class="copyright">
+                  Copyright &copy; IZA <?= date('Y') ?> <a href="#" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571
+              </p>
+          </div>
       </div>
   </footer>
 </div>
