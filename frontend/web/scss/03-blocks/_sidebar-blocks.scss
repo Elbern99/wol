@@ -772,6 +772,7 @@
   }
 
   .podcast-item {
+    margin: 0 0 30px;
 
     &:last-child {
       margin-bottom: 0;
@@ -781,19 +782,20 @@
       width: 50%;
       float: left;
       padding: 0 5px;
+      margin: 0;
     }
 
     @include breakpoint('tablet') {
       width: 100%;
       padding: 0;
       float: none;
+      margin: 0 0 30px;
     }
   }
 }
 
 .podcast-item {
   display: block;
-  margin: 0 0 30px;
   color: #323232;
 
   img {

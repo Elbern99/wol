@@ -227,7 +227,9 @@
   font-size: 11px;
 }
 
-.btn-gray {
+.btn-gray,
+[class^="btn-gray-"],
+[class*=" btn-gray-"]{
   background: #eaeaea;
   color: #7b7b7b;
   height: 36px;
@@ -257,6 +259,12 @@
       margin: 0 auto;
     }
   }
+}
+
+.btn-gray-large {
+  height: 42px;
+  line-height: 41px;
+  font-size: 12px;
 }
 
 //blue

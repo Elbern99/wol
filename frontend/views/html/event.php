@@ -5,21 +5,23 @@
 
 <?php
     $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+    $this->registerJsFile('/js/pages/event.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-
 
 <div class="header-background" style="background-image: url('../images/temp/img-05.jpg');"></div>
 
 <div class="container event-page">
 
-    <div class="article-head">
-        <div class="breadcrumbs">
-            <ul class="breadcrumbs-list">
-                <li><a href="">home</a></li>
-                <li>about</li>
-            </ul>
+    <div class="article-head-holder">
+        <div class="article-head">
+            <div class="breadcrumbs">
+                <ul class="breadcrumbs-list">
+                    <li><a href="">home</a></li>
+                    <li>about</li>
+                </ul>
+            </div>
+            <h1>Bloomsbury Institute and IZA World of Labor Brexit Debate</h1>
         </div>
-        <h1>Bloomsbury Institute and IZA World of Labor Brexit Debate</h1>
     </div>
 
     <div class="content-inner">
@@ -121,11 +123,11 @@
             <div class="event-date">JUNE 20, 2016</div>
 
             <div class="event-buttons-top">
-                <div><a href="" class="btn-blue">book tickets</a></div>
-                <div><a href="" class="btn-border-blue">contact</a></div>
+                <div><a href="/book-tickets" class="btn-blue">book tickets</a></div>
+                <div><a href="/contact" class="btn-border-blue">contact</a></div>
             </div>
 
-            <div class="event-text-holder" id="more-event">
+            <div class="event-text-holder">
                 <div class="event-text">
                     <h3>Dawn or Doom: The effects of Brexit on immigration, wages, and employment</h3>
                     <p>A panel discussion with economist <strong>Jonathan Portes</strong> (National Institute of Economic and Social Research), Conservative politician <strong>Geoffrey Van Orden</strong> (Member of the European Parliament), <strong>Professor L. Alan Winters</strong> (Sussex University and IZA), <strong>Allie Renison</strong> (Head of Europe and Trade Policy at the Institute of Directors), and moderated by Economist journalist <strong>Philip Coggan</strong>.</p>
@@ -145,40 +147,42 @@
                 </div>
             </div>
 
-            <a class="btn-gray align-center more-event" href="#more-event">read more</a>
+            <a class="btn-gray-large align-center more-event" href="">read more</a>
 
-            <div class="other-events">
-                <div class="widget-title medium">other events in june</div>
-                <ul class="other-events-list">
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 13, 2016 - June 14, 2016</a></div>
-                        <h3><a href="">9th International Conference on Migration and Developmen</a></h3>
-                        <div class="country">Florence, Italy</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 15, 2016 - June 18, 2016</a></div>
-                        <h3><a href="">30th Annual Conference of the European Society for Population Economics (ESPE)</a></h3>
-                        <div class="country">Berlin, Germany</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
-                        <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
-                        <div class="country">Madrid, Spain</div>
-                    </li>
-                    <li class="other-events-item">
-                        <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
-                        <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
-                        <div class="country">Madrid, Spain</div>
-                    </li>
-                </ul>
+            <div class="other-events-holder">
+                <div class="other-events">
+                    <div class="widget-title medium">other events in june</div>
+                    <ul class="other-events-list">
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 13, 2016 - June 14, 2016</a></div>
+                            <h3><a href="">9th International Conference on Migration and Developmen</a></h3>
+                            <div class="country">Florence, Italy</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 15, 2016 - June 18, 2016</a></div>
+                            <h3><a href="">30th Annual Conference of the European Society for Population Economics (ESPE)</a></h3>
+                            <div class="country">Berlin, Germany</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
+                            <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
+                            <div class="country">Madrid, Spain</div>
+                        </li>
+                        <li class="other-events-item">
+                            <div class="date"><a href="">June 16, 2016 - June 17, 2016</a></div>
+                            <h3><a href="">4th World Bank/Banco de Espania Research Conference: Labor Markets - Growth, Productivity and Inequality</a></h3>
+                            <div class="country">Madrid, Spain</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <aside class="sidebar-right">
             <div class="sidebar-buttons-holder">
                 <div class="event-page-buttons">
-                    <div><a href="" class="btn-blue">book your ticket</a></div>
-                    <div><a href="" class="btn-border-blue">contact organiser</a></div>
+                    <div><a href="/book-ticket" class="btn-blue">book your ticket</a></div>
+                    <div><a href="/contact" class="btn-border-blue">contact organiser</a></div>
                 </div>
 
                 <ul class="share-buttons-list">

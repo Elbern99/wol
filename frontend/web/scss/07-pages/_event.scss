@@ -1,7 +1,16 @@
 .event-page {
   h3 {
-    font-size: 23px;
+    font-size: 18px;
     margin: 0 0 13px;
+
+    @include breakpoint('tablet') {
+      font-size: 23px;
+    }
+  }
+
+  .more-event {
+    argin-top: 29px;
+    margin-bottom: 37px;
   }
 
   @include breakpoint('tablet') {
@@ -19,6 +28,14 @@
       .event-page-buttons {
         display: none;
       }
+    }
+
+    .content-inner .content-inner-text {
+      padding-bottom: 0;
+    }
+
+    .sidebar-buttons-holder {
+      margin: 0 0 41px;
     }
   }
 
@@ -45,16 +62,16 @@
     }
 
     display: flex;
-    margin: 0 -7px 20px;
+    margin: 0 -5px 22px;
 
     >div {
       width: 50%;
-      padding: 0 7px;
+      padding: 0 5px;
     }
 
     a {
-      height: 36px;
-      line-height: 35px;
+      height: 40px;
+      line-height: 38px;
       width: 100%;
       font-size: 13px;
     }
@@ -63,9 +80,14 @@
 
 .event-date {
   color: #5e5e5e;
-  margin: 0 0 17px;
-  font-size: 11px;
+  margin: 0 0 19px;
+  font-size: 13px;
   letter-spacing: 0.047em;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 17px;
+    font-size: 11px;
+  }
 }
 
 //OTHER-EVENTS-LIST 
@@ -154,7 +176,7 @@
 .event-text-holder {
 
   @include breakpoint_custom($breakpoint-tablet) {
-    max-height: 700px;
+    max-height: 696px;
     overflow: hidden;
     //transition: max-height 0.6s ease;
   }

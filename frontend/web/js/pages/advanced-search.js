@@ -1,5 +1,5 @@
-(function($) {
 
+(function($) {
     //GLOBAL VARIABLE ---------
     var _window_height = $(window).height(),
         _window_width = $(window).width(),
@@ -14,9 +14,7 @@
 
     var advancedSearch = {
         customTagList: function(list,holder) {
-            
             if($(list).length){
-                
                 $(holder).each(function( index ) {
                     var cur = $(this),
                         curInput = $(this).find('.my-single-field');
@@ -84,11 +82,8 @@
             }
         },
         saveSearch: function(btn) {
-            
             function addToSave(element) {
-
                 element.click(function(e) {
-                    
                     $.get(element.prop('href'), function(data, status) {
                     
                         if ('message' in data) {
@@ -101,7 +96,6 @@
                             }, 1600);
                         }
                     });
-
                     e.preventDefault();
                 });
             }
