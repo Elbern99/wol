@@ -25,6 +25,13 @@ return [
         'settings_module' => [
             'class' => '\common\modules\settings\Module',
         ],
+        'newsletter_module' => [
+            'class' => '\common\modules\newsletter\Module',
+            'components' => [
+                'newsletter_model' => '\common\models\Newsletter',
+                'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ],
     ],
     'components' => [
         'cache' => [

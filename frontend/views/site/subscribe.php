@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="grid-line four">
-                        <?= $form->field($model, 'items')->checkboxList($model->getSubjectItems(),[
+                        <?= $form->field($model, 'areas_interest')->checkboxList($model->getSubjectItems(),[
                             'item'=> function($index, $label, $name, $checked, $value) {
                                 return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
                                 Html::checkbox($name, $checked, [
@@ -75,25 +75,26 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="form-line">
-                <label class="def-checkbox">
-                    <input type="checkbox" name="">
-                    <span class="label-text">I would like to recieve updates from IZA World of Labor</span>
-                </label>
+                <?= Html::activeCheckbox($model, 'iza_world', 
+                    ['labelOptions' => ['class'=>'def-checkbox'],
+                    'label' => '<span class="label-text">I would like to recieve updates from IZA World of Labor</span>']
+                ) ?>
             </div>
 
             <div class="form-line">
-                <label class="def-checkbox">
-                    <input type="checkbox" name="">
-                    <span class="label-text">I would like to recieve new article alerts in my areas of interest</span>
-                </label>
+                <?= Html::activeCheckbox($model, 'interest', 
+                    ['labelOptions' => ['class'=>'def-checkbox'],
+                    'label' => '<span class="label-text">I would like to recieve new article alerts in my areas of interest</span>']
+                ) ?>
             </div>
 
             <div class="form-line">
-                <label class="def-checkbox">
-                    <input type="checkbox" name="">
-                    <span class="label-text">I would like to recieve updates from IZA</span>
-                </label>
+                <?= Html::activeCheckbox($model, 'iza', 
+                    ['labelOptions' => ['class'=>'def-checkbox'],
+                    'label' => '<span class="label-text">I would like to recieve updates from IZA</span>']
+                ) ?>
             </div>
+            
              <?= Html::submitButton('Signup', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
              <?php ActiveForm::end(); ?>
         </div>
