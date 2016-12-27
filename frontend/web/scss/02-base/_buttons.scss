@@ -22,6 +22,10 @@
   touch-action: manipulation;
   user-select: none;
 
+  &:active {
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  }
+
   &.btn-center {
     display: flex;
     align-items: center;
@@ -86,10 +90,6 @@
     width: 100%;
     background: none;
     border: 0;
-  }
-
-  &:active {
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
   }
 
   [class*='icon-'],
@@ -281,14 +281,14 @@
   height: 50px;
   line-height: 33px;
   letter-spacing: 0.06em;
-  max-width: 191px;
   width: 100%;
 
   @include breakpoint('tablet') {
     font-size: 15px;
     height: 48px;
+    max-width: 191px;
     line-height: 48px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
   }
 }
 

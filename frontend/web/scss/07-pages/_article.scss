@@ -1,5 +1,20 @@
-.article-head,
-.articles-head{
+.article-head {
+
+  h1 {
+    margin-bottom: 15px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 22px;
+    }
+  }
+
+  .article-head {
+    margin-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 40px;
+    }
+  }
 
   @include breakpoint('tablet') {
     padding-right: 308px;
@@ -609,23 +624,17 @@
   }
 
   @include breakpoint('tablet') {
-    height: auto !important;
     bottom: 0;
-    top: auto;
     position: fixed;
+    top: auto !important;
   }
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 22px;
+    padding: 45px 0 45px;
     position: relative;
-    //min-height: 202px;
     max-width: $content-area-width;
     margin: 0 auto;
-
-    @include breakpoint('tablet') {
-      top: 0 !important;
-    }
 
     @include breakpoint_custom($breakpoint-tablet) {
 
@@ -633,42 +642,14 @@
         overflow: hidden;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
-        margin-bottom: 20px;
       }
-    }
-
-    &:before,
-    &:after {
-      @extend .pinout;
-      background: rgba(0,0,0,0.5);
-
-      @include breakpoint('tablet') {
-        display: none;
-      }
-    }
-
-
-    &:before {
-      bottom: 98%;
-      top: -99999999px;
-    }
-
-    &:after {
-      top: 98%;
-      bottom: -99999999px;
     }
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    top: 0 !important;
+    bottom: auto;
 
     .reference-popup-inner {
-      position: absolute;
-      //max-height: 100vh;
-      left: 0;
-      right: 0;
-      //transition: top 0.1s ease;
-
       .container {
         max-height: 58vh;
 
@@ -724,7 +705,7 @@
     text-align: center;
 
     @include breakpoint_custom($breakpoint-desktop-large) {
-      padding: 27px 0 5px;
+      //padding: 27px 0 5px;
     }
   }
 
@@ -861,5 +842,13 @@
         }
       }
     }
+  }
+}
+
+
+.article-full {
+  path {
+    fill: rgba(210, 225, 232, 1);
+    stroke: rgba(226, 236, 243, 1);
   }
 }

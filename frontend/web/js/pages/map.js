@@ -3,7 +3,8 @@
     //ELEMENTS
     var elements  = {
         window: $(window),
-        mapInfo: $('.map-info')
+        mapInfo: $('.map-info'),
+        overlay: $('.overlay')
     }
 
     //GLOBAL VARIABLE ---------
@@ -56,80 +57,71 @@
     var mapObj = {
       options: {
           maxBounds: new L.LatLngBounds( new L.LatLng(-60, -180), new L.LatLng(86, 180)),
-          inertia: false,
+          //inertia: false,
           minZoom: 0,
           maxZoom: 5,
           zoom: 2,
           attributionControl: false,
           clickable: false,
-          boxZoom: false,
-          tap: false,
+          //boxZoom: true,
+          tap: true,
           trackResize: true,
-          center: [30, 10],
-          load: function(){
-              console.log('load')
-          }
+          center: [30, 10]
       },
       style: function(feature) {
         return {
-          weight: 1,
-          opacity: 1,
-          color: mapObj.getBorderColor(feature.properties.economy),
-          dashArray: '1',
-          fillOpacity: 1,
-          fillColor: mapObj.getColor(feature.properties.economy)
+          stroke: false,
+          fill: false,
+          className: mapObj.getColor(feature.properties.economy)
         };
       },
       setZoom: function(map) {
           if (_window_width < _mobileSmall)   {
-              map.setMinZoom(0)
+              map.setMinZoom(0);
               map.setZoom(0);
           } else if( _window_width < _tablet  && _window_width > _mobileSmall)  {
-              map.setMinZoom(0)
+              map.setMinZoom(0);
               map.setZoom(1);
           } else if (_window_width > _tablet) {
-              map.setMinZoom(2)
+              map.setMinZoom(2);
               map.setZoom(2);
           }
       },
-      getColor: function(d) {
-        return  d === 'factor-efficiency' ? '#9ced10' :
-                d === 'factor' ? '#f6ff00' :
-                d === 'efficiency-innovation' ? '#008954' :
-                d === 'efficiency' ? '#49da2c' :
-                d === 'innovation' ? '#00806a' :
-                d === 'none' ? '#c1d2d9' :
-                '#c1d2d9';
-      },
-      getBorderColor: function(d) {
-        return  d === 'factor-efficiency' ? '#86d400' :
-                d === 'factor' ? '#cfd700' :
-                d === 'efficiency-innovation' ? '#006c42' :
-                d === 'efficiency' ? '#3bc81f' :
-                d === 'innovation' ? '#006655' :
-                d === 'none' ? '#a4b5bd' :
-                '#a4b5bd';
+       getColor: function(d) {
+        return  d === 'factor-efficiency' ? 'factor-efficiency' :
+            d === 'factor' ? 'factor' :
+            d === 'efficiency-innovation' ? 'efficiency-innovation' :
+            d === 'efficiency' ? 'efficiency' :
+            d === 'innovation' ? 'innovation' :
+            d === 'none';
       },
       onEachFeature: function(feature, layer) {
         layer.on({});
       },
-      hideInfoMap: function(){
+      hideInfoMap: function(btn,overlay){
         map.on('click', function(e) {
             elements.mapInfo.removeClass('map-info-open');
+            $(overlay).addClass('js-tab-hidden').removeClass('active');
         });
 
         map.on('movestart', function(e) {
             elements.mapInfo.removeClass('map-info-open');
+            $(overlay).addClass('js-tab-hidden').removeClass('active');
         });
 
-        $('.map-holder').on('click', '.icon-close', function(e) {
+        $(btn).on('click', '.icon-close', function(e) {
             elements.mapInfo.removeClass('map-info-open');
+            $(overlay).addClass('js-tab-hidden').removeClass('active');
         });
       },
       onMapClick: function(event) {
         event.target.closePopup();
         var popup = event.target.getPopup();
             elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
+            elements.overlay.removeClass('js-tab-hidden').addClass('active');
+            elements.overlay.css('height', '1px');
+            elements.overlay.css('height', $(document).height());
+            elements.overlay.css('max-height', $(document).height());
 
           if(_window_width < _mobile){
               if(elements.window.scrollTop() !== 0) {
@@ -155,15 +147,11 @@
     mapObj.setZoom(map);
 
     elements.window.resize(function() {
-        setTimeout(mapObj.setZoom(map), 1000);
+        //setTimeout(mapObj.setZoom(map), 1000);
     });
 
-    if(_click_touch == 'touchstart') {
-        map.dragging.disable();
-    }
-
     map.zoomControl.setPosition('bottomright');
-    mapObj.hideInfoMap();
+    mapObj.hideInfoMap('.map-holder','.overlay');
 
     map.on('zoomend', function() {
           mapObj.zoomControl();

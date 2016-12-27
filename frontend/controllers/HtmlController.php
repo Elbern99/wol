@@ -72,6 +72,14 @@ class HtmlController extends Controller {
         return $this->render('my-account');
     }
 
+    public function actionEventsListing() {
+        return $this->render('events-listing');
+    }
+
+    public function actionEvent() {
+        return $this->render('event');
+    }
+
     public function actionUi() {
         return $this->render('ui');
     }

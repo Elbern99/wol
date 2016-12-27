@@ -33,7 +33,7 @@
   .sidebar-buttons-holder {
 
     @include breakpoint('tablet') {
-      padding: 13px 0 0;
+      margin: -3px 0 0 0;
     }
   }
 
@@ -253,60 +253,21 @@
 }
 
 .map-holder {
-  border: 1px solid #d0d0d0;
+  border-top: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -17px 10px;
+  margin: 0 -15px 10px;
 
   @include breakpoint('tablet') {
     position: relative;
     margin: 0 0 24px;
+    border: 1px solid #d0d0d0;
   }
 }
 
 .leaflet-popup {
   width: 0 !important;
   height: 0 !important;
-}
-
-.icon-close {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:after,
-  &:before {
-    width: 14px;
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 14px;
-    right: 10px;
-    height: 2px;
-    background: #1d1d1b;
-    transform: rotate(-45deg);
-    margin-top: -1px;
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      height: 1px;
-    }
-  }
-
-  &:after {
-    transform: rotate(45deg);
-  }
-
-  &:hover {
-    background: $blue;
-
-    &:after,
-    &:before {
-      background: $white;
-    }
-  }
 }
 
 .map-info {
@@ -350,19 +311,6 @@
 
   @include breakpoint('tablet') {
     padding: 13px 43px 13px 19px;
-  }
-
-  &:after {
-    @extend .pinout;
-    background: rgba(0,0,0,0.7);
-    top: 100%;
-    bottom: -9999px;
-    pointer-events: none;
-    touch-action: none;
-
-    @include breakpoint('tablet') {
-      display: none;
-    }
   }
 }
 
@@ -439,7 +387,7 @@
   }
 
   &:hover {
-    z-index: 100 !important;
+    z-index: 240 !important;
     @include breakpoint('tablet') {
       margin: -31px 0 0 -11px !important;
     }
@@ -515,5 +463,32 @@
       transform: translateY(-50%);
       margin: -2px 0 0 0;
     }
+  }
+}
+
+
+path {
+  fill: rgba(193, 210, 217, 1);
+  stroke: rgba(164, 181, 189, 1);
+
+  &.factor-efficiency {
+    fill: rgba(156, 237, 16, 1) !important;
+    stroke: rgba(134, 212, 0, 1) !important;
+  }
+  &.factor {
+    fill: rgba(246, 255, 0, 1) !important;
+    stroke: rgba(207, 215, 0, 1) !important;
+  }
+  &.efficiency-innovation {
+    fill: rgba(0, 137, 84, 1) !important;
+    stroke: rgba(0, 108, 66, 1) !important;
+  }
+  &.efficiency {
+    fill: rgba(73, 218, 44, 1) !important;
+    stroke: rgba(59, 200, 31, 1) !important;
+  }
+  &.innovation {
+    fill: rgba(0, 128, 106, 1) !important;
+    stroke: rgba(0, 102, 85, 1) !important;
   }
 }

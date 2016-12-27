@@ -216,3 +216,11 @@ img {
 .data-method-item {
   transition: all 0s ease;
 }
+
+.small-paragraph {
+
+  @include breakpoint('tablet') {
+    font-size: 13px;
+    margin: 0 0 43px;
+  }
+}

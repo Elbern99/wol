@@ -12,7 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-reset-password without-breadcrumbs">
     <div class="container">
-        <h1><?= Html::encode($this->title) ?></h1>
+        <div class="article-head">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
         <p>Please choose your new password:</p>
         <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
         <div class="grid">

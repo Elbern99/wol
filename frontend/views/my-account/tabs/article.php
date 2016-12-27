@@ -4,9 +4,7 @@
     <ul class="favourite-articles-list">
         <?php foreach ($articlesCollection as $article): ?>
         <li class="article-item">
-            <a href="<?= Url::to(['/my-account/remove-favorite', 'id' => $article['fovorit_id']]) ?>">
-                <div class="icon-close"></div>
-            </a>
+            <a href="<?= Url::to(['/my-account/remove-favorite', 'id' => $article['fovorit_id']]) ?>" class="icon-close"></a>
             <ul class="article-rubrics-list">
                 <?php foreach ($article['category'] as $link): ?>
                     <li><?= $link ?></li>
