@@ -474,6 +474,10 @@
     padding: 10px 0 20px;
     @extend .clearfix;
 
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-right: -5px;
+    }
+
     [class^="btn-"],
     [class*=" btn-"] {
       float: right;

@@ -5,14 +5,15 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 use Yii;
 use backend\modules\parser\contracts\UploadInterface;
-
+use yii\base\Event;
+use backend\components\queue\NewsletterArticleSubscribe;
 /*
  * class for upload and parse archive
  */
 class AdminInterfaceUpload extends Model implements UploadInterface {
     
     use \common\helpers\FileUploadTrait;
-    
+     
     public $type;
     public $archive;
     
@@ -31,6 +32,17 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             self::AUTHOR_TYPE => Yii::t('app','Author'),
             self::TAXONOMY_TYPE => Yii::t('app','Taxonomy'),
         ];
+    }
+    
+    public function initEvent() {
+        
+        if ($this->getTypeParse() == self::ARTICLE_TYPE) {
+            
+            $class = $this->getActionClass();
+            Event::on($class, $class::EVENT_ARTICLE_CREATE,  function ($event) {
+                NewsletterArticleSubscribe::addQueue($event);
+            });
+        }
     }
     
     public function getTypeParse() {

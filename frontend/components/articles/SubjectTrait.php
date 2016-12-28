@@ -20,6 +20,7 @@ trait SubjectTrait {
                                'url_key','root', 
                                'lvl', 'lft', 'rgt'
                             ])
+                            ->andWhere(['active' => 1])
                             ->asArray()
                             ->all();
     }

@@ -89,10 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="form-line">
-            <label class="def-checkbox">
-                <input type="checkbox" name="">
-                <span class="label-text">I would like to register for the IZA World of Labor newsletter</span>
-            </label>
+            <?= $form->field($model, 'newsletter')->checkbox()->label('<span class="label-text">I would like to register for the IZA World of Labor newsletter</span>', ['class'=>'def-checkbox']) ?>
         </div>
 
         <div class="form-line">

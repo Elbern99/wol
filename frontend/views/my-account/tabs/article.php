@@ -1,6 +1,6 @@
 <?php use yii\helpers\Url; ?>
 <div class="tab js-tab-hidden" id="tab-2">
-
+    <?php if (count($articlesCollection)): ?>
     <ul class="favourite-articles-list">
         <?php foreach ($articlesCollection as $article): ?>
         <li class="article-item">
@@ -20,4 +20,7 @@
         </li>
         <?php endforeach; ?>
     </ul>
+    <?php else: ?>
+    <h3>No Result</h3>
+    <?php endif; ?>
 </div>

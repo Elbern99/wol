@@ -21,7 +21,11 @@
             'content' => Html::encode($category->meta_title)
         ]);
     }
+
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: ' . $model->title .
+    '\n\n View the article: '. Url::to(['/event/view', 'slug' => $model->url_key], true) .'\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
+
 <?php if (($imagePath = $model->getImagePath()) != null) : ?>
    <?= Html::tag('div', '', [
        'class' => 'header-background',
@@ -30,6 +34,7 @@
 ?>
 
 <?php endif; ?>
+
 <div class="container event-page">
 
     <div class="article-head">
@@ -176,13 +181,7 @@
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                    &body=<?= urlencode('Title:') ?>
-                    <?= urlencode($event->title) ?>
-                    <?= urlencode('View the event: ') ?>
-                    <?= urlencode(Url::to(['/events/'.$event->title],true)) ?>
-                    <?= urlencode('Copyright © IZA') ?>
-                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-small with-icon-r">
+                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
