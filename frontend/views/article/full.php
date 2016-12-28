@@ -327,30 +327,30 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
-                        <li class="sidebar-accrodion-item sidebar-articles-item">
-                            <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
-                            <?php $count_related = count($related) ?>
+                        <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                        <?php $count_related = count($related) ?>
 
-                            <?php if ($count_related > 0): ?>
-                                <a href="" class="title">Related Articles</a>
-                                <div class="text">
-                                    <ul class="sidebar-news-list">
-                                        <?php foreach ($related as $relate): ?>
-                                            <li>
-                                                <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                                <div class="writer"><?= $relate['availability'] ?></div>
-                                            </li>
-                                        <?php endforeach; unset($related); ?>
-                                    </ul>
-                                    <?php if(count($count_related) > 13): ?>
-                                        <a href="" class="more-link">
-                                            <span class="more">More</span>
-                                            <span class="less">Less</span>
-                                        </a>
-                                    <?php endif ?>
-                                </div>
-                            <?php endif; ?>
+                        <?php if ($count_related > 0): ?>
+                        <li class="sidebar-accrodion-item sidebar-articles-item">
+                            <a href="" class="title">Related Articles</a>
+                            <div class="text">
+                                <ul class="sidebar-news-list">
+                                    <?php foreach ($related as $relate): ?>
+                                        <li>
+                                            <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                            <div class="writer"><?= $relate['availability'] ?></div>
+                                        </li>
+                                    <?php endforeach; unset($related); ?>
+                                </ul>
+                                <?php if(count($count_related) > 13): ?>
+                                    <a href="" class="more-link">
+                                        <span class="more">More</span>
+                                        <span class="less">Less</span>
+                                    </a>
+                                <?php endif ?>
+                            </div>
                         </li>
+                        <?php endif; ?>
 
                     <?php endif; ?>
             

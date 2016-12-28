@@ -46,7 +46,7 @@
         MobileMoreText: function(btn){
             $(btn).click(function(e) {
                 var cur = $(this);
-                    cur.parent().toggleClass('open-text-map');
+                    cur.parent().toggleClass('open-text');
                 e.preventDefault();
             });
         }

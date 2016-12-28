@@ -251,11 +251,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             <ul class="sidebar-accrodion-list">
 
                 <?php if (isset($attributes['related'])): ?>
-                    <li class="sidebar-accrodion-item sidebar-articles-item">
-                        <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
-                        <?php $count_related = count($related) ?>
+                    <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                    <?php $count_related = count($related) ?>
 
-                        <?php if ($count_related > 0): ?>
+                    <?php if ($count_related > 0): ?>
+                        <li class="sidebar-accrodion-item sidebar-articles-item">
                         <a href="" class="title">Related Articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
@@ -273,8 +273,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                 </a>
                             <?php endif ?>
                         </div>
-                        <?php endif; ?>
-                    </li>
+                        </li>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <?php $source = []; ?>
