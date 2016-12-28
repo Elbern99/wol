@@ -524,34 +524,6 @@
     }
   }
 
-  .more-link {
-    font-size: 10px;
-    text-transform: none;
-    display: inline-block;
-    line-height: 1em;
-    color: $light-blue;
-    font-family: $lucida-grande;
-    display: inline-block;
-    margin: 9px 0;
-
-    .less {
-      display: none;
-    }
-
-    &.showed {
-      .more {
-        display: none;
-      }
-      .less {
-        display: block;
-      }
-    }
-    
-    &:hover {
-      color: $blue;
-    }
-  }
-
   .writer {
     text-transform: none;
     font-size: 10px;
@@ -581,6 +553,34 @@
     @include breakpoint_custom($breakpoint-tablet) {
       display: none;
     }
+  }
+}
+
+.more-link {
+  font-size: 10px;
+  text-transform: none;
+  display: inline-block;
+  line-height: 1em;
+  color: $light-blue;
+  font-family: $lucida-grande;
+  display: inline-block;
+  margin: 9px 0;
+
+  .less {
+    display: none;
+  }
+
+  &.showed {
+    .more {
+      display: none;
+    }
+    .less {
+      display: block;
+    }
+  }
+
+  &:hover {
+    color: $blue;
   }
 }
 

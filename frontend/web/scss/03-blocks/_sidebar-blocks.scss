@@ -5,7 +5,7 @@
   line-height: 1.4em;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   @include breakpoint('tablet') {
@@ -135,11 +135,13 @@
       font-family: $lucida-grande;
       position: relative;
       padding: 0 0 11px;
-      margin: 0 0 24px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         font-size: 11px;
-        margin: 0 0 26px;
       }
 
       .widget-title {
@@ -577,7 +579,7 @@
   }
 
   @include breakpoint('mobile-large') {
-    margin: 0 -1%;
+    margin: 0;
   }
 
   @include breakpoint('tablet') {
@@ -703,7 +705,8 @@
 .additional-references-list,
 .sidebar-news-list,
 .further-reading-list,
-.sidebar-news-list {
+.sidebar-news-list,
+.sidebar-key-topics-list {
   padding: 0;
   
   + .more-link {

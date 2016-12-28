@@ -248,7 +248,7 @@
 .account-tabs-list {
   margin: 0 0 -1px 0;
 
-  @include breakpoint_custom($breakpoint-tablet) {
+  @include breakpoint_custom($breakpoint-mobile-large) {
     display: flex;
     justify-content: space-between;
   }
@@ -256,7 +256,7 @@
   li {
     font-size: 11px;
 
-    @include breakpoint('tablet') {
+    @include breakpoint('mobile-large') {
       font-size: 16px;
       margin: 0 5.8% -1px 0;
       float: left;

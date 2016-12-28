@@ -80,6 +80,14 @@ class HtmlController extends Controller {
         return $this->render('event');
     }
 
+    public function actionKeyTopics() {
+        return $this->render('key-topics');
+    }
+
+    public function actionTopicHub() {
+        return $this->render('topic-hub');
+    }
+
     public function actionUi() {
         return $this->render('ui');
     }

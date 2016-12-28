@@ -237,9 +237,8 @@ $this->registerCssFile('/css/leaflet.css');
             <?php if (isset($attributes['related'])): ?>
                 <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                 <?php $count_related = count($related) ?>
-
-                <div class="sidebar-widget">
                     <?php if ($count_related > 0): ?>
+                    <div class="sidebar-widget">
                         <div class="widget-title">Related Articles</div>
                         <ul class="sidebar-news-list">
                             <?php foreach ($related as $relate): ?>
@@ -250,6 +249,7 @@ $this->registerCssFile('/css/leaflet.css');
                             <?php endforeach;
                             unset($related); ?>
                         </ul>
+                    </div>
                     <?php endif; ?>
 
                     <?php
@@ -257,8 +257,6 @@ $this->registerCssFile('/css/leaflet.css');
                             echo '<a href="" class="more-link">More</a>';
                         }
                     ?>
-                </div>
-                
             <?php endif; ?>
         </aside>
     </div>

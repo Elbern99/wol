@@ -628,7 +628,7 @@
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 45px;
+    padding: 45px 0 25px;
     position: relative;
     max-width: $content-area-width;
     margin: 0 auto;
@@ -789,10 +789,6 @@
 
     .icon-arrow {
       height: 8px;
-    }
-
-    &.disabled {
-      display: none;
     }
 
     &.left {

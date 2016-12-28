@@ -45,6 +45,12 @@
     text-transform: uppercase;
     font-size: 10px;
     margin: 0 23px 0 0;
+
+    &.subscribe-link {
+      a {
+        color: $blue;
+      }
+    }
   }
 
   a {
@@ -54,7 +60,6 @@
     padding: 9px 0;
     border-bottom: 1px solid transparent;
 
-    &.subscribe-link,
     &:hover {
       color: $blue;
     }
