@@ -13,9 +13,9 @@ use common\models\Event;
 
 
 /*
- * Event Manager Class Controller
+ * Opinion Manager Class Controller
  */
-class EventController extends Controller
+class OpinionController extends Controller
 {
     public function behaviors() {
         return [
@@ -75,18 +75,18 @@ class EventController extends Controller
     public function actionDelete($id) {
         
         try {
-            $model = Event::findOne($id);
+            $model = Video::findOne($id);
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
             }
             
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Event has been deleted successfully.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Opinion has been deleted successfully.'));
             
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'An error occurred during deletion.'));
         }
              
-        return $this->redirect('@web/event');
+        return $this->redirect('@web/opinion');
     }
 }
