@@ -60,7 +60,7 @@ $config = [
         &body=<?= urlencode('Title:') ?>
         <?= urlencode($attributes['title']->getData('title', $currentLang)) ?>
         <?= urlencode($attributes['teaser']->getData('teaser', $currentLang)) ?>
-        <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+        <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
         <?= urlencode('Elevator pitch:') ?>
         <?= urlencode($attributes['abstract']->getData('abstract', $currentLang)) ?>
         <?= urlencode('View the article') ?>
@@ -193,7 +193,7 @@ $config = [
                 &body=<?= urlencode('Title:') ?>
                 <?= urlencode($attributes['title']->getData('title', $currentLang)) ?>
                 <?= urlencode($attributes['teaser']->getData('teaser', $currentLang)) ?>
-                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
+                <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
                 <?= urlencode('Elevator pitch:') ?>
                 <?= urlencode($attributes['abstract']->getData('abstract', $currentLang)) ?>
                 <?= urlencode('View the article') ?>

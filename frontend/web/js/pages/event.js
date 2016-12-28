@@ -76,7 +76,6 @@
 
 				elements.document.ready(function() {
 								event.cloneEl('.other-events', '.sidebar-buttons-holder', '.other-events-holder');
-								event.cloneEl('.article-head', '.mobile-filter-holder', '.article-head-holder');
 								event.showMore('.more-event', '.event-text', '.event-text-holder', 696);
 				});
 })(jQuery);

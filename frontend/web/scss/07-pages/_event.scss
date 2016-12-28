@@ -46,7 +46,7 @@
 
     .tab-item {
       &:last-child {
-        margin: -20px -15px 30px;
+        margin: -20px -15px 24px;
 
         @include breakpoint('tablet') {
           display: none !important;
