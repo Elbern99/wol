@@ -17,6 +17,32 @@ use Yii;
  */
 class Event extends \yii\db\ActiveRecord
 {
+    use \common\helpers\FileUploadTrait;
+    
+    protected $files = [
+        'image_link',
+    ];
+    
+    protected $imagePath = '/web/uploads/events';
+
+
+    public function getImagePath()
+    {
+        if ($this->image_link) {
+            return Yii::getAlias('@frontend') . $this->imagePath . $this->image_link;
+        }
+  
+        return null;
+    }
+    
+    public function getFrontendPath() {
+        return Yii::getAlias('@frontend').'/web/uploads/events';
+    }
+    
+    public function getBackendPath() {
+        return null;
+    }
+    
     /**
      * @inheritdoc
      */
@@ -36,6 +62,7 @@ class Event extends \yii\db\ActiveRecord
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
+            [['image_link'], 'file', 'extensions' => 'jpg, gif, png, bmp, jpeg, jepg', 'skipOnEmpty' => true],
         ];
     }
 
@@ -55,6 +82,7 @@ class Event extends \yii\db\ActiveRecord
             'short_decription' => Yii::t('app', 'Short Description'),
             'book_link' => Yii::t('app', 'Book Link'),
             'contact_link' => Yii::t('app', 'Contact Link'),
+            'image_link' => Yii::t('app', 'Image'),
         ];
     }
     
@@ -70,7 +98,9 @@ class Event extends \yii\db\ActiveRecord
             return false;
         
         $this->convertDates();
-      
+        $this->initUploadProperty();
+        $this->upload();
+        
         return $this->save();
     }
     

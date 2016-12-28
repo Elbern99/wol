@@ -9,16 +9,18 @@ use yii\helpers\Url;
 $this->title = 'Events';
 $this->params['breadcrumbs'][] = $this->title;
 
-//$this->registerMetaTag([
-//    'name' => 'keywords',
-//    'content' => Html::encode($category->meta_keywords)
-//]);
-//$this->registerMetaTag([
-//    'name' => 'title',
-//    'content' => Html::encode($category->meta_title)
-//]);
-
+if ($category) {
+    $this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => Html::encode($category->meta_keywords)
+    ]);
+    $this->registerMetaTag([
+        'name' => 'title',
+        'content' => Html::encode($category->meta_title)
+    ]);
+}
 ?>
+
 <div class="header-background" style="background-image: url('../images/temp/img-04.jpg');"></div>
 
 <div class="container event-list-page">
@@ -127,27 +129,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 </ul>
             </div>
-
+            <?php if (count($widgets)): ?>
             <div class="sidebar-widget">
+                
+                
                 <div class="podcast-list">
-                    <a href="" class="podcast-item">
-                        <div class="head">
-                            <div class="widget-title">podcast: brexit debate</div>
-                            <div class="img">
-                                <img src="/images/temp/podcasts/01-img.jpg" alt="">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="podcast-item">
-                        <div class="head">
-                            <div class="widget-title">Focus on: Education and labor policy</div>
-                            <div class="img">
-                                <img src="/images/temp/podcasts/02-img.jpg" alt="">
-                            </div>
-                        </div>
-                    </a>
+                    
+                    <?php foreach ($widgets as $widget): ?>
+                        <?= $widget['text'] ?>
+                    <?php endforeach; ?>
+                    
                 </div>
             </div>
+            <?php endif; ?>
         </aside>
     </div>
 </div>

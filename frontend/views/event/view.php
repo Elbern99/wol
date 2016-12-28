@@ -10,10 +10,26 @@
     $this->title = $model->title;
     $this->params['breadcrumbs'][] = ['label' => Html::encode('Events'), 'url' => Url::to(['/event/index'])];
     $this->params['breadcrumbs'][] = $this->title;
+    
+    if ($category) {
+        $this->registerMetaTag([
+        'name' => 'keywords',
+        'content' => Html::encode($category->meta_keywords)
+        ]);
+        $this->registerMetaTag([
+            'name' => 'title',
+            'content' => Html::encode($category->meta_title)
+        ]);
+    }
+?>
+<?php if (($imagePath = $model->getImagePath()) != null) : ?>
+   <?= Html::tag('div', '', [
+       'class' => 'header-background',
+       'style' => "background-image: url('../uploads/events/$model->image_link');"
+   ]);
 ?>
 
-<div class="header-background" style="background-image: url('../images/temp/img-05.jpg');"></div>
-
+<?php endif; ?>
 <div class="container event-page">
 
     <div class="article-head-holder">
@@ -36,49 +52,35 @@
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden">
                         <ul class="events-list">
+                            <?php foreach ($eventGroups as $group) : ?>
                             <li class="event-item only-mibile-accordion-item">
-                                <div class="title">SEPTEMBER 2016</div>
+                                <div class="title"><?= $group['heading']; ?></div>
                                 <div class="text">
+                                    <?php foreach ($group['events'] as $event): ?>
                                     <div class="sub-event-item">
                                         <div class="date-part">
-                                            <a href="">September 1<span class="year">, 2016</span></a><span class="to-word">TO</span>
-                                            <div class="last"><a href="">September 2<span class="year">, 2016</span></a></div>
-                                        </div>
+                                             <span class="date-holder">
+                                             <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
+                                                <?= $event->date_from->format('F d'); ?><span class="year">, <?= $event->date_from->format('Y'); ?></span>
+                                             <?= Html::endTag('a'); ?>
+                                             <span class="to-word">TO</span>
+                                             <div class="last">
+                                                <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
+                                                    <?= $event->date_to->format('F d'); ?><span class="year">, <?= $event->date_to->format('Y'); ?></span>
+                                                <?= Html::endTag('a'); ?>
+                                             </div>
+                                         </div>
                                         <div class="desc">
-                                            <h2><a href="">4th IZA Conference on Labor Market Effects of Environmental Policies</a></h2>
-                                            <div class="name">Bonn, Germany</div>
-                                            <p>Many industrialized countries have implemented environmental policies in order to reduce emissions that are harmful to the environment and global climate. While the benefits of such policies accrue.</p>
+                                             <h2><?= Html::a($event->title, ['/event/view', 'slug' => $event->url_key]); ?></h2>
+                                             <div class="name"><?= $event->location; ?></div>
+                                             <p><?= $event->short_description; ?></p>
                                         </div>
                                     </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </li>
-                            <li class="event-item only-mibile-accordion-item">
-                                <div class="title">JULY 2016</div>
-                                <div class="text">
-                                    <div class="sub-event-item">
-                                        <div class="date-part">
-                                            <a href="">July 27<span class="year">, 2016</span></a><span class="to-word">TO</span>
-                                            <div class="last"><a href="">July 31<span class="year">, 2016</span></a></div>
-                                        </div>
-                                        <div class="desc">
-                                            <h2><a href="">15th IZA/SOLE Transatlantic Meeting of Labor Economists</a></h2>
-                                            <div class="name">Buch/Amersee, Germany</div>
-                                            <p>This year's meeting will be held in Bavaria, Germany. The deadline for submission of abstracts is February 29, 2016.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sub-event-item">
-                                        <div class="date-part">
-                                            <a href="">July 21<span class="year">, 2016</span></a> <span class="to-word">TO</span>
-                                            <div class="last"><a href="">July 22<span class="year">, 2016</span></a></div>
-                                        </div>
-                                        <div class="desc">
-                                            <h2><a href="">London Conference on Employer Engagement in Education and Training 2016</a></h2>
-                                            <div class="name">BIS Conference Center, London</div>
-                                            <p>Conference registration open and call for papers now open. What difference does it make when employers work with education and training providers?  How can employer engagement best be delivered?</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <?php endforeach; ?>
+                            
                         </ul>
                     </div>
                     <div class="tab-item js-tab-hidden">
@@ -213,22 +215,10 @@
 
             <div class="sidebar-widget">
                 <div class="podcast-list">
-                    <a href="" class="podcast-item">
-                        <div class="head">
-                            <div class="widget-title">podcast: brexit debate</div>
-                            <div class="img">
-                                <img src="/images/temp/podcasts/01-img.jpg" alt="">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="podcast-item">
-                        <div class="head">
-                            <div class="widget-title">Focus on: Education and labor policy</div>
-                            <div class="img">
-                                <img src="/images/temp/podcasts/02-img.jpg" alt="">
-                            </div>
-                        </div>
-                    </a>
+                    
+                    <?php foreach ($widgets as $widget): ?>
+                        <?= $widget['text'] ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </aside>

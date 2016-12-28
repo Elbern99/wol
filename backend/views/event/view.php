@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use dosamigos\ckeditor\CKEditor;
 use dosamigos\datepicker\DatePicker;
 use dosamigos\datepicker\DateRangePicker;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UrlRewrite */
@@ -58,7 +59,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'book_link') ?>
                 <?= $form->field($model, 'contact_link') ?>
             
-
+                <?=
+                $form->field($model, 'image_link')->fileInput()->widget(FileInput::classname(), [
+                    'options' => ['multiple' => false],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['jpg', 'gif', 'png', 'bmp', 'jpeg', 'jepg'],
+                        'initialPreview' => '',
+                        'initialPreviewAsData' => true,
+                        'overwriteInitial' => true,
+                        'showUpload' => false,
+                        'initialCaption' => $model->image_link,
+                        'initialPreviewConfig' => [],
+                        'overwriteInitial' => true
+                    ],
+                ]);
+                ?>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
