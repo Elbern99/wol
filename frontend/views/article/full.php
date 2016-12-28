@@ -43,6 +43,12 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
+
+$mailBody = 'Title: '.$attributes['title']->getData('title').' '.
+        $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
+        ' Elevator pitch: '.$attributes['abstract']->getData('abstract').' View the article '.
+        Url::to(['/articles/'.$article->seo],true). ' Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+        
 ?>
 <div class="container article-full">
     <div class="article-buttons article-buttons-mobile">
@@ -54,17 +60,9 @@ $config = [
         <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
             <span class="icon-quote"></span>
         </a>
-        <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                    &body=<?= urlencode('Title:') ?>
-                    <?= urlencode($attributes['title']->getData('title')) ?>
-                    <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Elevator pitch:') ?>
-                    <?= urlencode($attributes['abstract']->getData('abstract')) ?>
-                    <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Copyright © IZA') ?>
-                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+
+        <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>
+                    &body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
             <span class="icon-message"></span>
         </a>
         <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
