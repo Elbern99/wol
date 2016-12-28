@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module'],
+    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
@@ -53,7 +53,9 @@ return [
                 'register' => 'site/signup',
                 'reset' => 'site/request-password-reset',
                 'my-account' => 'my-account/index',
-                'subscribe' => 'site/subscribe'
+                'subscribe' => 'site/subscribe',
+                'events' => 'event/index',
+                'events/<slug:[0-9a-z-]+>' => 'event/view',
             ],
         ],
         'assetManager' => [

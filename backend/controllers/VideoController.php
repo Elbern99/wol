@@ -56,7 +56,7 @@ class VideoController extends Controller
             }
         }
         
-        return $this->render('view', ['model'=>$model]);
+        return $this->render('view', ['model'=> $model]);
     }
     
     public function actionDelete($id) {
