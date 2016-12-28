@@ -296,8 +296,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             </div>
             
             <div class="sidebar-widget sidebar-widget-articles-references">
-                <ul class="sidebar-accrodion-list hide-desktop">
-
+                <ul class="sidebar-accrodion-list">
                     <?php if (isset($attributes['term_groups'])): ?>
                         <li class="sidebar-accrodion-item">
                             <?php $backgrounds = $attributes['term_groups']->getData(); ?>

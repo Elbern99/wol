@@ -88,6 +88,10 @@ class HtmlController extends Controller {
         return $this->render('topic-hub');
     }
 
+    public function actionOpinions() {
+        return $this->render('opinions');
+    }
+
     public function actionUi() {
         return $this->render('ui');
     }

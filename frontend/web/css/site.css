@@ -1709,7 +1709,8 @@ img {
   padding: 3px 0 0 0; }
 .sidebar-accrodion-item .text,
 .mobile-accordion-item .text {
-  display: none; }
+  display: none;
+  overflow: hidden; }
 .sidebar-accrodion-item .evidence-map-list,
 .mobile-accordion-item .evidence-map-list {
   padding: 5px 0 0; }
@@ -4704,7 +4705,8 @@ iframe[name=advpp_manager] {
     .reference-popup {
       bottom: 0;
       position: fixed;
-      top: auto !important; } }
+      top: auto !important;
+      background: #fff; } }
   .reference-popup .reference-popup-inner {
     background: #fff;
     padding: 45px 0 25px;

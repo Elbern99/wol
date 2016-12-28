@@ -123,7 +123,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
             <div class="event-text-holder">
                 <div class="event-text">
-                    <p><?= $model->body; ?></p>
+                    <?= $model->body; ?>
                 </div>
             </div>
 
