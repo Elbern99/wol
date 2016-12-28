@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
+                    'id',
                     [
                         'attribute' => 'seo',
                         'value' => function($model) {
@@ -42,8 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->sort_key);
                         }
                     ],
-                    'created_at',
-                    'updated_at',
+                    [
+                        'attribute' => 'created_at',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::dateFormat($model->created_at);
+                        }
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::dateFormat($model->updated_at);
+                        }
+                    ],
                     [
                         'attribute' => 'enabled',
                         'format' => 'raw',
@@ -51,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::activeCheckbox($model, 'enabled', ['class'=>'enabled_field', 'data-item'=>$model->id]);
                         }
                     ],
-                    /*[
+                    [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{article-view}',
                         'header' => 'Actions',
@@ -62,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]);
                             }
                         ]
-                    ],*/
+                    ],
                 ],
             ]);
             ?>

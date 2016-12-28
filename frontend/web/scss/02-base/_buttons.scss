@@ -1,16 +1,85 @@
 //BUTTONS
-
 [class^="btn-"],
-[class*=" btn-"] {
+[class*=" btn-"],
+.btn {
   color: #FFFFFF;
-  font: normal 16px/17px Arial;
-  padding: 16px 20px;
+  font: normal 10px/32px $lucida-sans;
+  //padding: 8px 11px 9px;
+  padding: 0 11px;
+  height: 33px;
   position: relative;
   text-align: center;
   text-decoration: none !important;
   display: inline-block;
   vertical-align: middle;
-  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
+
+  &:active {
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  }
+
+  &.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &.with-icon,
+  &.with-icon-r,
+  &.btn-center {
+    padding: 0 11px;
+
+    span {
+      &:last-child {
+        padding-top: 1px;
+      }
+    }
+
+    .inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    > * {
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+
+  &.with-icon-r {
+    @include breakpoint_custom($breakpoint-tablet) {
+      width: 36px;
+    }
+
+    *,
+    div  *{
+      @include breakpoint_custom($breakpoint-tablet) {
+        margin: 0 !important;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        margin: 0 !important;
+
+        &.text {
+          font-size: 0;
+        }
+      }
+    }
+  }
 
   input {
     position: absolute;
@@ -23,7 +92,234 @@
     border: 0;
   }
 
-  &:active {
-    transform: translateY(1px);
+  [class*='icon-'],
+  .lang {
+    line-height: 1;
+    font-size: 15px;
+    color: #313130;
+  }
+
+  .icon-search,
+  .icon-user {
+    font-size: 18px;
+  }
+  
+  .lang {
+    width: 15px;
+    height: 11px;
+    margin: 0 5px 2px 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &.btn-border-blue-large {
+    height: 39px;
+    padding: 0 18px;
+    font-size: 11px;
+    font-family: $lucida-sans-demi-bold;
+
+    .icon-save {
+      margin-right: 17px;
+    }
+  }
+  
+  &.btn-no-style {
+    color: #454545;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
+}
+
+//border-blue
+.btn-border-blue,
+[class^="btn-border-blue-"],
+[class*=" btn-border-blue-"],
+.btn-primary {
+  border-color: #0053a0;
+  color: $blue;
+  height: 30px;
+  line-height: 30px;
+
+  [class*='icon-'] {
+    color: $blue;
+
+    &.icon-quote {
+      font-size: 10px;
+      margin: 0 12px 0 5px;
+    }
+
+    &.icon-download {
+      font-size: 15px;
+      margin: 0 12px 0px 0;
+    }
+
+    &.icon-print {
+      margin: 0 9px 0px 0;
+
+      @include breakpoint('tablet') {
+        margin: 0 15px 0px 0;
+      }
+    }
+  }
+
+  &:hover {
+    @include breakpoint('tablet') {
+      background: #0053a0;
+      color: $white;
+
+      span {
+        color: inherit;
+      }
+    }
+  }
+}
+
+//gray
+.btn-border-gray,
+[class^="btn-border-gray-"],
+[class*=" btn-border-gray-"] {
+  border-color: #aaa;
+  color: #323232;
+
+  &:hover {
+    @include breakpoint('tablet') {
+      background: #aaa;
+      color: $white;
+
+      span {
+        color: inherit;
+      }
+    }
+  }
+
+  &.short {
+    width: 36px;
+    [class*='icon-'] {
+      @extend .icon-to-center;
+    }
+  }
+
+  &.btn-border-gray-small {
+    height: 24px;
+    padding: 1px 6px 0;
+    border-radius: 2px;
+    font-size: 9px;
+
+    .icon-message {
+      margin: -2px 5px -2px 0;
+      font-size: 16px;
+
+      @include breakpoint('tablet') {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.btn-border-blue-middle,
+.btn-border-gray-middle {
+  height: 32px;
+  line-height: 32px;
+  font-size: 11px;
+}
+
+.btn-gray,
+[class^="btn-gray-"],
+[class*=" btn-gray-"]{
+  background: #eaeaea;
+  color: #7b7b7b;
+  height: 36px;
+  line-height: 36px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    color: #1e1e1e;
+  }
+
+  &:hover {
+
+    @include breakpoint('tablet') {
+      background: #7b7b7b;
+      color: #eaeaea;
+    }
+  }
+
+  &.align-center {
+    display: block;
+    margin: 27px auto 27px;
+    max-width: 107px;
+
+    @include breakpoint('tablet') {
+      margin: 0 auto;
+    }
+  }
+}
+
+.btn-gray-large {
+  height: 42px;
+  line-height: 41px;
+  font-size: 12px;
+}
+
+//blue
+.btn-blue,
+[class^="btn-blue-"],
+[class*=" btn-blue-"]{
+  background: #0094f2;
+  
+  &:hover {
+    color: $light-blue;
+    background: $white;
+    border-color: $light-blue;
+  }
+}
+
+.btn-light-blue {
+  background: #0094f2;
+}
+
+.btn-blue-large {
+  font-size: 16px;
+  height: 50px;
+  line-height: 33px;
+  letter-spacing: 0.06em;
+  width: 100%;
+
+  @include breakpoint('tablet') {
+    font-size: 15px;
+    height: 48px;
+    max-width: 191px;
+    line-height: 48px;
+    letter-spacing: 0;
+  }
+}
+
+//transparent
+.btn-transparent {
+  color: $light-blue;
+
+  &:hover {
+    @include breakpoint('tablet') {
+      background: $white;
+      border-color: $light-blue;
+    }
+  }
+}
+
+.btn-mobile-icon {
+  font-size: 18px;
+  color: $black-brown;
+  padding: 5px;
+  width:  40px;
+  height: 40px;
+
+  >span {
+    @extend .icon-to-center;
   }
 }

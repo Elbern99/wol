@@ -1,0 +1,131 @@
+//DROPDOWN-LOGIN
+.dropdown-login {
+
+  .dropdown-widget {
+    margin-top: -5px ;
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      left: auto;
+      right: -75px;
+      margin-left: 0;
+
+      &:after {
+        left: 173px;
+      }
+    }
+  }
+
+  label {
+    font-size: 8px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      font-size: 13px;
+    }
+  }
+
+  .form-control {
+    font-size: 11px;
+    padding: 0 14px 0 !important;
+    height: 35px !important;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 47px !important;
+      font-size: 16px;
+    }
+  }
+
+  .form-control,
+  .btn-blue {
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 47px !important;
+      padding-left: 18px;
+      padding-right: 18px;
+      line-height: 47px !important;
+    }
+  }
+
+  .form-line {
+    margin: 0 0 17px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 10px;
+    }
+  }
+
+  .label-holder {
+    margin: 0px 0 6px;
+
+    @include breakpoint('tablet') {
+      margin: 0px 0 2px;
+    }
+  }
+
+  .buttons {
+    padding: 3px 0 0;
+    text-align: center;
+
+    @include breakpoint('tablet') {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0 0;
+    }
+  }
+
+  .btn-blue {
+    width: 40%;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: block;
+      width: 100%;
+      font-size: 16px;
+      margin: 0 0 14px;
+    }
+  }
+
+  .title-checkboxes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 10px;
+    line-height: 11px;
+
+    .label-holder {
+      margin: 0;
+    }
+  }
+
+  .select-clear-all {
+    margin: 0;
+
+    span {
+      position: relative;
+      width: auto;
+      padding: 2px 0;
+      text-transform: capitalize;
+      right: 0;
+      margin: 0 6px 0 0;
+    }
+  }
+
+  .forgot-link {
+    color: $light-blue;
+    font-size: 11px;
+
+    @include breakpoint('tablet') {
+      font-size: 8px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-transform: uppercase;
+    }
+    
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .field-loginform-rememberme {
+    display: none;
+  }
+}

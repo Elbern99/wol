@@ -1,0 +1,542 @@
+//overlay
+.overlay {
+  @extend .pinout;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  @extend .opacityAnimate;
+
+  @include breakpoint('tablet') {
+    display: none;
+  }
+}
+
+//tabs
+.tabs-holder {
+  position: relative;
+
+  .preloader {
+    position: absolute;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      left: -15px;
+      right: -15px;
+
+      .loading-ball {
+        top: 40px;
+      }
+    }
+  }
+}
+
+//preloader
+.preloader{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  color: #fff;
+  z-index: 10000000;
+  -webkit-overflow-scrolling: touch;
+}
+
+.loading-ball{
+  background-color: rgba(0,0,0,0);
+  border: 5px solid #cccccc;
+  border-top: 5px solid #4d9bc1;
+  border-left: 5px solid #cccccc;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  @include animation (spin, 1s, infinite, linear);
+  margin: -20px 0 0 -20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+}
+
+@-moz-keyframes spin{
+  0%{
+    -moz-transform:rotate(0deg)
+  }
+  100%{
+    -moz-transform:rotate(360deg)
+  }
+}
+
+@-webkit-keyframes spin{
+  0%{
+    -webkit-transform:rotate(0deg)
+  }
+  100%{
+    -webkit-transform:rotate(360deg)
+  }
+}
+
+@keyframes spin{
+  0%{
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100%{
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
+
+@-moz-keyframes spinoff{
+  0%{
+    -moz-transform:rotate(0deg)
+  }
+  100%{
+    -moz-transform:rotate(-360deg)
+  }
+}
+
+@-webkit-keyframes spinoff{
+  0%{
+    -webkit-transform:rotate(0deg)
+  }
+  100%{
+    -webkit-transform:rotate(-360deg)
+  }
+}
+
+@keyframes spinoff{
+  0%{
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100%{
+    -ms-transform:rotate(-360deg);
+    transform:rotate(-360deg);
+  }
+}
+
+//faq-accordion
+.faq-accordion-list {
+  margin: 0 0 29px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 63px;
+  }
+}
+
+.faq-accordion-item {
+  border-top: 1px solid #4d5f71;
+
+  &:last-child {
+    border-bottom: 1px solid #4d5f71;
+  }
+
+  &.is-open {
+    .title {
+
+      &:before {
+        transform: rotate(90deg);
+        color: $light-blue;
+
+        @include breakpoint('tablet') {
+          top: 50%;
+          transform: translateY(-50%) rotate(90deg);
+        }
+      }
+    }
+  }
+
+  .title {
+    text-decoration: none;
+    display: block;
+    padding: 12px 0 9px 22px;
+    position: relative;
+
+    @include breakpoint('tablet') {
+      padding: 9px 0 10px 30px;
+
+      &:hover {
+        h3 {
+          color: $light-blue;
+        }
+      }
+    }
+
+    &:before {
+      content: '\e906';
+      @extend .icon-styles;
+      position: absolute;
+      top: 15px;
+      color: #1d1d1b;
+      left: 4px;
+      font-size: 8px;
+
+      @include breakpoint('tablet') {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    h3 {
+      color: $blue;
+      transition: color 0.3s ease;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.3em;
+
+      @include breakpoint('tablet') {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .text-inner {
+    padding: 9px 0 20px 0;
+    transition: all 0.1s ease;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.4em;
+      padding: 0 0 11px 0;
+    }
+  }
+
+  .text {
+    overflow: hidden;
+    display: none;
+  }
+
+  p {
+    margin: 0 0 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.faq-accordion-bottom {
+  font-size: 17px;
+  line-height: 1.3em;
+
+  @include breakpoint('tablet') {
+    font-size: 18px;
+  }
+}
+
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+
+.jspContainer  {
+  overflow: hidden;
+  position: relative;
+}
+
+.jspPane {
+  position: absolute;
+}
+
+.jspVerticalBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 100%;
+  background: red;
+
+  .jspArrow {
+    height: 16px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.jspHorizontalBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: red;
+
+  .jspCap {
+    float: left;
+  }
+
+  .jspTrack,
+  .jspDrag {
+    float: left;
+    height: 100%;
+  }
+
+  .jspArrow {
+    width: 16px;
+    float: left;
+    height: 100%;
+  }
+}
+
+.jspCap {
+  display: none;
+}
+
+.jspTrack {
+  background: #dde;
+  position: relative;
+}
+
+.jspDrag {
+  background: #bbd;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.jspArrow {
+  background: #50506d;
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.jspArrow.jspDisabled {
+  cursor: default;
+  background: #80808d;
+}
+
+.jspCorner {
+  background: #eeeef4;
+  float: left;
+  height: 100%;
+}
+
+//scroll menu
+.flex-direction-nav {
+  @extend .reset-list;
+}
+
+@include breakpoint_custom($breakpoint-tablet) {
+  .header-bottom {
+
+    .container {
+      padding: 0 5px;
+    }
+
+    .header-menu-bottom-list {
+      overflow: visible !important;
+
+      .jspContainer {
+        height: 38px !important;
+        overflow: visible;
+      }
+
+      &.jspScrollable {
+
+        .jspHorizontalBar {
+          position: absolute;
+          left: -15px;
+          right: -15px;
+          width: auto;
+          background: none;
+          top: 0;
+          height: 0;
+        }
+
+        .jspArrow {
+          position: absolute;
+          top: 0;
+          height: 38px;
+          width: 35px;
+          background: none;
+
+          &.jspDisabled {
+            display: none;
+          }
+
+          &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 50px;
+            background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.28) 17%, rgba(255,255,255,1) 61%, rgba(255,255,255,1) 100%);
+            background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.28) 17%,rgba(255,255,255,1) 61%,rgba(255,255,255,1) 100%);
+            background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.28) 17%,rgba(255,255,255,1) 61%,rgba(255,255,255,1) 100%);
+          }
+
+          &:after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            display: block;
+            border-top: 1px solid $light-blue;
+            border-right: 1px solid $light-blue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
+          }
+
+          &.jspArrowRight {
+            right: 10px;
+
+            &:before {
+              left: auto;
+              right: 0;
+            }
+          }
+
+          &.jspArrowLeft {
+            left: 10px;
+
+            &:before {
+              transform: rotate(180deg);
+            }
+
+            &:after {
+              transform: translate(-50%,-50%) rotate(-135deg);
+            }
+
+          }
+        }
+        .jspTrack {
+          height: 0;
+        }
+      }
+    }
+  }
+}
+
+//sidebar-widget-sort-by
+.sidebar-widget-sort-by {
+  label {
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    cursor: text;
+    display: block;
+  }
+}
+
+.header-menu-bottom-list
+{
+  height: auto;
+}
+
+.share-selected-text-main-container {
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: .3s ease all;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: -1;
+  pointer-events: none;
+  width: auto !important;
+
+  &.active {
+    opacity: 1;
+    transform: translateY(1px);
+    z-index: 9999
+  }
+
+  .share-selected-text-inner {
+
+    align-items: center;
+    background: #f5f5f5;
+    height: 100%;
+    pointer-events: auto;
+    position: relative;
+    border: 1px solid #aaaaaa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    padding: 0 8px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 20px;
+      margin: auto;
+      width: 10px;
+      height: 10px;
+      background: #f5f5f5;
+      transform: rotate(-43deg);
+      box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .share-selected-text-btn {
+    float: left;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 10px 4px;
+    width: 26px;
+    height: 26px;
+    transition: .2s ease all;
+    z-index: 1;
+    position: relative;
+    font-size: 26px;
+    color: $blue;
+
+    &:focus,
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}
+
+.share-selected-text-btn {
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+
+  &.share-selected-text-btn-tumblr {
+    border: 1px solid $blue;
+    box-shadow: 0 0 1px 0 #0053a0 inset;
+
+    &:hover {
+      border-color: $light-blue;
+    }
+  }
+}
+
+.icon-sst-twitter {
+  &:before {
+    content: '\e900';
+  }
+}
+
+.icon-sst-linkedin {
+  &:before {
+    content: '\e908';
+  }
+}
+
+.icon-sst-tumblr {
+  font-size: 15px;
+
+  &:before {
+    content: '\e903';
+    @extend .icon-to-center;
+  }
+}
+
+.fa-facebook {
+
+  &:before {
+    content: '\e901';
+  }
+}

@@ -5,6 +5,12 @@ return [
         'treemanager' => [
             'class' => '\common\modules\category\Module'
         ],
+        'menu_module' => [
+            'class' => '\common\modules\menu\Module',
+            'components' => [
+                'menu_manager' => '\common\modules\menu\Manager'
+            ]
+        ],
         'eav_module' => [
             'class' => '\common\modules\eav\Module',
             'components' => [
@@ -15,6 +21,19 @@ return [
                 'atribute_type' => '\common\models\eav\EavTypeAttributes',
                 'value' => '\common\models\eav\EavValue'
             ]
+        ],
+        'settings_module' => [
+            'class' => '\common\modules\settings\Module',
+        ],
+        'newsletter_module' => [
+            'class' => '\common\modules\newsletter\Module',
+            'components' => [
+                'newsletter_model' => '\common\models\Newsletter',
+                'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ],
+        'task' => [
+            'class' => 'common\modules\task\Module',
         ]
     ],
     'components' => [
@@ -38,6 +57,17 @@ return [
                     ],
                 ],
             ],
+        ],
+        'queue' => [
+            'class' => 'UrbanIndo\Yii2\Queue\Queues\DbQueue',
+            'db' => 'db',
+            'tableName' => 'queue',
+            'module' => 'task',
+        ],
+    ],
+    'controllerMap' => [
+        'queue' => [
+            'class' => 'UrbanIndo\Yii2\Queue\Console\Controller',
         ],
     ],
 ];

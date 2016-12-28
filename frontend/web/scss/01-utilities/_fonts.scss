@@ -1,0 +1,77 @@
+@font-face {
+  font-family:'LucidaGrandeBold';
+  src:  url('../fonts/lucida-grande/bold/Lucida Grande Bold.eot');
+  src:  url('../fonts/lucida-grande/bold/Lucida Grande Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/lucida-grande/bold/Lucida Grande Bold.woff2') format('woff2'),
+        url('../fonts/lucida-grande/bold/Lucida Grande Bold.woff') format('woff'),
+        url('../fonts/lucida-grande/bold/Lucida Grande Bold.svg#LucidaGrandeBold') format('svg');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0009-FFFD;
+}
+
+@font-face {
+  font-family:'LucidaGrande';
+  src:  url('../fonts/lucida-grande/regular/Lucida Grande.eot');
+  src:  url('../fonts/lucida-grande/regular/Lucida Grande.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/lucida-grande/regular/Lucida Grande.woff2') format('woff2'),
+        url('../fonts/lucida-grande/regular/Lucida Grande.woff') format('woff'),
+        url('../fonts/lucida-grande/regular/Lucida Grande.svg#LucidaGrande') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+0009-FFFD;
+}
+
+@font-face {
+  font-family: 'lucidaSansBold';
+  src:  url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff2') format('woff2'),
+        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff') format('woff'),
+        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.ttf') format('truetype'),
+        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.svg#lucidaSansBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lucidaSans';
+  src:  url('../fonts/lucida-sanse/regular/lucida_sans_regular-webfont.woff2') format('woff2'),
+        url('../fonts/lucida-sanse/regular/lucida_sans_regular-webfont.woff') format('woff'),
+        url('../fonts/lucida-sanse/regular/lucida_sans_regular-webfont.ttf') format('truetype'),
+        url('../fonts/lucida-sanse/regular/lucida_sans_regular-webfont.svg#lucidaSans') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lucidaSansDemibold';
+  src:  url('../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.woff2') format('woff2'),
+        url('../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.woff') format('woff'),
+        url('../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.ttf') format('truetype'),
+        url('../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.svg#lucidaSansDemibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//@font-face {
+//  font-family: 'Glyphter';
+//  src: url('../fonts/glyphter/Glyphter.eot');
+//  src: url('../fonts/glyphter/Glyphter.eot?#iefix') format('embedded-opentype'),
+//  url('../fonts/glyphter/Glyphter.woff') format('woff'),
+//  url('../fonts/glyphter/Glyphter.ttf') format('truetype'),
+//  url('../fonts/glyphter/Glyphter.svg#Glyphter') format('svg');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon/icomoon.eot?n7yh2g');
+  src:  url('../fonts/icomoon/icomoon.eot?n7yh2g#iefix') format('embedded-opentype'),
+  url('../fonts/icomoon/icomoon.ttf?n7yh2g') format('truetype'),
+  url('../fonts/icomoon/icomoon.woff?n7yh2g') format('woff'),
+  url('../fonts/icomoon/icomoon.svg?n7yh2g#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

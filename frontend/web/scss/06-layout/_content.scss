@@ -1,0 +1,71 @@
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column ;
+  overflow: hidden;
+
+  @include breakpoint('tablet') {
+
+  }
+}
+
+.without-breadcrumbs {
+
+  @include breakpoint('tablet') {
+    padding-top: 20px;
+  }
+}
+
+.content {
+  flex: 1 0 auto;
+  //overflow-y: hidden;
+  padding-bottom: 20px ;
+
+  @include breakpoint('tablet') {
+    padding-bottom: 30px;
+  }
+}
+
+.container {
+  max-width: $content-area-width;
+  padding: 0 15px;
+  margin: 0 auto;
+
+  &.main-container {
+    padding-top: 40px;
+  }
+}
+
+.content-inner {
+
+  >.content-inner-text,
+  #w0 {
+    padding-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      padding-bottom: 0;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    align-items: stretch;
+
+    >.content-inner-text,
+    #w0 {
+      width: 100000px;
+    }
+  }
+}
+
+//EXTRA
+.no-js body {
+
+}
+
+
+iframe[name = advpp_manager] {
+  display: none;
+}

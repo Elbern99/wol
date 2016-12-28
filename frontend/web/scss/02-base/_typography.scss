@@ -1,5 +1,226 @@
+*{
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+}
+
 body{
-  font: normal 16px/1.5em $def-font;
+  font: normal 13px/1.4em $def-font;
   color: $def-color;
   min-width: 320px;
+
+  @include breakpoint('tablet') {
+    line-height:  1.65em;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $def-color;
+  font: normal 22px/1.3em $lucida-grande;
+  margin: 0 0 20px;
+
+  @include breakpoint('tablet') {
+    font: normal 35px/1.1em $lucida-grande;
+  }
+}
+
+h1 {
+  margin: 0 0 15px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 30px;
+    line-height: 1.25em;
+  }
+}
+
+h2 {
+  font-size: 18px;
+  margin: 0 0 5px;
+
+  @include breakpoint('tablet') {
+    font-size: 29px;
+    margin: 0 0 13px;
+  }
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 17px;
+}
+
+h6 {
+  font-size: 15px;
+}
+
+
+p {
+  margin: 0 0 18px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 21px;
+  }
+}
+
+ul,
+ol {
+  padding: 0 0 20px 10px;
+
+  li {
+    position: relative;
+    
+    &:before {
+      content: '';
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #262626;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 7px 0 0;
+    }
+  }
+}
+
+ol {
+  li {
+    counter-increment: step-counter;
+    margin: 0 0 4px;
+
+    &:before {
+      content: counter(step-counter)'.';
+      background: none;
+      vertical-align: top;
+      height: auto;
+      width: auto;
+    }
+  }
+}
+
+table {
+  margin: 0 0 10px;
+  width: 100%;
+  border-collapse: collapse;
+
+
+  td,th{
+    padding: 5px;
+    border: 1px solid #00A6C7;
+  }
+
+  th {
+    font-weight: 800;
+  }
+}
+
+.reset-list,
+[class$="-list"],
+[class*="-list "] {
+  list-style: none;
+  padding: 0;
+
+  >li {
+    margin: 0;
+    padding: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.reset-all-list,
+.articles-filter-list,
+.all-references-list,
+.pagination {
+  list-style: none;
+  padding: 0;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: $light-blue;
+  }
+}
+
+p+br {
+  content: "" !important;
+  display: block !important;
+  margin-bottom: 28px !important;
+
+  @include breakpoint('tablet') {
+    margin-bottom: 41px !important;
+  }
+}
+
+strong {
+  font-weight: normal;
+  font-family: $lucida-sans-demi-bold;
+}
+
+.reset-style-list  {
+  margin: -5px 0 7px;
+
+  @include breakpoint('tablet') {
+    margin: -8px 0 24px;
+  }
+
+ li {
+   margin: 0 0 6px;
+
+   @include breakpoint('tablet') {
+     margin: 0 0 8px;
+   }
+ }
+}
+
+.align-left {
+
+  @include breakpoint('tablet') {
+    float: left;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.data-method-item .caption {
+  transition: all 0.2s ease;
+}
+
+.data-method-item {
+  transition: all 0s ease;
+}
+
+.small-paragraph {
+
+  @include breakpoint('tablet') {
+    font-size: 13px;
+    margin: 0 0 43px;
+  }
 }

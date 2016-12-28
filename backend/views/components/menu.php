@@ -25,6 +25,7 @@ if (Yii::$app->user->isGuest) {
         'items' => [
             ['label' => Yii::t('app/menu','Articles'), 'url' => ['/iza/articles']],
             ['label' => Yii::t('app/menu','Authors'), 'url' => ['/iza/authors']],
+            ['label' => Yii::t('app/menu','Settings'), 'url' => ['/settings']],
         ],
     ];
     
@@ -42,7 +43,8 @@ if (Yii::$app->user->isGuest) {
         'items' => [
             ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']],
             ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']],
-            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
+            ['label' => Yii::t('app/menu','Events'), 'url' => ['/event']],
+           // ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
         ],
     ];
     

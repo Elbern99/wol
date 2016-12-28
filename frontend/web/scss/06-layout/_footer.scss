@@ -1,0 +1,107 @@
+.footer {
+  flex: 0 0 auto;
+  border-top: 1px solid #bdbdbd;
+  padding: 27px 0 20px;
+  font-size: 10px;
+
+  .footer-right {
+
+    @include breakpoint('tablet') {
+      width: 30%;
+    }
+  }
+
+  .footer-left {
+
+    @include breakpoint('tablet') {
+      padding: 5px 0 0;
+      width: 30%;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    padding: 48px 0 30px;
+  }
+  
+  .container-top {
+
+    @include breakpoint('tablet') {
+      justify-content: space-between;
+      display: flex;
+    }
+  }
+
+  .logo-main {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 17px;
+      width: 135px;
+    }
+  }
+
+  .socials-list {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 15px -5px;
+
+      li {
+        margin: 0 5px;
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+.footer-middle {
+
+  @include breakpoint('tablet') {
+    text-align: center;
+  }
+}
+
+.socials-title {
+  text-transform: uppercase;
+  font-family: $lucida-grande;
+  margin: 0 0 13px;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    font-size: 13px;
+  }
+
+  @include breakpoint('tablet') {
+    margin: 0 0 10px;
+  }
+}
+
+.copyright {
+  font-size: 10px;
+  margin: 0;
+
+  @include breakpoint('tablet') {
+    text-align: center;
+  }
+}
+
+.footer-menu-list {
+
+  @include breakpoint('tablet') {
+    float: right;
+    text-align: right;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    margin-bottom: 20px;
+    font-size: 12px;
+
+    li {
+      margin: 0 0 6px;
+    }
+  }
+
+  a {
+    color: $gray;
+    text-decoration: none;
+    
+    &:hover {
+      color: $light-blue;
+    }
+  }
+}

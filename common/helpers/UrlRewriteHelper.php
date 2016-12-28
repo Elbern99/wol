@@ -45,7 +45,8 @@ class UrlRewriteHelper implements IUrlRewrite {
             list ($route, $params) = $result;
 
             if (Yii::$app->createController($route) === false) {
-                $rewrite = $this->getRewriteByPath($request->getUrl());
+                
+                $rewrite = $this->getRewriteByPath('/'.$request->getPathInfo());
 
                 if (isset($rewrite['rewrite_path'])) {
                     $request->setPathInfo($rewrite['rewrite_path']);

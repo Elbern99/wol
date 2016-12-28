@@ -1,0 +1,495 @@
+.leaflet-marker-icon-wrapper {
+  position: absolute
+}
+
+.leaflet-marker-iconlabel {
+  background: #fff;
+  border-radius: 7px;
+  font: 11px/1 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  padding: 3px 3px;
+  user-select: none;
+  white-space: nowrap;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  position: absolute;
+}
+
+.map-title,
+.extra-title {
+  color: #717171;
+  text-transform: uppercase;
+  margin: 0 0 1px;
+  font-size: 13px;
+
+  @include breakpoint('tablet') {
+    font-size: 12px;
+    margin: 0 0 3px;
+  }
+}
+
+.article-map {
+
+  .sidebar-buttons-holder {
+
+    @include breakpoint('tablet') {
+      margin: -3px 0 0 0;
+    }
+  }
+
+  h1 {
+    margin: 0 0 7px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 18px;
+    }
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 1.4em;
+
+    @include breakpoint('tablet') {
+      font-size: 12px;
+      line-height: 1.7em;
+    }
+  }
+
+  .evidence-map-list-holder {
+    display: block;
+    margin: 0 0 31px;
+
+    @include breakpoint('tablet') {
+      display: none;
+    }
+  }
+
+  .more-evidence-map-text-mobile {
+    display: none;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .evidence-map-text {
+      position: relative;
+      max-height: 34px;
+      overflow: hidden ;
+      //margin: 0 0 16px;
+      transition: all 0.3s ease;
+      display: block;
+
+      .more-evidence-map-text-mobile {
+        display: block;
+      }
+
+      .less {
+        display: none;
+      }
+
+      &.open-text-map {
+        max-height: 1000px;
+
+        &:after {
+          display: none;
+        }
+
+        .more-evidence-map-text-mobile {
+          left: 0;
+
+          .more {
+            display: none;
+          }
+
+          .less {
+            display: block;
+          }
+        }
+      }
+
+      .more-evidence-map-text-mobile {
+        position: absolute;
+        bottom: 1px;
+        left: 27%;
+        z-index: 2;
+        line-height: 13px;
+        height: 12px;
+      }
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        height: 14px;
+        content: '';
+        background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 27%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 41%, rgba(255,255,255,1) 100%);
+        background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
+        background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
+        left:  19%;
+        right: 0;
+        z-index: 1;
+      }
+
+      p {
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .content-inner-text {
+
+    .evidence-map-list {
+      display: none;
+
+      @include breakpoint('tablet') {
+        display: block;
+      }
+    }
+  }
+}
+
+#map {
+  height: 348px;
+  background: #e8f5fa;
+  overflow: hidden;
+
+  @include breakpoint('tablet') {
+    height: 543px;
+  }
+}
+
+.leaflet-right .leaflet-control {
+  margin-right: 14px;
+}
+
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 14px;
+}
+
+.leaflet-bar {
+  border-radius: 0;
+  box-shadow: 0 0 6px rgba(0,0,0,0.5) !important;
+  border: 0 !important;
+  background: $white;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    height: 1px;
+    background: #ebebeb;
+    left: 4px;
+    right: 4px;
+  }
+
+  a {
+    width: 24px !important;
+    height: 24px !important;
+    position: relative;
+    border: 0;
+
+    &.leaflet-disabled {
+      background: #fff !important;
+
+      &:after,
+      &:before {
+        background: #d1d1d1 !important;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      &:hover {
+        background: $blue;
+
+        &:first-child,
+        &:last-child {
+          &:before,
+          &:after {
+            background: $white ;
+          }
+        }
+      }
+    }
+
+    &:first-child {
+      margin-bottom: 1px;
+
+      &:before,
+      &:after {
+        position: absolute;
+        content: '';
+        width: 9px;
+        height: 3px;
+        background: #000;
+        top: 50%;
+        left: 50%;
+        margin-left: -4px;
+        margin-top: -1px;
+      }
+
+      &:after {
+        transform: rotate(-90deg);
+        margin-top: -1px;
+      }
+    }
+
+    &:last-child {
+      &:after {
+        position: absolute;
+        content: '';
+        width: 9px;
+        height: 3px;
+        background: #000;
+        top: 11px;
+        left: 8px;
+      }
+    }
+
+    &:first-child,
+    &:last-child {
+      border-radius: 0;
+      font-size: 0;
+    }
+  }
+}
+
+.map-holder {
+  border-top: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
+  overflow: hidden;
+  margin: 0 -15px 20px;
+
+  @include breakpoint('tablet') {
+    position: relative;
+    margin: 0 0 24px;
+    border: 1px solid #d0d0d0;
+  }
+}
+
+.leaflet-popup {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.map-info {
+  position: absolute;
+  width: 100%;
+  z-index: 2000;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  opacity: 0;
+  top: -99999px;
+  overflow: hidden;
+
+  @include breakpoint('tablet') {
+    width: 355px;
+    top: 4px;
+    //bottom: 4px;
+    right: -400px;
+    height: auto !important;
+    transition: all 0.3s ease;
+    max-height: 534px;
+  }
+
+  &.map-info-open {
+    right: 0;
+    opacity: 1;
+
+    @include breakpoint('tablet') {
+      right: 4px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      top: 0;
+    }
+  }
+}
+
+.map-info-inner {
+  background: #fff;
+  padding: 40px 19px 13px 19px;
+  position: relative;
+
+  @include breakpoint('tablet') {
+    padding: 13px 43px 13px 19px;
+  }
+}
+
+.map-info-content {
+  @extend .scroll-vertical;
+  line-height: 1.1em;
+  max-height: 70vh;
+
+  @include breakpoint('tablet') {
+    padding: 0 10px 0 0;
+    max-height: 508px;
+  }
+
+  h3 {
+    font-size: 14px;
+    line-height: 1.4em;
+    margin: 0 0 10px;
+  }
+
+  .ref-item {
+    margin: 0 0 18px;
+    font-size: 9px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .authors {
+      margin: 0 0 4px;
+    }
+
+    .link {
+      font-size: 10px;
+      margin: 0px 0 3px;
+
+      @include breakpoint('tablet') {
+        font-style: italic;
+      }
+    }
+
+    .text {
+      margin: 0 0 2px;
+    }
+
+    .dates {
+      margin: 0 0 6px;
+    }
+
+    .types {
+      margin: 0 0 3px;
+    }
+
+    .method {
+      margin: 0 0 10px;
+    }
+  }
+}
+
+.leaflet-marker-icon {
+  background: none;
+  text-align: center;
+  border: 0;
+  //overflow: hidden;
+  cursor: pointer !important;
+  transition: all 0.3s ease;
+  width: 47px !important;
+  height: 52px !important;
+  margin: -48px 0 0 -20px !important;
+
+  @include breakpoint('tablet') {
+    width: 24px !important;
+    height: 35px !important;
+    margin: -30px 0 0 -11px !important;
+  }
+
+  &:hover {
+    z-index: 240 !important;
+    @include breakpoint('tablet') {
+      margin: -31px 0 0 -11px !important;
+    }
+
+    .icon-number-reference {
+      background: $blue;
+      color: $white;
+    }
+  }
+}
+
+.leaflet-marker-icon {
+  .icon-number-reference {
+    width: 37px;
+    height: 37px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    padding: 1px 0 0 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      border-width: 4px;
+
+      &:before {
+        height: 3px;
+        margin-top: 11px;
+        box-shadow: 0 5px 1px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    @include breakpoint('tablet') {
+      width: 24px;
+      height: 24px;
+      font-size: 11px;
+    }
+
+    &:after {
+      top: 30px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        border-width: 13px 8px 0 8px;
+        margin-left: -8px;
+      }
+
+      @include breakpoint('tablet') {
+        top: 20px;
+      }
+    }
+  }
+}
+
+.leaflet-interactive {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.evidence-map-list {
+  margin: 0 0 24px;
+
+  li {
+    padding: 0 0 0 29px;
+    margin: 0 0 3px;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 10px;
+
+    [class*='icon-square-'],
+    .icon-number-reference {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      margin: -2px 0 0 0;
+    }
+  }
+}
+
+
+path {
+  fill: rgba(193, 210, 217, 1);
+  stroke: rgba(164, 181, 189, 1);
+
+  &.factor-efficiency {
+    fill: rgba(156, 237, 16, 1) !important;
+    stroke: rgba(134, 212, 0, 1) !important;
+  }
+  &.factor {
+    fill: rgba(246, 255, 0, 1) !important;
+    stroke: rgba(207, 215, 0, 1) !important;
+  }
+  &.efficiency-innovation {
+    fill: rgba(0, 137, 84, 1) !important;
+    stroke: rgba(0, 108, 66, 1) !important;
+  }
+  &.efficiency {
+    fill: rgba(73, 218, 44, 1) !important;
+    stroke: rgba(59, 200, 31, 1) !important;
+  }
+  &.innovation {
+    fill: rgba(0, 128, 106, 1) !important;
+    stroke: rgba(0, 102, 85, 1) !important;
+  }
+}

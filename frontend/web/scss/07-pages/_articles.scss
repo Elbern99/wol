@@ -1,0 +1,99 @@
+.article-user-list-holder {
+  h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    text-transform: capitalize;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 13px;
+      font-size: 17px;
+    }
+  }
+}
+
+.article-user-list {
+  margin: 0 -19px 15px;
+  display: flex;
+  flex-flow: row wrap;
+
+  @include breakpoint('tablet') {
+    margin-bottom: 6px;
+  }
+
+  >div {
+    padding: 0 19px;
+    width: 100%;
+    text-transform: capitalize;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+    }
+
+    @include breakpoint('tablet') {
+      width: 50%;
+    }
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+    }
+  }
+
+  .desc-category {
+    margin: 0 0 31px;
+
+    p {
+      margin: 0 0 31px;
+      font-size: 15px;
+      line-height: 1.4em;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 29px;
+      }
+    }
+  }
+
+  .article-user {
+    margin: 0 0 13px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 17px;
+    }
+
+    .name {
+      font-size: 15px;
+      margin: 0 0 6px;
+
+      @include breakpoint('tablet') {
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+
+    .desc {
+      @include breakpoint_custom($breakpoint-tablet) {
+        padding-top: 10px;
+      }
+    }
+
+    .img {
+      margin: 0 15px 0 0;
+      width: 67px;
+      height: 67px;
+
+      @include breakpoint('tablet') {
+        margin: 4px 15px 0 0;
+        width: 52px;
+        height: 52px;
+      }
+    }
+
+    p {
+      line-height: 1.3em;
+      font-size: 11px;
+
+      @include breakpoint('tablet') {
+        font-size: 10px;
+      }
+    }
+  }
+}

@@ -3,16 +3,25 @@ namespace frontend\models;
 
 use yii\base\Model;
 use common\models\User;
+use Yii;
 
 /**
  * Signup form
  */
 class SignupForm extends Model
 {
-    public $username;
+    use \frontend\models\traits\AreasOfInterest;
+    
+    public $username = null;
     public $email;
     public $password;
-
+    public $first_name;
+    public $last_name;
+    public $confirm_email;
+    public $confirm_password;
+    public $agree;
+    public $items = null;
+    public $newsletter = 0;
 
     /**
      * @inheritdoc
@@ -21,21 +30,34 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'max' => 255],
+            ['first_name', 'required'],
+            ['first_name', 'string', 'min' => 2, 'max' => 255],
+            ['last_name', 'required'],
+            ['last_name', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['confirm_email', 'required'],
+            ['confirm_email', 'string', 'max' => 255],
+            ['confirm_email', 'compare', 'compareAttribute'=>'email', 'message'=>"Email don't match"],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['confirm_password', 'required'],
+            ['confirm_password', 'string', 'min' => 6],
+            ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>"Password don't match"],
+            ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions'],
+            ['items', 'safe'],
+            ['newsletter', 'safe']
+
         ];
     }
-
+    
     /**
      * Signs user up.
      *
@@ -48,11 +70,42 @@ class SignupForm extends Model
         }
         
         $user = new User();
-        $user->username = $this->username;
+        $user->username = null;
         $user->email = $this->email;
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         
-        return $user->save() ? $user : null;
+        if ($user->save()) {
+
+            if ($this->newsletter && is_array($this->items)) {
+                
+                $newsletter = new NewsletterForm();
+                $newsletter->email = $this->email;
+                $newsletter->first_name = $this->first_name;
+                $newsletter->last_name = $this->last_name;
+                $newsletter->areas_interest = $this->items;
+                $newsletter->interest = 1;
+                
+                try {
+                    
+                    if ($newsletter->validate()) {
+
+                        $newslatter = Yii::$container->get('newsletter');
+                        $newslatter->getSubscriber($newsletter->email);
+                        $newslatter->setSubscriber($newsletter->getAttributes());
+                    }
+                    
+                } catch(\yii\db\Exception $e) {
+                    return $user;
+                }
+                
+            }
+            
+            return $user;
+        }
+        
+        return null;
     }
 }

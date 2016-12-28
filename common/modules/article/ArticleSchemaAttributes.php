@@ -104,7 +104,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'key_references', 
-                array_combine($attributeSchema, ['key_references', 'Key References', 0, 1, 1]),
+                array_combine($attributeSchema, ['key_references', 'Key References', 1, 1, 1]),
                 [
                     ['label' => 'Title', 'type' => 'String'], 
                     ['label' => 'Method', 'type' => 'String'],
@@ -113,14 +113,18 @@ class ArticleSchemaAttributes {
                     ['label' => 'Data Source', 'type' => 'String'],
                     ['label' => 'Data Type', 'type' => 'String'],
                     ['label' => 'Countries', 'type' => 'String'],
-                    ['label' => 'Country Codes', 'type' => 'String']
+                    ['label' => 'Country Codes', 'type' => 'Array']
                 ]
         );
         
         $this->attributes[] = new Attribute(
                 'add_references', 
-                array_combine($attributeSchema, ['add_references', 'Add References', 0, 1, 1]),
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Reference', 'type' => 'Text']]
+                array_combine($attributeSchema, ['add_references', 'Add References', 1, 1, 1]),
+                [
+                    ['label' => 'Title', 'type' => 'String'], 
+                    ['label' => 'Full Citation', 'type' => 'Text'],
+                    ['label' => 'Country Codes', 'type' => 'Array']
+                ]
         );
         
         $this->attributes[] = new Attribute(
@@ -132,31 +136,41 @@ class ArticleSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'ga_image', 
                 array_combine($attributeSchema, ['ga_image', 'Ga Image', 1, 1, 1]), 
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Path', 'type' => 'String']]
+                [
+                    ['label' => 'Title', 'type' => 'String'], 
+                    ['label' => 'Path', 'type' => 'String'],
+                    ['label' => 'Target', 'type' => 'String'],
+                    ['label' => 'Id', 'type' => 'String']
+                ]
         );
         
         $this->attributes[] = new Attribute(
                 'images', 
                 array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
-                [['label' => 'Title', 'type' => 'String'], ['label' => 'Path', 'type' => 'String']]
+                [
+                    ['label' => 'Title', 'type' => 'String'],
+                    ['label' => 'Path', 'type' => 'String'],
+                    ['label' => 'Target', 'type' => 'String'],
+                    ['label' => 'Id', 'type' => 'String']
+                ]
         );
         
         $this->attributes[] = new Attribute(
                 'related', 
-                array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
+                array_combine($attributeSchema, ['related', 'Related', 0, 0, 1]), 
                 [['label' => 'Article Id', 'type' => 'Int']]
         );
         
         $this->attributes[] = new Attribute(
                 'full_pdf', 
                 array_combine($attributeSchema, ['full_pdf', 'Full Pdf', 0, 1, 1]), 
-                [['label' => 'Path', 'type' => 'String']]
+                [['label' => 'Url', 'type' => 'String']]
         );
         
         $this->attributes[] = new Attribute(
                 'one_pager_pdf', 
                 array_combine($attributeSchema, ['one_pager_pdf', 'One Pager Pdf', 0, 1, 1]), 
-                [['label' => 'Path', 'type' => 'String']]
+                [['label' => 'Url', 'type' => 'String']]
         );
     }
     

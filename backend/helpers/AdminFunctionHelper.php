@@ -32,7 +32,11 @@ class AdminFunctionHelper {
      * @return string
      */
     public static function dateFormat($date) {
-        return \Yii::$app->formatter->asDatetime($date, self::$DateFormat);
+        if ($date) {
+            return \Yii::$app->formatter->asDatetime($date, self::$DateFormat);
+        }
+        
+        return '';
     }
 }
 

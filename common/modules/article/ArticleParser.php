@@ -12,6 +12,7 @@ use common\contracts\TaxonomyInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use Yii;
+use yii\base\Event;
 
 /* Parse Methods */
 
@@ -40,6 +41,7 @@ class ArticleParser implements ParserInterface {
 
     use traits\ArticleParseTrait;
 
+    const EVENT_ARTICLE_CREATE = 'articleAdd';
     /*
      * property for additional object, files
      */
@@ -52,19 +54,20 @@ class ArticleParser implements ParserInterface {
     private $fullPdf = '';
     private $onePagerPdf = '';
     private $taxonomy = null;
+    protected $categoryIds = [];
     /*
      * property for save parsed information
      */
     protected $images = null;
-    protected $gaImage = '';
+    protected $gaImage = null;
     protected $sources = [];
     protected $furtherReading = null;
     protected $keyReferences = null;
     protected $addReferences = null;
     protected $config = null;
     
-    public function __construct
-            (ArticleInterface $article,
+    public function __construct (
+            ArticleInterface $article,
             EntityInterface $entity, 
             EntityTypeInterface $type, 
             ValueInterface $value,
@@ -108,12 +111,6 @@ class ArticleParser implements ParserInterface {
         return 0;
     }
 
-    /* need to realisation */
-    protected function getTextClass() {
-        
-        return '';
-    }
-    
     protected function getFullPdf() {
         
         if ($this->fullPdf) {
@@ -171,7 +168,7 @@ class ArticleParser implements ParserInterface {
             return null;
         }
         
-        return serialize($this->gaImage);
+        return $this->gaImage;
     }
 
     protected function getImages() {
@@ -193,8 +190,10 @@ class ArticleParser implements ParserInterface {
         $created_at = $this->xml->teiHeader->fileDesc->publicationStmt->date->attributes();
         $time = strtotime((string) $created_at['when-iso']);
         $publisher = (string) $this->xml->teiHeader->fileDesc->publicationStmt->publisher;
+        $title = (string)$this->xml->teiHeader->fileDesc->titleStmt->title;
 
         $this->article->setAttribute('id', $articleId);
+        $this->article->setAttribute('title', $title);
         $this->article->setAttribute('sort_key', $sortKey);
         $this->article->setAttribute('seo', $seo);
         $this->article->setAttribute('doi', $doi);
@@ -211,6 +210,7 @@ class ArticleParser implements ParserInterface {
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
 
         $this->addBaseTableValue();
+               
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
         $reader->removeTemporaryFolder();
@@ -297,6 +297,13 @@ class ArticleParser implements ParserInterface {
             }
         }
         
+        $event = new ArticleEvent;
+        $event->id = $this->article->id;
+        $event->title = $this->article->title;
+        $event->url = 'articles/'.$this->article->seo;
+        $event->categoryIds = $this->categoryIds;
+        Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+        
         return $result;
     }
     
@@ -323,7 +330,7 @@ class ArticleParser implements ParserInterface {
 
             $bulkInsertArray[] = [
                 'article_id' => $articleId,
-                'category_id' => $author['id'],
+                'author_id' => $author['id'],
             ];
         }
 
@@ -344,7 +351,9 @@ class ArticleParser implements ParserInterface {
         $categories = $class::getCategoryByCode($categories);
         
         foreach ($categories as $category) {
-
+            
+            $this->categoryIds[] = $category['id'];
+            
             $bulkInsertArray[] = [
                             'article_id' => $articleId,
                             'category_id' => $category['id'],
