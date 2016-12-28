@@ -45,14 +45,16 @@ class AdminInterfaceController extends Controller {
         if (Yii::$app->request->isPost) {
 
             $model->load(Yii::$app->request->post());
+            $model->initEvent();
             $model->initUploadProperty();
-            
+
             if ($model->upload(true)) {
                 
                 try {
                     
                     $facade = new ParserFacade($model);
                     $facade->run();
+                    
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Upload was success'), false);
                     
                 } catch(\Exception $e) {
