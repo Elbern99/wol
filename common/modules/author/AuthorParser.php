@@ -46,7 +46,7 @@ class AuthorParser implements ParserInterface {
         $args['enabled'] = 1;
         $args['url'] = $this->getAuthorUrl();
         $args['avatar'] = $args['author_key'].'.jpg';
-        
+
         $author = $this->author->addNewAuthor($args);
         
         if (is_object($author) && $author->id) {
@@ -164,8 +164,8 @@ class AuthorParser implements ParserInterface {
 
         $bulkInsertArray = [];
         $subjectEditorRole = $this->getSubjectEditor();
-        
-        if (count($subjectEditorRole->subjectArea)) {
+
+        if (isset($subjectEditorRole->subjectArea)) {
             
             $codes = [];
             
