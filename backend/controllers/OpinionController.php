@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 
-use common\models\Event;
+use common\models\Opinion;
 
 
 /*
@@ -39,30 +39,29 @@ class OpinionController extends Controller
     }
     
     public function actionIndex() {
-        $eventsQuery = Event::find()->orderBy('id desc');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $eventsQuery, 'pagination' => ['pageSize' => 30]])]);
+        $opinionsQuery = Opinion::find()->orderBy('id desc');
+        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $opinionsQuery, 'pagination' => ['pageSize' => 30]])]);
     }
     
     public function actionView($id = null) {
         
         if (is_null($id)) {
-            $model = new Event();
+            $model = new Opinion();
         } else {
-            $model = Event::findOne($id);
-            $model->date_from = $model->date_from->format('d-m-Y');
-            $model->date_to = $model->date_to->format('d-m-Y');
+            $model = Opinion::findOne($id);
+            $model->created_at = $model->created_at->format('d-m-Y');
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
             if ($model->saveFormatted()) {
                 if ($id) {
-                    $message = Yii::t('app/text', 'Event has been added successfully.');
+                    $message = Yii::t('app/text', 'Opinion has been added successfully.');
                 }
                 else {
-                    $message = Yii::t('app/text', 'Event has been updated successfully.');
+                    $message = Yii::t('app/text', 'Opinion has been updated successfully.');
                 }
                 Yii::$app->getSession()->setFlash('success', Yii::t('app/text', $message), false);
-                return $this->redirect('@web/event');
+                return $this->redirect('@web/opinion');
             }
             else {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app/text', implode('\n', $model->getFirstErrors())), false);
@@ -75,7 +74,7 @@ class OpinionController extends Controller
     public function actionDelete($id) {
         
         try {
-            $model = Video::findOne($id);
+            $model = Opinion::findOne($id);
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
             }

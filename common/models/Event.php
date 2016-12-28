@@ -4,17 +4,6 @@ namespace common\models;
 
 use Yii;
 
-/**
- * This is the model class for table "video".
- *
- * @property integer $id
- * @property string $url_key
- * @property string $title
- * @property string $video
- * @property string $image
- * @property string $description
- * @property integer $order
- */
 class Event extends \yii\db\ActiveRecord
 {
     use \common\helpers\FileUploadTrait;
