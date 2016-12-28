@@ -69,12 +69,18 @@ class EventController extends Controller {
         {
             $groupMonth = (int)ArrayHelper::getValue($value, 'm');
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
+            
+            if (strlen($groupMonth) == 1) {
+                $groupMonth = '0'.$groupMonth;
+            }
+            
             $yearMonth = $groupYear . '-' . $groupMonth;
             $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
+            
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
             
         }
-                  
+
         return $this->render('index', [
             'eventGroups' => $groups,
             'eventsTree' => $eventsTree,
@@ -111,6 +117,11 @@ class EventController extends Controller {
         {
             $groupMonth = (int)ArrayHelper::getValue($value, 'm');
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
+            
+            if (strlen($groupMonth) == 1) {
+                $groupMonth = '0'.$groupMonth;
+            }
+            
             $eventsTree[$groupYear][] = $groupMonth;
             $yearMonth = $groupYear . '-' . $groupMonth;
             $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
