@@ -195,9 +195,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
                             <div class="name"><a href="">Hardcoded Author</a></div>
                             <h2><a href=""><?= $opinion->title; ?> </a></h2>
+                            <?php if ($opinion->short_description) : ?>
                             <p>
                                 <?= $opinion->short_description; ?>
                             </p>
+                            <?php endif; ?>
                             </div>
                         </div>
                     </div>

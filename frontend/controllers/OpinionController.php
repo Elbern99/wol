@@ -16,25 +16,30 @@ use common\models\Widget;
  */
 class OpinionController extends Controller {
     
-    protected function _getEventMainCategory() 
+    protected function _getMainCategory() 
     {
         $category = Category::find()->where([
-            'url_key' => 'events',
+            'url_key' => 'opinions',
         ])->one();
         return $category;
     }
     
+    
+    public function _getOpinionsList($limit = null)
+    {
+        return Opinion::find()
+                        ->orderBy('id desc')
+                        ->limit($limit)
+                        ->all();
+    }
+    
+    
     public function actionIndex()
     {   
-        $opinios = Opinion::find()->all();
-        // var_dump($opinios);
-        
-        
         return $this->render('index', [
-            'opinions' => $opinios,
-            'category' => null,
+            'opinions' => $this->_getOpinionsList(),
+            'category' => $this->_getMainCategory(),
         ]);
-      //  return 'Opinion listing';
     }
     
     public function actionView($slug = null)
