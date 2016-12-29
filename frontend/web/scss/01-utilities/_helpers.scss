@@ -3,6 +3,18 @@
   display: none;
 }
 
+.hide-mobile {
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  @include breakpoint('tablet') {
+    display: none;
+  }
+}
+
 .js-tab-hidden {
   display: block !important;
   left: -9999px !important;

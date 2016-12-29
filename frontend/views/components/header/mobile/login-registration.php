@@ -15,7 +15,7 @@
         <li class="dropdown dropdown-login">
             <a href="#" class="mobile-dropdown-link dropdown-link"><?= Yii::t('app/menu', 'register') ?></a>
             <div class="dropdown-widget">
-                <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(['action'=>['/register'], 'method' => 'post']); ?>
                 <div class="form-line">
                     <?= $form->field($model, 'first_name', ['options'=>['class' => 'form-item']])->textInput() ?>
                 </div>
@@ -67,10 +67,7 @@
                     </div>
                 </div>
                 <div class="form-line">
-                    <label class="def-checkbox">
-                        <input type="checkbox" name="">
-                        <span class="label-text">I would like to register for the IZA World of Labor newsletter</span>
-                    </label>
+                    <?= $form->field($model, 'newsletter')->checkbox()->label('<span class="label-text">I would like to register for the IZA World of Labor newsletter</span>', ['class'=>'def-checkbox']) ?>
                 </div>
                 <div class="form-line">
                     <?= $form->field($model, 'agree', ['options'=>['id' => 'form-item']])->checkbox()->label('<span class="label-text">I agree to the <a href="">terms and conditions</a> and <a href="">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>

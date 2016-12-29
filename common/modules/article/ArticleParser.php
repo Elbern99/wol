@@ -12,6 +12,7 @@ use common\contracts\TaxonomyInterface;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use Yii;
+use yii\base\Event;
 
 /* Parse Methods */
 
@@ -40,6 +41,7 @@ class ArticleParser implements ParserInterface {
 
     use traits\ArticleParseTrait;
 
+    const EVENT_ARTICLE_CREATE = 'articleAdd';
     /*
      * property for additional object, files
      */
@@ -52,6 +54,7 @@ class ArticleParser implements ParserInterface {
     private $fullPdf = '';
     private $onePagerPdf = '';
     private $taxonomy = null;
+    protected $categoryIds = [];
     /*
      * property for save parsed information
      */
@@ -207,6 +210,7 @@ class ArticleParser implements ParserInterface {
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
 
         $this->addBaseTableValue();
+               
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
         $reader->removeTemporaryFolder();
@@ -293,6 +297,13 @@ class ArticleParser implements ParserInterface {
             }
         }
         
+        $event = new ArticleEvent;
+        $event->id = $this->article->id;
+        $event->title = $this->article->title;
+        $event->url = 'articles/'.$this->article->seo;
+        $event->categoryIds = $this->categoryIds;
+        Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+        
         return $result;
     }
     
@@ -340,7 +351,9 @@ class ArticleParser implements ParserInterface {
         $categories = $class::getCategoryByCode($categories);
         
         foreach ($categories as $category) {
-
+            
+            $this->categoryIds[] = $category['id'];
+            
             $bulkInsertArray[] = [
                             'article_id' => $articleId,
                             'category_id' => $category['id'],

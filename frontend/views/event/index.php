@@ -25,11 +25,13 @@ if ($category) {
 
 <div class="container event-list-page">
 
-    <div class="article-head">
-        <div class="breadcrumbs">
-            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+    <div class="article-head-holder hide-mobile">
+        <div class="article-head">
+            <div class="breadcrumbs">
+                <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+            </div>
+            <h1><?= $this->title; ?></h1>
         </div>
-        <h1><?= $this->title; ?></h1>
     </div>
 
     <div class="content-inner">
@@ -42,6 +44,7 @@ if ($category) {
                     <li class="active"><a href="">Latest events</a></li>
                     <li><a href="">Events archive</a></li>
                 </ul>
+                <h1 class="hide-desktop"><?= $this->title; ?></h1>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active">
                         <?php if (!empty($eventGroups)): ?>
@@ -54,7 +57,6 @@ if ($category) {
                                      
                                      <div class="sub-event-item">
                                          <div class="date-part">
-                                             <span class="date-holder">
                                              <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
                                                 <?= $event->date_from->format('F d'); ?><span class="year">, <?= $event->date_from->format('Y'); ?></span>
                                              <?= Html::endTag('a'); ?>
@@ -131,14 +133,10 @@ if ($category) {
             </div>
             <?php if (count($widgets)): ?>
             <div class="sidebar-widget">
-                
-                
                 <div class="podcast-list">
-                    
                     <?php foreach ($widgets as $widget): ?>
                         <?= $widget['text'] ?>
                     <?php endforeach; ?>
-                    
                 </div>
             </div>
             <?php endif; ?>

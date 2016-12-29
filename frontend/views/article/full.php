@@ -43,6 +43,12 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
+
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').' '.
+        $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
+        '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract').'\n\n View the article: '.
+        Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+        
 ?>
 <div class="container article-full">
     <div class="article-buttons article-buttons-mobile">
@@ -54,17 +60,7 @@ $config = [
         <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
             <span class="icon-quote"></span>
         </a>
-        <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                    &body=<?= urlencode('Title:') ?>
-                    <?= urlencode($attributes['title']->getData('title')) ?>
-                    <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Elevator pitch:') ?>
-                    <?= urlencode($attributes['abstract']->getData('abstract')) ?>
-                    <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Copyright © IZA') ?>
-                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+        <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
             <span class="icon-message"></span>
         </a>
         <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
@@ -207,17 +203,7 @@ $config = [
                                 <div class="btn-like-inner"></div>
                             </a>
                             <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                            <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                                &body=<?= urlencode('Title:') ?>
-                                <?= urlencode($attributes['title']->getData('title')) ?>
-                                <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                                <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                                <?= urlencode('Elevator pitch:') ?>
-                                <?= urlencode($attributes['abstract']->getData('abstract')) ?>
-                                <?= urlencode('View the article') ?>
-                                <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                                <?= urlencode('Copyright © IZA') ?>
-                                <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+                            <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
                                 <span class="icon-message"></span>
                             </a>
                         </div>
@@ -244,17 +230,7 @@ $config = [
                     <div class="btn-like-inner"></div>
                 </a>
                 <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-                <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                    &body=<?= urlencode('Title:') ?>
-                    <?= urlencode($attributes['title']->getData('title')) ?>
-                    <?= urlencode($attributes['teaser']->getData('teaser')) ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Elevator pitch:') ?>
-                    <?= urlencode($attributes['abstract']->getData('abstract')) ?>
-                    <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Copyright © IZA') ?>
-                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+                <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
                     <span class="icon-message"></span>
                 </a>
             </div>
@@ -320,8 +296,7 @@ $config = [
             </div>
             
             <div class="sidebar-widget sidebar-widget-articles-references">
-                <ul class="sidebar-accrodion-list hide-desktop">
-
+                <ul class="sidebar-accrodion-list">
                     <?php if (isset($attributes['term_groups'])): ?>
                         <li class="sidebar-accrodion-item">
                             <?php $backgrounds = $attributes['term_groups']->getData(); ?>
@@ -352,30 +327,30 @@ $config = [
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
-                        <li class="sidebar-accrodion-item sidebar-articles-item">
-                            <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
-                            <?php $count_related = count($related) ?>
+                        <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                        <?php $count_related = count($related) ?>
 
-                            <?php if ($count_related > 0): ?>
-                                <a href="" class="title">Related Articles</a>
-                                <div class="text">
-                                    <ul class="sidebar-news-list">
-                                        <?php foreach ($related as $relate): ?>
-                                            <li>
-                                                <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                                <div class="writer"><?= $relate['availability'] ?></div>
-                                            </li>
-                                        <?php endforeach; unset($related); ?>
-                                    </ul>
-                                    <?php if(count($count_related) > 13): ?>
-                                        <a href="" class="more-link">
-                                            <span class="more">More</span>
-                                            <span class="less">Less</span>
-                                        </a>
-                                    <?php endif ?>
-                                </div>
-                            <?php endif; ?>
+                        <?php if ($count_related > 0): ?>
+                        <li class="sidebar-accrodion-item sidebar-articles-item">
+                            <a href="" class="title">Related Articles</a>
+                            <div class="text">
+                                <ul class="sidebar-news-list">
+                                    <?php foreach ($related as $relate): ?>
+                                        <li>
+                                            <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                            <div class="writer"><?= $relate['availability'] ?></div>
+                                        </li>
+                                    <?php endforeach; unset($related); ?>
+                                </ul>
+                                <?php if(count($count_related) > 13): ?>
+                                    <a href="" class="more-link">
+                                        <span class="more">More</span>
+                                        <span class="less">Less</span>
+                                    </a>
+                                <?php endif ?>
+                            </div>
                         </li>
+                        <?php endif; ?>
 
                     <?php endif; ?>
             

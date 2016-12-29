@@ -21,7 +21,11 @@
             'content' => Html::encode($category->meta_title)
         ]);
     }
+
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: ' . $model->title .
+    '\n\n View the article: '. Url::to(['/event/view', 'slug' => $model->url_key], true) .'\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
+
 <?php if (($imagePath = $model->getImagePath()) != null) : ?>
    <?= Html::tag('div', '', [
        'class' => 'header-background',
@@ -30,15 +34,14 @@
 ?>
 
 <?php endif; ?>
+
 <div class="container event-page">
 
-    <div class="article-head-holder">
-        <div class="article-head">
-            <div class="breadcrumbs">
-                <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
-            </div>
-            <h1><?= $model->title; ?></h1>
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>
+        <h1 class="hide-mobile"><?= $model->title; ?></h1>
     </div>
 
     <div class="content-inner">
@@ -59,7 +62,6 @@
                                     <?php foreach ($group['events'] as $event): ?>
                                     <div class="sub-event-item">
                                         <div class="date-part">
-                                             <span class="date-holder">
                                              <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
                                                 <?= $event->date_from->format('F d'); ?><span class="year">, <?= $event->date_from->format('Y'); ?></span>
                                              <?= Html::endTag('a'); ?>
@@ -104,6 +106,7 @@
                 </div>
             </div>
 
+            <h1 class="hide-desktop"><?= $model->title; ?></h1>
             <div class="event-date">
                 <?= $model->date_from->format('F d, Y'); ?> - 
                 <?= $model->date_to->format('F d, Y'); ?>
@@ -120,7 +123,7 @@
 
             <div class="event-text-holder">
                 <div class="event-text">
-                    <p><?= $model->body; ?></p>
+                    <?= $model->body; ?>
                 </div>
             </div>
 
@@ -178,7 +181,7 @@
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="" class="btn-border-gray-small with-icon-r">
+                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
@@ -215,7 +218,6 @@
 
             <div class="sidebar-widget">
                 <div class="podcast-list">
-                    
                     <?php foreach ($widgets as $widget): ?>
                         <?= $widget['text'] ?>
                     <?php endforeach; ?>
@@ -223,4 +225,4 @@
             </div>
         </aside>
     </div>
-</div>а
+</div>

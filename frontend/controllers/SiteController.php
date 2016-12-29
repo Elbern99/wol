@@ -12,6 +12,7 @@ use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\SignupPopupForm;
 use frontend\models\NewsletterForm;
 
 /**
@@ -73,7 +74,7 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        
+
         return $this->render('index');
     }
     
@@ -137,13 +138,25 @@ class SiteController extends Controller {
     public function actionSignup() {
         
         $model = new SignupForm();
-        
-        if ($model->load(Yii::$app->request->post())) {
+        $modelPopup = new SignupPopupForm();
 
-            if ($user = $model->signup()) {
+        if (Yii::$app->request->isPost) {
+
+            if ($model->load(Yii::$app->request->post())) {
                 
-                return $this->goHome();
+                if ($user = $model->signup()) {
+                    Yii::$app->session->setFlash('success', 'You have been successfully registered');
+                    return $this->goHome();
+                }
+                
+            } elseif ($modelPopup->load(Yii::$app->request->post())) {
+                
+                if ($user = $modelPopup->signup()) {
+                    Yii::$app->session->setFlash('success', 'You have been successfully registered');
+                    return $this->goHome();
+                }
             }
+           
         }
 
         return $this->render('signup', [

@@ -44,6 +44,10 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title', $currentLang).' '.
+    $attributes['teaser']->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
+    '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract', $currentLang).'\n\n View the article: '.
+    Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 <div class="container article-full">
 
@@ -56,17 +60,7 @@ $config = [
     <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
         <span class="icon-quote"></span>
     </a>
-    <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-        &body=<?= urlencode('Title:') ?>
-        <?= urlencode($attributes['title']->getData('title', $currentLang)) ?>
-        <?= urlencode($attributes['teaser']->getData('teaser', $currentLang)) ?>
-        <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
-        <?= urlencode('Elevator pitch:') ?>
-        <?= urlencode($attributes['abstract']->getData('abstract', $currentLang)) ?>
-        <?= urlencode('View the article') ?>
-        <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
-        <?= urlencode('Copyright © IZA') ?>
-        <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
         <span class="icon-message"></span>
     </a>
     <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
@@ -189,17 +183,7 @@ $config = [
                 <div class="btn-like-inner"></div>
             </a>
             <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-            <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                &body=<?= urlencode('Title:') ?>
-                <?= urlencode($attributes['title']->getData('title', $currentLang)) ?>
-                <?= urlencode($attributes['teaser']->getData('teaser', $currentLang)) ?>
-                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
-                <?= urlencode('Elevator pitch:') ?>
-                <?= urlencode($attributes['abstract']->getData('abstract', $currentLang)) ?>
-                <?= urlencode('View the article') ?>
-                <?= urlencode(Url::to('/articles/'.$article->seo)) ?>
-                <?= urlencode('Copyright © IZA') ?>
-                <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-middle short">
+            <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
                 <span class="icon-message"></span>
             </a>
         </div>
@@ -267,11 +251,11 @@ $config = [
             <ul class="sidebar-accrodion-list">
 
                 <?php if (isset($attributes['related'])): ?>
-                    <li class="sidebar-accrodion-item sidebar-articles-item">
-                        <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
-                        <?php $count_related = count($related) ?>
+                    <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                    <?php $count_related = count($related) ?>
 
-                        <?php if ($count_related > 0): ?>
+                    <?php if ($count_related > 0): ?>
+                        <li class="sidebar-accrodion-item sidebar-articles-item">
                         <a href="" class="title">Related Articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
@@ -289,8 +273,8 @@ $config = [
                                 </a>
                             <?php endif ?>
                         </div>
-                        <?php endif; ?>
-                    </li>
+                        </li>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <?php $source = []; ?>

@@ -32,6 +32,9 @@ return [
                 'newsletter_facade' => '\common\modules\newsletter\Newsletter'
             ]
         ],
+        'task' => [
+            'class' => 'common\modules\task\Module',
+        ]
     ],
     'components' => [
         'cache' => [
@@ -54,6 +57,17 @@ return [
                     ],
                 ],
             ],
+        ],
+        'queue' => [
+            'class' => 'UrbanIndo\Yii2\Queue\Queues\DbQueue',
+            'db' => 'db',
+            'tableName' => 'queue',
+            'module' => 'task',
+        ],
+    ],
+    'controllerMap' => [
+        'queue' => [
+            'class' => 'UrbanIndo\Yii2\Queue\Console\Controller',
         ],
     ],
 ];

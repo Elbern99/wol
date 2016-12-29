@@ -16,7 +16,8 @@
   position: absolute;
 }
 
-.map-title {
+.map-title,
+.extra-title {
   color: #717171;
   text-transform: uppercase;
   margin: 0 0 1px;
@@ -64,77 +65,6 @@
     }
   }
 
-  .more-evidence-map-text-mobile {
-    display: none;
-  }
-
-  @include breakpoint_custom($breakpoint-tablet) {
-    .evidence-map-text {
-      position: relative;
-      max-height: 34px;
-      overflow: hidden ;
-      //margin: 0 0 16px;
-      transition: all 0.3s ease;
-      display: block;
-
-      .more-evidence-map-text-mobile {
-        display: block;
-      }
-
-      .less {
-        display: none;
-      }
-
-      &.open-text-map {
-        max-height: 1000px;
-
-        &:after {
-          display: none;
-        }
-
-        .more-evidence-map-text-mobile {
-          left: 0;
-
-          .more {
-            display: none;
-          }
-
-          .less {
-            display: block;
-          }
-        }
-      }
-
-      .more-evidence-map-text-mobile {
-        position: absolute;
-        bottom: 1px;
-        left: 27%;
-        z-index: 2;
-        line-height: 13px;
-        height: 12px;
-      }
-
-      &:after {
-        position: absolute;
-        bottom: 0;
-        height: 14px;
-        content: '';
-        background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 27%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 41%, rgba(255,255,255,1) 100%);
-        background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
-        background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
-        left:  19%;
-        right: 0;
-        z-index: 1;
-      }
-
-      p {
-        &:last-child {
-          margin: 0;
-        }
-      }
-    }
-  }
-
   .content-inner-text {
 
     .evidence-map-list {
@@ -142,6 +72,79 @@
 
       @include breakpoint('tablet') {
         display: block;
+      }
+    }
+  }
+}
+
+
+.more-evidence-map-text-mobile {
+  display: none;
+}
+
+@include breakpoint_custom($breakpoint-tablet) {
+  .evidence-map-text,
+  .more-text-mobile {
+    position: relative;
+    max-height: 34px;
+    overflow: hidden ;
+    //margin: 0 0 16px;
+    transition: all 0.3s ease;
+    display: block;
+
+    .more-evidence-map-text-mobile {
+      display: block;
+    }
+
+    .less {
+      display: none;
+    }
+
+    &.open-text {
+      max-height: 1000px;
+
+      &:after {
+        display: none;
+      }
+
+      .more-evidence-map-text-mobile {
+        left: 0;
+
+        .more {
+          display: none;
+        }
+
+        .less {
+          display: block;
+        }
+      }
+    }
+
+    .more-evidence-map-text-mobile {
+      position: absolute;
+      bottom: 1px;
+      left: 27%;
+      z-index: 2;
+      line-height: 13px;
+      height: 12px;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      height: 14px;
+      content: '';
+      background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 27%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 41%, rgba(255,255,255,1) 100%);
+      background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
+      background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 8%,rgba(255,255,255,1) 12%,rgba(255,255,255,1) 27%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
+      left:  19%;
+      right: 0;
+      z-index: 1;
+    }
+
+    p {
+      &:last-child {
+        margin: 0;
       }
     }
   }
@@ -256,7 +259,7 @@
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 10px;
+  margin: 0 -15px 20px;
 
   @include breakpoint('tablet') {
     position: relative;

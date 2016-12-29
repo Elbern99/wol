@@ -5,7 +5,7 @@
   line-height: 1.4em;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   @include breakpoint('tablet') {
@@ -70,7 +70,7 @@
     }
 
     .btn-blue {
-      padding: 13px 17px 11px;
+      padding: 0 17px 0;
       font-size: 13px;
 
       @include breakpoint('tablet') {
@@ -135,11 +135,13 @@
       font-family: $lucida-grande;
       position: relative;
       padding: 0 0 11px;
-      margin: 0 0 24px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         font-size: 11px;
-        margin: 0 0 26px;
       }
 
       .widget-title {
@@ -577,7 +579,7 @@
   }
 
   @include breakpoint('mobile-large') {
-    margin: 0 -1%;
+    margin: 0;
   }
 
   @include breakpoint('tablet') {
@@ -703,7 +705,7 @@
 .additional-references-list,
 .sidebar-news-list,
 .further-reading-list,
-.sidebar-news-list {
+.sidebar-key-topics-list {
   padding: 0;
   
   + .more-link {
@@ -728,16 +730,6 @@
       margin-bottom: 0;
     }
 
-    &:nth-child(-n+13),
-    &.opened {
-      opacity: 1 !important;
-      height: auto !important;
-      left: auto !important;
-      position: relative !important;
-      top: auto !important;
-      transform: translateX(0);
-    }
-
     .icon-exclamatory-circle {
       position: absolute;
       top: 1px;
@@ -749,6 +741,37 @@
       @include breakpoint('tablet') {
         top: 0;
       }
+    }
+  }
+}
+
+.key-references-list,
+.additional-references-list,
+.further-reading-list,
+.sidebar-key-topics-list {
+  &:nth-child(-n+13),
+  &.opened {
+    opacity: 1 !important;
+    height: auto !important;
+    left: auto !important;
+    position: relative !important;
+    top: auto !important;
+    transform: translateX(0);
+  }
+}
+
+.sidebar-news-list {
+  padding: 0;
+
+  li {
+    &:nth-child(-n+7),
+    &.opened{
+      opacity: 1 !important;
+      height: auto !important;
+      left: auto !important;
+      position: relative !important;
+      top: auto !important;
+      transform: translateX(0);
     }
   }
 }

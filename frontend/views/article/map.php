@@ -106,6 +106,9 @@ $this->registerCssFile('/css/leaflet.css');
     ];
     
     $this->registerJs("var mapConfig = ".json_encode($config), 3);
+
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').
+    '\n\n View the article: '. Url::to(['/articles/'.$article->seo],true). '/map'. '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 
 <div class="container article-map">
@@ -182,13 +185,7 @@ $this->registerCssFile('/css/leaflet.css');
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= urlencode('Article from IZA World of Labor') ?>
-                    &body=<?= urlencode('Title:') ?>
-                    <?= urlencode($attributes['title']->getData('title')) ?>
-                    <?= urlencode('View the article') ?>
-                    <?= urlencode(Url::to(['/articles/'.$article->seo],true)) ?>
-                    <?= urlencode('Copyright © IZA') ?>
-                    <?= date('Y') ?> <?= urlencode('Impressum. All Rights Reserved. ISSN: 2054-9571') ?>" class="btn-border-gray-small with-icon-r">
+                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
@@ -237,9 +234,8 @@ $this->registerCssFile('/css/leaflet.css');
             <?php if (isset($attributes['related'])): ?>
                 <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                 <?php $count_related = count($related) ?>
-
-                <div class="sidebar-widget">
                     <?php if ($count_related > 0): ?>
+                    <div class="sidebar-widget">
                         <div class="widget-title">Related Articles</div>
                         <ul class="sidebar-news-list">
                             <?php foreach ($related as $relate): ?>
@@ -250,6 +246,7 @@ $this->registerCssFile('/css/leaflet.css');
                             <?php endforeach;
                             unset($related); ?>
                         </ul>
+                    </div>
                     <?php endif; ?>
 
                     <?php
@@ -257,8 +254,6 @@ $this->registerCssFile('/css/leaflet.css');
                             echo '<a href="" class="more-link">More</a>';
                         }
                     ?>
-                </div>
-                
             <?php endif; ?>
         </aside>
     </div>
