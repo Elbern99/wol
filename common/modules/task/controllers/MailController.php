@@ -19,7 +19,7 @@ class MailController extends \UrbanIndo\Yii2\Queue\Worker\Controller {
             
             $send = Yii::$app->mailer->compose()
                         ->setFrom($to)
-                        ->setTo($from)
+                        ->setTo(htmlspecialchars($from))
                         ->setSubject($subject)
                         ->setHtmlBody($body)
                         ->send();

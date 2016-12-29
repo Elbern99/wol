@@ -1,0 +1,147 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
+?>
+
+<?php
+$this->title = 'Find an expert';
+$this->params['breadcrumbs'][] = Html::encode($this->title);
+
+$this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => Html::encode($this->title)
+]);
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($this->title)
+]);
+
+$this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAsset']]);
+?>
+
+<div class="container find-expert">
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+        </div>
+        <h1>Find an expert</h1>
+        <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
+        <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
+    </div>
+    
+    <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+    <div class="search-results-top">
+        <div class="search">
+            <div class="search-top">
+                <span class="icon-search"></span>
+                <button type="submit" class="btn-blue btn-center">
+                        <span class="inner">
+                            search
+                        </span>
+                </button>
+                <div class="search-holder">
+                    <input type="text" name="search" placeholder="Enter expertise or author name" class="form-control-decor">
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-filter-holder">
+            <div class="search-results-top-filter">
+                <strong><?= count($expertCount) ?> were found</strong>
+                <a href="" class="filter-mobile-link">Filter</a>
+                <a href="" class="refine-mobile-link">Refine</a>
+            </div>
+            <div class="mobile-filter">
+                <div class="mobile-filter-container"></div>
+                <div class="mobile-filter-bottom">
+                    <button type="submit" class="btn-blue-large">update</button>
+                    <a href="" class="btn-no-style">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-inner">
+        <div class="content-inner-text">
+            <ul class="search-results-media-list">
+                
+                <?php foreach ($expertCollection as $expert): ?>
+                <li class="search-results-media-item">
+                    <div class="img">
+                        <img src="<?= $expert['avatar'] ?>" alt="">
+                    </div>
+                    <div class="name"><?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?></div>
+                    <p class="location"><?= $expert['affiliation'] ?></p>
+                    <p><strong>Expertise:</strong> <?= implode(',', $expert['expertise'])?></p>
+                    <p><strong>Media Experience:</strong> <?= implode(',', $expert['experience_type'])?></p>
+                    <p><strong>Languages:</strong> <?= implode(',', $expert['language'])?></p>
+                    <p><strong>Country:</strong><?= implode(',', $expert['author_country'])?></p>
+                </li>
+                <?php endforeach; ?>
+                
+            </ul>
+            <?php if ($expertCount > $limit): ?>
+                <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
+            <?php else: ?>
+                <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
+            <?php endif; ?>
+        </div>
+        <aside class="sidebar-right">
+            <div class="filter-clone-holder">
+                <div class="filter-clone">
+                    <div class="sidebar-widget sidebar-widget-filter">
+                        <h3>Filter by</h3>
+                        
+                        <ul class="sidebar-accrodion-list">
+                            <li class="sidebar-accrodion-item is-open">
+                                <a href="" class="title">country</a>
+                                <div class="text">
+                                    <ul class="checkbox-list">
+                                        <li>
+                                            <label class="def-checkbox light">
+                                                <input type="checkbox" name="name">
+                                                <span class="label-text">Articles <strong class="count">(18)</strong></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <a href="" class="clear-all">Clear all</a>
+                                </div>
+                            </li>
+                            <li class="sidebar-accrodion-item">
+                                <a href="" class="title">language</a>
+                                <div class="text">
+                                    <ul class="checkbox-list">
+                                        <li>
+                                            <label class="def-checkbox light">
+                                                <input type="checkbox" name="name">
+                                                <span class="label-text">Program evaluation<strong class="count">(18)</strong></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <a href="" class="clear-all">Clear all</a>
+                                </div>
+                            </li>
+                            <li class="sidebar-accrodion-item">
+                                <a href="" class="title">expertise</a>
+                                <div class="text">
+                                    <a href="" class="clear-all">Clear all</a>
+                                </div>
+                            </li>
+                            <li class="sidebar-accrodion-item">
+                                <a href="" class="title">media experience</a>
+                                <div class="text">
+                                    <a href="" class="clear-all">Clear all</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+    <?php Pjax::end(); ?>
+</div>

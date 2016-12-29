@@ -10,5 +10,6 @@ return [
         'article' => '\common\models\ArticleSearch'
     ],
     'article_limit' => 10,
+    'expert_limit' => 5,
     'search_result_limit' => 50
 ];

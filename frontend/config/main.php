@@ -56,6 +56,7 @@ return [
                 'subscribe' => 'site/subscribe',
                 'events' => 'event/index',
                 'events/<slug:[0-9a-z-]+>' => 'event/view',
+                'find-an-expert' => 'authors/expert',
                 // 'key-topics' => 'topic/index',
             ],
         ],
