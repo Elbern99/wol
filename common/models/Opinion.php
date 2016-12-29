@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 
-class Event extends \yii\db\ActiveRecord
+class Opinion extends \yii\db\ActiveRecord
 {
     use \common\helpers\FileUploadTrait;
     
@@ -12,7 +12,7 @@ class Event extends \yii\db\ActiveRecord
         'image_link',
     ];
     
-    protected $imagePath = '/web/uploads/events';
+    protected $imagePath = '/web/uploads/opinions';
 
 
     public function getImagePath()
@@ -25,7 +25,7 @@ class Event extends \yii\db\ActiveRecord
     }
     
     public function getFrontendPath() {
-        return Yii::getAlias('@frontend').'/web/uploads/events';
+        return Yii::getAlias('@frontend').'/web/uploads/opinions';
     }
     
     public function getBackendPath() {
@@ -37,7 +37,7 @@ class Event extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'events';
+        return 'opinions';
     }
 
     /**
@@ -46,8 +46,9 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url_key', 'title', 'location', 'date_from', 'date_to', 'book_link', 'contact_link'], 'required'],
-            [['body', 'short_description'], 'string'],
+            [['url_key', 'title'], 'required'],
+            [['description', 'short_description'], 'string'],
+            [['created_at'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -64,21 +65,17 @@ class Event extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'url_key' => Yii::t('app', 'Url Key'),
             'title' => Yii::t('app', 'Title'),
-            'body' => Yii::t('app', 'Description'),
-            'date_from' => Yii::t('app', 'Date From'),
-            'date_to' => Yii::t('app', 'Date To'),
-            'location' => Yii::t('app', 'Location'),
+            'description' => Yii::t('app', 'Description'),
             'short_decription' => Yii::t('app', 'Short Description'),
-            'book_link' => Yii::t('app', 'Book Link'),
-            'contact_link' => Yii::t('app', 'Contact Link'),
             'image_link' => Yii::t('app', 'Image'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'published_at' => Yii::t('app', 'Published At'),
         ];
     }
     
     public function afterFind()
     {
-        $this->date_from = new \DateTime($this->date_from);
-        $this->date_to = new \DateTime($this->date_to);
+        $this->created_at = new \DateTime($this->created_at);
     }
     
     public function saveFormatted()
@@ -86,19 +83,17 @@ class Event extends \yii\db\ActiveRecord
         if (!$this->validate())
             return false;
         
-        $this->convertDates();
+        $this->setCreatedAtDate();
         $this->initUploadProperty();
         $this->upload();
         
         return $this->save();
     }
     
-    protected function convertDates()
+    protected function setCreatedAtDate()
     {
-        $date_from = new \DateTime($this->date_from);
-        $this->date_from = $date_from->format('Y-m-d');
-        $date_to = new \DateTime($this->date_to);
-        $this->date_to = $date_to->format('Y-m-d');
+        $created_at = new \DateTime('now');
+        $this->created_at = $created_at->format('Y-m-d');
     }
 
 }

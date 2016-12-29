@@ -56,6 +56,8 @@ return [
                 'subscribe' => 'site/subscribe',
                 'events' => 'event/index',
                 'events/<slug:[0-9a-z-]+>' => 'event/view',
+                // 'key-topics' => 'topic/index',
+                'opinions' => 'opinion/index'
             ],
         ],
         'assetManager' => [
