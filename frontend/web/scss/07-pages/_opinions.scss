@@ -37,11 +37,7 @@
       padding: 5px 3px 6px;
 
       .opinion-item {
-        max-height: 433px;
-
-        @include breakpoint('tablet') {
-          height: calc(86vh*0.519);
-        }
+        height: 433px;
       }
     }
 
@@ -56,19 +52,16 @@
 
           .desc {
             padding: 20px 15px 20px;
-            p {
-              max-height: 200px;
-            }
+            height: auto;
 
-            *:last-child {
-              margin-bottom: 0;
+            p {
+              max-height: 189px;
             }
           }
 
           &.has-image {
             display: flex;
-            max-height: 292px;
-            min-height: 250px;
+            height: 292px;
             margin-bottom: 17px;
 
             .desc {
@@ -98,8 +91,13 @@
   overflow: hidden;
   line-height: 1.45em;
 
+  *:last-child {
+    margin-bottom: 0 !important;
+  }
+
   p {
     display: none;
+    overflow: hidden;
 
     @include breakpoint('tablet') {
       display: block;
