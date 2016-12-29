@@ -506,7 +506,7 @@
 .only-mibile-accordion-item,
 .sidebar-accrodion-item,
 .mobile-accordion-item {
-  overflow: hidden;
+  //overflow: hidden;
 
   &.is-open {
     .title {
@@ -534,7 +534,6 @@
 
   .text {
     display: none;
-    overflow: hidden;
   }
 
   .evidence-map-list {
