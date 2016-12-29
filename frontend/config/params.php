@@ -9,6 +9,6 @@ return [
     'search' => [
         'article' => '\common\models\ArticleSearch'
     ],
-    'article_limit' => 1,
+    'article_limit' => 10,
     'search_result_limit' => 50
 ];
