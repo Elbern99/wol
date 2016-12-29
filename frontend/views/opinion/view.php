@@ -1,14 +1,17 @@
 <?php
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\Pjax;
-
+    use yii\helpers\Html;
+    use yii\helpers\Url;
 ?>
-<?php
 
-$this->title = 'Opinions';
-$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
-$this->params['breadcrumbs'][] = $this->title;
+<?php
+$this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+
+$opinionDirectLink = Url::to(['/opinion/view', 'slug' => $model->url_key], true);
+$mailLink = $opinionDirectLink;
+
+$mailTitle = $model->title;
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
+    '\n\n View the article: '. Html::a($mailLink, $mailLink). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 if ($category) {
     $this->registerMetaTag([
@@ -20,20 +23,18 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
+$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
+$this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => Url::to(['/opinion/index'])];
+$this->params['breadcrumbs'][] = $model->title;
 ?>
 
-
-<?php
-    $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset']]);
-?>
-
-<div class="container opinions-page">
+<div class="container media-page">
     <div class="article-head-holder">
         <div class="article-head">
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
-            <div class="mobile-filter-holder custom-tabs-holder">
+           <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
                     <li><a href="" class="js-widget">Opinions</a></li>
                     <li><a href="" class="js-widget">Videos</a></li>
@@ -79,60 +80,53 @@ if ($category) {
                     </div>
                 </div>
             </div>
-            <h1>Opinions</h1>
-            <div class="more-text-mobile">
-                <p>
-                    <?= Html::a('IZA World of Labor', ['/']); ?> articles provide concise, evidence-based analysis of policy-relevant topics in labor economics. We recognize that the articles will prompt discussion and possibly controversy. Opinion articles will capture these ideas and debates concisely, and anchor them with real-world examples. Opinions stated here do not necessarily reflect those of the IZA.</p>
-                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
-            </div>
+            <h1><?= $model->title; ?></h1>
         </div>
     </div>
 
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
         <div class="content-inner-text contact-page">
-            <ul class="opinions-list">
-                <?php foreach ($opinions as $opinion) : ?>
-                <?php $hasImageClass = $opinion->image_link ? 'has-image' : null; ?>
-                <li>
-                    <div class="opinion-item <?= $hasImageClass; ?>">
-                        <?php if ($hasImageClass) : ?>
-                        <div class="img">
-                            <?= Html::img('@web/uploads/opinions/'.$opinion->image_link, [
-                                'alt' => 'Opinion image',
-                            ]); ?>
-                        </div>
-                        <?php endif; ?>
-                        <div class="desc">
-                            <div class="inner">
-                            <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
-                            <div class="name"><a href="">Hardcoded Author</a></div>
-                            <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
-                            <?php if ($opinion->short_description) : ?>
-                            <p>
-                                <?= $opinion->short_description; ?>
-                            </p>
-                            <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <?php endforeach; ?>
-            
-            </ul>
-            <?php if ($opinionsCount > $limit): ?>
-                    <?php $params = ['/opinion/index', 'limit' => $limit]; ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center']) ?>
-            <?php else: ?>
-                <?php if (Yii::$app->request->get('limit')): ?>
-                     <?php $params = ['/opinion/index']; ?>
-                    <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+            <article class="media-post">
+                <?php $hasImage= $model->image_link ? true : false; ?>
+                <?php if ($hasImage) : ?>
+                <figure>
+                    <?= Html::img('@web/uploads/opinions/'.$model->image_link, [
+                        'alt' => 'Opinion image',
+                    ]); ?>
+                </figure>
                 <?php endif; ?>
-            <?php endif; ?>
+                <p>
+                    <?= $model->description; ?>
+                </p>
+            </article>
         </div>
-        <?php Pjax::end(); ?>
 
         <aside class="sidebar-right">
+            <div class="sidebar-buttons-holder">
+                <ul class="share-buttons-list">
+                    <li class="share-facebook">
+                        <div id="fb-root"></div>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                    </li>
+                    <li class="share-twitter">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+                    </li>
+                    <li class="share-ln">
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                        <script type="IN/Share"></script>
+                    </li>
+                </ul>
+
+                <div class="sidebar-email-holder">
+                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                        <div class="inner">
+                            <span class="icon-message"></span>
+                            <span class="text">email</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
@@ -166,7 +160,7 @@ if ($category) {
                                         <a href="#"><?= $video->title; ?></a>
                                     </h3>
                                 </li>
-                                <?php endforeach; ?>                               
+                                <?php endforeach; ?>
                             </ul>
                             <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                             <a href="" class="more-link">
@@ -178,10 +172,13 @@ if ($category) {
                     </li>
                 </ul>
             </div>
-            <div class="sidebar-widget sidebar-widget-subscribe">
-                <?php foreach ($widgets as $widget): ?>
-                   <?= $widget['text'] ?>
-                <?php endforeach; ?>
+
+            <div class="sidebar-widget">
+                <div class="podcast-list">
+                    <?php foreach ($widgets as $widget): ?>
+                        <?= $widget['text'] ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </aside>
     </div>

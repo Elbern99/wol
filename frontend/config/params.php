@@ -10,8 +10,8 @@ return [
         'article' => '\common\models\ArticleSearch'
     ],
     'article_limit' => 1,
-    'opinion_limit' => 2,
-//    'opinion_sidebar_limit' => 7,
-//    'video_sidebar_limit' => 7,
+    'opinion_limit' => 1,
+    'opinion_sidebar_limit' => 5,
+    'video_sidebar_limit' => 5,
     'search_result_limit' => 50
 ];
