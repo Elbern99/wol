@@ -506,6 +506,8 @@
 .only-mibile-accordion-item,
 .sidebar-accrodion-item,
 .mobile-accordion-item {
+  //overflow: hidden;
+
   &.is-open {
     .title {
       @extend .title-open;

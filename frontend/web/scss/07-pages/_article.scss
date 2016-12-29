@@ -619,7 +619,7 @@
   position: absolute;
   display: none;
   overflow: hidden;
-
+  
   .arrows {
     display: none;
   }
@@ -628,6 +628,7 @@
     bottom: 0;
     position: fixed;
     top: auto !important;
+    background: #fff;
   }
 
   .reference-popup-inner {

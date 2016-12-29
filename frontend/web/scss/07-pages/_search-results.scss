@@ -158,7 +158,7 @@
 
   .search-results-top-filter {
     @extend .clearfix;
-    margin: 0px -15px 10px;
+    margin: 0px -15px 0;
     border-bottom: 1px solid #c0c0c0;
     font-size: 12px;
     padding: 0 16px;
@@ -201,11 +201,16 @@
   }
 
   li {
-    width: 33.3%;
-    padding: 0px 5px 18px;
+    width: 50%;
+    padding: 0 5px 23px;
 
     @include breakpoint('tablet') {
-      padding: 0 10px 33px;
+      width: 33.3%;
+      padding: 0 5px 18px;
+    }
+
+    @include breakpoint('tablet') {
+      padding: 0 10px 58px;
     }
   }
 }
@@ -222,17 +227,11 @@
   text-align: center;
 
   .img {
-    width: 79px;
-    height: 79px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 0 auto 10px;
-
-    @include breakpoint('tablet') {
-      width: 101px;
-      height: 101px;
-      margin: 0 auto 8px;
-    }
+    margin: 0 auto 13px;
+    width: 116px;
+    height: 116px;
 
     a,img {
       display: block;
@@ -256,25 +255,35 @@
   }
 
   .name {
-    font-size: 14px;
-    margin: 0 0 15px;
+    font-size: 15px;
+    margin: 0 0 1px;
 
     @include breakpoint_custom($breakpoint-tablet) {
       line-height: 1.3em;
     }
 
     @include breakpoint('tablet') {
-      font-size: 19px;
-      margin: 0 0 5px;
+      font-size: 15px;
+      margin: 0 0 3px;
     }
   }
 
   p {
-    font-size: 11px;
+    font-size: 10px;
     line-height: 1.4em;
+    margin: 0 0 3px;
+
+    &.location {
+      margin: 0 0 11px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        display: block;
+      }
+    }
 
     @include breakpoint_custom($breakpoint-tablet) {
       display: none;
+      font-size: 11px;
     }
   }
 }
@@ -356,14 +365,14 @@
   }
 
   .name {
-    font-size: 12px;
+    font-size: 15px;
 
     @include breakpoint('tablet') {
       font-size: 10px;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
-      margin: 0 0 4px;
+      margin: 0 0 2px;
     }
   }
 

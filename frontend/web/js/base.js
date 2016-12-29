@@ -342,14 +342,14 @@ var elements = {
     // 2.7 SUBSCRIBE
     var forms = {
         clearAll: function(btnClear,btnSelect,checkboxes) {
-            $(btnClear).click(function(e) {
+            $(checkboxes).on('click', btnClear, function(e) {
                 $(this).addClass('active');
                 $(btnSelect).removeClass('active');
                 $(checkboxes).find(':checkbox').prop('checked', false);
             });
         },
         selectAll: function(btnClear,btnSelect,checkboxes) {
-            $(btnSelect).click(function(e) {
+            $(checkboxes).on('click', btnSelect, function(e) {
                 $(this).addClass('active');
                 $(btnClear).removeClass('active');
                 $(checkboxes).find(':checkbox').prop('checked', true);
@@ -359,6 +359,27 @@ var elements = {
             $(alert).on('click', btn, function() {
                 $(this).parents(alert).fadeOut();
             });
+        },
+        clearAllCheckboxes: function(btn) {
+            if($(btn).length) {
+                $(btn).text('Select all');
+
+                $(btn).click(function(e) {
+                    var cur = $(this);
+
+                    cur.toggleClass('active');
+
+                    if(cur.hasClass('active')) {
+                        cur.parents('li').find(':checkbox:enabled').prop('checked', true);
+                        cur.text('Clear all');
+                    } else {
+                        cur.parents('li').find(':checkbox:enabled').prop('checked', false);
+                        cur.text('Select all');
+                    }
+
+                    e.preventDefault();
+                });
+            }
         }
     };
     /* end */
@@ -487,9 +508,10 @@ var elements = {
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
-        forms.clearAll('.clear-all', '.select-all', '.grid');
-        forms.selectAll('.clear-all', '.select-all', '.grid');
+        forms.clearAll('.clear-all', '.select-all', '.content-types');
+        forms.selectAll('.clear-all', '.select-all', '.content-types');
         forms.close('.close','.alert');
+        forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search');
     });
 
