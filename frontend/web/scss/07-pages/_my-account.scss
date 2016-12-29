@@ -432,6 +432,12 @@
 
 .favourite-articles-list {
 
+  &.no-my-account {
+    .article-item {
+      padding-right: 0;
+    }
+  }
+
   @include breakpoint('tablet') {
     display: flex;
     flex-flow: row wrap;

@@ -49,8 +49,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="">Latest events</a></li>
-                    <li><a href="">Events archive</a></li>
+                    <li><a href="" class="js-widget">Latest events</a></li>
+                    <li><a href="" class="js-widget">Events archive</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden">

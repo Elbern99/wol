@@ -214,7 +214,7 @@ var elements = {
     /* tabs */
     var tabs = {
         switcher: function(list,tabs,item) {
-            $(list).on('click', 'a', function(e) {
+            $(list).on('click', '.js-widget', function(e) {
                 var cur = $(this),
                     curParent = cur.parent(),
                     curParentIndex = curParent.index();

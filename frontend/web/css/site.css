@@ -2108,6 +2108,13 @@ img {
     font-size: 11px;
     text-transform: uppercase; }
 
+.media-post figure {
+  margin: 0 0 20px; }
+  .media-post figure img,
+  .media-post figure iframe {
+    min-width: 100%;
+    max-height: 490px; }
+
 .sidebar-widget {
   margin: 0 0 31px;
   font-size: 13px;
@@ -5854,6 +5861,8 @@ iframe[name=advpp_manager] {
         width: 179px;
         margin: 0 10px 0 0; } }
 
+.favourite-articles-list.no-my-account .article-item {
+  padding-right: 0; }
 @media only screen and (min-width: 769px) {
   .favourite-articles-list {
     display: -ms-flexbox;

@@ -1104,3 +1104,18 @@
     text-transform: uppercase;
   }
 }
+
+
+//MEDIA-POST
+
+.media-post {
+  figure {
+    margin: 0 0 20px;
+
+    img,
+    iframe {
+      min-width: 100%;
+      max-height: 490px;
+    }
+  }
+}

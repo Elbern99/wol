@@ -41,8 +41,8 @@ if ($category) {
 
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li class="active"><a href="">Latest events</a></li>
-                    <li><a href="">Events archive</a></li>
+                    <li class="active"><a href="" class="js-widget">Latest events</a></li>
+                    <li><a href="" class="js-widget">Events archive</a></li>
                 </ul>
                 <h1 class="hide-desktop"><?= $this->title; ?></h1>
                 <div class="mobile-filter-items custom-tabs">
