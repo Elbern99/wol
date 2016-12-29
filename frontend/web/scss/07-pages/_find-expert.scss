@@ -1,0 +1,24 @@
+.find-expert {
+
+  .article-head {
+    margin-bottom: 33px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 72px;
+    }
+  }
+
+  .btn-gray {
+    margin: 0 auto;
+  }
+
+  .search {
+    max-width: 590px;
+    padding-right: 0;
+    margin: 0 auto 28px;
+
+    @include breakpoint('tablet') {
+      margin: 0 auto 94px;
+    }
+  }
+}
