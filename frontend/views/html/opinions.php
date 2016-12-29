@@ -168,13 +168,15 @@
                             <img src="images/temp/img-04.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -184,26 +186,30 @@
                             <img src="images/temp/img-04.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="opinion-item">
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -213,13 +219,15 @@
                             <img src="images/temp/img-04.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -229,26 +237,30 @@
                             <img src="images/temp/img-04.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="opinion-item">
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -258,13 +270,15 @@
                             <img src="images/temp/img-04.jpg" alt="">
                         </div>
                         <div class="desc">
-                            <div class="date">Septemer 12, 2016</div>
-                            <div class="name"><a href="">Tony Fang</a></div>
-                            <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                            <p>
-                                Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                            </p>
+                            <div class="inner">
+                                <div class="date">Septemer 12, 2016</div>
+                                <div class="name"><a href="">Tony Fang</a></div>
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>

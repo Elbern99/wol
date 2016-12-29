@@ -509,7 +509,9 @@ var elements = {
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.content-types');
+        forms.clearAll('.clear-all', '.select-all', '.checkboxes');
         forms.selectAll('.clear-all', '.select-all', '.content-types');
+        forms.selectAll('.clear-all', '.select-all', '.checkboxes');
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search');

@@ -710,6 +710,10 @@
   
   + .more-link {
     margin-top: 10px;
+
+    &.showed {
+      margin-top: 20px;
+    }
   }
 
   li {
