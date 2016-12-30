@@ -258,5 +258,3 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         </aside>
     </div>
 </div>
-
-<div class="overlay js-tab-hidden"></div>

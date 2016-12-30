@@ -26,8 +26,11 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 <body>
 <?php $this->beginBody() ?>
 
+<div class="holder">
+
 <div class="wrapper">
-    
+    <div class="overlay js-tab-hidden"></div>
+
     <main class="content">
         
         <?= $this->renderFile('@app/views/components/header/desktop/header.php'); ?>
@@ -54,6 +57,8 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 </div>
 
 <?php $this->endBody() ?>
+
+</div>
 </body>
 </html>
 <?php $this->endPage() ?>

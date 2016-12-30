@@ -108,6 +108,10 @@ class HtmlController extends Controller {
         return $this->render('find-expert');
     }
 
+    public function actionCommentary() {
+        return $this->render('commentary');
+    }
+
     public function actionUi() {
         return $this->render('ui');
     }

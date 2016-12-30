@@ -22,8 +22,8 @@
         ]);
     }
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: ' . $model->title .
-    '\n\n View the article: '. Url::to(['/event/view', 'slug' => $model->url_key], true) .'\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+$mailBody = 'Hi.\n\n I think that you would be interested in the following event from IZA World of labor. \n\n  Title: ' . $model->title .
+    '\n\n View the event: '. Url::to(['/event/view', 'slug' => $model->url_key], true) .'\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 
 <?php if (($imagePath = $model->getImagePath()) != null) : ?>
@@ -37,11 +37,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
 <div class="container event-page">
 
-    <div class="article-head">
+    <div class="article-head hide-mobile">
         <div class="breadcrumbs">
             <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>
-        <h1 class="hide-mobile"><?= $model->title; ?></h1>
+        <h1><?= $model->title; ?></h1>
     </div>
 
     <div class="content-inner">
@@ -181,7 +181,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a href="mailto:?subject=<?= Html::encode('Event from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

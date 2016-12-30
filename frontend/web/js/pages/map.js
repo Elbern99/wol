@@ -49,10 +49,17 @@
                     cur.parent().toggleClass('open-text');
                 e.preventDefault();
             });
-        }
+        },
+        closeOverlay: function(overlay,triggerEl) {
+            $(overlay).click(function(e) {
+                $(overlay).addClass('js-tab-hidden').removeClass('active');
+                $(triggerEl).trigger('click');
+            });
+        },
     };
 
     contentMap.MobileMoreText('.more-evidence-map-text-mobile');
+    contentMap.closeOverlay('.overlay', '.map-holder .icon-close');
 
     var mapObj = {
       options: {
