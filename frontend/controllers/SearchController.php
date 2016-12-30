@@ -19,6 +19,7 @@ class SearchController extends Controller
 {
 
     use \frontend\components\articles\SubjectTrait;
+    
     public function behaviors()
     {
         return [
@@ -68,6 +69,7 @@ class SearchController extends Controller
                 Yii::$app->getSession()->set('search', serialize($searchResult));
                 
             } else {
+                
                 $searchResult = unserialize(Yii::$app->getSession()->get('search'));
                 Result::setFilter('types',Yii::$app->request->post('filter_content_type'));
                 Result::setFilter('subject',Yii::$app->request->post('filter_subject_type'));

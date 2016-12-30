@@ -21,7 +21,7 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-
+<?php $form = ActiveForm::begin(); ?>
 <div class="container find-expert">
     <div class="article-head">
         <div class="breadcrumbs">
@@ -32,7 +32,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>
     
-    <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+    
     <div class="search-results-top">
         <div class="search">
             <div class="search-top">
@@ -43,7 +43,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                         </span>
                 </button>
                 <div class="search-holder">
-                    <input type="text" name="search" placeholder="Enter expertise or author name" class="form-control-decor">
+                     <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Enter expertise or author name"])->label('') ?>
                 </div>
             </div>
         </div>
@@ -63,8 +63,9 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
             </div>
         </div>
     </div>
-
+    
     <div class="content-inner">
+        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
         <div class="content-inner-text">
             <ul class="search-results-media-list">
                 
@@ -81,14 +82,16 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <p><strong>Country:</strong><?= implode(',', $expert['author_country'])?></p>
                 </li>
                 <?php endforeach; ?>
-                
             </ul>
             <?php if ($expertCount > $limit): ?>
                 <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
             <?php else: ?>
-                <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
+                <?php if (Yii::$app->request->get('limit')): ?>
+                    <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
+        <?php Pjax::end(); ?>
         <aside class="sidebar-right">
             <div class="filter-clone-holder">
                 <div class="filter-clone">
@@ -96,52 +99,80 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                         <h3>Filter by</h3>
                         
                         <ul class="sidebar-accrodion-list">
+                            <?php if (isset($filter['author_country'])): ?>
                             <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">country</a>
                                 <div class="text">
                                     <ul class="checkbox-list">
-                                        <li>
-                                            <label class="def-checkbox light">
-                                                <input type="checkbox" name="name">
-                                                <span class="label-text">Articles <strong class="count">(18)</strong></span>
-                                            </label>
-                                        </li>
+                                        <?= Html::activeCheckboxList($search, 'author_country', $filter['author_country'], ['item' => function($index, $label, $name, $checked, $value) {
+                                            return Html::tag('li', Html::checkbox($name, $checked, [
+                                                'labelOptions'=>['class' => 'def-checkbox light'],
+                                                'value' => $value,
+                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                            ]));
+                                        }]) ?>
+
                                     </ul>
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
+                            <?php endif; ?>
+                            <?php if (isset($filter['language'])): ?>
                             <li class="sidebar-accrodion-item">
                                 <a href="" class="title">language</a>
                                 <div class="text">
                                     <ul class="checkbox-list">
-                                        <li>
-                                            <label class="def-checkbox light">
-                                                <input type="checkbox" name="name">
-                                                <span class="label-text">Program evaluation<strong class="count">(18)</strong></span>
-                                            </label>
-                                        </li>
+                                        <?= Html::activeCheckboxList($search, 'language', $filter['language'], ['item' => function($index, $label, $name, $checked, $value) {
+                                            return Html::tag('li', Html::checkbox($name, $checked, [
+                                                'labelOptions'=>['class' => 'def-checkbox light'],
+                                                'value' => $value,
+                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                            ]));
+                                        }]) ?>
                                     </ul>
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
+                            <?php endif; ?>
+                            <?php if (isset($filter['expertise'])): ?>
                             <li class="sidebar-accrodion-item">
                                 <a href="" class="title">expertise</a>
                                 <div class="text">
+                                    <ul class="checkbox-list">
+                                        <?= Html::activeCheckboxList($search, 'expertise', $filter['expertise'], ['item' => function($index, $label, $name, $checked, $value) {
+                                            return Html::tag('li', Html::checkbox($name, $checked, [
+                                                'labelOptions'=>['class' => 'def-checkbox light'],
+                                                'value' => $value,
+                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                            ]));
+                                        }]) ?>
+                                    </ul>
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
+                            <?php endif; ?>
+                            <?php if (isset($filter['experience_type'])): ?>
                             <li class="sidebar-accrodion-item">
                                 <a href="" class="title">media experience</a>
                                 <div class="text">
+                                    <ul class="checkbox-list">
+                                        <?= Html::activeCheckboxList($search, 'experience_type', $filter['experience_type'], ['item' => function($index, $label, $name, $checked, $value) {
+                                            return Html::tag('li', Html::checkbox($name, $checked, [
+                                                'labelOptions'=>['class' => 'def-checkbox light'],
+                                                'value' => $value,
+                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                            ]));
+                                        }]) ?>
+                                    </ul>
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
             </div>
-
         </aside>
     </div>
-    <?php Pjax::end(); ?>
 </div>
+<?php ActiveForm::end(); ?>
