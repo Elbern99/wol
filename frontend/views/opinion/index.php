@@ -63,7 +63,7 @@ if ($category) {
                             <li>
                                 <h3>
                                     <a href="#">
-                                        <?= $video->title; ?>
+                                        <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                     </a>
                                 </h3>
                             </li>
@@ -159,7 +159,7 @@ if ($category) {
                                 <?php foreach ($videosSidebar as $video) : ?>
                                 <li>
                                     <h3>
-                                        <a href="#"><?= $video->title; ?></a>
+                                         <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                     </h3>
                                 </li>
                                 <?php endforeach; ?>                               

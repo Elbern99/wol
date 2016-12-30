@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use common\contracts\VideoInterface;
+use common\helpers\VideoHelper;
 
 /**
  * This is the model class for table "video".
@@ -18,6 +19,8 @@ use common\contracts\VideoInterface;
  */
 class Video extends \yii\db\ActiveRecord implements VideoInterface
 {
+    
+    
     /**
      * @inheritdoc
      */
@@ -61,5 +64,23 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     
     public function getVideo() {
         return $this->getAttribute('video');
+    }
+    
+    public function getImageLink() {
+        VideoHelper::load($this);
+        return VideoHelper::getImage();
+    }
+        
+    private function getVideoId() 
+    {
+        $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=|/watch\?.+&v=))([\w-]{11})(?:.+)?$#x';
+        preg_match($pattern, $this->video, $matches);
+        return (isset($matches[1])) ? $matches[1] : false;
+    }
+    
+    
+    public function getVideoImageLink() 
+    {
+        return 'http://img.youtube.com/vi/' . $this->getVideoId() . '/hqdefault.jpg';
     }
 }
