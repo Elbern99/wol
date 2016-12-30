@@ -1,0 +1,60 @@
+.single-post-page {
+  .show-more {
+    margin: 15px auto 30px;
+
+    @include breakpoint('tablet') {
+      margin: -33px auto 33px;
+    }
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-widget-articles-filter {
+      display: none;
+    }
+  }
+
+  .mobile-filter-holder {
+    margin-bottom: 10px;
+  }
+}
+
+.post-full-item {
+  margin: 0 0 30px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 46px;
+  }
+
+  figure {
+    margin: 0 0 17px;
+  }
+
+  p {
+    font-size: 13px;
+
+    @include breakpoint('tablet') {
+      font-size: 11px;
+    }
+  }
+
+  iframe,
+  figure {
+    height: calc(100vh*0.519);
+    max-height: 163px;
+    overflow: hidden;
+
+    @include breakpoint('mobile-large') {
+      max-height: 263px;
+    }
+
+    @include breakpoint('tablet') {
+      max-height: 490px;
+    }
+  }
+
+  img,
+  iframe {
+    min-width: 100%;
+    width: 100%;
+  }
+}

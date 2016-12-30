@@ -1,9 +1,9 @@
 <?php use yii\helpers\Url; ?>
 <div class="tab js-tab-hidden" id="tab-2">
     <?php if (count($articlesCollection)): ?>
-    <ul class="favourite-articles-list">
+    <ul class="post-list favourite-articles-list">
         <?php foreach ($articlesCollection as $article): ?>
-        <li class="article-item">
+        <li class="post-item">
             <a href="<?= Url::to(['/my-account/remove-favorite', 'id' => $article['fovorit_id']]) ?>" class="icon-close"></a>
             <ul class="article-rubrics-list">
                 <?php foreach ($article['category'] as $link): ?>

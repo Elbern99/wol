@@ -96,6 +96,14 @@ class HtmlController extends Controller {
         return $this->render('opinion-item');
     }
 
+    public function actionVideoItem() {
+        return $this->render('video-item');
+    }
+
+    public function actionVideos() {
+        return $this->render('videos');
+    }
+
     public function actionFindExpert() {
         return $this->render('find-expert');
     }

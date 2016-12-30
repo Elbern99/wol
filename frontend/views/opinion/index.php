@@ -97,22 +97,18 @@ if ($category) {
                 <li>
                     <div class="opinion-item <?= $hasImageClass; ?>">
                         <?php if ($hasImageClass) : ?>
-                        <div class="img">
-                            <?= Html::img('@web/uploads/opinions/'.$opinion->image_link, [
-                                'alt' => 'Opinion image',
-                            ]); ?>
-                        </div>
+                        <a href="<?= '/opinions/'. $opinion->url_key; ?>" title="<?= $opinion->title ?>" class="img" style="background-image: url(<?= '@web/uploads/opinions/'.$opinion->image_link; ?>)"></a>
                         <?php endif; ?>
                         <div class="desc">
                             <div class="inner">
-                            <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
-                            <div class="name"><a href="">Hardcoded Author</a></div>
-                            <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
-                            <?php if ($opinion->short_description) : ?>
-                            <p>
-                                <?= $opinion->short_description; ?>
-                            </p>
-                            <?php endif; ?>
+                                <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
+                                <div class="name"><a href="">Hardcoded Author</a></div>
+                                <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
+                                <?php if ($opinion->short_description) : ?>
+                                <p>
+                                    <?= $opinion->short_description; ?>
+                                </p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

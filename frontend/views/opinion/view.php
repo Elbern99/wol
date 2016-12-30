@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => 
 $this->params['breadcrumbs'][] = $model->title;
 ?>
 
-<div class="container media-page">
+<div class="container single-post-page">
     <div class="article-head-holder">
         <div class="article-head">
             <div class="breadcrumbs">
@@ -85,8 +85,8 @@ $this->params['breadcrumbs'][] = $model->title;
     </div>
 
     <div class="content-inner">
-        <div class="content-inner-text contact-page">
-            <article class="media-post">
+        <div class="content-inner-text">
+            <article class="post-full-item">
                 <?php $hasImage= $model->image_link ? true : false; ?>
                 <?php if ($hasImage) : ?>
                 <figure>

@@ -717,9 +717,9 @@
   }
 
   li {
-    left: -9999px !important;
-    position: absolute !important;
-    top: -9999px !important;
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
     opacity: 0;
     transform: translateY(-30%);
     transition: transform .5s ease, opacity .5s ease;
@@ -753,14 +753,16 @@
 .additional-references-list,
 .further-reading-list,
 .sidebar-key-topics-list {
-  &:nth-child(-n+13),
-  &.opened {
-    opacity: 1 !important;
-    height: auto !important;
-    left: auto !important;
-    position: relative !important;
-    top: auto !important;
-    transform: translateX(0);
+  li {
+    &:nth-child(-n+13),
+    &.opened {
+      opacity: 1 !important;
+      height: auto !important;
+      left: auto !important;
+      position: relative !important;
+      top: auto !important;
+      transform: translateX(0);
+    }
   }
 }
 

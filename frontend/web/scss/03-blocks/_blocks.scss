@@ -252,13 +252,16 @@
 }
 
 //article-item
-.article-item {
+.article-item,
+.post-item {
   margin: 0 0 20px;
   overflow: hidden;
 
   h2 {
     font-size: 20px;
     margin: 0 0 9px;
+    max-height: 67px;
+    overflow: hidden;
 
     @include breakpoint_custom($breakpoint-tablet) {
       font-size: 16px !important;
@@ -270,10 +273,13 @@
     font-size: 15px;
     line-height: 1.5em;
     margin: 0 0 8px;
+    overflow: hidden;
+    max-height: 66px;
 
     @include breakpoint('tablet') {
       font-size: 12px;
       margin: 0 0 6px;
+      max-height: 55px;
     }
   }
 
@@ -292,6 +298,54 @@
     line-height: 1.6em;
     display: none;
     margin-bottom: 10px;
+  }
+
+  .img {
+    height: 183px;
+    position: relative;
+    background-size: cover;
+    margin: 0 0 15px;
+    display: block;
+    background-position: 50% 50%;
+
+    @include breakpoint('tablet') {
+      float: none;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      float: left;
+      width: 88px;
+      height: 62px;
+      margin: 0 20px 0 0;
+
+      .icon-play {
+        display: none;
+      }
+    }
+
+    .icon-play {
+      @extend .icon-to-center;
+    }
+  }
+
+  &.media-item {
+    overflow: hidden;
+
+    h2 {
+      font-size: 16px;
+      max-height: 42px;
+      line-height: 1.4em;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      h2 {
+        font-size: 15px;
+      }
+
+      h3 {
+        display: none;
+      }
+    }
   }
 }
 
@@ -737,7 +791,7 @@
   align-self: center;
 
   @include breakpoint('tablet') {
-    margin: 4px -2px 0px -5px;
+    margin: 0 -2px 0px -5px;
   }
 
   li {
@@ -1105,17 +1159,65 @@
   }
 }
 
+//POST-LIST
+.post-list {
+  margin: 0 0 10px 0;
 
-//MEDIA-POST
+  @include breakpoint('tablet') {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -38px 40px 0;
+  }
 
-.media-post {
-  figure {
-    margin: 0 0 20px;
+  .icon-close {
+    right: -15px;
+    top: -11px;
 
-    img,
-    iframe {
-      min-width: 100%;
-      max-height: 490px;
+    @include breakpoint('desktop') {
+      right: 15px;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:before,
+    &:after {
+      background: #acacac;
+      width: 10px;
+      height: 1px;
+
+      @include breakpoint('desktop') {
+        left: 6px;
+        width: 8px;
+      }
+    }
+  }
+  >li {
+    padding: 3px 28px 17px 0;
+    overflow: visible;
+
+    @include breakpoint('tablet') {
+      width: 50%;
+      padding: 3px 38px 25px 0;
+    }
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+    }
+  }
+
+  &.favourite-articles-list {
+
+    @include breakpoint('tablet') {
+      margin: -6px 0 40px -30px;
+    }
+
+    >li {
+      padding: 3px 28px 17px 0;
+
+      @include breakpoint('tablet') {
+        padding: 10px 55px 10px 30px;
+      }
     }
   }
 }

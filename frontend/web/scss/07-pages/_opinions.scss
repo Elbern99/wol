@@ -20,12 +20,13 @@
   }
 }
 
-.opinions-list {
+.opinions-list,
+.videos-list {
   overflow: hidden;
   margin: 0 0 15px;
 
   @include breakpoint('desktop') {
-    margin: 0 -3px 25px;
+    margin: 0 -3px 10px;
   }
 
   li {
@@ -34,7 +35,7 @@
     @include breakpoint('desktop') {
       width: 33.3%;
       float: left;
-      padding: 5px 3px 6px;
+      padding: 5px 3px 20px;
 
       .opinion-item {
         height: 433px;
@@ -62,7 +63,6 @@
           &.has-image {
             display: flex;
             height: 292px;
-            margin-bottom: 17px;
 
             .desc {
               overflow: hidden;
@@ -125,7 +125,25 @@
     }
 
     .img {
-      height: 53%;
+      overflow: hidden;
+      max-height: 300px;
+      display: block;
+      background-size: cover;
+      background-position: 50% 50%;
+      position: relative;
+
+      @include breakpoint('tablet') {
+        height: 53%;
+        min-height: 200px;
+      }
+
+      .icon-play {
+        @extend .icon-to-center;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          display: none;
+        }
+      }
 
       img {
         min-height: 100%;
@@ -144,6 +162,7 @@
         float: left;
         width: 82px;
         margin: 0 14px 0 0;
+        height: 60px;
 
         img {
           min-height: 60px;

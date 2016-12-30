@@ -1,10 +1,10 @@
 <?php
-    use yii\helpers\Html;
-    use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <?php
-    $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 
 <div class="container opinions-page">
@@ -17,8 +17,8 @@
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="">Opinions</a></li>
-                    <li><a href="">Videos</a></li>
+                    <li><a href="" class="js-widget">Opinions</a></li>
+                    <li><a href="" class="js-widget">Videos</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden expand-more">
@@ -151,26 +151,24 @@
                     </div>
                 </div>
             </div>
-            <h1>Opinions</h1>
+            <h1>Videos</h1>
             <div class="more-text-mobile">
-                <p><a href="">IZA World of Labor</a> articles provide concise, evidence-based analysis of policy-relevant topics in labor economics. We recognize that the articles will prompt discussion and possibly controversy. Opinion articles will capture these ideas and debates concisely, and anchor them with real-world examples. Opinions stated here do not necessarily reflect those of the IZA.</p>
+                <p>Watch exclusive video from conferences, debates and other events on labor market economics, contributions from IZA World of Labor authors, and more. </p>
                 <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
             </div>
         </div>
     </div>
 
     <div class="content-inner">
-        <div class="content-inner-text contact-page">
-            <ul class="opinions-list">
+        <div class="content-inner-text">
+            <ul class="videos-list">
                 <li class="">
                     <div class="opinion-item has-image">
-                        <div class="img">
-                            <img src="images/temp/img-04.jpg" alt="">
-                        </div>
+                        <a href="" class="img" style="background-image: url(images/temp/img-04.jpg)">
+                            <span class="icon-play"></span>
+                        </a>
                         <div class="desc">
                             <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
                                 <h2><a href="">Do employees profit from profit sharing?</a></h2>
                                 <p>
                                     Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
@@ -182,28 +180,11 @@
                 </li>
                 <li>
                     <div class="opinion-item has-image">
-                        <div class="img">
-                            <img src="images/temp/img-04.jpg" alt="">
-                        </div>
+                        <a href="" class="img" style="background-image: url(images/temp/img-04.jpg)">
+                            <span class="icon-play"></span>
+                        </a>
                         <div class="desc">
                             <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
-                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                                <p>
-                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="opinion-item">
-                        <div class="desc">
-                            <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
                                 <h2><a href="">Do employees profit from profit sharing?</a></h2>
                                 <p>
                                     Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
@@ -215,13 +196,11 @@
                 </li>
                 <li>
                     <div class="opinion-item has-image">
-                        <div class="img">
-                            <img src="images/temp/img-04.jpg" alt="">
-                        </div>
+                        <a href="" class="img" style="background-image: url(images/temp/img-04.jpg)">
+                            <span class="icon-play"></span>
+                        </a>
                         <div class="desc">
                             <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
                                 <h2><a href="">Do employees profit from profit sharing?</a></h2>
                                 <p>
                                     Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
@@ -233,28 +212,11 @@
                 </li>
                 <li>
                     <div class="opinion-item has-image">
-                        <div class="img">
-                            <img src="images/temp/img-04.jpg" alt="">
-                        </div>
+                        <a href="" class="img" style="background-image: url(images/temp/img-04.jpg)">
+                            <span class="icon-play"></span>
+                        </a>
                         <div class="desc">
                             <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
-                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
-                                <p>
-                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="opinion-item">
-                        <div class="desc">
-                            <div class="inner">
-                                <div class="date">Septemer 12, 2016</div>
-                                <div class="name"><a href="">Tony Fang</a></div>
                                 <h2><a href="">Do employees profit from profit sharing?</a></h2>
                                 <p>
                                     Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
@@ -266,12 +228,16 @@
                 </li>
                 <li>
                     <div class="opinion-item has-image">
-                        <div class="img">
-                            <img src="images/temp/img-04.jpg" alt="">
-                        </div>
+                        <a href="" class="img" style="background-image: url(images/temp/img-04.jpg)">
+                            <span class="icon-play"></span>
+                        </a>
                         <div class="desc">
                             <div class="inner">
-
+                                <h2><a href="">Do employees profit from profit sharing?</a></h2>
+                                <p>
+                                    Profit sharing, a formal bonus program based on profitability, has a long history and is a practice that many firms continue to adopt.<br><br>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -418,11 +384,6 @@
                         </div>
                     </li>
                 </ul>
-            </div>
-            <div class="sidebar-widget sidebar-widget-subscribe">
-                <div class="widget-title">stay up to date</div>
-                <p>Register for our newsletter to receive regular updates on what we’re doing, latest news and forthcoming articles.</p>
-                <a href="/subscribe" class="btn-blue">subscribe to newsletter</a>
             </div>
         </aside>
     </div>

@@ -137,6 +137,10 @@
   .tab-item {
     @extend .opacityAnimate;
   }
+
+  @include breakpoint('tablet') {
+    display: none !important;
+  }
 }
 
 .mobile-filter-list {

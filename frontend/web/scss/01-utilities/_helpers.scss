@@ -5,13 +5,13 @@
 
 .hide-mobile {
   @include breakpoint_custom($breakpoint-tablet) {
-    display: none;
+    display: none !important;
   }
 }
 
 .hide-desktop {
   @include breakpoint('tablet') {
-    display: none;
+    display: none !important;
   }
 }
 

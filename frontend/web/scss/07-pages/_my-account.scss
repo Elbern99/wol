@@ -431,56 +431,7 @@
 //FAVOURITE-ARTICLES-LIST
 
 .favourite-articles-list {
-
-  &.no-my-account {
-    .article-item {
-      padding-right: 0;
-    }
-  }
-
-  @include breakpoint('tablet') {
-    display: flex;
-    flex-flow: row wrap;
-    margin: -6px 0 0 -30px;
-  }
-
-  >li {
-    padding: 3px 28px 17px 0;
-    overflow: visible;
-
-    @include breakpoint('tablet') {
-      width: 50%;
-      padding: 10px 55px 10px 30px;
-    }
-
-    @include breakpoint('desktop') {
-      width: 33.3%;
-    }
-  }
-
-  .icon-close {
-    right: -15px;
-    top: -11px;
-
-    @include breakpoint('desktop') {
-      right: 15px;
-      top: 6px;
-      width: 20px;
-      height: 20px;
-    }
-
-    &:before,
-    &:after {
-      background: #acacac;
-      width: 10px;
-      height: 1px;
-
-      @include breakpoint('desktop') {
-        left: 6px;
-        width: 8px;
-      }
-    }
-  }
+  @extend .post-list;
 }
 
 
