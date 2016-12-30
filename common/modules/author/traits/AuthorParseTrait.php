@@ -141,6 +141,24 @@ trait AuthorParseTrait {
          return serialize($obj);
     }
     
+    protected function getAuthorCountry() {
+        
+        if ($this->person->country) {
+            
+            $codes = [];
+            
+            foreach($this->person->country as $country) {
+                $obj = new stdClass;
+                $obj->code = (string) $country->attributes();
+                $codes[] = $obj;
+            }
+            
+            return serialize($codes);
+        }
+        
+        return null;
+    }
+    
     protected function getPosition() {
 
         $positions = [
@@ -201,6 +219,22 @@ trait AuthorParseTrait {
     protected function getExpertise() {
         
         if ($this->person->expertise) {
+            
+            if (isset($this->person->expertise->p)) {
+
+                $expertises = [];
+
+                foreach ($this->person->expertise->p as $expertise) {
+                    
+                    $obj = new stdClass;
+                    $obj->expertise = (string) $expertise;
+
+                    $expertises[] = $obj;
+                }
+                
+                return serialize($expertises);
+            }
+            
             $obj = new stdClass;
             $obj->expertise = (string) $this->person->expertise;
 
