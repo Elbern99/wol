@@ -145,9 +145,13 @@ class AuthorsController extends Controller {
         
         $experts = Author::find()
                         ->select(['id', 'avatar', 'author_key'])
-                        ->where(['enabled' => 1, 'id' => $experstIds])
-                        ->limit($limit)
-                        ->all();
+                        ->where(['enabled' => 1, 'id' => $experstIds]);
+        
+        if (!$loadSearch) {
+            $experts->limit($limit);
+        }
+                        
+        $experts = $experts->all();
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['name', 'affiliation', 'experience_type', 'expertise', 'language', 'author_country']);
