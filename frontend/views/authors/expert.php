@@ -84,11 +84,13 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                 </li>
                 <?php endforeach; ?>
             </ul>
-            <?php if (expertCount > $limit): ?>
-                <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
-            <?php else: ?>
-                <?php if (Yii::$app->request->get('limit')): ?>
-                    <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
+            <?php if (!Yii::$app->request->isPost): ?>
+                <?php if ($expertCount > $limit): ?>
+                    <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
+                <?php else: ?>
+                    <?php if (Yii::$app->request->get('limit')): ?>
+                        <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
