@@ -4,6 +4,7 @@
   flex-direction: column ;
   overflow: hidden;
   position: relative;
+
 }
 
 .without-breadcrumbs {
@@ -34,8 +35,7 @@
 
 .content-inner {
 
-  >.content-inner-text,
-  div#w0 {
+  >div:first-child {
     padding-bottom: 27px;
 
     >*:last-child {
@@ -53,8 +53,7 @@
     min-height: 100%;
     align-items: stretch;
 
-    >.content-inner-text,
-    #w0 {
+    >div:first-child {
       width: 100000px;
     }
   }

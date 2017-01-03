@@ -112,6 +112,10 @@ class HtmlController extends Controller {
         return $this->render('commentary');
     }
 
+    public function actionNews() {
+        return $this->render('news');
+    }
+
     public function actionUi() {
         return $this->render('ui');
     }

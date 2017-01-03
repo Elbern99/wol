@@ -187,7 +187,8 @@ label {
 .checkbox-list {
   padding: 0 0 10px 0;
 
-  li {
+  li,
+  .item {
     text-transform: capitalize;
     margin: 0 0 12px;
   }

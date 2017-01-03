@@ -127,7 +127,7 @@
   }
 
   ul.tagit {
-    padding: 6px 6px 0 3px;
+    padding: 6px 6px 6px 3px;
     overflow: hidden !important;
     margin-left: inherit;
     margin-right: inherit;
@@ -136,6 +136,10 @@
     border: 0;
     cursor: text;
     transition: box-shadow 0.3s ease;
+
+    @include breakpoint('tablet') {
+      padding: 9px 6px 9px 3px;
+    }
 
     &.focus {
       box-shadow: 0 1px 5px rgba(0,83,160,0.9) inset;

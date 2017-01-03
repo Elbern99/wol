@@ -106,7 +106,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">country</a>
                                 <div class="text">
-                                    <div class="checkbox-list">
+                                    <div class="checkbox-list more-extra-list">
                                         <?= Html::activeCheckboxList($search, 'author_country', $filter['author_country'], ['item' => function($index, $label, $name, $checked, $value) {
                                             
                                             return Html::tag('div', Html::checkbox($name, $checked, [
@@ -117,6 +117,13 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                         }]) ?>
 
                                     </div>
+                                    <?php if(count($filter['author_country']) > 13): ?>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
+                                    <?php endif ?>
+
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
@@ -125,7 +132,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             <li class="sidebar-accrodion-item">
                                 <a href="" class="title">language</a>
                                 <div class="text">
-                                    <div class="checkbox-list">
+                                    <div class="checkbox-list more-extra-list">
                                         <?= Html::activeCheckboxList($search, 'language', $filter['language'], ['item' => function($index, $label, $name, $checked, $value) {
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions'=>['class' => 'def-checkbox light'],
@@ -134,6 +141,13 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                             ]), ['class' => 'item']);
                                         }]) ?>
                                     </div>
+                                    <?php if(count($filter['language']) > 13): ?>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
+                                    <?php endif ?>
+
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
@@ -141,16 +155,24 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             <?php if (isset($filter['expertise'])): ?>
                             <li class="sidebar-accrodion-item">
                                 <a href="" class="title">expertise</a>
-                                <div class="text">
-                                    <div class="checkbox-list">
+                                <div class="text expand-more">
+                                    <div class="checkbox-list more-extra-list">
                                         <?= Html::activeCheckboxList($search, 'expertise', $filter['expertise'], ['item' => function($index, $label, $name, $checked, $value) {
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions'=>['class' => 'def-checkbox light'],
                                                 'value' => $value,
                                                 'label' => '<span class="label-text">'.$label.'</span>',
-                                            ]));
-                                        }], ['class' => 'item']) ?>
+                                            ]), ['class' => 'item']);
+                                        }]) ?>
                                     </div>
+
+                                    <?php if(count($filter['expertise']) > 13): ?>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
+                                    <?php endif ?>
+
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>
@@ -165,9 +187,16 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                                 'labelOptions' => ['class' => 'def-checkbox light'],
                                                 'value' => $value,
                                                 'label' => '<span class="label-text">'.$label.'</span>',
-                                            ]));
-                                        }], ['class' => 'item']) ?>
+                                            ]), ['class' => 'item']);
+                                        }]) ?>
                                     </div>
+                                    <?php if(count($filter['experience_type']) > 13): ?>
+                                        <a href="" class="more-link">
+                                            <span class="more">More</span>
+                                            <span class="less">Less</span>
+                                        </a>
+                                    <?php endif ?>
+
                                     <a href="" class="clear-all">Clear all</a>
                                 </div>
                             </li>

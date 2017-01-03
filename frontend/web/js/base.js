@@ -397,9 +397,9 @@ var elements = {
                     cur.toggleClass('showed');
 
                     if(cur.hasClass('showed')) {
-                        curParent.find('li').addClass('opened');
+                        curParent.find('li,.item').addClass('opened');
                     } else {
-                        curParent.find('li').removeClass('opened');
+                        curParent.find('li,.item').removeClass('opened');
 
                         setTimeout(function(){
                             $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
@@ -498,6 +498,7 @@ var elements = {
         sidebarNews.moreSidebarNews('.more-link','.key-references-list');
         sidebarNews.moreSidebarNews('.more-link','.further-reading-list');
         sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list');
+        sidebarNews.moreSidebarNews('.more-link','.more-extra-list');
     });
 
     $(window).load(function() {

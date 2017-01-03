@@ -283,9 +283,16 @@
     }
   }
 
+  .date {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+
   .publish {
     margin: 0 0 9px;
     font-size: 12px;
+    text-transform: uppercase;
 
     @include breakpoint('tablet') {
       margin: 0 0 1px;
@@ -337,7 +344,7 @@
 
     h2 {
       font-size: 16px;
-      max-height: 42px;
+      max-height: 65px;
       line-height: 1.4em;
     }
 
@@ -752,6 +759,11 @@
     color: #fff;
 
     [class*='icon-'] {
+
+      &.icon-save {
+        margin: -7px 19px 0 7px;
+      }
+
       &:before {
         content: '';
         width: 4px;
@@ -760,7 +772,6 @@
         border-right: 2px solid #fff;
         display: inline-block;
         transform: rotate(41deg);
-        margin: 0 0 2px 0;
       }
     }
   }
