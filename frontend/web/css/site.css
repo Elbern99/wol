@@ -6800,102 +6800,124 @@ path {
   .opinions-page .mobile-filter-holder {
     display: none; } }
 
+@media only screen and (min-width: 1024px) {
+  .two-column-first:first-child, .opinions-list li:first-child,
+  .videos-list li:first-child, .news-list li:first-child {
+    width: 100%;
+    float: none; }
+    .two-column-first:first-child .opinion-item, .opinions-list li:first-child .opinion-item,
+    .videos-list li:first-child .opinion-item, .news-list li:first-child .opinion-item,
+    .two-column-first:first-child .news-item,
+    .opinions-list li:first-child .news-item,
+    .videos-list li:first-child .news-item,
+    .news-list li:first-child .news-item,
+    .two-column-first:first-child .post-item,
+    .opinions-list li:first-child .post-item,
+    .videos-list li:first-child .post-item,
+    .news-list li:first-child .post-item {
+      height: auto; }
+      .two-column-first:first-child .opinion-item h2, .opinions-list li:first-child .opinion-item h2,
+      .videos-list li:first-child .opinion-item h2, .news-list li:first-child .opinion-item h2,
+      .two-column-first:first-child .news-item h2,
+      .opinions-list li:first-child .news-item h2,
+      .videos-list li:first-child .news-item h2,
+      .news-list li:first-child .news-item h2,
+      .two-column-first:first-child .post-item h2,
+      .opinions-list li:first-child .post-item h2,
+      .videos-list li:first-child .post-item h2,
+      .news-list li:first-child .post-item h2 {
+        font-size: 24px; }
+      .two-column-first:first-child .opinion-item .desc, .opinions-list li:first-child .opinion-item .desc,
+      .videos-list li:first-child .opinion-item .desc, .news-list li:first-child .opinion-item .desc,
+      .two-column-first:first-child .news-item .desc,
+      .opinions-list li:first-child .news-item .desc,
+      .videos-list li:first-child .news-item .desc,
+      .news-list li:first-child .news-item .desc,
+      .two-column-first:first-child .post-item .desc,
+      .opinions-list li:first-child .post-item .desc,
+      .videos-list li:first-child .post-item .desc,
+      .news-list li:first-child .post-item .desc {
+        padding: 20px 15px 20px;
+        height: auto; }
+        .two-column-first:first-child .opinion-item .desc p, .opinions-list li:first-child .opinion-item .desc p,
+        .videos-list li:first-child .opinion-item .desc p, .news-list li:first-child .opinion-item .desc p,
+        .two-column-first:first-child .news-item .desc p,
+        .opinions-list li:first-child .news-item .desc p,
+        .videos-list li:first-child .news-item .desc p,
+        .news-list li:first-child .news-item .desc p,
+        .two-column-first:first-child .post-item .desc p,
+        .opinions-list li:first-child .post-item .desc p,
+        .videos-list li:first-child .post-item .desc p,
+        .news-list li:first-child .post-item .desc p {
+          max-height: 189px; }
+      .two-column-first:first-child .opinion-item.has-image, .opinions-list li:first-child .opinion-item.has-image,
+      .videos-list li:first-child .opinion-item.has-image, .news-list li:first-child .opinion-item.has-image,
+      .two-column-first:first-child .news-item.has-image,
+      .opinions-list li:first-child .news-item.has-image,
+      .videos-list li:first-child .news-item.has-image,
+      .news-list li:first-child .news-item.has-image,
+      .two-column-first:first-child .post-item.has-image,
+      .opinions-list li:first-child .post-item.has-image,
+      .videos-list li:first-child .post-item.has-image,
+      .news-list li:first-child .post-item.has-image {
+        display: -ms-flexbox;
+        display: flex;
+        height: 292px; }
+        .two-column-first:first-child .opinion-item.has-image .desc, .opinions-list li:first-child .opinion-item.has-image .desc,
+        .videos-list li:first-child .opinion-item.has-image .desc, .news-list li:first-child .opinion-item.has-image .desc,
+        .two-column-first:first-child .news-item.has-image .desc,
+        .opinions-list li:first-child .news-item.has-image .desc,
+        .videos-list li:first-child .news-item.has-image .desc,
+        .news-list li:first-child .news-item.has-image .desc,
+        .two-column-first:first-child .post-item.has-image .desc,
+        .opinions-list li:first-child .post-item.has-image .desc,
+        .videos-list li:first-child .post-item.has-image .desc,
+        .news-list li:first-child .post-item.has-image .desc {
+          overflow: hidden;
+          padding: 0 0 20px;
+          width: 50%;
+          -ms-flex-align: stretch;
+              align-items: stretch; }
+        .two-column-first:first-child .opinion-item.has-image .img, .opinions-list li:first-child .opinion-item.has-image .img,
+        .videos-list li:first-child .opinion-item.has-image .img, .news-list li:first-child .opinion-item.has-image .img,
+        .two-column-first:first-child .news-item.has-image .img,
+        .opinions-list li:first-child .news-item.has-image .img,
+        .videos-list li:first-child .news-item.has-image .img,
+        .news-list li:first-child .news-item.has-image .img,
+        .two-column-first:first-child .post-item.has-image .img,
+        .opinions-list li:first-child .post-item.has-image .img,
+        .videos-list li:first-child .post-item.has-image .img,
+        .news-list li:first-child .post-item.has-image .img {
+          width: 50%;
+          float: right;
+          margin: 0 0 0 10px;
+          -ms-flex-order: 2;
+              order: 2;
+          height: auto;
+          min-height: 230px; } }
+
 .opinions-list,
-.videos-list,
-.news-list {
+.videos-list {
   overflow: hidden;
   margin: 0 0 -20px; }
   @media only screen and (min-width: 1024px) {
     .opinions-list,
-    .videos-list,
-    .news-list {
+    .videos-list {
       margin: 0 -3px -20px; } }
   .opinions-list li,
-  .videos-list li,
-  .news-list li {
+  .videos-list li {
     padding: 0 0 20px; }
     @media only screen and (min-width: 1024px) {
       .opinions-list li,
-      .videos-list li,
-      .news-list li {
+      .videos-list li {
         width: 33.3%;
         float: left;
         padding: 5px 3px 20px; }
         .opinions-list li .opinion-item,
         .opinions-list li .news-item,
         .videos-list li .opinion-item,
-        .videos-list li .news-item,
-        .news-list li .opinion-item,
-        .news-list li .news-item {
+        .videos-list li .news-item {
           height: 433px; } }
-    @media only screen and (min-width: 1024px) {
-      .opinions-list li:first-child,
-      .videos-list li:first-child,
-      .news-list li:first-child {
-        width: 100%;
-        float: none; }
-        .opinions-list li:first-child .opinion-item,
-        .opinions-list li:first-child .news-item,
-        .videos-list li:first-child .opinion-item,
-        .videos-list li:first-child .news-item,
-        .news-list li:first-child .opinion-item,
-        .news-list li:first-child .news-item {
-          height: auto; }
-          .opinions-list li:first-child .opinion-item h2,
-          .opinions-list li:first-child .news-item h2,
-          .videos-list li:first-child .opinion-item h2,
-          .videos-list li:first-child .news-item h2,
-          .news-list li:first-child .opinion-item h2,
-          .news-list li:first-child .news-item h2 {
-            font-size: 24px; }
-          .opinions-list li:first-child .opinion-item .desc,
-          .opinions-list li:first-child .news-item .desc,
-          .videos-list li:first-child .opinion-item .desc,
-          .videos-list li:first-child .news-item .desc,
-          .news-list li:first-child .opinion-item .desc,
-          .news-list li:first-child .news-item .desc {
-            padding: 20px 15px 20px;
-            height: auto; }
-            .opinions-list li:first-child .opinion-item .desc p,
-            .opinions-list li:first-child .news-item .desc p,
-            .videos-list li:first-child .opinion-item .desc p,
-            .videos-list li:first-child .news-item .desc p,
-            .news-list li:first-child .opinion-item .desc p,
-            .news-list li:first-child .news-item .desc p {
-              max-height: 189px; }
-          .opinions-list li:first-child .opinion-item.has-image,
-          .opinions-list li:first-child .news-item.has-image,
-          .videos-list li:first-child .opinion-item.has-image,
-          .videos-list li:first-child .news-item.has-image,
-          .news-list li:first-child .opinion-item.has-image,
-          .news-list li:first-child .news-item.has-image {
-            display: -ms-flexbox;
-            display: flex;
-            height: 292px; }
-            .opinions-list li:first-child .opinion-item.has-image .desc,
-            .opinions-list li:first-child .news-item.has-image .desc,
-            .videos-list li:first-child .opinion-item.has-image .desc,
-            .videos-list li:first-child .news-item.has-image .desc,
-            .news-list li:first-child .opinion-item.has-image .desc,
-            .news-list li:first-child .news-item.has-image .desc {
-              overflow: hidden;
-              padding: 0 0 20px;
-              width: 50%;
-              -ms-flex-align: stretch;
-                  align-items: stretch; }
-            .opinions-list li:first-child .opinion-item.has-image .img,
-            .opinions-list li:first-child .news-item.has-image .img,
-            .videos-list li:first-child .opinion-item.has-image .img,
-            .videos-list li:first-child .news-item.has-image .img,
-            .news-list li:first-child .opinion-item.has-image .img,
-            .news-list li:first-child .news-item.has-image .img {
-              width: 50%;
-              float: right;
-              margin: 0 0 0 10px;
-              -ms-flex-order: 2;
-                  order: 2;
-              height: auto;
-              min-height: 230px; } }
 
 .commentary-opinions-list {
   overflow: hidden;

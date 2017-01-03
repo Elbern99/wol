@@ -16,38 +16,15 @@
   }
 }
 
-.opinions-list,
-.videos-list,
-.news-list {
-  overflow: hidden;
-  margin: 0 0 -20px;
-
-  @include breakpoint('desktop') {
-    margin: 0 -3px -20px;
-  }
-
-  li {
-    padding: 0 0 20px;
-
-    @include breakpoint('desktop') {
-      width: 33.3%;
-      float: left;
-      padding: 5px 3px 20px;
-
-      .opinion-item,
-      .news-item {
-        height: 433px;
-      }
-    }
-
+.two-column-first {
     &:first-child {
-
       @include breakpoint('desktop') {
         width: 100%;
         float: none;
 
         .opinion-item,
-        .news-item {
+        .news-item,
+        .post-item {
           height: auto;
 
           h2 {
@@ -86,7 +63,40 @@
         }
       }
     }
+
+}
+
+.opinions-list,
+.videos-list {
+  overflow: hidden;
+  margin: 0 0 -20px;
+
+  @include breakpoint('desktop') {
+    margin: 0 -3px -20px;
   }
+
+  li {
+    padding: 0 0 20px;
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+      float: left;
+      padding: 5px 3px 20px;
+
+      .opinion-item,
+      .news-item {
+        height: 433px;
+      }
+    }
+
+    @extend .two-column-first;
+  }
+}
+
+.news-list {
+ li {
+   @extend .two-column-first;
+ }
 }
 
 .commentary-opinions-list {

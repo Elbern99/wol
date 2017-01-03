@@ -70,7 +70,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
 
         <div class="content-inner">
             <div class="content-inner-text">
-                <ul class="search-results-media-list">
+                <!-- <ul class="search-results-media-list">
                     <li class="search-results-media-item">
                         <div class="img">
                             <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
@@ -86,7 +86,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         <div class="name">Hartmut Lehmann</div>
                         <p>Professor of Economic Policy in the Department of Economics at the University of Bologna, Italy</p>
                     </li>
-                </ul>
+                </ul> -->
 
                 <div class="search-results-table">
                     <div class="search-results-table-top">

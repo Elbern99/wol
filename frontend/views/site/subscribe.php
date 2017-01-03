@@ -99,8 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
              <?php ActiveForm::end(); ?>
         </div>
 
-
-        <aside class="sidebar-right">
+<!--
+<aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
@@ -177,5 +177,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </ul>
             </div>
         </aside>
+-->
     </div>
 </div>
