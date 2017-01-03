@@ -68,6 +68,11 @@ var elements = {
             parent.find('.'+headerMenu.classes).find(content).slideDown(0);
             btn.click(function(e) {
                 var cur = $(this);
+
+                setTimeout(function(){
+                    docHeightForElement.changeHeight();
+                }, 500);
+
                 if(cur.parent().hasClass(headerMenu.classes)){
                     headerMenu.mobileCloseItem(cur);
                 } else {
@@ -126,7 +131,7 @@ var elements = {
 
     /* dropDown */
     function dropDown(btn, dropWidget, mobile) {
-        if ( dropWidget.length ) {
+        if ( $(dropWidget).length ) {
             btn.on('click',function(e) {
                 var cur = $(this);
                 $(document).unbind('click.drop-content');
@@ -141,7 +146,7 @@ var elements = {
                     $(document).bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
                             if (!yourClick  && !$(e.target).closest(drop).length || $(e.target).closest(drop.find('li')).length ) {
-                                dropWidget.removeClass('open');
+                                $(dropWidget).removeClass('open');
                                 btn.removeClass('active');
                                 $(document).unbind('click.drop-content');
                             }
@@ -150,7 +155,8 @@ var elements = {
                         }
                     });
                 } else {
-                    dropWidget.removeClass('open');
+                    cur.parent().find(dropWidget).removeClass('open');
+
                     cur.removeClass('active');
                 }
                 e.preventDefault();
@@ -263,7 +269,7 @@ var elements = {
 
     // 2.2 DOC HEIGHT FOR ELEMENTS
     var docHeightForElement = {
-        elements: ['.overlay, .mobile-menu, .mobile-search, .mobile-login, .map-info'],
+        elements: ['.mobile-menu, .mobile-search, .mobile-login'],
         changeHeight: function() {
             var elements = $(docHeightForElement.elements.toString());
 
@@ -281,12 +287,8 @@ var elements = {
                         'height': $(document).height(),
                         'max-height': $(document).height(),
                     });
-                }, 100);
+                }, 1000);
             });
-
-												$(document).resize(function() {
-															console.log(1);
-												});
         }
     };
     /* end */
@@ -466,10 +468,10 @@ var elements = {
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
         headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .header-menu-bottom-list'));
 
-        dropDown($('.header-desktop .dropdown-link'), $('.drop-content'));
-        dropDown($('.custom-select .dropdown-link'), $('.drop-content'));
-        dropDown($('.sidebar-widget-reference-popup .dropdown-link'), $('.drop-content'));
-        dropDown($('.tooltip-dropdown .icon-question'), $('.drop-content'));
+        dropDown($('.header-desktop .dropdown-link'), '.drop-content');
+        dropDown($('.custom-select .dropdown-link'), '.drop-content');
+        dropDown($('.sidebar-widget-reference-popup .dropdown-link'), '.drop-content');
+        dropDown($('.tooltip-dropdown .icon-question'), '.drop-content');
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
@@ -477,9 +479,9 @@ var elements = {
 												tabsForm.init($('.login-registration-list.mobile'), '.dropdown-widget');
 												tabsForm.openLogin();
 												tabsForm.openRegister();
-            dropDown($('.btn-mobile-menu-show'), $('.drop-content'));
-            dropDown($('.btn-mobile-search-show'), $('.drop-content'));
-            dropDown($('.btn-mobile-login-show'), $('.drop-content'), true);
+            dropDown($('.btn-mobile-menu-show'), '.drop-content');
+            dropDown($('.btn-mobile-search-show'), '.drop-content');
+            dropDown($('.btn-mobile-login-show'), '.drop-content', true);
             closeDropDown($('.btn-mobile-menu-close'), $('.mobile-menu'), $('.btn-mobile-menu-show'));
             closeDropDown($('.btn-mobile-search-close'), $('.mobile-search'), $('.btn-mobile-search-show'));
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
@@ -510,8 +512,12 @@ var elements = {
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.content-types');
         forms.clearAll('.clear-all', '.select-all', '.checkboxes');
+        forms.clearAll('.clear-all', '.select-all', '.dropdown-login');
+        forms.clearAll('.clear-all', '.select-all', '.grid');
         forms.selectAll('.clear-all', '.select-all', '.content-types');
         forms.selectAll('.clear-all', '.select-all', '.checkboxes');
+        forms.selectAll('.clear-all', '.select-all', '.dropdown-login');
+        forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search');

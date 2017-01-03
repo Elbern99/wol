@@ -81,7 +81,7 @@
   margin: -1px 0 0 0;
 
   @include breakpoint_custom($breakpoint-tablet) {
-    margin: -21px 0 13px 0;
+    margin: -16px 0 13px 0;
   }
 }
 
@@ -693,25 +693,27 @@
 //BTN-LIKE
 .btn-like,
 .btn-save-search {
+  overflow: visible;
+
   &.added {
     background: $light-blue;
     border-color: $light-blue;
-    overflow: visible;
+    //overflow: visible;
 
     .btn-like-inner,
     .btn-save-search-inner {
       display: block;
       opacity: 1;
-      transform: translate(-50%, 0);
+      position: absolute;
     }
   }
 
   .btn-like-inner,
   .btn-save-search-inner  {
-    position: absolute;
+    position: fixed;
     bottom: 100%;
     left: 50%;
-    transform: translate(-50%, 10px);
+    transform: translateX(-50%);
     background: #f5f5f5;
     //width: 208px;
     padding: 5px 10px 3px;
@@ -761,7 +763,6 @@
 }
 
 .btn-like {
-  overflow: hidden;
 
   &.added {
     .icon-heart {
@@ -844,18 +845,18 @@
     .tooltip-content {
       top: 100%;
       bottom: auto;
-      width: 239px;
-      margin: -53px 12px 0 0;
+      width: 235px;
+      margin: -45px 9px 0 0;
       box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
       display: block;
       font-size: 10px;
       line-height: 16px;
       padding: 18px 20px 12px;
       display: block;
+      z-index: 500;
 
       &.open {
-        right: 100%;
-        margin: -41px 12px 0 0;
+
       }
 
       .icon-close {
@@ -894,7 +895,7 @@
     border: 1px solid #d8d8d8;
     padding: 13px 10px;
     border-radius: 4px;
-    right: -11000px;
+    right: 100%;
     bottom: 100%;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     min-width: 132px;
@@ -909,7 +910,6 @@
     &.open {
       opacity: 1;
       position: absolute;
-      right: -11px;
     }
 
     &:after {

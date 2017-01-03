@@ -51,6 +51,10 @@
         .opinion-item {
           height: auto;
 
+          h2 {
+            font-size: 24px;
+          }
+
           .desc {
             padding: 20px 15px 20px;
             height: auto;
@@ -85,6 +89,91 @@
   }
 }
 
+.commentary-opinions-list {
+  overflow: hidden;
+  margin: 0 -5px 20px;
+
+  li {
+    padding: 0 0 14px;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      float: left;
+      padding: 5px;
+    }
+
+    @include breakpoint('tablet') {
+      width: 100%;
+    }
+
+    @include breakpoint('desktop') {
+      width: 50%;
+    }
+
+    @include breakpoint('tablet') {
+
+      .opinion-item {
+        display: flex;
+        align-items: stretch;
+        height: 230px;
+
+        h2 {
+          max-height: 46px;
+          overflow: hidden;
+        }
+
+        .inner {
+          max-height: 149px;
+        }
+
+        .img,
+        .desc {
+          width: 50%;
+          height: 100%;
+          min-height: 1px;
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+    }
+
+  }
+}
+
+.commentary-videos-list {
+  overflow: hidden;
+  margin: 0 -5px 20px;
+
+  li {
+    padding: 0 0 14px;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      float: left;
+      padding: 5px;
+    }
+
+    @include breakpoint('tablet') {
+      width: 33.3%;
+    }
+
+    @include breakpoint('desktop-large') {
+      width: 25%;
+    }
+
+    .opinion-item {
+
+      @include breakpoint('tablet') {
+
+      }
+
+      @include breakpoint('desktop') {
+        height: 400px;
+      }
+    }
+  }
+}
+
 .opinion-item {
   font-size: 12px;
   background: #dbe8f4;
@@ -106,6 +195,8 @@
 
   &.has-image {
     background: none;
+
+    &:hover
 
     .desc {
       padding: 21px 15px 21px;

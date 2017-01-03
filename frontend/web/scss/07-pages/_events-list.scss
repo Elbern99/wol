@@ -1,5 +1,6 @@
 .event-list-page {
   .mobile-filter-holder {
+    display: block !important;
     @include breakpoint_custom($breakpoint-tablet) {
       margin-bottom: -15px;
     }
