@@ -79,8 +79,8 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <p class="location"><?= $expert['affiliation'] ?></p>
                     <p><strong>Expertise:</strong> <?= implode(',', $expert['expertise'])?></p>
                     <p><strong>Media Experience:</strong> <?= implode(',', $expert['experience_type'])?></p>
-                    <p><strong>Languages:</strong> <?= implode(',', $expert['language'])?></p>
-                    <p><strong>Country:</strong><?= implode(',', $expert['author_country'])?></p>
+                    <p><strong>Languages:</strong> <?php array_walk($expert['language'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
+                    <p><strong>Country:</strong><?php array_walk($expert['author_country'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
                 </li>
                 <?php endforeach; ?>
             </ul>

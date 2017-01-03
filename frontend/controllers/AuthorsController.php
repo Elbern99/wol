@@ -33,6 +33,15 @@ class AuthorsController extends Controller {
     
     protected function getFilterData($type, $role) {
         
+        $cache = Yii::$app->cache;
+        $key = 'FILTER_EXPERT_OPTIONS';
+        
+        $data = $cache->get($key);
+        
+        if ($data !== false) {
+            return $data;
+        }
+        
         $connection = Yii::$app->getDb();
         $command = $connection->createCommand("
             SELECT `ea`.`name` as `attr_name`, `ev`.`value` as `value`
@@ -71,6 +80,7 @@ class AuthorsController extends Controller {
 
         }
         
+        $cache->set($key, $filters, 86400);
         return $filters;
     }
     
