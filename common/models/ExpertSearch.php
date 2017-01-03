@@ -13,6 +13,8 @@ use Yii;
  */
 class ExpertSearch extends \yii\sphinx\ActiveRecord
 {
+    protected $filter = [];
+    
     public $search_phrase;
     public $experience_type = [];
     public $expertise = [];
@@ -36,7 +38,7 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             [['search_phrase'], 'required'],
             [['id'], 'unique'],
             [['id'], 'integer'],
-            [['value', 'email', 'search_phrase'], 'string'],
+            [['value', 'author_key', 'search_phrase'], 'string'],
             [['experience_type', 'expertise', 'language', 'author_country'], 'safe']
         ];
     }
@@ -51,5 +53,84 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             'value' => Yii::t('app', 'Value'),
             'email' => Yii::t('app', 'Email'),
         ];
+    }
+    
+    public function setFilter($filter) {
+        $this->filter = $filter;
+    }
+    
+    public function filtered(array $expert): bool {
+        
+        $filtered = false;
+        
+        if (!empty($this->experience_type)) {
+            
+            $experience = $this->filter['experience_type'];
+            $values = $expert['experience_type'];
+            
+            foreach ($this->experience_type as $id) {
+                
+                if (!isset($experience[$id]) || array_search($experience[$id], $values) === false) {
+                    $filtered = true;
+                    break;
+                }
+            }
+            
+            if ($filtered) {
+               return $filtered;    
+            }
+        }
+        
+        if (!empty($this->expertise)) {
+            
+            $values = $expert['expertise'];
+            $expertise = $this->filter['expertise'];
+            
+            foreach ($this->expertise as $id) {
+                
+                if (!isset($expertise[$id]) || array_search($expertise[$id], $values) === false) {
+                    $filtered = true;
+                    break;
+                }
+            }
+            
+            if ($filtered) {
+               return $filtered;    
+            }
+        }
+        
+        if (!empty($this->language)) {
+            
+            $values = $expert['language'];
+            $language = $this->filter['language'];
+            
+            foreach ($this->language as $id) {
+                
+                if (!isset($language[$id]) || array_search($language[$id], $values) === false) {
+                    $filtered = true;
+                    break;
+                }
+            }
+            
+            if ($filtered) {
+               return $filtered;    
+            }
+        }
+        
+        if (!empty($this->author_country)) {
+            
+            $values = $expert['author_country'];
+            $author = $this->filter['author_country'];
+            
+            foreach ($this->author_country as $id) {
+                
+                if (!isset($author[$id]) || array_search($author[$id], $values) === false) {
+                    $filtered = true;
+                    break;
+                }
+            }
+        }
+        
+        return $filtered;     
     }
 }

@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use common\helpers\Country;
 ?>
 
 <?php
@@ -43,7 +44,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                         </span>
                 </button>
                 <div class="search-holder">
-                     <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Enter expertise or author name"])->label('') ?>
+                    <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Enter expertise or author name"])->label('') ?>
                 </div>
             </div>
         </div>
@@ -83,7 +84,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                 </li>
                 <?php endforeach; ?>
             </ul>
-            <?php if ($expertCount > $limit): ?>
+            <?php if (count($expertCollection) > $limit): ?>
                 <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
             <?php else: ?>
                 <?php if (Yii::$app->request->get('limit')): ?>
@@ -105,10 +106,11 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                 <div class="text">
                                     <ul class="checkbox-list">
                                         <?= Html::activeCheckboxList($search, 'author_country', $filter['author_country'], ['item' => function($index, $label, $name, $checked, $value) {
+                                            
                                             return Html::tag('li', Html::checkbox($name, $checked, [
                                                 'labelOptions'=>['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                                'label' => '<span class="label-text">'.Country::getCountryName($label).'</span>',
                                             ]));
                                         }]) ?>
 
@@ -126,7 +128,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                             return Html::tag('li', Html::checkbox($name, $checked, [
                                                 'labelOptions'=>['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                                'label' => '<span class="label-text">'.Country::getCountryName($label).'</span>',
                                             ]));
                                         }]) ?>
                                     </ul>
@@ -158,7 +160,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                     <ul class="checkbox-list">
                                         <?= Html::activeCheckboxList($search, 'experience_type', $filter['experience_type'], ['item' => function($index, $label, $name, $checked, $value) {
                                             return Html::tag('li', Html::checkbox($name, $checked, [
-                                                'labelOptions'=>['class' => 'def-checkbox light'],
+                                                'labelOptions' => ['class' => 'def-checkbox light'],
                                                 'value' => $value,
                                                 'label' => '<span class="label-text">'.$label.'</span>',
                                             ]));

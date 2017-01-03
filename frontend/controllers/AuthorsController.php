@@ -92,17 +92,20 @@ class AuthorsController extends Controller {
         
         $limit = $this->getLimit();
         $finds = new ExpertSearch();
-
-        $expertCollection = [];
         $roles = new Roles();
+        
+        $expertCollection = [];
         $expertRoleId = $roles->getTypeByLabel('expert');
+        
+        $filter = $this->getFilterData(Author::tableName(), $expertRoleId);
+        $finds->setFilter($filter);
         
         $loadSearch = false;
         
         if (Yii::$app->request->isPost && $finds->load(Yii::$app->request->post())) {
             
             if ($finds->validate()) {
-                
+
                 $results = $finds->find()
                                  ->select(['id'])
                                  ->match($finds->search_phrase)
@@ -135,7 +138,7 @@ class AuthorsController extends Controller {
                 'limit' => $limit, 
                 'expertCount' => count($experstIds), 
                 'search' => $finds,
-                'filter' => $this->getFilterData(Author::tableName(), $expertRoleId)
+                'filter' => $filter
             ]);
         }
         
@@ -152,7 +155,7 @@ class AuthorsController extends Controller {
         $authorValues = $authorCollection->getValues();
         
         foreach ($experts as $expert) {
-            
+
             if (!isset($authorValues[$expert->id])) {
                 continue;
             }
@@ -163,8 +166,8 @@ class AuthorsController extends Controller {
             $expertise = EavValueHelper::getValue($authorValues[$expert->id], 'expertise', function($data) { return $data->expertise; }, 'array');
             $language = EavValueHelper::getValue($authorValues[$expert->id], 'language', function($data){ return $data->code; }, 'array');
             $author_country = EavValueHelper::getValue($authorValues[$expert->id], 'author_country', function($data){ return $data->code; }, 'array');
-
-            $expertCollection[$expert->id] = [
+            
+            $data = [
                 'affiliation' => $affiliation,
                 'avatar' => ($expert->avatar) ? Author::getImageUrl($expert->avatar) : null,
                 'name' => $name,
@@ -173,15 +176,24 @@ class AuthorsController extends Controller {
                 'language' => $language,
                 'author_country' => $author_country
             ];
+            
+            if (Yii::$app->request->isPost) {
+                
+                if ($finds->filtered($data)) {
+                    continue;
+                }
+            }
+            
+            $expertCollection[$expert->id] = $data;
 
         }
-        
+
         return $this->render('expert', [
             'expertCollection' => $expertCollection, 
             'limit' => $limit, 
             'expertCount' => count($experstIds), 
             'search' => $finds,
-            'filter' => $this->getFilterData(Author::tableName(), $expertRoleId)
+            'filter' => $filter
         ]);
     }
 }
