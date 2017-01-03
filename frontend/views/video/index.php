@@ -99,9 +99,11 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
                                 <h2>
                                      <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                 </h2>
+                                <?php if ($video->description) : ?>
                                 <p>
                                    <?= $video->description; ?>
                                 </p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

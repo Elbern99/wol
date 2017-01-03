@@ -62,13 +62,10 @@ if ($category) {
                             <?php foreach ($videosSidebar as $video) : ?>
                             <li>
                                 <h3>
-                                    <a href="#">
-                                        <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
-                                    </a>
+                                    <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                 </h3>
                             </li>
                             <?php endforeach; ?>
-                        
                         </ul>
                         <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                         <a href="" class="more-link">
