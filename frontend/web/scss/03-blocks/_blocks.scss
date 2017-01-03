@@ -308,6 +308,10 @@
     display: block;
     background-position: 50% 50%;
 
+    &:hover {
+      opacity: 0.9;
+    }
+
     @include breakpoint('tablet') {
       float: none;
     }
@@ -1166,7 +1170,7 @@
   @include breakpoint('tablet') {
     display: flex;
     flex-flow: row wrap;
-    margin: 0 -38px 40px 0;
+    margin: 0 -38px 20px 0;
   }
 
   .icon-close {
@@ -1209,11 +1213,15 @@
   &.favourite-articles-list {
 
     @include breakpoint('tablet') {
-      margin: -6px 0 40px -30px;
+      margin: -6px 0 -15px -30px;
     }
 
     >li {
       padding: 3px 28px 17px 0;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
 
       @include breakpoint('tablet') {
         padding: 10px 55px 10px 30px;

@@ -10,23 +10,25 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Reset password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-reset-password without-breadcrumbs">
-    <div class="container">
-        <div class="article-head">
-            <h1><?= Html::encode($this->title) ?></h1>
-        </div>
-        <p>Please choose your new password:</p>
-        <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-        <div class="grid">
-            <div class="grid-line three">
-                <div class="form-item">
-                    <?= $form->field($model, 'password',['options'=>['class' => 'form-item']])->passwordInput(['autofocus' => true]) ?>
+<div class="container site-reset-password without-breadcrumbs">
+    <div class="content-inner">
+        <div class="content-inner-text">
+            <div class="article-head">
+                <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+            <p>Please choose your new password:</p>
+            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+            <div class="grid">
+                <div class="grid-line three">
+                    <div class="form-item">
+                        <?= $form->field($model, 'password',['options'=>['class' => 'form-item']])->passwordInput(['autofocus' => true]) ?>
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <?= Html::submitButton('Save', ['class' => 'btn-blue']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
         </div>
-        <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn-blue']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
     </div>
 </div>

@@ -4,23 +4,18 @@
   flex-direction: column ;
   overflow: hidden;
   position: relative;
-
-  @include breakpoint('tablet') {
-
-  }
 }
 
 .without-breadcrumbs {
 
   @include breakpoint('tablet') {
-    padding-top: 20px;
+    padding-top: 20px !important;
   }
 }
 
 .content {
   flex: 1 0 auto;
   //overflow-y: hidden;
-  padding-bottom: 20px ;
 
   @include breakpoint('tablet') {
     padding-bottom: 30px;
@@ -41,7 +36,11 @@
 
   >.content-inner-text,
   div#w0 {
-    padding-bottom: 20px;
+    padding-bottom: 27px;
+
+    >*:last-child {
+      margin-bottom: 0;
+    }
 
     @include breakpoint('tablet') {
       padding-bottom: 0;

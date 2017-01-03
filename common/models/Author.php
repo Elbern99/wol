@@ -93,11 +93,17 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     
     public function addNewAuthor($args) {
         
-        $obj = Yii::createObject(self::class);
-        $obj->load($args, '');
+        try {
+            
+            $obj = Yii::createObject(self::class);
+            $obj->load($args, '');
 
-        if ($obj->save()) {
-            return $obj;
+            if ($obj->save()) {
+                return $obj;
+            }
+            
+        } catch (\yii\db\Exception $e) {
+            return false;
         }
 
         return false;

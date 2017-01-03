@@ -47,10 +47,15 @@ trait AuthorParseTrait {
 
     protected function getAuthorPhone() {
         
-        $code = (string) $this->person->phone->attributes();
-        $phone = $code . ' ' . $this->person->phone;
+        if ($this->person->phone) {
+            
+            $code = (string) $this->person->phone->attributes();
+            $phone = $code . ' ' . $this->person->phone;
 
-        return $phone;
+            return $phone;
+        }
+        
+        return null;
     }
 
     protected function getAuthorUrl() {
@@ -136,6 +141,24 @@ trait AuthorParseTrait {
          return serialize($obj);
     }
     
+    protected function getAuthorCountry() {
+        
+        if ($this->person->country) {
+            
+            $codes = [];
+            
+            foreach($this->person->country as $country) {
+                $obj = new stdClass;
+                $obj->code = (string) $country->attributes();
+                $codes[] = $obj;
+            }
+            
+            return serialize($codes);
+        }
+        
+        return null;
+    }
+    
     protected function getPosition() {
 
         $positions = [
@@ -159,7 +182,6 @@ trait AuthorParseTrait {
             } else {
                 $positions[$type] = (string) $position->p;
             }
-            
         }
 
         $obj->current = $positions['current'];
@@ -171,73 +193,116 @@ trait AuthorParseTrait {
     
     protected function getDegree() {
         
-         $obj = new stdClass;
-         $obj->degree = (string) $this->person->degree;
+        if ($this->person->degree) {
+            $obj = new stdClass;
+            $obj->degree = (string) $this->person->degree;
 
-         return serialize($obj);
+            return serialize($obj);
+        }
+        
+        return null;
     }
     
     protected function getInterests() {
+       
+        if ($this->person->interests) {
+            $obj = new stdClass;
+            $obj->interests = (string) $this->person->interests;
 
-        $obj = new stdClass;
-        $obj->interests = (string) $this->person->interests;
-
-        return serialize($obj);
+            return serialize($obj);
+        }
+        
+        return null;
     }
     
     
     protected function getExpertise() {
+        
+        if ($this->person->expertise) {
+            
+            if (isset($this->person->expertise->p)) {
 
-        $obj = new stdClass;
-        $obj->expertise = (string) $this->person->expertise;
+                $expertises = [];
 
-        return serialize($obj);
+                foreach ($this->person->expertise->p as $expertise) {
+                    
+                    $obj = new stdClass;
+                    $obj->expertise = (string) $expertise;
+
+                    $expertises[] = $obj;
+                }
+                
+                return serialize($expertises);
+            }
+            
+            $obj = new stdClass;
+            $obj->expertise = (string) $this->person->expertise;
+
+            return serialize($obj);
+        }
+        
+        return null;
     }
     
     protected function getLanguage() {
         
-        $languages = [];
-        
-        foreach ($this->person->languages->language as $language) {
+        if ($this->person->languages) {
             
-            $attribute = $language->attributes();
-            $obj = new stdClass;
-            $obj->code = (string) $attribute->code;
-            $obj->proficiency = (string) $attribute->proficiency;
-            
-            $languages[] = $obj;
+            $languages = [];
+
+            foreach ($this->person->languages->language as $language) {
+
+                $attribute = $language->attributes();
+                $obj = new stdClass;
+                $obj->code = (string) $attribute->code;
+                $obj->proficiency = (string) $attribute->proficiency;
+
+                $languages[] = $obj;
+            }
+
+            return serialize($languages);
         }
         
-        return serialize($languages);
+        return null;
     }
     
     protected  function getExperienceType() {
         
-        $experienceTypes = [];
-        
-        foreach ($this->person->experience->media as $media) {
+        if ($this->person->experience) {
             
-            $obj = new stdClass;
-            $obj->expertise_type = (string) $media->attributes();
-            $experienceTypes[] = $obj;
+            $experienceTypes = [];
+
+            foreach ($this->person->experience->media as $media) {
+
+                $obj = new stdClass;
+                $obj->expertise_type = (string) $media->attributes();
+                $experienceTypes[] = $obj;
+            }
+
+            return serialize($experienceTypes);
         }
         
-        return serialize($experienceTypes);
+        return null;
     }
     
     protected function getExperienceUrl() {
+        
+        if ($this->person->experience) {
+            
+            $experienceUrl = [];
 
-        $experienceUrl = [];
+            foreach ($this->person->experience->url as $url) {
 
-        foreach ($this->person->experience->url as $url) {
+                $obj = new stdClass;
+                $obj->url = (string)$url->attributes();
+                $obj->text = (string) $url;
+                $experienceUrl[] = $obj;
+            }
 
-            $obj = new stdClass;
-            $obj->url = (string)$url->attributes();
-            $obj->text = (string) $url;
-            $experienceUrl[] = $obj;
+            return serialize($experienceUrl);
         }
-
-        return serialize($experienceUrl);
+        
+        return null;
     }
 
 }

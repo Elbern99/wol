@@ -1,5 +1,7 @@
 .key-topics-page {
-
+  .btn-gray {
+    margin-bottom: 39px;
+  }
 }
 
 
@@ -9,7 +11,7 @@
   margin: 0 -1px 27px;
 
   @include breakpoint('tablet') {
-    margin-bottom: 43px;
+    margin-bottom: 27px;
   }
 
   li {

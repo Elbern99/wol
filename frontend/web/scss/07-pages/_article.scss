@@ -29,10 +29,6 @@
     .sidebar-widget-share-buttons {
       display: none;
     }
-
-    article {
-      margin-bottom: 30px;
-    }
   }
 
   .content-inner-text {
@@ -406,7 +402,7 @@
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    margin: 90px -15px 29px;
+    margin: 90px -15px 0;
     padding: 20px 15px 24px;
     border-bottom: 1px solid #b0b0b0;
 

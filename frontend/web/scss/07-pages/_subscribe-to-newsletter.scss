@@ -20,6 +20,10 @@
 
   .select-clear-all {
     float: right;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-right: 2px;
+    }
   }
 
   .tooltip-dropdown {
@@ -38,6 +42,10 @@
   .icon-question {
     font-size: 16px;
     padding: 1px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-top: -5px;
+    }
   }
 
   form {

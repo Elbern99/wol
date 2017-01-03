@@ -1,11 +1,4 @@
 .single-post-page {
-  .show-more {
-    margin: 15px auto 30px;
-
-    @include breakpoint('tablet') {
-      margin: -33px auto 33px;
-    }
-  }
 
   @include breakpoint_custom($breakpoint-tablet) {
     .sidebar-widget-articles-filter {

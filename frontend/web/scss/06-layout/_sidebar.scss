@@ -1,4 +1,5 @@
 .sidebar-right {
+  margin: 0 0 27px;
 
   @include breakpoint('tablet') {
     order: 1;

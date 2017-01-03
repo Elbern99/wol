@@ -613,7 +613,18 @@ trait ArticleParseTrait {
                 }
             }
 
-            $date = (string) $monogr->imprint->date->attributes();
+            $date = '';
+            $pubPlace = '';
+            
+            if ($monogr->imprint->date) {
+                $date = (string) $monogr->imprint->date->attributes();
+                $date = ' (' . $date . ') ';
+            }
+            
+            if (isset($monogr->imprint->pubPlace)) {
+                $pubPlace = (string)$monogr->imprint->pubPlace;
+            }
+            
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
@@ -631,14 +642,55 @@ trait ArticleParseTrait {
 
                 extract($bibl);
             }
+            
+            $doi = '';
+            $url = '';
+            
+            if ($monogr->idno) {
+                
+                foreach ($monogr->idno as $idno) {
+                   
+                    $attr = $idno->attributes();
+                    $type = (string)$attr->type;
+                    
+                    switch ($type) {
+                        case 'url':
+                            $url = (string)$idno;
+                            break;
+                        case 'doi':
+                            $doi = (string)$idno;
+                            break;
+                    }
+                }
+            }
+            
+            if ($analitics->idno) {
+                
+                foreach ($analitics->idno as $idno) {
 
+                    $attr = $idno->attributes();
+                    $type = (string)$attr->type;
+                    
+                    switch ($type) {
+                        case 'url':
+                            $url = (string)$idno;
+                            break;
+                        case 'doi':
+                            $doi = (string)$idno;
+                            break;
+                    }
+                }
+            }
+            
             $obj = new stdClass;
-            $obj->full_citation = Html::a((string) implode(', ', $authors) .
+            $text = (string) implode(', ', $authors) .
                             ' ' . $analitics->title . ' ' .
-                            $monogr->title .
+                            $monogr->title .' '.$pubPlace.
                             ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                            ' ' . $analitics->idno[1], $analitics->idno[0]);
+                            $date. ' :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
+                            ' ' . $doi;
+            
+            $obj->full_citation = Html::a(str_replace('  ',' ',$text), $url);
 
             $obj->title = (string) implode(' and ', $authors) . " ({$date})";
             
@@ -651,7 +703,7 @@ trait ArticleParseTrait {
 
             $this->addReferences[] = $obj;
         }
-        
+
     }
 
     protected function setReferences($item) {

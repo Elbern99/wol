@@ -46,15 +46,10 @@ class AuthorParser implements ParserInterface {
         $args['enabled'] = 1;
         $args['url'] = $this->getAuthorUrl();
         $args['avatar'] = $args['author_key'].'.jpg';
-        
+
         $author = $this->author->addNewAuthor($args);
         
-        if (is_object($author) && $author->id) {
-            
-            return $author;
-        }
-        
-        throw new \Exception(Yii::t('app/messages','Author could not be added'));
+        return $author;
     }
 
     public function parse(ReaderInterface $reader) {
@@ -69,10 +64,17 @@ class AuthorParser implements ParserInterface {
         if (count($this->xml->contributor) > 1) {
 
             $this->peopleParse($this->xml->contributor);
+            
         } else {
 
             $this->person = $this->xml;
             $author = $this->addBaseTableValue();
+            
+            if ($author === false) {
+            
+                return false;
+            }
+            
             $this->setAuthorRoles($author);
             $this->setAuthorCategory($author);
             $this->personParse($author);
@@ -114,6 +116,12 @@ class AuthorParser implements ParserInterface {
 
             $this->person = $person;
             $author = $this->addBaseTableValue();
+            
+            if ($author === false) {
+            
+                continue;
+            }
+            
             $this->setAuthorRoles($author);
             $this->setAuthorCategory($author);
             $this->personParse($author);
@@ -164,8 +172,8 @@ class AuthorParser implements ParserInterface {
 
         $bulkInsertArray = [];
         $subjectEditorRole = $this->getSubjectEditor();
-        
-        if (count($subjectEditorRole->subjectArea)) {
+
+        if (isset($subjectEditorRole->subjectArea)) {
             
             $codes = [];
             

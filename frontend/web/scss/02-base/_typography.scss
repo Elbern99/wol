@@ -8,6 +8,7 @@ body{
   font: normal 13px/1.4em $def-font;
   color: $def-color;
   min-width: 320px;
+  background: $white;
 
   @include breakpoint('tablet') {
     line-height:  1.65em;
