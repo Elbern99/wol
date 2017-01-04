@@ -50,7 +50,7 @@ class Manager implements MenuManagerInterface {
 
     public function getTopMenu() {
 
-        $content = '';
+        $content = '<li class="item has-drop"><a href="#">For media</a><ul class="submenu"><li class="item"><a href="/find-an-expert">Find an expert</a></li></ul></li>';
 
         if (isset($this->links[MenuLinks::TOP_LINK])) {
 

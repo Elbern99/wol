@@ -13,9 +13,11 @@
 	<div class="content-inner">
 		<div class="content-inner-text contact-page">
 			<article class="full-article">
-                <div class="head">
-                    <div class="date">September 16, 2016</div>
-                    <div class="category"><a href="">Guardian, Financial Times</a></div>
+                <div class="head-news-holder">
+                    <div class="head-news">
+                        <div class="date">September 16, 2016</div>
+                        <div class="publish"><a href="">Guardian, Financial Times</a></div>
+                    </div>
                 </div>
 				<h1>Air pollution has long-term effects on earnings as well as health</h1>
 				<figure class="align-left">
@@ -32,69 +34,197 @@
 		
 		<aside class="sidebar-right">
 
-            <ul class="sidebar-accrodion-list">
-                <li class="sidebar-accrodion-item is-open">
-                    <a href="" class="title">Latest news</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="sidebar-news-list">
-                                <li><a href=""><h3>New minimum wage will increase migration to UK, claim anti-EU campaigners</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Air pollution has long-term effects on earnings as well as health</h3></a></li>
-                                <li><a href=""><h3>Brexit: May rejects points-based immigration</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
+            <div class="sidebar-widget">
+                <ul class="sidebar-accrodion-list">
+                    <li class="sidebar-accrodion-item is-open">
+                        <a href="" class="title">Latest news</a>
+                        <div class="text">
+                            <div class="text-inner">
+                                <ul class="sidebar-news-list">
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                    <li><h3><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h3></li>
+                                </ul>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">news archives</a>
+                        <div class="text">
+                            <ul class="articles-filter-list date-list">
+                                <li class="item open has-drop">
+                                    <div class="icon-arrow"></div>
+                                    <a href=""><strong>2016</strong></a>
+                                    <ul class="submenu" style="display: block;">
+                                        <li class="item"><a href="">September 2016</a></li>
+                                        <li class="item"><a href="">July 2016</a></li>
+                                        <li class="item"><a href="">June 2016</a></li>
+                                        <li class="item"><a href="">May 2016</a></li>
+                                        <li class="item"><a href="">March 2016</a></li>
+                                    </ul>
+                                </li>
+                                <li class="item has-drop">
+                                    <div class="icon-arrow"></div>
+                                    <a href=""><strong>2015</strong></a>
+                                    <ul class="submenu">
+                                        <li class="item"><a href="">September 2016</a></li>
+                                        <li class="item"><a href="">July 2016</a></li>
+                                        <li class="item"><a href="">June 2016</a></li>
+                                        <li class="item"><a href="">May 2016</a></li>
+                                        <li class="item"><a href="">March 2016</a></li>
+                                    </ul>
+                                </li>
+                                <li class="item has-drop">
+                                    <div class="icon-arrow"></div>
+                                    <a href=""><strong>2014</strong></a>
+                                    <ul class="submenu">
+                                        <li class="item"><a href="">September 2016</a></li>
+                                        <li class="item"><a href="">July 2016</a></li>
+                                        <li class="item"><a href="">June 2016</a></li>
+                                        <li class="item"><a href="">May 2016</a></li>
+                                        <li class="item"><a href="">March 2016</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                            <a href="" class="more-link">More</a>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">news archives</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="sidebar-news-list">
-                                <li><a href=""><h3>New minimum wage will increase migration to UK, claim anti-EU campaigners</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Air pollution has long-term effects on earnings as well as health</h3></a></li>
-                                <li><a href=""><h3>Brexit: May rejects points-based immigration</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">newsletters</a>
+                        <div class="text">
+                            <ul class="articles-filter-list date-list">
+                                <li class="item open">
+                                    <div class="icon-arrow"></div>
+                                    <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
+                                    <ul class="submenu">
+                                        <li class="item">
+                                            <div class="date">July 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">June 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">May 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">April 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">March 2016</div>
+                                            <a href="">IZA WoL Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">February 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">January 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="item">
+                                    <div class="icon-arrow"></div>
+                                    <a href="/subject-areas/program-evaluation"><strong>2015</strong></a>
+                                    <ul class="submenu">
+                                        <li class="item">
+                                            <div class="date">July 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">June 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="item">
+                                    <div class="icon-arrow"></div>
+                                    <a href="/subject-areas/program-evaluation"><strong>2014</strong></a>
+                                    <ul class="submenu">
+                                        <li class="item">
+                                            <div class="date">July 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                        <li class="item">
+                                            <div class="date">June 2016</div>
+                                            <a href="">IZA World of Labor Newsletter</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">newsletters</a>
-                    <div class="text">
-                        <div class="text-inner">
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">latest articles</a>
+                        <div class="text">
                             <ul class="sidebar-news-list">
-                                <li><a href=""><h3>New minimum wage will increase migration to UK, claim anti-EU campaigners</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Air pollution has long-term effects on earnings as well as health</h3></a></li>
-                                <li><a href=""><h3>Brexit: May rejects points-based immigration</h3></a></li>
-                                <li><a href=""><h3>No evidence that women are less likely to ask for a pay rise, says study</h3></a></li>
-                                <li><a href=""><h3>Union decline creates wage stagnation, report finds</h3></a></li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
+                                <li>
+                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
+                                    <div class="writer">Ghazala Azmat</div>
+                                </li>
                             </ul>
+                            <a href="" class="more-link">
+                                <span class="more">More</span>
+                                <span class="less">Less</span>
+                            </a>
                         </div>
-                    </div>
-                </li>
-                <li class="sidebar-accrodion-item">
-                    <a href="" class="title">Related Articles</a>
-                    <div class="text">
-                        <div class="text-inner">
-                            <ul class="sidebar-news-list">
-                                <li><a href=""><h3>Environmental regulations and labor markets</h3></a><div class="writer">Olivier Deschenes</div></li>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            
-			
+                    </li>
+                </ul>
+            </div>
+
 			<div class="sidebar-widget sidebar-widget-subscribe">
 				<div class="widget-title">stay up to date</div>
 				<p>Register for our newsletter to receive regular updates on what we’re doing, latest news and forthcoming articles.</p>
@@ -104,10 +234,10 @@
             <div class="sidebar-widget">
                 <div class="widget-title">follow iza world of labor</div>
                 <ul class="socials-list socials-vertical-list">
-                    <li><a href="" target="_blank"><span class="icon-twitter"></span><span class="text">on twitter</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-facebook"></span><span class="text">on facebook</span></a></li>
-                    <li><a href="" target="_blank"><span class="icon-google"></span><span class="text">on google+</span></a></li>
+                    <li><a href="http://twitter.com/IZAWorldofLabor" target="_blank"><span class="icon-twitter"></span><span class="text">on twitter</span></a></li>
+                    <li><a href="http://www.linkedin.com/groups?gid=6610789&amp;mostPopular=&amp;trk=tyah&amp;trkInfo=tas%3AIZA%20wo%2Cidx%3A1-1-1" target=" target=" _blank"=""><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
+                    <li><a href="http://www.facebook.com/pages/IZA-World-of-Labor/174866842714452" target="_blank"><span class="icon-facebook"></span><span class="text">on facebook</span></a></li>
+                    <li><a href="https://plus.google.com/116017394173863766515" target="_blank"><span class="icon-google"></span><span class="text">on google+</span></a></li>
                 </ul>
             </div>
             

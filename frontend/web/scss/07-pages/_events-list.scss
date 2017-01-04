@@ -141,7 +141,71 @@
   margin-bottom: 10px;
 
   .tab-item {
+    padding: 13px 0;
     @extend .opacityAnimate;
+
+    &.blue {
+      background: rgb(0,115,201);
+      background: -moz-linear-gradient(top,  rgba(0,115,201,1) 0%, rgba(0,82,159,1) 100%);
+      background: -webkit-linear-gradient(top,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
+      background: linear-gradient(to bottom,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
+      padding: 13px 15px;
+      margin: 0 -15px;
+
+      .more-link {
+        color: #fff;
+      }
+
+      .articles-filter-list,
+      .sidebar-news-list {
+        li {
+          margin: 0 0 13px;
+          padding: 0;
+          font-size: 14px;
+
+          &:last-child {
+            margin-bottom: 0 !important;
+          }
+
+          .icon-arrow {
+            left: auto;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            top: -6px;
+            color: #58beff;
+            transform: rotate(180deg);
+            font-size: 8px;
+          }
+
+          &.open {
+            .icon-arrow {
+              color: #fff;
+              transform: rotate(90deg);
+            }
+          }
+
+          .submenu {
+            padding-bottom: 1px;
+
+            li {
+              padding-left: 16px;
+              font-size: 14px;
+              margin: 14px 0 9px;
+            }
+          }
+
+          * {
+            color: #fff;
+          }
+
+          a {
+            color: #fff;
+            font-family: $lucida-sans !important;
+          }
+        }
+      }
+    }
   }
 
   @include breakpoint('tablet') {
@@ -161,7 +225,7 @@
   @include breakpoint_custom($breakpoint-tablet) {
     display: flex;
     justify-content: space-around;
-    margin: -11px -15px 20px;
+    margin: -11px -15px 0;
     padding: 0 15px;
     border-bottom: 1px solid #b0b0b0;
 
@@ -180,59 +244,6 @@
       padding: 10px 0;
       border-bottom: 2px solid transparent;
       color: #323232;
-    }
-  }
-}
-
-.articles-filter-list {
-  &.blue-list {
-    background: rgb(0,115,201);
-    background: -moz-linear-gradient(top,  rgba(0,115,201,1) 0%, rgba(0,82,159,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
-    background: linear-gradient(to bottom,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
-    padding: 13px 0;
-
-    li {
-      margin: 0 0 13px;
-      font-size: 14px;
-
-      &:last-child {
-        margin-bottom: 0 !important;
-      }
-
-      .icon-arrow {
-        left: auto;
-        right: 0;
-        width: 30px;
-        height: 30px;
-        top: -6px;
-        color: #58beff;
-        transform: rotate(180deg);
-        font-size: 8px;
-      }
-
-      &.open {
-        .icon-arrow {
-          color: #fff;
-          transform: rotate(90deg);
-        }
-      }
-
-      .submenu {
-        padding-bottom: 1px;
-
-        li {
-          padding-left: 16px;
-          font-size: 14px;
-          margin: 14px 0 9px;
-        }
-      }
-
-
-      a {
-        color: #fff;
-        font-family: $lucida-sans !important;
-      }
     }
   }
 }
