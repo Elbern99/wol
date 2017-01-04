@@ -1,4 +1,20 @@
-<div class="header-background" style="background-image: url('../images/temp/img-03.jpg');"></div>
+<?php
+/* @var $this yii\web\View */
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+//use Yii;
+?>
+
+<?php
+
+$this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
+
+$mailLink = 'link';
+$mailTitle = 'title';
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
+    '\n\n View the article: '. $mailLink . '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+?>
 
 <div class="container about-page">
 	
@@ -23,16 +39,41 @@
 				<figure class="align-left">
 					<img src="images/temp/article/img-01.jpg" alt="">
 				</figure>
-				<p>For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.</p>
-				<p>Using the passing of the Clean Air Act in the US in 1956, and its expanded scope in 1970, which imposed county-level restrictions on maximum amounts of suspended particles, researchers were able to study data on 5.7 million individuals born just before and just after the amendments to the act came into force, revealing the long-term effects of exposure to air pollution in children below the age of 1.</p>
-				<p>Although 1% may not sound particularly dramatic, cumulatively, that means $6.5 billion lower earnings per birth cohort studied.
-				<p>The researchers believe that two components could help explain the differences in earnings: health and cognitive ability. Children born in counties with higher air pollution had worse health, while previous studies have shown that exposure to air pollution in the womb and just after birth can result in reduced cognitive ability.</p>
-				<p><a href="">Olivier Deschenes</a> has written about <a href="">environmental regulations and labor markets</a> for IZA World of Labor. He notes that whereas air quality standards generally have negative effects on industry employment, productivity, and worker earnings, the “private costs are small relative to the social benefits of better health outcomes for the population.” He recommends that any “new or stricter environmental regulations that affect labor markets should include job training, income support, and labor market reintegration programs” for displaced workers.</p>
-				<p>Read more <a href="">IZA World of Labor articles on the environment.</a></p>
+				<p>For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.<br><br>
+				Using the passing of the Clean Air Act in the US in 1956, and its expanded scope in 1970, which imposed county-level restrictions on maximum amounts of suspended particles, researchers were able to study data on 5.7 million individuals born just before and just after the amendments to the act came into force, revealing the long-term effects of exposure to air pollution in children below the age of 1.<br><br>
+				Although 1% may not sound particularly dramatic, cumulatively, that means $6.5 billion lower earnings per birth cohort studied.
+				The researchers believe that two components could help explain the differences in earnings: health and cognitive ability. Children born in counties with higher air pollution had worse health, while previous studies have shown that exposure to air pollution in the womb and just after birth can result in reduced cognitive ability.<br><br>
+				<a href="">Olivier Deschenes</a> has written about <a href="">environmental regulations and labor markets</a> for IZA World of Labor. He notes that whereas air quality standards generally have negative effects on industry employment, productivity, and worker earnings, the “private costs are small relative to the social benefits of better health outcomes for the population.” He recommends that any “new or stricter environmental regulations that affect labor markets should include job training, income support, and labor market reintegration programs” for displaced workers.<br><br>
+				Read more <a href="">IZA World of Labor articles on the environment.</a></p>
 			</article>
 		</div>
 		
 		<aside class="sidebar-right">
+
+            <div class="sidebar-buttons-holder">
+                <ul class="share-buttons-list">
+                    <li class="share-facebook">
+                        <div id="fb-root"></div>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                    </li>
+                    <li class="share-twitter">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
+                    </li>
+                    <li class="share-ln">
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                        <script type="IN/Share"></script>
+                    </li>
+                </ul>
+
+                <div class="sidebar-email-holder">
+                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                        <div class="inner">
+                            <span class="icon-message"></span>
+                            <span class="text">email</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
             <div class="sidebar-widget">
                 <ul class="sidebar-accrodion-list">
@@ -235,7 +276,7 @@
                 <div class="widget-title">follow iza world of labor</div>
                 <ul class="socials-list socials-vertical-list">
                     <li><a href="http://twitter.com/IZAWorldofLabor" target="_blank"><span class="icon-twitter"></span><span class="text">on twitter</span></a></li>
-                    <li><a href="http://www.linkedin.com/groups?gid=6610789&amp;mostPopular=&amp;trk=tyah&amp;trkInfo=tas%3AIZA%20wo%2Cidx%3A1-1-1" target=" target=" _blank"=""><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
+                    <li><a href="http://www.linkedin.com/groups?gid=6610789&amp;mostPopular=&amp;trk=tyah&amp;trkInfo=tas%3AIZA%20wo%2Cidx%3A1-1-1" target="_blank"="><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
                     <li><a href="http://www.facebook.com/pages/IZA-World-of-Labor/174866842714452" target="_blank"><span class="icon-facebook"></span><span class="text">on facebook</span></a></li>
                     <li><a href="https://plus.google.com/116017394173863766515" target="_blank"><span class="icon-google"></span><span class="text">on google+</span></a></li>
                 </ul>

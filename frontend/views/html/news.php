@@ -125,8 +125,9 @@
                                         </div>
                                     </div>
                                     <h2><a href="">New minimum wage will increase migration to UK, claim anti-EU campaigners</a></h2>
-                                    <p>For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.</p>
+                                    <p class="hide-mobile">For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.</p>
                                 </div>
+                                <p class="hide-desktop">For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.</p>
                             </div>
                         </li>
                         <li>
