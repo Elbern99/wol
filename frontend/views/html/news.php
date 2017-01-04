@@ -110,7 +110,7 @@
     </div>
 
     <div class="content-inner">
-        <div class="content-inner-text contact-page">
+        <div class="content-inner-text">
             <div class="post-list-clone-holder">
                 <div class="post-list-clone">
                     <ul class="post-list clone news-list">
