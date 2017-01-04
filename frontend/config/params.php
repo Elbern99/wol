@@ -15,5 +15,5 @@ return [
     'video_sidebar_limit' => 5,
     'expert_limit' => 5,
     'search_result_limit' => 50,
-    'authors_limit' => 10
+    'authors_limit' => 9
 ];

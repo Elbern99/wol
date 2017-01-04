@@ -46,6 +46,30 @@ class AuthorParser implements ParserInterface {
         $args['enabled'] = 1;
         $args['url'] = $this->getAuthorUrl();
         $args['avatar'] = $args['author_key'].'.jpg';
+        
+        $names = unserialize($this->getName());
+        $url_key = '';
+        
+        $args['name'] = $names->first_name.' '.$names->middle_name.' '.$names->last_name;
+
+        if (trim($names->first_name)) {
+            
+            $url_key .= preg_replace('/\W+/', '', strtolower($names->first_name));
+            $url_key .= '-';
+        }
+        
+        if (trim($names->middle_name)) {
+            
+            $url_key .= preg_replace('/\W+/', '', strtolower($names->middle_name));
+            $url_key .= '-';
+        }
+        
+        if (trim($names->last_name)) {
+            
+            $url_key .= preg_replace('/\W+/', '', strtolower($names->last_name));
+        }
+        
+        $args['url_key'] = $url_key;
 
         $author = $this->author->addNewAuthor($args);
         

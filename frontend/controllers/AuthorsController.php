@@ -3,7 +3,6 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use common\models\AuthorRoles;
 use common\modules\author\Roles;
 use yii\helpers\ArrayHelper;
 use common\models\Author;
@@ -11,6 +10,7 @@ use common\modules\eav\CategoryCollection;
 use common\modules\eav\helper\EavValueHelper;
 use common\models\ExpertSearch;
 use yii\data\Pagination;
+use yii\web\NotFoundHttpException;
 
 class AuthorsController extends Controller {
     
@@ -21,7 +21,7 @@ class AuthorsController extends Controller {
         $collection = [];
         
         $query = Author::find()
-                           ->select(['id'])
+                           ->select(['id', 'url_key'])
                            ->with(['articleAuthors.article' => function($query) {
                                return $query->select(['id', 'seo', 'title']);
                            }])
@@ -48,6 +48,7 @@ class AuthorsController extends Controller {
             }
             
             $collection[$author['id']] = [
+                'url_key' => $author['url_key'],
                 'name' => $name,
                 'affiliation' => $affiliation,
                 'articles' => $articles
@@ -56,6 +57,38 @@ class AuthorsController extends Controller {
         
         return $this->render('authors_list', ['collection' => $collection, 'paginate' => $pages]);
         
+    }
+    
+    public function actionProfile($url_key) {
+        
+        $author = Author::find()
+                            ->where(['url_key' => $url_key, 'enabled' => 1])
+                            ->one();
+        
+        if (!is_object($author)) {
+            throw new NotFoundHttpException('Page Not Found.');
+        }
+                
+        $authorCollection = Yii::createObject(CategoryCollection::class);
+        $authorCollection->initCollection(Author::tableName(), $author->id);
+        $authorValues = $authorCollection->getValues();
+        
+        $data = [
+            'author' => $author,
+            'author_country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data; }, 'array'),
+            'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) { return $data->testimonial; }, 'string'),
+            'publications' => EavValueHelper::getValue($authorValues[$author->id], 'publications', function($data) { return $data->publication; }, 'array'),
+            'affiliation' => EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) { return $data->affiliation; }, 'string'),
+            'position' => EavValueHelper::getValue($authorValues[$author->id], 'position', function($data) { return $data; }),
+            'degree' => EavValueHelper::getValue($authorValues[$author->id], 'degree', function($data) { return $data->degree; }, 'string'),
+            'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) { return $data->interests; }, 'string'),
+            'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
+            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) { return $data->expertise_type; }, 'array'),
+            'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data->code; }, 'array'),
+            'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
+        ];
+
+        return $this->render('profile', ['author' => $data]);
     }
 
     public function actionExpert() {
