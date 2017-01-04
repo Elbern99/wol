@@ -226,14 +226,19 @@ class ArticleParser implements ParserInterface {
             
             throw new \Exception(Yii::t('app/messages',"Article did not save").'  \n'. implode("\n", $errors));
         }
-
+        
+        $articleId = $this->article->id;
+        
+        $this->addArticleCategory($articleId);
+        $this->addArticleAuthor($articleId);
+        
         $attributes = $this->type->find()
                 ->where(['name' => 'article'])
                 ->with('eavTypeAttributes.eavAttribute')
                 ->one();
 
         $typeId = $attributes->id;
-        $articleId = $this->article->id;
+        
         $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
 
         if (is_null($entity)) {
@@ -242,8 +247,7 @@ class ArticleParser implements ParserInterface {
             throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
         
-        $this->addArticleCategory($articleId);
-        $this->addArticleAuthor($articleId);
+        
         
         $this->setImages();
         $this->setSources();

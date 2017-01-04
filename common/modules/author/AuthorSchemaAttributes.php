@@ -33,7 +33,7 @@ class AuthorSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'author_country', 
-                array_combine($attributeSchema,['creation','Creation',1,1,1]), 
+                array_combine($attributeSchema,['author_country','Country',1,1,1]), 
                 [['label'=>'Code','type'=>'String']]
         );
         

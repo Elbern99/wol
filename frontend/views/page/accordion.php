@@ -26,22 +26,20 @@ $this->registerMetaTag([
     <div class="content-inner">
         <?php if (count($page->getPage())): ?> 
             <div class="content-inner-text">
-                <div class="faq-accordion">
-                    <ul class="faq-accordion-list">
-                        <?php foreach ($page->getPage() as $tab): ?>
-                            <li class="faq-accordion-item <?= ($tab['open']) ? 'is-open' : '' ?>">
-                                <a href='#<?= $tab['anchor'] ?>' class='title'>
-                                    <h3><?= $tab['title'] ?></h3>
-                                </a>
-                                <div class="text">
-                                    <div class="text-inner">
-                                        <?= $tab['text'] ?>
-                                    </div>
+                <ul class="faq-accordion-list">
+                    <?php foreach ($page->getPage() as $tab): ?>
+                        <li class="faq-accordion-item <?= ($tab['open']) ? 'is-open' : '' ?>">
+                            <a href='#<?= $tab['anchor'] ?>' class='title'>
+                                <h3><?= $tab['title'] ?></h3>
+                            </a>
+                            <div class="text">
+                                <div class="text-inner">
+                                    <?= $tab['text'] ?>
                                 </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
 

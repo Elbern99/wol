@@ -194,23 +194,26 @@
 .search-results-media-list {
   display: flex;
   flex-flow: row wrap;
-  margin: 0 -5px;
+  margin: 0 -5px 10px;
 
   @include breakpoint('tablet') {
-    margin: 0 -10px;
+    margin: 0 -10px 20px;
   }
 
   li {
     width: 50%;
-    padding: 0 5px 23px;
+    padding: 0 5px 0;
+    margin-bottom: 23px;
 
     @include breakpoint('tablet') {
       width: 33.3%;
-      padding: 0 5px 18px;
+      padding: 0 5px 0;
+      margin-bottom: 18px;
     }
 
     @include breakpoint('tablet') {
-      padding: 0 10px 58px;
+      padding: 0 10px 0;
+      margin-bottom: 58px;
     }
   }
 }

@@ -40,33 +40,51 @@
 .header-menu-top-list {
   margin: 0 0 -1px;
 
-  li {
+  @include breakpoint_custom($breakpoint-desktop-large) {
+    .submenu  {
+      left:  0;
+      right: auto;
+      //margin: -5px 0 0;
+
+      &:after {
+        left: 24px;
+      }
+    }
+  }
+
+  >li {
     display: inline-block;
     text-transform: uppercase;
     font-size: 10px;
-    margin: 0 23px 0 0;
+
+    @include breakpoint('tablet') {
+      margin: 0 23px 0 0;
+    }
 
     &.subscribe-link {
       a {
         color: $blue;
       }
     }
-  }
 
-  a {
-    color: $dark-blue-black;
-    text-decoration: none;
-    display: block;
-    padding: 9px 0;
-    border-bottom: 1px solid transparent;
+    >a {
+      color: $dark-blue-black;
+      text-decoration: none;
+      display: block;
+      padding: 9px 0;
 
-    &:hover {
-      color: $blue;
-    }
+      @include breakpoint('tablet') {
+        border-bottom: 1px solid transparent;
 
-    &:hover,
-    &.active {
-      border-color: #008ef1;
+        &:hover {
+          color: $blue;
+        }
+
+        &:hover,
+        &.active {
+          border-color: #008ef1;
+        }
+      }
     }
   }
 }
@@ -161,8 +179,9 @@
 
         a {
           display: block;
-          padding: 9px 10px 11px!important;
+          padding: 0 10px 0 !important;
           color: #262626;
+          line-height: 38px;
         }
       }
 
@@ -533,25 +552,29 @@
       opacity: 1;
     }
 
+    .header-menu-bottom-list,
+    .header-menu-top-list {
+      .submenu {
+        display: none;
+
+        .item {
+          a {
+            text-transform: none;
+          }
+        }
+
+        .submenu {
+          padding-left: 10px;
+        }
+      }
+    }
+
     .header-menu-bottom-list {
       >.item {
         >a {
           font-size: 18px;
           padding: 8px 0 9px;
-        }
-      }
-
-      .item {
-        a {
           text-transform: none;
-        }
-      }
-
-      .submenu {
-        display: none;
-
-        .submenu {
-          padding-left: 10px;
         }
       }
     }
@@ -611,7 +634,8 @@
     }
   }
 
-  .header-menu-bottom-list {
+  .header-menu-bottom-list,
+  .header-menu-top-list {
 
     .item {
 
@@ -666,6 +690,7 @@
   background: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   padding: 5px;
+  max-height: 196px;
 
   li {
     margin: 5px 5px 5px;

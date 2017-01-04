@@ -5,21 +5,11 @@ namespace common\models;
 use Yii;
 use common\contracts\VideoInterface;
 use common\helpers\VideoHelper;
+use common\models\Video;
 
-/**
- * This is the model class for table "video".
- *
- * @property integer $id
- * @property string $url_key
- * @property string $title
- * @property string $video
- * @property string $image
- * @property string $description
- * @property integer $order
- */
 class Video extends \yii\db\ActiveRecord implements VideoInterface
 {
-    
+    public $video_ids;
     
     /**
      * @inheritdoc
@@ -43,6 +33,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             [['title'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 60],
             [['url_key'], 'unique'],
+            [['video_ids',], 'safe'],
         ];
     }
 
@@ -59,7 +50,17 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             'image' => Yii::t('app', 'Image'),
             'description' => Yii::t('app', 'Description'),
             'order' => Yii::t('app', 'Order'),
+            'video_ids' => Yii::t('app', 'Related Videos'),
         ];
+    }
+    
+    public function loadAttributes()
+    {
+        $childVideos = RelatedVideo::find()->select('children_id')->where(['=', 'parent_id', $this->id])->all();
+        foreach ($childVideos as $video) {
+            $currentVideo = Video::find()->where(['=', 'id', $video->children_id])->one();
+            $this->video_ids[] = $currentVideo->id; 
+        }
     }
     
     public function getVideo() {
@@ -82,5 +83,49 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     public function getVideoImageLink() 
     {
         return 'http://img.youtube.com/vi/' . $this->getVideoId() . '/hqdefault.jpg';
+    }
+    
+    public function getRelatedVideos()
+    {
+        return $this->hasMany(RelatedVideo::className(), ['parent_id' => 'id']);
+    }
+    
+    
+    public function videosList()
+    {
+        $videos = Video::find()->where(['<>', 'id', $this->id])->all();
+        $videosList = [];
+        foreach ($videos as $video) {
+            $videosList[$video->id] = $video->title; 
+        }
+        return $videosList;
+    }
+    
+   public function saveData()
+    {
+        RelatedVideo::deleteAll(['=', 'parent_id', $this->id]);
+        
+        $bulkInsertArray = [];
+        
+        if (is_array($this->video_ids)) {
+            
+            foreach ($this->video_ids as $id) {
+                $bulkInsertArray[]=[
+                    'parent_id' => $this->id,
+                    'children_id' => $id,
+                ];
+            }
+
+            if (count($bulkInsertArray)>0){
+                $columnNamesArray = ['parent_id', 'children_id'];
+                $insertCount = Yii::$app->db->createCommand()
+                               ->batchInsert(
+                                    RelatedVideo::tableName(), $columnNamesArray, $bulkInsertArray
+                                 )
+                               ->execute();
+            }
+        }
+        
+        return $this->save();
     }
 }

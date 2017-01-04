@@ -57,11 +57,11 @@ var elements = {
             });
         },
         mobileOpenItem: function(cur) {
-            cur.parent().find('>div').slideDown(headerMenu.delay);
+            cur.parent().find('>.submenu').slideDown(headerMenu.delay);
             cur.parent().addClass('open');
         },
         mobileCloseItem: function(cur) {
-            cur.parent().find('>div').slideUp(headerMenu.delay);
+            cur.parent().find('>.submenu').slideUp(headerMenu.delay);
             cur.parent().removeClass('open');
         },
         mobile: function(btn,content,parent) {
@@ -90,6 +90,7 @@ var elements = {
                 $(document).unbind('click.submenu');
                 dropWidget.removeClass('open');
                 btn.not(cur).removeClass('active');
+                $('.has-drop a').removeClass('active');
                 if ( !cur.hasClass('active') ) {
                     e.preventDefault();
                     var yourClick = true;
@@ -117,13 +118,12 @@ var elements = {
     // 1.2 HEADER SEARCH
 
     var search = {
-        autoSelect: function(btn,parent) {
+        autoSelect: function(btn,parent,drop) {
             $(parent).on('click', btn, function(e) {
                 var cur = $(this),
                     curText = cur.text();
                 cur.parents(parent).find(':text').val(curText);
-
-                console.log(1);
+                $(drop).fadeOut();
                 e.preventDefault();
             });
         }
@@ -225,6 +225,11 @@ var elements = {
                     curParent = cur.parent(),
                     curParentIndex = curParent.index();
                 curParent.addClass('active').siblings().removeClass('active');
+
+                if(cur.hasClass('active')) {
+                    $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                }
+
                 $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
                 e.preventDefault();
             });
@@ -234,6 +239,28 @@ var elements = {
                    $(list).find('li').eq(0).find('a').trigger('click');
                }
             });
+        },
+        cloneTab: function(el,elToMobile,elToDesktop){
+            if($(el).length) {
+                function appendElements(el,elToMobile,elToDesktop) {
+                    if($(elToMobile).length) {
+                        var elHtml = $(el);
+
+                        if (_window_width < _mobile) {
+                            $(elToMobile).append(elHtml);
+                        } else {
+                            $(elToDesktop).append(elHtml);
+                        }
+                    }
+                }
+
+                appendElements(el,elToMobile,elToDesktop);
+                $(window).resize(function() {
+                    setTimeout(function(){
+                        appendElements(el,elToMobile,elToDesktop);
+                    }, 600);
+                });
+            }
         }
     }
     /* tabs end */
@@ -397,9 +424,9 @@ var elements = {
                     cur.toggleClass('showed');
 
                     if(cur.hasClass('showed')) {
-                        curParent.find('li').addClass('opened');
+                        curParent.find('li,.item').addClass('opened');
                     } else {
-                        curParent.find('li').removeClass('opened');
+                        curParent.find('li,.item').removeClass('opened');
 
                         setTimeout(function(){
                             $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
@@ -465,9 +492,6 @@ var elements = {
     $(document).ready(function() {
 
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
-        headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
-        headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .header-menu-bottom-list'));
-
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
         dropDown($('.custom-select .dropdown-link'), '.drop-content');
         dropDown($('.sidebar-widget-reference-popup .dropdown-link'), '.drop-content');
@@ -487,6 +511,9 @@ var elements = {
             closeDropDown($('.btn-mobile-login-close'), $('.mobile-login'), $('.btn-mobile-login-show'));
             accordion.toggleItem($('.events-list .title'), '.text',$('.events-list'));
             tabs.switcher('.mobile-filter-list','.mobile-filter-items','.tab-item');
+            headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
+            headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .has-drop >a'));
+            tabs.cloneTab('.post-list-clone','.tab-item.empty','.post-list-clone-holder');
         }
         //CONTENT
         article.openPrintWindow('.btn-print');
@@ -498,6 +525,8 @@ var elements = {
         sidebarNews.moreSidebarNews('.more-link','.key-references-list');
         sidebarNews.moreSidebarNews('.more-link','.further-reading-list');
         sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list');
+        sidebarNews.moreSidebarNews('.more-link','.more-extra-list');
+        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list');
     });
 
     $(window).load(function() {
@@ -510,6 +539,7 @@ var elements = {
         articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
         docHeightForElement.changeHeight();
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
+        headerMenu.desktop($('.header-desktop .header-menu-top-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.content-types');
         forms.clearAll('.clear-all', '.select-all', '.checkboxes');
         forms.clearAll('.clear-all', '.select-all', '.dropdown-login');
@@ -520,7 +550,7 @@ var elements = {
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
-        search.autoSelect('.auto-search-list span','.search');
+        search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown');
     });
 
 })(jQuery);

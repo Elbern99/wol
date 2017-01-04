@@ -111,7 +111,9 @@ $roleLabel = new Roles();
                             $params = [$category->url_key, 'sort' => 1];
                         }
                         ?>
-                        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                        <?php if (Yii::$app->request->get('limit')): ?>
+                            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>

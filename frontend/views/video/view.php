@@ -124,50 +124,24 @@ $this->params['breadcrumbs'][] = $model->title;
 
             <div class="widget-title medium">related videos</div>
             <ul class="post-list media-list">
+                <?php foreach ($model->relatedVideos as $relatedVideo) : ?>
+                <?php $video = $relatedVideo->video; ?>
                 <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)">
+                    <?= Html::beginTag('a', [
+                        'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
+                        'class' => 'img',
+                        'style' => "background-image: url('".$video->getVideoImageLink()."')",
+                    ]); ?>
                         <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
+                    <?= Html::endTag('a'); ?>
+                    <h2>
+                        <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
+                    </h2>
+                    <h3><?= $video->description; ?></h3>
                 </li>
-                <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(http://www.aee-community.com/wp-content/uploads/rtMedia/users/1/2016/09/2429637D00000578-0-image-a-284_1419003100839.jpg)">
-                        <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
-                </li>
-                <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(http://image.shutterstock.com/z/stock-photo-image-of-male-entrepreneur-walking-on-the-road-with-numbers-while-carrying-suitcase-336606005.jpg)">
-                        <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
-                </li>
-                <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(https://s4.scoopwhoop.com/anj/news/577034596.jpg)">
-                        <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
-                </li>
-                <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(https://i.kinja-img.com/gawker-media/image/upload/s--g08OhiOf--/c_scale,fl_progressive,q_80,w_800/pide90n0psa6euojt1uw.jpg)">
-                        <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
-                </li>
-                <li class="post-item media-item">
-                    <a href="" class="img" style="background-image: url(https://en-support.files.wordpress.com/2009/09/image-widget-wordpress.png?w=380&h=600)">
-                        <div class="icon-play"></div>
-                    </a>
-                    <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                    <h3>When countries regularize undocumented residents, their work, wages, and human capital investment opportunities change</h3>
-                </li>
+                <?php endforeach; ?>
+              
             </ul>
-            <a class="btn-gray align-center show-more" href="">show more</a>
             <div class="widget-title medium">related articles</div>
             <ul class="post-list">
                 <li class="post-item">

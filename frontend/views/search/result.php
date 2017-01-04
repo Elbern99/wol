@@ -69,8 +69,8 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
         </div>
 
         <div class="content-inner">
-            <div class="content-inner-text contact-page">
-                <!--<ul class="search-results-media-list">
+            <div class="content-inner-text">
+                <!-- <ul class="search-results-media-list">
                     <li class="search-results-media-item">
                         <div class="img">
                             <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
@@ -86,7 +86,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         <div class="name">Hartmut Lehmann</div>
                         <p>Professor of Economic Policy in the Department of Economics at the University of Bologna, Italy</p>
                     </li>
-                </ul>-->
+                </ul> -->
 
                 <div class="search-results-table">
                     <div class="search-results-table-top">
@@ -119,10 +119,10 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         <?php endforeach; ?>
                     </div>
                 </div>
-                
+
                 <?php $requestCount = Yii::$app->request->get('count') ?>
                 <div class="pagination-holder">
-                    
+
                     <div class="pagination-select">
                         <div class="label-text">show</div>
                         <div class="custom-select dropdown">
@@ -135,22 +135,22 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                             </div>
                         </div>
                     </div>
-                    
+
                     <?= LinkPager::widget([
-                            'pagination' => $paginate, 
+                            'pagination' => $paginate,
                             'options' => ['class' => 'pagination'],
-                            'nextPageLabel' => 'Next', 
+                            'nextPageLabel' => 'Next',
                             'prevPageLabel' => 'Previous',
                             'lastPageLabel' => true,
                             'maxButtonCount' => 9
-                        ]); 
+                        ]);
                     ?>
                 </div>
-                
+
             </div>
 
             <aside class="sidebar-right">
-                
+
                 <div class="sidebar-widget sidebar-widget-save">
                     <a href="/search/save" class="btn-border-blue-large with-icon btn-save-search">
                         <span class="inner">
@@ -159,7 +159,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                         <div class="btn-save-search-inner">search saved to your account</div>
                     </a>
                 </div>
-                
+
                 <div class="filter-clone-holder">
                     <div class="filter-clone">
                         <div class="sidebar-widget sidebar-widget-sort-by">

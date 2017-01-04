@@ -4,7 +4,7 @@
 
 $this->title = 'IZA';
 ?>
-<div class="site-index">
+<div class="container site-index without-breadcrumbs">
 
     <div class="body-content">
 

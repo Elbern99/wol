@@ -12,6 +12,7 @@ use common\models\Opinion;
 use common\models\Video;
 use common\models\Category;
 use common\models\Widget;
+use common\models\CommentaryVideo;
 /**
  * Site controller
  */
@@ -36,8 +37,11 @@ class CommentaryController extends Controller {
     
     public function _getVideosList($limit = null)
     {
+        $ids = CommentaryVideo::videosListIds();
+
         return Video::find()
                         ->orderBy('id desc')
+                        ->where('id IN('.$ids.')')
                         ->limit($limit)
                         ->all();
     }
@@ -67,7 +71,8 @@ class CommentaryController extends Controller {
         }
         
         $opinionsQuery = Opinion::find()->orderBy('id desc');
-        $videosQuery = Video::find()->orderBy('id desc');
+        $ids = CommentaryVideo::videosListIds();
+        $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
         
         return $this->render('index', [
             'opinions' => $this->_getOpinionsList($opinionLimit),
@@ -101,7 +106,8 @@ class CommentaryController extends Controller {
             return $this->redirect(['/commentary']);
         }
         
-        $videosQuery = Video::find()->orderBy('id desc');
+        $ids = CommentaryVideo::videosListIds();
+        $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
         
         return $this->renderAjax('_videos', [
             'videos' => $this->_getVideosList($videoLimit),

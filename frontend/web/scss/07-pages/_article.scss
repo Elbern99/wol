@@ -29,10 +29,6 @@
     .sidebar-widget-share-buttons {
       display: none;
     }
-
-    article {
-      margin-bottom: 30px;
-    }
   }
 
   .content-inner-text {
@@ -406,7 +402,7 @@
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    margin: 90px -15px 29px;
+    margin: 90px -15px 0;
     padding: 20px 15px 24px;
     border-bottom: 1px solid #b0b0b0;
 
@@ -437,16 +433,18 @@
 
   [class^="btn-"],
   [class*=" btn-"] {
-    margin: 0 5px 22px 0;
+    margin: 0 5px 0 0;
 
     &.btn-cite {
       padding: 0 25px 0 10px;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
+      margin: 22px 5px 0 0;
+
       &.btn-show-one-pager {
         position: absolute;
-        top: -60px;
+        top: -86px;
         left: 50%;
         transform: translateX(-50%);
       }
@@ -481,7 +479,7 @@
     [class^="btn-"],
     [class*=" btn-"] {
       float: right;
-      margin-bottom: 0;
+      margin: 0 5px 5px 0;
     }
 
     .btn-download,
