@@ -2501,12 +2501,12 @@ blockquote {
     @media only screen and (min-width: 769px) {
       .commentary-videos-list li {
         width: 33.3%; } }
-    @media only screen and (min-width: 1330px) {
+    @media only screen and (min-width: 1430px) {
       .commentary-videos-list li {
         width: 25%; } }
     @media only screen and (min-width: 769px) {
       .commentary-videos-list li .opinion-item {
-        max-height: 400px; } }
+        max-height: 403px; } }
 
 .opinion-item,
 .news-item {
@@ -2520,7 +2520,8 @@ blockquote {
   .opinion-item p,
   .news-item p {
     display: none;
-    overflow: hidden; }
+    overflow: hidden;
+    margin: 0; }
     @media only screen and (min-width: 769px) {
       .opinion-item p,
       .news-item p {
@@ -2538,7 +2539,7 @@ blockquote {
       @media only screen and (min-width: 769px) {
         .opinion-item.has-image h2,
         .news-item.has-image h2 {
-          margin: 0 0 11px; } }
+          margin: 0 0 15px; } }
     .opinion-item.has-image .name,
     .news-item.has-image .name {
       margin: 0 0 7px; }
@@ -3888,7 +3889,7 @@ label {
 .dropdown-login .dropdown-widget {
   margin-top: -5px;
   padding-bottom: 19px; }
-  @media only screen and (max-width: 1330px) {
+  @media only screen and (max-width: 1430px) {
     .dropdown-login .dropdown-widget {
       left: auto;
       right: -75px;
@@ -4506,7 +4507,7 @@ iframe[name=advpp_manager] {
           color: #0053a0; }
       .header-menu-top-list .submenu:after {
         left: 24px; } }
-  @media only screen and (min-width: 1330px) {
+  @media only screen and (min-width: 1430px) {
     .header-menu-top-list .submenu {
       margin-top: -5px;
       left: 50%;
@@ -5464,7 +5465,7 @@ iframe[name=advpp_manager] {
     right: 0;
     width: 40px;
     height: 40px; }
-    @media only screen and (min-width: 1330px) {
+    @media only screen and (min-width: 1430px) {
       .reference-popup .icon-close-popup {
         top: 15px;
         right: 15px; } }
@@ -5527,7 +5528,7 @@ iframe[name=advpp_manager] {
       height: 8px; }
     .reference-popup .icon-circle-arrow.left {
       transform: rotate(180deg); }
-    @media only screen and (min-width: 1330px) {
+    @media only screen and (min-width: 1430px) {
       .reference-popup .icon-circle-arrow {
         position: absolute;
         width: 22px;
@@ -5544,7 +5545,7 @@ iframe[name=advpp_manager] {
           left: -34px; }
         .reference-popup .icon-circle-arrow.right {
           right: -34px; } }
-    @media only screen and (max-width: 1330px) {
+    @media only screen and (max-width: 1430px) {
       .reference-popup .icon-circle-arrow {
         display: inline-block; } }
     .reference-popup .icon-circle-arrow.left .icon-arrow {

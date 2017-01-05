@@ -1457,7 +1457,7 @@
       }
 
       @include breakpoint('tablet') {
-        max-height: 400px;
+        max-height: 403px;
       }
     }
   }
@@ -1477,6 +1477,7 @@
   p {
     display: none;
     overflow: hidden;
+    margin: 0;
 
     @include breakpoint('tablet') {
       display: block;
@@ -1495,7 +1496,7 @@
       margin: -3px 0 0;
 
       @include breakpoint('tablet') {
-        margin: 0 0 11px;
+        margin: 0 0 15px;
       }
     }
 
