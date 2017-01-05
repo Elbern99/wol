@@ -140,6 +140,14 @@
       font-size: 13px;
       color: #4e6071;
       margin: 0 0 28px;
+      
+      a {
+        color: #4e6071;
+        
+        &:hover {
+          color: $light-blue;
+        }
+      }
     }
   }
 
@@ -152,14 +160,19 @@
 .editors-list {
   display: flex;
   flex-flow: row wrap;
+  margin: 0 -10px;
+
+  @include breakpoint('desktop') {
+    margin: 0 -20px;
+  }
 
   li {
     width: 50%;
-    padding: 0 10px 35px;
+    padding: 0 10px 25px;
 
     @include breakpoint('desktop') {
       width: 33.3%;
-      padding: 0 20px 31px;
+      padding: 0 20px 37px;
     }
   }
 }
@@ -216,11 +229,6 @@
       line-height: 1.6em;
     }
   }
-}
-
-//CONTRIBUTOR-PROFILE
-.contributor-profile {
-  margin: 0 0 30px;
 }
 
 //ARTICLES-LIST
@@ -547,7 +555,7 @@
     font-size: 13px;
     color: #323232;
     text-transform: uppercase;
-    margin: 0 0 17px;
+    margin: 0;
 
     @include breakpoint('tbalet') {
       font-size: 12px;
@@ -571,6 +579,8 @@
 }
 
 .title-open {
+  margin: 0 0 17px;
+
   &:before {
     transform: translateY(-50%) rotate(-90deg);
   }
@@ -579,6 +589,7 @@
 .only-mibile-accordion-item {
   .title {
     @extend .accordion-title;
+    transition: all 0.3s ease;
 
     @include breakpoint('tablet') {
       &:before {
@@ -603,7 +614,7 @@
 .only-mibile-accordion-item,
 .sidebar-accrodion-item,
 .mobile-accordion-item {
-  //overflow: hidden;
+  overflow: hidden;
 
   &.is-open {
     .title {
@@ -1343,7 +1354,7 @@
 
       .opinion-item,
       .news-item {
-        height: 433px;
+        max-height: 433px;
       }
     }
 
@@ -1415,7 +1426,7 @@
 
 .commentary-videos-list {
   overflow: hidden;
-  margin: 0 0 -20px;
+  margin: 0;
 
   @include breakpoint('mobile-large') {
     display: flex;
@@ -1506,7 +1517,7 @@
 
       @include breakpoint('tablet') {
         height: 53%;
-        min-height: 200px;
+        min-height: 229px;
       }
 
       .icon-play {
@@ -1608,4 +1619,123 @@
     display: none;
   }
 
+}
+
+
+//MOBILE-FILTER
+.mobile-filter-holder {
+  margin-bottom: 20px;
+
+  .tab-item {
+    margin: 20px 0;
+    @extend .opacityAnimate;
+
+    .only-mibile-accordion-item {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &.blue {
+      background: rgb(0,115,201);
+      background: -moz-linear-gradient(top,  rgba(0,115,201,1) 0%, rgba(0,82,159,1) 100%);
+      background: -webkit-linear-gradient(top,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
+      background: linear-gradient(to bottom,  rgba(0,115,201,1) 0%,rgba(0,82,159,1) 100%);
+      padding: 13px 15px;
+      margin: 0 -15px 20px;
+
+      .more-link {
+        color: #fff;
+      }
+
+      .articles-filter-list,
+      .sidebar-news-list {
+        li {
+          margin: 0 0 13px;
+          padding: 0;
+          font-size: 14px;
+
+          &:last-child {
+            margin-bottom: 0 !important;
+          }
+
+          .icon-arrow {
+            left: auto;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            top: -6px;
+            color: #58beff;
+            transform: rotate(180deg);
+            font-size: 8px;
+          }
+
+          &.open {
+            .icon-arrow {
+              color: #fff;
+              transform: rotate(90deg);
+            }
+          }
+
+          .submenu {
+            padding-bottom: 1px;
+
+            li {
+              padding-left: 16px;
+              font-size: 14px;
+              margin: 14px 0 9px;
+            }
+          }
+
+          * {
+            color: #fff;
+          }
+
+          a {
+            color: #fff;
+            font-family: $lucida-sans !important;
+          }
+        }
+      }
+    }
+  }
+
+  @include breakpoint('tablet') {
+    display: none !important;
+  }
+}
+
+.mobile-filter-list {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+
+  @include breakpoint('tablet') {
+    display: none;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: flex;
+    justify-content: space-around;
+    margin: -11px -15px 20px;
+    padding: 0 15px;
+    border-bottom: 1px solid #b0b0b0;
+
+    li {
+      margin-bottom: -1px;
+
+      &.active {
+        a {
+          border-bottom-color: $light-blue;
+        }
+      }
+    }
+
+    a {
+      display: block;
+      padding: 10px 0;
+      border-bottom: 2px solid transparent;
+      color: #323232;
+    }
+  }
 }

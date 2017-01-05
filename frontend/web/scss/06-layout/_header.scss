@@ -40,16 +40,40 @@
 .header-menu-top-list {
   margin: 0 0 -1px;
 
-  @include breakpoint_custom($breakpoint-desktop-large) {
+  @include breakpoint('tablet') {
     .submenu  {
       left:  0;
       right: auto;
-      //margin: -5px 0 0;
+      margin: -5px 0 0;
+
+      a {
+        color: #2a2a2a;
+
+        &:hover {
+          color: $blue;
+        }
+      }
 
       &:after {
         left: 24px;
       }
     }
+  }
+
+  @include breakpoint('desktop-large') {
+    .submenu  {
+      margin-top: -5px;
+      left: 50%;
+      margin-left: -133px;
+
+      &:after {
+        left: 50%;
+      }
+    }
+  }
+
+  li {
+    position: relative;
   }
 
   >li {
@@ -599,15 +623,12 @@
     }
 
     .subscribe-link {
-      position: absolute;
-      bottom: 29px;
-      left: 35px;
-      right: 35px;
-      padding: 13px 0 10px;
+      margin-top: 10px;
       background: #0094f2;
       font-size: 14px;
       font-family: $lucida-sans-demi-bold;
       border-radius: 3px;
+      height: 49px;
     }
   }
 

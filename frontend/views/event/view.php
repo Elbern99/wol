@@ -85,7 +85,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the following event
                             
                         </ul>
                     </div>
-                    <div class="tab-item js-tab-hidden">
+                    <div class="tab-item blue js-tab-hidden">
                         <ul class="articles-filter-list date-list blue-list">
                             <?php foreach ($eventsTree as $key => $value) : ?>
                             <li class="item has-drop">

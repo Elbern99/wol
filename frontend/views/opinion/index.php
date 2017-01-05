@@ -171,6 +171,7 @@ if ($category) {
                     </li>
                 </ul>
             </div>
+
             <div class="sidebar-widget sidebar-widget-subscribe">
                 <?php foreach ($widgets as $widget): ?>
                    <?= $widget['text'] ?>

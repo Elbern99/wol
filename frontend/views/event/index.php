@@ -82,7 +82,7 @@ if ($category) {
                             No results found.
                         <?php endif; ?>
                     </div>
-                    <div class="tab-item js-tab-hidden">
+                    <div class="tab-item blue js-tab-hidden">
                         <ul class="articles-filter-list date-list blue-list">
                             <?php foreach ($eventsTree as $key => $value) : ?>
                             <li class="item has-drop <?php if($value['isActive']) echo 'open'; ?>">
