@@ -35,10 +35,10 @@ use yii\widgets\Pjax;
 </ul>
 <?php if ($videosCount > $videoLimit): ?>
         <?php $params = ['/commentary/videos', 'video_limit' => $videoLimit]; ?>
-        <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-videos']) ?>
+        <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-videos']) ?>
 <?php else: ?>
     <?php if (Yii::$app->request->get('video_limit')): ?>
          <?php $params = ['/commentary/videos']; ?>
-        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-videos']) ?>
+        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-videos']) ?>
     <?php endif; ?>
 <?php endif; ?>

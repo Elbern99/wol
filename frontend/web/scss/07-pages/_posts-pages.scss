@@ -23,18 +23,25 @@
   }
 
   p {
-    font-size: 13px;
+    font-size: 12px;
 
     @include breakpoint('tablet') {
-      font-size: 11px;
+      font-size: 13px;
     }
   }
 
   iframe,
   figure {
+    overflow: hidden;
+  }
+
+  img,
+  iframe {
+    min-width: 100%;
+    width: 100%;
     height: calc(100vh*0.519);
     max-height: 163px;
-    overflow: hidden;
+    display: block;
 
     @include breakpoint('mobile-large') {
       max-height: 263px;
@@ -43,11 +50,5 @@
     @include breakpoint('tablet') {
       max-height: 490px;
     }
-  }
-
-  img,
-  iframe {
-    min-width: 100%;
-    width: 100%;
   }
 }

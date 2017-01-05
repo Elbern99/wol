@@ -31,10 +31,10 @@ use yii\widgets\Pjax;
 </ul>
 <?php if ($opinionsCount > $opinionLimit): ?>
         <?php $params = ['/commentary/opinions', 'opinion_limit' => $opinionLimit]; ?>
-        <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-opinions']) ?>
+        <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-opinions']) ?>
 <?php else: ?>
     <?php if (Yii::$app->request->get('opinion_limit')): ?>
          <?php $params = ['/commentary/opinions']; ?>
-        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-opinions']) ?>
+        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-opinions']) ?>
     <?php endif; ?>
 <?php endif; ?>

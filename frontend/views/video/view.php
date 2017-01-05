@@ -85,6 +85,7 @@ $this->params['breadcrumbs'][] = $model->title;
     <div class="content-inner">
         <div class="content-inner-text contact-page">
             <article class="post-full-item">
+                <figure>
                     <?= Html::tag('iframe', null, [
                         'width' => 560,
                        // 'height' => 315,
@@ -92,6 +93,7 @@ $this->params['breadcrumbs'][] = $model->title;
                         'frameboarder' => 0,
                         'allowfullscreen' => true, 
                     ]); ?>
+                </figure>
                 <p>
                     <?= $model->description; ?>
                 </p>
