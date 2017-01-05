@@ -11,6 +11,8 @@ use yii\helpers\Url;
 use common\models\NewsItem;
 use common\models\Category;
 use common\models\Widget;
+use common\models\Article;
+
 /**
  * Site controller
  */
@@ -97,6 +99,9 @@ class NewsController extends Controller {
             $newsTree[$groupYear]['isActive'] = $groupYear == $year ? true : false;
         }
         
+        $articles = Article::find()->orderBy('id desc')
+                                   ->limit(10)
+                                   ->all();
         
         return $this->render('index', [
             'news' => $this->_getNewsList($limit, $year, $month),
@@ -105,70 +110,58 @@ class NewsController extends Controller {
             'widgets' => $widgets,
             'newsTree' => $newsTree,
             'limit' => $limit,
+            'articlesSidebar' => $articles,
         ]);
-
-//        
-//        $groupsQuery = (new \yii\db\Query())
-//                ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
-//                ->from('events')
-//                ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-//                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
-//        
-//        $eventsTree = [];
-//        
-//        foreach ($groupsQuery->all() as $key => $value)
-//        {
-//            $groupMonth = (int)ArrayHelper::getValue($value, 'm');
-//            $groupYear = (int)ArrayHelper::getValue($value, 'y');
-//           
-//            $eventsTree[$groupYear]['months'][] = [
-//                'isActive' => $groupMonth == $month ? true : false,
-//                'num' => $groupMonth,
-//            ];
-//            
-//            $eventsTree[$groupYear]['isActive'] = $groupYear == $year ? true : false;
-//        }
-//
-//        if ($month && $year) {
-//           $groupsQuery->andWhere([
-//                'MONTH(date_from)' => $month,
-//                'YEAR(date_from)' => $year,
-//            ]);
-//        }
-//        else if (!$month && $year) {
-//            $groupsQuery->andWhere([
-//                'YEAR(date_from)' => $year,
-//            ]);
-//        }
-//        
-//        $groups = [];
-//        
-//        foreach ($groupsQuery->all() as $key => $value)
-//        {
-//            $groupMonth = (int)ArrayHelper::getValue($value, 'm');
-//            $groupYear = (int)ArrayHelper::getValue($value, 'y');
-//            
-//            if (strlen($groupMonth) == 1) {
-//                $groupMonth = '0'.$groupMonth;
-//            }
-//            
-//            $yearMonth = $groupYear . '-' . $groupMonth;
-//            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
-//            
-//            $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
-//            
-//        }
-//
-//        return $this->render('index', [
-//            'eventGroups' => $groups,
-//            'eventsTree' => $eventsTree,
-//            'category' => $this->_getEventMainCategory(),
-//            'widgets' => $widgets,
-//        ]);
     }
     
     public function actionView($slug = null)
     {
+        if (!$slug)
+            return $this->goHome();
+        
+        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->one();
+        
+        if (!$newsItem) 
+            return $this->redirect(Url::to(['/news/index']));
+        
+        $widgets = Widget::find()->where([
+            'name' => ['Subscribe to newsletter', 'Socials'],
+        ])->orderBy('id desc')->all();
+        
+        $latestNews = NewsItem::find()->orderBy('id desc')->limit(10)->all();
+        
+        $groupsQuery = (new \yii\db\Query())
+                ->select(['MONTH(created_at) as m', 'YEAR(created_at) as y'])
+                ->from('news')
+                ->groupBy(['MONTH(created_at)', 'YEAR(created_at)'])
+                ->orderBy('MONTH(created_at) desc, YEAR(created_at) desc');
+        
+        $newsTree = [];
+        
+        foreach ($groupsQuery->all() as $key => $value)
+        {
+            $groupMonth = (int)ArrayHelper::getValue($value, 'm');
+            $groupYear = (int)ArrayHelper::getValue($value, 'y');
+           
+            $newsTree[$groupYear]['months'][] = [
+                'isActive' => false,
+                'num' => $groupMonth,
+            ];
+            
+            $newsTree[$groupYear]['isActive'] = false;
+        }
+        
+        $articles = Article::find()->orderBy('id desc')
+                                   ->limit(10)
+                                   ->all();
+        return $this->render('view', [
+            'model' => $newsItem,
+            'category' => $this->_getMainCategory(),
+            'widgets' => $widgets,
+            'newsSidebar' => $latestNews,
+            'newsTree' => $newsTree,
+            'articlesSidebar' => $articles,
+        ]);
 //        if (!$slug)
 //            return $this->goHome();
 //     

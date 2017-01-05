@@ -80,7 +80,16 @@ class CommentaryController extends Controller {
         
         $opinionsQuery = Opinion::find()->orderBy('id desc');
         $ids = CommentaryVideo::videosListIds();
-        $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
+        
+        $hasVideo = false;
+        
+        if ($ids) {
+            $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
+            $hasVideo = true;
+        }
+        else {
+            $videosQuery = Video::find()->orderBy('id desc');
+        }
         
         return $this->render('index', [
             'opinions' => $this->_getOpinionsList($opinionLimit),
@@ -92,6 +101,7 @@ class CommentaryController extends Controller {
             'videosSidebar' => $videosQuery->all(),
             'opinionLimit' => $opinionLimit,
             'videoLimit' => $videoLimit,
+            'hasVideo' => $hasVideo,
         ]);
     }
 

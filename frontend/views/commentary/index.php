@@ -26,10 +26,15 @@ if ($category) {
     </div>
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
+            <?php if ($opinions) : ?>
             <li><a href="" class="js-widget">Opinions</a></li>
+            <?php endif; ?>
+            <?php if ($hasVideo) : ?>
             <li><a href="" class="js-widget">Videos</a></li>
+            <?php endif; ?>
         </ul>
         <div class="mobile-filter-items custom-tabs">
+            <?php if ($opinions) : ?>
             <div class="tab-item js-tab-hidden expand-more">
                 <ul class="sidebar-news-list">
                     <?php foreach ($opinionsSidebar as $opinion) : ?>
@@ -48,6 +53,8 @@ if ($category) {
                 </a>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
+            <?php if ($hasVideo) : ?>
             <div class="tab-item js-tab-hidden expand-more">
                 <ul class="sidebar-news-list">
                     <?php foreach ($videosSidebar as $video) : ?>
@@ -65,10 +72,12 @@ if ($category) {
                 </a>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <h1>Commentary</h1>
     <p>Watch exclusive video from conferences, debates and other events on labor market economics as well as reading the latest opinion pieces from IZA World of Labor authors.</p>
+    <?php if ($opinions) : ?>
     <div class="widget-title medium">opinions</div>
     <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
     <ul class="commentary-opinions-list">
@@ -104,8 +113,9 @@ if ($category) {
             <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-opinions']) ?>
         <?php endif; ?>
     <?php endif; ?>
-    
     <?php Pjax::end(); ?>
+    <?php endif; ?>
+    <?php if ($hasVideo) : ?>
     <div class="widget-title medium">videos</div>
     <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
     <ul class="commentary-videos-list">
@@ -146,4 +156,5 @@ if ($category) {
         <?php endif; ?>
     <?php endif; ?>
     <?php Pjax::end(); ?>
+    <?php endif; ?>
 </div>

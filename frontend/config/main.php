@@ -61,6 +61,8 @@ return [
                 'opinions/<slug:[0-9a-z-]+>' => 'opinion/view',
                 'videos' => 'video/index',
                 'videos/<slug:[0-9a-z-]+>' => 'video/view',
+                'news' => 'news/index',
+                'news/<slug:[0-9a-z-]+>' => 'news/view',
                 'find-an-expert' => 'authors/expert',
                 //'key-topics' => 'topic/index',
             ],
