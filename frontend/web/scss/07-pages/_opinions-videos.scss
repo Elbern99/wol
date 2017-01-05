@@ -1,4 +1,5 @@
-.opinions-page {
+.opinions-page,
+.video-page {
 
   @include breakpoint_custom($breakpoint-tablet) {
     .sidebar-widget-articles-filter {

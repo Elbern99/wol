@@ -1,0 +1,115 @@
+.contributor-profile-page {
+  .other-articles-list {
+    margin-bottom: 0;
+  }
+}
+
+.contributor-profile {
+  margin: 0 0 20px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 40px;
+  }
+
+  .img-holder {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $blue;
+
+    @include breakpoint('tablet') {
+      float: left;
+      margin: 0 30px 0 0;
+      width: 100px;
+      height: 100px;
+    }
+
+    &:after {
+      content: 'no image';
+      color: #fff;
+    }
+
+    .img {
+      @extend .pinout;
+      background-size: cover;
+      background-position: 50% 50%;
+    }
+  }
+
+  .name {
+    font-size: 22px;
+    margin: 0 0 10px;
+    line-height: 1em;
+    color: #323232;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 10px;
+      font-size: 39px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: center;
+    }
+  }
+
+  .short-desc {
+    font-size: 13px;
+    margin: 0 0 23px;
+    color: #323232;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: center;
+    }
+  }
+
+  .description {
+    overflow: hidden;
+
+    @include breakpoint('tablet') {
+      padding: 27px 0 0 0;
+    }
+  }
+
+  .quote {
+    font-size: 12px;
+    line-height: 1.6em;
+    margin: 0 0 35px;
+
+    @include breakpoint('tablet') {
+      max-width: 260px;
+      margin: 0 0 38px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: center;
+    }
+  }
+
+  h2 {
+    font-size: 14px;
+    font-family: $lucida-sans-demi-bold;
+    margin: 0 0 8px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 7px;
+    }
+  }
+
+  .item {
+    margin: 0 0 30px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 39px;
+    }
+
+    p {
+      margin: 0 0 21px;
+    }
+  }
+}

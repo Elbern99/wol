@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container contributor-profile-page">
 	
 	<div class="breadcrumbs">
 		<ul class="breadcrumbs-list">
@@ -10,8 +10,28 @@
 	
 	<div class="content-inner">
 		<div class="content-inner-text">
+			<div class="mobile-filter-holder custom-tabs-holder">
+				<ul class="mobile-filter-list">
+					<li><a href="" class="js-widget">subject areas</a></li>
+					<li><a href="" class="js-widget">trending topics</a></li>
+					<li><a href="" class="js-widget">authors</a></li>
+				</ul>
+				<div class="mobile-filter-items custom-tabs">
+					<div class="tab-item js-tab-hidden expand-more">
+						test 1
+					</div>
+					<div class="tab-item js-tab-hidden expand-more">
+						test 2
+					</div>
+					<div class="tab-item js-tab-hidden expand-more">
+						test 3
+					</div>
+				</div>
+			</div>
 			<div class="contributor-profile">
-				<div class="img" style="background-image: url(https://hsto.org/getpro/habr/post_images/8cb/a7c/39f/8cba7c39f1d07e9f5324be2058957c5a.png)"></div>
+				<div class="img-holder">
+					<div class="img" style="background-image: url(https://hsto.org/getpro/habr/post_images/8cb/a7c/39f/8cba7c39f1d07e9f5324be2058957c5a.png)"></div>
+				</div>
 				<div class="description">
 					<div class="name">James P. Smith</div>
 					<p class="short-desc">Chair, Labor Markets and Demographic Studies, RAND Corporation, USA</p>
@@ -83,8 +103,8 @@
 			</div>
 			
 			<div class="articles">
-				<div class="widget-title medium"><a href="/events">other events in December</a></div>
-				<ul class="articles-list">
+				<div class="widget-title medium"><a href="/articles">articles</a></div>
+				<ul class="other-articles-list">
 					<li class="article-item">
 						<ul class="article-rubrics-list">
 							<li><a href="">Labor markets and institutions</a></li>
@@ -116,30 +136,75 @@
 		</div>
 		
 		<aside class="sidebar-right">
-			<div class="sidebar-widget sidebar-widget-views">
-				<div class="widget-title">Views on IZA World of Labor</div>
-				<div class="link-holder"><a href="">“It’s crystal-clear on-pagers, and its balanced and accessible articles are a must for anyone wanting to remain on top of research on the big issues in labor economics.”</a></div>
-				<div class="name">Samuel Bentolila</div>
-				<div class="name-description">Professor of Economics, Centro de Estudios Monetarios u Financieros, Spain</div>
-			</div>
-			<div class="sidebar-widget">
-				<div class="widget-title">follow iza world of labor</div>
-				<ul class="socials-list socials-vertical-list">
-					<li><a href="" target="_blank"><span class="icon-twitter"></span><span class="text">on twitter</span></a></li>
-					<li><a href="" target="_blank"><span class="icon-linkedn"></span><span class="text">on linkedin</span></a></li>
-					<li><a href="" target="_blank"><span class="icon-facebook"></span><span class="text">on facebook</span></a></li>
-					<li><a href="" target="_blank"><span class="icon-google"></span><span class="text">on google+</span></a></li>
+
+			<div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
+				<ul class="sidebar-accrodion-list">
+					<li class="sidebar-accrodion-item">
+						<a href="" class="title">subject areas</a>
+						<div class="text">
+							test
+						</div>
+					</li>
+					<li class="sidebar-accrodion-item">
+						<a href="" class="title">trending topics</a>
+						<div class="text">
+							test
+						</div>
+					</li>
+					<li class="sidebar-accrodion-item is-open">
+						<a href="" class="title">authors</a>
+						<div class="text">
+							<ul class="abs-list">
+								<li><a href="">A</a></li>
+								<li><a href="">B</a></li>
+								<li><a href="">C</a></li>
+								<li><a href="">D</a></li>
+								<li><a href="">F</a></li>
+								<li><a href="">G</a></li>
+								<li><a href="">H</a></li>
+								<li><a href="">I</a></li>
+								<li><a href="">J</a></li>
+								<li><a href="">K</a></li>
+								<li><a href="">L</a></li>
+								<li><a href="">M</a></li>
+								<li><a href="">A</a></li>
+								<li><a href="">B</a></li>
+								<li><a href="">C</a></li>
+								<li><a href="">D</a></li>
+								<li><a href="">F</a></li>
+								<li><a href="">G</a></li>
+								<li class="active"><a href="">H</a></li>
+								<li><a href="">I</a></li>
+								<li><a href="">J</a></li>
+								<li><a href="">K</a></li>
+								<li><a href="">L</a></li>
+								<li><a href="">M</a></li>
+							</ul>
+							<ul class="abs-authors-list">
+								<li><a href="">Sabia, Joseph, J.</a></li>
+								<li><a href="">Sauermann, Jan</a></li>
+								<li><a href="">Scarpetta, Stefano</a></li>
+								<li><a href="">Shapiro, Teny, Maghakian</a></li>
+								<li><a href="">Shaw, Kathryn, L.</a></li>
+								<li><a href="">Sheremeta, Roman, M.</a></li>
+								<li><a href="">Shimeles, Abebe</a></li>
+								<li><a href="">Sloane, Peter, J.</a></li>
+								<li class="active"><a href="">Smith, James, P.</a></li>
+								<li><a href="">Song, Changzoo</a></li>
+							</ul>
+						</div>
+					</li>
 				</ul>
 			</div>
-			<div class="sidebar-widget sidebar-widget-subscribe">
-				<div class="widget-title">stay up to date</div>
-				<p>Register for our newsletter to receive regular updates on what we’re doing, latest news and forthcoming articles.</p>
-				<a href="" class="btn-blue">subscribe to newsletter</a>
-			</div>
-			<div class="sidebar-widget sidebar-widget-journals">
-				<div class="widget-title">iza journals</div>
-				<div class="img"><img src="images/temp/sidebar-widget/img-01.jpg" alt=""></div>
-				<a href="" class="link">Find out more</a>
+
+			<div class="sidebar-widget">
+				<div class="podcast-list">
+					<div class="podcast-item">
+						<div class="widget-title">ask the expert</div>
+						<div class="img"><img src="/images/temp/podcasts/03-img.jpg" alt=""></div>
+						<a href="" class="btn-blue"><strong>ask your questions now</strong></a>
+					</div>
+				</div>
 			</div>
 		</aside>
 	</div>

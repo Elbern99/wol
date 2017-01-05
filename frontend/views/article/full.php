@@ -305,26 +305,24 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
                             <a href="" class="title">Background information</a>
                             <div class="text">
-                                <div class="text-inner">
-                                    <ul class="sidebar-news-list bg-news-list">
-                                        <?php foreach($backgrounds as $key=>$value): ?>
-                                            <li>
-                                                <a href="#<?=$key?>"><?= $value->title ?></a>
-                                                <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                                <div class="bg-info">
-                                                    <h3><?= $value->title ?></h3>
-                                                    <?= $value->text ?>
-                                                </div>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                    <?php if(count($backgrounds) > 13): ?>
-                                        <a href="" class="more-link">
-                                            <span class="more">More</span>
-                                            <span class="less">Less</span>
-                                        </a>
-                                    <?php endif ?>
-                                </div>
+                                <ul class="sidebar-news-list bg-news-list">
+                                    <?php foreach($backgrounds as $key=>$value): ?>
+                                        <li>
+                                            <a href="#<?=$key?>"><?= $value->title ?></a>
+                                            <div class="icon-exclamatory-circle rel-tooltip"></div>
+                                            <div class="bg-info">
+                                                <h3><?= $value->title ?></h3>
+                                                <?= $value->text ?>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php if(count($backgrounds) > 13): ?>
+                                    <a href="" class="more-link">
+                                        <span class="more">More</span>
+                                        <span class="less">Less</span>
+                                    </a>
+                                <?php endif ?>
                             </div>
                         </li>
                         <?php endif; ?>

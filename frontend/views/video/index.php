@@ -23,7 +23,7 @@ if ($category) {
 $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 
-<div class="container opinions-page">
+<div class="container video-page">
     <div class="article-head-holder">
         <div class="article-head">
             <div class="breadcrumbs">

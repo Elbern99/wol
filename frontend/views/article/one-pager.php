@@ -285,29 +285,27 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Additional References</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="additional-references-list">
-                                    <?php foreach($additionals as $additional): ?>
-                                        <?php if (count($additional->country_codes)): ?>
-                                            <?php $source = array_merge($source, $additional->country_codes); ?>
-                                        <?php endif; ?>
-                                        <li>
-                                            <a href=""><?= $additional->title ?></a>
-                                            <?php $i++; ?>
-                                            <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                            <div class="additional-references-info">
-                                                <?= $additional->full_citation ?>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <?php if(count($additionals) > 13): ?>
-                                    <a href="" class="more-link">
-                                        <span class="more">More</span>
-                                        <span class="less">Less</span>
-                                    </a>
-                                <?php endif ?>
-                            </div>
+                            <ul class="additional-references-list">
+                                <?php foreach($additionals as $additional): ?>
+                                    <?php if (count($additional->country_codes)): ?>
+                                        <?php $source = array_merge($source, $additional->country_codes); ?>
+                                    <?php endif; ?>
+                                    <li>
+                                        <a href=""><?= $additional->title ?></a>
+                                        <?php $i++; ?>
+                                        <div class="icon-exclamatory-circle rel-tooltip"></div>
+                                        <div class="additional-references-info">
+                                            <?= $additional->full_citation ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if(count($additionals) > 13): ?>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
+                            <?php endif ?>
                         </div>
                     </li>
                 <?php endif; ?>

@@ -200,7 +200,7 @@ $this->params['breadcrumbs'][] = $model->title;
 
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
-                    <li class="sidebar-accrodion-item is-open">
+                    <li class="sidebar-accrodion-item">
                         <a href="" class="title">opinions</a>
                         <div class="text is-open">
                             <ul class="sidebar-news-list">
@@ -221,9 +221,9 @@ $this->params['breadcrumbs'][] = $model->title;
                             <?php endif; ?>
                         </div>
                     </li>
-                    <li class="sidebar-accrodion-item">
+                    <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">videos</a>
-                        <div class="text is-open">
+                        <div class="text">
                             <ul class="sidebar-news-list">
                                 <?php foreach ($videosSidebar as $video) : ?>
                                 <li>

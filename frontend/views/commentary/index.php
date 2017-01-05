@@ -20,7 +20,7 @@ if ($category) {
 }
 ?>
 
-<div class="container">
+<div class="container commentary-page">
     <div class="breadcrumbs">
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
     </div>
@@ -69,7 +69,7 @@ if ($category) {
     </div>
     <h1>Commentary</h1>
     <p>Watch exclusive video from conferences, debates and other events on labor market economics as well as reading the latest opinion pieces from IZA World of Labor authors.</p>
-    <div class="widget-title medium">opinions</div>
+    <div class="widget-title medium"><a href="/opinions">opinions</a></div>
     <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
     <ul class="commentary-opinions-list">
         <?php foreach ($opinions as $opinion) : ?>
@@ -97,16 +97,16 @@ if ($category) {
     </ul>
     <?php if ($opinionsCount > $opinionLimit): ?>
             <?php $params = ['/commentary/opinions', 'opinion_limit' => $opinionLimit]; ?>
-            <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-opinions']) ?>
+            <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-opinions']) ?>
     <?php else: ?>
         <?php if (Yii::$app->request->get('opinion_limit')): ?>
              <?php $params = ['/commentary/opinions']; ?>
-            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-opinions']) ?>
+            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-opinions']) ?>
         <?php endif; ?>
     <?php endif; ?>
     
     <?php Pjax::end(); ?>
-    <div class="widget-title medium">videos</div>
+    <div class="widget-title medium"><a href="/videos">videos</a></div>
     <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
     <ul class="commentary-videos-list">
         <?php foreach ($videos as $video) : ?>
@@ -138,11 +138,11 @@ if ($category) {
     </ul>
     <?php if ($videosCount > $videoLimit): ?>
             <?php $params = ['/commentary/videos', 'video_limit' => $videoLimit]; ?>
-            <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center videos', 'id' => 'load-videos']) ?>
+            <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray show-more align-center videos', 'id' => 'load-videos']) ?>
     <?php else: ?>
         <?php if (Yii::$app->request->get('video_limit')): ?>
              <?php $params = ['/commentary/videos']; ?>
-            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-videos']) ?>
+            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray show-more align-center', 'id' => 'load-videos']) ?>
         <?php endif; ?>
     <?php endif; ?>
     <?php Pjax::end(); ?>
