@@ -59,9 +59,10 @@ return [
                 // 'key-topics' => 'topic/index',
                 'opinions' => 'opinion/index',
                 'opinions/<slug:[0-9a-z-]+>' => 'opinion/view',
+                'videos' => 'video/index',
+                'videos/<slug:[0-9a-z-]+>' => 'video/view',
                 'find-an-expert' => 'authors/expert',
                 //'key-topics' => 'topic/index',
-
             ],
         ],
         'assetManager' => [
