@@ -107,9 +107,15 @@ trait AuthorParseTrait {
         $testimonials = [];
         
         foreach ($this->person->testimonial->p as $testimonial) {
-
+            
+            $str  = (string) $testimonial;
+                
+            if (!$str) {
+                continue;
+            }
+                
             $obj = new stdClass;
-            $obj->testimonial = (string) $testimonial;
+            $obj->testimonial = $str;
             $testimonials[] = $obj;
         }
 
@@ -122,10 +128,16 @@ trait AuthorParseTrait {
         
         if ($this->person->publications->p) {
             
-            foreach ($this->person->testimonial->p as $publication) {
-
+            foreach ($this->person->publications->p as $publication) {
+                
+                $str  = (string) $publication;
+                
+                if (!$str) {
+                    continue;
+                }
+                
                 $obj = new stdClass;
-                $obj->publication = (string) $publication;
+                $obj->publication = $str;
                 $publications[] = $obj;
             }
         }

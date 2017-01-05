@@ -11,10 +11,12 @@ use common\modules\eav\helper\EavValueHelper;
 use common\models\ExpertSearch;
 use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
+use common\models\Widget;
 
 class AuthorsController extends Controller {
     
     use traits\ExpertTrait;
+    use traits\ProfileTrait;
     
     public function actionIndex() {
         
@@ -72,23 +74,27 @@ class AuthorsController extends Controller {
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->initCollection(Author::tableName(), $author->id);
         $authorValues = $authorCollection->getValues();
-        
+
         $data = [
             'author' => $author,
-            'author_country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data; }, 'array'),
+            //'author_country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data; }, 'array'),
             'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) { return $data->testimonial; }, 'string'),
             'publications' => EavValueHelper::getValue($authorValues[$author->id], 'publications', function($data) { return $data->publication; }, 'array'),
             'affiliation' => EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) { return $data->affiliation; }, 'string'),
             'position' => EavValueHelper::getValue($authorValues[$author->id], 'position', function($data) { return $data; }),
             'degree' => EavValueHelper::getValue($authorValues[$author->id], 'degree', function($data) { return $data->degree; }, 'string'),
             'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) { return $data->interests; }, 'string'),
-            'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
-            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) { return $data->expertise_type; }, 'array'),
-            'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data->code; }, 'array'),
-            'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
+            //'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
+            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) { return $data->expertise_type; }, 'string'),
+            //'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data->code; }, 'array'),
+            //'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
+            'roles' => $author->getAuthorRoles(true),
+            'articles' => $this->getAuthorArticles($author->id)
         ];
-
-        return $this->render('profile', ['author' => $data]);
+        
+        $widget = Widget::find()->select(['text'])->where(['name' => 'ask_the_expert'])->asArray()->one();
+        
+        return $this->render('profile', ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widget' => $widget]);
     }
 
     public function actionExpert() {
@@ -193,6 +199,10 @@ class AuthorsController extends Controller {
             'search' => $finds,
             'filter' => $filter
         ]);
+    }
+    
+    public function actionLetter() {
+        var_dump(Yii::$app->request->post());exit;
     }
 }
 
