@@ -15,7 +15,7 @@ body{
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .clone-title {
   color: $def-color;
   font: normal 22px/1.3em $lucida-grande;
   margin: 0 0 20px;
@@ -25,7 +25,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-h1 {
+h1,
+.clone-title {
   margin: 0 0 15px;
 
   @include breakpoint('tablet') {
@@ -139,7 +140,8 @@ table {
 .reset-all-list,
 .articles-filter-list,
 .all-references-list,
-.pagination {
+.pagination,
+.header-menu-top-list {
   list-style: none;
   padding: 0;
 

@@ -11,69 +11,71 @@
 	<div class="content-inner">
 		<div class="content-inner-text">
 			<div class="contributor-profile">
-				<div class="img">
-				
-				</div>
+				<div class="img" style="background-image: url(https://hsto.org/getpro/habr/post_images/8cb/a7c/39f/8cba7c39f1d07e9f5324be2058957c5a.png)"></div>
 				<div class="description">
 					<div class="name">James P. Smith</div>
-					<p>Chair, Labor Markets and Demographic Studies, RAND Corporation, USA</p>
+					<p class="short-desc">Chair, Labor Markets and Demographic Studies, RAND Corporation, USA</p>
 					<div class="quote">
-						“Once again IZA takes the lead in translating academic research to the forefront of the international policy agenda. I am proud to be part of this work.”
+						<em>“Once again IZA takes the lead in translating academic research to the forefront of the international policy agenda. I am proud to be part of this work.”</em>
 					</div>
-					
-					IZA World of Labor role
-					Senior Labor Economics Editor
-					
-					Positions/functions as a policy advisor
-					Chair of Panel on Policy Research and Data Needs to Meet the Challenge of Aging in Asia, 2010-2012;
-					
-					National Academy of Science;
-					
-					Member, National Institute of Aging Council Advisory Committee (NACA) to the Director of the National Institute of Aging, 2009-2011;
-					
-					Chair, Panel on Demographic and Economic Impacts of Immigration, National Academy of Sciences, 1995-1997
-					
-					Website
-					<a href="">“Immigrants and their education.”</a>
-					In: Hanushehttp://bit.ly/JSmith_IZApage
-					
-					Affiliations
-					RAND Corporation, USA, and IZA, Germany
-					
-					Past positions
-					Senior Research Associate, IZA
-					
-					Research interest
-					Immigration, global health, economics of aging
-					
-					Qualifications
-					PhD Economics, University of Chicago, USA, 1972
+
+					<div class="item">
+						<h2>IZA World of Labor role</h2>
+						<p>Senior Labor Economics Editor</p>
+					</div>
+
+					<div class="item">
+						<h2>Positions/functions as a policy advisor</h2>
+						<p>Chair of Panel on Policy Research and Data Needs to Meet the Challenge of Aging in Asia, 2010-2012;</p>
+
+						<p>National Academy of Science;</p>
+
+						<p>Member, National Institute of Aging Council Advisory Committee (NACA) to the Director of the National Institute of Aging, 2009-2011;</p>
+
+						<p>Chair, Panel on Demographic and Economic Impacts of Immigration, National Academy of Sciences, 1995-1997</p>
+					</div>
+
+					<div class="item">
+						<h2>Website</h2>
+						<p><a href="">“Immigrants and their education.”</a> In: Hanushehttp://bit.ly/JSmith_IZApage</p>
+					</div>
+
+					<div class="item">
+						<h2>Affiliations</h2>
+						<p>RAND Corporation, USA, and IZA, Germany</p>
+					</div>
+
+					<div class="item">
+						<h2>Past positions</h2>
+						<p>Senior Research Associate, IZA</p>
+					</div>
+
+					<div class="item">
+						<h2>Research interest</h2>
+						<p>Immigration, global health, economics of aging</p>
+					</div>
+
+					<div class="item">
+						<h2>Qualifications</h2>
+						<p>PhD Economics, University of Chicago, USA, 1972</p>
+					</div>
+
 					
 					<div class="selected-publications">
-						<h3>Selected publications</h3>
-						
+						<h2>Selected publications</h2>
+
 						<ul class="selected-publications-list">
 							<li>
 								<a href="">“Immigrants and the labor market.”</a>
-								Journal of Labor Economics 24 (2006): 203-233.
+								<p>Journal of Labor Economics 24 (2006): 203-233.</p>
 							</li>
 							<li>
 								<a href="">“Immigrants and their education.”</a>
-								In: Hanushek, E., and F. Welch (eds). Handbook of the Economics of Education, Volume 1. Amsterdam: Elsevier, 2006; pp. 156-187.
+								<p>In: Hanushek, E., and F. Welch (eds). Handbook of the Economics of Education, Volume 1. Amsterdam: Elsevier, 2006; pp. 156-187.</p>
 							</li>
 							<li>
 								<a href="">“Immigration health: Selectivity and acculturation.”</a>
-								In: Anderson, N. B., R. A. Bulatao, and B. Cohen (eds). Critical Perspectives on Racial and Ethnic Differences in Health in Late Life. Washington, DC: National Academies Press, 2004; pp. 227-266 (with G. Jasso, D. Massey, and M. Rosenzweig).
-							</li>
-							
-							<li>
-								<a href="">“The changing skill of new immigrants to the United States: Recent trends and their determinants.”</a>
-								In: Borjas, G. J. (ed.). Issues in the Economics of Immigration. Chicago, IL: University of Chicago Press, 2000; pp. 185-225 (with G. Jasso and M. R. Rosenzweig).
-							</li>
-							
-							<li>
-								<a href="">The New Americans: The Economic, Demographic, and Fiscal Consequences of Immigration.</a>
-								Washington, DC: National Academy Press, 1997 (with B. Edmonson, eds).
+								<p>In: Anderson, N. B., R. A. Bulatao, and B. Cohen (eds). Critical Perspectives on Racial and Ethnic Differences in Health in Late Life. Washington, DC: National Academies Press, 2004; pp. 227-266 (with G. Jasso, D. Massey, and M. Rosenzweig).</p>
 							</li>
 						</ul>
 					</div>
@@ -81,7 +83,7 @@
 			</div>
 			
 			<div class="articles">
-				<h2 class="articles-title"><a href="">articles</a></h2>
+				<div class="widget-title medium"><a href="/events">other events in December</a></div>
 				<ul class="articles-list">
 					<li class="article-item">
 						<ul class="article-rubrics-list">
