@@ -447,6 +447,7 @@ var elements = {
         detectMore: function(item,btn) {
             if($(item).length) {
                 $(item).each(function( index ) {
+
                     if($(this).find(btn).length == 0) {
                         $(this).find('div >ul').addClass('no-more');
                     }

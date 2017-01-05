@@ -202,7 +202,7 @@ $this->params['breadcrumbs'][] = $model->title;
 
             <div class="sidebar-widget">
                 <ul class="sidebar-accrodion-list">
-                    <li class="sidebar-accrodion-item is-open">
+                    <li class="sidebar-accrodion-item is-open hide-mobile">
                         <a href="" class="title">Latest news</a>
                         <div class="text">
                             <div class="text-inner">
@@ -224,7 +224,7 @@ $this->params['breadcrumbs'][] = $model->title;
                             </div>
                         </div>
                     </li>
-                    <li class="sidebar-accrodion-item">
+                    <li class="sidebar-accrodion-item hide-mobile">
                         <a href="" class="title">news archives</a>
                         <div class="text">
                             <ul class="articles-filter-list date-list">
@@ -246,7 +246,7 @@ $this->params['breadcrumbs'][] = $model->title;
                             </ul>
                         </div>
                     </li>
-                    <li class="sidebar-accrodion-item">
+                    <li class="sidebar-accrodion-item hide-mobile">
                         <a href="" class="title">newsletters</a>
                         <div class="text">
                             <ul class="articles-filter-list date-list">
@@ -341,14 +341,12 @@ $this->params['breadcrumbs'][] = $model->title;
 
             <?php if (count($widgets)): ?>
             <div class="sidebar-widget">
-                <div class="podcast-list">
-                    <?php foreach ($widgets as $widget): ?>
-                        <?= $widget['text'] ?>
-                    <?php endforeach; ?>
-                </div>
+                <?php foreach ($widgets as $widget): ?>
+                    <?= $widget['text'] ?>
+                <?php endforeach; ?>
             </div>
             <?php endif; ?>
             
-            </aside>
+        </aside>
 	</div>
 </div>

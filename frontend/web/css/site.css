@@ -1813,7 +1813,8 @@ blockquote {
       width: 47.3%;
       margin: 6px 37px 20px 0; } }
 .full-article img {
-  display: block; }
+  display: block;
+  min-width: 100%; }
 .full-article h1 {
   margin: 0 0 13px; }
   @media only screen and (min-width: 769px) {
@@ -2648,7 +2649,7 @@ blockquote {
       background: #0073c9;
       background: linear-gradient(to bottom, #0073c9 0%, #00529f 100%);
       padding: 13px 15px;
-      margin: 0 -15px 20px; }
+      margin: -20px -15px 20px; }
       .mobile-filter-holder .tab-item.blue .more-link {
         color: #fff; }
       .mobile-filter-holder .tab-item.blue .articles-filter-list li,
