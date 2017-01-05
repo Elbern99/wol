@@ -38,12 +38,20 @@ class CommentaryController extends Controller {
     public function _getVideosList($limit = null)
     {
         $ids = CommentaryVideo::videosListIds();
-
-        return Video::find()
+        if ($ids) {
+           return Video::find()
                         ->orderBy('id desc')
                         ->where('id IN('.$ids.')')
                         ->limit($limit)
-                        ->all();
+                        ->all(); 
+        }
+        else {
+            return Video::find()
+                        ->orderBy('id desc')
+                        ->limit($limit)
+                        ->all(); 
+        }
+        
     }
     
     

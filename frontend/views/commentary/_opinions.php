@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
     <li>
         <div class="opinion-item <?= $hasImageClass; ?>">
             <?php if ($hasImageClass) : ?>
-             <a href="<?= '/opinions/'. $opinion->url_key; ?>" title="<?= $opinion->title ?>" class="img" style="background-image: url(<?= '@web/uploads/opinions/'.$opinion->image_link; ?>)"></a>
+             <a href="<?= '/opinions/'. $opinion->url_key; ?>" title="<?= $opinion->title ?>" class="img" style="background-image: url(<?= '/uploads/opinions/'.$opinion->image_link; ?>)"></a>
             <?php endif; ?>
             <div class="desc">
                 <div class="inner">
