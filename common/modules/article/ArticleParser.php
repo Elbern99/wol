@@ -195,7 +195,7 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('id', $articleId);
         $this->article->setAttribute('title', $title);
         $this->article->setAttribute('sort_key', $sortKey);
-        $this->article->setAttribute('seo', $seo);
+        $this->article->setAttribute('seo', str_replace(' ','-',strtolower(trim($seo))));
         $this->article->setAttribute('doi', $doi);
         $this->article->setAttribute('enabled', 0);
         $this->article->setAttribute('availability', $availability);
