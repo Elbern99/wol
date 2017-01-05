@@ -21,6 +21,16 @@ class CategoryCollection {
         
         $models = Yii::$app->modules['eav_module']->components;
         
+        $filters = [
+            '`e`.`model_id`' => $ids,
+            '`t`.`name`' => $type,
+            '`v`.`lang_id`' => 0
+        ];
+        
+        if (count($this->selectAttribute)) {
+            $filters['`ea`.`name`'] = $this->selectAttribute;
+        }
+        
         $this->values = $this->entity->find()
                         ->alias('e')
                         ->select(['`v`.`id`', 'model_id'=>'`e`.`model_id`', '`ea`.`name`', '`v`.`value`'])
@@ -28,12 +38,7 @@ class CategoryCollection {
                         ->innerJoin(['ea' => $models['attribute']::tableName()])
                         ->leftJoin(['v' => $models['value']::tableName()], 
                                 '`v`.`entity_id` = `e`.`id` and `v`.`attribute_id` = `ea`.`id`'
-                        )->where([
-                            '`e`.`model_id`' => $ids,
-                            '`t`.`name`' => $type,
-                            '`ea`.`name`' => $this->selectAttribute,
-                            '`v`.`lang_id`' => 0
-                        ])
+                        )->where($filters)
                         ->asArray()
                         ->all();
     }

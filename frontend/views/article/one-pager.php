@@ -338,19 +338,25 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                             <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                             <h3>Key references</h3>
                             <?php $i = 1; ?>
+                            <?php if(count($references) > 0): ?>
                             <ul class="key-references-popup-list">
                                 <?php foreach($references as $reference): ?>
+                                    <?php if (count($reference->country_codes)): ?>
+                                        <?php $source = array_merge($source, $reference->country_codes); ?>
+                                    <?php endif; ?>
                                     <li>
                                         <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?>
                                         <div class="key-reference-in-popup">Key reference: <a href="#<?= $reference->ref ?>">[<?= $i++ ?>]</a></div>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <?php if (isset($attributes['add_references'])): ?>
                             <?php $additionals = $attributes['add_references']->getData(null, $currentLang); ?>
                             <h3>Additional References</h3>
+                            <?php if(count($additionals) > 0): ?>
                             <ul class="additional-references-popup-list">
                                 <?php foreach($additionals as $additional): ?>
                                     <li>
@@ -358,6 +364,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

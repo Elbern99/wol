@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use common\modules\author\contracts\AuthorInterface;
 use common\modules\eav\contracts\EntityModelInterface;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "author".
@@ -21,6 +22,8 @@ use common\modules\eav\contracts\EntityModelInterface;
  */
 class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityModelInterface
 {
+    const AUTHOR_PREFIX = 'authors';
+    
     /**
      * @inheritdoc
      */
@@ -55,10 +58,10 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     public function rules()
     {
         return [
-            [['author_key'], 'required'],
+            [['author_key', 'url_key', 'name'], 'required'],
             [['enabled'], 'integer'],
             [['author_key', 'phone', 'url', 'avatar'], 'string', 'max' => 50],
-            [['email'], 'string', 'max' => 255],
+            [['email', 'url_key', 'name'], 'string', 'max' => 255],
             [['author_key'], 'unique'],
         ];
     }
@@ -107,5 +110,13 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         }
 
         return false;
+    }
+    
+    public static function getAuthorUrl($url_key) {
+        return Url::to([self::AUTHOR_PREFIX.'/'.$url_key]);
+    }
+    
+    public function getUrl() {
+        return Url::to([self::AUTHOR_PREFIX.'/'.$this->url_key]);
     }
 }
