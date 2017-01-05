@@ -12,23 +12,25 @@ use common\models\Opinion;
 use common\models\Video;
 use common\models\Category;
 use common\models\Widget;
+use common\helpers\VideoHelper;
+
 /**
  * Site controller
  */
-class OpinionController extends Controller {
+class VideoController extends Controller {
     
     protected function _getMainCategory() 
     {
         $category = Category::find()->where([
-            'url_key' => 'opinions',
+            'url_key' => 'videos',
         ])->one();
         return $category;
     }
     
     
-    public function _getOpinionsList($limit = null)
+    public function _getVideosList($limit = null)
     {
-        return Opinion::find()
+        return Video::find()
                         ->orderBy('id desc')
                         ->limit($limit)
                         ->all();
@@ -37,7 +39,7 @@ class OpinionController extends Controller {
     
     public function actionIndex()
     {   
-        $limit = Yii::$app->params['opinion_limit'];
+        $limit = Yii::$app->params['video_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
             $limitPrev = Yii::$app->request->get('limit');
@@ -53,11 +55,12 @@ class OpinionController extends Controller {
         $widgets = Widget::find()->where([
             'name' => ['Subscribe to newsletter'],
         ])->all();
+
         
         return $this->render('index', [
-            'opinions' => $this->_getOpinionsList($limit),
+            'videos' => $this->_getVideosList($limit),
             'category' => $this->_getMainCategory(),
-            'opinionsCount' => $opinionsQuery->count(),
+            'videosCount' => $videosQuery->count(),
             'opinionsSidebar' => $opinionsQuery->all(),
             'videosSidebar' => $videosQuery->all(),
             'widgets' => $widgets,
@@ -70,10 +73,10 @@ class OpinionController extends Controller {
         if (!$slug)
             return $this->goHome();
         
-        $opinion = Opinion::find()->andWhere(['url_key' => $slug])->one();
+        $video = Video::find()->andWhere(['url_key' => $slug])->one();
         
-        if (!$opinion)
-            return $this->redirect(Url::to(['/opinion/index']));
+        if (!$video)
+            return $this->redirect(Url::to(['/video/index']));
         
         $widgets = Widget::find()->where([
             'name' => ['event_widget1', 'event_widget2'],
@@ -83,11 +86,12 @@ class OpinionController extends Controller {
         $opinionsSidebar = Opinion::find()->orderBy('id desc')->all();
         
         return $this->render('view', [
-            'model' => $opinion,
+            'model' => $video,
             'category' => $this->_getMainCategory(),
             'widgets' => $widgets,
             'opinionsSidebar' => $opinionsSidebar,
             'videosSidebar' => $videosSidebar,
         ]);
     }
+    
 }

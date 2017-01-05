@@ -58,6 +58,8 @@ return [
                 'events/<slug:[0-9a-z-]+>' => 'event/view',
                 'opinions' => 'opinion/index',
                 'opinions/<slug:[0-9a-z-]+>' => 'opinion/view',
+                'videos' => 'video/index',
+                'videos/<slug:[0-9a-z-]+>' => 'video/view',
                 'find-an-expert' => 'authors/expert',
                 'authors' => 'authors/index',
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile'

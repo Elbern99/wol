@@ -54,7 +54,7 @@ class OpinionController extends Controller
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
             if ($model->saveFormatted()) {
-                if ($id) {
+                if (!$id) {
                     $message = Yii::t('app/text', 'Opinion has been added successfully.');
                 }
                 else {

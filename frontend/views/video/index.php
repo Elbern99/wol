@@ -1,17 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 ?>
 
 <?php
-$this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\YiiAsset']]);
 
-$opinionDirectLink = Url::to(['/opinion/view', 'slug' => $model->url_key], true);
-$mailLink = $opinionDirectLink;
-
-$mailTitle = $model->title;
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
-    '\n\n View the opinion: '. Html::a($mailLink, $mailLink). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+$this->title = 'Videos';
+$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
+$this->params['breadcrumbs'][] = $this->title;
 
 if ($category) {
     $this->registerMetaTag([
@@ -23,18 +20,16 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
-$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
-$this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => Url::to(['/opinion/index'])];
-$this->params['breadcrumbs'][] = $model->title;
+$this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 
-<div class="container single-post-page">
+<div class="container opinions-page">
     <div class="article-head-holder">
         <div class="article-head">
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
-           <div class="mobile-filter-holder custom-tabs-holder">
+            <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
                     <li><a href="" class="js-widget">Opinions</a></li>
                     <li><a href="" class="js-widget">Videos</a></li>
@@ -42,10 +37,10 @@ $this->params['breadcrumbs'][] = $model->title;
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden expand-more">
                         <ul class="sidebar-news-list">
-                            <?php foreach ($opinionsSidebar as $opinion) : ?>
+                            <?php foreach ($opinionsSidebar as $opinion) : ?> 
                             <li>
                                 <h3>
-                                   <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
+                                    <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
                                 </h3>
                                 <div class="writer">Hardcoded Author</div>
                             </li>
@@ -60,14 +55,13 @@ $this->params['breadcrumbs'][] = $model->title;
                     </div>
                     <div class="tab-item js-tab-hidden expand-more">
                         <ul class="sidebar-news-list">
-                            <?php foreach ($videosSidebar as $video) : ?>
+                            <?php foreach ($videosSidebar as $video) : ?> 
                             <li>
                                 <h3>
                                     <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                 </h3>
                             </li>
                             <?php endforeach; ?>
-                        
                         </ul>
                         <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                         <a href="" class="more-link">
@@ -78,60 +72,64 @@ $this->params['breadcrumbs'][] = $model->title;
                     </div>
                 </div>
             </div>
-            <h1><?= $model->title; ?></h1>
+            <h1>Videos</h1>
+            <div class="more-text-mobile">
+                <p>Watch exclusive video from conferences, debates and other events on labor market economics, contributions from IZA World of Labor authors, and more. </p>
+                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
+            </div>
         </div>
     </div>
 
     <div class="content-inner">
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
         <div class="content-inner-text">
-            <article class="post-full-item">
-                <?php $hasImage= $model->image_link ? true : false; ?>
-                <?php if ($hasImage) : ?>
-                <figure>
-                    <?= Html::img('@web/uploads/opinions/'.$model->image_link, [
-                        'alt' => 'Opinion image',
-                    ]); ?>
-                </figure>
+            <ul class="videos-list">
+                <?php foreach ($videos as $video) : ?>
+                <li>
+                    <div class="opinion-item has-image">
+                        <?= Html::beginTag('a', [
+                            'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
+                            'class' => 'img',
+                            'style' => "background-image: url('".$video->getVideoImageLink()."')",
+                        ]); ?>
+                        <span class="icon-play"></span>
+                        <?= Html::endTag('a'); ?>
+                        <div class="desc">
+                            <div class="inner">
+                                <h2>
+                                     <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
+                                </h2>
+                                <?php if ($video->description) : ?>
+                                <p>
+                                   <?= $video->description; ?>
+                                </p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ($videosCount > $limit): ?>
+                    <?php $params = ['/video/index', 'limit' => $limit]; ?>
+                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+            <?php else: ?>
+                <?php if (Yii::$app->request->get('limit')): ?>
+                     <?php $params = ['/video/index']; ?>
+                    <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
                 <?php endif; ?>
-                <p>
-                    <?= $model->description; ?>
-                </p>
-            </article>
+            <?php endif; ?>
         </div>
+        <?php Pjax::end(); ?>
 
         <aside class="sidebar-right">
-            <div class="sidebar-buttons-holder">
-                <ul class="share-buttons-list">
-                    <li class="share-facebook">
-                        <div id="fb-root"></div>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                    </li>
-                    <li class="share-twitter">
-                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
-                    </li>
-                    <li class="share-ln">
-                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                        <script type="IN/Share"></script>
-                    </li>
-                </ul>
-
-                <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
-                        <div class="inner">
-                            <span class="icon-message"></span>
-                            <span class="text">email</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">opinions</a>
                         <div class="text is-open">
                             <ul class="sidebar-news-list">
-                                <?php foreach ($opinionsSidebar as $opinion) : ?>
+                                <?php foreach($opinionsSidebar as $opinion) : ?>
                                 <li>
                                     <h3>
                                         <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
@@ -169,14 +167,6 @@ $this->params['breadcrumbs'][] = $model->title;
                         </div>
                     </li>
                 </ul>
-            </div>
-
-            <div class="sidebar-widget">
-                <div class="podcast-list">
-                    <?php foreach ($widgets as $widget): ?>
-                        <?= $widget['text'] ?>
-                    <?php endforeach; ?>
-                </div>
             </div>
         </aside>
     </div>
