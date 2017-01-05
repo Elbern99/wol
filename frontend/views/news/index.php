@@ -135,7 +135,7 @@ if ($category) {
                         <li>
                             <div class="post-item <?= $hasImageClass; ?>">
                                 <?php if ($hasImageClass) : ?>
-                                <a href="" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
+                                <a href="/news/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
                                 <?php endif; ?>
                                 <div class="desc">
                                     <div class="head-news-holder">
@@ -152,7 +152,7 @@ if ($category) {
                                     </div>
                                     <h2>
                                         <a href="#">
-                                            <?= $item->title; ?>
+                                            <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
                                         </a>
                                     </h2>
                                     <p class="hide-mobile"><?= $item->short_description; ?></p>
@@ -274,55 +274,21 @@ if ($category) {
                         <a href="" class="title">latest articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
+                                <?php foreach($articlesSidebar as $article) : ?>
                                 <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
+                                    <h3>
+                                        <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
+                                    </h3>
+                                    <div class="writer"><?= $article->availability; ?></div>
                                 </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
-                                <li>
-                                    <h3><a href="/articles/gender-diversity-in-teams">Gender diversity in teams</a></h3>
-                                    <div class="writer">Ghazala Azmat</div>
-                                </li>
+                                <?php endforeach; ?>
                             </ul>
+                            <?php if (count($articlesSidebar) > Yii::$app->params['latest_articles_sidebar_limit']): ?>
                             <a href="" class="more-link">
                                 <span class="more">More</span>
                                 <span class="less">Less</span>
                             </a>
+                            <?php endif; ?>
                         </div>
                     </li>
                  </ul>

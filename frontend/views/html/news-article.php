@@ -3,7 +3,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
 ?>
 
 <?php
@@ -36,9 +35,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     </div>
                 </div>
 				<h1>Air pollution has long-term effects on earnings as well as health</h1>
-				<figure class="align-left">
-					<img src="images/temp/article/img-01.jpg" alt="">
-				</figure>
+				 
 				<p>For every 10% increase in exposure to suspended particles in the year of their birth, a person’s earnings decrease by at least 1% once they reach 30 (and vice-versa), reveals a new study by researchers at the University of California, Santa Barbara and the US Treasury.<br><br>
 				Using the passing of the Clean Air Act in the US in 1956, and its expanded scope in 1970, which imposed county-level restrictions on maximum amounts of suspended particles, researchers were able to study data on 5.7 million individuals born just before and just after the amendments to the act came into force, revealing the long-term effects of exposure to air pollution in children below the age of 1.<br><br>
 				Although 1% may not sound particularly dramatic, cumulatively, that means $6.5 billion lower earnings per birth cohort studied.

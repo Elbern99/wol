@@ -48,6 +48,12 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     $attributes['teaser']->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
     '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract', $currentLang).'\n\n View the article: '.
     Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+
+
+    $linkSite = 'http://iza.qs-dev.com/';
+    $decriptionSite = 'Tournaments can outperform other compensation schemes such as piece-rate and fixed wage contracts';
+    $appId = '1273981299361667';
+    $linkHrefFacebook = 'https://facebook.com/dialog/share?app_id=' .$appId. '&display=popup&href=' .$linkSite. '&description="' . $decriptionSite .'"';
 ?>
 <div class="container article-full">
 
@@ -193,7 +199,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <ul class="share-buttons-list">
                     <li class="share-facebook">
                         <div id="fb-root"></div>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                        <div class="fb-share-button" data-href="<?= $linkSite; ?>" data-layout="button" data-size="small" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href=<?= $linkHrefFacebook; ?> >Share</a></div>
                     </li>
                     <li class="share-twitter">
                         <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
