@@ -38,7 +38,7 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             [['search_phrase'], 'required'],
             [['id'], 'unique'],
             [['id'], 'integer'],
-            [['value', 'author_key', 'search_phrase'], 'string'],
+            [['name', 'search_phrase'], 'string'],
             [['experience_type', 'expertise', 'language', 'author_country'], 'safe']
         ];
     }
@@ -50,8 +50,7 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'value' => Yii::t('app', 'Value'),
-            'email' => Yii::t('app', 'Email'),
+            'name' => Yii::t('app', 'Value'),
         ];
     }
     

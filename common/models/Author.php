@@ -6,7 +6,7 @@ use Yii;
 use common\modules\author\contracts\AuthorInterface;
 use common\modules\eav\contracts\EntityModelInterface;
 use yii\helpers\Url;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "author".
  *
@@ -118,5 +118,21 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     
     public function getUrl() {
         return Url::to([self::AUTHOR_PREFIX.'/'.$this->url_key]);
+    }
+    
+    public function getAuthorRoles(bool $label) {
+        
+        $ids = AuthorRoles::find()->where(['author_id' => $this->id])->all();
+
+        if (!$label) {
+            return ArrayHelper::getColumn($ids, 'role_id');
+        }
+        
+        $roles = new \common\modules\author\Roles();
+        $roles = $roles->getTypes();
+        
+        return ArrayHelper::getColumn($ids, function($data) use ($roles) {
+            return $roles[$data['role_id']] ?? null;
+        });
     }
 }
