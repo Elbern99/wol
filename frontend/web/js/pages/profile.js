@@ -1,10 +1,10 @@
 jQuery(function($){
     
-    var block = $('#author-letter-result');
+    var block = $('.author-letter-result');
     
     function createResult(data) {
         
-        let html = '<ul>';
+        let html = '<ul class="abs-authors-list">';
         for (let item in data) {
             html += '<li>'+data[item]+'</li>';
         }
@@ -27,6 +27,7 @@ jQuery(function($){
 
                 if (data.length) {
                     createResult(data);
+                    link.parent().addClass('active').siblings().removeClass('active');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {

@@ -23,7 +23,7 @@ $this->registerMetaTag([
 $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 
-<div class="container find-expert">
+<div class="container contributor-profile-page">
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
@@ -32,8 +32,34 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
 
     <div class="content-inner">
         <div class="content-inner-text">
+            <div class="mobile-filter-holder custom-tabs-holder">
+                <ul class="mobile-filter-list">
+                    <li><a href="" class="js-widget">subject areas</a></li>
+                    <!-- <li><a href="" class="js-widget">trending topics</a></li>-->
+                    <li><a href="" class="js-widget">authors</a></li>
+                </ul>
+                <div class="mobile-filter-items custom-tabs">
+                    <div class="tab-item blue js-tab-hidden expand-more">
+                        <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
+                    </div>
+                    <!-- <div class="tab-item js-tab-hidden expand-more">
+                        test 2
+                    </div>-->
+                    <div class="tab-item blue js-tab-hidden expand-more">
+                        <?php $alphas = range('A', 'Z'); ?>
+                        <ul class="abs-list">
+                            <?php foreach ($alphas as $letter): ?>
+                                <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter/') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <div class="author-letter-result"></div>
+                    </div>
+                </div>
+            </div>
             <div class="contributor-profile">
-                <div class="img" style="background-image: url(<?= Author::getImageUrl($author['author']->avatar)?>)"></div>
+                <div class="img-holder">
+                    <div class="img" style="background-image: url(<?= Author::getImageUrl($author['author']->avatar)?>)"></div>
+                </div>
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
                     <p class="short-desc"><?= $author['degree'] ?></p>
@@ -111,8 +137,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
             </div>
 
             <div class="articles">
-                <div class="widget-title medium">Articles</div>
-                <ul class="articles-list">
+                <div class="widget-title medium"><a href="/articles">articles</a></div>
+                <ul class="other-articles-list">
                 <?php foreach($author['articles'] as $article): ?>
                     <li class="article-item">
                         <ul class="article-rubrics-list">
@@ -134,27 +160,27 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
         </div>
 
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
                 <ul class="sidebar-accrodion-list">
-                    <li class="sidebar-accrodion-item is-open">
+                    <li class="sidebar-accrodion-item">
                         <a href="" class="title">subject areas</a>
-                        <div class="text is-open">
-                            <div class="text-inner">
-                                <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
-                            </div>
+                        <div class="text">
+                             <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
+                        </div>
+                    </li>
+                    <li class="sidebar-accrodion-item  is-open">
+                        <a href="" class="title">Authors</a>
+                        <div class="text">
+                            <?php $alphas = range('A', 'Z'); ?>
+                            <ul class="abs-list">
+                                <?php foreach ($alphas as $letter): ?>
+                                    <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter/') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <div class="author-letter-result"></div>
                         </div>
                     </li>
                 </ul>
-            </div>
-            <div class="sidebar-widget">
-                <div class="widget-title">Authors</div>
-                <?php $alphas = range('A', 'Z'); ?>
-                <ul class="socials-list socials-vertical-list">
-                    <?php foreach ($alphas as $letter): ?>
-                    <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter/') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
-                    <?php endforeach; ?>
-                </ul>
-                <div id="author-letter-result"></div>
             </div>
             <?php if (isset($widget['text'])): ?>
             <div class="sidebar-widget sidebar-widget-journals">
