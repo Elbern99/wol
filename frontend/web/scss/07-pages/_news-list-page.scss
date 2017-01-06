@@ -118,6 +118,11 @@
       padding-bottom: 32px;
 
       .post-item {
+
+        &:not(.has-image) {
+          background: #dbe8f4;
+        }
+
         h2 {
           line-height: 1.385em;
           max-height: 103px;

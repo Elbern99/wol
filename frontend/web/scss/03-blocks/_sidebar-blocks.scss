@@ -861,7 +861,7 @@
 //ABS-LIST
 .abs-list {
   overflow: hidden;
-  margin: 0 -6px 10px;
+  margin: 0 -6px -5px;
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
@@ -887,6 +887,8 @@
 
 //ABS-AUTHORS-LIST
 .abs-authors-list {
+  padding-top: 14px;
+
   li {
     margin: 0 0 9px;
     font-size: 11px;

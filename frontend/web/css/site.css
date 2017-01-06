@@ -451,7 +451,7 @@ th {
   height: 0 !important;
   bottom: auto !important; }
 
-.clearfix:after, .search .search-top:after, .article-pagers-holder:after, .article-buttons.article-buttons-mobile:after, .search-results-top .search-results-top-filter:after, .account-tabs:after {
+.clearfix:after, .search .search-top:after, .sidebar-right:after, .article-pagers-holder:after, .article-buttons.article-buttons-mobile:after, .search-results-top .search-results-top-filter:after, .account-tabs:after {
   content: "";
   display: block;
   clear: both; }
@@ -2035,20 +2035,19 @@ blockquote {
     margin: 0 0 31px; } }
 
 .share-buttons-list {
-  margin: 4px -2px 0px -4px;
+  margin: 0 -2px 0px -4px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-item-align: center;
       align-self: center; }
   @media only screen and (min-width: 769px) {
     .share-buttons-list {
-      margin: 0 -2px 0px -5px; } }
+      margin: 0 -2px 0px -4px; } }
   .share-buttons-list li {
-    margin: 0 5px 7px; }
+    margin: 0 4px 20px; }
     @media only screen and (max-width: 769px) {
       .share-buttons-list li {
-        transform: scale(1.3);
-        margin: 0 13px 0; } }
+        margin: 0 4px 0; } }
     .share-buttons-list li span {
       vertical-align: top !important; }
 
@@ -2650,7 +2649,7 @@ blockquote {
       background: linear-gradient(to bottom, #0073c9 0%, #00529f 100%);
       padding: 13px 15px;
       margin: -20px -15px 20px; }
-      .mobile-filter-holder .tab-item.blue .more-link {
+      .mobile-filter-holder .tab-item.blue * {
         color: #fff; }
       .mobile-filter-holder .tab-item.blue .articles-filter-list li,
       .mobile-filter-holder .tab-item.blue .sidebar-news-list li {
@@ -3279,7 +3278,7 @@ blockquote {
 
 .abs-list {
   overflow: hidden;
-  margin: 0 -6px 10px;
+  margin: 0 -6px -5px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
@@ -3296,11 +3295,13 @@ blockquote {
     border-bottom: 2px solid transparent;
     color: #323232; }
 
-.abs-authors-list li {
-  margin: 0 0 9px;
-  font-size: 11px; }
-  .abs-authors-list li.active a {
-    color: #323232; }
+.abs-authors-list {
+  padding-top: 14px; }
+  .abs-authors-list li {
+    margin: 0 0 9px;
+    font-size: 11px; }
+    .abs-authors-list li.active a {
+      color: #323232; }
 
 .other-articles-list {
   margin-bottom: 20px; }
@@ -4342,6 +4343,144 @@ label {
 .fa-facebook:before {
   content: '\e901'; }
 
+.resp-sharing-button__link,
+.resp-sharing-button__icon {
+  display: inline-block; }
+
+.resp-sharing-button__link {
+  text-decoration: none;
+  color: #fff; }
+
+.resp-sharing-button {
+  border-radius: 2px;
+  transition: 25ms ease-out;
+  padding: 0 5px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #fff !important;
+  font-size: 11px !important;
+  height: 25px;
+  line-height: 24px; }
+  .resp-sharing-button path {
+    fill: #fff !important; }
+
+.resp-sharing-button__icon svg {
+  width: 10px;
+  height: 10px;
+  margin-right: 4px; }
+
+.resp-sharing-button--small svg {
+  margin: 0; }
+
+/* Non solid icons get a stroke */
+.resp-sharing-button__icon {
+  stroke: #fff;
+  fill: none; }
+
+/* Solid icons get a fill */
+.resp-sharing-button__icon--solid,
+.resp-sharing-button__icon--solidcircle {
+  fill: #fff;
+  stroke: none; }
+
+.resp-sharing-button--twitter {
+  background-color: #55acee; }
+
+.resp-sharing-button--twitter:hover {
+  background-color: #2795e9; }
+
+.resp-sharing-button--pinterest {
+  background-color: #bd081c; }
+
+.resp-sharing-button--pinterest:hover {
+  background-color: #8c0615; }
+
+.resp-sharing-button--facebook {
+  background-color: #3b5998; }
+
+.resp-sharing-button--facebook:hover {
+  background-color: #2d4373; }
+
+.resp-sharing-button--tumblr {
+  background-color: #35465C; }
+
+.resp-sharing-button--tumblr:hover {
+  background-color: #222d3c; }
+
+.resp-sharing-button--reddit {
+  background-color: #5f99cf; }
+
+.resp-sharing-button--reddit:hover {
+  background-color: #3a80c1; }
+
+.resp-sharing-button--google {
+  background-color: #dd4b39; }
+
+.resp-sharing-button--google:hover {
+  background-color: #c23321; }
+
+.resp-sharing-button--linkedin {
+  background-color: #0077b5; }
+
+.resp-sharing-button--linkedin:hover {
+  background-color: #046293; }
+
+.resp-sharing-button--email {
+  background-color: #777; }
+
+.resp-sharing-button--email:hover {
+  background-color: #5e5e5e; }
+
+.resp-sharing-button--xing {
+  background-color: #1a7576; }
+
+.resp-sharing-button--xing:hover {
+  background-color: #114c4c; }
+
+.resp-sharing-button--whatsapp {
+  background-color: #25D366; }
+
+.resp-sharing-button--whatsapp:hover {
+  background-color: #1da851; }
+
+.resp-sharing-button--hackernews {
+  background-color: #FF6600; }
+
+.resp-sharing-button--hackernews:hover, .resp-sharing-button--hackernews:focus {
+  background-color: #FB6200; }
+
+.resp-sharing-button--vk {
+  background-color: #507299; }
+
+.resp-sharing-button--vk:hover {
+  background-color: #43648c; }
+
+.resp-sharing-button--facebook {
+  background-color: #3b5998;
+  border-color: #3b5998; }
+
+.resp-sharing-button--facebook:hover,
+.resp-sharing-button--facebook:active {
+  background-color: #2d4373;
+  border-color: #2d4373; }
+
+.resp-sharing-button--twitter {
+  background-color: #55acee;
+  border-color: #55acee; }
+
+.resp-sharing-button--twitter:hover,
+.resp-sharing-button--twitter:active {
+  background-color: #2795e9;
+  border-color: #2795e9; }
+
+.resp-sharing-button--linkedin {
+  background-color: #0077b5;
+  border-color: #0077b5; }
+
+.resp-sharing-button--linkedin:hover,
+.resp-sharing-button--linkedin:active {
+  background-color: #046293;
+  border-color: #046293; }
+
 /******* // WIDJETS *******/
 /******* LAYOUT *******/
 .wrapper {
@@ -5265,19 +5404,26 @@ iframe[name=advpp_manager] {
         -ms-flex-order: 2;
             order: 2; }
       .article-buttons .share-buttons-list li {
-        margin: 7px 5px 7px;
-        height: 20px; } }
+        margin: 0 5px 0; } }
   @media only screen and (max-width: 769px) {
     .article-buttons {
       margin: 90px -15px 0;
       padding: 20px 15px 24px;
       border-bottom: 1px solid #b0b0b0; }
+      .article-buttons .resp-sharing-button {
+        padding: 0 9px;
+        font-size: 13px !important;
+        height: 27px;
+        line-height: 28px; }
+      .article-buttons .resp-sharing-button__icon svg {
+        width: 12px;
+        height: 12px; }
       .article-buttons .share-buttons-list {
         -ms-flex-pack: justify;
             justify-content: space-between;
-        margin: 6px -3px 20px -4px; } }
-  .article-buttons .extra-buttons {
-    margin-bottom: -22px; }
+        margin: 6px 0 5px 0; }
+        .article-buttons .share-buttons-list li {
+          margin: 0; } }
   .article-buttons .article-buttons-short {
     display: inline-block;
     margin-left: -1px; }
@@ -7053,7 +7199,8 @@ path {
   .event-list-page .mobile-filter-holder .tab-item {
     margin-bottom: 0; }
     .event-list-page .mobile-filter-holder .tab-item.blue {
-      margin-bottom: 2px; }
+      margin-bottom: 2px;
+      margin-top: 20px; }
     @media only screen and (min-width: 769px) {
       .event-list-page .mobile-filter-holder .tab-item:last-child {
         display: none !important; } }
@@ -7395,6 +7542,8 @@ path {
       width: 100%; } }
   .news-list li:first-child {
     padding-bottom: 32px; }
+    .news-list li:first-child .post-item:not(.has-image) {
+      background: #dbe8f4; }
     .news-list li:first-child .post-item h2 {
       line-height: 1.385em;
       max-height: 103px;
@@ -7473,6 +7622,11 @@ path {
 
 .contributor-profile-page .other-articles-list {
   margin-bottom: 0; }
+@media only screen and (max-width: 769px) {
+  .contributor-profile-page .article-head {
+    display: none; }
+  .contributor-profile-page .mobile-filter-holder {
+    margin-top: -13px; } }
 
 .contributor-profile {
   margin: 0 0 20px; }
@@ -7560,6 +7714,8 @@ path {
   @media only screen and (min-width: 769px) {
     .commentary-page .show-more {
       margin: 27px auto !important; } }
+.commentary-page .commentary-videos-list {
+  margin: 0 0 27px; }
 
 .key-topics-page .btn-gray {
   margin-bottom: 39px; }

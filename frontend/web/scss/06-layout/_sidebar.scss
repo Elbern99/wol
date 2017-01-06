@@ -1,5 +1,6 @@
 .sidebar-right {
   margin: 0 0 27px;
+  @extend .clearfix;
 
   @include breakpoint('tablet') {
     order: 1;
