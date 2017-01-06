@@ -39,6 +39,7 @@ use kartik\file\FileInput;
             'options' => ['rows' => 10],
             'preset' => 'standard',
             'clientOptions' => [
+                'allowedContent' => true,
                 'enterMode' => 2,
                 'forceEnterMode' => false,
                 'shiftEnterMode' => 1

@@ -183,7 +183,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </ul>
             </div>
             <?php if (isset($widget['text'])): ?>
-            <div class="sidebar-widget sidebar-widget-journals">
+            <div class="sidebar-widget">
                 <?= $widget['text'] ?>
             </div>
             <?php endif; ?>
