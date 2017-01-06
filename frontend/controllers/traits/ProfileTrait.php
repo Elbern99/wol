@@ -73,10 +73,11 @@ trait ProfileTrait {
     
     protected function findAuthorsByLetter(string $letter):array {
         
-        return Author::find()
+        return  Author::find()
                             ->select(['name', 'url_key'])
                             ->where(['enabled' => 1])
                             ->andFilterWhere(['like', 'name', $letter.'%', false])
+                            ->orderBy('name')
                             ->asArray()
                             ->all();
     }
