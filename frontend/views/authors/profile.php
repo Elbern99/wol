@@ -48,8 +48,21 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
 
                     <div class="item">
                         <h2>Positions/functions as a policy advisor</h2>
-                        <p><?= $author['position']->current ?></p>
-                        <p><?= $author['position']->advisory ?></p>
+                        <?php if(is_array($author['position']->current)): ?>
+                            <?php foreach($author['position']->current as $current): ?>
+                                <p><?= $current ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->current ?></p>
+                        <?php endif; ?>
+                                
+                        <?php if(is_array($author['position']->advisory)): ?>
+                            <?php foreach($author['position']->advisory as $advisory): ?>
+                                <p><?= $advisory ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->advisory ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <div class="item">
@@ -64,7 +77,13 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
 
                     <div class="item">
                         <h2>Past positions</h2>
-                        <p><?= $author['position']->past ?></p>
+                        <?php if(is_array($author['position']->past)): ?>
+                            <?php foreach($author['position']->past as $past): ?>
+                                <p><?= $past ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->past ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <div class="item">
