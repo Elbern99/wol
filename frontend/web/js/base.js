@@ -506,9 +506,29 @@ var elements = {
     };
     /* end */
 
+    var shareBtns = {
+								btnContent: function(item) {
+												if($(item).length) {
+																var title = $('title').text(),
+																				description = $('meta[name="description"]').attr("content"),
+																				url = document.URL,
+																				linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+title+"&summary="+description+"",
+																				twitter = "https://twitter.com/intent/tweet/?text="+description+".&amp;url=http%3A%2F%2F"+url+"",
+																				facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+description+'&app_id=1273981299361667';
+
+																$(item).each(function() {
+																				var cur = $(this);
+																								cur.find('.twitter-content').attr('href', twitter);
+																								cur.find('.linkedin-content').attr('href', linkEdn);
+																								cur.find('.facebook-content').attr('href', facebook);
+																});
+												}
+								}
+				}
+
     //EVENTS
     $(document).ready(function() {
-
+								shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
         dropDown($('.custom-select .dropdown-link'), '.drop-content');

@@ -2,6 +2,16 @@
   .other-articles-list {
     margin-bottom: 0;
   }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .article-head {
+      display: none;
+    }
+
+    .mobile-filter-holder {
+      margin-top: -13px;
+    }
+  }
 }
 
 .contributor-profile {

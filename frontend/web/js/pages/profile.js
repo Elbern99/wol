@@ -1,12 +1,19 @@
 jQuery(function($){
     
-    var block = $('#author-letter-result');
+    var block = $('.author-letter-result');
     
     function createResult(data) {
         
-        let html = '<ul>';
-        for (let item in data) {
-            html += '<li>'+data[item]+'</li>';
+        let html = '<ul class="abs-authors-list">';
+        
+        if (data.length) {
+            
+            for (let item in data) {
+                html += '<li>'+data[item]+'</li>';
+            }
+            
+        } else {
+            html += '<li>No Result</li>';
         }
         
         html += '</ul>';
@@ -25,9 +32,9 @@ jQuery(function($){
             data : {'letter': link.data('letter')},
             success: function(data, textStatus, jqXHR) {
 
-                if (data.length) {
-                    createResult(data);
-                }
+                createResult(data);
+                link.parent().addClass('active').siblings().removeClass('active');
+
             },
             error: function(jqXHR, textStatus, errorThrown) {
             }
