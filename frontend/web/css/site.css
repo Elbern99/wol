@@ -3287,21 +3287,30 @@ blockquote {
       flex-flow: row wrap; }
   .abs-list li {
     margin: 0 6px 4px; }
-    .abs-list li.active a, .abs-list li:hover a {
+    .abs-list li.active a {
       color: #0094f2;
       border-color: #0094f2; }
+    @media only screen and (min-width: 769px) {
+      .abs-list li:hover a {
+        color: #0094f2;
+        border-color: #0094f2; } }
   .abs-list a {
     display: inline-block;
     border-bottom: 2px solid transparent;
     color: #323232; }
 
-.abs-authors-list {
+.author-letter-result {
   padding-top: 14px; }
-  .abs-authors-list li {
-    margin: 0 0 9px;
-    font-size: 11px; }
-    .abs-authors-list li.active a {
-      color: #323232; }
+  .author-letter-result:empty {
+    padding-top: 0; }
+
+.abs-authors-list li {
+  margin: 0 0 9px;
+  font-size: 11px; }
+  .abs-authors-list li:last-child {
+    margin-bottom: 0; }
+  .abs-authors-list li.active a {
+    color: #323232; }
 
 .other-articles-list {
   margin-bottom: 20px; }

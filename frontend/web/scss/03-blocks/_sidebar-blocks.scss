@@ -869,11 +869,19 @@
   li {
     margin: 0 6px 4px;
     
-    &.active,
-    &:hover {
+    &.active {
       a {
         color: $light-blue;
         border-color: $light-blue;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      &:hover {
+        a {
+          color: $light-blue;
+          border-color: $light-blue;
+        }
       }
     }
   }
@@ -886,12 +894,21 @@
 }
 
 //ABS-AUTHORS-LIST
-.abs-authors-list {
+.author-letter-result {
   padding-top: 14px;
 
+  &:empty {
+    padding-top: 0;
+  }
+}
+.abs-authors-list {
   li {
     margin: 0 0 9px;
     font-size: 11px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
     
     &.active {
       a {
