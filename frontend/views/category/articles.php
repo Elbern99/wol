@@ -5,7 +5,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-//use Yii;
 use common\modules\author\Roles;
 ?>
 
