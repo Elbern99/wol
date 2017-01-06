@@ -224,5 +224,12 @@ class AuthorsController extends Controller {
         
         return $result;
     }
+    
+    public function actionEditorial() {
+        //SELECT a1.role_id,a1.author_id FROM `author_roles` as a1 left join `author_roles` as a2 on a1.id + 1 = a2.id  WHERE (a1.author_id != a2.author_id OR a2.id IS NULL) AND a1.role_id in(3,4,5,6,7) order by a1.author_id asc
+         $roles = new Roles();
+         $editorsRoleIds = $roles->getEditorGroup();
+         var_dump($editorsRoleIds);exit;
+    }
 }
 
