@@ -13,6 +13,7 @@ return [
     'opinion_limit' => 4,
     'video_limit' => 4,
     'news_limit' => 4,
+    'topic_limit' => 12,
     'opinion_sidebar_limit' => 5,
     'video_sidebar_limit' => 5,
     'latest_articles_sidebar_limit' => 5,

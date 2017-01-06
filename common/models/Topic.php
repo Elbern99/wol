@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 
-class NewsItem extends \yii\db\ActiveRecord
+class Topic extends \yii\db\ActiveRecord
 {
     use \common\helpers\FileUploadTrait;
     
@@ -12,7 +12,9 @@ class NewsItem extends \yii\db\ActiveRecord
         'image_link',
     ];
     
-    protected $imagePath = '/web/uploads/news';
+    // protected $is_key_topic = true;
+    
+    protected $imagePath = '/web/uploads/topics';
 
 
     public function getImagePath()
@@ -25,7 +27,6 @@ class NewsItem extends \yii\db\ActiveRecord
     }
     
     public function getFrontendPath() {
-        // return Yii::getAlias('@frontend').'/web/uploads/news';
         return Yii::getAlias('@frontend') . $this->imagePath;
     }
     
@@ -38,7 +39,7 @@ class NewsItem extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'news';
+        return 'topics';
     }
 
     /**
@@ -47,9 +48,9 @@ class NewsItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url_key', 'title', 'editor'], 'required'],
+            [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at'], 'safe'],
+            [['created_at', 'is_key_topic'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -66,11 +67,11 @@ class NewsItem extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'url_key' => Yii::t('app', 'Url Key'),
             'title' => Yii::t('app', 'Title'),
-            'editor' => Yii::t('app', 'Sources'),
             'description' => Yii::t('app', 'Description'),
             'short_decription' => Yii::t('app', 'Short Description'),
             'image_link' => Yii::t('app', 'Image'),
             'created_at' => Yii::t('app', 'Created At'),
+            'is_key_topic' => Yii::t('app', 'Is Key Topic'),
         ];
     }
     
@@ -83,6 +84,7 @@ class NewsItem extends \yii\db\ActiveRecord
     {
         if (!$this->validate())
             return false;
+        
         
         $this->setCreatedAtDate();
         $this->initUploadProperty();
