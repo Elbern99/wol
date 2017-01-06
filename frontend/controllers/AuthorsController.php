@@ -12,6 +12,7 @@ use common\models\ExpertSearch;
 use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
 use common\models\Widget;
+use yii\helpers\Html;
 
 class AuthorsController extends Controller {
     
@@ -202,7 +203,26 @@ class AuthorsController extends Controller {
     }
     
     public function actionLetter() {
-        var_dump(Yii::$app->request->post());exit;
+
+        $letter = Yii::$app->request->post('letter');
+        
+        if (!$letter) {
+            throw new NotFoundHttpException();
+        }
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $authors = $this->findAuthorsByLetter($letter);
+        $result = [];
+        
+        if (count($authors)) {
+            
+            foreach ($authors as $author) {
+                $result[] = Html::a($author['name'], Author::getAuthorUrl($author['url_key']));
+            }
+        }
+        
+        return $result;
     }
 }
 

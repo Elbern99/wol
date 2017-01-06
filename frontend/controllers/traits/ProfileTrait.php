@@ -4,6 +4,7 @@ namespace frontend\controllers\traits;
 use Yii;
 use common\models\ArticleAuthor;
 use common\models\Article;
+use common\models\Author;
 use yii\helpers\ArrayHelper;
 use common\modules\eav\CategoryCollection;
 
@@ -68,6 +69,16 @@ trait ProfileTrait {
         }
         
         return $articlesCollection;
+    }
+    
+    protected function findAuthorsByLetter(string $letter):array {
+        
+        return Author::find()
+                            ->select(['name', 'url_key'])
+                            ->where(['enabled' => 1])
+                            ->andFilterWhere(['like', 'name', $letter.'%', false])
+                            ->asArray()
+                            ->all();
     }
 }
 

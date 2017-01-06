@@ -1,19 +1,32 @@
 jQuery(function($){
     
-    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    var block = $('#author-letter-result');
+    
+    function createResult(data) {
+        
+        let html = '<ul>';
+        for (let item in data) {
+            html += '<li>'+data[item]+'</li>';
+        }
+        
+        html += '</ul>';
+        block.html(html);
+    }
     
     $('.profile-author-letter').on('click', function() {
-       var link = $(this);
+       let link = $(this);
+       
+       block.html('');
        
        $.ajax({
             url : link.prop('href'),
             type: 'POST',
             dataType: 'json',
-            data : {'letter': link.data('letter'), '_csrf' : csrfToken},
-            success:function(data, textStatus, jqXHR)  {
+            data : {'letter': link.data('letter')},
+            success: function(data, textStatus, jqXHR) {
 
                 if (data.length) {
-                    alert(data);
+                    createResult(data);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
