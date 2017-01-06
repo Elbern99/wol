@@ -62,13 +62,10 @@ if ($category) {
                             <?php foreach ($videosSidebar as $video) : ?>
                             <li>
                                 <h3>
-                                    <a href="#">
-                                        <?= $video->title; ?>
-                                    </a>
+                                    <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                 </h3>
                             </li>
                             <?php endforeach; ?>
-                        
                         </ul>
                         <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                         <a href="" class="more-link">
@@ -97,7 +94,7 @@ if ($category) {
                 <li>
                     <div class="opinion-item <?= $hasImageClass; ?>">
                         <?php if ($hasImageClass) : ?>
-                        <a href="<?= '/opinions/'. $opinion->url_key; ?>" title="<?= $opinion->title ?>" class="img" style="background-image: url(<?= '@web/uploads/opinions/'.$opinion->image_link; ?>)"></a>
+                        <a href="<?= '/opinions/'. $opinion->url_key; ?>" title="<?= $opinion->title ?>" class="img" style="background-image: url(<?= '/uploads/opinions/'.$opinion->image_link; ?>)"></a>
                         <?php endif; ?>
                         <div class="desc">
                             <div class="inner">
@@ -159,7 +156,7 @@ if ($category) {
                                 <?php foreach ($videosSidebar as $video) : ?>
                                 <li>
                                     <h3>
-                                        <a href="#"><?= $video->title; ?></a>
+                                         <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                     </h3>
                                 </li>
                                 <?php endforeach; ?>                               
@@ -174,6 +171,7 @@ if ($category) {
                     </li>
                 </ul>
             </div>
+
             <div class="sidebar-widget sidebar-widget-subscribe">
                 <?php foreach ($widgets as $widget): ?>
                    <?= $widget['text'] ?>

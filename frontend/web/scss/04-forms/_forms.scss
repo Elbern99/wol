@@ -2,7 +2,8 @@
 .dropdown-login {
 
   .dropdown-widget {
-    margin-top: -5px ;
+    margin-top: -5px;
+    padding-bottom: 19px;
 
     @include breakpoint_custom($breakpoint-desktop-large) {
       left: auto;

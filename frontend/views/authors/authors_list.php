@@ -26,9 +26,9 @@ $this->registerMetaTag([
         </div>
     </div>
 
-    <div class="search-results-top">
+    <ul class="search-results-media-list">
         <?php foreach($collection as $author): ?>
-
+        <li class="search-results-media-item">
             <div class="name">
                 <a href="<?= Author::getAuthorUrl($author['url_key']) ?>">
                     <?= $author['name']->first_name ?>
@@ -37,15 +37,16 @@ $this->registerMetaTag([
                 </a>
             </div>
             <p class="location"><?= $author['affiliation'] ?></p>
-            
+
             <?php foreach ($author['articles'] as $article): ?>
                 <a href="/articles/<?= $article['seo'] ?>"><?= $article['title'] ?></a>
             <?php endforeach; ?>
-                
+        </li>
         <?php endforeach; ?>
-                
-        <?= LinkPager::widget([
-            'pagination' => $paginate,
-        ]); ?>
-    </div>
+    </ul>
+
+    <?= LinkPager::widget([
+        'pagination' => $paginate,
+    ]); ?>
+
 </div>

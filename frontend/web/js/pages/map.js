@@ -30,7 +30,7 @@
             ],
             anchorsClass: '',    // class given to each tooltip's links
             twitterUsername: '', // for twitter widget, will add 'via @twitterUsername' at the end of the tweet.
-            facebookAppID: '369541053397983', // Can also be an HTML element inside the <head> tag of your page : <meta property="fb:APP_ID" content="YOUR_APP_ID"/>
+            facebookAppID: '1273981299361667', // Can also be an HTML element inside the <head> tag of your page : <meta property="fb:APP_ID" content="YOUR_APP_ID"/>
             facebookDisplayMode: 'popup', //can be 'popup' || 'page'
             tooltipTimeout: 50  //Timeout before that the tooltip appear in ms
         });

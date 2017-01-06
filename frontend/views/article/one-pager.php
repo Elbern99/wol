@@ -48,6 +48,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     $attributes['teaser']->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
     '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract', $currentLang).'\n\n View the article: '.
     Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+
+$linkSite = 'http://iza.qs-dev.com/';
+$decriptionSite = 'Tournaments can outperform other compensation schemes such as piece-rate and fixed wage contracts';
+$appId = '1273981299361667';
+$linkHrefFacebook = 'https://facebook.com/dialog/share?app_id=' .$appId. '&display=popup&href=' .$linkSite. '&description="' . $decriptionSite .'"';
 ?>
 <div class="container article-full">
 
@@ -193,7 +198,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <ul class="share-buttons-list">
                     <li class="share-facebook">
                         <div id="fb-root"></div>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                        <div class="fb-share-button" data-href="http://iza.qs-dev.com/" data-layout="button" data-size="small" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fiza.qs-dev.com%2F&amp;src=sdkpreparse">Share</a></div>
                     </li>
                     <li class="share-twitter">
                         <a class="twitter-share-button" href="https://twitter.com/intent/tweet">Tweet</a>
@@ -285,29 +290,27 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Additional References</a>
                         <div class="text">
-                            <div class="text-inner">
-                                <ul class="additional-references-list">
-                                    <?php foreach($additionals as $additional): ?>
-                                        <?php if (count($additional->country_codes)): ?>
-                                            <?php $source = array_merge($source, $additional->country_codes); ?>
-                                        <?php endif; ?>
-                                        <li>
-                                            <a href=""><?= $additional->title ?></a>
-                                            <?php $i++; ?>
-                                            <div class="icon-exclamatory-circle rel-tooltip"></div>
-                                            <div class="additional-references-info">
-                                                <?= $additional->full_citation ?>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <?php if(count($additionals) > 13): ?>
-                                    <a href="" class="more-link">
-                                        <span class="more">More</span>
-                                        <span class="less">Less</span>
-                                    </a>
-                                <?php endif ?>
-                            </div>
+                            <ul class="additional-references-list">
+                                <?php foreach($additionals as $additional): ?>
+                                    <?php if (count($additional->country_codes)): ?>
+                                        <?php $source = array_merge($source, $additional->country_codes); ?>
+                                    <?php endif; ?>
+                                    <li>
+                                        <a href=""><?= $additional->title ?></a>
+                                        <?php $i++; ?>
+                                        <div class="icon-exclamatory-circle rel-tooltip"></div>
+                                        <div class="additional-references-info">
+                                            <?= $additional->full_citation ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if(count($additionals) > 13): ?>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
+                            <?php endif ?>
                         </div>
                     </li>
                 <?php endif; ?>

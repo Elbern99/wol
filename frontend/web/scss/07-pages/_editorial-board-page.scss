@@ -1,0 +1,40 @@
+.editorial-board-page {
+  h2 {
+    font-size: 19px;
+    margin: 0 0 20px;
+
+    @include breakpoint('desktop') {
+      font-size: 29px;
+      margin: 0 0 32px;
+    }
+  }
+
+  .editors-list {
+    margin-bottom: 15px;
+
+    @include breakpoint('desktop') {
+      margin-bottom: 33px;
+    }
+  }
+
+  .show-more {
+    margin: -5px auto 33px;
+
+    @include breakpoint('desktop') {
+      margin: -33px auto 57px;
+    }
+  }
+
+  .editorial-board-widget {
+    margin: 0;
+  }
+}
+
+.editorial-board-widget {
+  font-size: 13px;
+  margin:  0 0 20px;
+
+  p {
+    margin: 0;
+  }
+}

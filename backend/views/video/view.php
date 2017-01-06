@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use dosamigos\ckeditor\CKEditor;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UrlRewrite */
@@ -31,10 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]) ?>
                 <?= $form->field($model, 'order') ?>
-
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
-            </div>
+            
+                <?= $form->field($model, 'video_ids')->widget(Select2::classname(), [
+                    'data' => $model->videosList(),
+                    'options' => ['placeholder' => 'Select related videos...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('video_ids')); ?>
+            
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                </div>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

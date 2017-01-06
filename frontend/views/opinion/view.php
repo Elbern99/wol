@@ -1,6 +1,6 @@
 <?php
-    use yii\helpers\Html;
-    use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <?php
@@ -11,7 +11,7 @@ $mailLink = $opinionDirectLink;
 
 $mailTitle = $model->title;
 $mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
-    '\n\n View the article: '. Html::a($mailLink, $mailLink). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+    '\n\n View the opinion: '. Html::a($mailLink, $mailLink). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 if ($category) {
     $this->registerMetaTag([
@@ -63,9 +63,7 @@ $this->params['breadcrumbs'][] = $model->title;
                             <?php foreach ($videosSidebar as $video) : ?>
                             <li>
                                 <h3>
-                                    <a href="#">
-                                        <?= $video->title; ?>
-                                    </a>
+                                    <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                 </h3>
                             </li>
                             <?php endforeach; ?>
@@ -157,7 +155,7 @@ $this->params['breadcrumbs'][] = $model->title;
                                 <?php foreach ($videosSidebar as $video) : ?>
                                 <li>
                                     <h3>
-                                        <a href="#"><?= $video->title; ?></a>
+                                         <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
                                     </h3>
                                 </li>
                                 <?php endforeach; ?>

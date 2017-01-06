@@ -1,0 +1,9 @@
+.commentary-page {
+  .show-more {
+    margin: 16px auto 27px !important;
+
+    @include breakpoint('tablet') {
+      margin: 27px auto !important;
+    }
+  }
+}

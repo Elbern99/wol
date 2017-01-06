@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Video;
+use common\models\CommentaryVideo;
+
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +23,7 @@ class VideoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete'],
+                        'actions' => ['index', 'view', 'delete', 'commentary'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -47,12 +49,24 @@ class VideoController extends Controller
             $model = new Video();
         } else {
             $model = Video::findOne($id);
+            $model->loadAttributes();
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->save()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Video added success'), false);
-                return $this->redirect('@web/video');
+            if ($model->saveData()) {
+                if (!$id) {
+                    $message = Yii::t('app/text', 'Video has been added successfully.');
+                    $path = '@web/video';
+                }
+                else {
+                    $message = Yii::t('app/text', 'Video has been updated successfully.');
+                    $path = ['/video/view', 'id' => $id];
+                }
+                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', $message), false);
+                return $this->redirect($path);
+            }
+            else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app/text', implode('\n', $model->getFirstErrors())), false);
             }
         }
         
@@ -64,16 +78,34 @@ class VideoController extends Controller
         try {
             $model = Video::findOne($id);
             if (!is_object($model)) {
-                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+                throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
             }
             
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Video was delete success!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Video has been deleted successfully.'));
             
         } catch (\yii\db\Exception $e) {
-            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Video did not delete!'));
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'An error occurred during deletion.'));
         }
              
         return $this->redirect('@web/video');
+    }
+    
+    public function actionCommentary() {
+        
+        $model = new CommentaryVideo();
+        $model->loadAttributes();
+        
+        
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->saveData()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Videos listing has been updated successfully.'), false);
+                return $this->redirect('@web/video/commentary');
+            }
+        }
+        
+        return $this->render('commentary', [
+            'model' => $model, 
+        ]);
     }
 }
