@@ -64,7 +64,8 @@ return [
                 'news/<slug:[0-9a-z-]+>' => 'news/view',
                 'find-an-expert' => 'authors/expert',
                 'authors' => 'authors/index',
-                'authors/<url_key:[0-9a-z-]+>' => 'authors/profile'
+                'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
+                'editorial-board' => 'authors/editorial'
             ],
         ],
         'assetManager' => [
