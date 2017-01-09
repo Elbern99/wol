@@ -182,11 +182,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     </li>
                 </ul>
             </div>
-            <?php if (isset($widget['text'])): ?>
-            <div class="sidebar-widget">
-                <?= $widget['text'] ?>
-            </div>
-            <?php endif; ?>
+            <?= $widgets->getPageWidget('ask_the_expert') ?>
         </aside>
     </div>
 </div>

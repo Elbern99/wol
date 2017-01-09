@@ -26,7 +26,7 @@ class Roles extends Type {
     
     public function getEditorGroup() {
         
-        return $this->groups;
+        return $this->groups['editor'];
     }
 }
 
