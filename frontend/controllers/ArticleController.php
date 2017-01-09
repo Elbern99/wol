@@ -10,7 +10,8 @@ use common\modules\eav\Collection;
 use yii\helpers\ArrayHelper;
 use common\models\FavoritArticle;
 use common\modules\eav\CategoryCollection;
-
+use common\models\Author;
+use yii\helpers\Html;
 /**
  * Site controller
  */
@@ -47,6 +48,7 @@ class ArticleController extends Controller {
         });
 
         $articles = $this->getArticlesList($limit, $order);
+        
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
         
         $categoryCollection = Yii::createObject(CategoryCollection::class);
@@ -54,10 +56,11 @@ class ArticleController extends Controller {
         $categoryCollection->initCollection(Article::tableName(), $articlesIds);
         $values = $categoryCollection->getValues();
         $articlesCollection = [];
- 
+
         foreach ($articles as $article) {
             
             $articleCategory = [];
+            $authors = [];
             
             foreach ($article->articleCategories as $c) {
 
@@ -66,11 +69,20 @@ class ArticleController extends Controller {
                     $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
                 }
             }
+
+            if (count($article->articleAuthors)) {
+                
+                foreach ($article->articleAuthors as $author) {
+                    $authors[] = Html::a($author->author['name'],Author::getAuthorUrl($author->author['url_key']));
+                }
+            } else {
+                $authors[] = $article->availability;
+            }
             
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/'.$article->seo,
-                'availability' => $article->availability,
+                'authors' => $authors,
                 'teaser' => unserialize($values[$article->id]['teaser']),
                 'abstract' => unserialize($values[$article->id]['abstract']), 
                 'created_at' => $article->created_at,

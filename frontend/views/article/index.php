@@ -5,7 +5,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-//use Yii;
 ?>
 
 <?php
@@ -48,7 +47,11 @@ $this->registerMetaTag([
                         </ul>
                         <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                        <div class="publish"><a href=""><?= $article['availability']  ?></a>, <?= date('F Y', $article['created_at']) ?></div>
+                        <div class="publish">
+                            <?php foreach($article['authors'] as $author): ?>
+                                <?= $author ?>
+                            <?php endforeach; ?>
+                            ,<?= date('F Y', $article['created_at']) ?></div>
                         <div class="description">
                             <?= $article['abstract']->abstract ?? ''; ?>
                         </div>

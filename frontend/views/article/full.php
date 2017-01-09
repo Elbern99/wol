@@ -81,7 +81,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
         <?php foreach ($authors as $author): ?>
             <div class="article-user">
-                <div class="img"><a href=""><img src="<?= $author['avatar'] ?>" alt=""></a></div>
+                <div class="img"><a href="<?= $author['profile'] ?>"><img src="<?= $author['avatar'] ?>" alt=""></a></div>
 
                 <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
 
@@ -92,7 +92,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         $link = Html::a($authorAttributes['name']->getData('first_name').' '.
                             $authorAttributes['name']->getData('middle_name').' '.
                             $authorAttributes['name']->getData('last_name')
-                            ,'/'
+                            ,$author['profile']
                         );
 
                         $authorLink[] = $link;
@@ -149,7 +149,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     
                 <h2>Competing interests</h2>
                 <p><?= $attributes['creation']->getData('main_creation') ?></p>
-                <p><a href="">&copy; <?=$article->availability?></a></p>
+                <p>&copy; <?=$article->availability?></p>
 
                 <div class="article-map-medium">
                     <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
@@ -547,7 +547,13 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     </div>
                     <div class="authors">
                         <div class="title">authors</div>
-                        <a href=""><?= $article->availability ?></a>
+                        <?php if(count($authorLink)): ?>
+                            <?php foreach($authorLink as $link): ?>
+                                <?= $link ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <?= $article->availability ?>
+                        <?php endif; ?>
                     </div>
                     <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
                 </div>
