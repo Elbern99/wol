@@ -27,11 +27,6 @@
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 15px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $blue;
 
     @include breakpoint('tablet') {
       float: left;
@@ -40,16 +35,7 @@
       height: 100px;
     }
 
-    &:after {
-      content: 'no image';
-      color: #fff;
-    }
-
-    .img {
-      @extend .pinout;
-      background-size: cover;
-      background-position: 50% 50%;
-    }
+    @extend .no-image;
   }
 
   .name {

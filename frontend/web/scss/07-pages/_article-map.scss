@@ -448,28 +448,6 @@
   cursor: -webkit-grab;
 }
 
-.evidence-map-list {
-  margin: 0 0 24px;
-
-  li {
-    padding: 0 0 0 29px;
-    margin: 0 0 3px;
-    position: relative;
-    text-transform: uppercase;
-    font-size: 10px;
-
-    [class*='icon-square-'],
-    .icon-number-reference {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      margin: -2px 0 0 0;
-    }
-  }
-}
-
-
 path {
   fill: rgba(193, 210, 217, 1);
   stroke: rgba(164, 181, 189, 1);

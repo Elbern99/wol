@@ -1,0 +1,1660 @@
+// 1. In content
+// 2. in sidebar
+
+// 1. IN CONTENT
+
+//NEWS-LISTS
+.news-home-list,
+.news-list {
+  .post-item {
+    margin: 0;
+
+    @include breakpoint('tablet') {
+      max-height: 408px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 12px;
+      line-height: 1.3em;
+    }
+
+    p {
+      font-size: 11px;
+      line-height: 1.5em;
+    }
+
+    .head-news-holder  {
+      margin: 0 0 9px 0;
+
+      @include breakpoint('tablet') {
+        margin: -2px 0 0 0;
+      }
+
+      .date {
+        margin: 0 0 1px;
+        text-transform: uppercase;
+        font-size: 12px;
+
+        @include breakpoint('tablet') {
+          font-size: 10px;
+        }
+      }
+
+      .publish {
+        margin: 0 0 5px;
+        font-size: 12px;
+
+        @include breakpoint('tablet') {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .img {
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        width: 80px;
+        height: 64px;
+        margin: 0 16px 0 0;
+      }
+    }
+  }
+
+  .publish {
+    text-transform: capitalize;
+  }
+
+  li {
+    @extend .two-column-first;
+    padding-bottom: 34px;
+
+    @include breakpoint('tablet') {
+      padding-bottom: 60px;
+    }
+
+    .post-item {
+      @include breakpoint_custom($breakpoint-tablet) {
+        padding-top: 25px;
+      }
+
+      h2 {
+        margin: -3px 0 0;
+        font-size: 16px;
+
+        @include breakpoint('tablet') {
+          margin: 0 0 10px;
+        }
+      }
+
+      .head-news-holder {
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.news-list {
+
+  li {
+    &:first-child {
+      padding-bottom: 32px ;
+
+      .post-item {
+
+        &:not(.has-image) {
+          background: #dbe8f4;
+        }
+
+        h2 {
+          line-height: 1.385em;
+          max-height: 103px;
+          margin: 0 0 17px;
+          font-size: 18px;
+
+          @include breakpoint('tablet') {
+            margin: 0 0 11px;
+            font-size: 27px;
+            max-height: 109px;
+          }
+        }
+
+        p {
+          display: block;
+          font-size: 15px;
+          line-height: 1.35em;
+          margin: 0;
+
+          @include breakpoint('tablet') {
+            font-size: 12px;
+          }
+        }
+
+        .head-news-holder  {
+
+          @include breakpoint('tablet') {
+            margin: -2px 0 0 0;
+          }
+        }
+
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+
+        .post-item {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          padding-top: 0;
+
+          .head-news-holder {
+            position: relative;
+          }
+
+          .img {
+            width: 100%;
+            float: none;
+            min-height: 203px;
+            order: 1;
+            margin-bottom: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.news-home-list {
+
+  li {
+    &:first-child {
+      padding-bottom: 32px;
+
+      .post-item {
+
+        &:not(.has-image) {
+          background: #dbe8f4;
+        }
+
+        h2 {
+          line-height: 1.385em;
+          max-height: 103px;
+          margin: 0 0 17px;
+          font-size: 18px;
+
+          @include breakpoint('tablet') {
+            margin: 0 0 11px;
+            font-size: 27px;
+            max-height: 109px;
+          }
+        }
+
+        p {
+          display: block;
+          font-size: 15px;
+          line-height: 1.35em;
+          margin: 0;
+
+          @include breakpoint('tablet') {
+            font-size: 12px;
+          }
+        }
+
+        .head-news-holder  {
+
+          @include breakpoint('tablet') {
+            margin: -2px 0 0 0;
+          }
+        }
+
+
+        &.has-image {
+          height: 190px;
+
+          h2 {
+            font-size: 23px;
+          }
+
+          .img {
+            order: -2;
+            margin: 0 20px 0 0;
+            width: 30%;
+          }
+
+          .desc {
+            width: 70%;
+          }
+        }
+
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+
+        .post-item {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          padding-top: 0;
+
+          .head-news-holder {
+            position: relative;
+          }
+
+          .img {
+            width: 100%;
+            float: none;
+            min-height: 203px;
+            order: 1;
+            margin-bottom: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+//MOBILE-FILTER-LIST
+.mobile-filter-list {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+
+  @include breakpoint('tablet') {
+    display: none;
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    display: flex;
+    justify-content: space-around;
+    margin: -11px -15px 20px;
+    padding: 0 15px;
+    border-bottom: 1px solid #b0b0b0;
+
+    li {
+      margin-bottom: -1px;
+
+      &.active {
+        a {
+          border-bottom-color: $light-blue;
+        }
+      }
+    }
+
+    a {
+      display: block;
+      padding: 10px 0;
+      border-bottom: 2px solid transparent;
+      color: #323232;
+    }
+  }
+}
+
+//OPINIONS-LIST & VIDEOS-LIST
+.opinions-list,
+.videos-list {
+  overflow: hidden;
+  margin: 0 0 -20px;
+
+  @include breakpoint('desktop') {
+    margin: 0 -3px -20px;
+  }
+
+  li {
+    padding: 0 0 20px;
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+      float: left;
+      padding: 5px 3px 20px;
+
+      .opinion-item,
+      .news-item {
+        max-height: 433px;
+      }
+    }
+
+    @extend .two-column-first;
+  }
+}
+
+//COMMENTARY-OPINIONS-LIST
+.commentary-opinions-list {
+  overflow: hidden;
+  margin: 0 0 27px;
+
+  @include breakpoint('mobile-large') {
+    margin: 0 -5px 27px;
+  }
+
+  li {
+    padding: 0 0 14px;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      float: left;
+      padding: 5px;
+    }
+
+    @include breakpoint('tablet') {
+      width: 100%;
+    }
+
+    @include breakpoint('desktop') {
+      width: 50%;
+    }
+
+    @include breakpoint('tablet') {
+
+      .opinion-item {
+        display: flex;
+        align-items: stretch;
+        height: 230px;
+
+        h2 {
+          max-height: 69px;
+          overflow: hidden;
+        }
+
+        .inner {
+          max-height: 180px;
+        }
+
+        .img,
+        .desc {
+          display: flex;
+          align-items: flex-end;
+        }
+
+        &.has-image {
+          .img,
+          .desc {
+            width: 50%;
+            height: 100%;
+            min-height: 1px;
+          }
+        }
+
+      }
+    }
+
+  }
+}
+
+//COMMENTARY-VIDEOS-LIST
+.commentary-videos-list {
+  overflow: hidden;
+  margin: 0;
+
+  @include breakpoint('mobile-large') {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -5px -20px;
+  }
+
+  li {
+    padding: 0 0 14px;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      padding: 5px 5px 20px;
+    }
+
+    @include breakpoint('tablet') {
+      width: 33.3%;
+    }
+
+    @include breakpoint('desktop-large') {
+      width: 25%;
+    }
+
+    .opinion-item {
+
+      @include breakpoint('tablet') {
+
+      }
+
+      @include breakpoint('tablet') {
+        max-height: 403px;
+      }
+    }
+  }
+}
+
+//POST-LIST
+.post-list {
+  margin: 0 0 10px 0;
+
+  @include breakpoint('tablet') {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -38px 20px 0;
+  }
+
+  .icon-close {
+    right: -15px;
+    top: -11px;
+
+    @include breakpoint('desktop') {
+      right: 15px;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:before,
+    &:after {
+      background: #acacac;
+      width: 10px;
+      height: 1px;
+
+      @include breakpoint('desktop') {
+        left: 6px;
+        width: 8px;
+      }
+    }
+  }
+  >li {
+    padding: 3px 0 17px 0;
+    overflow: visible;
+
+    @include breakpoint('tablet') {
+      width: 50%;
+      padding: 3px 38px 25px 0;
+    }
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+    }
+  }
+
+  &.favourite-articles-list {
+
+    @include breakpoint('tablet') {
+      margin: -6px 0 -15px -30px;
+    }
+
+    >li {
+      padding: 3px 28px 17px 0;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      @include breakpoint('tablet') {
+        padding: 10px 55px 10px 30px;
+      }
+    }
+  }
+}
+
+//HOME-ARTICLES-LIST
+.home-articles-list {
+  >li {
+
+    @include breakpoint('tablet') {
+      width: 50%;
+    }
+  }
+}
+
+//PAGINATION-LIST
+.pagination {
+  text-align: center;
+
+  li {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1em;
+    margin: 0 4px;
+    vertical-align: middle;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+      font-size: 15px;
+
+      a,span {
+        color: #262626;
+      }
+
+      &.next,
+      &.prev {
+        a,span {
+          font-size: 0;
+          width: 26px;
+          height: 26px;
+          border: 1px solid $blue;
+          border-radius: 50%;
+
+          &:after {
+            display: block !important;
+            font-size: 12px;
+            color: $blue;
+            height: 11px;
+          }
+        }
+      }
+
+      &.prev {
+        a,span {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.all {
+        &:after {
+          content: '';
+          position: absolute;
+          top: 5px;
+          width: 1px;
+          height: 11px;
+          left: -6px;
+          background: #262626;
+          transform: rotate(12deg);
+        }
+      }
+
+      &.next,
+      &.prev,
+      &.active,
+      &.all {
+        display: inline-block;
+      }
+
+    }
+
+    &.next,
+    &.prev {
+      margin: 0 8px;
+
+      &.disabled {
+        a,span {
+          color: #c7c7c7 !important;
+          cursor: default !important;
+
+          @include breakpoint_custom($breakpoint-tablet) {
+            border-color: #c7c7c7 !important;
+
+            &:after {
+              color: #c7c7c7 !important;
+            }
+          }
+
+          &:after {
+            @extend .icon-styles;
+            content: '\e906';
+            display: none;
+            @extend .icon-to-center;
+          }
+        }
+      }
+
+      a,span {
+        color: #323232;
+
+        &:after {
+          @extend .icon-styles;
+          content: '\e906';
+          display: none;
+          @extend .icon-to-center;
+        }
+      }
+    }
+
+    &.active {
+      a,span {
+        color: $blue;
+        border-bottom-color: $blue;
+        cursor: default !important;
+      }
+    }
+
+    &:hover {
+      a {
+        color: $blue;
+      }
+    }
+  }
+
+  a,
+  span{
+    display: inline-block;
+    padding: 3px 1px 3px;
+    color: #999;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+//SHARE-BUTTONS-LIST
+.share-buttons-list {
+  margin: 0 -2px 0px -4px;
+  display: flex;
+  align-self: center;
+
+  @include breakpoint('tablet') {
+    margin: 0 -2px 0px -4px;
+  }
+
+  li {
+    margin: 0 4px 20px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 4px 0;
+    }
+
+    span {
+      vertical-align: top !important;
+    }
+  }
+}
+
+//SIDEBAR-ACCRODION-LIST
+.sidebar-accrodion-list {
+
+  .sidebar-accrodion-item {
+    margin: 0 0 22px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+//ARTICLE-RUBRICS-LIST
+.article-rubrics-list {
+  margin: 0 0 6px 0;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    float: left;
+    text-transform: uppercase;
+    position: relative;
+    line-height: 1.1;
+    padding: 0 6px 0 0;
+    margin: 0 5px 3px 0;
+    font-size: 10px;
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      right: 0;
+      top: 1px;
+      border-right: 1px solid #676767;
+      display: block;
+    }
+  }
+
+  a {
+    color: $light-blue;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+//ARTICLES-LIST
+.articles-list {
+  >li {
+    margin: 0 0 21px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 35px;
+    }
+
+    &:first-child {
+      h2 {
+        font-size: 28px;
+        margin: 0 0 5px;
+      }
+
+      h3 {
+        font-size: 14px;
+        margin: 0 0 5px;
+        line-height: 1.5em;
+      }
+
+      .publish {
+        margin: 0 0 4px;
+      }
+    }
+  }
+}
+
+//EDITORS-LIST
+.editors-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -10px;
+
+  @include breakpoint('desktop') {
+    margin: 0 -20px;
+  }
+
+  li {
+    width: 50%;
+    padding: 0 10px 25px;
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+      padding: 0 20px 37px;
+    }
+  }
+}
+
+//BREADCRUMBS-LIST
+.breadcrumbs-list {
+  margin: 30px 0 32px;
+  display: none;
+
+  @include breakpoint('tablet') {
+    display:  block;
+  }
+
+  li {
+    display: inline-block;
+    font-size: 9px;
+    text-transform: uppercase;
+    line-height: 1em;
+    padding: 0 13px 0 0;
+    margin: 0 4px 0 0;
+
+    &:after {
+      content: '>';
+      position: absolute;
+      right: 0;
+      top: -1px;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  a {
+
+  }
+}
+
+//SOCIALS
+.socials-list {
+  margin: 0 0 39px;
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 6px;
+    font-size: 11px;
+  }
+
+  [class*='icon-'] {
+    font-size: 34px;
+
+    @include breakpoint('tablet') {
+      font-size: 30px;
+    }
+  }
+
+  a {
+    color: $light-blue;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  &.socials-vertical-list {
+    margin: 0 0 0 4px;
+
+    li {
+
+      margin: 0 0 15px -4px;
+      width: 50%;
+
+      @include breakpoint('tablet') {
+        display: block;
+        width: 100%;
+        margin: 0 0 13px;
+      }
+    }
+
+    [class*='icon-'] {
+      margin-right: 13px;
+      color: $blue;
+    }
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  }
+}
+
+//ARTICLE-USER-LIST
+.article-user-list {
+  margin: 0 -19px 15px;
+  display: flex;
+  flex-flow: row wrap;
+
+  @include breakpoint('tablet') {
+    margin-bottom: 6px;
+  }
+
+  >div {
+    padding: 0 19px;
+    width: 100%;
+    text-transform: capitalize;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+    }
+
+    @include breakpoint('tablet') {
+      width: 50%;
+    }
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+    }
+  }
+
+  .desc-category {
+    margin: 0 0 31px;
+
+    p {
+      margin: 0 0 31px;
+      font-size: 15px;
+      line-height: 1.4em;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 29px;
+      }
+    }
+  }
+
+  .article-user {
+    margin: 0 0 13px;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 17px;
+    }
+
+    .name {
+      font-size: 15px;
+      margin: 0 0 6px;
+
+      @include breakpoint('tablet') {
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+
+    .desc {
+      @include breakpoint_custom($breakpoint-tablet) {
+        padding-top: 10px;
+      }
+    }
+
+    .img {
+      margin: 0 15px 0 0;
+      width: 67px;
+      height: 67px;
+
+      @include breakpoint('tablet') {
+        margin: 4px 15px 0 0;
+        width: 52px;
+        height: 52px;
+      }
+    }
+
+    p {
+      line-height: 1.3em;
+      font-size: 11px;
+
+      @include breakpoint('tablet') {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+//OTHER-EVENTS-LIST
+.other-events-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0;
+
+  @include breakpoint('mobile-large') {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -15px;
+  }
+
+  li {
+    padding: 0 0 28px;
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      padding: 0 15px 37px;
+    }
+
+    @include breakpoint('desktop') {
+      width: 33.3%;
+    }
+  }
+
+  h3 {
+    font-size: 17px;
+    margin: 0 0 10px;
+    line-height: 1.4em;
+
+    @include breakpoint('mobile-large') {
+      font-size: 14px;
+      margin: 0 0 6px;
+      line-height: 1.4em;
+    }
+  }
+
+  .date {
+    text-transform: uppercase;
+    margin: 0 0 8px;
+    font-size: 12px;
+
+    @include breakpoint('mobile-large') {
+      font-size: 11px;
+      margin: 0 0 2px;
+    }
+
+    a {
+      color: $light-blue;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+
+  .country {
+    font-size: 15px;
+
+    @include breakpoint('mobile-large') {
+      font-size: 12px;
+    }
+  }
+
+}
+
+//EVENTS-LIST
+.events-list {
+  .event-item {
+    margin: 0 0 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include breakpoint('tablet') {
+      margin: 0 0 63px;
+    }
+  }
+}
+
+//KEY-TOPICS-LIST
+.key-topics-list {
+  overflow: hidden;
+  margin: 0 -1px 27px;
+
+  @include breakpoint('tablet') {
+    margin-bottom: 27px;
+  }
+
+  li {
+    float: left;
+    width: 50%;
+    height: calc(50vh*0.435);
+    min-height: 120px;
+    max-height: 255px;
+
+    @include breakpoint('mobile-large') {
+      height: calc(50vh*0.3);
+    }
+
+    @include breakpoint('tablet') {
+      width: 33.3%;
+      height: calc(50vh*0.519);
+    }
+
+    @include breakpoint('desktop') {
+      width: 25%;
+      height: calc(50vh*0.519);
+    }
+
+    a {
+      @extend .pinout;
+    }
+  }
+}
+
+//EVIDENCE-MAP-LIST
+.evidence-map-list {
+  margin: 0 0 24px;
+
+  li {
+    padding: 0 0 0 29px;
+    margin: 0 0 3px;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 10px;
+
+    [class*='icon-square-'],
+    .icon-number-reference {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      margin: -2px 0 0 0;
+    }
+  }
+}
+
+//ACCOUNT-TABS-LIST
+.account-tabs-list {
+  margin: 0 0 -1px 0;
+
+  @include breakpoint_custom($breakpoint-mobile-large) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  li {
+    font-size: 11px;
+
+    @include breakpoint('mobile-large') {
+      font-size: 16px;
+      margin: 0 5.8% -1px 0;
+      float: left;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: table-cell;
+    }
+
+    &.active {
+      a {
+        border-bottom-color: $light-blue;
+        color: #323232 !important;
+        cursor: default;
+      }
+    }
+  }
+
+  a {
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    color: #323232;
+
+    @include breakpoint('tablet') {
+      display: block;
+      padding: 10px 0;
+    }
+
+    &:hover {
+      border-color: $blue;
+    }
+  }
+}
+
+//ALL-REFERENCES-LIST
+.all-references-list {
+
+  li {
+    margin: 0 0 10px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  ul {
+    margin: 0 0 10px;
+  }
+}
+
+//SEARCH-RESULTS-MEDIA-LIST
+.search-results-media-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -5px 10px;
+
+  @include breakpoint('tablet') {
+    margin: 0 -10px 20px;
+  }
+
+  li {
+    width: 50%;
+    padding: 0 5px 0;
+    margin-bottom: 23px;
+
+    @include breakpoint('tablet') {
+      width: 33.3%;
+      padding: 0 5px 0;
+      margin-bottom: 18px;
+    }
+
+    @include breakpoint('tablet') {
+      padding: 0 10px 0;
+      margin-bottom: 58px;
+    }
+  }
+}
+
+//2. IN SIDEBAR
+
+//SIDEBAR-NEWS-LIST
+.sidebar-news-list {
+
+  .bg-info {
+    display: none;
+  }
+
+  li {
+    margin: -2px 0 17px;
+    position: relative;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 17px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      .writer {
+        font-size: 10px;
+        padding: 0;
+      }
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+    line-height: 1.45em;
+    text-transform: none;
+    margin: 0 20px 0 0;
+    display: inline-block;
+
+    a {
+      display: inline-block;
+    }
+  }
+}
+
+//CLASSIFICATION-LIST
+.classification-list {
+  li {
+    margin: 0 0 10px;
+    line-height: 1.3em;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      font-size: 12px;
+    }
+
+    @include breakpoint('tablet') {
+      line-height: 1.5em;
+      margin: 0 0 13px;
+    }
+  }
+}
+
+//FURTHER-READING-LIST
+.further-reading-list {
+
+  .further-reading-info {
+    display: none;
+  }
+
+  h3 {
+    margin: 0 20px 0 0;
+    font-size: 12px;
+  }
+
+  li {
+    margin: 0 0 14px;
+    position: relative;
+    text-transform: capitalize;
+    padding-right: 20px;
+  }
+}
+
+//KEY-REFERENCES-LIST
+.key-references-list {
+
+  .key-references-info {
+    display: none;
+  }
+
+  li {
+    margin: 0 0 15px;
+    position: relative;
+    text-transform: capitalize;
+    font-size: 12px;
+    overflow: hidden;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 13px;
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+  }
+
+  a {
+    display: inline-block;
+    margin: 0 20px 0 0;
+  }
+}
+
+//ADDITIONAL-REFERENCES-LIST
+.additional-references-list {
+
+  .additional-references-info {
+    display: none;
+  }
+
+  li {
+    margin: 0 0 13px;
+    position: relative;
+    padding: 0 20px 0 0;
+    font-size: 12px;
+    text-transform: capitalize;
+
+  }
+}
+
+//ARTICLES-FILTER-LIST
+.articles-filter-list {
+
+  &.date-list {
+    li li {
+      padding-left: 0;
+    }
+  }
+
+  li {
+    text-transform: none;
+    margin: -1px 0 10px;
+    font-size: 12px;
+
+    &.open {
+      a {
+        color: $blue;
+
+        &:hover {
+          color: $light-blue;
+        }
+      }
+    }
+  }
+
+  li{
+    padding: 0 0 0 14px;
+    position: relative;
+
+    &.open {
+
+      > a {
+        font-family: $lucida-grande-bold;
+      }
+    }
+
+    &.has-drop {
+      >.icon-arrow {
+        display: block;
+      }
+
+      &.open {
+
+        >.icon-arrow {
+          color: $blue;
+          transform: rotate(90deg);
+          margin: 0 0 0 1px;
+
+          @include breakpoint('tablet') {
+            margin: 0 0 0 1px;
+          }
+        }
+      }
+    }
+
+    .icon-arrow {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      content: '\e906';
+      font-size: 7px;
+      @extend .icon-styles;
+      color: #1d1d1b;
+      cursor: pointer;
+      width: 10px;
+      height: 10px;
+      text-align: center;
+      display: none;
+      padding: 0;
+      //margin-top: 5px;
+
+      @include breakpoint('tablet') {
+        top: 1px;
+      }
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -3px 0 0 -3px;
+      }
+    }
+  }
+
+  a {
+    color: #363636;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .submenu {
+    padding: 0;
+
+    li {
+      font-size: 11px;
+    }
+  }
+
+  li {
+    margin: 0 0 7px;
+
+    li {
+      margin: 7px 0 7px;
+    }
+  }
+
+  >.submenu {
+    display: block;
+  }
+}
+
+//BG-NEWS-LIST
+.bg-news-list {
+  li {
+    text-transform: none;
+    padding-right: 20px;
+  }
+}
+
+//DATA-METHOD-LIST
+.data-method-list {
+  overflow: hidden;
+
+  a {
+    color: $white;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @include breakpoint('mobile-large') {
+    margin: 0;
+  }
+
+  @include breakpoint('tablet') {
+    margin: 0;
+  }
+}
+
+//ABS-LIST
+.abs-list {
+  overflow: hidden;
+  margin: 0 -6px -5px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+
+  li {
+    margin: 0 6px 4px;
+
+    &.active {
+      a {
+        color: $light-blue;
+        border-color: $light-blue;
+      }
+    }
+
+    @include breakpoint('tablet') {
+      &:hover {
+        a {
+          color: $light-blue;
+          border-color: $light-blue;
+        }
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+    color: #323232;
+  }
+}
+
+//ABS-AUTHORS-LIST
+.author-letter-result {
+  padding-top: 14px;
+
+  &:empty {
+    padding-top: 0;
+  }
+}
+.abs-authors-list {
+  li {
+    margin: 0 0 9px;
+    font-size: 11px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.active {
+      a {
+        color: #323232;
+      }
+    }
+  }
+}
+
+.other-articles-list {
+  margin-bottom: 20px;
+
+  >li {
+    margin-bottom: 25px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 45px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.key-references-list,
+.additional-references-list,
+.sidebar-news-list,
+.further-reading-list,
+.sidebar-key-topics-list,
+.articles-filter-list,
+.sidebar-news-list {
+  &.no-more {
+    >li {
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+
+.key-references-list,
+.additional-references-list,
+.sidebar-news-list,
+.further-reading-list,
+.sidebar-key-topics-list {
+  padding: 0;
+
+  li {
+
+    &.opened-reflink {
+      a {
+        color: $light-blue;
+      }
+    }
+
+    .icon-exclamatory-circle {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      color: $light-blue;
+      cursor: pointer;
+      font-size: 14px;
+
+      @include breakpoint('tablet') {
+        top: 0;
+      }
+    }
+  }
+}
+
+.key-references-list,
+.additional-references-list,
+.sidebar-news-list,
+.further-reading-list,
+.sidebar-key-topics-list,
+.more-extra-list {
+
+  + .more-link {
+    margin: 10px 5px 0 0;
+  }
+
+  li,
+  .item {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+    opacity: 0;
+    transform: translateY(-30%);
+    transition: transform .5s ease, opacity .5s ease;
+  }
+}
+
+.key-references-list,
+.additional-references-list,
+.further-reading-list,
+.sidebar-key-topics-list,
+.more-extra-list {
+  li,
+  .item {
+    &:nth-child(-n+13),
+    &.opened {
+      opacity: 1 !important;
+      height: auto !important;
+      left: auto !important;
+      position: relative !important;
+      top: auto !important;
+      transform: translateX(0);
+    }
+  }
+}
+
+.sidebar-news-list {
+  padding: 0;
+
+  li {
+    &:nth-child(-n+5),
+    &.opened{
+      opacity: 1 !important;
+      height: auto !important;
+      left: auto !important;
+      position: relative !important;
+      top: auto !important;
+      transform: translateX(0);
+    }
+  }
+}
+
+//PODCAST-LIST
+.podcast-list {
+  @include breakpoint('mobile-large') {
+    margin: 0 -5px;
+
+    .widget-title {
+      font-size: 10px;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    margin: 0;
+
+    .widget-title {
+      font-size: 13px;
+    }
+  }
+
+  .podcast-item {
+    margin: 0 0 30px;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include breakpoint('mobile-large') {
+      width: 50%;
+      float: left;
+      padding: 0 5px;
+      margin: 0;
+    }
+
+    @include breakpoint('tablet') {
+      width: 100%;
+      padding: 0;
+      float: none;
+      margin: 0 0 30px;
+    }
+
+    .btn-blue {
+      position: absolute;
+      bottom: 15px;
+      left: 18px;
+      right: 18px;
+      font-size: 11px;
+    }
+  }
+}

@@ -72,7 +72,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                 
                 <?php foreach ($expertCollection as $expert): ?>
                 <li class="search-results-media-item">
-                    <div class="img">
+                    <div class="img-holder">
                         <img src="<?= $expert['avatar'] ?>" alt="">
                     </div>
                     <div class="name"><?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?></div>

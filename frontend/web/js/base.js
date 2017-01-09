@@ -2,22 +2,23 @@
 
 // ELEMENTS
 var elements = {
-
+    document: $(document),
+    window: $(window)
 }
 
-//GLOBAL VARIABLE ---------
+//GLOBAL VARIABLES ---------
 
-    var _window_height = $(window).height(),
-        _window_width = $(window).width(),
-        _doc_height = $(document).height(),
+    var _window_height = elements.window.height(),
+        _window_width = elements.window.width(),
+        _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
         _mobile = 769,
         _tablet = 1025;
 
-    $(window).resize(function() {
-        _window_height = $(window).height();
-        _window_width = $(window).width();
-        _doc_height = $(document).height();
+    elements.window.resize(function() {
+        _window_height = elements.window.height();
+        _window_width = elements.window.width();
+        _doc_height = elements.document.height();
     });
 
 // 1. HEADER ---------
@@ -26,11 +27,12 @@ var elements = {
 
     var headerMenu = {
         classes: 'open',
+        submenu: '>.submenu',
         delay: 200,
         detectSubmenu: function(item) {
             $(item).each(function( index ) {
                 var cur = $(this);
-                if (cur.find('>.submenu').length > 0) {
+                if (cur.find(headerMenu.submenu).length > 0) {
                     cur.addClass('has-drop');
                 }
             });
@@ -46,7 +48,7 @@ var elements = {
                 $(item).jScrollPane(scrollPaneOption);
             }
 
-            $(window).resize(function() {
+            elements.window.resize(function() {
                 if(_window_width < _mobile) {
                     $(item).jScrollPane(scrollPaneOption);
                 } else {
@@ -57,11 +59,11 @@ var elements = {
             });
         },
         mobileOpenItem: function(cur) {
-            cur.parent().find('>.submenu').slideDown(headerMenu.delay);
+            cur.parent().find(headerMenu.submenu).slideDown(headerMenu.delay);
             cur.parent().addClass('open');
         },
         mobileCloseItem: function(cur) {
-            cur.parent().find('>.submenu').slideUp(headerMenu.delay);
+            cur.parent().find(headerMenu.submenu).slideUp(headerMenu.delay);
             cur.parent().removeClass('open');
         },
         mobile: function(btn,content,parent) {
@@ -88,7 +90,7 @@ var elements = {
             btn.on('click',function(e) {
                 var cur = $(this),
                     curAttr = cur.attr('href');
-                $(document).unbind('click.submenu');
+                elements.document.unbind('click.submenu');
                 dropWidget.removeClass('open');
                 btn.not(cur).removeClass('active');
 
@@ -105,12 +107,12 @@ var elements = {
                     var drop = cur.parents('.has-drop').find('>.submenu');
                     drop.addClass('open');
                     cur.addClass('active');
-                    $(document).bind('click.submenu', function (e) {
+                    elements.document.bind('click.submenu', function (e) {
                         if(_window_width > _mobile ) {
                             if (!yourClick  && !$(e.target).closest(drop).length || $(e.target).closest(drop.find('div')).length ) {
                                 dropWidget.removeClass('open');
                                 btn.removeClass('active');
-                                $(document).unbind('click.submenu');
+                                elements.document.unbind('click.submenu');
                             }
                             yourClick  = false;
                         }
@@ -142,7 +144,7 @@ var elements = {
         if ( $(dropWidget).length ) {
             btn.on('click',function(e) {
                 var cur = $(this);
-                $(document).unbind('click.drop-content');
+                elements.document.unbind('click.drop-content');
 
                 btn.not(cur).removeClass('active');
                 if ( !cur.hasClass('active') ) {
@@ -151,12 +153,12 @@ var elements = {
                     drop.addClass('open');
                     cur.addClass('active');
 
-                    $(document).bind('click.drop-content', function (e) {
+                    elements.document.bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
                             if (!yourClick  && !$(e.target).closest(drop).length || $(e.target).closest(drop.find('li')).length ) {
                                 $(dropWidget).removeClass('open');
                                 btn.removeClass('active');
-                                $(document).unbind('click.drop-content');
+                                elements.document.unbind('click.drop-content');
                             }
 
                             yourClick  = false;
@@ -242,7 +244,7 @@ var elements = {
                 e.preventDefault();
             });
 
-            $(window).resize(function() {
+            elements.window.resize(function() {
                if(_window_width > _mobile) {
                    $(list).find('li').eq(0).find('a').trigger('click');
                }
@@ -263,7 +265,7 @@ var elements = {
                 }
 
                 appendElements(el,elToMobile,elToDesktop);
-                $(window).resize(function() {
+                elements.window.resize(function() {
                     setTimeout(function(){
                         appendElements(el,elToMobile,elToDesktop);
                     }, 600);
@@ -306,21 +308,23 @@ var elements = {
     var docHeightForElement = {
         elements: ['.mobile-menu, .mobile-search, .mobile-login'],
         changeHeight: function() {
-            var elements = $(docHeightForElement.elements.toString());
+            var elementsAll = $(docHeightForElement.elements.toString()),
+                elHeight = elements.document.height();
 
-            elements.css('height', '1px');
-            elements.css('height', $(document).height());
-            elements.css('max-height', $(document).height());
 
-            $(window).on("orientationchange",function(){
-                elements.css({
+            elementsAll.css('height', '1px');
+            elementsAll.css('height', elHeight);
+            elementsAll.css('max-height', elHeight);
+
+            elements.window.on("orientationchange",function(){
+                elementsAll.css({
                     'height': '1px',
                     'max-height': '1px'
                 });
                 setTimeout(function(){
-                    elements.css({
-                        'height': $(document).height(),
-                        'max-height': $(document).height(),
+                    elementsAll.css({
+                        'height': elements.document.height(),
+                        'max-height': elements.document.height(),
                     });
                 }, 1000);
             });
@@ -425,16 +429,16 @@ var elements = {
 
     // 3.1 MORE SIDEBAR NEWS
     var sidebarNews = {
-        moreSidebarNews: function(btnMore,parent) {
+        moreSidebarNews: function(btnMore,parent,item) {
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
                     curParent =  cur.parents('li,.expand-more');
                     cur.toggleClass('showed');
 
                     if(cur.hasClass('showed')) {
-                        curParent.find('li,.item').addClass('opened');
+                        curParent.find(item).addClass('opened');
                     } else {
-                        curParent.find('li,.item').removeClass('opened');
+                        curParent.find(item).removeClass('opened');
 
                         setTimeout(function(){
                             $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
@@ -527,7 +531,7 @@ var elements = {
 				}
 
     //EVENTS
-    $(document).ready(function() {
+    elements.document.ready(function() {
 								shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
@@ -558,18 +562,18 @@ var elements = {
         references.openPrintWindow('.btn-print');
         accordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         accordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
-        sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list');
-        sidebarNews.moreSidebarNews('.more-link','.additional-references-list');
-        sidebarNews.moreSidebarNews('.more-link','.key-references-list');
-        sidebarNews.moreSidebarNews('.more-link','.further-reading-list');
-        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list');
-        sidebarNews.moreSidebarNews('.more-link','.more-extra-list');
-        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list');
+        sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item');
         sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
         sidebarNews.detectMore('.mobile-filter-items','.more-link');
     });
 
-    $(window).load(function() {
+    elements.window.load(function() {
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
         articleList.pajax('#w0');

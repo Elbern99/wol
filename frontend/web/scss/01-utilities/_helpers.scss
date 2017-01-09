@@ -24,6 +24,77 @@
   bottom: auto !important;
 }
 
+.no-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $blue;
+
+  &:after {
+    content: 'no image';
+    color: #fff;
+  }
+
+  .img {
+    @extend .pinout;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
+}
+
+.two-column-first {
+  &:first-child {
+    @include breakpoint('desktop') {
+      width: 100%;
+      float: none;
+
+      .opinion-item,
+      .news-item,
+      .post-item {
+        height: auto;
+
+        h2 {
+          font-size: 24px;
+          max-height: 81px;
+          padding-bottom: 1px;
+        }
+
+        .desc {
+          padding: 20px 15px 20px;
+          height: auto;
+
+          p {
+            max-height: 189px;
+          }
+        }
+
+        &.has-image {
+          display: flex;
+          height: 292px;
+
+          .desc {
+            overflow: hidden;
+            padding: 0 0 20px;
+            width: 50%;
+            align-items: stretch;
+          }
+
+          .img {
+            width: 50%;
+            float: right;
+            margin: 0 0 0 30px;
+            order: 2;
+            height: auto;
+            min-height: 230px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
 //NORMALIZE
 .clearfix:after {
 	content:"";

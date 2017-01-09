@@ -1,0 +1,63 @@
+.home-page {
+
+  .index-head {
+    margin: 0 0 28px;
+    font-size: 14px;
+
+    @include breakpoint('tablet') {
+      font-size: 14px;
+      margin: 0 0 48px;
+    }
+  }
+
+  .header-background {
+    margin-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 40px;
+    }
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 23px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 12px;
+      font-size: 43px;
+    }
+  }
+
+  .post-item {
+    .publish {
+      text-transform: capitalize;
+    }
+  }
+
+  .btn-gray {
+    margin: 27px auto 30px !important;
+  }
+
+  .post-item {
+    &.large {
+
+      h2 {
+        font-size: 17px;
+      }
+
+      @include breakpoint('tablet') {
+        .description {
+          display: block !important;
+        }
+
+        .article-more {
+          display: none !important;
+        }
+
+        h2 {
+          font-size: 31px;
+        }
+      }
+    }
+  }
+}
