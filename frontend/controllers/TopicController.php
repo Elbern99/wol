@@ -26,10 +26,20 @@ class TopicController extends Controller {
     
     public function _getTopicsList($limit = null)
     {
-        return Topic::find()
-                        ->orderBy('id desc')
-                        ->limit($limit)
-                        ->all();
+        $query = (new \yii\db\Query())
+        ->select('*')
+        ->from('topics')
+        ->where('sticky_at is null')
+        ->orderBy('created_at desc');
+        
+        $topics = Topic::find()
+                            ->where('sticky_at is not null')
+                            ->orderBy('sticky_at asc')
+                            ->union($query)
+                            ->limit($limit)
+                            ->all();
+        
+        return array_slice($topics, 0, $limit);
     }
     
     public function actionIndex()
@@ -44,9 +54,9 @@ class TopicController extends Controller {
             }
 
         }
-        
+         
         $topicsQuery = Topic::find()->orderBy('id desc');
-        
+
         return $this->render('index', [
             'category' => $this->_getMainCategory(),
             'topics' => $this->_getTopicsList($limit),

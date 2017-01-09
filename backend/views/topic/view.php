@@ -6,6 +6,7 @@ use yii\helpers\Url;
 
 use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 
 
 $this->title = Yii::t('app.menu', 'View');
@@ -58,6 +59,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             
                 <?= $form->field($model, 'is_key_topic')->checkbox() ?>
+                <?= $form->field($model, 'sticky_at')->checkbox() ?>
+            
+                <?= $form->field($model, 'article_ids')->widget(Select2::classname(), [
+                    'data' => $model->articlesList(),
+                    'options' => ['placeholder' => 'Select articles videos...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('article_ids')); ?>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>

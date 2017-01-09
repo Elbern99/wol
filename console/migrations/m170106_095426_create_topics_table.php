@@ -21,6 +21,7 @@ class m170106_095426_create_topics_table extends Migration
             'image_link' => $this->string()->null(),
             'created_at' => $this->dateTime()->null(),
             'is_key_topic' => $this->boolean()->null(),
+            'sticky_at' => $this->dateTime()->null(),
         ]);
     }
 

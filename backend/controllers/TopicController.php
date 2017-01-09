@@ -46,7 +46,7 @@ class TopicController extends Controller
             $model = new Topic();
         } else {
             $model = Topic::findOne($id);
-            // $model->loadAttributes();
+            $model->loadAttributes();
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
