@@ -12,7 +12,6 @@ use common\modules\eav\helper\EavValueHelper;
 use common\models\ExpertSearch;
 use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
-use common\models\Widget;
 use yii\helpers\Html;
 use common\models\AuthorRoles;
 use frontend\components\widget\SidebarWidget;

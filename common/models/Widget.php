@@ -29,7 +29,8 @@ class Widget extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['text'], 'string'],
-            [['name'], 'string', 'max' => 60],
+            [['name'], 'string', 'max' => 200],
+            ['name', 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['name'], 'unique'],
         ];
     }
