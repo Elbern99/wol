@@ -135,7 +135,7 @@
     }
 
     .search-top {
-      overflow: hidden;
+      @extend .clearfix;
     }
 
     .btn-border-blue-large {
