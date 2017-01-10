@@ -328,6 +328,29 @@
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });
+        },
+        citeInit: function() {
+            
+            function getCiteValue() {
+                
+                return citeConfig.authors+' '+citeConfig.title+' '+citeConfig.publisher+
+                        ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+            }
+            
+            let value = getCiteValue();
+            
+            $('.cite-input-box').each(function( index ) {
+                $(this).children('textarea').val(value);
+            });
+            
+            $('.download-cite-button').on('click', function() {
+                $.ajax({
+                    url : citeConfig.postUrl,
+                    type: 'POST',
+                    dataType: 'json',
+                    data : citeConfig,
+               });
+            });
         }
     };
     /* end */
@@ -364,6 +387,7 @@
         article.articleReference('.sidebar-widget-articles-references','li:not(.sidebar-articles-item) ul>li');
         article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
         article.closeOverlay('.overlay','.icon-close-popup');
+        article.citeInit();
     });
 
     elements.window.load(function() {

@@ -12,16 +12,16 @@ $this->title = $attributes['title']->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 
 $this->registerMetaTag([
-        'name' => 'keywords',
-        'content' => Html::encode(
-                implode(' ',
-                        array_map(
-                                function($item) {
-                                    return $item->word;
-                                }, $attributes['keywords']->getData(null ,$currentLang)
-                        )
-                )
+    'name' => 'keywords',
+    'content' => Html::encode(
+        implode(' ', 
+            array_map(
+                function($item) {
+                    return $item->word;
+                }, $attributes['keywords']->getData(null, $currentLang)
+            )
         )
+    )
 ]);
 
 $this->registerMetaTag([
@@ -30,6 +30,7 @@ $this->registerMetaTag([
 ]);
 
 $authorLink = [];
+$cite_authors = [];
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -94,7 +95,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         $authorAttributes['name']->getData('last_name')
                         ,$author['profile']
                     );
-
+                    
+                    $cite_authors[] = $authorAttributes['name']->getData('first_name').' '.$authorAttributes['name']->getData('middle_name');
                     $authorLink[] = $link;
                     echo $link;
                     ?>
@@ -172,11 +174,12 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             </a>
             <?php endif; ?>
             <a href="" class="btn-border-blue-middle btn-cite with-icon">
-                    <span class="inner">
-                        <span class="icon-quote"></span>
-                        <span>cite</span>
-                    </span>
+                <span class="inner">
+                    <span class="icon-quote"></span>
+                    <span>cite</span>
+                </span>
             </a>
+            <div class="cite-input-box"><textarea cols="15" rows="10"></textarea><button class="download-cite-button">Download</button></div>
             <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                 <span class="icon-heart"></span>
                 <div class="btn-like-inner"></div>
@@ -468,6 +471,24 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     <div class="icon-close-popup"></div>
 </div>
 <?php
+
+if (!count($cite_authors)) {
+    $cite_authors = $article->availability;
+} else {
+    $cite_authors = implode(', ', $cite_authors);
+}
+
+$cite = [
+    'authors' => $cite_authors,
+    'title' => $attributes['title']->getData('title', $currentLang),
+    'publisher' => 'IZA World of Labor',
+    'date' => date('Y', $article->created_at),
+    'id' => $article->id,
+    'doi' => $article->doi,
+    'postUrl' => '/article/download-cite'
+];
+
 $config['source'] = array_unique($source);
 $this->registerJs("var mapConfig = ".json_encode($config), 3);
+$this->registerJs("var citeConfig = ".json_encode($cite), 3);
 ?>
