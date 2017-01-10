@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">newsletter archives</a>
-                        <div class="text is-open">
+                        <div class="text">
                             <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                         </div>
                     </li>
