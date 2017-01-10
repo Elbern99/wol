@@ -23,6 +23,9 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
+
+$this->title = $model->title;
+
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => Url::to(['/opinion/index'])];
 $this->params['breadcrumbs'][] = $model->title;

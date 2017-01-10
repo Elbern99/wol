@@ -20,5 +20,9 @@ return [
     'latest_news_sidebar_limit' => 5,
     'expert_limit' => 5,
     'search_result_limit' => 50,
-    'authors_limit' => 9
+    'authors_limit' => 9,
+    'topic_articles_limit' => 1,
+    'topic_videos_limit' => 1,
+    'topic_opinions_limit' => 1,
+    'topic_events_limit' => 1,
 ];

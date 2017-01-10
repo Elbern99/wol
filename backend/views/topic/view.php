@@ -63,13 +63,44 @@ $this->params['breadcrumbs'][] = $this->title;
             
                 <?= $form->field($model, 'article_ids')->widget(Select2::classname(), [
                     'data' => $model->articlesList(),
-                    'options' => ['placeholder' => 'Select articles videos...', 'multiple' => true],
+                    'options' => ['placeholder' => 'Select topic articles...', 'multiple' => true],
                     'pluginOptions' => [
                         'tags' => true,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],
                 ])->label($model->getAttributeLabel('article_ids')); ?>
+            
+                <?= $form->field($model, 'video_ids')->widget(Select2::classname(), [
+                    'data' => $model->videosList(),
+                    'options' => ['placeholder' => 'Select topic videos...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('video_ids')); ?>
+                
+                <?= $form->field($model, 'opinion_ids')->widget(Select2::classname(), [
+                    'data' => $model->opinionsList(),
+                    'options' => ['placeholder' => 'Select topic opinions...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('opinion_ids')); ?>
+            
+                <?= $form->field($model, 'event_ids')->widget(Select2::classname(), [
+                    'data' => $model->eventsList(),
+                    'options' => ['placeholder' => 'Select topic events...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('event_ids')); ?>
+            
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>

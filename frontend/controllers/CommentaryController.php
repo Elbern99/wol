@@ -106,7 +106,7 @@ class CommentaryController extends Controller {
     }
 
     
-     public function actionVideos()
+    public function actionVideos()
     {
         $videoLimit =  Yii::$app->params['video_limit'];
         

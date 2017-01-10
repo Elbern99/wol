@@ -66,6 +66,8 @@ return [
                 'authors' => 'authors/index',
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
                 'key-topics' => 'topic/index',
+                'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
+                
             ],
         ],
         'assetManager' => [
