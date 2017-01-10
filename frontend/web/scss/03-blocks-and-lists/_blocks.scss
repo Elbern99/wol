@@ -1838,3 +1838,16 @@
     min-width: 100%;
   }
 }
+
+.sidebar-key-topics-list {
+  li {
+    margin: 0 0 10px;
+
+    &.active {
+      a {
+        color: #262626;
+        cursor: default;
+      }
+    }
+  }
+}

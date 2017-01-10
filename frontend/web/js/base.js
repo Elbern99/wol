@@ -435,6 +435,7 @@ var elements = {
                     curParent =  cur.parents('li,.expand-more');
                     cur.toggleClass('showed');
 
+                if(!cur.hasClass('no-open')) {
                     if(cur.hasClass('showed')) {
                         curParent.find(item).addClass('opened');
                     } else {
@@ -445,7 +446,8 @@ var elements = {
                         }, 300);
                     }
 
-                e.preventDefault();
+                    e.preventDefault();
+                }
             });
         },
         detectMore: function(item,btn) {

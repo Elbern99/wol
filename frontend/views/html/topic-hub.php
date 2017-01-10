@@ -207,8 +207,9 @@ use yii\helpers\Url;
             <ul class="post-list media-list">
                 <li class="post-item media-item">
                     <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
-                    <div class="publish"><a href="">Sherrie A. Kossoudji</a></div>
+                    <div class="date">July 21, 2016 - July 22, 2016</div>
                     <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
+                    <div class="publish">BIS Conference Center, London</div>
                 </li>
             </ul>
             <a class="btn-gray align-center show-more" href="">show more</a>
@@ -365,7 +366,7 @@ use yii\helpers\Url;
                     <li><a href="">Transitional markets in South America</a></li>
                     <li><a href="">Work hours</a></li>
                 </ul>
-                <a href="" class="more-link">
+                <a href="" class="more-link no-open">
                     <span class="more">More</span>
                     <span class="less">Less</span>
                 </a>

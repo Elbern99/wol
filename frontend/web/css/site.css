@@ -2845,6 +2845,12 @@ blockquote {
     max-height: 207px;
     min-width: 100%; }
 
+.sidebar-key-topics-list li {
+  margin: 0 0 10px; }
+  .sidebar-key-topics-list li.active a {
+    color: #262626;
+    cursor: default; }
+
 .news-home-list .post-item,
 .news-list .post-item {
   margin: 0;
