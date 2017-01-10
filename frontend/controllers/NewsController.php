@@ -12,6 +12,7 @@ use common\models\NewsItem;
 use common\models\Category;
 use common\models\Widget;
 use common\models\Article;
+use common\models\NewsletterNews;
 
 /**
  * Site controller
@@ -212,5 +213,17 @@ class NewsController extends Controller {
 //            'widgets' => $widgets,
 //            'eventGroups' => $groups,
 //        ]);
+    }
+    
+    public function actionNewsletters($year, $month) {
+        
+        $urlKey = $year.'/'.$month;
+        $model = NewsletterNews::find()->where(['url_key' => $urlKey])->one();
+        
+        if (!is_object($model)) {
+            throw new NotFoundHttpException();
+        }
+        
+        return $this->render('newsletter',['model'=>$model]);
     }
 }

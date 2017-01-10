@@ -14,6 +14,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\SignupPopupForm;
 use frontend\models\NewsletterForm;
+use common\models\NewsletterNews;
 
 /**
  * Site controller
@@ -81,6 +82,7 @@ class SiteController extends Controller {
     public function actionSubscribe() {
         
         $model = new NewsletterForm();
+        $newsletterArchive = NewsletterNews::find()->select(['title', 'date', 'url_key'])->orderBy(['date' => SORT_DESC])->all();
         
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
@@ -95,7 +97,7 @@ class SiteController extends Controller {
                 
         }
         
-        return $this->render('subscribe', ['model'=>$model]);
+        return $this->render('subscribe', ['model' => $model, 'newsletterArchive' => $newsletterArchive]);
     }
 
     /**
