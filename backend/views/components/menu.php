@@ -47,7 +47,8 @@ if (Yii::$app->user->isGuest) {
             ['label' => Yii::t('app/menu','Events'), 'url' => ['/event']],
             ['label' => Yii::t('app/menu','Opinions'), 'url' => ['/opinion']],
             ['label' => Yii::t('app/menu','News'), 'url' => ['/news']],
-            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
+            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']],
+            ['label' => Yii::t('app/menu','Topics'), 'url' => ['/topic']]
         ]
     ];
     
