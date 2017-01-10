@@ -231,10 +231,12 @@ $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\Yi
                     <?php foreach ($keyTopics as $topic) : ?>
                     <?php if ($topic->url_key == $model->url_key) : ?>
                     <li class="active">
+                        <span><?= $topic->title; ?></span>
                     <?php else : ?>
                     <li>
-                    <?php endif; ?>
                     <?= Html::a($topic->title, ['topic/view', 'slug' => $topic->url_key]); ?>
+                    <?php endif; ?>
+                  
                     </li>
                     <?php endforeach; ?>
                 </ul>
