@@ -1,9 +1,9 @@
-// CONTENT AREA
+// 0. CONTENT AREA
 $content-area-width: 1230px;
 
-// TYPOGRAFY
+// 1. TYPOGRAFY
 
-//fonts
+//FONTS
 $proxima-light: Helvetica, Arial, Sans-serif;
 $lucida-grande-bold: 'LucidaGrandeBold', Helvetica, Arial, Sans-serif;
 $lucida-grande: 'LucidaGrande', Helvetica, Arial, Sans-serif;
@@ -12,13 +12,12 @@ $lucida-sans: 'lucidaSans', Helvetica, Arial, Sans-serif;
 $lucida-sans-demi-bold: 'lucidaSansDemibold', Helvetica, Arial, Sans-serif;
 $lucida-sans-italic: 'lucidaSansItalic', Helvetica, Arial, Sans-serif;
 
-//fonts styles
+//FONTS STYLES
 $def-font: $lucida-sans;
 $def-font-size: 14px;
 $def-line-height: 1.1em;
 
 //COLORS
-
 $blue: #0053a0;
 $light-blue: #0094f2;
 $gray: #383838;
@@ -33,8 +32,7 @@ $link-color: $blue;
 $def-color: $dark-gray;
 $def-second-color: #4d4d4d;
 
-//BREAKPOINT
-
+// 2. BREAKPOINT
 $breakpoint-mobile: 320px;
 $breakpoint-mobile-large: 568px;
 $breakpoint-tablet: 769px;

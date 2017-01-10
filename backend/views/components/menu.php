@@ -47,10 +47,20 @@ if (Yii::$app->user->isGuest) {
             ['label' => Yii::t('app/menu','Events'), 'url' => ['/event']],
             ['label' => Yii::t('app/menu','Opinions'), 'url' => ['/opinion']],
             ['label' => Yii::t('app/menu','News'), 'url' => ['/news']],
-           // ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
-        ],
+            ['label' => Yii::t('app/menu','Widgets'), 'url' => ['/widget']]
+        ]
     ];
     
+    $menuItems[] = [
+            'label' => 'Newsletter',
+            'url' => ['#'], 'template' => 
+            '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
+            'items' => [
+                ['label' => Yii::t('app/menu','News'), 'url' => ['/newsletter/news']
+            ],
+        ]
+    ];
+        
     $menuItems[] = ['label' => Yii::t('app/menu','Category'), 'url' => ['/category']];
     
     $menuItems[] = ['label' =>  Yii::t('app/menu','URL Redirects'), 'url' => ['/url-rewrite']];

@@ -22,9 +22,7 @@
   touch-action: manipulation;
   user-select: none;
 
-  &:active {
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
-  }
+  @extend .material-state;
 
   &.btn-center {
     display: flex;
@@ -247,6 +245,14 @@
     @include breakpoint('tablet') {
       background: #7b7b7b;
       color: #eaeaea;
+    }
+  }
+
+  &.show-more {
+    @include breakpoint_custom($breakpoint-tablet) {
+      height: 42px;
+      line-height: 41px;
+      font-size: 12px;
     }
   }
 

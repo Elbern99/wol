@@ -5,7 +5,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
-//use Yii;
 use common\modules\author\Roles;
 ?>
 
@@ -58,11 +57,11 @@ $roleLabel = new Roles();
                                 <?php foreach($authors as $author): ?>
                                 <div class="article-user">
                                     <div class="img">
-                                        <a href=""><img src="<?= $authorsValue[$author]['avatar'] ?? '' ?>" alt=""></a>
+                                        <a href="<?= $authorsValue[$author]['profile'] ?>"><img src="<?= $authorsValue[$author]['avatar'] ?>" alt=""></a>
                                     </div>
                                     <div class="desc">
                                         <div class="name">
-                                            <a href="/"><?= $authorsValue[$author]['name'] ?? '' ?></a>
+                                            <a href="<?= $authorsValue[$author]['profile'] ?>"><?= $authorsValue[$author]['name'] ?></a>
                                         </div>
                                         <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
                                     </div>
@@ -85,7 +84,13 @@ $roleLabel = new Roles();
                         </ul>
                         <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                        <div class="publish"><a href=""><?= $article['availability']  ?></a>, <?= date('F Y', $article['created_at']) ?></div>
+                        <div class="publish">
+                            
+                            <?php foreach($article['authors'] as $author): ?>
+                                <?= $author ?>
+                            <?php endforeach; ?>
+                            
+                            , <?= date('F Y', $article['created_at']) ?></div>
                         <div class="description">
                             <?= $article['abstract']->abstract ?? ''; ?>
                         </div>

@@ -1,0 +1,107 @@
+.home-page {
+
+  .index-head {
+    margin: 0 0 28px;
+    font-size: 14px;
+
+    @include breakpoint('tablet') {
+      font-size: 14px;
+      margin: 0 0 48px;
+    }
+  }
+
+  .sidebar-right {
+
+    @include breakpoint('tablet') {
+      padding-top: 33px;
+    }
+  }
+
+  .header-background {
+    margin-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 46px;
+    }
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 23px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 12px;
+      font-size: 43px;
+    }
+  }
+
+  .post-item {
+    .publish {
+      text-transform: capitalize;
+    }
+  }
+
+  .home-articles-list {
+    margin-bottom: -3px;
+
+    >li {
+      margin-bottom: 18px;
+    }
+  }
+
+  .home-articles-list+.show-more {
+    margin-top: -10px !important;
+  }
+
+  .show-more {
+    margin: 27px auto 70px !important;
+  }
+
+  .post-item {
+    &.large {
+      margin: 0 0 41px;
+
+      h2 {
+        font-size: 17px;
+        margin: 0 0 2px;
+        max-height: 70px;
+      }
+
+      h3 {
+        font-size: 14px;
+        margin: 0 0 1px;
+        max-height: 60px;
+      }
+
+      .publish {
+        margin: 0 0 4px;
+      }
+
+      @include breakpoint('tablet') {
+        .description {
+          display: block !important;
+        }
+
+        .article-more {
+          display: none !important;
+        }
+
+        h2 {
+          font-size: 31px;
+        }
+      }
+    }
+  }
+
+  .clone-topics {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 40px;
+    }
+  }
+
+  .media-list-holder {
+    .show-more {
+      margin-bottom: 0 !important;
+    }
+  }
+}

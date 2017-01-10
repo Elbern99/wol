@@ -5,6 +5,8 @@ use common\components\Type;
 
 class Roles extends Type {
     
+    protected $groups = [];
+    
     public function __construct() {
         
         $types = [
@@ -17,7 +19,14 @@ class Roles extends Type {
             7 => 'formerEditor'
         ];
         
+        $this->groups['editor'] = [3,4,5,6,7];
+        
         $this->addTypes($types);
+    }
+    
+    public function getEditorGroup() {
+        
+        return $this->groups['editor'];
     }
 }
 

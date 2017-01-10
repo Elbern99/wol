@@ -62,12 +62,13 @@ return [
                 'videos/<slug:[0-9a-z-]+>' => 'video/view',
                 'news' => 'news/index',
                 'news/<slug:[0-9a-z-]+>' => 'news/view',
+                'news/newsletters/<year:[0-9]+>/<month:[0-9]+>' => 'news/newsletters',
                 'find-an-expert' => 'authors/expert',
                 'authors' => 'authors/index',
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
                 'key-topics' => 'topic/index',
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
-                
+                'editorial-board' => 'authors/editorial'
             ],
         ],
         'assetManager' => [

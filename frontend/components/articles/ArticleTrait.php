@@ -33,6 +33,9 @@ trait ArticleTrait {
                          ->with(['articleCategories' => function($query) {
                              return $query->select(['category_id', 'article_id']);
                          }])
+                         ->with(['articleAuthors.author' => function($query) {
+                             return $query->select(['id','url_key', 'name'])->asArray();
+                         }])
                          ->orderBy(['created_at' => $order])
                          ->limit($limit)
                          ->all();
@@ -75,7 +78,7 @@ trait ArticleTrait {
             $model = Article::find()
                     ->with([
                         'articleAuthors.author' => function($query) {
-                            return $query->select(['id', 'avatar']);
+                            return $query->select(['id', 'avatar', 'url_key']);
                         }, 
                         'articleCategories' => function($query) {
                             return $query->select(['category_id', 'article_id'])->asArray();
@@ -108,7 +111,8 @@ trait ArticleTrait {
 
                     $authors[$author->author->id] = [
                         'collection' => $authorCollection,
-                        'avatar' => $author->author->getAvatarBaseUrl()
+                        'avatar' => $author->author->getAvatarBaseUrl(),
+                        'profile' => $author->author->getUrl()
                     ];
                 }
             }

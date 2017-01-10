@@ -17,9 +17,9 @@
 /******* // BASE *******/
 
 /******* BLOCKS *******/
-@import '03-blocks/_animate',
-        '03-blocks/_blocks',
-        '03-blocks/_sidebar-blocks';
+@import
+        '03-blocks-and-lists/_blocks',
+        '03-blocks-and-lists/_lists';
 /******* // BLOCKS *******/
 
 /******* FORMS *******/
@@ -41,23 +41,17 @@
 /******* // LAYOUT *******/
 
 /******* PAGES *******/
-@import '07-pages/_pages',
+@import '07-pages/_static-pages',
         '07-pages/_article',
-        '07-pages/_articles',
-        '07-pages/_references',
         '07-pages/_subscribe-to-newsletter',
         '07-pages/_search-results',
         '07-pages/_search-site',
         '07-pages/_my-account',
-        '07-pages/_map',
-        '07-pages/_events-list',
+        '07-pages/_article-map',
         '07-pages/_event',
-        '07-pages/_opinions-videos',
-        '07-pages/_editorial-board-page',
-        '07-pages/_find-expert',
-        '07-pages/_news-list-page',
-        '07-pages/_posts-pages',
-        '07-pages/_contributor-profile',
-        '07-pages/_commentary-page',
-        '07-pages/_key-topics';
+        '07-pages/_authors-board',
+        '07-pages/_search-expert',
+        '07-pages/_lists-pages',
+        '07-pages/_authors-profile',
+        '07-pages/_home';
 /******* // PAGES *******/

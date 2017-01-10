@@ -1,0 +1,143 @@
+//NEWS-LIST-PAGE
+.news-list-page {
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .content-inner-text {
+      display: none;
+    }
+
+    .hide-desktop {
+      order: 3;
+    }
+  }
+
+  .news-list {
+    margin: 0 0 -20px 0;
+
+    @include breakpoint('tablet') {
+      margin: 0 -38px -33px 0 ;
+    }
+  }
+}
+
+//ARTICLES-LIST-PAGE
+.article-user-list-holder {
+  h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    text-transform: capitalize;
+
+    @include breakpoint('tablet') {
+      margin: 0 0 13px;
+      font-size: 17px;
+    }
+  }
+}
+
+//COMMENTARY-PAGE
+.commentary-page {
+  .show-more {
+    margin: 16px auto 27px !important;
+
+    @include breakpoint('tablet') {
+      margin: 27px auto !important;
+    }
+  }
+
+  .commentary-videos-list {
+    margin: 0 0 27px;
+  }
+}
+
+//EVENT-LIST-PAGE
+.event-list-page {
+  .mobile-filter-holder {
+    display: block !important;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: -15px;
+    }
+
+    .tab-item {
+      margin-bottom: 0;
+
+      &.blue {
+        margin-bottom: 2px;
+        margin-top: 20px;
+      }
+
+      &:last-child {
+
+        @include breakpoint('tablet') {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-widget-articles-filter,
+    .small-paragraph {
+      display: none;
+    }
+  }
+}
+
+//REFERENCES-PAGE
+.article-reference-top {
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #d8d8d8;
+
+  .line {
+    overflow: hidden;
+    margin: 0 0 20px;
+  }
+
+  .btn-print {
+    margin: 0 0 20px;
+
+    @include breakpoint('tablet') {
+      float: right;
+      margin: 12px 0 0 10px;
+    }
+  }
+
+  h1 {
+    overflow: hidden;
+    margin: 0;
+  }
+}
+
+@media print {
+  .btn-print {
+    display: none;
+  }
+}
+
+//KEY-TOPICS-PAGE
+.key-topics-page {
+  .btn-gray {
+    margin-bottom: 39px;
+  }
+}
+
+//OPINIONS VIDEO PAGES
+.opinions-page,
+.video-page {
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-widget-articles-filter {
+      display: none;
+    }
+    .mobile-filter-holder {
+      margin-bottom: 20px;
+    }
+  }
+
+  @include breakpoint('tablet') {
+    .mobile-filter-holder {
+      display: none;
+    }
+  }
+}

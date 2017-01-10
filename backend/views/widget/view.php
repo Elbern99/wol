@@ -18,11 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-sm-12 sidenav">
             <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'name') ?>
+                <?= $form->field($model, 'name')->textInput(['readonly' => true]) ?>
                 <?= $form->field($model, 'text')->widget(CKEditor::className(), [
                     'options' => ['rows' => 10],
                     'preset' => 'standard',
                     'clientOptions'=> [
+                        'allowedContent' => true,
                         'enterMode' => 2,
                         'forceEnterMode'=>false,
                         'shiftEnterMode'=>1

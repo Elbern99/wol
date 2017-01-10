@@ -65,8 +65,10 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
         <div class="content-inner-text">
             <ul class="search-results-media-list">
                 <li class="search-results-media-item">
-                    <div class="img">
-                        <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
+                    <div class="img-holder">
+                        <div class="img">
+                            <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
+                        </div>
                     </div>
                     <div class="name">John M. Abowd</div>
                     <p class="location">Cornell University, USA, and IZA, Germany</p>
@@ -76,8 +78,8 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <p><strong>Country:</strong>USA</p>
                 </li>
                 <li class="search-results-media-item">
-                    <div class="img">
-                        <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
+                    <div class="img-holder">
+                        <div class="img"></div>
                     </div>
                     <div class="name">John M. Abowd</div>
                     <p class="location">Cornell University, USA, and IZA, Germany</p>

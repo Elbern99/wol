@@ -9,6 +9,7 @@ use common\models\AuthorCategory;
 use common\models\Author;
 use common\modules\eav\CategoryCollection;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -38,10 +39,14 @@ class ArticleRepository implements RepositoryInterface {
                         ->with(['articleCategories' => function($query) {
                                 return $query->select(['category_id', 'article_id']);
                         }])
+                        ->with(['articleAuthors.author' => function($query) {
+                             return $query->select(['id','url_key', 'name'])->asArray();
+                         }])
                         ->orderBy(['created_at' => $order])
                         ->all();
     }
     
+    /* get Authors for category on top */
     private function getAuthorIds() {
         
         return AuthorCategory::find()->select(['author_id'])
@@ -58,7 +63,9 @@ class ArticleRepository implements RepositoryInterface {
     public function getPageParams() {
         
         $order = SORT_DESC;
-
+        $authorsRoles = [];
+        $authorsValue = [];
+        
         if (Yii::$app->request->get('sort')) {
             $order = SORT_ASC;
         }
@@ -88,40 +95,46 @@ class ArticleRepository implements RepositoryInterface {
             
             $authorIds = ArrayHelper::getColumn($authorRoleIds, 'author_id');
             $authors = Author::find()
-                                ->select(['id', 'avatar'])
+                                ->select(['id', 'avatar', 'name', 'url_key'])
                                 ->where(['id' => $authorIds])
                                 ->asArray()
                                 ->all();
-            
-            $authors = ArrayHelper::map($authors, 'id','avatar');
-            
+
+            $authors = ArrayHelper::map($authors, 'id', function($data) {
+                return [
+                    'avatar' => Author::getImageUrl($data['avatar']), 
+                    'name' => $data['name'],
+                    'profile' => Author::getAuthorUrl($data['url_key'])
+                ];
+            });
+
             $authorCollection = Yii::createObject(CategoryCollection::class);
-            $authorCollection->setAttributeFilter(['name', 'affiliation']);
+            $authorCollection->setAttributeFilter(['affiliation']);
             $authorCollection->initCollection(Author::tableName(), $authorIds);
             $authorValues = $authorCollection->getValues();
-        }
-        
-        $authorsRoles = [];
-        $authorsValue = [];
-        
-        foreach ($authorRoleIds as $data) {
             
-            $name = unserialize($authorValues[$data['author_id']]['name']);
-            $affiliation = unserialize($authorValues[$data['author_id']]['affiliation']);
-            
-            $authorsValue[$data['author_id']] = [
-                'avatar' => (isset($authors[$data['author_id']])) ? Author::getImageUrl($authors[$data['author_id']]) : null,
-                'name' => $name->first_name.' '.$name->middle_name.' '.$name->last_name,
-                'affiliation' => $affiliation->affiliation
-            ];
-            
-            $roles = ArrayHelper::getColumn($data['authorRoles'], 'role_id');
-            
-            foreach ($roles as $role) {
-                $authorsRoles[$role][] = $data['author_id'];
+            foreach ($authorRoleIds as $data) {
+
+                $affiliation = unserialize($authorValues[$data['author_id']]['affiliation']);
+                $params = $authors[$data['author_id']];
+                
+                $authorsValue[$data['author_id']] = [
+                    'avatar' => $params['avatar'],
+                    'profile' => $params['profile'],
+                    'name' => $params['name'],
+                    'affiliation' => $affiliation->affiliation
+                ];
+
+                $roles = ArrayHelper::getColumn($data['authorRoles'], 'role_id');
+
+                foreach ($roles as $role) {
+                    $authorsRoles[$role][] = $data['author_id'];
+                }
             }
+            
+            unset($authors);
         }
-        
+
         if (!count($categoryIds)) {
             
             return [
@@ -148,7 +161,8 @@ class ArticleRepository implements RepositoryInterface {
         foreach ($articles as $article) {
 
             $articleCategory = [];
-
+            $authors = [];
+            
             foreach ($article->articleCategories as $c) {
 
                 if (isset($categoryFormat[$c->category_id])) {
@@ -156,11 +170,20 @@ class ArticleRepository implements RepositoryInterface {
                     $articleCategory[] = '<a href="' . $categoryFormat[$c->category_id]['url_key'] . '" >' . $categoryFormat[$c->category_id]['title'] . '</a>';
                 }
             }
+            
+            if (count($article->articleAuthors)) {
+                
+                foreach ($article->articleAuthors as $author) {
+                    $authors[] = Html::a($author->author['name'], Author::getAuthorUrl($author->author['url_key']));
+                }
+            } else {
+                $authors[] = $article->availability;
+            }
 
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/' . $article->seo,
-                'availability' => $article->availability,
+                'authors' => $authors,
                 'teaser' => unserialize($values[$article->id]['teaser']),
                 'abstract' => unserialize($values[$article->id]['abstract']),
                 'created_at' => $article->created_at,

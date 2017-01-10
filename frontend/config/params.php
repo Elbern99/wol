@@ -21,8 +21,17 @@ return [
     'expert_limit' => 5,
     'search_result_limit' => 50,
     'authors_limit' => 9,
-    'topic_articles_limit' => 1,
-    'topic_videos_limit' => 1,
-    'topic_opinions_limit' => 1,
-    'topic_events_limit' => 1,
+    'topic_articles_limit' => 6,
+    'topic_videos_limit' => 6,
+    'topic_opinions_limit' => 6,
+    'topic_events_limit' => 6,
+    'authors_limit' => 10,
+    'page_widget' => [
+        'editorial_board' => [
+            'views_on_iza', 'socials', 
+            'stay_up_to_date', 'iza_journals',
+            'editorial_board_widget'
+        ],
+        'profile' => ['ask_the_expert']
+    ]
 ];

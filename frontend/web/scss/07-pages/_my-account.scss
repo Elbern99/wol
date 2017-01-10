@@ -245,53 +245,6 @@
   }
 }
 
-.account-tabs-list {
-  margin: 0 0 -1px 0;
-
-  @include breakpoint_custom($breakpoint-mobile-large) {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  li {
-    font-size: 11px;
-
-    @include breakpoint('mobile-large') {
-      font-size: 16px;
-      margin: 0 5.8% -1px 0;
-      float: left;
-    }
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      display: table-cell;
-    }
-
-    &.active {
-      a {
-        border-bottom-color: $light-blue;
-        color: #323232 !important;
-        cursor: default;
-      }
-    }
-  }
-
-  a {
-    padding: 6px 0;
-    border-bottom: 2px solid transparent;
-    display: inline-block;
-    color: #323232;
-
-    @include breakpoint('tablet') {
-      display: block;
-      padding: 10px 0;
-    }
-    
-    &:hover {
-      border-color: $blue;
-    }
-  }
-}
-
 //TAB 01
 //ACCOUNT-CONTENT
 .account-content {
@@ -433,7 +386,6 @@
 .favourite-articles-list {
   @extend .post-list;
 }
-
 
 //TAB 03
 .save-search-table {

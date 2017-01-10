@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use frontend\components\filters\NewsletterArchiveWidget;
 
 $this->title = 'Subscribe to newsletter';
 $this->params['breadcrumbs'][] = $this->title;
@@ -99,84 +100,19 @@ $this->params['breadcrumbs'][] = $this->title;
              <?php ActiveForm::end(); ?>
         </div>
 
-<!--
-<aside class="sidebar-right">
+
+        <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">newsletter archives</a>
-                        <div class="text is-open">
-                            <ul class="articles-filter-list date-list">
-                                <li class="submenu">
-                                    <li class="item open">
-                                        <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
-                                        <ul class="submenu">
-                                            <li class="item">
-                                                <div class="date">July 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">June 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">May 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">April 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">March 2016</div>
-                                                <a href="">IZA WoL Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">February 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">January 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="item">
-                                        <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/program-evaluation"><strong>2015</strong></a>
-                                        <ul class="submenu">
-                                            <li class="item">
-                                                <div class="date">July 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">June 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="item">
-                                        <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/program-evaluation"><strong>2014</strong></a>
-                                        <ul class="submenu">
-                                            <li class="item">
-                                                <div class="date">July 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                            <li class="item">
-                                                <div class="date">June 2016</div>
-                                                <a href="">IZA World of Labor Newsletter</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </li>
-                            </ul>
+                        <div class="text">
+                            <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                         </div>
                     </li>
                 </ul>
             </div>
         </aside>
--->
+
     </div>
 </div>

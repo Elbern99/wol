@@ -1,0 +1,110 @@
+//CONTACT-US-PAGE
+.contact-us-page {
+  p + br {
+    @include breakpoint('tablet') {
+      margin-bottom: 47px !important;
+    }
+  }
+
+  h2 {
+    @include breakpoint('tablet') {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+//ABOUT-PAGE
+.about-page {
+
+  p:first-child {
+    font-size: 15px;
+    line-height: 1.4em;
+
+    @include breakpoint('tablet') {
+      font-size: 16px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin: 0 0 20px;
+    }
+  }
+
+  h2 {
+    margin-bottom: 7px;
+  }
+
+  p + br {
+    @include breakpoint('tablet') {
+      margin-bottom: 53px !important;
+    }
+  }
+}
+
+//NEWS,VIDEO,OPINION PAGES
+.single-post-page {
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    .sidebar-widget-articles-filter {
+      display: none;
+    }
+  }
+
+  .mobile-filter-holder {
+    margin-bottom: 10px;
+  }
+}
+.post-full-item {
+  margin: 0 0 30px;
+
+  @include breakpoint('tablet') {
+    margin: 0 0 46px;
+  }
+
+  figure {
+    margin: 0 0 17px;
+  }
+
+  p {
+    font-size: 12px;
+
+    @include breakpoint('tablet') {
+      font-size: 13px;
+    }
+  }
+
+  iframe,
+  figure {
+    overflow: hidden;
+  }
+
+  img,
+  iframe {
+    min-width: 100%;
+    width: 100%;
+    height: calc(100vh*0.519);
+    max-height: 163px;
+    display: block;
+
+    @include breakpoint('mobile-large') {
+      max-height: 263px;
+    }
+
+    @include breakpoint('tablet') {
+      max-height: 490px;
+    }
+  }
+}
+
+
+//SUBSCRIBE-PAGE
+.subscribe-page {
+  table {
+    width: 100% !important;
+    padding: 5px !important;
+
+    th,td {
+      border: 0 !important;
+      word-break: break-all;
+    }
+  }
+}
