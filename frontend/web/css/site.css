@@ -4264,6 +4264,10 @@ input[type=url] {
     input[type=url].form-control:focus {
       box-shadow: 0 1px 5px rgba(0, 83, 160, 0.9) inset; }
 
+textarea.form-control {
+  height: 100px;
+  line-height: 1.5em; }
+
 .custom-select-def {
   position: relative;
   display: block;
@@ -6344,6 +6348,24 @@ iframe[name=advpp_manager] {
     margin: -2px;
     background: #ffeb67;
     z-index: -1; }
+
+.cite-input-box-holder {
+  display: none; }
+  .cite-input-box-holder.visible {
+    display: block; }
+
+.cite-input-box textarea {
+  margin-bottom: 8px;
+  resize: none;
+  height: 150px;
+  padding: 5px 10px; }
+  @media only screen and (min-width: 769px) {
+    .cite-input-box textarea {
+      height: 55px; } }
+.cite-input-box .btn-blue {
+  margin: 0 4px 0 0 !important; }
+.cite-input-box textarea {
+  border: 1px solid #d8d8d8; }
 
 .reference-popup-list-holder {
   position: absolute;

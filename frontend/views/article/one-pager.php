@@ -179,7 +179,6 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <span>cite</span>
                 </span>
             </a>
-            <div class="cite-input-box"><textarea cols="15" rows="10"></textarea><button class="download-cite-button">Download</button><button class="copy-cite-button">Copy</button></div>
             <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                 <span class="icon-heart"></span>
                 <div class="btn-like-inner"></div>
@@ -424,6 +423,15 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 <div class="reference-popup">
     <div class="reference-popup-inner">
         <div class="container">
+
+            <div class="cite-input-box-holder">
+                <div class="cite-input-box">
+                    <textarea cols="15" rows="10" class="form-control"></textarea>
+                    <button class="btn-blue download-cite-button">Download</button>
+                    <button class="btn-blue copy-cite-button">Copy</button>
+                </div>
+            </div>
+
             <div class="column-bg-info">
                 <div class="bg-info"></div>
             </div>
@@ -470,6 +478,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     </div>
     <div class="icon-close-popup"></div>
 </div>
+
 <?php
 
 if (!count($cite_authors)) {

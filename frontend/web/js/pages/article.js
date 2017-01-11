@@ -67,7 +67,8 @@
                 countries = popup.find('.countries'),
                 furnitureReading = popup.find('.furniture-reading'),
                 additional = popup.find('.additional-references'),
-                bgInfo = popup.find('.bg-info');
+                bgInfo = popup.find('.bg-info'),
+                cite = popup.find('.cite-input-box');
 
             furnitureReading.parent().removeClass('visible');
             caption.parent().removeClass('visible');
@@ -77,6 +78,7 @@
             countries.parent().removeClass('visible');
             additional.parent().removeClass('visible');
             bgInfo.parent().removeClass('visible');
+            cite.parent().removeClass('visible');
 
             if(typeof curFurnitureReading !== "undefined") {
                 if (curFurnitureReading.length > 0) {
@@ -228,8 +230,12 @@
                 }, article.delay+402);
 
                 elements.window.bind('scrollstop', function(e){
-                    if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
-                        //$(parent).fadeIn(article.delay+200);
+                    // if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
+                    //     //$(parent).fadeIn(article.delay+200);
+                    //     $(parent).css('top',  elements.window.scrollTop() - 2);
+                    // }
+
+                    if ($(parent).is(":visible") == true){
                         $(parent).css('top',  elements.window.scrollTop() - 2);
                     }
                 });
@@ -259,8 +265,7 @@
                     $(btnNext).addClass('disabled');
 
                 } else {
-																				$(btnPrev).removeClass('disabled');
-																				//$(btnNext).fadeIn(0);
+				    $(btnPrev).removeClass('disabled');
                 }
                 nextCur.trigger('click');
             });
@@ -370,6 +375,21 @@
                 
                 document.body.removeChild(textArea);
             });
+        },
+        closeOpen: function(btn,popup) {
+            $(btn).on('click', function(e) {
+                $(popup).fadeIn();
+                $('.container >div').removeClass('visible');
+                $('.cite-input-box-holder').addClass('visible');
+
+                article.overlayOpen('.overlay');
+
+                if(_window_width < _tablet){
+                    article.showPopupMobile(popup);
+                }
+
+                e.preventDefault();
+            });
         }
     };
     /* end */
@@ -407,6 +427,7 @@
         article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
         article.closeOverlay('.overlay','.icon-close-popup');
         article.citeInit();
+        article.closeOpen('.btn-cite','.reference-popup');
     });
 
     elements.window.load(function() {
