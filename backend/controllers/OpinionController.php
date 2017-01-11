@@ -50,6 +50,7 @@ class OpinionController extends Controller
         } else {
             $model = Opinion::findOne($id);
             $model->created_at = $model->created_at->format('d-m-Y');
+            $model->loadAttributes();
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {

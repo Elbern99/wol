@@ -6,6 +6,7 @@ use yii\helpers\Url;
 
 use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UrlRewrite */
@@ -58,6 +59,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
+            
+                <?= $form->field($model, 'author_ids')->widget(Select2::classname(), [
+                    'data' => $model->authorsList(),
+                    'options' => ['placeholder' => 'Select opinion authors', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('author_ids')); ?>
+            
+            
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
