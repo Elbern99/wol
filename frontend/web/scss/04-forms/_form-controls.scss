@@ -61,6 +61,13 @@ input[type=url]{
   }
 }
 
+textarea {
+  &.form-control {
+    height: 100px;
+    line-height: 1.5em;
+  }
+}
+
 .custom-select-def {
   position: relative;
   display: block;

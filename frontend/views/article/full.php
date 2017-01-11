@@ -42,6 +42,7 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
+$cite_authors = [];
 
 $mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').' '.
         $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
@@ -96,6 +97,7 @@ $authorLink = [];
                             ,$author['profile']
                         );
 
+                        $cite_authors[] = $authorAttributes['name']->getData('first_name').' '.$authorAttributes['name']->getData('middle_name');
                         $authorLink[] = $link;
                         echo $link;
                         ?>
@@ -566,6 +568,15 @@ $authorLink = [];
 <div class="reference-popup">
     <div class="reference-popup-inner">
         <div class="container">
+
+            <div class="cite-input-box-holder">
+                <div class="cite-input-box">
+                    <textarea cols="15" rows="10" class="form-control"></textarea>
+                    <button class="btn-blue download-cite-button">Download</button>
+                    <button class="btn-blue copy-cite-button">Copy</button>
+                </div>
+            </div>
+
             <div class="column-bg-info">
                 <div class="bg-info"></div>
             </div>
@@ -613,6 +624,23 @@ $authorLink = [];
     <div class="icon-close-popup"></div>
 </div>
 <?php
+if (!count($cite_authors)) {
+    $cite_authors = $article->availability;
+} else {
+    $cite_authors = implode(', ', $cite_authors);
+}
+
+$cite = [
+    'authors' => $cite_authors,
+    'title' => $attributes['title']->getData('title'),
+    'publisher' => 'IZA World of Labor',
+    'date' => date('Y', $article->created_at),
+    'id' => $article->id,
+    'doi' => $article->doi,
+    'postUrl' => '/article/download-cite'
+];
+
 $config['source'] = array_unique($source);
 $this->registerJs("var mapConfig = ".json_encode($config), 3);
+$this->registerJs("var citeConfig = ".json_encode($cite), 3);
 ?>

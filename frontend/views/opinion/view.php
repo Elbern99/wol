@@ -22,6 +22,9 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
+
+$this->title = $model->title;
+
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => Url::to(['/opinion/index'])];
 $this->params['breadcrumbs'][] = $model->title;
@@ -180,13 +183,9 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
             </div>
 
-            <div class="sidebar-widget">
-                <div class="podcast-list">
-                    <?php foreach ($widgets as $widget): ?>
-                        <?= $widget['text'] ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+            <?php foreach ($widgets as $widget): ?>
+                <?= $widget['text'] ?>
+            <?php endforeach; ?>
         </aside>
     </div>
 </div>

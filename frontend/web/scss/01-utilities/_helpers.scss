@@ -47,12 +47,16 @@
   &:first-child {
     @include breakpoint('desktop') {
       width: 100%;
-      float: none;
+      float: none ;
 
       .opinion-item,
       .news-item,
       .post-item {
         height: auto;
+
+        &:after {
+          display: none;
+        }
 
         h2 {
           font-size: 24px;

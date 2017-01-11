@@ -66,7 +66,7 @@ class NewsItem extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'url_key' => Yii::t('app', 'Url Key'),
             'title' => Yii::t('app', 'Title'),
-            'editor' => Yii::t('app', 'Editor'),
+            'editor' => Yii::t('app', 'Sources'),
             'description' => Yii::t('app', 'Description'),
             'short_decription' => Yii::t('app', 'Short Description'),
             'image_link' => Yii::t('app', 'Image'),

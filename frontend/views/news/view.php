@@ -347,11 +347,9 @@ $this->params['breadcrumbs'][] = $model->title;
             </div>
 
             <?php if (count($widgets)): ?>
-            <div class="sidebar-widget">
                 <?php foreach ($widgets as $widget): ?>
                     <?= $widget['text'] ?>
                 <?php endforeach; ?>
-            </div>
             <?php endif; ?>
             
         </aside>
