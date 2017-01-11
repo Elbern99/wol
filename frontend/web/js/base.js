@@ -272,7 +272,7 @@ var elements = {
                 });
             }
         }
-    }
+    };
     /* tabs end */
 
 // 2. CONTENT ---------
@@ -530,6 +530,33 @@ var elements = {
 								}
 				}
 
+				// 3.3 HOME
+
+    var home = {
+        cloneTopic: function(el,elToMobile,elToDesktop){
+            if($(el).length) {
+                function appendElements(el,elToMobile,elToDesktop) {
+                    if($(elToMobile).length) {
+                        var elHtml = $(el);
+
+                        if (_window_width < _mobile) {
+                            $(elToMobile).after(elHtml);
+                        } else {
+                            $(elToDesktop).append(elHtml);
+                        }
+                    }
+                }
+
+                appendElements(el,elToMobile,elToDesktop);
+                elements.window.resize(function() {
+                    setTimeout(function(){
+                        appendElements(el,elToMobile,elToDesktop);
+                    }, 600);
+                });
+            }
+        }
+    };
+
     //EVENTS
     elements.document.ready(function() {
 								shareBtns.btnContent('.share-buttons-list li');
@@ -556,6 +583,7 @@ var elements = {
             headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
             headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .has-drop >a'));
             tabs.cloneTab('.post-list-clone','.tab-item.empty','.post-list-clone-holder');
+            home.cloneTopic('.clone-topics','.articles-list-holder','.clone-topics-widget');
         }
         //CONTENT
         article.openPrintWindow('.btn-print');

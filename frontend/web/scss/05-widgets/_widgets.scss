@@ -490,6 +490,7 @@
     position: relative;
     font-size: 26px;
     color: $blue;
+    @extend .material-state;
 
     &:focus,
     &:hover {
@@ -553,13 +554,15 @@
 
 .resp-sharing-button {
   border-radius: 2px;
-  transition: 25ms ease-out;
+  transition: all 0.3s ease;
   padding: 0 5px;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   color: #fff !important;
   font-size: 11px !important;
   height: 25px;
   line-height: 24px;
+
+  @extend .material-state;
 
   path {
     fill: #fff !important;
@@ -579,7 +582,7 @@
 /* Non solid icons get a stroke */
 .resp-sharing-button__icon {
   stroke: #fff;
-  fill: none
+  fill: none;
 }
 
 /* Solid icons get a fill */

@@ -35,16 +35,16 @@ class NewsletterArchiveWidget extends Widget {
                     if (count($years)) {
                         $html .= Html::endTag('ul');
                     } else {
-                        $class = 'open';
+                        $class = ' open';
                     }
                     
                     $years[] = $year;
                     
-                    $html .= Html::beginTag('li', ['class' => 'item '.$class]);
+                    $html .= Html::beginTag('li', ['class' => 'item has-drop'.$class]);
                     $html .= '<div class="icon-arrow"></div>';
                     
                     $html .= Html::a($year, '#');
-                    $html .= Html::beginTag('ul');
+                    $html .= Html::beginTag('ul',['class' => 'submenu'.$class]);
                 }
                 
                 $html .= Html::beginTag('li', ['class' => 'item']);

@@ -42,6 +42,14 @@
   font-family: $lucida-grande;
   letter-spacing: 0.06em;
 
+  a {
+    color: #4e6071;
+
+    &:hover {
+      color: $light-blue;
+    }
+  }
+
   @include breakpoint('tablet') {
     padding: 0 0 5px;
     margin: 0 0 17px;
@@ -51,14 +59,6 @@
       font-size: 13px;
       color: #4e6071;
       margin: 0 0 28px;
-      
-      a {
-        color: #4e6071;
-        
-        &:hover {
-          color: $light-blue;
-        }
-      }
     }
   }
 
@@ -126,6 +126,7 @@
 .post-item {
   margin: 0 0 20px;
   overflow: hidden;
+  width: 100%;
 
   h2 {
     font-size: 20px;
@@ -171,13 +172,19 @@
     }
   }
 
+  .author {
+    font-size: 10px;
+    text-transform: capitalize;
+  }
+
   .date {
     font-size: 10px;
     text-transform: uppercase;
     margin: 0 0 4px;
   }
 
-  .publish {
+  .publish,
+  .category {
     margin: 0 0 9px;
     font-size: 12px;
     text-transform: uppercase;
@@ -196,26 +203,32 @@
   }
 
   .img {
-    height: 183px;
     position: relative;
     background-size: cover;
     margin: 0 0 15px;
     display: block;
     background-position: 50% 50%;
+    width: 30%;
+    height: 65px;
+    min-height: 65px;
 
     &:hover {
       opacity: 0.9;
     }
 
+    @include breakpoint('mobile-large') {
+      height: calc(50vw*0.5);
+    }
+
     @include breakpoint('tablet') {
       float: none;
+      height: 183px;
+      width: 100%;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
       float: left;
-      width: 88px;
-      height: 62px;
-      margin: 0 20px 0 0;
+      margin: 0 13px 0 0;
 
       .icon-play {
         display: none;
@@ -232,8 +245,9 @@
 
     h2 {
       font-size: 16px;
-      max-height: 65px;
+      max-height: 104px;
       line-height: 1.4em;
+      overflow: hidden;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
@@ -251,7 +265,7 @@
 //ARTICLE-MORE
 .article-more {
   font-size: 13px;
-  color: $light-blue ;
+  color: $light-blue;
 
   @include breakpoint('tablet') {
     font-size: 10px;
@@ -926,6 +940,23 @@
       background-size: cover;
       background-position: 50% 50%;
       position: relative;
+      height: 65px;
+      min-height: 65px;
+      width: 82px;
+
+      img {
+        min-height: 65px;
+      }
+
+      @include breakpoint('mobile-large') {
+        width: 30%;
+        height: calc(50vw*0.5);
+      }
+
+      @include breakpoint('tablet') {
+        height: 100%;
+        width: 100%;
+      }
 
       &:hover {
         opacity: 0.9;
@@ -959,13 +990,7 @@
 
       .img {
         float: left;
-        width: 82px;
         margin: 0 14px 0 0;
-        height: 60px;
-
-        img {
-          min-height: 60px;
-        }
       }
     }
   }
@@ -977,6 +1002,10 @@
 
     a:hover {
       color: $light-blue;
+    }
+
+    .icon-play {
+      display: none;
     }
   }
 
@@ -1646,6 +1675,30 @@
   min-height: 95px;
   height: 95px;
 
+  &.gray {
+
+    @include breakpoint('tablet') {
+      height: 190px;
+    }
+
+    .caption {
+      background: #dadada;
+    }
+    
+    h3,
+    .icon-next-circle {
+      color: #262626;
+    }
+
+    &:hover {
+      @include breakpoint('tablet') {
+        .caption {
+          background: #eaeaea;
+        }
+      }
+    }
+  }
+
   @include breakpoint('mobile-large') {
     height: calc(50vw*0.5);
   }
@@ -1654,21 +1707,36 @@
     float: left;
     width: 30%;
 
+    &:after {
+      @extend .pinout;
+      background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+      background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+      background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      top: 100%;
+    }
+
     @include breakpoint('tablet') {
       width: auto;
+      float: none;
     }
 
     img {
       display: block;
-      min-height: 95px;
       width: auto;
+      height: 95px;
+      max-width: none;
 
       @include breakpoint('mobile-large') {
         min-height: calc(50vw*0.5);
+        max-width: 247px;
+        max-height: 200px;
+        height: 100%;
       }
 
       @include breakpoint('tablet') {
-        min-height: 1px;
+        min-height: 100%;
       }
     }
   }
@@ -1685,7 +1753,15 @@
   }
 
   &:hover {
+
     @include breakpoint('tablet') {
+      .img {
+        &:after {
+          top: 0;
+          opacity: 0.5;
+        }
+      }
+
       .caption {
         background: $gray;
       }
@@ -1701,10 +1777,10 @@
     background: $basalt-gray;
     top: 0;
     bottom: 0;
-    left: 28%;
+    left: 30%;
     background: #565656;
     padding: 16px 10px 14px 14px;
-    width: 72%;
+    width: 70%;
 
     @include breakpoint_custom($breakpoint-tablet) {
       display: flex;

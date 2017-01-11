@@ -186,7 +186,7 @@
                         <div class="text is-open">
                             <div class="text-inner">
                                 <ul class="articles-filter-list">
-                                    <ul class="submenu">
+
                                         <li class="item open">
                                             <div class="icon-arrow"></div>
                                             <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
@@ -249,7 +249,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                    </ul>
+
                                 </ul>
                             </div>
                         </div>

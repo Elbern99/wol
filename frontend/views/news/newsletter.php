@@ -19,8 +19,10 @@ $this->registerMetaTag([
 ]);
 
 ?>
-<div class="breadcrumbs">
-    <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+<div class="container subscribe-page">
+    <div class="breadcrumbs">
+        <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
+    </div>
+    <?= $model->main ?>
 </div>
-<?= $model->main ?>
 
