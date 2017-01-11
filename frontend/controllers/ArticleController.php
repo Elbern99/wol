@@ -12,6 +12,8 @@ use common\models\FavoritArticle;
 use common\modules\eav\CategoryCollection;
 use common\models\Author;
 use yii\helpers\Html;
+use yii\filters\VerbFilter;
+use frontend\models\Cite;
 /**
  * Site controller
  */
@@ -19,6 +21,18 @@ class ArticleController extends Controller {
     
     use \frontend\components\articles\SubjectTrait;
     use \frontend\components\articles\ArticleTrait;
+    
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'download-cite' => ['get'],
+                ],
+            ],
+        ];
+    }
     
     public function actionIndex() {
         
@@ -193,6 +207,19 @@ class ArticleController extends Controller {
         }
 
         return ['message' => 'Bad Request'];
+    }
+    
+    public function actionDownloadCite() {
+        
+        $cite = new Cite();
+
+        $cite->load(Yii::$app->request->get(), '');
+
+        if($cite->validate()) {
+            return Yii::$app->getResponse()->sendContentAsFile($cite->getContent(),'cite.ris');
+        }
+        
+        return $this->goBack();
     }
 
 }

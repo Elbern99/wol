@@ -328,6 +328,48 @@
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });
+        },
+        citeInit: function() {
+            
+            if (typeof citeConfig === 'undefined'){
+                return false;
+            }
+            
+            function getCiteValue() {
+                
+                return citeConfig.authors+' '+citeConfig.title+' '+citeConfig.publisher+
+                       ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+            }
+            
+            let value = getCiteValue();
+            
+            $('.cite-input-box').each(function( index ) {
+                $(this).children('textarea').val(value);
+            });
+            
+            $('.download-cite-button').on('click', function() {
+                let querystring = $.param(citeConfig);
+                window.location.assign(citeConfig.postUrl+'?'+querystring);
+            });
+            
+            $('.copy-cite-button').on('click', function() {
+                
+                var textArea = document.createElement("textarea");
+                textArea.value = value;
+                document.body.appendChild(textArea);
+                var range = document.createRange();
+                range.selectNode(textArea);
+                textArea.select();
+                window.getSelection().addRange(range);
+                
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                     alert('Oops, unable to copy');
+                }
+                
+                document.body.removeChild(textArea);
+            });
         }
     };
     /* end */
@@ -364,6 +406,7 @@
         article.articleReference('.sidebar-widget-articles-references','li:not(.sidebar-articles-item) ul>li');
         article.openReferenceListInPopup('.key-reference-in-popup a','.key-references-list');
         article.closeOverlay('.overlay','.icon-close-popup');
+        article.citeInit();
     });
 
     elements.window.load(function() {
