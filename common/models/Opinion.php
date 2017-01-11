@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\helpers\Html;
+
 use Yii;
 
 class Opinion extends \yii\db\ActiveRecord
@@ -11,6 +13,8 @@ class Opinion extends \yii\db\ActiveRecord
     protected $files = [
         'image_link',
     ];
+    
+    public $author_ids = [];
     
     protected $imagePath = '/web/uploads/opinions';
 
@@ -48,7 +52,7 @@ class Opinion extends \yii\db\ActiveRecord
         return [
             [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at'], 'safe'],
+            [['created_at', 'author_ids'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -70,7 +74,23 @@ class Opinion extends \yii\db\ActiveRecord
             'image_link' => Yii::t('app', 'Image'),
             'created_at' => Yii::t('app', 'Created At'),
             'published_at' => Yii::t('app', 'Published At'),
+            'author_ids' => Yii::t('app', 'Authors'),
         ];
+    }
+    
+    public function loadAttributes()
+    {
+        $relatedAuthors = $this->getOpinionAuthors()->all();
+        
+        foreach ($relatedAuthors as $author) {
+            $currentAuthor = $author->author;
+            $this->author_ids[] = $currentAuthor->id; 
+        }
+    }
+    
+    public function getOpinionAuthors()
+    {
+        return $this->hasMany(OpinionAuthor::className(), ['opinion_id' => 'id']);
     }
     
     public function afterFind()
@@ -86,6 +106,7 @@ class Opinion extends \yii\db\ActiveRecord
         $this->setCreatedAtDate();
         $this->initUploadProperty();
         $this->upload();
+        $this->saveAuthorsList();
         
         return $this->save();
     }
@@ -95,5 +116,52 @@ class Opinion extends \yii\db\ActiveRecord
         $created_at = new \DateTime('now');
         $this->created_at = $created_at->format('Y-m-d');
     }
-
+    
+    public function authorsList()
+    {
+        $authors = Author::find()->orderBy('id desc')->all();
+        $authorsList = [];
+        foreach ($authors as $author) {
+            $authorsList[$author->id] = $author->name; 
+        }
+        return $authorsList;
+    }
+    
+    protected function saveAuthorsList()
+    {
+        OpinionAuthor::deleteAll(['=', 'opinion_id', $this->id]);
+        
+        $bulkInsertArray = [];
+        
+        if (is_array($this->author_ids)) {
+            foreach ($this->author_ids as $id) {
+                $bulkInsertArray[]=[
+                    'opinion_id' => $this->id,
+                    'author_id' => $id,
+                ];
+            }
+            
+            if (count($bulkInsertArray) > 0){
+                $columnNamesArray = ['opinion_id', 'author_id'];
+                $insertCount = Yii::$app->db->createCommand()
+                               ->batchInsert(
+                                       OpinionAuthor::tableName(), $columnNamesArray, $bulkInsertArray
+                                 )
+                               ->execute();
+            }
+        }
+    }
+    
+    public function getAuthorsLink()
+    {
+        $relatedAuthors = $this->getOpinionAuthors()->all();
+        $links = [];
+        
+        foreach ($relatedAuthors as $relatedAuthor) {
+            $author = $relatedAuthor->author;
+            $links[] = Html::a($author->name, Author::getAuthorUrl($author->url_key));
+        }
+        
+        return implode(', ', $links);
+    }
 }

@@ -42,7 +42,7 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
                                 <h3>
                                     <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
                                 </h3>
-                                <div class="writer">Hardcoded Author</div>
+                                <div class="writer"><?= $opinion->getAuthorsLink(); ?></div>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -134,7 +134,7 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
                                     <h3>
                                         <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
                                     </h3>
-                                    <div class="writer">Hardcoded Author</div>
+                                    <div class="writer"><?= $opinion->getAuthorsLink(); ?></div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

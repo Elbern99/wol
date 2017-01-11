@@ -16,7 +16,7 @@ use yii\widgets\Pjax;
             <div class="desc">
                 <div class="inner">
                     <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
-                    <div class="name"><a href="">Hardcoded Author</a></div>
+                    <div class="name"><?= $opinion->getAuthorsLink(); ?></div>
                     <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
                     <?php if ($opinion->short_description) : ?>
                         <p>

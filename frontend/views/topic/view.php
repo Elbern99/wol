@@ -104,7 +104,7 @@ $this->registerJsFile('/js/plugins/share-buttons.js', ['depends' => ['yii\web\Yi
                     ]); ?>
                     <?= Html::endTag('a'); ?>
                     <?php endif; ?>
-                    <div class="publish"><a href="#">Hardcoded Author</a></div>
+                    <div class="publish"><?= $opinion->getAuthorsLink(); ?></div>
                     <h2>
                         <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
                     </h2>
