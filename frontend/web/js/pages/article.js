@@ -331,10 +331,14 @@
         },
         citeInit: function() {
             
+            if (typeof citeConfig === 'undefined'){
+                return false;
+            }
+            
             function getCiteValue() {
                 
                 return citeConfig.authors+' '+citeConfig.title+' '+citeConfig.publisher+
-                        ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+                       ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
             }
             
             let value = getCiteValue();
@@ -344,12 +348,27 @@
             });
             
             $('.download-cite-button').on('click', function() {
-                $.ajax({
-                    url : citeConfig.postUrl,
-                    type: 'POST',
-                    dataType: 'json',
-                    data : citeConfig,
-               });
+                let querystring = $.param(citeConfig);
+                window.location.assign(citeConfig.postUrl+'?'+querystring);
+            });
+            
+            $('.copy-cite-button').on('click', function() {
+                
+                var textArea = document.createElement("textarea");
+                textArea.value = value;
+                document.body.appendChild(textArea);
+                var range = document.createRange();
+                range.selectNode(textArea);
+                textArea.select();
+                window.getSelection().addRange(range);
+                
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                     alert('Oops, unable to copy');
+                }
+                
+                document.body.removeChild(textArea);
             });
         }
     };

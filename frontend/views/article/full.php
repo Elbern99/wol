@@ -42,6 +42,7 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
+$cite_authors = [];
 
 $mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').' '.
         $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
@@ -95,6 +96,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                             ,$author['profile']
                         );
 
+                        $cite_authors[] = $authorAttributes['name']->getData('first_name').' '.$authorAttributes['name']->getData('middle_name');
                         $authorLink[] = $link;
                         echo $link;
                         ?>
@@ -206,6 +208,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                 <span class="text">cite</span>
                             </div>
                         </a>
+                        <div class="cite-input-box"><textarea cols="15" rows="10"></textarea><button class="download-cite-button">Download</button><button class="copy-cite-button">Copy</button></div>
                         <div class="article-buttons-short">
                             <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                                 <span class="icon-heart"></span>
@@ -234,6 +237,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         <span>cite</span>
                     </span>
                 </a>
+                <div class="cite-input-box"><textarea cols="15" rows="10"></textarea><button class="download-cite-button">Download</button><button class="copy-cite-button">Copy</button></div>
                 <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
                     <div class="btn-like-inner"></div>
@@ -612,6 +616,23 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     <div class="icon-close-popup"></div>
 </div>
 <?php
+if (!count($cite_authors)) {
+    $cite_authors = $article->availability;
+} else {
+    $cite_authors = implode(', ', $cite_authors);
+}
+
+$cite = [
+    'authors' => $cite_authors,
+    'title' => $attributes['title']->getData('title'),
+    'publisher' => 'IZA World of Labor',
+    'date' => date('Y', $article->created_at),
+    'id' => $article->id,
+    'doi' => $article->doi,
+    'postUrl' => '/article/download-cite'
+];
+
 $config['source'] = array_unique($source);
 $this->registerJs("var mapConfig = ".json_encode($config), 3);
+$this->registerJs("var citeConfig = ".json_encode($cite), 3);
 ?>

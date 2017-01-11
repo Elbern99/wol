@@ -28,7 +28,7 @@ class ArticleController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'download-cite' => ['post'],
+                    'download-cite' => ['get'],
                 ],
             ],
         ];
@@ -212,12 +212,14 @@ class ArticleController extends Controller {
     public function actionDownloadCite() {
         
         $cite = new Cite();
-        
-        $cite->load(Yii::$app->request->post(), '');
+
+        $cite->load(Yii::$app->request->get(), '');
 
         if($cite->validate()) {
-            return Yii::$app->response->sendContentAsFile($cite->getContent(),'cite.doc');
+            return Yii::$app->getResponse()->sendContentAsFile($cite->getContent(),'cite.ris');
         }
+        
+        return $this->goBack();
     }
 
 }
