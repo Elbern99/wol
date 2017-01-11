@@ -1,13 +1,21 @@
 .home-page {
 
   .index-head {
-    margin: 0 0 28px;
-    font-size: 14px;
+    margin: 0 0 31px;
+    font-size: 13px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.34em;
+    }
 
     @include breakpoint('tablet') {
       font-size: 14px;
       margin: 0 0 48px;
     }
+  }
+
+  .twitter-follow-button {
+    margin-top: 10px;
   }
 
   .sidebar-right {
@@ -26,8 +34,12 @@
   }
 
   h1 {
-    margin-bottom: 20px;
-    font-size: 23px;
+    margin-bottom: 11px;
+    font-size: 22px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      line-height: 1.2em;
+    }
 
     @include breakpoint('tablet') {
       margin-bottom: 12px;
@@ -42,10 +54,18 @@
   }
 
   .home-articles-list {
-    margin-bottom: -3px;
+    margin-bottom: 16px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: -3px;
+    }
 
     >li {
-      margin-bottom: 18px;
+      margin-bottom: 8px;
+
+      @include breakpoint('tablet') {
+        margin-bottom: 18px;
+      }
     }
   }
 
@@ -54,27 +74,57 @@
   }
 
   .show-more {
-    margin: 27px auto 70px !important;
+    margin: 27px auto 45px !important;
+
+    @include breakpoint('tablet') {
+      margin: 27px auto 70px !important;
+    }
   }
 
   .post-item {
     &.large {
       margin: 0 0 41px;
 
+      @include breakpoint_custom($breakpoint-tablet) {
+        .article-rubrics-list {
+          margin: 0 0 3px 0;
+        }
+      }
+
       h2 {
-        font-size: 17px;
-        margin: 0 0 2px;
+        font-size: 16px;
+        margin: 0 0 3px;
         max-height: 70px;
+
+        @include breakpoint('tablet') {
+          font-size: 17px;
+          margin: 0 0 2px;
+          max-height: 70px;
+        }
       }
 
       h3 {
-        font-size: 14px;
-        margin: 0 0 1px;
+        font-size: 15px;
+        margin: 0 0 8px;
         max-height: 60px;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          line-height: 1.34em;
+        }
+
+        @include breakpoint('tablet') {
+          margin: 0 0 1px;
+          font-size: 14px;
+          max-height: 60px;
+        }
       }
 
       .publish {
-        margin: 0 0 4px;
+        margin: 0 0 6px;
+
+        @include breakpoint('tablet') {
+          margin: 0 0 4px;
+        }
       }
 
       @include breakpoint('tablet') {
@@ -95,13 +145,124 @@
 
   .clone-topics {
     @include breakpoint_custom($breakpoint-tablet) {
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
   }
 
   .media-list-holder {
     .show-more {
       margin-bottom: 0 !important;
+    }
+  }
+
+  .content-inner > div:first-child {
+    padding-bottom: 13px;
+  }
+}
+
+.other-events-list-holder {
+  .show-more {
+    margin-bottom: 0 !important;
+  }
+}
+
+.news-home-list+.show-more {
+  margin-top: -3px !important;
+}
+
+//STICKY-NEWSLETTER
+.sticky-newsletter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #535353;
+  padding: 7px 0;
+  z-index: 100;
+  font-size: 12px;
+
+  @include breakpoint('tablet') {
+    padding: 26px 0;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    font-size: 11px;
+
+    @include breakpoint('tablet') {
+      font-size: 17px;
+      margin-bottom: 3px;
+      line-height: 1em;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .icon-close {
+    top: 50%;
+    margin-top: -20px;
+    z-index: 101;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+
+      &:before,
+      &:after {
+        width: 10px;
+        left: 15px;
+        right: 10px;
+      }
+    }
+  }
+
+  .btn-blue {
+    font-size: 10px;
+    padding: 0 14px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
+    margin-right: 25px;
+
+    @include breakpoint('tablet') {
+      margin: -3px 0 0 0;
+      height: 40px;
+      line-height: 40px;
+      font-size: 13px;
+      padding: 0 14px;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  .desc {
+    padding-right: 3px;
+
+    @include breakpoint('tablet') {
+      padding-right: 6%;
+      padding-left: 35px;
+      margin: 4px 0 0 0;
+    }
+  }
+
+  .link {
+    color: $light-blue;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .icon-circle-arrow {
+    display: none;
+
+    @include breakpoint('tablet') {
+      position: absolute;
+      left: 15px;
+      top: 2px;
+      display: block;
     }
   }
 }

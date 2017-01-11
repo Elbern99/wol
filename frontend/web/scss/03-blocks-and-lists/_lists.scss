@@ -112,6 +112,10 @@
     &:first-child {
       padding-bottom: 32px;
 
+      .desc {
+        padding: 0;
+      }
+
       .post-item {
 
         &:not(.has-image) {
@@ -179,19 +183,43 @@
 
 .post-list {
   &.news-home-list {
+    margin-bottom: 15px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 43px;
+    }
 
     li {
-      padding-bottom: 26px;
+      padding-bottom: 8px;
 
       @include breakpoint('tablet') {
         padding-bottom: 0;
       }
 
-      &:first-child {
-        width: 100%;
+      h2 {
+        font-size: 14px;
+        margin: 0 0 15px;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          line-height: 1.485em;
+        }
 
         @include breakpoint('tablet') {
-          padding-bottom: 0;
+          font-size: 18px;
+          margin: 0 0 15px;
+        }
+      }
+
+      .post-item {
+        padding-top: 17px;
+      }
+
+      &:first-child {
+        width: 100%;
+        padding-bottom: 15px;
+
+        @include breakpoint('tablet') {
+          padding-bottom: 46px;
         }
 
         @include breakpoint_custom($breakpoint-tablet) {
@@ -201,7 +229,18 @@
           }
 
           h2 {
-            margin-top: -5px !important;
+            margin-top: -4px !important;
+            font-size: 14px;
+            margin-bottom: 15px;
+
+            @include breakpoint_custom($breakpoint-tablet) {
+              line-height: 1.485em;
+            }
+
+            @include breakpoint('tablet') {
+              font-size: 18px;
+              margin-bottom: 15px;
+            }
           }
 
           .head-news-holder {
@@ -210,10 +249,6 @@
             left: 0;
             width: 100%;
           }
-        }
-
-        @include breakpoint('tablet') {
-          padding-bottom: 32px;
         }
 
         .post-item {
@@ -226,7 +261,7 @@
             line-height: 1.385em;
             max-height: 103px;
             margin: 0 0 17px;
-            font-size: 18px;
+            font-size: 14px;
 
             @include breakpoint('tablet') {
               margin: 0 0 11px;
@@ -257,16 +292,22 @@
           &.has-image {
             flex-flow: row nowrap;
             display: flex;
+            max-height: 195px;
 
             @include breakpoint('tablet') {
-              min-height: 190px;
+              min-height: 195px;
             }
 
             h2 {
-              font-size: 16px;
+              font-size: 14px;
+
+              @include breakpoint_custom($breakpoint-tablet) {
+                line-height: 1.485em;
+              }
 
               @include breakpoint('tablet') {
                 font-size: 23px;
+                margin-bottom: 5px;
               }
             }
 
@@ -321,7 +362,42 @@
 
 .other-commentary-list {
   .post-item {
+
+    .img {
+      @include breakpoint('tablet') {
+        height: 166px;
+        margin: 0 0 12px;
+      }
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      .author {
+        display: none;
+      }
+
+      h2 {
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+
     .category {
+      margin: 0 0 -2px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        font-size: 9px;
+        margin: 1px 0 0;
+        line-height: 1em;
+      }
+
+      a {
+        color: $light-blue;
+        
+        &:hover {
+          color: $blue;
+        }
+      }
+
       @include breakpoint_custom($breakpoint-tablet) {
         margin-bottom: 3px;
       }
@@ -329,11 +405,39 @@
   }
 }
 
-.other-events-list {
+.home-other-events-list {
   .post-item {
+
+    @include breakpoint('tablet') {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .img {
+      @include breakpoint('tablet') {
+        height: 166px;
+        margin: 0 0 12px;
+      }
+    }
+
+    .location {
+      font-size: 12px;
+      margin-top: auto;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        padding-left: 30%;
+        margin-left: 14px;
+        color: #484848;
+      }
+    }
+
     @include breakpoint_custom($breakpoint-tablet) {
       .author {
         display: none;
+      }
+
+      h2 {
+        font-size: 13px;
       }
     }
   }
@@ -406,7 +510,7 @@
 //COMMENTARY-OPINIONS-LIST
 .commentary-opinions-list {
   overflow: hidden;
-  margin: 0 0 27px;
+  margin-bottom: 0 0 27px;
 
   @include breakpoint('mobile-large') {
     margin: 0 -5px 27px;
@@ -574,8 +678,27 @@
 
 //HOME-ARTICLES-LIST
 .home-articles-list {
-  >li {
 
+  .post-item {
+    @include breakpoint_custom($breakpoint-tablet) {
+      .article-rubrics-list {
+        margin: 0 0 3px 0;
+      }
+
+      h3 {
+        font-size: 15px;
+        margin: 0 0 8px;
+        max-height: 66px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin: 0 0 3px;
+      }
+    }
+  }
+
+  >li {
     @include breakpoint('tablet') {
       width: 50%;
     }

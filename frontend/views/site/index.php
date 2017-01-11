@@ -41,7 +41,7 @@ $this->title = 'IZA';
                                 <ul class="article-rubrics-list">
                                     <li><a href="/">Transition and emerging economies</a></li>
                                 </ul>
-                                <h2><a href="/">At vero eos et accusamus et iustod</a></h2>
+                                <h2><a href="/">Circular migration</a></h2>
                                 <h3>Knowing which workers are displaced in restructuring episodes helps governments devise the right equity- and efficiency-enhancing policies</h3>
                                 <div class="publish"><a href="">Hartmut Lehmann</a></div>
                                 <div class="description">
@@ -207,25 +207,25 @@ $this->title = 'IZA';
 
                     <div class="other-commentary-list-holder">
                         <div class="widget-title medium"><a href="/commentary">commentary</a></div>
-                        <ul class="other-commentary-list">
+                        <ul class="post-list other-commentary-list">
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
                                 <div class="category"><a href="/opinions">opinion</a></div>
                                 <div class="author"><a href="">Daniel S. Hamermesh</a></div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">Does performance-related pay improve productivity?</a></h2>
+                                <h2><a href="">Does performance-related pay improve productivity?</a></h2>
                             </li>
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(http://www.aee-community.com/wp-content/uploads/rtMedia/users/1/2016/09/2429637D00000578-0-image-a-284_1419003100839.jpg)">
                                     <div class="icon-play"></div>
                                 </a>
                                 <div class="category"><a href="/videos">video</a></div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">Dawn or Doom: The effects of Brexit on immigration, wages, and employment</a></h2>
+                                <h2><a href="">Dawn or Doom: The effects of Brexit on immigration, wages, and employment</a></h2>
                             </li>
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
                                 <div class="category"><a href="/opinions">opinion</a></div>
                                 <div class="author"><a href="">Daniel S. Hamermesh</a></div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">Does performance-related pay improve productivity?</a></h2>
+                                <h2><a href="">Does performance-related pay improve productivity?</a></h2>
                             </li>
                         </ul>
                         <a class="btn-gray align-center show-more" href="">show more</a>
@@ -233,24 +233,24 @@ $this->title = 'IZA';
 
                     <div class="other-events-list-holder">
                         <div class="widget-title medium"><a href="/events">events</a></div>
-                        <ul class="post-list other-events-list media-list">
+                        <ul class="post-list home-other-events-list media-list">
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
                                 <div class="date">July 21, 2016 - July 22, 2016</div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                                <div class="author">Daniel S. Hamermesh</div>
+                                <h2><a href="">London Conference on Employer Engagement in Education and Training 2016</a></h2>
+                                <div class="location">Daniel S. Hamermesh</div>
                             </li>
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
                                 <div class="date">July 21, 2016 - July 22, 2016</div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                                <div class="author">Daniel S. Hamermesh</div>
+                                <h2><a href="">31st Annual Congress of the European Economic Association (EEA)</a></h2>
+                                <div class="location">Daniel S. Hamermesh</div>
                             </li>
                             <li class="post-item media-item">
                                 <a href="" class="img" style="background-image: url(https://codepo8.github.io/canvas-images-and-pixels/img/horse.png)"></a>
                                 <div class="date">July 21, 2016 - July 22, 2016</div>
-                                <h2><a href="/articles/what-are-consequences-of-regularizing-undocumented-immigrants">What are the consequences of regularizing undocumented immigrants?</a></h2>
-                                <div class="author">Daniel S. Hamermesh</div>
+                                <h2><a href="">4th IZA Conference on Labor Market Effects of Environmental Policies</a></h2>
+                                <div class="location">Daniel S. Hamermesh</div>
                             </li>
                         </ul>
                         <a class="btn-gray align-center show-more" href="">show more</a>
@@ -408,29 +408,29 @@ $this->title = 'IZA';
                             </li>
                             <li class="item has-drop">
                                 <div class="icon-arrow"></div>
-                                <a href="/subject-areas/education-and-human-capital">Education and human capital</a>
+                                <a href="/">Education and human capital</a>
                                 <ul class="submenu">
                                     <li class="item">
                                         <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/economic-returns-to-education">Economic returns to education</a>
+                                        <a href="/">Economic returns to education</a>
                                     </li>
                                     <li class="item">
                                         <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/social-returns-to-education">Social returns to education</a>
+                                        <a href="/">Social returns to education</a>
                                     </li>
                                     <li class="item">
                                         <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/schooling-and-higher-education">Schooling and higher education</a>
+                                        <a href="/">Schooling and higher education</a>
                                     </li>
                                     <li class="item">
                                         <div class="icon-arrow"></div>
-                                        <a href="/subject-areas/vocational-education-training-skills-and-lifelong-learning">Vocational education, training skills, and lifelong learning</a>
+                                        <a href="/">Vocational education, training skills, and lifelong learning</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="item has-drop">
                                 <div class="icon-arrow"></div>
-                                <a href="/subject-areas/demography-family-and-gender">Demography, family, and gender</a>
+                                <a href="/">Demography, family, and gender</a>
                                 <ul class="submenu">
                                     <li class="item">
                                         <div class="icon-arrow"></div>
@@ -503,12 +503,27 @@ $this->title = 'IZA';
                     </div>
                     <div class="sidebar-widget sidebar-widget-subscribe">
                         <div class="widget-title">iza world of labor on twitter</div>
-                        <!-- <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/IZAWorldofLabor">Tweets by IZAWorldofLabor</a>
-                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+                        <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/IZAWorldofLabor">Tweets by IZAWorldofLabor</a>
+                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <a href="https://twitter.com/IZAWorldofLabor" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @IZAWorldofLabor</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </div>
                 </aside>
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="sticky-newsletter">
+    <div class="icon-close"></div>
+    <div class="container">
+        <div class="desc">
+            <div class="icon-circle-arrow">
+                <div class="icon-arrow"></div>
+            </div>
+            <h4><a href="">Get the latest news and articles delivered to your inbox</a></h4>
+            <a href="" class="link hide-mobile">Subscribe to the IZA World of Labor Newsletter</a>
+        </div>
+        <a href="" class="btn-blue">subscribe <span class="hide-mobile">to newsletter</span></a>
     </div>
 </div>

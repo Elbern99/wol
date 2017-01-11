@@ -1677,12 +1677,29 @@
 
   &.gray {
 
+    @include breakpoint_custom($breakpoint-mobile-large) {
+      min-height: 80px;
+      height: 80px;
+      margin: 0 0 4px;
+    }
+
     @include breakpoint('tablet') {
       height: 190px;
     }
 
     .caption {
       background: #dadada;
+
+      @include breakpoint_custom($breakpoint-mobile-large) {
+        padding: 11px 14px;
+
+        .icon-next-circle {
+          margin: 2px 10px 0 0;
+          width: 16px;
+          height: 16px;
+          font-size: 16px;
+        }
+      }
     }
     
     h3,
