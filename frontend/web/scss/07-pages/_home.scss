@@ -79,6 +79,10 @@
     &.large {
       margin: 0 0 41px;
 
+      .after {
+        display: none;
+      }
+
       @include breakpoint_custom($breakpoint-tablet) {
         .article-rubrics-list {
           margin: 0 0 3px 0;

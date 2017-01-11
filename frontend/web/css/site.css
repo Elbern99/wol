@@ -1810,21 +1810,21 @@ blockquote {
       .article-item.media-item h3,
       .post-item.media-item h3 {
         display: none; } }
-  @media only screen and (min-width: 769px) {
-    .article-item:after,
-    .post-item:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      height: 20px;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); } }
   @media only screen and (max-width: 769px) {
     .article-item .event-location,
     .post-item .event-location {
       padding-left: 30%;
       margin-left: 14px; } }
+
+@media only screen and (min-width: 769px) {
+  .post-item:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 20px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); } }
 
 .article-more {
   font-size: 13px;
@@ -8265,6 +8265,8 @@ path {
       margin: 27px auto 70px !important; } }
 .home-page .post-item.large {
   margin: 0 0 41px; }
+  .home-page .post-item.large .after {
+    display: none; }
   @media only screen and (max-width: 769px) {
     .home-page .post-item.large .article-rubrics-list {
       margin: 0 0 3px 0; } }
