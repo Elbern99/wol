@@ -47,7 +47,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
         '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract').'\n\n View the article: '.
         Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
-        
+
+$authorLink = [];
 ?>
 <div class="container article-full">
     <div class="article-buttons article-buttons-mobile">
