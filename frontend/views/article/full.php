@@ -568,7 +568,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 <div class="reference-popup">
     <div class="reference-popup-inner">
         <div class="container">
-            
+
             <div class="cite-input-box-holder">
                 <div class="cite-input-box">
                     <textarea cols="15" rows="10" class="form-control"></textarea>

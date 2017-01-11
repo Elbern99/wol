@@ -379,10 +379,8 @@
         closeOpen: function(btn,popup) {
             $(btn).on('click', function(e) {
                 $(popup).fadeIn();
-                $('.container >div').removeClass('visible');
+                $(popup).find('.container >div').removeClass('visible');
                 $('.cite-input-box-holder').addClass('visible');
-
-                article.overlayOpen('.overlay');
 
                 if(_window_width < _tablet){
                     article.showPopupMobile(popup);
