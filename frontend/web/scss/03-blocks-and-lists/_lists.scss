@@ -8,7 +8,10 @@
 .news-list {
   .post-item {
     margin: 0;
-    background: none !important;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      background: none !important;
+    }
 
     @include breakpoint('tablet') {
       max-height: 408px;
@@ -120,7 +123,7 @@
 
         &:not(.has-image) {
           background: #dbe8f4;
-          padding: 19px;
+          //padding: 19px;
         }
 
         h2 {
@@ -677,9 +680,14 @@
 }
 
 //HOME-ARTICLES-LIST
-.home-articles-list {
+.home-articles-list,
+.topic-articles-list {
 
   .post-item {
+    .publish {
+      text-transform: capitalize;
+    }
+
     @include breakpoint_custom($breakpoint-tablet) {
       .article-rubrics-list {
         margin: 0 0 3px 0;
@@ -697,7 +705,9 @@
       }
     }
   }
+}
 
+.home-articles-list {
   >li {
     @include breakpoint('tablet') {
       width: 50%;
@@ -1215,6 +1225,20 @@
     }
   }
 
+}
+
+//TOPIC-OPINION-LIST
+.topic-opinion-list {
+  .post-item {
+    .publish {
+      text-transform: capitalize;
+      margin: -2px 0 3px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 1px;
+      }
+    }
+  }
 }
 
 //EVENTS-LIST

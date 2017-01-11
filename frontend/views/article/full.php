@@ -236,7 +236,6 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         <span>cite</span>
                     </span>
                 </a>
-                <div class="cite-input-box"><textarea cols="15" rows="10"></textarea><button class="download-cite-button">Download</button><button class="copy-cite-button">Copy</button></div>
                 <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
                     <div class="btn-like-inner"></div>

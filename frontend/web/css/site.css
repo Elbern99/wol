@@ -487,6 +487,20 @@ th {
     .opinions-list li:first-child .post-item,
     .videos-list li:first-child .post-item {
       height: auto; }
+      .two-column-first:first-child .opinion-item:after, .news-home-list li:first-child .opinion-item:after,
+      .news-list li:first-child .opinion-item:after, .opinions-list li:first-child .opinion-item:after,
+      .videos-list li:first-child .opinion-item:after,
+      .two-column-first:first-child .news-item:after,
+      .news-home-list li:first-child .news-item:after,
+      .news-list li:first-child .news-item:after,
+      .opinions-list li:first-child .news-item:after,
+      .videos-list li:first-child .news-item:after,
+      .two-column-first:first-child .post-item:after,
+      .news-home-list li:first-child .post-item:after,
+      .news-list li:first-child .post-item:after,
+      .opinions-list li:first-child .post-item:after,
+      .videos-list li:first-child .post-item:after {
+        display: none; }
       .two-column-first:first-child .opinion-item h2, .news-home-list li:first-child .opinion-item h2,
       .news-list li:first-child .opinion-item h2, .opinions-list li:first-child .opinion-item h2,
       .videos-list li:first-child .opinion-item h2,
@@ -1682,16 +1696,19 @@ blockquote {
 .post-item {
   margin: 0 0 20px;
   overflow: hidden;
-  width: 100%; }
+  width: 100%;
+  position: relative;
+  height: 100%; }
   .article-item h2,
   .post-item h2 {
     font-size: 20px;
-    margin: 0 0 9px; }
+    margin: -4px 0 9px; }
     @media only screen and (min-width: 769px) {
       .article-item h2,
       .post-item h2 {
         max-height: 67px;
-        overflow: hidden; } }
+        overflow: hidden;
+        margin-top: 0; } }
   @media only screen and (max-width: 769px) {
     .article-item .desc h2,
     .post-item .desc h2 {
@@ -1725,7 +1742,7 @@ blockquote {
   .post-item .date {
     font-size: 10px;
     text-transform: uppercase;
-    margin: 0 0 4px; }
+    margin: -4px 0 4px; }
   .article-item .publish,
   .article-item .category,
   .post-item .publish,
@@ -1793,6 +1810,21 @@ blockquote {
       .article-item.media-item h3,
       .post-item.media-item h3 {
         display: none; } }
+  @media only screen and (min-width: 769px) {
+    .article-item:after,
+    .post-item:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: 20px;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); } }
+  @media only screen and (max-width: 769px) {
+    .article-item .event-location,
+    .post-item .event-location {
+      padding-left: 30%;
+      margin-left: 14px; } }
 
 .article-more {
   font-size: 13px;
@@ -2866,8 +2898,11 @@ blockquote {
 
 .news-home-list .post-item,
 .news-list .post-item {
-  margin: 0;
-  background: none !important; }
+  margin: 0; }
+  @media only screen and (max-width: 769px) {
+    .news-home-list .post-item,
+    .news-list .post-item {
+      background: none !important; } }
   @media only screen and (min-width: 769px) {
     .news-home-list .post-item,
     .news-list .post-item {
@@ -2953,8 +2988,7 @@ blockquote {
   .news-list li:first-child .desc {
     padding: 0; }
   .news-list li:first-child .post-item:not(.has-image) {
-    background: #dbe8f4;
-    padding: 19px; }
+    background: #dbe8f4; }
   .news-list li:first-child .post-item h2 {
     line-height: 1.385em;
     max-height: 103px;
@@ -3330,16 +3364,23 @@ blockquote {
       .post-list.favourite-articles-list > li, .favourite-articles-list > li {
         padding: 10px 55px 10px 30px; } }
 
+.home-articles-list .post-item .publish,
+.topic-articles-list .post-item .publish {
+  text-transform: capitalize; }
 @media only screen and (max-width: 769px) {
-  .home-articles-list .post-item .article-rubrics-list {
+  .home-articles-list .post-item .article-rubrics-list,
+  .topic-articles-list .post-item .article-rubrics-list {
     margin: 0 0 3px 0; }
-  .home-articles-list .post-item h3 {
+  .home-articles-list .post-item h3,
+  .topic-articles-list .post-item h3 {
     font-size: 15px;
     margin: 0 0 8px;
     max-height: 66px; }
-  .home-articles-list .post-item h2 {
+  .home-articles-list .post-item h2,
+  .topic-articles-list .post-item h2 {
     font-size: 16px;
     margin: 0 0 3px; } }
+
 @media only screen and (min-width: 769px) {
   .home-articles-list > li {
     width: 50%; } }
@@ -3668,6 +3709,13 @@ blockquote {
     @media only screen and (min-width: 568px) {
       .other-events-list .country {
         font-size: 12px; } }
+
+.topic-opinion-list .post-item .publish {
+  text-transform: capitalize;
+  margin: -2px 0 3px; }
+  @media only screen and (min-width: 769px) {
+    .topic-opinion-list .post-item .publish {
+      margin: 0 0 1px; } }
 
 .events-list .event-item {
   margin: 0 0 24px; }
@@ -8198,8 +8246,6 @@ path {
     .home-page h1 {
       margin-bottom: 12px;
       font-size: 43px; } }
-.home-page .post-item .publish {
-  text-transform: capitalize; }
 .home-page .home-articles-list {
   margin-bottom: 16px; }
   @media only screen and (min-width: 769px) {

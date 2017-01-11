@@ -379,7 +379,7 @@
         closeOpen: function(btn,popup) {
             $(btn).on('click', function(e) {
                 $(popup).fadeIn();
-                $(popup).find('.container >div').removeClass('visible');
+                $(popup).find('div').removeClass('visible');
                 $('.cite-input-box-holder').addClass('visible');
 
                 if(_window_width < _tablet){
