@@ -747,7 +747,6 @@ trait ArticleParseTrait {
             
             if ($monogr->imprint->date) {
                 $date = (string) $monogr->imprint->date->attributes();
-                $date = ' (' . $date . ') ';
             }
             
             if (isset($monogr->imprint->pubPlace)) {
