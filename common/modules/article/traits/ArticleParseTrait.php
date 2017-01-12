@@ -5,6 +5,7 @@ namespace common\modules\article\traits;
 use common\contracts\ReaderInterface;
 use stdClass;
 use yii\helpers\Html;
+use common\helpers\Country;
 
 /*
  * extension for parse author xml
@@ -148,7 +149,7 @@ trait ArticleParseTrait {
         xml_parser_free($p);
 
         $str = $vals[0]["value"];
-        $str .= Html::a($vals[1]["value"], $vals[1]["attributes"]["TARGET"]);
+        $str .= Html::a($vals[1]["value"], $vals[1]["attributes"]["TARGET"], ['target' => '_blank']);
         $str .= $vals[2]["value"];
         $count = count($creation);
         $i = 1;
@@ -425,22 +426,117 @@ trait ArticleParseTrait {
                 }
             }
             
+            $biblScope_pp = '';
+            $biblScope_issue = '';
+            $biblScope_vol = '';
+
+            if (isset($monogr->imprint->biblScope)) {
+
+                $bibl = array();
+
+                foreach ($monogr->imprint->biblScope as $scope) {
+
+                    $attributes = $scope->attributes();
+                    $type = (string) $scope['type'];
+                    $bibl['biblScope_' . $type] = (string) $scope['n'];
+                }
+
+                extract($bibl);
+            }
+            
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
+
             $publisher = (string) $monogr->imprint->publisher;
             $pubPlace = (string) $monogr->imprint->pubPlace;
             $date = (string) $monogr->imprint->date->attributes();
-            $title = (string)  $monogr->title;
-            $link = (string)$monogr->idno;
+            $mTitle = (string) $monogr->title;
+            $aTitle = (string) $analitics->title;
 
             $obj = new stdClass;
-            $obj->full_citation = Html::a((string) implode(', ', $authors).' '.$title.
-                    ' '.$pubPlace.': '.$publisher.', '.$date
-                    , $link);
+            
+            $fullCitation = '';
 
-            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            $fullCitation .= (string) implode(', ', $authors);
+            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
+            $fullCitation .= $aTitle . ' ';
+            $fullCitation .= $mTitle . ' ';
+            $fullCitation .= ($biblScope_vol) ? $biblScope_vol . ': ' : '';
+            $fullCitation .= ($biblScope_issue) ? $biblScope_issue . ' ' : '';
+            $fullCitation .= ($biblScope_pp) ? $biblScope_pp . ' ' : '';
+            $fullCitation .= $pubPlace . ' ';
+            $fullCitation .= $publisher . ' ';
+            if ($idno['doi']) {
+                $fullCitation .= ' DOI: '.$idno['doi'];
+            }
+            
+            if ($idno['url']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
+            } else {
+                $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
+            }
+            
+            $title = '';
+            $cnt = count($authors);
+            
+            if ($cnt == 1) {
+                $title = current($authors);
+            } elseif ($cnt == 2) {
+                $title = implode(' and ', $authors);
+            } elseif ($cnt > 2) {
+                $title = current($authors) .' et al.';
+            }
+            
+            $title .= ($date) ? ' ('.$date.') ': '';
+            $obj->title = trim($title);
             $this->furtherReading[] = $obj;
         }
     }
     
+    protected function getIdnoReferencesAttribute($monogr, $analitics) {
+        
+        $doi = '';
+        $url = '';
+
+        if ($monogr->idno) {
+
+            foreach ($monogr->idno as $idno) {
+
+                $attr = $idno->attributes();
+                $type = (string)$attr->type;
+
+                switch ($type) {
+                    case 'url':
+                        $url = (string)$idno;
+                        break;
+                    case 'doi':
+                        $doi = (string)$idno;
+                        break;
+                }
+            }
+        }
+
+        if ($analitics->idno) {
+
+            foreach ($analitics->idno as $idno) {
+
+                $attr = $idno->attributes();
+                $type = (string)$attr->type;
+
+                switch ($type) {
+                    case 'url':
+                        $url = (string)$idno;
+                        break;
+                    case 'doi':
+                        $doi = (string)$idno;
+                        break;
+                }
+            }
+        }
+        
+        return ['doi' => $doi, 'url' => $url];
+    }
+
+
     protected function initKeyReferences($refStruct) {
         
         foreach ($refStruct as $ref) {
@@ -528,16 +624,40 @@ trait ArticleParseTrait {
 
                 extract($bibl);
             }
+            
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
 
-
-            $obj->full_citation = Html::a((string) implode(', ', $authors) .
-                            ' ' . $analitics->title . ' ' .
-                            $monogr->title .
-                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                            ' (' . $date . ') :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                            ' ' . $analitics->idno[1], $analitics->idno[0]);
-
-            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            $fullCitation = '';
+            $fullCitation .= (string) implode(', ', $authors);
+            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
+            $fullCitation .= $analitics->title . ' ';
+            $fullCitation .= $monogr->title . ' ';
+            $fullCitation .= $biblScope_vol . ': ';
+            $fullCitation .= $biblScope_issue . ' ';
+            $fullCitation .= $biblScope_pp . ' ';
+            if ($idno['doi']) {
+                $fullCitation .= ' DOI: '.$idno['doi'];
+            }
+            
+            if ($idno['url']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
+            } else {
+                $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
+            }
+            
+            $title = '';
+            $cnt = count($authors);
+            
+            if ($cnt == 1) {
+                $title = current($authors);
+            } elseif ($cnt == 2) {
+                $title = implode(' and ', $authors);
+            } elseif ($cnt > 2) {
+                $title = current($authors) .' et al.';
+            }
+            
+            $title .= ($date) ? ' ('.$date.') ': '';
+            $obj->title = trim($title);
 
             $obj->data_source = [];
             $obj->data_type = [];
@@ -562,9 +682,16 @@ trait ArticleParseTrait {
             $obj->country_codes = [];
 
             if (isset($refAttribute['n'])) {
-
-                $obj->countries = explode(' ', (string) $refAttribute['n']);
-                $obj->country_codes = explode(' ', (string) $refAttribute['n']);
+                
+                $codes = explode(' ', (string) $refAttribute['n']);
+                $counties = [];
+                
+                foreach ($codes as $code) {
+                    $counties[] = Country::getCountryName($code);
+                }
+                
+                $obj->countries = $counties;
+                $obj->country_codes = $codes;
             }
 
             $this->keyReferences[] = $obj;
@@ -615,6 +742,8 @@ trait ArticleParseTrait {
 
             $date = '';
             $pubPlace = '';
+            $publisher = '';
+            $siries = '';
             
             if ($monogr->imprint->date) {
                 $date = (string) $monogr->imprint->date->attributes();
@@ -623,6 +752,15 @@ trait ArticleParseTrait {
             
             if (isset($monogr->imprint->pubPlace)) {
                 $pubPlace = (string)$monogr->imprint->pubPlace;
+            }
+            
+            if (isset($monogr->imprint->publisher)) {
+                $publisher = (string) $monogr->imprint->publisher;
+            }
+            
+            if (isset($read->series->title)) {
+                $siries = (string) $read->series->title;
+                $siries .= ' ';
             }
             
             $biblScope_pp = '';
@@ -643,56 +781,45 @@ trait ArticleParseTrait {
                 extract($bibl);
             }
             
-            $doi = '';
-            $url = '';
-            
-            if ($monogr->idno) {
-                
-                foreach ($monogr->idno as $idno) {
-                   
-                    $attr = $idno->attributes();
-                    $type = (string)$attr->type;
-                    
-                    switch ($type) {
-                        case 'url':
-                            $url = (string)$idno;
-                            break;
-                        case 'doi':
-                            $doi = (string)$idno;
-                            break;
-                    }
-                }
-            }
-            
-            if ($analitics->idno) {
-                
-                foreach ($analitics->idno as $idno) {
-
-                    $attr = $idno->attributes();
-                    $type = (string)$attr->type;
-                    
-                    switch ($type) {
-                        case 'url':
-                            $url = (string)$idno;
-                            break;
-                        case 'doi':
-                            $doi = (string)$idno;
-                            break;
-                    }
-                }
-            }
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
             
             $obj = new stdClass;
-            $text = (string) implode(', ', $authors) .
-                            ' ' . $analitics->title . ' ' .
-                            $monogr->title .' '.$pubPlace.
-                            ' ' . $biblScope_vol . ':' . $biblScope_issue .
-                            $date. ' :' . $biblScope_pp . ' ' . \Yii::t('app/text', 'Online at: DOI:') .
-                            ' ' . $doi;
             
-            $obj->full_citation = Html::a(str_replace('  ',' ',$text), $url);
+            $fullCitation = '';
 
-            $obj->title = (string) implode(' and ', $authors) . " ({$date})";
+            $fullCitation .= (string) implode(', ', $authors);
+            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
+            $fullCitation .= $analitics->title . ' ';
+            $fullCitation .= $monogr->title . ' ';
+            $fullCitation .= ($biblScope_vol) ? $biblScope_vol . ': ' : '';
+            $fullCitation .= ($biblScope_issue) ? $biblScope_issue . ' ' : '';
+            $fullCitation .= ($biblScope_pp) ? $biblScope_pp . ' ' : '';
+            $fullCitation .= $siries;
+            $fullCitation .= $pubPlace . ' ';
+            $fullCitation .= $publisher . ' ';
+            if ($idno['doi']) {
+                $fullCitation .= 'DOI: '.$idno['doi'].' ';
+            }
+            
+            if ($idno['url']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
+            } else {
+                $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
+            }
+
+            $title = '';
+            $cnt = count($authors);
+            
+            if ($cnt == 1) {
+                $title = current($authors);
+            } elseif ($cnt == 2) {
+                $title = implode(' and ', $authors);
+            } elseif ($cnt > 2) {
+                $title = current($authors) .' et al.';
+            }
+            
+            $title .= ($date) ? ' ('.$date.') ': '';
+            $obj->title = trim($title);
             
             $obj->country_codes = [];
 
@@ -736,7 +863,6 @@ trait ArticleParseTrait {
     protected function setSources() {
 
         $sources = $this->getBackElementByType('sources');
-        $i = 1;
         
         foreach ($sources as $source) {
 
@@ -748,7 +874,7 @@ trait ArticleParseTrait {
             $types = explode(' ', $vals[0]['attributes']['TARGET']);
             $sourceText = [];
            
-            $link = '#';
+            $link = false;
             
             foreach ($types as $type) {
                 
@@ -760,13 +886,18 @@ trait ArticleParseTrait {
             if (isset($source->p->ptr)) {
                 $link = (string) $source->p->ptr->attributes();
             }
-
+            
+            if ($link) {
+                $source = Html::a((string) $source->head, $link, ['target' => '_blank']);
+            } else {
+                $source = (string) $source->head;
+            }
+            
             $this->sources[$id] = [
-                'source' => Html::a("[{$i}] " . (string) $source->head, $link),
+                'source' => $source,
                 'type' => implode(' ', $sourceText)
             ];
 
-            $i++;
         }
     }
 
