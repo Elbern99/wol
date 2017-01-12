@@ -424,10 +424,20 @@ $authorLink = [];
                                         <div class="icon-exclamatory-circle rel-tooltip"></div>
                                         <div class="key-references-info">
                                             <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
-                                            <div class="sources"><?= (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source ?></div>
-                                            <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : $reference->data_type ?></div>
+                                            <div class="sources">
+                                            <?php if(is_array($reference->data_source)): ?>
+                                                <?php
+                                                    $s = 1;
+                                                    foreach ($reference->data_source as $dSource) {
+                                                        echo '['.$s.']'.$dSource.'<br>';
+                                                        $s++;
+                                                    }
+                                                ?>
+                                            <?php endif; ?>
+                                            </div>
+                                            <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : '' ?></div>
                                             <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
-                                            <div class="countries"><?= (is_array($reference->countries)) ? implode('<br>', $reference->countries) : $reference->countries ?></div>
+                                            <div class="countries"><?= (is_array($reference->countries)) ? implode(', ', $reference->countries) : '' ?></div>
                                         </div>
                                     </li>
                                     <?php endforeach; ?>
