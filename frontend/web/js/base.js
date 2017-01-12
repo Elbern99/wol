@@ -534,34 +534,41 @@ var elements = {
 
 	// 3.3 HOME
 
-    var cookie = {
+    var Cookie = {
 
-        set: function (name, value, days) {
+        Create: function (name, value, days) {
+
+            var expires = "";
+
             if (days) {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                var expires = "; expires=" + date.toGMTString();
+                expires = "; expires=" + date.toGMTString();
             }
-            else
-                var expires = "";
-            document.cookie = name + "=" + JSON.stringify(value) + expires + "; path=/";
+
+            document.cookie = name + "=" + value + expires + "; path=/";
         },
 
-        get : function(name){
-            var nameEQ = name + "=",
-                ca = document.cookie.split(';');
+        Read: function (name) {
 
-            for(var i=0;i < ca.length;i++) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(";");
+
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1,c.length);
-                if (c.indexOf(nameEQ) == 0)
-                    return  JSON.parse(c.substring(nameEQ.length,c.length));
+                while (c.charAt(0) == " ") c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
             }
 
             return null;
+        },
+
+        Erase: function (name) {
+
+            Cookie.create(name, "", -1);
         }
 
-    }
+    };
 
     var home = {
         cloneTopic: function(el,elToMobile,elToDesktop){
@@ -589,17 +596,14 @@ var elements = {
         closeSubscribe: function(btn,parent) {
             if($(btn).length) {
 
-                var get_subscribe_state = cookie.get('subscribe_state'),
-                    detect_close_subscribe_state = get_subscribe_state.close;
-
-                if(detect_close_subscribe_state == 'true') {
+                if(Cookie.Read('close_subscribe') == 'true'){
                     $(parent).fadeOut(0);
                 }
 
                 $(btn).click(function(e) {
                     var cur = $(this);
                     $(parent).fadeOut();
-                    cookie.set('subscribe_state', {close: 'true'}, 30);
+                    Cookie.Create('close_subscribe', true, 30);
                 });
             }
         }
