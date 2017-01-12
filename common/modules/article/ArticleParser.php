@@ -389,7 +389,7 @@ class ArticleParser implements ParserInterface {
             if (preg_match("/(full)/i", $name)) {
                 
                 $name = $this->article->seo.'.pdf';
-                $this->fullPdf = $this->article->getSavePath().'/pdfs/'.$name;
+                $this->fullPdf = $name;
                 
                 $this->copyFile($path, $baseBackendPath . $name);
                 $this->copyFile($path, $baseFrontendPath . $name);
