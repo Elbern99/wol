@@ -432,7 +432,7 @@ class ArticleParser implements ParserInterface {
     }
     
     protected function copyFile($from, $to) {
-        copy($from, $to);
+        @copy($from, $to);
     }
 
     protected function saveArticleImages($images) {
