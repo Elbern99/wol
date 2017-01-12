@@ -13,7 +13,7 @@ class Menu {
         
         self::$top = $manager->getTopMenu();
         self::$bottom = $manager->getBottomMenu();
-        self::$main = $manager->getMainMenu();
+        self::$main =  $manager->getMainMenu();
     } 
 }
 

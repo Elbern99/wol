@@ -29,6 +29,18 @@ class TopicController extends Controller {
         return $category;
     }
     
+    protected function _getTopicCategory($topic)
+    {
+        if ($topic->category_id) {
+            $category = Category::find()->where(['id' => $topic->category_id])->one();
+            if (!$category) {
+                return $this->_getMainCategory();
+            }
+            return $category;
+        }
+        return $this->_getMainCategory();
+    }
+    
     public function _getTopicsList($limit = null)
     {
         $query = (new \yii\db\Query())
@@ -141,7 +153,7 @@ class TopicController extends Controller {
         
         return $this->render('view', [
             'model' => $topic,
-            'category' => $this->_getMainCategory(),
+            'category' => $this->_getTopicCategory($topic),
             'relatedVideos' => $relatedVideos,
             'relatedOpinions' => $relatedOpinions,
             'collection' => $articlesCollection,

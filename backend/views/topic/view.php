@@ -10,7 +10,7 @@ use kartik\select2\Select2;
 
 
 $this->title = Yii::t('app.menu', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Topics'), 'url' => Url::toRoute('/topic')];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Key Topics'), 'url' => Url::toRoute('/topic')];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view">

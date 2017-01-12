@@ -57,7 +57,7 @@ class Topic extends \yii\db\ActiveRecord
         return [
             [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at', 'is_key_topic', 'sticky_at', 'article_ids', 'video_ids', 'opinion_ids', 'event_ids'], 'safe'],
+            [['created_at', 'is_key_topic', 'sticky_at', 'article_ids', 'video_ids', 'opinion_ids', 'event_ids', 'category_id'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -122,7 +122,7 @@ class Topic extends \yii\db\ActiveRecord
     public function afterFind()
     {
         $this->created_at = new \DateTime($this->created_at);
-        
+      
         if ($this->sticky_at) {
             $this->sticky_date = $this->sticky_at;
             $this->sticky_at = true;
@@ -207,19 +207,78 @@ class Topic extends \yii\db\ActiveRecord
             return false;
 
         $this->setCreatedAtDate();
-     
+        
         $this->initUploadProperty();
-        $this->setStickyStatus();
+        // $this->setStickyStatus();
         $this->upload();
         
         $this->saveArticlesList();
         $this->saveVideosList();
         $this->saveOpinionsList();
         $this->saveEventsList();
+        $this->addCategory();
         
         return $this->save();
     }
     
+    protected function addCategory()
+    {
+        $mainCategory = Category::find()->where(['url_key' => 'key-topics'])->one();
+        if ($mainCategory) {
+
+            if ($this->isNewRecord) {
+                
+                if ($this->is_key_topic && !$this->category_id) {
+                    $category = new Category();
+                    $category->title = $this->title;
+                    $category->meta_title = $this->title;
+                    $category->root = $mainCategory->id;
+                    $category->url_key = '/key-topics/' . $this->url_key;
+                    $category->active = true;
+                    $category->visible_in_menu = true;
+                    $category->appendTo($mainCategory);
+                    $this->category_id = $category->id;
+                    $this->save();
+                }
+                
+            }
+            else {
+                $model = self::find()->where(['id' => $this->id])->one();
+                if ($model) {
+                    if ($this->is_key_topic && $model->category_id) {
+                        $category = Category::find()->where(['id' => $this->category_id])->one();
+                        if ($category) {
+                            $category->title = $this->title;
+                            $category->meta_title = $this->title;
+                            $category->root = $mainCategory->id;
+                            $category->url_key = '/key-topics/' . $this->url_key;
+                            $category->active = true;
+                            $category->visible_in_menu = true;
+                            $category->save();
+                        }
+                    }
+
+                    if (!$this->is_key_topic && $model->category_id){
+                        $category = Category::find()->where(['id' => $this->category_id])->one();
+                        if ($category) {
+                            $category->title = $this->title;
+                            $category->meta_title = $this->title;
+                            $category->root = $mainCategory->id;
+                            $category->url_key = '/key-topics/' . $this->url_key;
+                            $category->active = false;
+                            $category->visible_in_menu = false;
+                            $category->save();
+                        }
+                    }
+                }
+            }
+           
+            
+            
+            
+            
+        }
+    }
     protected function setCreatedAtDate()
     {
         $created_at = new \DateTime('now');
@@ -228,12 +287,16 @@ class Topic extends \yii\db\ActiveRecord
     
     protected function setStickyStatus()
     {
-        if ($this->sticky_date) {
-            $this->sticky_at = $this->sticky_date;
-        }
-        else {
-            $sticky_at = new \DateTime('now');
-            $this->sticky_at = $sticky_at->format('Y-m-d');
+        if ($this->sticky_at) {
+            if ($this->sticky_date) {
+                $this->sticky_at = $this->sticky_date;
+            }
+            else {
+                $sticky_at = new \DateTime('now');
+                $this->sticky_at = $sticky_at->format('Y-m-d');
+            }
+        } else {
+            $this->sticky_at = null;
         }
     }
     

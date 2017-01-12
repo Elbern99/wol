@@ -85,6 +85,6 @@ class TopicController extends Controller
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'An error occurred during deletion.'));
         }
              
-        return $this->redirect('@web/video');
+        return $this->redirect('@web/topic');
     }
 }

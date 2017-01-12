@@ -93,7 +93,11 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     
     public function videosList()
     {
-        $videos = Video::find()->where(['<>', 'id', $this->id])->all();
+        if ($this->id) {
+            $videos = Video::find()->where(['<>', 'id', $this->id])->all();
+        } else {
+            $videos = Video::find()->all();
+        }
         $videosList = [];
         foreach ($videos as $video) {
             $videosList[$video->id] = $video->title; 

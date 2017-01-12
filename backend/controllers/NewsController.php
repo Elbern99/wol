@@ -88,6 +88,6 @@ class NewsController extends Controller
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'An error occurred during deletion.'));
         }
              
-        return $this->redirect('@web/opinion');
+        return $this->redirect('@web/news');
     }
 }
