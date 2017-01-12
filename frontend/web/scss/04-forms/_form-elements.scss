@@ -38,6 +38,12 @@ label {
     }
   }
 
+  &.no-required {
+    &:after {
+      display: none !important;
+    }
+  }
+
   &.required {
     &:after {
       position: absolute;

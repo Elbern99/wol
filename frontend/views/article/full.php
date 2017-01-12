@@ -52,6 +52,24 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 $authorLink = [];
 ?>
 <div class="container article-full">
+    <div class="mobile-filter-holder custom-tabs-holder">
+        <ul class="mobile-filter-list">
+            <li><a href="" class="js-widget">Subject areas</a></li>
+            <li><a href="" class="js-widget">Trending topics</a></li>
+            <li><a href="" class="js-widget">Authors</a></li>
+        </ul>
+        <div class="mobile-filter-items custom-tabs">
+            <div class="tab-item blue js-tab-hidden expand-more">
+                test 1
+            </div>
+            <div class="tab-item blue js-tab-hidden expand-more">
+                test 2
+            </div>
+            <div class="tab-item blue js-tab-hidden expand-more">
+                test 3
+            </div>
+        </div>
+    </div>
     <div class="article-buttons article-buttons-mobile">
         <?php if (isset($attributes['full_pdf'])): ?>
         <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
@@ -227,8 +245,10 @@ $authorLink = [];
             <div class="article-buttons article-buttons-sidebar">
                 <?php if (isset($attributes['full_pdf'])): ?>
                     <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-                        <span class="icon-download"></span>
-                        <span class="text">download pdf</span>
+                        <div class="inner">
+                            <span class="icon-download"></span>
+                            <span class="text">download pdf</span>
+                        </div>
                     </a>
                 <?php endif; ?>
                 <a href="" class="btn-border-blue-middle btn-cite with-icon">
@@ -571,7 +591,7 @@ $authorLink = [];
 
             <div class="cite-input-box-holder">
                 <div class="cite-input-box">
-                    <textarea cols="15" rows="10" class="form-control"></textarea>
+                    <textarea cols="15" rows="10" class="form-control" id="copy-field"></textarea>
                     <button class="btn-blue download-cite-button">Download</button>
                     <button class="btn-blue copy-cite-button">Copy</button>
                 </div>

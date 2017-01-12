@@ -14,8 +14,14 @@
   .news-list {
     margin: 0 0 -20px 0;
 
+    .post-item {
+      .desc {
+        padding: 0 !important;
+      }
+    }
+
     @include breakpoint('tablet') {
-      margin: 0 -38px -33px 0 ;
+      margin: 0 -38px -33px 0;
     }
   }
 }

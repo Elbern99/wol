@@ -138,24 +138,26 @@ if ($category) {
                                 <a href="/news/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
                                 <?php endif; ?>
                                 <div class="desc">
-                                    <div class="head-news-holder">
-                                        <div class="head-news">
-                                            <div class="date">
-                                                <?= $item->created_at->format('F d, Y'); ?>
-                                            </div>
-                                            <div class="publish">
-                                                <a href="#">
-                                                    <?= $item->editor; ?>
-                                                </a>
+                                    <div class="inner">
+                                        <div class="head-news-holder">
+                                            <div class="head-news">
+                                                <div class="date">
+                                                    <?= $item->created_at->format('F d, Y'); ?>
+                                                </div>
+                                                <div class="publish">
+                                                    <a href="#">
+                                                        <?= $item->editor; ?>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
+                                        <h2>
+                                            <a href="#">
+                                                <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
+                                            </a>
+                                        </h2>
+                                        <p class="hide-mobile"><?= $item->short_description; ?></p>
                                     </div>
-                                    <h2>
-                                        <a href="#">
-                                            <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
-                                        </a>
-                                    </h2>
-                                    <p class="hide-mobile"><?= $item->short_description; ?></p>
                                 </div>
                                 <p class="hide-desktop"><?= $item->short_description; ?></p>
                             </div>

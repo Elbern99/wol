@@ -561,6 +561,8 @@
   font-size: 11px !important;
   height: 25px;
   line-height: 24px;
+  display: flex;
+  align-items: center;
 
   @extend .material-state;
 
@@ -572,7 +574,7 @@
 .resp-sharing-button__icon svg {
   width: 10px;
   height: 10px;
-  margin-right: 4px;
+  margin: 0px 6px -1px 0;
 }
 
 .resp-sharing-button--small svg {

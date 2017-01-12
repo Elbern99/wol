@@ -356,24 +356,52 @@
                 let querystring = $.param(citeConfig);
                 window.location.assign(citeConfig.postUrl+'?'+querystring);
             });
-            
+
             $('.copy-cite-button').on('click', function() {
                 
-                var textArea = document.createElement("textarea");
-                textArea.value = value;
-                document.body.appendChild(textArea);
-                var range = document.createRange();
-                range.selectNode(textArea);
-                textArea.select();
-                window.getSelection().addRange(range);
-                
-                try {
-                    document.execCommand('copy');
-                } catch (err) {
-                     alert('Oops, unable to copy');
+                // var textArea = document.createElement("textarea");
+                // textArea.value = value;
+                // document.body.appendChild(textArea);
+                // var range = document.createRange();
+                // range.selectNode(textArea);
+                // textArea.select();
+                // window.getSelection().addRange(range);
+                //
+                // try {
+                //     document.execCommand('copy');
+                // } catch (err) {
+                //      alert('Oops, unable to copy');
+                // }
+                //
+                // document.body.removeChild(textArea);
+
+                var cur = $(this);
+
+                function copySelectionText(){
+                    var copysuccess;
+                    try{
+                        copysuccess = document.execCommand("copy");
+                    } catch(e){
+                        copysuccess = false
+                    }
+                    return copysuccess
                 }
-                
-                document.body.removeChild(textArea);
+
+                function copyfieldvalue(id){
+                    var field = document.getElementById(id);
+                    field.focus();
+                    field.setSelectionRange(0, field.value.length);
+                    var copysuccess = copySelectionText();
+                    if (copysuccess){
+                        cur.text('Copied');
+                    }
+                }
+
+                setTimeout(function(){
+                    cur.text('Copy');
+                }, 2000);
+
+                copyfieldvalue('copy-field');
             });
         },
         closeOpen: function(btn,popup) {
