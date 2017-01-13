@@ -5657,6 +5657,8 @@ iframe[name=advpp_manager] {
     left: 0;
     margin: 10px 0 0; }
 
+.header .search .btn-border-blue {
+  width: 80px; }
 @media only screen and (max-width: 769px) {
   .header .search {
     position: absolute;

@@ -232,6 +232,11 @@
 //SEARCH
 .header {
   .search {
+
+    .btn-border-blue {
+      width: 80px;
+    }
+
     @include breakpoint_custom($breakpoint-tablet) {
       position: absolute;
       top: calc(49vh*.75);
