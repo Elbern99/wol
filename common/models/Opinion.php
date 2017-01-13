@@ -106,9 +106,12 @@ class Opinion extends \yii\db\ActiveRecord
         $this->setCreatedAtDate();
         $this->initUploadProperty();
         $this->upload();
-        $this->saveAuthorsList();
         
-        return $this->save();
+        if ($this->save()) {
+            $this->saveAuthorsList();
+        }
+        
+        return true;
     }
     
     protected function setCreatedAtDate()

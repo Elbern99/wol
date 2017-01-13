@@ -209,16 +209,18 @@ class Topic extends \yii\db\ActiveRecord
         $this->setCreatedAtDate();
         
         $this->initUploadProperty();
-        // $this->setStickyStatus();
+        
         $this->upload();
         
-        $this->saveArticlesList();
-        $this->saveVideosList();
-        $this->saveOpinionsList();
-        $this->saveEventsList();
-        $this->addCategory();
+        if ($this->save()) {
+            $this->saveArticlesList();
+            $this->saveVideosList();
+            $this->saveOpinionsList();
+            $this->saveEventsList();
+            $this->addCategory();
+        }
         
-        return $this->save();
+        return true;
     }
     
     protected function addCategory()

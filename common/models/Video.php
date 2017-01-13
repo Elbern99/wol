@@ -109,27 +109,28 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     {
         RelatedVideo::deleteAll(['=', 'parent_id', $this->id]);
         
-        $bulkInsertArray = [];
-        
-        if (is_array($this->video_ids)) {
-            
-            foreach ($this->video_ids as $id) {
-                $bulkInsertArray[]=[
-                    'parent_id' => $this->id,
-                    'children_id' => $id,
-                ];
-            }
+        if ($this->save()) {
+            $bulkInsertArray = [];
 
-            if (count($bulkInsertArray)>0){
-                $columnNamesArray = ['parent_id', 'children_id'];
-                $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                    RelatedVideo::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
-                               ->execute();
+            if (is_array($this->video_ids)) {
+
+                foreach ($this->video_ids as $id) {
+                    $bulkInsertArray[]=[
+                        'parent_id' => $this->id,
+                        'children_id' => $id,
+                    ];
+                }
+
+                if (count($bulkInsertArray)>0){
+                    $columnNamesArray = ['parent_id', 'children_id'];
+                    $insertCount = Yii::$app->db->createCommand()
+                                   ->batchInsert(
+                                        RelatedVideo::tableName(), $columnNamesArray, $bulkInsertArray
+                                     )
+                                   ->execute();
+                }
             }
         }
-        
-        return $this->save();
+        return true;
     }
 }
