@@ -67,8 +67,14 @@
     margin-top: -10px !important;
   }
 
+  @include breakpoint_custom($breakpoint-tablet) {
+    .home-other-events-list {
+      margin-bottom: -9px !important;
+    }
+  }
+
   .show-more {
-    margin: 27px auto 45px !important;
+    margin: 27px auto 33px !important;
 
     @include breakpoint('tablet') {
       margin: 27px auto 70px !important;
@@ -154,13 +160,21 @@
   }
 
   .content-inner > div:first-child {
-    padding-bottom: 13px;
+    padding-bottom: 0;
+
+    @include breakpoint('tablet') {
+      padding-bottom: 13px;
+    }
   }
 }
 
 .other-events-list-holder {
   .show-more {
-    margin-bottom: 0 !important;
+    margin-bottom: 10px !important;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 0 !important;
+    }
   }
 }
 
@@ -179,6 +193,7 @@
   padding: 7px 0;
   z-index: 100;
   font-size: 12px;
+  display: none;
 
   @include breakpoint('tablet') {
     padding: 26px 0;
@@ -207,6 +222,7 @@
     z-index: 101;
 
     @include breakpoint_custom($breakpoint-tablet) {
+      margin-top: -20px;
 
       &:before,
       &:after {
@@ -224,6 +240,7 @@
     line-height: 28px;
     border-radius: 2px;
     margin-right: 25px;
+    margin-left: 10px;
 
     @include breakpoint('tablet') {
       margin: -3px 0 0 0;

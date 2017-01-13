@@ -44,7 +44,7 @@
     .submenu  {
       left:  0;
       right: auto;
-      margin: -5px 0 0;
+      margin: -5px 0 0 ;
 
       a {
         color: #2a2a2a;
@@ -94,11 +94,13 @@
     >a {
       color: $dark-blue-black;
       text-decoration: none;
-      display: block;
-      padding: 9px 0;
 
       @include breakpoint('tablet') {
         border-bottom: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        height: 38px;
+        padding-top: 1px;
 
         &:hover {
           color: $blue;
@@ -132,7 +134,7 @@
 
     .header-menu-bottom-list,
     .owl-stage-outer {
-      padding: 0 10px;
+      padding: 0px 10px 1px;
 
       .item {
         font-size: 14px;
@@ -155,7 +157,7 @@
 
         >a {
           display: block;
-          padding: 5px 0;
+          padding: 5px 0 4px;
           border-bottom: 1px solid transparent;
 
           &:hover,
@@ -331,6 +333,7 @@
   .btn-blue {
     margin-left: 8px;
     float: right;
+    line-height: 29px;
   }
 }
 
@@ -430,6 +433,10 @@
     background: none;
 
     @include breakpoint('tablet') {
+      display: flex;
+      align-items: center;
+      height: 38px;
+      padding-top: 1px;
 
       &:hover,
       &.active {
@@ -673,7 +680,7 @@
             font-size: 10px;
             transform: rotate(180deg);
             color: $light-blue;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
 
             @include breakpoint('tablet') {
               display: none;
@@ -683,7 +690,8 @@
         }
       }
 
-      &.open {
+      &.open,
+      &.opened {
         >a{
           &:after {
             transform: rotate(90deg);

@@ -6,7 +6,7 @@
         document: $(document),
         mapMini: 'map-mini',
         mapMedium: 'article-map-medium'
-    }
+    };
 
 //GLOBAL VARIABLE ---------
     var _window_height = elements.window.height(),
@@ -265,7 +265,7 @@
                     $(btnNext).addClass('disabled');
 
                 } else {
-				    $(btnPrev).removeClass('disabled');
+                    $(btnPrev).removeClass('disabled');
                 }
                 nextCur.trigger('click');
             });
@@ -298,7 +298,7 @@
                         cur.removeClass('added');
                     }, 3000);
                 });
-                
+
                 e.preventDefault();
             });
         },
@@ -335,45 +335,57 @@
             });
         },
         citeInit: function() {
-            
+
             if (typeof citeConfig === 'undefined'){
                 return false;
             }
-            
+
             function getCiteValue() {
-                
+
                 return citeConfig.authors+' '+citeConfig.title+' '+citeConfig.publisher+
-                       ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+                    ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
             }
-            
-            let value = getCiteValue();
-            
+
+            var value = getCiteValue();
+
             $('.cite-input-box').each(function( index ) {
                 $(this).children('textarea').val(value);
             });
-            
+
             $('.download-cite-button').on('click', function() {
-                let querystring = $.param(citeConfig);
+                var querystring = $.param(citeConfig);
                 window.location.assign(citeConfig.postUrl+'?'+querystring);
             });
-            
+
             $('.copy-cite-button').on('click', function() {
-                
-                var textArea = document.createElement("textarea");
-                textArea.value = value;
-                document.body.appendChild(textArea);
-                var range = document.createRange();
-                range.selectNode(textArea);
-                textArea.select();
-                window.getSelection().addRange(range);
-                
-                try {
-                    document.execCommand('copy');
-                } catch (err) {
-                     alert('Oops, unable to copy');
+
+                var cur = $(this);
+
+                function copySelectionText(){
+                    var copysuccess;
+                    try{
+                        copysuccess = document.execCommand("copy");
+                    } catch(e){
+                        copysuccess = false
+                    }
+                    return copysuccess
                 }
-                
-                document.body.removeChild(textArea);
+
+                function copyfieldvalue(id){
+                    var field = document.getElementById(id);
+                    field.focus();
+                    field.setSelectionRange(0, field.value.length);
+                    var copysuccess = copySelectionText();
+                    if (copysuccess){
+                        cur.text('Copied');
+                    }
+                }
+
+                setTimeout(function(){
+                    cur.text('Copy');
+                }, 2000);
+
+                copyfieldvalue('copy-field');
             });
         },
         closeOpen: function(btn,popup) {
@@ -429,7 +441,6 @@
     });
 
     elements.window.load(function() {
-
         shareSelected('.article-full article');
 
         var countries_arrays = mapConfig.source;

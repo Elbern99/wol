@@ -120,6 +120,8 @@
       float: right;
       padding: 10px 0 0 27px;
       font-size: 9px;
+      position: relative;
+      z-index: 10;
 
       @include breakpoint_custom($breakpoint-tablet) {
         display: none;

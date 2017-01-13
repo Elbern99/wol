@@ -142,6 +142,19 @@
   }
 
   .desc {
+
+    @include breakpoint('tablet') {
+      height: 100%;
+    }
+
+    .inner {
+
+      @include breakpoint('tablet') {
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+
     h2 {
 
       @include breakpoint_custom($breakpoint-tablet) {
@@ -1749,6 +1762,7 @@
   .img {
     float: left;
     width: 30%;
+    overflow: hidden;
 
     &:after {
       @extend .pinout;
@@ -1819,7 +1833,7 @@
     position: absolute;
     background: $basalt-gray;
     top: 0;
-    bottom: 0;
+    bottom: -1px;
     left: 30%;
     background: #565656;
     padding: 16px 10px 14px 14px;

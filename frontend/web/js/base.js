@@ -535,39 +535,28 @@ var elements = {
 	// 3.3 HOME
 
     var Cookie = {
-
         Create: function (name, value, days) {
-
             var expires = "";
-
             if (days) {
                 var date = new Date();
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toGMTString();
             }
-
             document.cookie = name + "=" + value + expires + "; path=/";
         },
-
         Read: function (name) {
-
             var nameEQ = name + "=";
             var ca = document.cookie.split(";");
-
             for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0) == " ") c = c.substring(1, c.length);
                 if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
             }
-
             return null;
         },
-
         Erase: function (name) {
-
             Cookie.create(name, "", -1);
         }
-
     };
 
     var home = {
@@ -598,6 +587,8 @@ var elements = {
 
                 if(Cookie.Read('close_subscribe') == 'true'){
                     $(parent).fadeOut(0);
+                } else {
+                    $(parent).fadeIn(300);
                 }
 
                 $(btn).click(function(e) {
@@ -611,6 +602,7 @@ var elements = {
 
     //EVENTS
     elements.document.ready(function() {
+
 		shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
@@ -621,6 +613,7 @@ var elements = {
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
         if(_window_width < _tablet ) {
+
             tabsForm.init($('.login-registration-list.mobile'), '.dropdown-widget');
             tabsForm.openLogin();
             tabsForm.openRegister();
