@@ -10,6 +10,7 @@ use common\models\Author;
 use common\modules\eav\CategoryCollection;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use common\modules\eav\helper\EavValueHelper;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -180,12 +181,18 @@ class ArticleRepository implements RepositoryInterface {
                 $authors[] = $article->availability;
             }
 
+            $eavValue = $values[$article->id] ?? [];
+            
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/' . $article->seo,
                 'authors' => $authors,
-                'teaser' => unserialize($values[$article->id]['teaser']),
-                'abstract' => unserialize($values[$article->id]['abstract']),
+                'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
+                    return $data;
+                }),
+                'abstract' => EavValueHelper::getValue($eavValue, 'abstract', function($data) {
+                    return $data;
+                }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
             ];
@@ -197,10 +204,18 @@ class ArticleRepository implements RepositoryInterface {
             'collection' => $articlesCollection, 
             'sort' => $order,
             'limit' => $limit,
-            'articleCount' => ArticleCategory::find()->where(['category_id' => $this->current->id])->count('id'),
+            'articleCount' => $this->getCategoryArticleCount(),
             'authorsValue' => $authorsValue,
             'authorsRoles' => $authorsRoles
         ];
+    }
+    
+    public function getCategoryArticleCount() {
+        return ArticleCategory::find()
+                ->alias('ac')
+                ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
+                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
+                ->count('a.id');
     }
     
     public function getTamplate() {
