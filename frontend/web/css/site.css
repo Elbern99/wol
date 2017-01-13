@@ -1079,17 +1079,6 @@ th {
   .btn.btn-center,
   .mobile-menu .btn-center.subscribe-link {
     padding: 0 11px; }
-    [class^="btn-"].with-icon span:last-child, [class^="btn-"].with-icon-r span:last-child, [class^="btn-"].btn-center span:last-child,
-    [class*=" btn-"].with-icon span:last-child,
-    [class*=" btn-"].with-icon-r span:last-child,
-    [class*=" btn-"].btn-center span:last-child,
-    .btn.with-icon span:last-child,
-    .mobile-menu .with-icon.subscribe-link span:last-child,
-    .btn.with-icon-r span:last-child,
-    .mobile-menu .with-icon-r.subscribe-link span:last-child,
-    .btn.btn-center span:last-child,
-    .mobile-menu .btn-center.subscribe-link span:last-child {
-      padding-top: 1px; }
     [class^="btn-"].with-icon .inner, [class^="btn-"].with-icon-r .inner, [class^="btn-"].btn-center .inner,
     [class*=" btn-"].with-icon .inner,
     [class*=" btn-"].with-icon-r .inner,

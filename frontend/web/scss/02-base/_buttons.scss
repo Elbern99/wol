@@ -35,13 +35,7 @@
   &.with-icon,
   &.with-icon-r,
   &.btn-center {
-    padding: 0 11px;
-
-    span {
-      &:last-child {
-        padding-top: 1px;
-      }
-    }
+    padding: 0 11px ;
 
     .inner {
       display: flex;
