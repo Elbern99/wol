@@ -60,9 +60,7 @@ var elements = {
         },
         mobileOpenItem: function(cur) {
             cur.parent().find(headerMenu.submenu).slideDown(headerMenu.delay);
-            setTimeout(function(){
-                cur.parent().addClass('opened');
-            }, 500);
+            cur.parent().addClass('open');
         },
         mobileCloseItem: function(cur) {
             cur.parent().find(headerMenu.submenu).slideUp(headerMenu.delay);
@@ -604,6 +602,7 @@ var elements = {
 
     //EVENTS
     elements.document.ready(function() {
+
 		shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
@@ -614,6 +613,7 @@ var elements = {
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
 
         if(_window_width < _tablet ) {
+
             tabsForm.init($('.login-registration-list.mobile'), '.dropdown-widget');
             tabsForm.openLogin();
             tabsForm.openRegister();

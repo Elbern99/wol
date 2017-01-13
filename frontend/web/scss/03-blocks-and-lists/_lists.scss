@@ -137,7 +137,7 @@
 
         h2 {
           line-height: 1.385em;
-          max-height: 103px;
+          max-height: 122px;
           margin: 0 0 17px;
           font-size: 18px;
 
@@ -271,7 +271,7 @@
 
           h2 {
             line-height: 1.385em;
-            max-height: 103px;
+            max-height: 122px;
             margin: 0 0 17px;
             font-size: 14px;
 
@@ -531,7 +531,7 @@
 //COMMENTARY-OPINIONS-LIST
 .commentary-opinions-list {
   overflow: hidden;
-  margin-bottom: 0 0 27px;
+  margin-bottom: 17px;
 
   @include breakpoint('mobile-large') {
     margin: 0 -5px 27px;

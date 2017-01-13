@@ -141,7 +141,7 @@ $authorLink = [];
                 <p><?= $attributes['abstract']->getData('abstract') ?></p>
 
                 <figure>
-                    <img id="<?= $attributes['ga_image']->getData('id'); ?>" data-target="<?= $attributes['ga_image']->getData('target') ?>" src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>" width="430" height="326">
+                    <img id="<?= $attributes['ga_image']->getData('id'); ?>" data-target="<?= $attributes['ga_image']->getData('target') ?>" src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>">
                 </figure>
 
                 <h2>Key findings</h2>

@@ -142,7 +142,10 @@
   }
 
   .desc {
-    height: 100%;
+
+    @include breakpoint('tablet') {
+      height: 100%;
+    }
 
     .inner {
 

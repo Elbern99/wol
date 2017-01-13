@@ -16,7 +16,10 @@
 
     .post-item {
       .desc {
-        padding: 0 !important;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          padding: 0 !important;
+        }
       }
     }
 
@@ -51,7 +54,11 @@
   }
 
   .commentary-videos-list {
-    margin-bottom: 27px;
+    margin-bottom: 17px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 27px;
+    }
   }
 }
 

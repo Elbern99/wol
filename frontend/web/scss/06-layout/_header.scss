@@ -680,7 +680,7 @@
             font-size: 10px;
             transform: rotate(180deg);
             color: $light-blue;
-            transition: transform 0.3s ease;
+            transition: color 0.3s ease;
 
             @include breakpoint('tablet') {
               display: none;
