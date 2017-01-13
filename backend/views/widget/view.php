@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-sm-12 sidenav">
             <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'name')->textInput(['readonly' => true]) ?>
+                <?= $form->field($model, 'name')->textInput(['readonly' => ($model->id) ? true : false]) ?>
                 <?= $form->field($model, 'text')->widget(CKEditor::className(), [
                     'options' => ['rows' => 10],
                     'preset' => 'standard',

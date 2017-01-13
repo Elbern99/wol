@@ -26,6 +26,8 @@ return [
     'topic_opinions_limit' => 6,
     'topic_events_limit' => 6,
     'authors_limit' => 10,
+    'home_article_limit' => 4,
+    'home_event_limit' => 3,
     'page_widget' => [
         'editorial_board' => [
             'views_on_iza', 'socials', 

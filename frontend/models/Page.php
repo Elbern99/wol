@@ -45,5 +45,17 @@ class Page {
     public function getWidgets() {
         return $this->widgets;
     }
+    
+    public function getWidgetByName($name) {
+
+        foreach ($this->widgets as $widget) {
+            
+            if ($widget['name'] == $name) {
+                return $widget['text'];
+            }
+        }
+        
+        return '';
+    }
 }
 
