@@ -6108,6 +6108,16 @@ iframe[name=advpp_manager] {
     .article-head {
       padding-right: 308px; } }
 
+@media print {
+  .footer,
+  .header {
+    display: none; } }
+@media print {
+  .article-full .sidebar-right,
+  .article-full [class^="btn-"],
+  .article-full [class*=" btn-"],
+  .article-full .article-buttons {
+    display: none; } }
 .article-full .mobile-filter-holder,
 .article-full .mobile-filter-list {
   margin-bottom: 5px; }
