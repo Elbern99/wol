@@ -7951,14 +7951,15 @@ iframe[name=advpp_manager] {
   transition: all 0.3s ease;
   width: 47px !important;
   height: 52px !important;
-  margin: -48px 0 0 -20px !important; }
+  margin: -48px 0 0 -20px !important;
+  z-index: 240 !important; }
   @media only screen and (min-width: 769px) {
     .leaflet-marker-icon {
       width: 24px !important;
       height: 35px !important;
       margin: -30px 0 0 -11px !important; } }
   .leaflet-marker-icon:hover {
-    z-index: 540 !important; }
+    z-index: 241 !important; }
     @media only screen and (min-width: 769px) {
       .leaflet-marker-icon:hover {
         margin: -31px 0 0 -11px !important; } }
