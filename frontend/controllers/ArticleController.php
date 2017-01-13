@@ -94,19 +94,22 @@ class ArticleController extends Controller {
                 $authors[] = $article->availability;
             }
             
+            $eavValue = $values[$article->id] ?? [];
+            
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/'.$article->seo,
                 'authors' => $authors,
-                'teaser' => EavValueHelper::getValue($values[$article->id], 'teaser', function($data) {
+                'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                     return $data;
                 }),
-                'abstract' => EavValueHelper::getValue($values[$article->id], 'abstract', function($data) {
+                'abstract' => EavValueHelper::getValue($eavValue, 'abstract', function($data) {
                     return $data;
                 }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
             ];
+            
         }
         
         return $this->render('index', [

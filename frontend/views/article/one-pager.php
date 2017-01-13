@@ -10,6 +10,7 @@ $attributes = $collection->getEntity()->getValues();
 
 $this->title = $attributes['title']->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
+$this->params['breadcrumbs'][] = $this->title;
 
 $this->registerMetaTag([
     'name' => 'keywords',

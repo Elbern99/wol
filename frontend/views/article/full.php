@@ -11,6 +11,7 @@ $attributes = $collection->getEntity()->getValues();
 //var_dump($attributes['creation']->getData('main_creation'));exit;
 $this->title = $attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
+$this->params['breadcrumbs'][] = $this->title;
 
 $this->registerMetaTag([
     'name' => 'keywords',
