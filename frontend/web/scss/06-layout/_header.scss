@@ -22,11 +22,10 @@
 .header-top {
   border-bottom: 1px solid #d8d8d8;
   padding: 9px 0 3px;
-  min-height: 50px;
 
   @include breakpoint('tablet') {
     padding: 0;
-    min-height: 1px;
+    height: 39px;
 
     .container {
       display: flex;
@@ -38,7 +37,7 @@
 
 //header-menu-top
 .header-menu-top-list {
-  margin: 0 0 -1px;
+  //margin: 0 0 -1px;
 
   @include breakpoint('tablet') {
     .submenu  {
@@ -80,6 +79,7 @@
     display: inline-block;
     text-transform: uppercase;
     font-size: 10px;
+    vertical-align: top;
 
     @include breakpoint('tablet') {
       margin: 0 23px 0 0;
@@ -99,8 +99,7 @@
         border-bottom: 1px solid transparent;
         display: flex;
         align-items: center;
-        height: 38px;
-        padding-top: 1px;
+        height: 39px;
 
         &:hover {
           color: $blue;
@@ -377,7 +376,7 @@
 //login-registration-list
 .login-registration-list {
   font-size: 10px;
-  margin: 0 0 -1px;
+  //margin: 0 0 -1px;
 
   @include breakpoint_custom($breakpoint-tablet) {
     .dropdown-widget {
@@ -422,6 +421,7 @@
 
       @include breakpoint('tablet') {
         border: 0;
+        padding: 0;
         border-bottom: 1px solid transparent;
       }
     }
@@ -433,10 +433,9 @@
     background: none;
 
     @include breakpoint('tablet') {
-      display: flex;
+      display: flex !important;
       align-items: center;
-      height: 38px;
-      padding-top: 1px;
+      height: 39px;
 
       &:hover,
       &.active {

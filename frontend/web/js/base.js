@@ -1,10 +1,10 @@
 (function($) {
 
 // ELEMENTS
-var elements = {
-    document: $(document),
-    window: $(window)
-}
+    var elements = {
+        document: $(document),
+        window: $(window)
+    }
 
 //GLOBAL VARIABLES ---------
 
@@ -60,9 +60,7 @@ var elements = {
         },
         mobileOpenItem: function(cur) {
             cur.parent().find(headerMenu.submenu).slideDown(headerMenu.delay);
-            setTimeout(function(){
-                cur.parent().addClass('opened');
-            }, 500);
+            cur.parent().addClass('open');
         },
         mobileCloseItem: function(cur) {
             cur.parent().find(headerMenu.submenu).slideUp(headerMenu.delay);
@@ -79,12 +77,12 @@ var elements = {
 
                 if(cur.parent().hasClass(headerMenu.classes)){
                     headerMenu.mobileCloseItem(cur);
-                    e.preventDefault();
                 } else {
                     cur.parent().siblings().removeClass(headerMenu.classes)
                         .find(content).slideUp(headerMenu.delay)
                         .find('.item').removeClass('open');
                     headerMenu.mobileOpenItem(cur);
+                    e.preventDefault();
                 }
             });
         },
@@ -166,7 +164,6 @@ var elements = {
                             yourClick  = false;
                         }
                     });
-
                 } else {
                     cur.parent().find(dropWidget).removeClass('open');
 
@@ -190,44 +187,44 @@ var elements = {
 
     /* tabsForm */
     var tabsForm = {
-								init: function(list, content) {
-												list.find('li').eq(0).find('a').addClass('active');
-												list.find('li').eq(0).find(content).addClass('active');
+        init: function(list, content) {
+            list.find('li').eq(0).find('a').addClass('active');
+            list.find('li').eq(0).find(content).addClass('active');
 
-												list.find('>li>a').on('click', function(e) {
-																var  cur = $(this),
-																				curParent = cur.parents('li');
+            list.find('>li>a').on('click', function(e) {
+                var  cur = $(this),
+                    curParent = cur.parents('li');
 
-																list.find('a').removeClass('active');
-																list.find(content).removeClass('active').addClass('js-tab-hidden');
+                list.find('a').removeClass('active');
+                list.find(content).removeClass('active').addClass('js-tab-hidden');
 
-																if ( !cur.hasClass('active') ) {
-																				cur.addClass('active');
-																				curParent.find(content).addClass('active').removeClass('js-tab-hidden');
-																} else {
-																				cur.removeClass('active');
-																				curParent.find(content).removeClass('active').addClass('js-tab-hidden');
-																}
-																e.preventDefault();
-												});
-								},
-								openLogin: function() {
-												$('.open-mobile-register').on('click', function(e) {
-																$('.btn-mobile-menu-show').trigger('click');
-																$('.btn-mobile-login-show').trigger('click');
-																$('.login-registration-list.mobile li').eq(1).find('a').trigger('click');
-																e.preventDefault();
-												});
-								},
-								openRegister: function() {
-												$('.open-mobile-login').on('click', function(e) {
-																$('.btn-mobile-menu-show').trigger('click');
-																$('.btn-mobile-login-show').trigger('click');
-																$('.login-registration-list.mobile li').eq(0).find('a').trigger('click');
-																e.preventDefault();
-												});
-								}
-				};
+                if ( !cur.hasClass('active') ) {
+                    cur.addClass('active');
+                    curParent.find(content).addClass('active').removeClass('js-tab-hidden');
+                } else {
+                    cur.removeClass('active');
+                    curParent.find(content).removeClass('active').addClass('js-tab-hidden');
+                }
+                e.preventDefault();
+            });
+        },
+        openLogin: function() {
+            $('.open-mobile-register').on('click', function(e) {
+                $('.btn-mobile-menu-show').trigger('click');
+                $('.btn-mobile-login-show').trigger('click');
+                $('.login-registration-list.mobile li').eq(1).find('a').trigger('click');
+                e.preventDefault();
+            });
+        },
+        openRegister: function() {
+            $('.open-mobile-login').on('click', function(e) {
+                $('.btn-mobile-menu-show').trigger('click');
+                $('.btn-mobile-login-show').trigger('click');
+                $('.login-registration-list.mobile li').eq(0).find('a').trigger('click');
+                e.preventDefault();
+            });
+        }
+    };
     /* tabsForm end */
 
     /* tabs */
@@ -248,9 +245,9 @@ var elements = {
             });
 
             elements.window.resize(function() {
-               if(_window_width > _mobile) {
-                   $(list).find('li').eq(0).find('a').trigger('click');
-               }
+                if(_window_width > _mobile) {
+                    $(list).find('li').eq(0).find('a').trigger('click');
+                }
             });
         },
         cloneTab: function(el,elToMobile,elToDesktop){
@@ -354,8 +351,8 @@ var elements = {
         accrodionSingleItem: function(btn,container) {
             $(btn).click(function(e) {
                 var cur = $(this);
-                    cur.toggleClass('active');
-                    cur.parent().find(container).slideToggle();
+                cur.toggleClass('active');
+                cur.parent().find(container).slideToggle();
                 e.preventDefault();
             });
         }
@@ -436,7 +433,7 @@ var elements = {
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
                     curParent =  cur.parents('li,.expand-more');
-                    cur.toggleClass('showed');
+                cur.toggleClass('showed');
 
                 if(!cur.hasClass('no-open')) {
                     if(cur.hasClass('showed')) {
@@ -516,26 +513,26 @@ var elements = {
     /* end */
 
     var shareBtns = {
-								btnContent: function(item) {
-												if($(item).length) {
-																var title = $('title').text(),
-																				description = $('meta[name="description"]').attr("content"),
-																				url = document.URL,
-																				linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+title+"&summary="+description+"",
-																				twitter = "https://twitter.com/intent/tweet/?text="+description+".&amp;url=http%3A%2F%2F"+url+"",
-																				facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+description+'&app_id=1273981299361667';
+        btnContent: function(item) {
+            if($(item).length) {
+                var title = $('title').text(),
+                    description = $('meta[name="description"]').attr("content"),
+                    url = document.URL,
+                    linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+title+"&summary="+description+"",
+                    twitter = "https://twitter.com/intent/tweet/?text="+description+".&amp;url=http%3A%2F%2F"+url+"",
+                    facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+description+'&app_id=1273981299361667';
 
-																$(item).each(function() {
-																				var cur = $(this);
-																								cur.find('.twitter-content').attr('href', twitter);
-																								cur.find('.linkedin-content').attr('href', linkEdn);
-																								cur.find('.facebook-content').attr('href', facebook);
-																});
-												}
-								}
-				}
+                $(item).each(function() {
+                    var cur = $(this);
+                    cur.find('.twitter-content').attr('href', twitter);
+                    cur.find('.linkedin-content').attr('href', linkEdn);
+                    cur.find('.facebook-content').attr('href', facebook);
+                });
+            }
+        }
+    }
 
-	// 3.3 HOME
+    // 3.3 HOME
 
     var Cookie = {
         Create: function (name, value, days) {
@@ -606,7 +603,7 @@ var elements = {
     //EVENTS
     elements.document.ready(function() {
 
-		shareBtns.btnContent('.share-buttons-list li');
+        shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown($('.header-desktop .dropdown-link'), '.drop-content');
         dropDown($('.custom-select .dropdown-link'), '.drop-content');

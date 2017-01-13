@@ -5503,12 +5503,11 @@ iframe[name=advpp_manager] {
 
 .header-top {
   border-bottom: 1px solid #d8d8d8;
-  padding: 9px 0 3px;
-  min-height: 50px; }
+  padding: 9px 0 3px; }
   @media only screen and (min-width: 769px) {
     .header-top {
       padding: 0;
-      min-height: 1px; }
+      height: 39px; }
       .header-top .container {
         display: -ms-flexbox;
         display: flex;
@@ -5517,53 +5516,51 @@ iframe[name=advpp_manager] {
         -ms-flex-align: center;
             align-items: center; } }
 
-.header-menu-top-list {
-  margin: 0 0 -1px; }
+@media only screen and (min-width: 769px) {
+  .header-menu-top-list .submenu {
+    left: 0;
+    right: auto;
+    margin: -5px 0 0; }
+    .header-menu-top-list .submenu a {
+      color: #2a2a2a; }
+      .header-menu-top-list .submenu a:hover {
+        color: #0053a0; }
+    .header-menu-top-list .submenu:after {
+      left: 24px; } }
+@media only screen and (min-width: 1430px) {
+  .header-menu-top-list .submenu {
+    margin-top: -5px;
+    left: 50%;
+    margin-left: -133px; }
+    .header-menu-top-list .submenu:after {
+      left: 50%; } }
+.header-menu-top-list li {
+  position: relative; }
+.header-menu-top-list > li {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 10px;
+  vertical-align: top; }
   @media only screen and (min-width: 769px) {
-    .header-menu-top-list .submenu {
-      left: 0;
-      right: auto;
-      margin: -5px 0 0; }
-      .header-menu-top-list .submenu a {
-        color: #2a2a2a; }
-        .header-menu-top-list .submenu a:hover {
-          color: #0053a0; }
-      .header-menu-top-list .submenu:after {
-        left: 24px; } }
-  @media only screen and (min-width: 1430px) {
-    .header-menu-top-list .submenu {
-      margin-top: -5px;
-      left: 50%;
-      margin-left: -133px; }
-      .header-menu-top-list .submenu:after {
-        left: 50%; } }
-  .header-menu-top-list li {
-    position: relative; }
-  .header-menu-top-list > li {
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 10px; }
+    .header-menu-top-list > li {
+      margin: 0 23px 0 0; } }
+  .header-menu-top-list > li.subscribe-link a {
+    color: #0053a0; }
+  .header-menu-top-list > li > a {
+    color: #4b4b4b;
+    text-decoration: none; }
     @media only screen and (min-width: 769px) {
-      .header-menu-top-list > li {
-        margin: 0 23px 0 0; } }
-    .header-menu-top-list > li.subscribe-link a {
-      color: #0053a0; }
-    .header-menu-top-list > li > a {
-      color: #4b4b4b;
-      text-decoration: none; }
-      @media only screen and (min-width: 769px) {
-        .header-menu-top-list > li > a {
-          border-bottom: 1px solid transparent;
-          display: -ms-flexbox;
-          display: flex;
-          -ms-flex-align: center;
-              align-items: center;
-          height: 38px;
-          padding-top: 1px; }
-          .header-menu-top-list > li > a:hover {
-            color: #0053a0; }
-          .header-menu-top-list > li > a:hover, .header-menu-top-list > li > a.active {
-            border-color: #008ef1; } }
+      .header-menu-top-list > li > a {
+        border-bottom: 1px solid transparent;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+            align-items: center;
+        height: 39px; }
+        .header-menu-top-list > li > a:hover {
+          color: #0053a0; }
+        .header-menu-top-list > li > a:hover, .header-menu-top-list > li > a.active {
+          border-color: #008ef1; } }
 
 .header-bottom {
   border-bottom: 1px solid #bcbcbc;
@@ -5757,8 +5754,7 @@ iframe[name=advpp_manager] {
         padding-bottom: 20px; } }
 
 .login-registration-list {
-  font-size: 10px;
-  margin: 0 0 -1px; }
+  font-size: 10px; }
   @media only screen and (max-width: 769px) {
     .login-registration-list .dropdown-widget {
       transform: translateX(-50%);
@@ -5789,6 +5785,7 @@ iframe[name=advpp_manager] {
       .login-registration-list > li > a,
       .login-registration-list > li .logout-link {
         border: 0;
+        padding: 0;
         border-bottom: 1px solid transparent; } }
   .login-registration-list a,
   .login-registration-list .logout-link {
@@ -5797,12 +5794,11 @@ iframe[name=advpp_manager] {
     @media only screen and (min-width: 769px) {
       .login-registration-list a,
       .login-registration-list .logout-link {
-        display: -ms-flexbox;
-        display: flex;
+        display: -ms-flexbox !important;
+        display: flex !important;
         -ms-flex-align: center;
             align-items: center;
-        height: 38px;
-        padding-top: 1px; }
+        height: 39px; }
         .login-registration-list a:hover, .login-registration-list a.active,
         .login-registration-list .logout-link:hover,
         .login-registration-list .logout-link.active {
