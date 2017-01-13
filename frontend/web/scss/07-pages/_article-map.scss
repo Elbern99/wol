@@ -390,7 +390,7 @@
   }
 
   &:hover {
-    z-index: 240 !important;
+    z-index: 540 !important;
     @include breakpoint('tablet') {
       margin: -31px 0 0 -11px !important;
     }

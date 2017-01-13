@@ -472,12 +472,7 @@
                 };
             },
             getColor: function(d) {
-                return  d === 'factor-efficiency' ? 'factor-efficiency' :
-                    d === 'factor' ? 'factor' :
-                        d === 'efficiency-innovation' ? 'efficiency-innovation' :
-                            d === 'efficiency' ? 'efficiency' :
-                                d === 'innovation' ? 'innovation' :
-                                d === 'none';
+                if(d !== undefined) return d;
             },
             onEachFeature: function(feature, layer) {
                 layer.on({});

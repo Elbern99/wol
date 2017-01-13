@@ -135,7 +135,7 @@
     margin: -4px 0 9px;
 
     @include breakpoint('tablet') {
-      max-height: 67px;
+      //max-height: 67px;
       overflow: hidden;
       margin-top: 0;
     }
@@ -261,7 +261,7 @@
 
     h2 {
       font-size: 16px;
-      max-height: 104px;
+      //max-height: 104px;
       line-height: 1.4em;
       overflow: hidden;
     }
@@ -285,13 +285,22 @@
   }
 }
 
-.post-item {
+.post-item.has-image,
+.opinion-item.has-image {
   @include breakpoint('tablet') {
+    position: relative ;
+
+    .img {
+      position: relative;
+      z-index: 2;
+    }
+
     &:after {
       content: '';
       position: absolute;
       bottom: 0;
-      height: 20px;
+      height: 30px;
+      z-index: 1;
       left: 0;
       width: 100%;
       background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
@@ -937,6 +946,10 @@
   background: #dbe8f4;
   overflow: hidden;
   line-height: 1.45em;
+
+  @include breakpoint('tablet') {
+    height: 100%;
+  }
 
   *:last-child {
     margin-bottom: 0 !important;
