@@ -131,7 +131,7 @@
 [class^="btn-border-blue-"],
 [class*=" btn-border-blue-"],
 .btn-primary {
-  border-color: #0053a0;
+  border-color: $blue;
   color: $blue;
   height: 30px;
   line-height: 30px;
@@ -160,7 +160,7 @@
 
   &:hover {
     @include breakpoint('tablet') {
-      background: #0053a0;
+      background: $blue;
       color: $white;
 
       span {

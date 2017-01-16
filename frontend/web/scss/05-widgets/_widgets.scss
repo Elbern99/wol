@@ -506,7 +506,7 @@
 
   &.share-selected-text-btn-tumblr {
     border: 1px solid $blue;
-    box-shadow: 0 0 1px 0 #0053a0 inset;
+    box-shadow: 0 0 1px 0 $blue inset;
 
     &:hover {
       border-color: $light-blue;

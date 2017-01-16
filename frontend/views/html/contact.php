@@ -20,7 +20,7 @@
 				<a href="">wol@iza.org</a></strong>
 			</p>
 			<br>
-			<h2>Find an expert</h2>
+			<h2>Find a topic spokesperson</h2>
 			<p>Search our <a href="">experts database</a> for find and contact experts in the World of Labor.</p>
 			<br>
 			<h2>For media</h2>

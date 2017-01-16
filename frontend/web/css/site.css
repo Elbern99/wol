@@ -5857,7 +5857,7 @@ iframe[name=advpp_manager] {
     .login-registration-list .logout-link:hover {
       color: #0053a0; }
   .login-registration-list .logout-link {
-    color: #0094f2; }
+    color: #0053a0; }
   .login-registration-list.logout li {
     margin: 0 0 0 17px; }
   .login-registration-list .welcome-link {
@@ -6105,6 +6105,10 @@ iframe[name=advpp_manager] {
   .subscribe-page table th, .subscribe-page table td {
     border: 0 !important;
     word-break: break-all; }
+
+.authors-page .search-results-media-list {
+  -ms-flex-pack: center;
+      justify-content: center; }
 
 .article-head {
   margin-bottom: 20px; }

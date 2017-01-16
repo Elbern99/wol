@@ -7,7 +7,7 @@ use common\helpers\Country;
 ?>
 
 <?php
-$this->title = 'Find an expert';
+$this->title = 'Find a topic spokesperson';
 $this->params['breadcrumbs'][] = Html::encode($this->title);
 
 $this->registerMetaTag([
@@ -28,7 +28,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
-        <h1>Find an expert</h1>
+        <h1>Find a topic spokesperson</h1>
         <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>

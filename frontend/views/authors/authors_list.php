@@ -19,7 +19,7 @@ $this->registerMetaTag([
 ]);
 ?>
 
-<div class="container find-expert">
+<div class="container authors-page">
     <div class="content-inner">
         <div class="content-inner-text">
             <div class="article-head">

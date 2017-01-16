@@ -87,7 +87,7 @@
 
     &.subscribe-link {
       a {
-        color: $blue;
+        color: $link-color;
       }
     }
 
@@ -485,7 +485,7 @@
 
   //my-account
   .logout-link {
-    color: $light-blue;
+    color: $link-color;
   }
 
   &.logout {

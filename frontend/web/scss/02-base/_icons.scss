@@ -204,7 +204,7 @@
 .icon-circle-arrow {
   width: 19px;
   height: 19px;
-  background: #0053a0;
+  background: $blue;
   font-size: 10px;
   color: #fff;
   border-radius: 50%;
@@ -327,7 +327,7 @@
   position: relative;
   width: 16px;
   height: 16px;
-  border: 2px solid #0053a0;
+  border: 2px solid $blue;
   border-radius: 50%;
   text-align: center;
   font: 8px/14px $lucida-sans-bold;

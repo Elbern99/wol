@@ -53,7 +53,7 @@ class Manager implements MenuManagerInterface {
         $content = '';
         
         if (isset($this->links[MenuLinks::TOP_LINK])) {
-            $content .= '<li class="item has-drop"><a href="#">For media</a><ul class="submenu"><li class="item"><a href="/find-an-expert">Find an expert</a></li></ul></li>';
+            $content .= '<li class="item has-drop"><a href="#">For media</a><ul class="submenu"><li class="item"><a href="/find-an-expert">Find a topic spokesperson</a></li></ul></li>';
 
             foreach ($this->links[MenuLinks::TOP_LINK] as $item) {
 
