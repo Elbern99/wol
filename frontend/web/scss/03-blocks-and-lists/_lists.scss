@@ -14,7 +14,7 @@
     }
 
     @include breakpoint('tablet') {
-      max-height: 408px;
+      //max-height: 408px;
     }
 
     h2 {
@@ -23,7 +23,8 @@
       line-height: 1.3em;
     }
 
-    p {
+    .hide-mobile,
+    .hide-desktop {
       font-size: 11px;
       line-height: 1.5em;
     }
@@ -124,7 +125,7 @@
         &:not(.has-image) {
           background: #dbe8f4;
           //max-height: 395px;
-          max-height: 408px;
+          //max-height: 408px;
 
           &:after {
             display: none;
@@ -515,13 +516,17 @@
     padding: 0 0 20px;
 
     @include breakpoint('desktop') {
-      width: 33.3%;
+      width: 50%;
       padding: 5px 3px 20px;
 
       .opinion-item,
       .news-item {
-        max-height: 433px;
+        //max-height: 432px;
       }
+    }
+
+    @include breakpoint('desktop-large') {
+      width: 33.3%;
     }
 
     @extend .two-column-first;
@@ -633,7 +638,7 @@
       }
 
       @include breakpoint('tablet') {
-        max-height: 403px;
+        //max-height: 403px;
       }
     }
   }

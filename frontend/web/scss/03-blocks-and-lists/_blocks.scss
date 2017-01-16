@@ -143,6 +143,14 @@
 
   .desc {
 
+    p {
+      margin: 0 0 5px;
+
+      &:last-child {
+        margin: 0 ;
+      }
+    }
+
     @include breakpoint('tablet') {
       height: 100%;
     }
@@ -941,7 +949,8 @@
 
 //OPINION-ITEM & NEWS-ITEM
 .opinion-item,
-.news-item {
+.news-item,
+.video-item {
   font-size: 12px;
   background: #dbe8f4;
   overflow: hidden;
@@ -970,7 +979,7 @@
 
     .desc {
       padding: 21px 20px 25px;
-      height: 47%;
+      //height: 47%;
     }
 
     h2 {
@@ -1015,8 +1024,7 @@
       }
 
       @include breakpoint('tablet') {
-        height: 53%;
-        min-height: 229px;
+        height: 232px;
       }
 
       .icon-play {
@@ -1116,6 +1124,36 @@
     display: none;
   }
 
+}
+
+//TEXT CROPPING
+.video-item {
+   h2 {
+     max-height: 60px;
+     overflow: hidden;
+
+     @include breakpoint('tablet') {
+       max-height: 72px;
+     }
+   }
+
+  .desc {
+    max-height: 223px;
+  }
+}
+
+.opinion-item {
+  max-height: 435px;
+
+  h2 {
+    max-height: 60px;
+    overflow: hidden;
+    min-height: 29px;
+
+    @include breakpoint('tablet') {
+      max-height: 72px;
+    }
+  }
 }
 
 //MOBILE-FILTER
@@ -1357,7 +1395,7 @@
     font-size: 11px;
     margin: 0;
     line-height: 1.2em;
-    max-height: 31px;
+    max-height: 26px;
     overflow: hidden;
 
     @include breakpoint('tablet') {

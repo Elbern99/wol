@@ -188,15 +188,18 @@
     /* tabsForm */
     var tabsForm = {
         init: function(list, content) {
-            list.find('li').eq(0).find('a').addClass('active');
-            list.find('li').eq(0).find(content).addClass('active');
 
-            list.find('>li>a').on('click', function(e) {
+            var listEl = list;
+
+            listEl.find('li').eq(0).find('a').addClass('active');
+            listEl.find('li').eq(0).find(content).addClass('active');
+
+            listEl.find('>li>a').on('click', function(e) {
                 var  cur = $(this),
                     curParent = cur.parents('li');
 
-                list.find('a').removeClass('active');
-                list.find(content).removeClass('active').addClass('js-tab-hidden');
+                listEl.find('a').removeClass('active');
+                listEl.find(content).removeClass('active').addClass('js-tab-hidden');
 
                 if ( !cur.hasClass('active') ) {
                     cur.addClass('active');
@@ -451,11 +454,14 @@
             });
         },
         detectMore: function(item,btn) {
-            if($(item).length) {
-                $(item).each(function( index ) {
 
-                    if($(this).find(btn).length == 0) {
-                        $(this).find('div >ul').addClass('no-more');
+            var itemEl = $(item)
+
+            if(itemEl.length) {
+                itemEl.each(function( index ) {
+                    var cur = $(this);
+                    if(cur.find(btn).length == 0) {
+                        cur.find('div >ul').addClass('no-more');
                     }
                 });
             }

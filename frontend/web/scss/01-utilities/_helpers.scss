@@ -60,17 +60,14 @@
 
         h2 {
           font-size: 24px;
-          max-height: 81px;
+          //max-height: 81px;
           padding-bottom: 1px;
+          overflow: hidden;
         }
 
         .desc {
           padding: 20px 15px 20px ;
           height: auto;
-
-          p {
-            max-height: 189px;
-          }
         }
 
         &.has-image {

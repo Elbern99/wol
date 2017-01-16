@@ -63,7 +63,7 @@
     }
   }
 
-  .home-articles-list+.show-more {
+  .home-articles-list+.btn-gray {
     margin-top: -10px !important;
   }
 
@@ -73,7 +73,13 @@
     }
   }
 
-  .show-more {
+  @include breakpoint('tablet') {
+    .home-other-events-list+.btn-gray {
+      margin-bottom: 20px !important;
+    }
+  }
+
+  .btn-gray {
     margin: 27px auto 33px !important;
 
     @include breakpoint('tablet') {

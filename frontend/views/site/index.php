@@ -91,7 +91,7 @@ $this->registerMetaTag([
                                         <h2>
                                             <a href="<?= Url::to(['/news/'.$newsItem['url_key']]) ?>"><?= $newsItem['title'] ?></a>
                                         </h2>
-                                        <p class="hide-mobile"><?= $newsItem['short_description'] ?></p>
+                                        <div class="hide-mobile"><?= $newsItem['short_description'] ?></div>
                                     </div>
                                 </div>
                             </li>

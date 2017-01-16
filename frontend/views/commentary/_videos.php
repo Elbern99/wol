@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 <ul class="commentary-videos-list">
     <?php foreach ($videos as $video) : ?> 
     <li class="">
-        <div class="opinion-item has-image">
+        <div class="video-item has-image">
 
             <?= Html::beginTag('a', [
                 'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
