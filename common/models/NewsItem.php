@@ -95,7 +95,11 @@ class NewsItem extends \yii\db\ActiveRecord
     {
         $date = $this->created_at ? $this->created_at : 'now';
         
-        $created_at = new \DateTime($date);
+        try {
+            $created_at = new \DateTime($date);
+        } catch (\Exception $e) {
+            $created_at = new \DateTime('now');
+        }
         $this->created_at = $created_at->format('Y-m-d');
     }
 
