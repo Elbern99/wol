@@ -25,10 +25,10 @@ trait HomeTrait {
     
     protected function getHomeParams() {
         
-        $homePage = CmsPages::find()->select('id')->where(['url' => 'home'])->one();
-        
+        $homePage = CmsPages::find()->select('id')->where(['url' => 'home', 'enabled' => 1])->one();
+
         if (!is_object($homePage)) {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException();
         }
         
         $homePage = Page::getPageById($homePage->id);
