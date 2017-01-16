@@ -72,30 +72,15 @@
                 });
             }
         },
-        clearAllCheckboxes: function(btn) {
-            // if($(btn).length) {
-            //     $(btn).click(function(e) {
-            //         var cur = $(this);
-												//
-            //         //cur.toggleClass('active');
-												//
-            //         if(cur.hasClass('active')) {
-            //             cur.parents('li').find(':checkbox').prop('checked', true);
-            //         } else {
-            //             cur.parents('li').find(':checkbox').prop('checked', false);
-            //         }
-												//
-            //         e.preventDefault();
-            //     });
-            // }
-        },
         saveSearch: function(btn) {
             function addToSave(element) {
                 element.click(function(e) {
                     $.get(element.prop('href'), function(data, status) {
                     
                         if ('message' in data) {
-                                
+
+                            console.log(status)
+
                             element.children('.btn-save-search-inner').html(data.message);
                             element.addClass('added');
 

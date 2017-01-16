@@ -1813,25 +1813,6 @@ blockquote {
       padding-left: 30%;
       margin-left: 14px; } }
 
-@media only screen and (min-width: 769px) {
-  .post-item.has-image,
-  .opinion-item.has-image {
-    position: relative; }
-    .post-item.has-image .img,
-    .opinion-item.has-image .img {
-      position: relative;
-      z-index: 2; }
-    .post-item.has-image:after,
-    .opinion-item.has-image:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      height: 30px;
-      z-index: 1;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 100%); } }
-
 .article-more {
   font-size: 13px;
   color: #0094f2; }
@@ -3277,6 +3258,12 @@ blockquote {
   @media only screen and (min-width: 568px) {
     .commentary-opinions-list {
       margin: 0 -5px 27px; } }
+  @media only screen and (min-width: 1024px) {
+    .commentary-opinions-list {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap; } }
   .commentary-opinions-list li {
     padding: 0 0 14px; }
     @media only screen and (min-width: 568px) {
@@ -3287,15 +3274,17 @@ blockquote {
         width: 100%; } }
     @media only screen and (min-width: 1024px) {
       .commentary-opinions-list li {
-        width: 50%;
-        float: left; } }
+        width: 50%; } }
     @media only screen and (min-width: 769px) {
       .commentary-opinions-list li .opinion-item {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: stretch;
             align-items: stretch;
-        height: 230px; }
+        max-height: 230px;
+        height: 100%; }
+        .commentary-opinions-list li .opinion-item.has-image {
+          height: 230px; }
         .commentary-opinions-list li .opinion-item h2 {
           max-height: 69px;
           overflow: hidden; }
@@ -6465,10 +6454,12 @@ iframe[name=advpp_manager] {
 
 .text-reference {
   position: relative; }
-  .text-reference.text-reference-opened:after {
-    margin: -2px;
-    background: #ffeb67;
-    z-index: -1; }
+  .text-reference.text-reference-opened {
+    background: #ffeb67; }
+    .text-reference.text-reference-opened:after {
+      margin: -2px;
+      background: #ffeb67;
+      z-index: -1; }
 
 .cite-input-box-holder {
   display: none; }
@@ -6562,11 +6553,15 @@ iframe[name=advpp_manager] {
     position: relative;
     max-width: 1230px;
     margin: 0 auto; }
-    @media only screen and (max-width: 769px) {
-      .reference-popup .reference-popup-inner .container {
-        overflow: hidden;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch; } }
+    .reference-popup .reference-popup-inner .container {
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch; }
+      @media only screen and (max-width: 769px) {
+        .reference-popup .reference-popup-inner .container {
+          overflow-y: scroll; } }
+      @media only screen and (min-width: 769px) {
+        .reference-popup .reference-popup-inner .container {
+          overflow-y: auto; } }
   @media only screen and (max-width: 769px) {
     .reference-popup {
       bottom: auto; }

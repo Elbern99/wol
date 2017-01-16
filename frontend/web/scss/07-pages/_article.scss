@@ -580,6 +580,8 @@
   position: relative;
 
   &.text-reference-opened {
+    background: #ffeb67;
+
     &:after {
       @extend .pinout;
       margin: -2px;
@@ -723,12 +725,16 @@
     max-width: $content-area-width;
     margin: 0 auto;
 
-    @include breakpoint_custom($breakpoint-tablet) {
+    .container {
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
 
-      .container {
-        overflow: hidden;
+      @include breakpoint_custom($breakpoint-tablet) {
         overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
+      }
+
+      @include breakpoint('tablet') {
+        overflow-y: auto;
       }
     }
   }

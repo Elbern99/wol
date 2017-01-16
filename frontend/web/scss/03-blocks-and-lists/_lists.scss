@@ -537,6 +537,11 @@
     margin: 0 -5px 27px;
   }
 
+  @include breakpoint('desktop') {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
   li {
     padding: 0 0 14px;
 
@@ -550,7 +555,6 @@
 
     @include breakpoint('desktop') {
       width: 50%;
-      float: left;
     }
 
     @include breakpoint('tablet') {
@@ -558,7 +562,12 @@
       .opinion-item {
         display: flex;
         align-items: stretch;
-        height: 230px;
+        max-height: 230px;
+        height: 100%;
+
+        &.has-image {
+          height: 230px;
+        }
 
         h2 {
           max-height: 69px;
