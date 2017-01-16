@@ -7,6 +7,7 @@ use common\models\Article;
 use common\models\Author;
 use yii\helpers\ArrayHelper;
 use common\modules\eav\CategoryCollection;
+use common\modules\eav\helper\EavValueHelper;
 
 trait ProfileTrait {
     
@@ -56,13 +57,19 @@ trait ProfileTrait {
                     $articleCategory[] = '<a href="' . $categoryFormat[$c->category_id]['url_key'] . '" >' . $categoryFormat[$c->category_id]['title'] . '</a>';
                 }
             }
-
+            
+            $eavValue = $values[$article->id] ?? [];
+            
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/' . $article->seo,
                 'availability' => $article->availability,
-                'teaser' => unserialize($values[$article->id]['teaser']),
-                'abstract' => unserialize($values[$article->id]['abstract']),
+                'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
+                    return $data;
+                }),
+                'abstract' => EavValueHelper::getValue($eavValue, 'abstract', function($data) {
+                    return $data;
+                }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
             ];

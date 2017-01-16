@@ -20,12 +20,15 @@ return [
     'latest_news_sidebar_limit' => 5,
     'expert_limit' => 5,
     'search_result_limit' => 50,
-    'authors_limit' => 9,
+    'authors_limit' => 10,
     'topic_articles_limit' => 6,
     'topic_videos_limit' => 6,
     'topic_opinions_limit' => 6,
     'topic_events_limit' => 6,
     'authors_limit' => 10,
+    'home_article_limit' => 4,
+    'home_event_limit' => 3,
+    'home_news_limit' => 4,
     'page_widget' => [
         'editorial_board' => [
             'views_on_iza', 'socials', 

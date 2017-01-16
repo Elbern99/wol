@@ -41,6 +41,10 @@ trait ArticleTrait {
                          ->all();
     }
     
+    protected function getArticleCount() {
+        return Article::find()->where(['enabled' => 1])->count();
+    }
+    
     protected function getArticleCategories($slug) {
         
         return Article::find()
@@ -95,7 +99,14 @@ trait ArticleTrait {
             $articleCollection = Yii::createObject(Collection::class);
             $articleCollection->initCollection(Article::tableName(), $model, $multiLang);
 
-
+            $values = $articleCollection->getEntity()->getValues();
+            
+            if (empty($values)) {
+                throw new NotFoundHttpException('Page Not Found.');
+            }
+            
+            unset($values);
+            
             $authors = [];
             $categories = [];
             $langs = [];

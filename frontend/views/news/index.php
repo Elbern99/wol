@@ -156,10 +156,10 @@ if ($category) {
                                                 <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
                                             </a>
                                         </h2>
-                                        <p class="hide-mobile"><?= $item->short_description; ?></p>
+                                        <div class="hide-mobile"><?= $item->short_description; ?></div>
                                     </div>
                                 </div>
-                                <p class="hide-desktop"><?= $item->short_description; ?></p>
+                                <div class="hide-desktop"><?= $item->short_description; ?></div>
                             </div>
                         </li>
                         <?php endforeach; ?>

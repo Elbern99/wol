@@ -129,8 +129,8 @@ class AuthorParser implements ParserInterface {
 
         foreach ($images as $name => $path) {
 
-            copy($path, $baseBackendPath . $name);
-            copy($path, $baseFrontendPath . $name);
+            @copy($path, $baseBackendPath . $name);
+            @copy($path, $baseFrontendPath . $name);
         }
     }
 

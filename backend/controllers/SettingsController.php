@@ -61,7 +61,7 @@ class SettingsController extends Controller
             $content = $this->renderFile($baseTemplatePath.'/types/'.$item->type.'.php', ['params' => $params]);
             
             $tabs[] = array(
-                'label' => '<i class="glyphicon"></i> '.  ucfirst($item->name),
+                'label' => '<i class="glyphicon"></i> '.  ucfirst(str_replace('_', ' ', $item->name)),
                 'content' => $this->renderFile($baseTemplatePath.'/form.php', ['postUrl' => Url::to([$editUrl,'id'=>$item->id]), 'type' => $content]),
             );
         }

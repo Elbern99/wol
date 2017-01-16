@@ -264,15 +264,15 @@ class AuthorsController extends Controller {
         $editorsRoleIds = $roles->getEditorGroup();
 
         $editorAuthor = AuthorRoles::find()->alias('a1')->select(['a1.role_id','a1.author_id', 'a.avatar', 'a.url_key'])
-                    ->leftJoin(AuthorRoles::tableName().' as a2', 'a1.id + 1 = a2.id')
-                    ->innerJoin(Author::tableName().' as a', 'a.id = a1.author_id')
-                    ->where('a1.author_id <> a2.author_id')
-                    ->orWhere('a2.id IS NULL')
-                    ->andWhere(['a1.role_id' => $editorsRoleIds])
-                    ->andWhere(['a.enabled' => 1])
-                    ->orderBy('a1.author_id')
-                    ->asArray()
-                    ->all();
+                                           ->leftJoin(AuthorRoles::tableName().' as a2', 'a1.id + 1 = a2.id')
+                                           ->innerJoin(Author::tableName().' as a', 'a.id = a1.author_id')
+                                           ->where('a1.author_id <> a2.author_id')
+                                           ->orWhere('a2.id IS NULL')
+                                           ->andWhere(['a1.role_id' => $editorsRoleIds])
+                                           ->andWhere(['a.enabled' => 1])
+                                           ->orderBy('a1.author_id')
+                                           ->asArray()
+                                           ->all();
 
         $authorIds = ArrayHelper::getColumn($editorAuthor, 'author_id');
         

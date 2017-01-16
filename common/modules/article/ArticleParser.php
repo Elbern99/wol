@@ -52,7 +52,7 @@ class ArticleParser implements ParserInterface {
     private $xml = null;
     private $langs = [];
     private $fullPdf = '';
-    private $onePagerPdf = '';
+    private $onePagerPdf = null;
     private $taxonomy = null;
     protected $categoryIds = [];
     /*
@@ -125,14 +125,11 @@ class ArticleParser implements ParserInterface {
     
     protected function getOnePagerPdf() {
         
-        if ($this->onePagerPdf) {
-            
-            $obj = new \stdClass();
-            $obj->url = $this->article->getSavePath().'/pdfs/'. $this->onePagerPdf;
-            return serialize($obj);
+        if (is_null($this->onePagerPdf)) {
+            return null;
         }
         
-        return null;
+        return $this->onePagerPdf;
     }
 
     protected function getFurtherReading() {
@@ -215,7 +212,7 @@ class ArticleParser implements ParserInterface {
         $this->saveArticlePdfs($reader->getPdfs());
         $reader->removeTemporaryFolder();
         unset($reader);
-        
+       
         if (!$this->article->save()) {
             
             $errors = [];
@@ -246,9 +243,7 @@ class ArticleParser implements ParserInterface {
             $this->article->delete();
             throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
-        
-        
-        
+
         $this->setImages();
         $this->setSources();
         $result = true;
@@ -386,18 +381,58 @@ class ArticleParser implements ParserInterface {
                 throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
             }
         }
-
+        
+        $langs = array_keys($this->langs);
+        
         foreach ($pdfs as $name => $path) {
-            
+                       
             if (preg_match("/(full)/i", $name)) {
+                
+                $name = $this->article->seo.'.pdf';
                 $this->fullPdf = $name;
+                
+                $this->copyFile($path, $baseBackendPath . $name);
+                $this->copyFile($path, $baseFrontendPath . $name);
+                
             } elseif(preg_match("/(one-pager)/i", $name)) {
-                $this->onePagerPdf = $name;
+                
+                $name = $this->article->seo.'.one-pager.pdf';
+                $obj = new \stdClass();
+                $obj->url = $this->article->getSavePath().'/pdfs/'.$name;
+                
+                $this->onePagerPdf[] = [
+                    'value' => serialize($obj),
+                    'lang_id' => 0
+                ];
+                
+                $this->copyFile($path, $baseBackendPath . $name);
+                $this->copyFile($path, $baseFrontendPath . $name);
+                        
+            } else {
+                
+                foreach ($langs as $lang) {
+                    
+                    if (preg_match("/($lang)/i", $name)) {
+                        
+                        $name = $this->article->seo.'.one-pager.'.$lang.'.pdf';
+                        $obj = new \stdClass();
+                        $obj->url = $this->article->getSavePath().'/pdfs/'.$name;
+                        
+                        $this->onePagerPdf[] = [
+                            'value' => serialize($obj),
+                            'lang_id' => $lang
+                        ];
+                        
+                        $this->copyFile($path, $baseBackendPath . $name);
+                        $this->copyFile($path, $baseFrontendPath . $name);
+                    }
+                }
             }
-            
-            copy($path, $baseBackendPath . $name);
-            copy($path, $baseFrontendPath . $name);
         }
+    }
+    
+    protected function copyFile($from, $to) {
+        @copy($from, $to);
     }
 
     protected function saveArticleImages($images) {
@@ -421,8 +456,8 @@ class ArticleParser implements ParserInterface {
         
         foreach ($images as $name => $path) {
             
-            copy($path, $baseBackendPath.$name);
-            copy($path, $baseFrontendPath.$name);
+            $this->copyFile($path, $baseBackendPath.$name);
+            $this->copyFile($path, $baseFrontendPath.$name);
         }
     }
 
