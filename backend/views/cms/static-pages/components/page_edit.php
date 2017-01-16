@@ -16,7 +16,7 @@ use yii\helpers\Url;
               'method' => 'post'
           ]); 
     ?>
-    <?= $form->field($page, 'url') ?>
+    <?= $form->field($page, 'url')->textInput(['readonly' => ($page->system) ? true : false]) ?>
     <?= $form->field($page_info, 'title') ?>
     <?= $form->field($page_info, 'meta_title') ?>
     <?= $form->field($page_info, 'meta_keywords')->textarea() ?>

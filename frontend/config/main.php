@@ -42,6 +42,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'home' => 'site/index',
                 'page/<id:[0-9]+>' => 'page/index',
                 'articles/' => 'article/index',
                 'articles/<slug:[0-9a-zA-Z-]+>' => 'article/one-pager',

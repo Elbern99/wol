@@ -72,10 +72,12 @@ class CmsPages extends \yii\db\ActiveRecord {
     public function afterSave($insert, $changedAttributes) {
         
         parent::afterSave($insert, $changedAttributes);
-
-        $rewrite_path = '/page/' . $this->id;
-        $params = ['current_path' => $this->url, 'rewrite_path' => $rewrite_path];
-        \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
+        
+        if (!$this->system) {
+            $rewrite_path = '/page/' . $this->id;
+            $params = ['current_path' => $this->url, 'rewrite_path' => $rewrite_path];
+            \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
+        }
     }
 
     public function beforeDelete() {

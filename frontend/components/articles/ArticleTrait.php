@@ -41,6 +41,10 @@ trait ArticleTrait {
                          ->all();
     }
     
+    protected function getArticleCount() {
+        return Article::find()->where(['enabled' => 1])->count();
+    }
+    
     protected function getArticleCategories($slug) {
         
         return Article::find()

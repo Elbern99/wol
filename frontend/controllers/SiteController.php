@@ -21,6 +21,8 @@ use common\models\NewsletterNews;
  */
 class SiteController extends Controller {
 
+    use traits\HomeTrait;
+    
     /**
      * @inheritdoc
      */
@@ -76,7 +78,7 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
 
-        return $this->render('index');
+        return $this->render('index', $this->getHomeParams());
     }
     
     public function actionSubscribe() {
