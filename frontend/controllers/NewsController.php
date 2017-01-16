@@ -29,7 +29,7 @@ class NewsController extends Controller {
     
     public function _getNewsList($limit = null, $year = null, $month = null)
     {
-        $newsQuery = NewsItem::find()->orderBy('id desc');
+        $newsQuery = NewsItem::find()->orderBy('created_at desc');
         
         if ($month && $year) {
            $newsQuery->andWhere([

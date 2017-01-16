@@ -7,7 +7,7 @@ use backend\helpers\AdminFunctionHelper;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app.menu', 'Topics');
+$this->title = Yii::t('app.menu', 'Key Topics');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">

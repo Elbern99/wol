@@ -43,8 +43,9 @@ class EventController extends Controller {
             $groupMonth = (int)ArrayHelper::getValue($value, 'm');
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
            
+            
             $eventsTree[$groupYear]['months'][] = [
-                'isActive' => $groupMonth == $month ? true : false,
+                'isActive' => $groupMonth == $month && $groupYear == $year ? true : false,
                 'num' => $groupMonth,
             ];
             
@@ -78,12 +79,13 @@ class EventController extends Controller {
             $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
             
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
-            
         }
-
+        
+        krsort($eventsTree, SORT_NUMERIC);
+        
         return $this->render('index', [
             'eventGroups' => $groups,
-            'eventsTree' => $eventsTree,
+            'eventsTree' => $eventsTree, SORT_NUMERIC,
             'category' => $this->_getEventMainCategory(),
             'widgets' => $widgets,
         ]);
@@ -132,6 +134,7 @@ class EventController extends Controller {
             'name' => ['event_widget1', 'event_widget2'],
         ])->all();
         
+        krsort($eventsTree, SORT_NUMERIC);
         
         return $this->render('view', [
             'model' => $event,
