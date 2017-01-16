@@ -83,7 +83,7 @@ class NewsItem extends \yii\db\ActiveRecord
     {
         if (!$this->validate())
             return false;
-        
+
         $this->setCreatedAtDate();
         $this->initUploadProperty();
         $this->upload();
@@ -93,7 +93,9 @@ class NewsItem extends \yii\db\ActiveRecord
     
     protected function setCreatedAtDate()
     {
-        $created_at = new \DateTime('now');
+        $date = $this->created_at ? $this->created_at : 'now';
+        
+        $created_at = new \DateTime($date);
         $this->created_at = $created_at->format('Y-m-d');
     }
 
