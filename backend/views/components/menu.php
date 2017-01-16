@@ -44,6 +44,7 @@ if (Yii::$app->user->isGuest) {
             ['label' => Yii::t('app/menu','Static Pages'), 'url' => ['/cms/static-pages']],
             ['label' => Yii::t('app/menu','Video'), 'url' => ['/video']],
             ['label' => Yii::t('app/menu','Commentary Page Videos'), 'url' => ['/video/commentary']],
+            ['label' => Yii::t('app/menu','Homepage Commentary'), 'url' => ['/homepage/commentary']],
             ['label' => Yii::t('app/menu','Events'), 'url' => ['/event']],
             ['label' => Yii::t('app/menu','Opinions'), 'url' => ['/opinion']],
             ['label' => Yii::t('app/menu','News'), 'url' => ['/news']],

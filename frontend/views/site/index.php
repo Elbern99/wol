@@ -7,6 +7,9 @@ use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 
+use common\models\Video;
+use common\models\Opinion;
+
 $this->title = $page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 
@@ -97,20 +100,62 @@ $this->registerMetaTag([
                         <?= $more->getLink('news_limit') ?>
                     </div>
                     <?php Pjax::end(); ?>
-                    
+                    <?php if ($commentary) : ?>
                     <div class="other-commentary-list-holder">
                         <?php /* Show Commentary*/ ?>
                         <div class="widget-title medium"><a href="/commentary">commentary</a></div>
                         <ul class="post-list other-commentary-list">
+                            <?php foreach ($commentary as $item) : ?>
                             <li class="post-item media-item">
-                                <a href="" class="img" style="background-image: url('')"></a>
-                                <div class="category"><a href="/opinions">opinion</a></div>
-                                <div class="author"><a href="">Daniel S. Hamermesh</a></div>
-                                <h2><a href="">Does performance-related pay improve productivity?</a></h2>
+                                <?php if ($item->type == Opinion::class) : ?>
+                                    <?php $opinion = Opinion::find()->where(['id' => $item->object_id])->one(); ?>
+                                    <?php if ($opinion) : ?>
+                                    <?php $hasImage = $opinion->image_link ? true : false; ?>
+                                    <?php if ($hasImage) : ?>
+                                    <?= Html::beginTag('a', [
+                                        'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
+                                        'class' => 'img',
+                                        'style' => "background-image: url('/uploads/opinions/".$opinion->image_link."')",
+                                    ]); ?>
+                                    <?= Html::endTag('a'); ?>
+                                    <?php else : ?>
+                                    <?= Html::beginTag('a', [
+                                        'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
+                                        'class' => 'img',
+                                        'style' => "background-image: url('')",
+                                    ]); ?>
+                                    <?= Html::endTag('a'); ?>
+                                    <?php endif; ?>
+                                    <div class="category">
+                                        <?= Html::a('opinion', ['/opinion/index']); ?>
+                                    </div>
+                                    <div class="author"><?= $opinion->getAuthorsLink(); ?></div>
+                                    <h2>
+                                        <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
+                                    </h2>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php if ($item->type == Video::class) : ?>
+                                    <?php $video = Video::find()->where(['id' => $item->object_id])->one(); ?>
+                                    <?php if ($video) : ?>
+                                    <?= Html::beginTag('a', [
+                                        'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
+                                        'class' => 'img',
+                                        'style' => "background-image: url('".$video->getVideoImageLink()."')",
+                                    ]); ?>
+                                    <span class="icon-play"></span>
+                                    <?= Html::endTag('a'); ?>
+                                    <div class="category"><?= Html::a('video', ['/video/index']); ?></div>
+                                    <h2>
+                                        <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
+                                    </h2>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
-
+                    <?php endif; ?>
                     <?php Pjax::begin(['linkSelector' => '#event_limit_button']); ?>
                     <div class="other-events-list-holder">
                         

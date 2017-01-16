@@ -15,6 +15,7 @@ use frontend\components\helpers\ShowMore;
 use common\models\Event;
 use common\models\Topic;
 use common\models\NewsItem;
+use common\models\HomepageCommentary;
 
 trait HomeTrait {
     
@@ -35,7 +36,6 @@ trait HomeTrait {
         $subjectAreas = $this->getSubjectAreas();
         $this->more = new ShowMore();
         $articles = $this->getLastArticles($subjectAreas);
-        
         return [
             'page' => $homePage, 
             'subjectAreas' => $subjectAreas,
@@ -49,7 +49,11 @@ trait HomeTrait {
     }
     
     protected function getCommentary() {
-        return [];
+        $commentary = HomepageCommentary::find()
+                        ->orderBy('id asc')
+                        ->limit(3)
+                        ->all();
+        return $commentary;
     }
     
     protected function getNews() {
