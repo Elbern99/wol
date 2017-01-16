@@ -13,6 +13,8 @@ use common\models\Article;
 use yii\helpers\Html;
 use frontend\components\helpers\ShowMore;
 use common\models\Event;
+use common\models\Topic;
+use common\models\NewsItem;
 
 trait HomeTrait {
     
@@ -39,8 +41,43 @@ trait HomeTrait {
             'subjectAreas' => $subjectAreas,
             'collection' => $articles,
             'more' => $this->more,
-            'events' => $this->getLastEvents()
+            'events' => $this->getLastEvents(),
+            'topics' => $this->getTopics(),
+            'commentary' => $this->getCommentary(),
+            'news' => $this->getNews()
         ];
+    }
+    
+    protected function getCommentary() {
+        return [];
+    }
+    
+    protected function getNews() {
+        
+        $params = [
+            'step' => Yii::$app->params['home_news_limit'],
+            'count' => NewsItem::find()->count('id'),
+        ];
+        
+        $this->more->addParam($params, 'news_limit');
+        $limit = $this->more->getLimit('news_limit');
+        
+        return NewsItem::find()
+                ->select(['title', 'url_key', 'created_at', 'image_link', 'short_description', 'editor'])
+                ->limit($limit)
+                ->orderBy(['created_at' => SORT_DESC])
+                ->asArray()
+                ->all();
+    }
+    
+    protected function getTopics() {
+        
+        return  Topic::find()
+                        ->select(['image_link', 'title', 'url_key'])
+                        ->where(['not', ['sticky_at' => null]])
+                        ->orderBy(['sticky_at' => SORT_DESC])
+                        ->asArray()
+                        ->all();
     }
     
     protected function getLastEvents() {
@@ -56,6 +93,7 @@ trait HomeTrait {
         return Event::find()
                 ->select(['title', 'url_key', 'date_from', 'date_to', 'location'])
                 ->limit($limit)
+                ->orderBy(['date_from' => SORT_DESC])
                 ->asArray()
                 ->all();
 
