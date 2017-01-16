@@ -503,7 +503,7 @@ $this->title = 'IZA';
                     </div>
                     <div class="sidebar-widget sidebar-widget-subscribe">
                         <div class="widget-title">iza world of labor on twitter</div>
-                        <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/IZAWorldofLabor">Tweets by IZAWorldofLabor</a>
+                        <a class="twitter-timeline" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/IZAWorldofLabor">Tweets by IZAWorldofLabor</a>
                         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                         <a href="https://twitter.com/IZAWorldofLabor" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @IZAWorldofLabor</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </div>
