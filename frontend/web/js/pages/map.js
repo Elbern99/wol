@@ -55,7 +55,7 @@
                 $(overlay).addClass('js-tab-hidden').removeClass('active');
                 $(triggerEl).trigger('click');
             });
-        },
+        }
     };
 
     contentMap.MobileMoreText('.more-evidence-map-text-mobile');
@@ -95,12 +95,7 @@
           }
       },
        getColor: function(d) {
-        return  d === 'factor-efficiency' ? 'factor-efficiency' :
-            d === 'factor' ? 'factor' :
-            d === 'efficiency-innovation' ? 'efficiency-innovation' :
-            d === 'efficiency' ? 'efficiency' :
-            d === 'innovation' ? 'innovation' :
-            d === 'none';
+           if(d !== undefined) return d;
       },
       onEachFeature: function(feature, layer) {
         layer.on({});
@@ -220,33 +215,34 @@
             key_country = value.country,
             arrayTpl = [];
 
-        if(key_references_obj) {
-            var key_references_length = value.key_references.length;
+        if (key_country !== undefined) {
+            if(key_references_obj) {
+                var key_references_length = value.key_references.length;
 
-            arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
+                arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
 
-            for (i = 0; i < key_references_obj.length; i++) {
-                var references_full_citation = key_references_obj[i].full_citation,
-                    references_method = key_references_obj[i].method,
-                    references_position = key_references_obj[i].position,
-                    references_source = key_references_obj[i].source,
-                    references_title = key_references_obj[i].title,
-                    references_type = key_references_obj[i].type;
+                for (i = 0; i < key_references_obj.length; i++) {
+                    var references_full_citation = key_references_obj[i].full_citation,
+                        references_method = key_references_obj[i].method,
+                        references_position = key_references_obj[i].position,
+                        references_source = key_references_obj[i].source,
+                        references_title = key_references_obj[i].title,
+                        references_type = key_references_obj[i].type;
 
-                arrayTpl.push('' +
-                    '<div class="ref-item">' +
-                    '<div class="authors">'+references_title+'</div>' +
-                    '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
-                    '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
-                    '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
-                    '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
-                    '</div>'
-                );
+                    arrayTpl.push('' +
+                        '<div class="ref-item">' +
+                        '<div class="authors">'+references_title+'</div>' +
+                        '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
+                        '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
+                        '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
+                        '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
+                        '</div>'
+                    );
+                }
             }
-        }
 
-        if(key_additional_obj) {
-            var key_additional_length = key_additional_obj.length;
+            if(key_additional_obj) {
+                var key_additional_length = key_additional_obj.length;
                 arrayTpl.push('<h3>Additional references from '+key_country+'</h3>');
                 for (i = 0; i < key_additional_obj.length; i++) {
                     var additional_full_citation = key_additional_obj[i].full_citation,
@@ -259,32 +255,33 @@
                         '</div>'
                     );
                 }
+            }
+
+            var key_ref_tpl;
+
+            if(arrayTpl) {
+                key_ref_tpl = arrayTpl.join("\n");
+            }
+
+            if(key_references_length === undefined){
+                key_references_length = 0;
+            }
+
+            if(key_additional_length === undefined){
+                key_additional_length = 0;
+            }
+
+            var articles_count = key_references_length + key_additional_length;
+
+            var LeafIcon = L.divIcon({
+                iconSize: new L.Point(24, 35),
+                html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
+            });
+
+            var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
+
+            marker.on('click', mapObj.onMapClick );
         }
-
-        var key_ref_tpl;
-
-        if(arrayTpl) {
-            key_ref_tpl = arrayTpl.join("\n");
-        }
-
-        if(key_references_length === undefined){
-            key_references_length = 0;
-        }
-
-        if(key_additional_length === undefined){
-            key_additional_length = 0;
-        }
-
-        var articles_count = key_references_length + key_additional_length;
-
-        var LeafIcon = L.divIcon({
-            iconSize: new L.Point(24, 35),
-            html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
-        });
-
-        var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
-
-        marker.on('click', mapObj.onMapClick );
     });
 
     })

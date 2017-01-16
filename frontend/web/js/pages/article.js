@@ -26,14 +26,18 @@
     var article = {
         delay: 0,
         overlayOpen: function(overlay) {
-            $(overlay).removeClass('js-tab-hidden').addClass('active');
-            $(overlay).css('height', '1px');
-            $(overlay).css('height', $(document).height());
-            $(overlay).css('max-height', $(document).height());
+            var overlayEl = $(overlay);
+
+            overlayEl.removeClass('js-tab-hidden').addClass('active');
+            overlayEl.css('height', '1px');
+            overlayEl.css('height', $(document).height());
+            overlayEl.css('max-height', $(document).height());
         },
         closeOverlay: function(overlay,triggerEl) {
-            $(overlay).click(function(e) {
-                $(overlay).addClass('js-tab-hidden').removeClass('active');
+            var overlayEl = $(overlay);
+
+            overlayEl.click(function(e) {
+                overlayEl.addClass('js-tab-hidden').removeClass('active');
                 $(triggerEl).trigger('click');
             });
         },
@@ -49,14 +53,16 @@
             });
         },
         changeContentPupop: function(cur){
-            var curCaption = cur.parent().find('.caption').html(),
-                curSources = cur.parent().find('.sources').html(),
-                curTypes = cur.parent().find('.types').html(),
-                curMethods = cur.parent().find('.methods').html(),
-                curCountries = cur.parent().find('.countries').html(),
-                curFurnitureReading = cur.parent().find('.further-reading-info').html(),
-                curBgInfo = cur.parent().find('.bg-info').html(),
-                curAdditional = cur.parent().find('.additional-references-info').html(),
+            var curEl = cur,
+                curElParent = curEl.parent(),
+                curCaption = curElParent.find('.caption').html(),
+                curSources = curElParent.find('.sources').html(),
+                curTypes = curElParent.find('.types').html(),
+                curMethods = curElParent.find('.methods').html(),
+                curCountries = curElParent.find('.countries').html(),
+                curFurnitureReading = curElParent.find('.further-reading-info').html(),
+                curBgInfo = curElParent.find('.bg-info').html(),
+                curAdditional = curElParent.find('.additional-references-info').html(),
                 popup = $('.reference-popup');
 
             var
@@ -131,14 +137,18 @@
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
-                var cur = $(this);
+                var cur = $(this),
+                    parentEl = $(parent),
+                    classEl = 'opened-reflink',
+                    arrows = '.arrows';
 
-                $('li').removeClass('opened-reflink');
-                cur.parent('li').addClass('opened-reflink');
-                $(parent).find('.arrows').fadeOut(0);
+
+                $('li').removeClass(classEl);
+                cur.parent('li').addClass(classEl);
+                parentEl.find(arrows).fadeOut(0);
 
                 article.changeContentPupop(cur);
-                $(parent).fadeIn(article.delay+200);
+                parentEl.fadeIn(article.delay+200);
 
                 if(_window_width < _tablet){
                     article.showPopupMobile(parent);
@@ -149,22 +159,25 @@
             $(btn).click(function(e) {
                 var
                     cur = $(this),
+                    curParent = cur.parent(),
+                    parentHolder = $(parent),
                     curAttr = cur.attr('href'),
-                    keyLink = $('.content-inner-text a[href$="'+curAttr+'"]').first();
-                //action
-                $('li').removeClass('opened-reflink');
-                cur.parent().addClass('opened-reflink');
-                $(parent).fadeOut(article.delay);
+                    keyLink = $('.content-inner-text a[href$="'+curAttr+'"]').first(),
+                    classEl = 'opened-reflink';
 
+                //action
+                $('li').removeClass(classEl);
+                curParent.addClass(classEl);
+                parentHolder.fadeOut(article.delay);
 
                 if(_window_width > _mobile){
-                    $(parent).fadeIn(article.delay);
+                    parentHolder.fadeIn(article.delay);
                 }
 
                 if(keyLink.length>0){
                     keyLink.trigger('click');
                 } else {
-                    cur.parent().find('.rel-tooltip').trigger('click');
+                    curParent.find('.rel-tooltip').trigger('click');
                 }
 
                 e.preventDefault();
@@ -175,24 +188,33 @@
                 var
                     cur = $(this),
                     curAttr = cur.attr('href'),
-                    keyLink = $('.sidebar-widget-articles-references a[href$="'+curAttr+'"]');
-                $('.text-reference').removeClass('text-reference-opened');
-                cur.addClass('text-reference-opened');
+                    keyLink = $('.sidebar-widget-articles-references a[href$="'+curAttr+'"]'),
+                    refLink = $('.text-reference'),
+                    parentHolder = $(parent),
+                    textReferenceOpened = 'text-reference-opened',
+                    openedClass = 'opened-reflink',
+                    btnPrevEl = $(btnPrev),
+                    btnNextEl = $(btnNext);
 
-                $('li').removeClass('opened-reflink');
+                refLink.removeClass(textReferenceOpened);
+                cur.addClass(textReferenceOpened);
+
+                $('li').removeClass(openedClass);
+
                 article.changeContentPupop(keyLink);
                 article.detectCoordinate(cur,parent);
                 article.showPopupMobile(parent);
-                keyLink.parent().addClass('opened-reflink');
+
+                keyLink.parent().addClass(openedClass);
                 var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
-                $(parent).fadeOut(article.delay);
+                parentHolder.fadeOut(article.delay);
 
                 $(allLinks).each(function( index ) {
                     $(this).attr('data-index', index+1);
                 });
 
                 if(_window_width > _mobile) {
-                    $(parent).fadeIn(article.delay);
+                    parentHolder.fadeIn(article.delay);
                 }
 
                 var
@@ -204,18 +226,18 @@
                     prevAttrIndex = curAttrIndex-1,
                     prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']');
 
-                $(btnPrev).removeClass('disabled');
-                $(btnNext).removeClass('disabled');
+                btnPrevEl.removeClass('disabled');
+                btnNextEl.removeClass('disabled');
 
                 if(prevCur.length == 0) {
-                    $(btnPrev).addClass('disabled');
+                    btnPrevEl.addClass('disabled');
                 }
 
                 if(nextCur.length == 0) {
-                    $(btnNext).addClass('disabled');
+                    btnNextEl.addClass('disabled');
                 }
 
-                $(parent).find('.arrows').fadeIn(0);
+                parentHolder.find('.arrows').fadeIn(0);
 
                 e.preventDefault();
             });
@@ -223,33 +245,30 @@
         showPopupMobile: function(parent) {
             if(_window_width < _tablet){
                 article.overlayOpen('.overlay');
+                var parentHolder = $(parent);
 
                 setTimeout(function(){
-                    $(parent).css('top',  elements.window.scrollTop() - 2);
-                    $(parent).fadeIn(0);
+                    parentHolder.css('top',  elements.window.scrollTop() - 2);
+                    parentHolder.fadeIn(0);
                 }, article.delay+402);
 
                 elements.window.bind('scrollstop', function(e){
-                    // if ($('.opened-reflink').length == 1 || $('.text-reference-opened').length == 1){
-                    //     //$(parent).fadeIn(article.delay+200);
-                    //     $(parent).css('top',  elements.window.scrollTop() - 2);
-                    // }
-
-                    if ($(parent).is(":visible") == true){
-                        $(parent).css('top',  elements.window.scrollTop() - 2);
+                    if (parentHolder.is(":visible") == true){
+                        parentHolder.css('top',  elements.window.scrollTop() - 2);
                     }
                 });
             }
         },
         detectCoordinate: function(cur,parent) {
             if($('.text-reference').length) {
-                var alignCenter = (_window_height - $(parent).height())/2;
-                var CurCord = cur.offset().top;
+                var alignCenter = (_window_height - $(parent).height())/2,
+                    CurCord = cur.offset().top,
+                    htmlEl = $('html, body');
 
                 if(_window_width > _mobile){
-                    $('html, body').animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+                    htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
                 } else {
-                    $('html, body').animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
+                    htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
                 }
             }
         },
@@ -281,7 +300,6 @@
                 if(prevCur.length == 0) {
                     $(btnPrev).addClass('disabled');
                 } else {
-                    //$(btnPrev).fadeIn(0);
                     $(btnNext).removeClass('disabled');
                 }
 
@@ -389,9 +407,10 @@
             });
         },
         closeOpen: function(btn,popup) {
+            var popupHolder = $(popup);
             $(btn).on('click', function(e) {
-                $(popup).fadeIn();
-                $(popup).find('div').removeClass('visible');
+                popupHolder.fadeIn();
+                popupHolder.find('div').removeClass('visible');
                 $('.cite-input-box-holder').addClass('visible');
 
                 if(_window_width < _tablet){
@@ -399,6 +418,101 @@
                 }
 
                 e.preventDefault();
+            });
+        },
+        mapInit: function() {
+            var countries_arrays = mapConfig.source;
+            var countries_array = {};
+
+            for (var prop in countries_arrays) {
+                countries_array[countries_arrays[prop]] = {};
+            }
+
+            var mapObj = {
+                options: {
+                    inertia: false,
+                    zoom: 0,
+                    clickable: false,
+                    boxZoom: false,
+                    tap: false,
+                    trackResize: true,
+                    center: [0, 0],
+                    attributionControl: false,
+                    zoomControl: false,
+                    dragging: false,
+                    scrollWheelZoom: false
+                },
+                style: function(feature) {
+                    return {
+                        stroke: false,
+                        fill: false,
+                        className: mapObj.getColor(feature.properties.economy)
+                    };
+                },
+                getColor: function(d) {
+                    if(d !== undefined) return d;
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on({});
+                }
+            };
+
+            var map = L.map(elements.mapMini, mapObj.options),
+                geojson;
+
+            if($('#'+ elements.mapMedium).length) {
+                var mapSecond = L.map(elements.mapMedium, mapObj.options),
+                    geojson;
+            }
+
+            //----------1 get
+            $.getJSON(mapConfig.json_path_country, function( data ) {
+                $.each(data[1], function(index, country) {
+                    $.each(countries_array, function(index, value) {
+                        if(index === country.iso2Code) {
+                            countries_array[index].id = country.id;
+                        }
+                    });
+                });
+
+                //------------2 get
+                $.getJSON(mapConfig.json_path_economytypes, function( data ) {
+                    $.each(data, function(index, value) {
+
+                        $.each(countries_array, function(index_countries, value_countries) {
+
+                            if(index === index_countries) {
+                                countries_array[index].economy = value;
+                            }
+                        });
+                    });
+
+                    //------------3 get
+                    $.getJSON(mapConfig.json_path, function( data ) {
+
+                        $.each(data.features, function(index, country) {
+                            var country_id = country.id;
+
+                            $.each(countries_array, function(index_countries, value_countries) {
+                                if(value_countries.id === country_id) {
+                                    country.properties.economy = value_countries.economy;
+                                }
+                            });
+                        });
+
+                        geojson = L.geoJson(data, {
+                            style: mapObj.style,
+                            onEachFeature: mapObj.onEachFeature
+                        }).addTo(map);
+
+                        if(mapSecond){
+                            geojson = L.geoJson(data, {
+                                style: mapObj.style,
+                                onEachFeature: mapObj.onEachFeature
+                            }).addTo(mapSecond);
+                        }
+                    })
+                });
             });
         }
     };
@@ -442,106 +556,7 @@
 
     elements.window.load(function() {
         shareSelected('.article-full article');
-
-        var countries_arrays = mapConfig.source;
-        var countries_array = {};
-
-        for (var prop in countries_arrays) {
-            countries_array[countries_arrays[prop]] = {};
-        }
-
-        var mapObj = {
-            options: {
-                inertia: false,
-                zoom: 0,
-                clickable: false,
-                boxZoom: false,
-                tap: false,
-                trackResize: true,
-                center: [0, 0],
-                attributionControl: false,
-                zoomControl: false,
-                dragging: false,
-                scrollWheelZoom: false
-            },
-            style: function(feature) {
-                return {
-                    stroke: false,
-                    fill: false,
-                    className: mapObj.getColor(feature.properties.economy)
-                };
-            },
-            getColor: function(d) {
-                return  d === 'factor-efficiency' ? 'factor-efficiency' :
-                    d === 'factor' ? 'factor' :
-                        d === 'efficiency-innovation' ? 'efficiency-innovation' :
-                            d === 'efficiency' ? 'efficiency' :
-                                d === 'innovation' ? 'innovation' :
-                                d === 'none';
-            },
-            onEachFeature: function(feature, layer) {
-                layer.on({});
-            }
-        };
-
-        var map = L.map(elements.mapMini, mapObj.options),
-            geojson;
-
-        if($('#'+ elements.mapMedium).length) {
-            var mapSecond = L.map(elements.mapMedium, mapObj.options),
-                geojson;
-        }
-
-        //----------1 get
-        $.getJSON(mapConfig.json_path_country, function( data ) {
-            $.each(data[1], function(index, country) {
-                $.each(countries_array, function(index, value) {
-                    if(index === country.iso2Code) {
-                        countries_array[index].id = country.id;
-                    }
-                });
-            });
-
-            //------------2 get
-            $.getJSON(mapConfig.json_path_economytypes, function( data ) {
-                $.each(data, function(index, value) {
-
-                    $.each(countries_array, function(index_countries, value_countries) {
-
-                        if(index === index_countries) {
-                            countries_array[index].economy = value;
-                        }
-                    });
-                });
-
-                //------------3 get
-                $.getJSON(mapConfig.json_path, function( data ) {
-
-                    $.each(data.features, function(index, country) {
-                        var country_id = country.id;
-
-                        $.each(countries_array, function(index_countries, value_countries) {
-                            if(value_countries.id === country_id) {
-                                country.properties.economy = value_countries.economy;
-                            }
-                        });
-                    });
-
-                    geojson = L.geoJson(data, {
-                        style: mapObj.style,
-                        onEachFeature: mapObj.onEachFeature
-                    }).addTo(map);
-
-                    if(mapSecond){
-                        geojson = L.geoJson(data, {
-                            style: mapObj.style,
-                            onEachFeature: mapObj.onEachFeature
-                        }).addTo(mapSecond);
-                    }
-                })
-            });
-        });
-
+        article.mapInit();
         article.addToFavourite('.btn-like');
     });
 

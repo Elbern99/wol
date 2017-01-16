@@ -382,6 +382,7 @@
   width: 47px !important;
   height: 52px !important;
   margin: -48px 0 0 -20px !important;
+  z-index: 240 !important;
 
   @include breakpoint('tablet') {
     width: 24px !important;
@@ -390,7 +391,7 @@
   }
 
   &:hover {
-    z-index: 240 !important;
+    z-index: 241 !important;
     @include breakpoint('tablet') {
       margin: -31px 0 0 -11px !important;
     }
