@@ -104,6 +104,8 @@ class NewsController extends Controller {
                                    ->limit(10)
                                    ->all();
         
+        krsort($newsTree, SORT_NUMERIC);
+        
         return $this->render('index', [
             'news' => $this->_getNewsList($limit, $year, $month),
             'newsCount' => $newsQuery->count(),
@@ -155,6 +157,9 @@ class NewsController extends Controller {
         $articles = Article::find()->orderBy('id desc')
                                    ->limit(10)
                                    ->all();
+        
+        krsort($newsTree, SORT_NUMERIC);
+        
         return $this->render('view', [
             'model' => $newsItem,
             'category' => $this->_getMainCategory(),
@@ -163,56 +168,6 @@ class NewsController extends Controller {
             'newsTree' => $newsTree,
             'articlesSidebar' => $articles,
         ]);
-//        if (!$slug)
-//            return $this->goHome();
-//     
-//        $event = Event::find()->andWhere(['url_key' => $slug])->one();
-//        
-//        if (!$event) 
-//            return $this->redirect(Url::to(['/event/index']));
-//        
-//        $yearMonth = $event->date_from->format('Y-m');
-//        $otherEvents = Event::find()->andWhere("date_from like '$yearMonth%'")
-//                                    ->andWhere("id <> $event->id")
-//                                    ->all();
-//        
-//        $groupsQuery = (new \yii\db\Query())
-//                ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
-//                ->from('events')
-//                ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-//                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
-//        
-//        $eventsTree = [];
-//        $groups = [];
-//        
-//        foreach ($groupsQuery->all() as $key => $value)
-//        {
-//            $groupMonth = (int)ArrayHelper::getValue($value, 'm');
-//            $groupYear = (int)ArrayHelper::getValue($value, 'y');
-//            
-//            if (strlen($groupMonth) == 1) {
-//                $groupMonth = '0'.$groupMonth;
-//            }
-//            
-//            $eventsTree[$groupYear][] = $groupMonth;
-//            $yearMonth = $groupYear . '-' . $groupMonth;
-//            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
-//            $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
-//        }
-//        
-//        $widgets = Widget::find()->where([
-//            'name' => ['event_widget1', 'event_widget2'],
-//        ])->all();
-//        
-//        
-//        return $this->render('view', [
-//            'model' => $event,
-//            'otherEvents' => $otherEvents,
-//            'eventsTree' => $eventsTree,
-//            'category' => $this->_getEventMainCategory(),
-//            'widgets' => $widgets,
-//            'eventGroups' => $groups,
-//        ]);
     }
     
     public function actionNewsletters($year, $month) {
