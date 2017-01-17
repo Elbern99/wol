@@ -152,9 +152,7 @@ if ($category) {
                                             </div>
                                         </div>
                                         <h2>
-                                            <a href="#">
-                                                <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
-                                            </a>
+                                            <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
                                         </h2>
                                         <div class="hide-mobile"><?= $item->short_description; ?></div>
                                     </div>
