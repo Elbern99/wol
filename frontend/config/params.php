@@ -7,7 +7,8 @@ return [
         'image' => '/images/lang/english.jpg'
     ],
     'search' => [
-        'article' => '\common\models\ArticleSearch'
+        'article' => '\common\models\ArticleSearch',
+        'biography' => '\common\models\BiographySearch'
     ],
     'article_limit' => 10,
     'opinion_limit' => 4,

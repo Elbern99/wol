@@ -109,10 +109,20 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                             <?php
                                 switch ($result['type']) {
                                     case 'article':
+                                        
                                         if(isset(Result::$value[$result['type']][$result['id']])) {
                                            echo $this->render('items/article.php',['value' => Result::$value[$result['type']][$result['id']], 'type' => $result['type']]);
                                         }
-                                    break;
+                                        
+                                        break;
+                                        
+                                    case 'biography':
+                                        
+                                        if(isset(Result::$value[$result['type']][$result['id']])) {
+                                           echo $this->render('items/biography.php',['value' => Result::$value[$result['type']][$result['id']], 'type' => $result['type']]);
+                                        }
+                                        
+                                        break;
                                 }
                             ?>
 

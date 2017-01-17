@@ -7,6 +7,9 @@ use common\models\Article;
 use common\models\ArticleCategory;
 use common\modules\eav\CategoryCollection;
 use frontend\models\contracts\SearchInterface;
+use common\models\Author;
+use common\modules\eav\helper\EavValueHelper;
+
 /**
  * Signup form
  */
@@ -75,9 +78,55 @@ class Result
                     
                     self::$value[$k] = self::getArticles($v);
                     break;
+                    
+                case 'biography':
+                    
+                    if ($filtered) {
+
+                        $id = self::$model->getHeadingModelKey($k);
+
+                        if(is_null(self::$filters['types']) || (isset($id) && (array_search($id, self::$filters['types']) === false))) {
+                            continue;
+                        }
+
+                    }
+                    
+                    self::$value[$k] = self::getAuthors($v);
+                    break;
             }
             
         }
+    }
+    
+    protected static function getAuthors($ids) {
+        
+        $collection = [];
+
+        $authors = Author::find()
+                            ->select(['id', 'url_key', 'name'])
+                            ->where(['enabled' => 1, 'id' => $ids])
+                            ->asArray()
+                            ->all();
+
+        $authorCollection = Yii::createObject(CategoryCollection::class);
+        $authorCollection->setAttributeFilter(['affiliation']);
+        $authorCollection->initCollection(Author::tableName(), ArrayHelper::getColumn($authors, 'id'));
+        $authorValues = $authorCollection->getValues();
+
+        foreach ($authors as $author) {
+
+            $affiliation = EavValueHelper::getValue($authorValues[$author['id']], 'affiliation', function($data) {
+                        return $data->affiliation;
+                    }, 'string');
+
+            $collection[$author['id']] = [
+                'url' => Author::getAuthorUrl($author['url_key']),
+                'name' => $author['name'],
+                'affiliation' => $affiliation,
+            ];
+        }
+        
+        return $collection;
     }
     
     protected static function getArticles($ids) {
