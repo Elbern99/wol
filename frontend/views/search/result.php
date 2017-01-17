@@ -104,25 +104,13 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                     </div>
 
                     <div class="search-results-table-body">
-                        <?php foreach ($resultData as $result): ?>
+                        <?php foreach ($resultData as $key => $result): ?>
 
-                            <?php
-                                switch ($result['type']) {
-                                    case 'article':
-                                        
-                                        if(isset(Result::$value[$result['type']][$result['id']])) {
-                                           echo $this->render('items/article.php',['value' => Result::$value[$result['type']][$result['id']], 'type' => $result['type']]);
-                                        }
-                                        
-                                        break;
-                                        
-                                    case 'biography':
-                                        
-                                        if(isset(Result::$value[$result['type']][$result['id']])) {
-                                           echo $this->render('items/biography.php',['value' => Result::$value[$result['type']][$result['id']], 'type' => $result['type']]);
-                                        }
-                                        
-                                        break;
+                            <?php   
+                                if(is_array($result)) {
+                                    foreach ($result as $params) {
+                                        echo $this->render("items/$key.php",['value' => $params, 'type' => $key]);
+                                    }
                                 }
                             ?>
 
