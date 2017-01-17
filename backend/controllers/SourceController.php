@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 /*
  * Data Source Manager Class Controller
@@ -46,27 +47,27 @@ class SourceController extends Controller
         
         if (is_null($id)) {
             $sourceModel = new DataSource();
-            $adjacentModel = new SourceTaxonomy();
+            
         } else {
             $sourceModel = DataSource::findOne($id);
-            $adjacentModel = $sourceModel->getSourceTaxonomies()->all();
-            var_dump($adjacentModel);exit;
+            $adjacentSelected = $sourceModel->getSourceTaxonomies()->asArray()->all();
+            $sourceModel->types = ArrayHelper::getColumn($adjacentSelected, 'taxonomy_id');
         }
         
         if (Yii::$app->request->isPost) {
             
             $sourceTaxonomy = Yii::$app->request->post('SourceTaxonomy');
             
-            if ($sourceModel->load(Yii::$app->request->post()) && $sourceModel->validate() && (isset($sourceTaxonomy['taxonomy_id']) && count($sourceTaxonomy))) {
-                
+            if ($sourceModel->load(Yii::$app->request->post()) && $sourceModel->validate()) {
+
                 if ($sourceModel->save()) {
                     
                     SourceTaxonomy::deleteAll(['source_id' => $sourceModel->id]);
                     $bulkInsertArray = [];
 
-                    foreach ($sourceTaxonomy['taxonomy_id'] as $source) {
+                    foreach ($sourceModel->types as $type) {
 
-                        $bulkInsertArray[] = ['source_id' => $sourceModel->id, 'taxonomy_id' => $source];
+                        $bulkInsertArray[] = ['source_id' => $sourceModel->id, 'taxonomy_id' => $type];
                     }
                     
                     Yii::$app->db->createCommand()
@@ -83,7 +84,7 @@ class SourceController extends Controller
             }
         }
         
-        return $this->render('view', ['sourceModel' => $sourceModel, 'adjacentModel' => $adjacentModel]);
+        return $this->render('view', ['sourceModel' => $sourceModel]);
     }
     
     public function actionDelete($id) {

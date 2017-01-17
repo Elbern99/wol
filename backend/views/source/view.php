@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($sourceModel, 'source') ?>
                 <?= $form->field($sourceModel, 'website') ?>
             
-                <?= Html::activeCheckboxList($adjacentModel, 'taxonomy_id', $adjacentModel->getItems(), ['separator' => '<br>']) ?>
-            
+                <?= $form->field($sourceModel, 'types')->checkboxList($sourceModel->getItems(), ['separator' => '<br>'])->label('Type') ?>
+                
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>

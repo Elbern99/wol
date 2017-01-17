@@ -69,7 +69,8 @@ return [
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
                 'key-topics' => 'topic/index',
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
-                'editorial-board' => 'authors/editorial'
+                'editorial-board' => 'authors/editorial',
+                'data-sources' => 'site/sources'
             ],
         ],
         'assetManager' => [

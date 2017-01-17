@@ -16,7 +16,6 @@ use Yii;
  */
 class SourceTaxonomy extends \yii\db\ActiveRecord
 {
-    public $sourceCode = 'IWOL_COL_40';
     
     /**
      * @inheritdoc
@@ -66,14 +65,4 @@ class SourceTaxonomy extends \yii\db\ActiveRecord
         return $this->hasOne(Taxonomy::className(), ['id' => 'taxonomy_id']);
     }
     
-    public function getItems() {
-        
-        $data = Taxonomy::find()
-                          ->select(['value', 'id'])
-                          ->andFilterWhere(['like', 'code', $this->sourceCode])
-                          ->asArray()
-                          ->all();
-        
-        return \yii\helpers\ArrayHelper::map($data, 'id', 'value');
-    }
 }

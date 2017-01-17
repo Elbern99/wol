@@ -15,6 +15,9 @@ use Yii;
  */
 class DataSource extends \yii\db\ActiveRecord
 {
+    public $types = [];
+    protected $sourceCode = 'IWOL_COL_40';
+    
     /**
      * @inheritdoc
      */
@@ -29,8 +32,9 @@ class DataSource extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source', 'website'], 'required'],
+            [['source', 'website', 'types'], 'required'],
             [['source', 'website'], 'string', 'max' => 255],
+            ['types', 'safe']
         ];
     }
 
@@ -52,5 +56,16 @@ class DataSource extends \yii\db\ActiveRecord
     public function getSourceTaxonomies()
     {
         return $this->hasMany(SourceTaxonomy::className(), ['source_id' => 'id']);
+    }
+    
+    public function getItems() {
+        
+        $data = Taxonomy::find()
+                          ->select(['value', 'id'])
+                          ->andFilterWhere(['like', 'code', $this->sourceCode])
+                          ->asArray()
+                          ->all();
+        
+        return \yii\helpers\ArrayHelper::map($data, 'id', 'value');
     }
 }

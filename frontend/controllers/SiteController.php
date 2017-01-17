@@ -22,7 +22,7 @@ use common\models\NewsletterNews;
 class SiteController extends Controller {
 
     use traits\HomeTrait;
-    
+    use traits\SourcesTrait;
     /**
      * @inheritdoc
      */
@@ -79,6 +79,11 @@ class SiteController extends Controller {
     public function actionIndex() {
 
         return $this->render('index', $this->getHomeParams());
+    }
+    
+    public function actionSources() {
+        
+        return $this->render('source', $this->getSourcePageData());
     }
     
     public function actionSubscribe() {
