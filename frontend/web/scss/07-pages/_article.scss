@@ -716,18 +716,28 @@
     position: fixed;
     top: auto !important;
     background: #fff;
+    font-size: 13px;
+    line-height: 1.4em;
   }
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 25px;
+    padding: 45px 0 60px;
     position: relative;
     max-width: $content-area-width;
     margin: 0 auto;
 
+    @include breakpoint('tablet') {
+      padding: 45px 0;
+    }
+
     .container {
       overflow: hidden;
       -webkit-overflow-scrolling: touch;
+
+      div:last-child {
+        margin-bottom: 0;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         overflow-y: scroll;
@@ -735,6 +745,7 @@
 
       @include breakpoint('tablet') {
         overflow-y: auto;
+        max-height: 250px;
       }
     }
   }
@@ -786,11 +797,6 @@
   }
 
   @include breakpoint('tablet') {
-    font-size: 11px;
-    line-height: 1.2em;
-  }
-
-  @include breakpoint('tablet') {
     border-top: 1px solid #535353;
   }
 
@@ -821,7 +827,7 @@
     font-family: $lucida-grande;
 
     @include breakpoint('tablet') {
-      font-size: 13px;
+      font-size: 15px;
       margin: 0 0 8px;
     }
   }
@@ -882,6 +888,12 @@
     height: 28px;
     margin: 0 8px;
     transition: all 0.3s ease;
+    position: absolute;
+    bottom: 15px;
+
+    @include breakpoint('tablet') {
+      bottom: 9px;
+    }
 
     .icon-arrow {
       height: 8px;
@@ -892,12 +904,12 @@
     }
 
     @include breakpoint('desktop-large') {
-      position: absolute;
       width: 22px;
       height: 22px;
       top: 50%;
       transform: translateY(-50%);
       margin: 0;
+      bottom: auto;
 
       &:hover {
         background: $blue;
