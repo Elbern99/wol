@@ -55,20 +55,16 @@ $authorLink = [];
 <div class="container article-full">
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
-            <li><a href="" class="js-widget">Subject areas</a></li>
-            <li><a href="" class="js-widget">Trending topics</a></li>
-            <li><a href="" class="js-widget">Authors</a></li>
+            <li><a href="/key-topics">Subject areas</a></li>
+            <!-- <li><a href="" class="js-widget">Trending topics</a></li> -->
+            <li><a href="/authors">Authors</a></li>
         </ul>
         <div class="mobile-filter-items custom-tabs">
-            <div class="tab-item blue js-tab-hidden expand-more">
-                test 1
-            </div>
-            <div class="tab-item blue js-tab-hidden expand-more">
+            <div class="tab-item blue js-tab-hidden expand-more"></div>
+            <!-- <div class="tab-item blue js-tab-hidden expand-more">
                 test 2
-            </div>
-            <div class="tab-item blue js-tab-hidden expand-more">
-                test 3
-            </div>
+            </div> -->
+            <div class="tab-item blue js-tab-hidden expand-more"></div>
         </div>
     </div>
     <div class="article-buttons article-buttons-mobile">
@@ -177,7 +173,7 @@ $authorLink = [];
                     <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
-                            <p>Can cash transfers reduce child labor?</p>
+                            <p><?= $attributes['title']->getData('title') ?></p>
                             <div class="icon-circle-arrow">
                                 <div class="icon-arrow"></div>
                             </div>

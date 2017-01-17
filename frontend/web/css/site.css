@@ -4893,7 +4893,7 @@ label {
   z-index: 1000; }
   @media only screen and (min-width: 769px) {
     .overlay {
-      display: none; } }
+      background: rgba(0, 0, 0, 0.05); } }
 
 .tabs-holder {
   position: relative; }
@@ -6586,22 +6586,30 @@ iframe[name=advpp_manager] {
       bottom: 0;
       position: fixed;
       top: auto !important;
-      background: #fff; } }
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.4em; } }
   .reference-popup .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 25px;
+    padding: 45px 0 60px;
     position: relative;
     max-width: 1230px;
     margin: 0 auto; }
+    @media only screen and (min-width: 769px) {
+      .reference-popup .reference-popup-inner {
+        padding: 45px 0; } }
     .reference-popup .reference-popup-inner .container {
       overflow: hidden;
       -webkit-overflow-scrolling: touch; }
+      .reference-popup .reference-popup-inner .container div:last-child {
+        margin-bottom: 0; }
       @media only screen and (max-width: 769px) {
         .reference-popup .reference-popup-inner .container {
           overflow-y: scroll; } }
       @media only screen and (min-width: 769px) {
         .reference-popup .reference-popup-inner .container {
-          overflow-y: auto; } }
+          overflow-y: auto;
+          max-height: 250px; } }
   @media only screen and (max-width: 769px) {
     .reference-popup {
       bottom: auto; }
@@ -6623,10 +6631,6 @@ iframe[name=advpp_manager] {
     overflow: hidden; }
   @media only screen and (min-width: 769px) {
     .reference-popup {
-      font-size: 11px;
-      line-height: 1.2em; } }
-  @media only screen and (min-width: 769px) {
-    .reference-popup {
       border-top: 1px solid #535353; } }
   .reference-popup .arrows {
     text-align: center; }
@@ -6646,7 +6650,7 @@ iframe[name=advpp_manager] {
     font-family: "LucidaGrande", Helvetica, Arial, Sans-serif; }
     @media only screen and (min-width: 769px) {
       .reference-popup h3 {
-        font-size: 13px;
+        font-size: 15px;
         margin: 0 0 8px; } }
   .reference-popup .caption {
     margin: 0 0 20px; }
@@ -6694,19 +6698,24 @@ iframe[name=advpp_manager] {
     width: 28px;
     height: 28px;
     margin: 0 8px;
-    transition: all 0.3s ease; }
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 15px; }
+    @media only screen and (min-width: 769px) {
+      .reference-popup .icon-circle-arrow {
+        bottom: 9px; } }
     .reference-popup .icon-circle-arrow .icon-arrow {
       height: 8px; }
     .reference-popup .icon-circle-arrow.left {
       transform: rotate(180deg); }
     @media only screen and (min-width: 1430px) {
       .reference-popup .icon-circle-arrow {
-        position: absolute;
         width: 22px;
         height: 22px;
         top: 50%;
         transform: translateY(-50%);
-        margin: 0; }
+        margin: 0;
+        bottom: auto; }
         .reference-popup .icon-circle-arrow:hover {
           background: #0053a0;
           color: #fff; }

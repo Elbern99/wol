@@ -6,7 +6,7 @@
   @extend .opacityAnimate;
 
   @include breakpoint('tablet') {
-    display: none;
+    background: rgba(0, 0, 0, 0.05);
   }
 }
 

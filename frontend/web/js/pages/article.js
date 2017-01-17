@@ -243,8 +243,8 @@
             });
         },
         showPopupMobile: function(parent) {
+            article.overlayOpen('.overlay');
             if(_window_width < _tablet){
-                article.overlayOpen('.overlay');
                 var parentHolder = $(parent);
 
                 setTimeout(function(){
