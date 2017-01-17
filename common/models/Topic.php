@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 class Topic extends \yii\db\ActiveRecord
 {
@@ -133,13 +134,25 @@ class Topic extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             $this->setStickyStatus();
+            $this->checkImageLink();
             return true;
         } else {
             return false;
         }
         
     }
-    
+
+    public function checkImageLink()
+    {
+        $image =  UploadedFile::getInstance($this, 'image_link');
+        
+        if (!$image) {
+            $currentItem = self::find()->where(['id' => $this->id])->one();
+            if ($currentItem && $currentItem->image_link) {
+                $this->image_link = $currentItem->image_link;
+            }
+        }
+    }
     public function articlesList()
     {
         $articles = Article::find()->orderBy('id desc')->all();

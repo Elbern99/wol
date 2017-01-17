@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 class Event extends \yii\db\ActiveRecord
 {
@@ -79,6 +80,29 @@ class Event extends \yii\db\ActiveRecord
     {
         $this->date_from = new \DateTime($this->date_from);
         $this->date_to = new \DateTime($this->date_to);
+    }
+ 
+    
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            $this->checkImageLink();
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public function checkImageLink()
+    {
+        $image =  UploadedFile::getInstance($this, 'image_link');
+        
+        if (!$image) {
+            $currentItem = self::find()->where(['id' => $this->id])->one();
+            if ($currentItem && $currentItem->image_link) {
+                $this->image_link = $currentItem->image_link;
+            }
+        }
     }
     
     public function saveFormatted()

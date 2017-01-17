@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 class NewsItem extends \yii\db\ActiveRecord
 {
@@ -77,6 +78,27 @@ class NewsItem extends \yii\db\ActiveRecord
     public function afterFind()
     {
         $this->created_at = new \DateTime($this->created_at);
+    }
+    
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            $this->checkImageLink();
+            return true;
+        } else {
+            return false;
+        }   
+    }
+    
+    public function checkImageLink()
+    {
+        $image =  UploadedFile::getInstance($this, 'image_link');
+        
+        if (!$image) {
+            $currentItem = self::find()->where(['id' => $this->id])->one();
+            if ($currentItem && $currentItem->image_link) {
+                $this->image_link = $currentItem->image_link;
+            }
+        }
     }
     
     public function saveFormatted()
