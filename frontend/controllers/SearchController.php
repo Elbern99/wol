@@ -145,7 +145,13 @@ class SearchController extends Controller
             }
             
         }
-
+        
+        if (Yii::$app->request->isGet) {
+            if (Yii::$app->request->get('phrase')) {
+                $model->search_phrase = Yii::$app->request->get('phrase');
+            }
+        }
+        
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
             
             try {

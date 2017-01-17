@@ -6110,6 +6110,63 @@ iframe[name=advpp_manager] {
   -ms-flex-pack: center;
       justify-content: center; }
 
+.source-table-holder {
+  margin-bottom: 20px; }
+  @media only screen and (min-width: 769px) {
+    .source-table-holder {
+      margin-bottom: 20px; } }
+  .source-table-holder .grid-view {
+    overflow: hidden;
+    overflow-x: auto; }
+  .source-table-holder .table {
+    min-width: 500px; }
+    .source-table-holder .table .filters,
+    .source-table-holder .table th {
+      background: #0053a0;
+      color: #fff;
+      border-color: #0053a0;
+      text-align: left; }
+      .source-table-holder .table .filters a,
+      .source-table-holder .table th a {
+        color: inherit; }
+    .source-table-holder .table .filters td {
+      border-color: #0053a0; }
+    .source-table-holder .table th, .source-table-holder .table td {
+      width: 30%; }
+      .source-table-holder .table th:last-child, .source-table-holder .table td:last-child {
+        width: 35%; }
+      .source-table-holder .table th:first-child, .source-table-holder .table td:first-child {
+        width: 35%; }
+      .source-table-holder .table th:nth-child(2), .source-table-holder .table td:nth-child(2) {
+        word-break: break-all; }
+    .source-table-holder .table tbody td {
+      border: 0 !important;
+      vertical-align: middle; }
+    .source-table-holder .table tbody ul {
+      padding: 0; }
+    .source-table-holder .table tbody tr:nth-child(even) td {
+      background: #eee; }
+    .source-table-holder .table select.form-control {
+      border: 0;
+      z-index: 2;
+      border-radius: 5px;
+      height: 28px;
+      cursor: pointer;
+      padding: 0 30px 0 10px;
+      background: #fff;
+      overflow: hidden;
+      margin: 0;
+      color: #323232;
+      font: normal 11px/28px "LucidaGrande", Helvetica, Arial, Sans-serif;
+      width: 100%;
+      position: relative;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center; }
+      .source-table-holder .table select.form-control option:first-child {
+        display: none; }
+
 .article-head {
   margin-bottom: 20px; }
   @media only screen and (min-width: 769px) {
