@@ -53,6 +53,9 @@
             });
         },
         changeContentPopup: function(cur){
+
+            $('.container-inner > .visible').removeClass('last-visible');
+
             var curEl = cur,
                 curElParent = curEl.parent(),
                 curCaption = curElParent.find('.caption').html(),
@@ -136,6 +139,8 @@
             }
 
             article.overlayOpen('.overlay');
+
+            $('.container-inner > .visible').last().addClass('last-visible');
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
