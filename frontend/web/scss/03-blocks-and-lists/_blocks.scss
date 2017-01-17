@@ -13,6 +13,14 @@
   @include breakpoint('tablet') {
     width: 149px;
   }
+
+  img {
+    height: 33px;
+
+    @include breakpoint('tablet') {
+      height: 64px;
+    }
+  }
 }
 
 //HEADER-BACKGROUND

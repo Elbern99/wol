@@ -1395,7 +1395,7 @@ h1, h2, h3, h4, h5, h6, .clone-title {
   margin: 0 0 20px; }
   @media only screen and (min-width: 769px) {
     h1, h2, h3, h4, h5, h6, .clone-title {
-      font: normal 35px/1.1em "LucidaGrande", Helvetica, Arial, Sans-serif; } }
+      font: normal 35px/1.2em "LucidaGrande", Helvetica, Arial, Sans-serif; } }
 
 h1,
 .clone-title {
@@ -1592,6 +1592,11 @@ blockquote {
   @media only screen and (min-width: 769px) {
     .logo-main {
       width: 149px; } }
+  .logo-main img {
+    height: 33px; }
+    @media only screen and (min-width: 769px) {
+      .logo-main img {
+        height: 64px; } }
 
 .header-background {
   height: calc(50vw*.6);
@@ -5451,7 +5456,7 @@ iframe[name=advpp_manager] {
       width: 30%; } }
   @media only screen and (min-width: 769px) {
     .footer .footer-left {
-      padding: 5px 0 0;
+      padding: 2px 0 0;
       width: 30%; } }
   @media only screen and (min-width: 769px) {
     .footer {
@@ -5465,7 +5470,9 @@ iframe[name=advpp_manager] {
   @media only screen and (max-width: 769px) {
     .footer .logo-main {
       margin-bottom: 17px;
-      width: 135px; } }
+      width: 135px; }
+      .footer .logo-main img {
+        height: 52px; } }
   @media only screen and (max-width: 769px) {
     .footer .socials-list {
       margin: 0 0 15px -5px; }
@@ -6658,8 +6665,8 @@ iframe[name=advpp_manager] {
     .reference-popup .reference-popup-inner .container {
       overflow: hidden;
       -webkit-overflow-scrolling: touch; }
-      .reference-popup .reference-popup-inner .container div:last-child {
-        margin-bottom: 0; }
+      .reference-popup .reference-popup-inner .container .last-visible {
+        margin-bottom: 0 !important; }
       @media only screen and (max-width: 769px) {
         .reference-popup .reference-popup-inner .container {
           overflow-y: scroll; } }
@@ -6736,13 +6743,14 @@ iframe[name=advpp_manager] {
     margin: 0 -24px 0px; }
     @media only screen and (min-width: 769px) {
       .reference-popup .columns {
-        margin: 0 -24px 16px; } }
+        margin: 0 -24px 0; } }
     .reference-popup .columns .column {
       padding: 0 24px 23px;
       margin: 0; }
       @media only screen and (min-width: 769px) {
         .reference-popup .columns .column {
           max-width: 33.3%;
+          margin-bottom: 16px;
           padding: 0 24px;
           vertical-align: top; }
           .reference-popup .columns .column.visible {

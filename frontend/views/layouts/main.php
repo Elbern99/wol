@@ -66,7 +66,7 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
                   <?= $this->renderFile('@app/views/components/footer/footer.php'); ?>
               </div>
               <p class="copyright">
-                  Copyright &copy; IZA <?= date('Y') ?> <a href="#" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571
+                  Copyright &copy; IZA <?= date('Y') ?> <a href="https://www.iza.org/imprint" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571
               </p>
           </div>
       </div>

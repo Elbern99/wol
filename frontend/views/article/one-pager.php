@@ -502,48 +502,48 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 <div class="reference-popup">
     <div class="reference-popup-inner">
         <div class="container">
-
-            <div class="cite-input-box-holder">
-                <div class="cite-input-box">
-                    <textarea cols="15" rows="10" class="form-control" id="copy-field"></textarea>
-                    <button class="btn-blue download-cite-button">Download</button>
-                    <button class="btn-blue copy-cite-button">Copy</button>
+            <div class="container-inner">
+                <div class="cite-input-box-holder">
+                    <div class="cite-input-box">
+                        <textarea cols="15" rows="10" class="form-control" id="copy-field"></textarea>
+                        <button class="btn-blue download-cite-button">Download</button>
+                        <button class="btn-blue copy-cite-button">Copy</button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="column-bg-info">
-                <div class="bg-info"></div>
-            </div>
-            <div class="column-additional-references">
-                <div class="additional-references"></div>
-            </div>
-            <div class="column-furniture-reading">
-                <h3>Full citation</h3>
-                <div class="furniture-reading"></div>
-            </div>
-            <div class="column-caption">
-                <h3>Full citation</h3>
-                <div class="caption">
-                    <a href=""></a>
+                <div class="column-bg-info">
+                    <div class="bg-info"></div>
                 </div>
-            </div>
-            <div class="columns">
-                <div class="column column-sources">
-                    <h3>Data source(s)</h3>
-                    <div class="sources"></div>
+                <div class="column-additional-references">
+                    <div class="additional-references"></div>
                 </div>
-                <div class="column column-types">
-                    <h3>Data type(s)</h3>
-                    <div class="types"></div>
+                <div class="column-furniture-reading">
+                    <h3>Full citation</h3>
+                    <div class="furniture-reading"></div>
                 </div>
-                <div class="column column-methods">
-                    <h3>Method(s)</h3>
-                    <div class="methods"></div>
+                <div class="column-caption">
+                    <h3>Full citation</h3>
+                    <div class="caption">
+                        <a href=""></a>
+                    </div>
                 </div>
-            </div>
-            <div class="column-countries">
-                <h3>Countries</h3>
-                <div class="countries"></div>
+                <div class="columns">
+                    <div class="column column-sources">
+                        <h3>Data source(s)</h3>
+                        <div class="sources"></div>
+                    </div>
+                    <div class="column column-types">
+                        <h3>Data type(s)</h3>
+                        <div class="types"></div>
+                    </div>
+                    <div class="column column-methods">
+                        <h3>Method(s)</h3>
+                        <div class="methods"></div>
+                    </div>
+                </div>
+                <div class="column-countries">
+                    <h3>Countries</h3>
+                    <div class="countries"></div>
+                </div>
             </div>
         </div>
         <div class="arrows">
