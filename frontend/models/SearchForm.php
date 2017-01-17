@@ -26,6 +26,7 @@ class SearchForm extends Model implements SearchInterface
     }
     
     /**
+     * Method use in result need fix
      * Signs user up.
      *
      * @return User|null the saved model or null if saving fails
@@ -56,6 +57,29 @@ class SearchForm extends Model implements SearchInterface
                             ->match($match)
                             ->asArray()
                             ->all();
+
+            foreach ($data as $d) {
+                $result[] = array_merge(['type' => $modelType], $d);
+            }
+
+        }
+        
+        return $result;
+    }
+    
+    public function searchAjax() {
+
+        $types = Yii::$app->params['search'];
+        $result = [];
+        
+        foreach($this->getheadingModelFilter() as $modelType) {
+            
+            if (!isset($types[$modelType])) {
+                throw new \Exception('Search Model Not Found');
+            }
+            
+            $class = $types[$modelType];
+            $data = $class::getSearchAjaxResult($this->search_phrase);
 
             foreach ($data as $d) {
                 $result[] = array_merge(['type' => $modelType], $d);

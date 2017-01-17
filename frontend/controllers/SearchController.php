@@ -116,7 +116,7 @@ class SearchController extends Controller
             
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-                $matches = $model->search(['title']);
+                $matches = $model->searchAjax();
 
                 if (count($matches)) {
                     $columns = ArrayHelper::getColumn($matches, 'title');

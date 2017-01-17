@@ -3,7 +3,6 @@ namespace frontend\models;
 
 use yii\base\Model;
 use Yii;
-use yii\sphinx\MatchExpression;
 use frontend\models\contracts\SearchInterface;
 /**
  * Signup form
@@ -50,55 +49,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             }
             
             $class = $types[$modelType];
-            $match = new MatchExpression();
-            
-            if ($this->search_phrase) {
-                
-                $match->match(Yii::$app->sphinx->escapeMatchValue($this->search_phrase));
-            }
-            
-            if ($this->exact_phrase) {
-                
-                $match->andMatch(['value' => Yii::$app->sphinx->escapeMatchValue($this->exact_phrase)]);
-            }
-
-            if ($this->all_words) {
-                
-                $allWords = explode(',', Yii::$app->sphinx->escapeMatchValue($this->all_words));
-                $match->andMatch(['*' => $allWords]);
-            }
-
-            if ($this->one_more_words) {
-                
-                $oneMoreWords = explode(',', Yii::$app->sphinx->escapeMatchValue($this->one_more_words));
-                
-                $filter = [];
-                
-                foreach ($oneMoreWords as $key=>$word) {
-                    $filter[':'.$key] = $word;
-                }
-                
-                $match->andMatch('(title|value|availability) ('.  implode(' | ', array_keys($filter)).')', $filter);
-            }
-
-            if ($this->any_words) {
-                
-                $anyWords = explode(',', Yii::$app->sphinx->escapeMatchValue($this->any_words));
-                
-                $filter = [];
-                
-                foreach ($anyWords as $key=>$word) {
-                    $filter[':'.$key] = $word;
-                }
-                
-                $match->andMatch('(title|value|availability) -('.  implode(' | ', array_keys($filter)).')', $filter);
-            }
-
-            $data = $class::find()
-                            ->select(['id'])
-                            ->match($match)
-                            ->asArray()
-                            ->all();
+            $data = $class::getSearchResult($this->getAttributes());
 
             foreach ($data as $d) {
                 $result[] = [
