@@ -38,7 +38,6 @@ $this->registerMetaTag([
 
                     <?= $page->getWidgetByName('home_featured_article') ?>
                     
-                    
                     <div class="articles-list-holder">
                         <?php Pjax::begin(['linkSelector' => '#article_limit_button']); ?>
                         <div class="widget-title medium"><a href="/articles">latest articles</a></div>
@@ -53,10 +52,7 @@ $this->registerMetaTag([
                                 <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                                 <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                                 <div class="publish">
-                                    <?php foreach($article['authors'] as $author): ?>
-                                        <?= $author ?>
-                                    <?php endforeach; ?>
-                                    ,<?= date('F Y', $article['created_at']) ?></div>
+                                    <?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
                                 <div class="description">
                                     <?= $article['abstract']->abstract ?? ''; ?>
                                 </div>

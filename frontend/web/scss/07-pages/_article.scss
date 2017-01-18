@@ -140,17 +140,7 @@
   margin: 0 0 25px;
 
   @include breakpoint('tablet') {
-    margin: 0 0 39px;
-  }
-
-  a {
-    display: block;
-    height: 100%;
-
-    img {
-      display: block;
-      min-height: 100%;
-    }
+    margin: 0 0 38px;
   }
 
   .img {
@@ -160,6 +150,16 @@
     overflow: hidden;
     border-radius: 50%;
     margin: 0 21px 0 0;
+
+    a {
+      display: block;
+      height: 100%;
+
+      img {
+        display: block;
+        min-height: 100%;
+      }
+    }
 
     @include breakpoint('tablet') {
       margin: 7px 22px 0 0;
