@@ -30,7 +30,7 @@ if ($category) {
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
-            <h1><?= $this->title; ?></h1>
+            <h1>Upcoming Events</h1>
         </div>
     </div>
 
