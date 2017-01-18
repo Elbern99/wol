@@ -7,7 +7,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use frontend\models\AdvancedSearchForm;
-use frontend\models\SearchForm;
 use yii\data\Pagination;
 use frontend\models\Result;
 use yii\helpers\Url;
@@ -54,35 +53,39 @@ class SearchController extends Controller
         $model = new AdvancedSearchForm();
         Result::setModel($model);
         
-        if (Yii::$app->request->isPost && Yii::$app->request->post('filter_content_type')) {
-            $model->types = Yii::$app->request->post('filter_content_type');
-        }
+        if (Yii::$app->request->isPost) {
+            
+            if (Yii::$app->request->post('filter_content_type')) {
+                $model->types = Yii::$app->request->post('filter_content_type');
+            } else {
+                $model->types = $model->getTypeIds();
+            }
 
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            if ($phrase != $model->search_phrase) {
-                
-                try {
-                    $searchResult = $model->search();
-                } catch(\Exception $e) {
-                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Have problems in search request'));
-                    $searchResult = [];
+                if ($phrase != $model->search_phrase) {
+
+                    try {
+                        $searchResult = $model->search();
+                    } catch (\Exception $e) {
+                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Have problems in search request'));
+                        $searchResult = [];
+                    }
+
+                    $phrase = $model->search_phrase;
+                    Yii::$app->getSession()->set('search', serialize($searchResult));
+                } else {
+
+                    $searchResult = unserialize(Yii::$app->getSession()->get('search'));
+                    Result::setFilter('types', Yii::$app->request->post('filter_content_type'));
+                    Result::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
                 }
 
-                $phrase = $model->search_phrase;
-                Yii::$app->getSession()->set('search', serialize($searchResult));
-                
-            } else {
-                
-                $searchResult = unserialize(Yii::$app->getSession()->get('search'));
-                Result::setFilter('types',Yii::$app->request->post('filter_content_type'));
-                Result::setFilter('subject',Yii::$app->request->post('filter_subject_type'));
+                Yii::$app->getSession()->set('search_criteria', serialize([
+                    'search_phrase' => $phrase,
+                    'types' => Yii::$app->request->post('filter_content_type')
+                ]));
             }
-            
-            Yii::$app->getSession()->set('search_criteria', serialize([
-                'search_phrase' => $phrase,
-                'types' => Yii::$app->request->post('filter_content_type')
-            ]));
             
         } else {
             $searchResult = unserialize(Yii::$app->getSession()->get('search'));
@@ -117,11 +120,14 @@ class SearchController extends Controller
     public function actionAjax()
     {
         try {
-            $model = new SearchForm();
+            
+            $model = new AdvancedSearchForm();
+            $model->types = $model->getTypeIds();
+            
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+               
                 $matches = $model->searchAjax();
 
                 if (count($matches)) {

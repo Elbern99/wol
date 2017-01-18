@@ -2,10 +2,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use frontend\models\SearchForm;
+use frontend\models\AdvancedSearchForm;
 ?>
 
-<?php $model = new SearchForm(); ?>
+<?php $model = new AdvancedSearchForm(); ?>
 <div class="search">
     <div class="search-top">
         <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'header-search-form']]); ?>

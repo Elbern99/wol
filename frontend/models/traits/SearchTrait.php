@@ -44,4 +44,17 @@ trait SearchTrait {
         
         return false;
     }
+    
+    public function getTypeIds(): array {
+        
+        return [
+            self::ARTICLE_SEARCH_TYPE,
+            self::BIOGRAPHY_SEARCH_TYPE,
+            /*self::KEYTOPICS_SEARCH_TYPE
+            self::NEWS_SEARCH_TYPE
+            self::OPINIONS_SEARCH_TYPE
+            self::EVENTS_SEARCH_TYPE
+            self::VIDEOS_SEARCH_TYPE*/
+        ];
+    }
 }

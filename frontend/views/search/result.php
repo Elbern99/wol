@@ -3,7 +3,7 @@ use frontend\components\search\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\Result;
-use frontend\models\SearchForm;
+use frontend\models\AdvancedSearchForm;
 use frontend\components\filters\ContentTypesWidget;
 use frontend\components\filters\SubjectAreasWidget;
 use yii\widgets\ActiveForm;
@@ -183,7 +183,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
                                     <div class="text">
-                                        <?= ContentTypesWidget::widget(['dataClass' => SearchForm::class, 'dataSelect' => Result::$formatData, 'filtered' => Result::getFilter('types')]); ?>
+                                        <?= ContentTypesWidget::widget(['dataClass' => AdvancedSearchForm::class, 'dataSelect' => Result::$formatData, 'filtered' => Result::getFilter('types')]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
                                 </li>
