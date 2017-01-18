@@ -1584,6 +1584,11 @@ blockquote {
     margin-right: 0.25em;
     vertical-align: -0.4em; }
 
+.table-holder {
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; }
+
 /******* // BASE *******/
 /******* BLOCKS *******/
 .logo-main {
@@ -2915,12 +2920,12 @@ blockquote {
     margin: 0;
     color: #fff;
     line-height: 1.35em;
-    font-size: 14px;
+    font-size: 13px;
     min-height: 23px; }
     @media only screen and (min-width: 769px) {
       .data-method-item h3 {
         line-height: 1.55em;
-        font-size: 16px;
+        font-size: 15px;
         min-height: 1px; } }
 
 .podcast-item {

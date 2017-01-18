@@ -256,3 +256,9 @@ blockquote {
     vertical-align: -0.4em ;
   }
 }
+
+.table-holder {
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
