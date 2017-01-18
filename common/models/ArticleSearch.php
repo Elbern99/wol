@@ -116,10 +116,16 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             $match->andMatch('(title|value|availability) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
-        return  self::find()
+        $result =  self::find()
                         ->select(['id'])
                         ->match($match)
                         ->asArray()
                         ->all();
+        
+        return self::filterArticleResult($result);
+    }
+    
+    protected static function filterArticleResult(array $ids): array {
+        return Article::find()->select('id')->where(['id' => $ids, 'enabled' => 1])->asArray()->all();
     }
 }
