@@ -116,10 +116,16 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
             $match->andMatch('(name|value|url_key) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
-        return  self::find()
+        $result = self::find()
                         ->select(['id'])
                         ->match($match)
                         ->asArray()
                         ->all();
+        
+        return self::filterAuthorResult($result);
+    }
+    
+    protected static function filterAuthorResult(array $ids): array {
+        return Author::find()->select('id')->where(['id' => $ids, 'enabled' => 1])->asArray()->all();
     }
 }

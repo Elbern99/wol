@@ -51,8 +51,12 @@ class SearchController extends Controller
      */
     public function actionIndex($phrase = null) {
         
-        $model = new SearchForm();
+        $model = new AdvancedSearchForm();
         Result::setModel($model);
+        
+        if (Yii::$app->request->isPost && Yii::$app->request->post('filter_content_type')) {
+            $model->types = Yii::$app->request->post('filter_content_type');
+        }
 
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -89,15 +93,12 @@ class SearchController extends Controller
         $resultData = [];
         
         unset($searchResult);
-        
-        if (count($results)) {
-            Result::initData($results);
-        }
 
-        $resultCount = count(Result::$value);
+        $resultCount = count($results);
         $paginate = new Pagination(['totalCount' => $resultCount]);
         
         if ($resultCount) {
+            Result::initData($results);
             $resultData = array_slice(Result::$value, $paginate->offset, $paginate->limit);
         }
         
