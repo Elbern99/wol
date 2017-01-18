@@ -357,6 +357,10 @@
 //article-map-medium
 .article-map-medium {
   display: none;
+  
+  >a {
+    color: #fff;
+  }
 
   @include breakpoint('tablet') {
     border-top: 1px solid #979797;
@@ -365,6 +369,10 @@
     height: 286px;
     position: relative;
     display: block;
+
+    .icon-arrow-square-blue {
+      font-size: 20px;
+    }
 
     .article-map-medium-text {
       position: absolute;
@@ -380,12 +388,6 @@
           color: $blue;
         }
       }
-
-      .icon-circle-arrow {
-        .icon-arrow {
-          margin: 1px 0 0 0;
-        }
-      }
     }
 
     h4 {
@@ -398,7 +400,7 @@
 
     p {
       font-size: 19px;
-      margin: 0 0 10px;
+      margin: 0 0 7px;
       line-height: 1.3em;
       font-family: $lucida-grande;
       color: #262626;
@@ -803,7 +805,15 @@
     text-align: center;
 
     @include breakpoint_custom($breakpoint-desktop-large) {
-      //padding: 27px 0 5px;
+      text-align: center;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      bottom: 10px;
+    }
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      bottom: 15px;
     }
   }
 
@@ -879,20 +889,70 @@
     }
   }
 
-  .icon-circle-arrow {
+  .icon-arrow-square-blue {
+    font-size: 20px;
     border: 1px solid $blue;
-    background: $white;
-    color: $blue;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    margin: 0 8px;
-    transition: all 0.3s ease;
-    position: absolute;
-    bottom: 15px;
+    border-radius: 50%;
+    padding: 2px;
+
+    @include breakpoint('desktop-large') {
+      padding: 1px;
+    }
 
     @include breakpoint('tablet') {
-      bottom: 9px;
+
+      &:hover {
+        background: $blue;
+
+        .path1 {
+          &:before {
+            color: $blue;
+          }
+        }
+
+        .path2 {
+          &:before {
+            color: $blue;
+          }
+        }
+
+        .path3 {
+          &:before {
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .path1 {
+      &:before {
+        color: $white;
+      }
+    }
+
+    .path2 {
+      &:before {
+        color: $white;
+      }
+    }
+
+    .path3 {
+      &:before {
+        color: $blue;
+      }
+    }
+  }
+
+  .icon-circle-arrow {
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+    background: none;
+
+    @include breakpoint('desktop-large') {
+      position: absolute;
     }
 
     .icon-arrow {
@@ -912,8 +972,8 @@
       bottom: auto;
 
       &:hover {
-        background: $blue;
-        color: $white;
+        //background: $blue;
+        //color: $white;
       }
 
       &:active {

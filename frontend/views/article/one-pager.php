@@ -332,7 +332,9 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <div id="map-mini"></div>
                 <div class="caption">
                     <div class="title">Evidence map</div>
-                    <div class="icon-next-circle"></div>
+                    <span class="icon-arrow-square-blue">
+                        <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                    </span>
                 </div>
             </a>
         </div>

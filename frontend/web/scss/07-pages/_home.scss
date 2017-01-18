@@ -279,6 +279,10 @@
   .icon-circle-arrow {
     display: none;
 
+    .icon-arrow {
+      width: 10px;
+    }
+
     @include breakpoint('tablet') {
       position: absolute;
       left: 15px;

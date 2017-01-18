@@ -1716,6 +1716,28 @@
       margin: 0 0 11px;
     }
 
+    .icon-arrow-square-blue {
+      font-size: 20px;
+      
+      .path1 {
+        &:before {
+          color: $white;
+        }
+      }
+
+      .path2 {
+        &:before {
+          color: $white;
+        }
+      }
+
+      .path3 {
+        &:before {
+          color: $blue;
+        }
+      }
+    }
+
     .icon-next-circle {
       color: $white;
       font-size: 19px;
@@ -1779,6 +1801,26 @@
       min-height: 80px;
       height: 80px;
       margin: 0 0 4px;
+    }
+
+    .icon-arrow-square-blue {
+      .path1 {
+        &:before {
+          color: #262626;
+        }
+      }
+
+      .path2 {
+        &:before {
+          color: #262626;
+        }
+      }
+
+      .path3 {
+        &:before {
+          color: #dadada;
+        }
+      }
     }
 
     @include breakpoint('tablet') {
@@ -1911,19 +1953,38 @@
     }
   }
 
-  .icon-next-circle {
+  .icon-arrow-square-blue {
+    font-size: 18px;
     float: left;
     margin: 6px 10px 0 0;
     width: 17px;
     height: 17px;
-    font-size: 18px;
 
     @include breakpoint('tablet') {
       margin: 3px 10px 0 0;
+      font-size: 20px;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
       order: 2;
+    }
+
+    .path1 {
+      &:before {
+        color: #fff;
+      }
+    }
+
+    .path2 {
+      &:before {
+        color: #fff;
+      }
+    }
+
+    .path3 {
+      &:before {
+        color: #565656;
+      }
     }
   }
 
