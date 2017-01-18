@@ -99,14 +99,13 @@ class SearchController extends Controller
 
         $resultCount = count($results);
         $paginate = new Pagination(['totalCount' => $resultCount]);
+        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
         
         if ($resultCount) {
             Result::initData($results);
-            $resultData = array_slice(Result::$value, $paginate->offset, $paginate->limit);
+            $resultData = array_slice(Result::getSearchValue(), $paginate->offset, $paginate->limit);
         }
-        
-        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
-        
+  
         return $this->render('result', [
             'phrase' => $phrase,
             'search' => $model,

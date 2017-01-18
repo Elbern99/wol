@@ -8,7 +8,12 @@ return [
     ],
     'search' => [
         'article' => '\common\models\ArticleSearch',
-        'biography' => '\common\models\BiographySearch'
+        'biography' => '\common\models\BiographySearch',
+        'news' => '\common\models\NewsSearch',
+        'key_topics' => '\common\models\TopicsSearch',
+        'opinions' => '\common\models\OpinionsSearch',
+        'events' => '\common\models\EventsSearch',
+        'videos' => '\common\models\VideosSearch',
     ],
     'article_limit' => 10,
     'opinion_limit' => 4,

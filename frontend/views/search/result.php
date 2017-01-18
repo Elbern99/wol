@@ -104,16 +104,8 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                     </div>
 
                     <div class="search-results-table-body">
-                        <?php foreach ($resultData as $key => $result): ?>
-
-                            <?php   
-                                if(is_array($result)) {
-                                    foreach ($result as $params) {
-                                        echo $this->render("items/$key.php",['value' => $params, 'type' => $key]);
-                                    }
-                                }
-                            ?>
-
+                        <?php foreach ($resultData as $item): ?>
+                            <?= $this->render("items/".$item['type'].".php",['value' => $item['params'], 'type' => $item['type']]); ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
