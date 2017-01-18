@@ -6270,13 +6270,7 @@ iframe[name=advpp_manager] {
   margin: 0 0 25px; }
   @media only screen and (min-width: 769px) {
     .article-user {
-      margin: 0 0 39px; } }
-  .article-user a {
-    display: block;
-    height: 100%; }
-    .article-user a img {
-      display: block;
-      min-height: 100%; }
+      margin: 0 0 38px; } }
   .article-user .img {
     float: left;
     width: 50px;
@@ -6284,6 +6278,12 @@ iframe[name=advpp_manager] {
     overflow: hidden;
     border-radius: 50%;
     margin: 0 21px 0 0; }
+    .article-user .img a {
+      display: block;
+      height: 100%; }
+      .article-user .img a img {
+        display: block;
+        min-height: 100%; }
     @media only screen and (min-width: 769px) {
       .article-user .img {
         margin: 7px 22px 0 0; } }
