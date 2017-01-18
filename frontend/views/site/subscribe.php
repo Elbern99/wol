@@ -78,21 +78,21 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-line">
                 <?= Html::activeCheckbox($model, 'iza_world', 
                     ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to recieve updates from IZA World of Labor</span>']
+                    'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
                 ) ?>
             </div>
 
             <div class="form-line">
                 <?= Html::activeCheckbox($model, 'interest', 
                     ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to recieve new article alerts in my areas of interest</span>']
+                    'label' => '<span class="label-text">I would like to receive new article alerts in my areas of interest</span>']
                 ) ?>
             </div>
 
             <div class="form-line">
                 <?= Html::activeCheckbox($model, 'iza', 
                     ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to recieve updates from IZA</span>']
+                    'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
                 ) ?>
             </div>
             

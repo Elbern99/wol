@@ -54,8 +54,6 @@
         },
         changeContentPopup: function(cur){
 
-            $('.container-inner > .visible').removeClass('last-visible');
-
             var curEl = cur,
                 curElParent = curEl.parent(),
                 curCaption = curElParent.find('.caption').html(),
@@ -66,7 +64,8 @@
                 curFurnitureReading = curElParent.find('.further-reading-info').html(),
                 curBgInfo = curElParent.find('.bg-info').html(),
                 curAdditional = curElParent.find('.additional-references-info').html(),
-                popup = $('.reference-popup');
+                popup = $('.reference-popup'),
+                visibleEl = $('.container-inner > .visible');
 
             var
                 caption = popup.find('.caption'),
@@ -78,6 +77,8 @@
                 additional = popup.find('.additional-references'),
                 bgInfo = popup.find('.bg-info'),
                 cite = popup.find('.cite-input-box');
+
+            visibleEl.removeClass('last-visible');
 
             furnitureReading.parent().removeClass('visible');
             caption.parent().removeClass('visible');
@@ -140,7 +141,7 @@
 
             article.overlayOpen('.overlay');
 
-            $('.container-inner > .visible').last().addClass('last-visible');
+            visibleEl.last().addClass('last-visible');
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
@@ -148,7 +149,6 @@
                     parentEl = $(parent),
                     classEl = 'opened-reflink',
                     arrows = '.arrows';
-
 
                 $('li').removeClass(classEl);
                 cur.parent('li').addClass(classEl);
@@ -530,19 +530,19 @@
 
     function shareSelected(selector){
         shareSelectedText(selector, {
-            tooltipClass: '',    // cool, if you want to customize the tooltip
-            sanitize: true,      // will sanitize the user selection to respect the Twitter Max length (recommended)
-            buttons: [           // services that you want to enable you can add :
-                'twitter',       // - twitter, tumblr, buffer, stumbleupon, digg, reddit, linkedin, facebook
+            tooltipClass: '',
+            sanitize: true,
+            buttons: [
+                'twitter',
                 'linkedin',
                 'facebook',
                 'tumblr',
             ],
-            anchorsClass: '',    // class given to each tooltip's links
-            twitterUsername: '', // for twitter widget, will add 'via @twitterUsername' at the end of the tweet.
-            facebookAppID: '1273981299361667', // Can also be an HTML element inside the <head> tag of your page : <meta property="fb:APP_ID" content="YOUR_APP_ID"/>
-            facebookDisplayMode: 'popup', //can be 'popup' || 'page'
-            tooltipTimeout: 50  //Timeout before that the tooltip appear in ms
+            anchorsClass: '',
+            twitterUsername: '',
+            facebookAppID: '1273981299361667',
+            facebookDisplayMode: 'popup',
+            tooltipTimeout: 50
         });
     }
 

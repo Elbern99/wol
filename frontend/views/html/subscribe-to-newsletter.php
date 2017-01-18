@@ -156,21 +156,21 @@
                 <div class="form-line">
                     <label class="def-checkbox">
                         <input type="checkbox" name="">
-                        <span class="label-text">I would like to recieve updates from IZA World of Labor</span>
+                        <span class="label-text">I would like to receive updates from IZA World of Labor</span>
                     </label>
                 </div>
 
                 <div class="form-line">
                     <label class="def-checkbox">
                         <input type="checkbox" name="">
-                        <span class="label-text">I would like to recieve new article alerts in my areas of interest</span>
+                        <span class="label-text">I would like to receive new article alerts in my areas of interest</span>
                     </label>
                 </div>
 
                 <div class="form-line">
                     <label class="def-checkbox">
                         <input type="checkbox" name="">
-                        <span class="label-text">I would like to recieve updates from IZA</span>
+                        <span class="label-text">I would like to receive updates from IZA</span>
                     </label>
                 </div>
 

@@ -50,8 +50,7 @@ $this->registerMetaTag([
                         <div class="publish">
                             <?php foreach($article['authors'] as $author): ?>
                                 <?= $author ?>
-                            <?php endforeach; ?>
-                            ,<?= date('F Y', $article['created_at']) ?></div>
+                            <?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
                         <div class="description">
                             <?= $article['abstract']->abstract ?? ''; ?>
                         </div>
