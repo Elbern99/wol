@@ -36,9 +36,15 @@ class EventController extends Controller {
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
                 ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
         
+        $treeQuery = (new \yii\db\Query())
+                ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
+                ->from('events')
+                ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+        
         $eventsTree = [];
         
-        foreach ($groupsQuery->all() as $key => $value)
+        foreach ($treeQuery->andWhere('date_from < now()')->all() as $key => $value)
         {
             $groupMonth = (int)ArrayHelper::getValue($value, 'm');
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
@@ -64,6 +70,10 @@ class EventController extends Controller {
             ]);
         }
         
+        if (!$month && !$year) {
+            $groupsQuery->andWhere('date_from >= now()');
+        }
+        
         $groups = [];
         
         foreach ($groupsQuery->all() as $key => $value)
@@ -76,16 +86,17 @@ class EventController extends Controller {
             }
             
             $yearMonth = $groupYear . '-' . $groupMonth;
-            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
+            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->orderBy('date_from asc')->all();
             
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
         }
         
         krsort($eventsTree, SORT_NUMERIC);
+        ksort($groups);
         
         return $this->render('index', [
             'eventGroups' => $groups,
-            'eventsTree' => $eventsTree, SORT_NUMERIC,
+            'eventsTree' => $eventsTree,
             'category' => $this->_getEventMainCategory(),
             'widgets' => $widgets,
         ]);
@@ -112,10 +123,16 @@ class EventController extends Controller {
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
                 ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
         
+        $treeQuery = (new \yii\db\Query())
+                ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
+                ->from('events')
+                ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+        
         $eventsTree = [];
         $groups = [];
         
-        foreach ($groupsQuery->all() as $key => $value)
+        foreach ($treeQuery->andWhere('date_from < now()')->all() as $key => $value)
         {
             $groupMonth = (int)ArrayHelper::getValue($value, 'm');
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
@@ -125,8 +142,19 @@ class EventController extends Controller {
             }
             
             $eventsTree[$groupYear][] = $groupMonth;
+        }
+        
+        foreach ($groupsQuery->andWhere('date_from >= now()')->all() as $key => $value)
+        {
+            $groupMonth = (int)ArrayHelper::getValue($value, 'm');
+            $groupYear = (int)ArrayHelper::getValue($value, 'y');
+            
+            if (strlen($groupMonth) == 1) {
+                $groupMonth = '0'.$groupMonth;
+            }
+            
             $yearMonth = $groupYear . '-' . $groupMonth;
-            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->all();
+            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->orderBy('date_from asc')->all();
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
         }
         
@@ -135,6 +163,7 @@ class EventController extends Controller {
         ])->all();
         
         krsort($eventsTree, SORT_NUMERIC);
+        ksort($groups);
         
         return $this->render('view', [
             'model' => $event,
