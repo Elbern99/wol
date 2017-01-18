@@ -2938,7 +2938,7 @@ blockquote {
     height: 17px; }
     @media only screen and (min-width: 769px) {
       .data-method-item .icon-arrow-square-blue {
-        margin: 3px 10px 0 0;
+        margin: 2px 10px 0 0;
         font-size: 20px; } }
     @media only screen and (max-width: 769px) {
       .data-method-item .icon-arrow-square-blue {

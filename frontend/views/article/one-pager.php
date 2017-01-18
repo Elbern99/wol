@@ -358,7 +358,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                     </li>
                                 <?php endforeach; unset($related); ?>
                             </ul>
-                            <?php if(count($count_related) > 13): ?>
+                            <?php if(count($count_related) > 5): ?>
                                 <a href="" class="more-link">
                                     <span class="more">More</span>
                                     <span class="less">Less</span>
