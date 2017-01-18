@@ -33,7 +33,7 @@
       margin: 0 0 9px 0;
 
       @include breakpoint('tablet') {
-        margin: -2px 0 0 0;
+        margin: 0;
       }
 
       .date {
@@ -163,7 +163,7 @@
         .head-news-holder  {
 
           @include breakpoint('tablet') {
-            margin: -2px 0 0 0;
+            margin: 0;
           }
         }
 
@@ -297,7 +297,7 @@
           .head-news-holder  {
 
             @include breakpoint('tablet') {
-              margin: -2px 0 0 0;
+              margin: 0;
             }
           }
 
@@ -1576,6 +1576,7 @@
     text-transform: none;
     margin: -1px 0 10px;
     font-size: 12px;
+    overflow: hidden;
 
     &.open {
       a {

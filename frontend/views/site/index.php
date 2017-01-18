@@ -84,7 +84,7 @@ $this->registerMetaTag([
                                             <div class="head-news">
                                                 <div class="date"><?= date('M d, Y', strtotime($newsItem['created_at'])) ?></div>
                                                 <div class="publish">
-                                                    <a href="#"><?= $newsItem['editor'] ?></a>
+                                                    <?= $newsItem['editor'] ?>
                                                 </div>
                                             </div>
                                         </div>

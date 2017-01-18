@@ -4,7 +4,7 @@
   outline: none !important;
 }
 
-body{
+body {
   font: normal 13px/1.4em $def-font;
   color: $def-color;
   min-width: 320px;
@@ -255,4 +255,10 @@ blockquote {
     margin-right: 0.25em;
     vertical-align: -0.4em ;
   }
+}
+
+.table-holder {
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }

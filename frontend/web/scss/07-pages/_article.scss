@@ -125,7 +125,6 @@
 
     @include breakpoint('tablet') {
       margin: 0 auto 44px;
-      max-width: 500px;
     }
 
     img {
@@ -373,7 +372,7 @@
       left: 28px;
       transform: translateY(-50%);
       max-width: 230px;
-      padding: 19px 0 0;
+      padding: 19px 0 1px;
       z-index: 650;
 
       &:hover {
