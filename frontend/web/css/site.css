@@ -784,6 +784,20 @@ th {
 .icon-trash:before {
   content: "\e916"; }
 
+.icon-arrow-square-blue .path1:before {
+  content: "\e917";
+  color: #0053a0; }
+
+.icon-arrow-square-blue .path2:before {
+  content: "\e918";
+  margin-left: -1em;
+  color: #0053a0; }
+
+.icon-arrow-square-blue .path3:before {
+  content: "\e919";
+  margin-left: -1em;
+  color: white; }
+
 .icon-burger {
   position: relative;
   width: 20px;
@@ -2780,6 +2794,14 @@ blockquote {
     .sidebar-widget.sidebar-widget-evidence-map .title {
       font-size: 16px;
       margin: 0 0 11px; }
+    .sidebar-widget.sidebar-widget-evidence-map .icon-arrow-square-blue {
+      font-size: 20px; }
+      .sidebar-widget.sidebar-widget-evidence-map .icon-arrow-square-blue .path1:before {
+        color: #fff; }
+      .sidebar-widget.sidebar-widget-evidence-map .icon-arrow-square-blue .path2:before {
+        color: #fff; }
+      .sidebar-widget.sidebar-widget-evidence-map .icon-arrow-square-blue .path3:before {
+        color: #0053a0; }
     .sidebar-widget.sidebar-widget-evidence-map .icon-next-circle {
       color: #fff;
       font-size: 19px; }
@@ -2816,6 +2838,12 @@ blockquote {
       min-height: 80px;
       height: 80px;
       margin: 0 0 4px; } }
+  .data-method-item.gray .icon-arrow-square-blue .path1:before {
+    color: #262626; }
+  .data-method-item.gray .icon-arrow-square-blue .path2:before {
+    color: #262626; }
+  .data-method-item.gray .icon-arrow-square-blue .path3:before {
+    color: #dadada; }
   @media only screen and (min-width: 769px) {
     .data-method-item.gray {
       height: 190px; } }
@@ -2902,19 +2930,26 @@ blockquote {
         width: 100%;
         left: 0;
         padding: 11px 10px 14px 14px; } }
-  .data-method-item .icon-next-circle {
+  .data-method-item .icon-arrow-square-blue {
+    font-size: 18px;
     float: left;
     margin: 6px 10px 0 0;
     width: 17px;
-    height: 17px;
-    font-size: 18px; }
+    height: 17px; }
     @media only screen and (min-width: 769px) {
-      .data-method-item .icon-next-circle {
-        margin: 3px 10px 0 0; } }
+      .data-method-item .icon-arrow-square-blue {
+        margin: 2px 10px 0 0;
+        font-size: 20px; } }
     @media only screen and (max-width: 769px) {
-      .data-method-item .icon-next-circle {
+      .data-method-item .icon-arrow-square-blue {
         -ms-flex-order: 2;
             order: 2; } }
+    .data-method-item .icon-arrow-square-blue .path1:before {
+      color: #fff; }
+    .data-method-item .icon-arrow-square-blue .path2:before {
+      color: #fff; }
+    .data-method-item .icon-arrow-square-blue .path3:before {
+      color: #565656; }
   .data-method-item h3 {
     overflow: hidden;
     margin: 0;
@@ -6416,6 +6451,8 @@ iframe[name=advpp_manager] {
 
 .article-map-medium {
   display: none; }
+  .article-map-medium > a {
+    color: #fff; }
   @media only screen and (min-width: 769px) {
     .article-map-medium {
       border-top: 1px solid #979797;
@@ -6424,6 +6461,8 @@ iframe[name=advpp_manager] {
       height: 286px;
       position: relative;
       display: block; }
+      .article-map-medium .icon-arrow-square-blue {
+        font-size: 20px; }
       .article-map-medium .article-map-medium-text {
         position: absolute;
         top: 50%;
@@ -6434,8 +6473,6 @@ iframe[name=advpp_manager] {
         z-index: 650; }
         .article-map-medium .article-map-medium-text:hover p {
           color: #0053a0; }
-        .article-map-medium .article-map-medium-text .icon-circle-arrow .icon-arrow {
-          margin: 1px 0 0 0; }
       .article-map-medium h4 {
         text-transform: uppercase;
         color: #0094f2;
@@ -6444,7 +6481,7 @@ iframe[name=advpp_manager] {
         font-family: "LucidaGrande", Helvetica, Arial, Sans-serif; }
       .article-map-medium p {
         font-size: 19px;
-        margin: 0 0 10px;
+        margin: 0 0 7px;
         line-height: 1.3em;
         font-family: "LucidaGrande", Helvetica, Arial, Sans-serif;
         color: #262626;
@@ -6704,6 +6741,16 @@ iframe[name=advpp_manager] {
       border-top: 1px solid #535353; } }
   .reference-popup .arrows {
     text-align: center; }
+    @media only screen and (max-width: 1430px) {
+      .reference-popup .arrows {
+        text-align: center;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        bottom: 10px; } }
+    @media only screen and (max-width: 769px) {
+      .reference-popup .arrows {
+        bottom: 15px; } }
   .reference-popup .icon-close-popup {
     position: absolute;
     top: 0;
@@ -6761,20 +6808,39 @@ iframe[name=advpp_manager] {
           vertical-align: top; }
           .reference-popup .columns .column.visible {
             display: inline-block; } }
-  .reference-popup .icon-circle-arrow {
+  .reference-popup .icon-arrow-square-blue {
+    font-size: 20px;
     border: 1px solid #0053a0;
-    background: #fff;
-    color: #0053a0;
+    border-radius: 50%;
+    padding: 2px; }
+    @media only screen and (min-width: 1430px) {
+      .reference-popup .icon-arrow-square-blue {
+        padding: 1px; } }
+    @media only screen and (min-width: 769px) {
+      .reference-popup .icon-arrow-square-blue:hover {
+        background: #0053a0; }
+        .reference-popup .icon-arrow-square-blue:hover .path1:before {
+          color: #0053a0; }
+        .reference-popup .icon-arrow-square-blue:hover .path2:before {
+          color: #0053a0; }
+        .reference-popup .icon-arrow-square-blue:hover .path3:before {
+          color: #fff; } }
+    .reference-popup .icon-arrow-square-blue .path1:before {
+      color: #fff; }
+    .reference-popup .icon-arrow-square-blue .path2:before {
+      color: #fff; }
+    .reference-popup .icon-arrow-square-blue .path3:before {
+      color: #0053a0; }
+  .reference-popup .icon-circle-arrow {
     cursor: pointer;
-    width: 28px;
-    height: 28px;
+    width: auto;
+    height: auto;
     margin: 0 8px;
     transition: all 0.3s ease;
-    position: absolute;
-    bottom: 15px; }
-    @media only screen and (min-width: 769px) {
+    background: none; }
+    @media only screen and (min-width: 1430px) {
       .reference-popup .icon-circle-arrow {
-        bottom: 9px; } }
+        position: absolute; } }
     .reference-popup .icon-circle-arrow .icon-arrow {
       height: 8px; }
     .reference-popup .icon-circle-arrow.left {
@@ -6787,9 +6853,6 @@ iframe[name=advpp_manager] {
         transform: translateY(-50%);
         margin: 0;
         bottom: auto; }
-        .reference-popup .icon-circle-arrow:hover {
-          background: #0053a0;
-          color: #fff; }
         .reference-popup .icon-circle-arrow:active {
           box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2) inset; }
         .reference-popup .icon-circle-arrow.left {
@@ -8601,6 +8664,8 @@ path {
       color: #0053a0; }
   .sticky-newsletter .icon-circle-arrow {
     display: none; }
+    .sticky-newsletter .icon-circle-arrow .icon-arrow {
+      width: 10px; }
     @media only screen and (min-width: 769px) {
       .sticky-newsletter .icon-circle-arrow {
         position: absolute;

@@ -174,9 +174,9 @@ $authorLink = [];
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p><?= $attributes['title']->getData('title') ?></p>
-                            <div class="icon-circle-arrow">
-                                <div class="icon-arrow"></div>
-                            </div>
+                            <span class="icon-arrow-square-blue">
+                            <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                            </span>
                         </div>
                         <div id="article-map-medium"></div>
                     </a>
@@ -329,7 +329,9 @@ $authorLink = [];
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
-                        <div class="icon-next-circle"></div>
+                        <span class="icon-arrow-square-blue">
+                            <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                        </span>
                     </div>
                 </a>
             </div>
@@ -384,7 +386,7 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; unset($related); ?>
                                 </ul>
-                                <?php if(count($count_related) > 13): ?>
+                                <?php if(count($count_related) > 5): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>
@@ -641,10 +643,14 @@ $authorLink = [];
         </div>
         <div class="arrows">
             <div class="icon-circle-arrow left">
-                <div class="icon-arrow"></div>
+                <span class="icon-arrow-square-blue">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span>
             </div>
             <div class="icon-circle-arrow right">
-                <div class="icon-arrow"></div>
+                <span class="icon-arrow-square-blue">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span>
             </div>
         </div>
     </div>

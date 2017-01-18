@@ -119,6 +119,21 @@
   content: "\e916";
 }
 
+.icon-arrow-square-blue .path1:before {
+  content: "\e917";
+  color: $blue;
+}
+.icon-arrow-square-blue .path2:before {
+  content: "\e918";
+  margin-left: -1em;
+  color:  $blue;
+}
+.icon-arrow-square-blue .path3:before {
+  content: "\e919";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+
 .icon-burger {
   position: relative;
   width: 20px;

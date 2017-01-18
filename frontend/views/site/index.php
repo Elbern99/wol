@@ -184,7 +184,9 @@ $this->registerMetaTag([
                                 <a href="<?= Url::to(['/topic/view', 'slug' => $topic['url_key']]) ?>" class="data-method-item gray">
                                     <div class="img"><img src="<?= Url::to('/uploads/topics/' . $topic['image_link']) ?>" alt=""></div>
                                     <div class="caption">
-                                        <div class="icon-next-circle"></div>
+                                        <span class="icon-arrow-square-blue">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                        </span>
                                         <h3><?= $topic['title'] ?></h3>
                                     </div>
                                 </a>

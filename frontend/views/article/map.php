@@ -255,14 +255,13 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                             <?php endforeach;
                             unset($related); ?>
                         </ul>
+                        <?php
+                            if($count_related > 5) {
+                                echo '<a href="" class="more-link">More</a>';
+                            }
+                        ?>
                     </div>
                     <?php endif; ?>
-
-                    <?php
-                        if($count_related > 10) {
-                            echo '<a href="" class="more-link">More</a>';
-                        }
-                    ?>
             <?php endif; ?>
         </aside>
     </div>

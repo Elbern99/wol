@@ -114,14 +114,18 @@ $this->registerMetaTag([
                     <a href="/subject-areas/data" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
-                            <div class="icon-next-circle"></div>
+                            <span class="icon-arrow-square-blue">
+                                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                            </span>
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
                     <a href="/subject-areas/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
-                            <div class="icon-next-circle"></div>
+                            <span class="icon-arrow-square-blue">
+                                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                            </span>
                             <h3>Explore our methods</h3>
                         </div>
                     </a>
