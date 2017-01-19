@@ -2028,3 +2028,23 @@
     }
   }
 }
+
+//PUBLIC-ITEM
+.public-item {
+  margin: 0 0 20px;
+
+  .desc {
+    overflow: hidden;
+  }
+
+  img {
+    display: block;
+    margin: 0 0 10px;
+
+    @include breakpoint('tablet') {
+      float: left;
+      margin: 0 10px 10px 0;
+      width: 100px;
+    }
+  }
+}

@@ -432,23 +432,54 @@
 
     // 3.1 MORE SIDEBAR NEWS
     var sidebarNews = {
-        moreSidebarNews: function(btnMore,parent,item) {
+        moreSidebarNews: function(btnMore,parent,item,step) {
+
+            var countClick = 0;
+
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
                     curParent =  cur.parents('li,.expand-more');
-                cur.toggleClass('showed');
 
                 if(!cur.hasClass('no-open')) {
-                    if(cur.hasClass('showed')) {
-                        curParent.find(item).addClass('opened');
-                    } else {
-                        curParent.find(item).removeClass('opened');
 
-                        setTimeout(function(){
-                            $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
-                        }, 300);
+                    var arrayItems = item.split(',');
+
+                    for (var i = 0; i < arrayItems.length; i++) {
+                        var newItemArray  = arrayItems[i] + ':hidden:lt(' + step + ')';
+                        arrayItems[i] = newItemArray;
+                    };
+
+                    var allHiddenElements = curParent.find(arrayItems.join()).addClass('hidden');
+
+
+                    if(allHiddenElements.length !== 0) {
+                        allHiddenElements.addClass('hidden').slideDown(200);
+
+
+                        // if(cur.hasClass('showed')) {
+                        //     curParent.find('.hidden').slideUp(200);
+                        //
+                        //     setTimeout(function(){
+                        //         $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
+                        //     }, 300);
+                        //
+                        // }
+                        cur.removeClass('showed');
+
+                    } else {
+                        cur.addClass('showed');
+                        countClick = countClick + 1;
                     }
 
+                    if(countClick === 2) {
+                        curParent.find('.hidden').slideUp(200);
+
+                        setTimeout(function(){
+                            //$('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
+                        }, 300);
+                        cur.removeClass('showed');
+                        countClick = 0;
+                    }
                     e.preventDefault();
                 }
             });
@@ -641,13 +672,13 @@
         references.openPrintWindow('.btn-print');
         accordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         accordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
-        sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item');
-        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item');
+        sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list','li,.item',5);
+        sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',10);
         sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
         sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
