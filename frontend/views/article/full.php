@@ -448,7 +448,7 @@ $authorLink = [];
                                                 <?php
                                                     $s = 1;
                                                     foreach ($reference->data_source as $dSource) {
-                                                        echo '['.$s.']'.$dSource.'<br>';
+                                                        echo '['.$s.'] '.$dSource.'<br>';
                                                         $s++;
                                                     }
                                                 ?>

@@ -347,7 +347,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <?php $count_related = count($related) ?>
 
                     <?php if ($count_related > 0): ?>
-                        <li class="sidebar-accrodion-item sidebar-articles-item">
+                        <li class="sidebar-accrodion-item sidebar-articles-item is-open">
                         <a href="" class="title">Related Articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
@@ -419,7 +419,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                                         <?php
                                                         $s = 1;
                                                         foreach ($reference->data_source as $dSource) {
-                                                            echo '['.$s.']'.$dSource.'<br>';
+                                                            echo '['.$s.'] '.$dSource.'<br>';
                                                             $s++;
                                                         }
                                                         ?>
@@ -609,7 +609,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <div class="columns">
                     <div class="column column-sources">
                         <h3>Data source(s)</h3>
-                        <div class="sources"></div>
+                        <div class="Data source"></div>
                     </div>
                     <div class="column column-types">
                         <h3>Data type(s)</h3>

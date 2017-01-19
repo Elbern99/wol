@@ -22,13 +22,16 @@ $this->registerMetaTag([
     <div class="header-background" style="background-image: url('<?= $page->Page('backgroud') ?>');"></div>
 <?php endif; ?>
 <div class="container">
-    <div class="breadcrumbs">
-        <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+
+    <div class="article-head">
+        <div class="breadcrumbs">
+            <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
+        </div>
+        <h1><?= Html::encode($page->Cms('title')) ?></h1>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text contact-page">
-            <h1><?= Html::encode($page->Cms('title')) ?></h1>
             <?= $page->Page('text'); ?>
         </div>
 
