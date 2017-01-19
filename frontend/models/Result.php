@@ -29,6 +29,8 @@ class Result {
     public static $topicsFilter = [];
     private static $filters = false;
     private static $model;
+    
+    
 
     public function setModel(SearchInterface $model) {
         self::$model = $model;
@@ -217,17 +219,28 @@ class Result {
             $affiliation = EavValueHelper::getValue($authorValues[$author['id']], 'affiliation', function($data) {
                 return $data->affiliation;
             }, 'string');
-
+            
+            $params = [
+                'id' => $author['id'],
+                'url' => Author::getAuthorUrl($author['url_key']),
+                'avatar' => Author::getImageUrl($author['avatar']),
+                'name' => $author['name'],
+                'affiliation' => $affiliation,
+            ];
+            
             self::$value[] = [
-                'params' => [
-                    'id' => $author['id'],
-                    'url' => Author::getAuthorUrl($author['url_key']),
-                    'avatar' => Author::getImageUrl($author['avatar']),
-                    'name' => $author['name'],
-                    'affiliation' => $affiliation,
-                ],
+                'params' => $params,
                 'type' => $k
             ];
+            
+            $serched = str_replace(' ', '|', str_replace('  ',' ',$author['name']));
+
+            if (preg_match("/$serched/i", self::$model->search_phrase)) {
+                self::$topValue[] = [
+                    'params' => $params,
+                    'type' => 'authors'
+                ];
+            }
         }
     }
 

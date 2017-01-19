@@ -142,7 +142,7 @@ class SearchController extends Controller
             $searchResult = unserialize(Yii::$app->getSession()->get('search'));
             $model->search_phrase = $phrase;      
         }
-
+        
         $results = is_array($searchResult) ? $searchResult : [];
         
         unset($searchResult);
