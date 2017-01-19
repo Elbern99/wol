@@ -167,7 +167,8 @@ class SearchController extends Controller
             'phrase' => $phrase,
             'search' => $model,
             'paginate' => $paginate, 
-            'resultData' => $resultData, 
+            'resultData' => $resultData,
+            'topData' => Result::getSearchTopValue(),
             'resultCount' => $resultCount, 
             'filters' => $filtersData
         ]);

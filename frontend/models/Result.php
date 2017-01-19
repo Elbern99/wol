@@ -22,6 +22,7 @@ use common\models\Topic;
 class Result {
 
     protected static $value = [];
+    protected static $topValue = [];
     public static $formatData = [];
     public static $articleCategoryIds = [];
     public static $biographyFilter = [];
@@ -84,7 +85,7 @@ class Result {
                                     ->all();
         
         $query = Topic::find()
-                        ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
+                        ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'image_link'])
                         ->where(['id' => $ids]);
         
         $filtered = false;
@@ -104,11 +105,17 @@ class Result {
             $query->andWhere(['id' => $ids]);
         }
         
-        $result = $query->orderBy(['created_at' => SORT_DESC])
+        $items = $query->orderBy(['created_at' => SORT_DESC])
                         ->asArray()
                         ->all();
         
-        self::addDataToValue($result, $k);
+        foreach ($items as $item) {
+
+            self::$topValue[] = [
+                'params' => $item,
+                'type' => $k
+            ];
+        }
     }
 
     protected static function getOpinions($ids, $k) {
@@ -170,7 +177,7 @@ class Result {
     }
 
     protected static function getBiography($ids, $k) {
-
+           
         self::$biographyFilter = Author::find()
                 ->select(['id', 'name'])
                 ->where(['enabled' => 1, 'id' => $ids])
@@ -178,7 +185,7 @@ class Result {
                 ->all();
 
         $query = Author::find()
-                ->select(['id', 'url_key', 'name'])
+                ->select(['id', 'url_key', 'name', 'avatar'])
                 ->where(['enabled' => 1]);
                 
         $filtered = false;
@@ -215,6 +222,7 @@ class Result {
                 'params' => [
                     'id' => $author['id'],
                     'url' => Author::getAuthorUrl($author['url_key']),
+                    'avatar' => Author::getImageUrl($author['avatar']),
                     'name' => $author['name'],
                     'affiliation' => $affiliation,
                 ],
@@ -283,6 +291,11 @@ class Result {
     public function getSearchValue() {
 
         return self::$value;
+    }
+    
+    public function getSearchTopValue() {
+        
+        return self::$topValue;
     }
 
     protected static function formatData($data) {

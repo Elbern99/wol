@@ -71,24 +71,15 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
 
         <div class="content-inner">
             <div class="content-inner-text">
-                <!-- <ul class="search-results-media-list">
-                    <li class="search-results-media-item">
-                        <div class="img">
-                            <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
-                        </div>
-                        <div class="link"><a href="">TOPIC</a></div>
-                        <div class="name">The Chinese economy</div>
-                    </li>
-                    <li class="search-results-media-item">
-                        <div class="img">
-                            <img src="http://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg" alt="">
-                        </div>
-                        <div class="link"><a href="">AUTHOR</a></div>
-                        <div class="name">Hartmut Lehmann</div>
-                        <p>Professor of Economic Policy in the Department of Economics at the University of Bologna, Italy</p>
-                    </li>
-                </ul> -->
-
+                
+                <?php if(count($topData)): ?>
+                    <ul class="search-results-media-list">
+                    <?php foreach ($topData as $params): ?>
+                        <?= $this->render("items/".$params['type'].".php",['value' => $params['params'], 'type' => $params['type']]); ?>
+                    <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+                
                 <div class="search-results-table">
                     <div class="search-results-table-top">
                         <div class="search-results-item">
