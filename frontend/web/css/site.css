@@ -4016,7 +4016,7 @@ blockquote {
   padding-left: 0; }
 .articles-filter-list li {
   text-transform: none;
-  margin: -1px 0 10px;
+  margin: 0px 0 10px;
   font-size: 12px;
   overflow: hidden; }
   .articles-filter-list li.open a {
