@@ -244,21 +244,9 @@ blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
   margin: 0 0 1.5em;
-  padding: 10px 10px 10px 28px;
+  padding: 10px;
   quotes: "“" "”" "‘" "’";
   position: relative;
-
-  &:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
-    position: absolute;
-    left: 4px;
-    top: 27px;
-  }
 }
 
 .table-holder {

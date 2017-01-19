@@ -64,8 +64,7 @@
                 curFurnitureReading = curElParent.find('.further-reading-info').html(),
                 curBgInfo = curElParent.find('.bg-info').html(),
                 curAdditional = curElParent.find('.additional-references-info').html(),
-                popup = $('.reference-popup'),
-                visibleEl = $('.container-inner > .visible');
+                popup = $('.reference-popup');
 
             var
                 caption = popup.find('.caption'),
@@ -77,8 +76,6 @@
                 additional = popup.find('.additional-references'),
                 bgInfo = popup.find('.bg-info'),
                 cite = popup.find('.cite-input-box');
-
-            visibleEl.removeClass('last-visible');
 
             furnitureReading.parent().removeClass('visible');
             caption.parent().removeClass('visible');
@@ -141,7 +138,9 @@
 
             article.overlayOpen('.overlay');
 
-            visibleEl.last().addClass('last-visible');
+            var visibleEl = $('.container-inner > .visible');
+                visibleEl.removeClass('last-visible');
+                visibleEl.last().addClass('last-visible');
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {

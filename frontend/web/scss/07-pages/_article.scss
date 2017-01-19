@@ -707,10 +707,6 @@
   position: absolute;
   display: none;
   overflow: hidden;
-  
-  .arrows {
-    display: none;
-  }
 
   @include breakpoint('tablet') {
     bottom: 0;
@@ -723,17 +719,18 @@
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 0 60px;
+    padding: 45px 15px 60px;
     position: relative;
     max-width: $content-area-width;
     margin: 0 auto;
 
     @include breakpoint('tablet') {
-      padding: 45px 0;
+      padding: 45px 15px;
     }
 
     .container {
       overflow: hidden;
+      padding: 0;
       -webkit-overflow-scrolling: touch;
 
       .last-visible {
@@ -747,6 +744,9 @@
       @include breakpoint('tablet') {
         overflow-y: auto;
         max-height: 250px;
+        margin-right: 307px;
+        position: relative;
+        z-index: 1
       }
     }
   }
@@ -793,27 +793,27 @@
     }
   }
 
-  .container {
-    overflow: hidden;
-  }
-
   @include breakpoint('tablet') {
     border-top: 1px solid #535353;
   }
 
   .arrows {
     text-align: center;
+    display: none;
+    bottom: 17px;
+    position: absolute;
+    left: 0;
+    right: 0;
 
-    @include breakpoint_custom($breakpoint-desktop-large) {
-      text-align: center;
-      position: absolute;
-      left: 0;
-      width: 100%;
-      bottom: 10px;
+    @include breakpoint('tablet') {
+      bottom: 9px;
+      right: 307px;
     }
 
-    @include breakpoint_custom($breakpoint-tablet) {
-      bottom: 15px;
+    @include breakpoint('desktop-large') {
+      top: 0;
+      bottom: 0;
+      text-align: center;
     }
   }
 
@@ -955,12 +955,10 @@
       position: absolute;
     }
 
-    .icon-arrow {
-      height: 8px;
-    }
-
     &.left {
-      transform: rotate(180deg);
+      .icon-arrow-square-blue {
+        transform: rotate(180deg) ;
+      }
     }
 
     @include breakpoint('desktop-large') {
@@ -991,17 +989,6 @@
 
     @include breakpoint_custom($breakpoint-desktop-large) {
       display: inline-block;
-    }
-
-    &.left {
-
-      .icon-arrow {
-        height: 10px;
-
-        &:before {
-          transform: rotate(180deg);
-        }
-      }
     }
   }
 }
