@@ -2988,6 +2988,9 @@ blockquote {
         margin: 0 10px 10px 0;
         width: 100px; } }
 
+.reduce-container {
+  max-width: 893px; }
+
 .news-home-list .post-item,
 .news-list .post-item {
   margin: 0; }
