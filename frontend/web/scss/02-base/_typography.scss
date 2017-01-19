@@ -243,9 +243,10 @@ em {
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
+  margin: 0 0 1.5em;
+  padding: 10px 10px 10px 28px;
+  quotes: "“" "”" "‘" "’";
+  position: relative;
 
   &:before {
     color: #ccc;
@@ -253,7 +254,10 @@ blockquote {
     font-size: 4em;
     line-height: 0.1em;
     margin-right: 0.25em;
-    vertical-align: -0.4em ;
+    vertical-align: -0.4em;
+    position: absolute;
+    left: 4px;
+    top: 27px;
   }
 }
 

@@ -346,7 +346,7 @@ $authorLink = [];
 
                             <a href="" class="title">Background information</a>
                             <div class="text">
-                                <ul class="sidebar-news-list bg-news-list">
+                                <ul class="bg-news-list">
                                     <?php foreach($backgrounds as $key=>$value): ?>
                                         <li>
                                             <a href="#<?=$key?>"><?= $value->title ?></a>
@@ -386,7 +386,7 @@ $authorLink = [];
                                         </li>
                                     <?php endforeach; unset($related); ?>
                                 </ul>
-                                <?php if(count($count_related) > 5): ?>
+                                <?php if($count_related > 5): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>
