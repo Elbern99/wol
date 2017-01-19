@@ -24,6 +24,8 @@ class Result {
     protected static $value = [];
     public static $formatData = [];
     public static $articleCategoryIds = [];
+    public static $biographyFilter = [];
+    public static $topicsFilter = [];
     private static $filters = false;
     private static $model;
 
@@ -62,26 +64,50 @@ class Result {
             if ($filtered) {
 
                 $id = self::$model->getHeadingModelKey($k);
-
                 if (is_null(self::$filters['types']) || (isset($id) && (array_search($id, self::$filters['types']) === false))) {
                     continue;
                 }
             }
 
-            $func = 'get' . str_replace(' ', '', ucwords($k));
+            $func = 'get' . str_replace('_', '', ucwords($k));
             forward_static_call(array(self::class, $func), $v, $k);
         }
     }
 
     protected static function getKeyTopics($ids, $k) {
 
-        $result = Topic::find()
-                ->select(['title', 'url_key', 'short_description', 'created_at'])
-                ->where(['id' => $ids])
-                ->orderBy(['created_at' => SORT_DESC])
-                ->asArray()
-                ->all();
+        self::$topicsFilter = Topic::find()
+                                    ->select(['id', 'title'])
+                                    ->where(['id' => $ids])
+                                    ->orderBy(['created_at' => SORT_DESC])
+                                    ->asArray()
+                                    ->all();
+        
+        $query = Topic::find()
+                        ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
+                        ->where(['id' => $ids]);
+        
+        $filtered = false;
 
+        if (is_array(self::$filters) && array_key_exists('topics', self::$filters)) {
+
+            if (!is_null(self::$filters['topics'])) {
+                $filtered = true;
+            } elseif (count(self::$topicsFilter) && is_null(self::$filters['topics'])) {
+                return false;
+            }
+        } 
+        
+        if ($filtered) {
+            $query->andWhere(['id' => self::$filters['topics']]);
+        } else {
+            $query->andWhere(['id' => $ids]);
+        }
+        
+        $result = $query->orderBy(['created_at' => SORT_DESC])
+                        ->asArray()
+                        ->all();
+        
         self::addDataToValue($result, $k);
     }
 
@@ -145,11 +171,34 @@ class Result {
 
     protected static function getBiography($ids, $k) {
 
-        $authors = Author::find()
-                ->select(['id', 'url_key', 'name'])
+        self::$biographyFilter = Author::find()
+                ->select(['id', 'name'])
                 ->where(['enabled' => 1, 'id' => $ids])
                 ->asArray()
                 ->all();
+
+        $query = Author::find()
+                ->select(['id', 'url_key', 'name'])
+                ->where(['enabled' => 1]);
+                
+        $filtered = false;
+
+        if (is_array(self::$filters) && array_key_exists('biography', self::$filters)) {
+
+            if (!is_null(self::$filters['biography'])) {
+                $filtered = true;
+            } elseif (count(self::$biographyFilter) && is_null(self::$filters['biography'])) {
+                return false;
+            }
+        }
+        
+        if ($filtered) {
+            $query->andWhere(['id' => self::$filters['biography']]);
+        } else {
+            $query->andWhere(['id' => $ids]);
+        }
+        
+        $authors = $query->asArray()->all();
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['affiliation']);
@@ -159,11 +208,12 @@ class Result {
         foreach ($authors as $author) {
 
             $affiliation = EavValueHelper::getValue($authorValues[$author['id']], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string');
+                return $data->affiliation;
+            }, 'string');
 
             self::$value[] = [
                 'params' => [
+                    'id' => $author['id'],
                     'url' => Author::getAuthorUrl($author['url_key']),
                     'name' => $author['name'],
                     'affiliation' => $affiliation,
@@ -189,11 +239,10 @@ class Result {
 
         if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
 
-            if (is_null(self::$filters['subject'])) {
-                return $articlesCollection;
+            if (!is_null(self::$filters['subject'])) {
+                $filtered = true;
             }
 
-            $filtered = true;
         }
 
         $articles = Article::find()

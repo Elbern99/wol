@@ -3,9 +3,10 @@ use frontend\components\search\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\Result;
-use frontend\models\AdvancedSearchForm;
 use frontend\components\filters\ContentTypesWidget;
 use frontend\components\filters\SubjectAreasWidget;
+use frontend\components\filters\BiographyWidget;
+use frontend\components\filters\TopicsWidget;
 use yii\widgets\ActiveForm;
 ?>
 
@@ -175,14 +176,28 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
                                     <div class="text">
-                                        <?= ContentTypesWidget::widget(['dataClass' => AdvancedSearchForm::class, 'dataSelect' => Result::$formatData, 'filtered' => Result::getFilter('types')]); ?>
+                                        <?= ContentTypesWidget::widget(['param' => $filters['types']]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item">
                                     <a href="" class="title">subject areas <strong>(<?= array_sum(Result::$articleCategoryIds) ?>)</strong></a>
                                     <div class="text">
-                                        <?= SubjectAreasWidget::widget(['category' => $subjectArea, 'selected' => Result::$articleCategoryIds, 'filtered' => Result::getFilter('subject')]); ?>
+                                        <?= SubjectAreasWidget::widget(['param' => $filters['category']]); ?>
+                                        <a href="" class="clear-all">Clear all</a>
+                                    </div>
+                                </li>
+                                <li class="sidebar-accrodion-item">
+                                    <a href="" class="title">Authors <strong>(<?= count($filters['biography']['data']) ?>)</strong></a>
+                                    <div class="text">
+                                        <?= BiographyWidget::widget(['param' => $filters['biography']]); ?>
+                                        <a href="" class="clear-all">Clear all</a>
+                                    </div>
+                                </li>
+                                <li class="sidebar-accrodion-item">
+                                    <a href="" class="title">Topics <strong>(<?= count($filters['topics']['data']) ?>)</strong></a>
+                                    <div class="text">
+                                        <?= TopicsWidget::widget(['param' => $filters['topics']]); ?>
                                         <a href="" class="clear-all">Clear all</a>
                                     </div>
                                 </li>

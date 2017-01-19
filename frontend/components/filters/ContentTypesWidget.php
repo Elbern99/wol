@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\components\filters;
 
 use yii\base\Widget;
@@ -6,71 +7,69 @@ use yii\helpers\Html;
 use Yii;
 
 class ContentTypesWidget extends Widget {
-    
-    public $dataClass;
-    public $dataSelect;
-    public $filtered = false;
-    
+
+    public $param;
     protected $data;
     protected $prefix = 'filter_content_type';
-    
-    public function init()
-    {
+
+    public function init() {
         parent::init();
-        $this->data = Yii::createObject($this->dataClass);
+
+        $this->data = Yii::createObject($this->param['data']);
     }
-    
+
     private function getContent() {
-        
+
         $content = '';
-        
+
         foreach ($this->data->getHeadingFilter() as $key => $item) {
-            
+
             $model = $this->data->getheadingModelFilter($key);
-            
+
             if (!$model) {
                 continue;
             }
-            
+
             $content .= Html::beginTag('li');
-            $content .= Html::beginTag('label', ['class'=>"def-checkbox light"]);
-            
-            if (isset($this->dataSelect[$model])) {
-                $content .= Html::input('checkbox', $this->prefix.'[]', $key, $this->isChecked($key));
+            $content .= Html::beginTag('label', ['class' => "def-checkbox light"]);
+            $selected = $this->param['selected'];
+
+            if (isset($selected[$model])) {
+                $content .= Html::input('checkbox', $this->prefix . '[]', $key, $this->isChecked($key));
                 $spanContent = $item;
-                $spanContent .= Html::tag('strong', '('.count($this->dataSelect[$model]).')',['class'=>"count"]);
-                $content .= Html::tag('span', $spanContent, ['class'=>"label-text"]);
+                $spanContent .= Html::tag('strong', '(' . count($selected[$model]) . ')', ['class' => "count"]);
+                $content .= Html::tag('span', $spanContent, ['class' => "label-text"]);
             } else {
-                $content .= Html::input('checkbox', $this->prefix.'[]', $key, ['disabled'=>'disabled']);
-                $content .= Html::tag('span', $item, ['class'=>"label-text"]);
+                $content .= Html::input('checkbox', $this->prefix . '[]', $key, ['disabled' => 'disabled']);
+                $content .= Html::tag('span', $item, ['class' => "label-text"]);
             }
-            
+
             $content .= Html::endTag('label');
             $content .= Html::endTag('li');
         }
-        
+
         if (!$content) {
             return '';
         }
-        
-        return Html::tag('ul', $content, ['class'=>"checkbox-list"]);
+
+        return Html::tag('ul', $content, ['class' => "checkbox-list"]);
     }
-    
+
     protected function isChecked($id) {
-        
-        if (is_null($this->filtered)) {
+
+        $filtered = $this->param['filtered'];
+
+        if (is_null($filtered)) {
             return [];
-        } elseif(is_array($this->filtered) && (array_search($id, $this->filtered) === false)) {
+        } elseif (is_array($filtered) && (array_search($id, $filtered) === false)) {
             return [];
         }
-        
-        return ['checked'=>'checked'];
+
+        return ['checked' => 'checked'];
     }
 
-    public function run()
-    {
+    public function run() {
         return $this->getContent();
     }
-    
-}
 
+}

@@ -42,6 +42,37 @@ class SearchController extends Controller
             ]
         ];
     }
+    
+    protected function getFilterData() {
+
+        $filters['types'] = [
+            'data' => AdvancedSearchForm::class,
+            'selected' => Result::$formatData,
+            'filtered' => Result::getFilter('types')
+        ];
+        
+        $filters['category'] = [
+            'data' => $this->getSubjectAreas(),
+            'selected' => Result::$articleCategoryIds,
+            'filtered' => Result::getFilter('subject')
+        ];
+
+        $filters['biography'] = [
+            'data' => Result::$biographyFilter,
+            'selected' => count(Result::getFilter('biography')) ? true : false,
+            'filtered' => Result::getFilter('biography'),
+        ];
+
+        $filters['topics'] = [
+            'data' => Result::$topicsFilter,
+            'selected' => count(Result::getFilter('topics')) ? true : false,
+            'filtered' => Result::getFilter('topics'),
+        ];
+        
+        Yii::$app->getSession()->set('search_filters_data', $filters);
+        
+        return $filters;
+    }
 
     /**
      * Displays Page.
@@ -73,12 +104,14 @@ class SearchController extends Controller
                     }
 
                     $phrase = $model->search_phrase;
-                    Yii::$app->getSession()->set('search', serialize($searchResult));
+                    Yii::$app->getSession()->set('search', serialize($searchResult));                  
                 } else {
 
                     $searchResult = unserialize(Yii::$app->getSession()->get('search'));
                     Result::setFilter('types', Yii::$app->request->post('filter_content_type'));
                     Result::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
+                    Result::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
+                    Result::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
                 }
 
                 Yii::$app->getSession()->set('search_criteria', serialize([
@@ -86,33 +119,57 @@ class SearchController extends Controller
                     'types' => Yii::$app->request->post('filter_content_type')
                 ]));
             }
-            
+   
         } else {
+            
+            if (Yii::$app->getSession()->has('search_filters_data')) {
+                
+                $sessionFilter = Yii::$app->getSession()->get('search_filters_data');
+                if ($sessionFilter['types']['filtered']) {
+                    Result::setFilter('types', $sessionFilter['types']['filtered']);
+                }
+                if ($sessionFilter['category']['filtered']) {
+                    Result::setFilter('subject', $sessionFilter['category']['filtered']);
+                }
+                if ($sessionFilter['biography']['filtered']) {
+                    Result::setFilter('biography', $sessionFilter['biography']['filtered']);
+                }
+                if ($sessionFilter['topics']['filtered']) {
+                    Result::setFilter('topics', $sessionFilter['topics']['filtered']);
+                }
+            }
+            
             $searchResult = unserialize(Yii::$app->getSession()->get('search'));
-            $model->search_phrase = $phrase;
+            $model->search_phrase = $phrase;      
         }
 
         $results = is_array($searchResult) ? $searchResult : [];
-        $resultData = [];
         
         unset($searchResult);
-
         $resultCount = count($results);
-        $paginate = new Pagination(['totalCount' => $resultCount]);
-        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
         
         if ($resultCount) {
             Result::initData($results);
-            $resultData = array_slice(Result::getSearchValue(), $paginate->offset, $paginate->limit);
         }
-  
+        
+        $paginate = new Pagination(['totalCount' => count(Result::getSearchValue())]);
+        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
+        
+        $resultData = array_slice(Result::getSearchValue(), $paginate->offset, $paginate->limit);
+        
+        if (Yii::$app->request->isPost) {
+            $filtersData = $this->getFilterData();
+        } else {
+            $filtersData = Yii::$app->getSession()->get('search_filters_data') ??  $this->getFilterData();
+        }
+
         return $this->render('result', [
             'phrase' => $phrase,
             'search' => $model,
             'paginate' => $paginate, 
             'resultData' => $resultData, 
             'resultCount' => $resultCount, 
-            'subjectArea' => $this->getSubjectAreas()
+            'filters' => $filtersData
         ]);
     }
     
@@ -170,6 +227,7 @@ class SearchController extends Controller
                 $result = $model->search();
                 Yii::$app->getSession()->set('search', serialize($result));
                 Yii::$app->getSession()->set('search_criteria', serialize(Yii::$app->request->post('AdvancedSearchForm')));
+                Yii::$app->getSession()->remove('search_filters_data');
                 
                 return $this->redirect(Url::to(['/search', 'phrase' => $model->search_phrase]));
             
@@ -185,6 +243,8 @@ class SearchController extends Controller
     public function actionRefine() {
         
         Yii::$app->getSession()->remove('search');
+        Yii::$app->getSession()->remove('search_filters_data');
+        
         return $this->redirect(Url::to(['/search']));
     }
     
