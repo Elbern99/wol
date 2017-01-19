@@ -20,12 +20,12 @@
 
 //HEADER-TOP
 .header-top {
-  border-bottom: 1px solid #d8d8d8;
   padding: 9px 0 3px;
 
   @include breakpoint('tablet') {
     padding: 0;
     height: 39px;
+    border-bottom: 1px solid #d8d8d8;
 
     .container {
       display: flex;

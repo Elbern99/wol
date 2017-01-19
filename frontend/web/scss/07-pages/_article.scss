@@ -582,13 +582,6 @@
 
   &.text-reference-opened {
     background: #ffeb67;
-
-    &:after {
-      @extend .pinout;
-      margin: -2px;
-      background: #ffeb67;
-      z-index: -1;
-    }
   }
 }
 
