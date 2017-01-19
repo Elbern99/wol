@@ -5,5 +5,5 @@
         </div>
     </div>
     <div class="link"><a href="<?= '/key-topics/'.$value['url_key'] ?>"><?= $value['title'] ?></a></div>
-    <div class="name"><?= $value['short_description'] ?></div>
+    <div class="location"><?= $value['short_description'] ?></div>
 </li>
