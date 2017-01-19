@@ -284,16 +284,22 @@ class Result {
         $categoryCollection->initCollection(Article::tableName(), $ids);
         $values = $categoryCollection->getValues();
 
-
+        
         foreach ($articles as $article) {
-
+            
+            $eavValue = $values[$article->id] ?? [];
+            
             self::$value[] = [
                 'params' => [
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
                     'availability' => $article->availability,
-                    'teaser' => unserialize($values[$article->id]['teaser']),
-                    'abstract' => unserialize($values[$article->id]['abstract']),
+                    'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
+                        return $data;
+                    }),
+                    'abstract' => EavValueHelper::getValue($eavValue, 'abstract', function($data) {
+                        return $data;
+                    }),
                     'created_at' => $article->created_at,
                 ],
                 'type' => $k
