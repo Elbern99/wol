@@ -342,7 +342,7 @@ $authorLink = [];
                         <?php $backgrounds = $attributes['term_groups']->getData(); ?>
 
                         <?php if(count($backgrounds) > 0): ?>
-                        <li class="sidebar-accrodion-item">
+                        <li class="sidebar-accrodion-item is-open">
 
                             <a href="" class="title">Background information</a>
                             <div class="text">
@@ -375,7 +375,7 @@ $authorLink = [];
                         <?php $count_related = count($related) ?>
 
                         <?php if ($count_related > 0): ?>
-                        <li class="sidebar-accrodion-item sidebar-articles-item">
+                        <li class="sidebar-accrodion-item sidebar-articles-item is-open">
                             <a href="" class="title">Related Articles</a>
                             <div class="text">
                                 <ul class="sidebar-news-list">
@@ -400,7 +400,7 @@ $authorLink = [];
             
                     <?php if (isset($attributes['further_reading'])): ?>
                     <?php $furthers = $attributes['further_reading']->getData(); ?>
-                    <li class="sidebar-accrodion-item">
+                    <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">Further reading</a>
                         <div class="text">
                             <ul class="further-reading-list">
@@ -429,7 +429,7 @@ $authorLink = [];
                     <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(); ?>
                         <?php if(count($references) > 0): ?>
-                        <li class="sidebar-accrodion-item">
+                        <li class="sidebar-accrodion-item is-open">
                             <a href="" class="title">Key references</a>
                             <div class="text">
                                 <?php $i = 1; ?>
@@ -502,11 +502,6 @@ $authorLink = [];
                     </li>
                     <?php endif; ?>
                 </ul>
-                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
-                    <div class="inner">
-                        <span class="icon-print"></span><span>print all references</span>
-                    </div>
-                </a>
             </div>
             
             <div class="sidebar-widget sidebar-widget-reference-popup dropdown">
@@ -557,7 +552,15 @@ $authorLink = [];
                 <div class="widget-title">Full reference list</div>
                 <a href="" class="dropdown-link">Open full reference list</a>
             </div>
-            
+
+            <div class="sidebar-widget">
+                <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
+                    <div class="inner">
+                        <span class="icon-print"></span><span>print all references</span>
+                    </div>
+                </a>
+            </div>
+
             <div class="sidebar-widget sidebar-widget-version">
                 <div class="sidebar-widget-version-item">
                     <div class="widget-title">Versions</div>

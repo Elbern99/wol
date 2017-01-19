@@ -369,6 +369,81 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     <?php endif; ?>
                 <?php endif; ?>
 
+                <?php if (isset($attributes['further_reading'])): ?>
+                    <?php $furthers = $attributes['further_reading']->getData(null, $currentLang); ?>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Further reading</a>
+                        <div class="text">
+                            <ul class="further-reading-list">
+                                <?php foreach ($furthers as $further): ?>
+                                    <li>
+                                        <a href=""><?= $further->title ?></a>
+                                        <div class="icon-exclamatory-circle rel-tooltip"></div>
+                                        <div class="further-reading-info">
+                                            <?= $further->full_citation ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if(count($furthers) > 13): ?>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
+                            <?php endif ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
+
+                <?php $source = []; ?>
+
+                <?php if (isset($attributes['key_references'])): ?>
+                    <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
+                    <?php if(count($references) > 0): ?>
+                        <li class="sidebar-accrodion-item">
+                            <a href="" class="title">Key references</a>
+                            <div class="text">
+                                <?php $i = 1; ?>
+                                <ul class="key-references-list">
+                                    <?php foreach($references as $reference): ?>
+                                        <?php if (count($reference->country_codes)): ?>
+                                            <?php $source = array_merge($source, $reference->country_codes); ?>
+                                        <?php endif; ?>
+                                        <li>
+                                            <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
+                                            <div class="icon-exclamatory-circle rel-tooltip"></div>
+                                            <div class="key-references-info">
+                                                <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
+                                                <div class="sources">
+                                                    <?php if(is_array($reference->data_source)): ?>
+                                                        <?php
+                                                        $s = 1;
+                                                        foreach ($reference->data_source as $dSource) {
+                                                            echo '['.$s.']'.$dSource.'<br>';
+                                                            $s++;
+                                                        }
+                                                        ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : '' ?></div>
+                                                <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
+                                                <div class="countries"><?= (is_array($reference->countries)) ? implode(', ', $reference->countries) : '' ?></div>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php if(count($references) > 13): ?>
+                                    <a href="" class="more-link">
+                                        <span class="more">More</span>
+                                        <span class="less">Less</span>
+                                    </a>
+                                <?php endif ?>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
                 <?php $source = []; ?>
 
                 <?php if (isset($attributes['add_references'])): ?>
@@ -402,11 +477,6 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                     </li>
                 <?php endif; ?>
             </ul>
-            <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
-                <div class="inner">
-                    <span class="icon-print"></span><span>print all references</span>
-                </div>
-            </a>
         </div>
 
         <div class="sidebar-widget sidebar-widget-reference-popup dropdown">
@@ -463,6 +533,14 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             </div>
             <div class="widget-title">Full reference list</div>
             <a href="" class="dropdown-link">Open full reference list</a>
+        </div>
+
+        <div class="sidebar-widget">
+            <a href="<?= Url::to('/articles/'.$article->seo . '/references#print') ?>" class="btn-border-blue-middle with-icon" target="_blank">
+                <div class="inner">
+                    <span class="icon-print"></span><span>print all references</span>
+                </div>
+            </a>
         </div>
         
         <div class="sidebar-widget sidebar-widget-version">
