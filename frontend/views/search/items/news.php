@@ -8,8 +8,8 @@
     <div class="description-center">
         <h2><a href="<?= '/news/'.$value['url_key'] ?>"><?= $value['title'] ?></a></h2>
         <div class="name"><?= $value['editor'] ?></div>
-        <p>
+        <div class="paragraph">
             <?= $value['short_description'] ?>
-        </p>
+        </div>
     </div>
 </div>
