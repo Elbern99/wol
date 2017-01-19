@@ -2037,9 +2037,14 @@
     overflow: hidden;
   }
 
+  p {
+    margin: 0 0 9px;
+  }
+
   img {
     display: block;
     margin: 0 0 10px;
+    max-height: 238px;
 
     @include breakpoint('tablet') {
       float: left;
