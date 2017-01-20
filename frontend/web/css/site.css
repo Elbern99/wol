@@ -4237,7 +4237,7 @@ blockquote {
 
 .sidebar-news-list {
   padding: 0; }
-  .sidebar-news-list li:nth-child(-n+5), .sidebar-news-list li.opened {
+  .sidebar-news-list li:nth-child(-n+1), .sidebar-news-list li.opened {
     display: block; }
 
 @media only screen and (min-width: 568px) {
