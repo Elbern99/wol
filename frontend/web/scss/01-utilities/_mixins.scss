@@ -27,7 +27,7 @@
 
   @if $point == 'mobile' {
     @media only screen and (max-width: $breakpoint-mobile) {
-      @content;
+      @content ;
     }
   }
 

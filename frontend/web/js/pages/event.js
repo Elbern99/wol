@@ -9,7 +9,7 @@
 				//GLOBAL VARIABLE ---------
 				var _window_width = elements.window.width(),
 								_window_height = elements.window.height(),
-								_mobile = 769;
+								_mobile = 820;
 
 				elements.window.resize(function() {
 								_window_width = elements.window.width();

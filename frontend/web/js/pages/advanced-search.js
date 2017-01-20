@@ -5,7 +5,7 @@
         _window_width = $(window).width(),
         _doc_height = $(document).height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 769,
+        _mobile = 820,
         _tablet = 1025;
 
     $(window).resize(function() {

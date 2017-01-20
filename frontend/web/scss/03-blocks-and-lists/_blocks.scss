@@ -16,6 +16,7 @@
 
   img {
     height: 33px;
+    width: 100%;
 
     @include breakpoint('tablet') {
       height: 64px;
