@@ -73,7 +73,9 @@
   }
 
   .publish {
-    text-transform: capitalize;
+    &:first-letter {
+      text-transform: capitalize;
+    }
   }
 
   li {
@@ -717,7 +719,9 @@
 
   .post-item {
     .publish {
-      text-transform: capitalize;
+      &:first-letter {
+        text-transform: capitalize;
+      }
     }
 
     @include breakpoint_custom($breakpoint-tablet) {
@@ -1118,7 +1122,10 @@
   >div {
     padding: 0 19px;
     width: 100%;
-    text-transform: capitalize;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
 
     @include breakpoint('mobile-large') {
       width: 50%;
@@ -1263,8 +1270,11 @@
 .topic-opinion-list {
   .post-item {
     .publish {
-      text-transform: capitalize;
       margin: -2px 0 3px;
+
+      &:first-letter {
+        text-transform: capitalize;
+      }
 
       @include breakpoint('tablet') {
         margin: 0 0 1px;
@@ -1483,6 +1493,8 @@
 
 //CLASSIFICATION-LIST
 .classification-list {
+  font-size: 12px;
+
   li {
     margin: 0 0 10px;
     line-height: 1.3em;
@@ -1514,8 +1526,11 @@
   li {
     margin: 0 0 14px;
     position: relative;
-    text-transform: capitalize;
     padding-right: 20px;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
   }
 }
 
@@ -1529,9 +1544,12 @@
   li {
     margin: 0 0 15px;
     position: relative;
-    text-transform: capitalize;
     font-size: 12px;
     overflow: hidden;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
 
     @include breakpoint('tablet') {
       margin: 0 0 13px;
@@ -1560,7 +1578,10 @@
     position: relative;
     padding: 0 20px 0 0;
     font-size: 12px;
-    text-transform: capitalize;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
 
   }
 }
@@ -1576,7 +1597,7 @@
 
   li {
     text-transform: none;
-    margin: 0px 0 10px;
+    margin: 0 0 10px;
     font-size: 12px;
     overflow: hidden;
 

@@ -232,8 +232,8 @@ textarea {
     padding: 9px 26px 9px;
     transition: color 0.3s ease;
     line-height: 1.3em;
-    text-transform: capitalize !important;
     color: #323232;
+    text-transform: none !important;
 
     @include breakpoint('tablet') {
       height: 49px;

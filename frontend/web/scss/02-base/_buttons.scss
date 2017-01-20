@@ -122,7 +122,10 @@
   &.btn-no-style {
     color: #454545;
     font-size: 13px;
-    text-transform: capitalize;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
   }
 }
 

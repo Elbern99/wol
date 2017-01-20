@@ -292,7 +292,7 @@ $authorLink = [];
                 </div>
             </div>
 
-            <div class="sidebar-widget">
+            <div class="sidebar-widget sidebar-widget-keywords">
                 <div class="widget-title">Keywords</div>
                 <?=
                 implode(', ', array_map(

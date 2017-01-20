@@ -296,7 +296,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             </div>
         </div>
 
-        <div class="sidebar-widget">
+        <div class="sidebar-widget sidebar-widget-keywords">
             <div class="widget-title">Keywords</div>
             <?=
             implode(', ', array_map(
