@@ -97,7 +97,7 @@ class UserActivation extends \yii\db\ActiveRecord
         
         $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token, 'newEmail' => $newEmail]);
 
-        $job = new \UrbanIndo\Yii2\Queue\Job([
+        /*$job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [
                 'to' => $user->email, 
@@ -108,7 +108,13 @@ class UserActivation extends \yii\db\ActiveRecord
         ]);
 
         Yii::$app->queue->post($job);
-        return true;
+        return true;*/
+        return Yii::$app->mailer->compose()
+                        ->setFrom(Yii::$app->params['supportEmail'])
+                        ->setTo($user->email)
+                        ->setSubject($this->subject)
+                        ->setHtmlBody($body)
+                        ->send();
         
     }
     
