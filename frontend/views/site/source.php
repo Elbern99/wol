@@ -60,7 +60,7 @@ $items[0] = 'Show All';
                         $text = '<ul>';
 
                         foreach ($model->sourceTaxonomies as $taxonomy) {
-                            if (!isset($taxonomy->taxonomy)) {
+                            if (!isset($taxonomy->taxonomy->value)) {
                                 continue;
                             }
                             $text .= Html::tag('li', $taxonomy->taxonomy->value);

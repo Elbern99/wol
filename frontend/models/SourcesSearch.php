@@ -46,20 +46,19 @@ class SourcesSearch extends DataSource
 
         $query = DataSource::find()
                 ->alias('s')
-                ->innerJoin([SourceTaxonomy::tableName().' as st', 's.id = st.source_id']);
-     
+                ->innerJoin(SourceTaxonomy::tableName().' as st', 's.id = st.source_id');
+
         if ($taxonomyFilter) {
             $query->where(['st.taxonomy_id' => $taxonomyFilter]);
         }
         
-        $query->with(['sourceTaxonomies.taxonomy' => function($q) {
-            return $q->select(['value']);
-        }]);
+        $query->with('sourceTaxonomies.taxonomy');
         
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => false
         ]);
 
         
