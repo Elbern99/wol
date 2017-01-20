@@ -20,19 +20,19 @@
 
     function shareSelected(selector){
         shareSelectedText(selector, {
-            tooltipClass: '',    // cool, if you want to customize the tooltip
-            sanitize: true,      // will sanitize the user selection to respect the Twitter Max length (recommended)
-            buttons: [           // services that you want to enable you can add :
-                'twitter',       // - twitter, tumblr, buffer, stumbleupon, digg, reddit, linkedin, facebook
+            tooltipClass: '',
+            sanitize: true,
+            buttons: [
+                'twitter',
                 'linkedin',
                 'facebook',
                 'tumblr',
             ],
-            anchorsClass: '',    // class given to each tooltip's links
-            twitterUsername: '', // for twitter widget, will add 'via @twitterUsername' at the end of the tweet.
-            facebookAppID: '1273981299361667', // Can also be an HTML element inside the <head> tag of your page : <meta property="fb:APP_ID" content="YOUR_APP_ID"/>
-            facebookDisplayMode: 'popup', //can be 'popup' || 'page'
-            tooltipTimeout: 50  //Timeout before that the tooltip appear in ms
+            anchorsClass: '',
+            twitterUsername: '',
+            facebookAppID: '1273981299361667',
+            facebookDisplayMode: 'popup',
+            tooltipTimeout: 50
         });
     }
 
@@ -205,83 +205,87 @@
     }).addTo(map);
 
     $.each(countries_array, function(index, value) {
-      var
-        x = value.capital.x;
-        y = value.capital.y;
+      var capital = value.capital;
 
-        //references
-        var key_references_obj = value.key_references,
-            key_additional_obj = value.additional_references,
-            key_country = value.country,
-            arrayTpl = [];
+      if (capital !== undefined)  {
+          var
+              x = capital.x;
+              y = capital.y;
 
-        if (key_country !== undefined) {
-            if(key_references_obj) {
-                var key_references_length = value.key_references.length;
+          //references
+          var key_references_obj = value.key_references,
+              key_additional_obj = value.additional_references,
+              key_country = value.country,
+              arrayTpl = [];
 
-                arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
+          if (key_country !== undefined) {
+              if(key_references_obj) {
+                  var key_references_length = value.key_references.length;
 
-                for (i = 0; i < key_references_obj.length; i++) {
-                    var references_full_citation = key_references_obj[i].full_citation,
-                        references_method = key_references_obj[i].method,
-                        references_position = key_references_obj[i].position,
-                        references_source = key_references_obj[i].source,
-                        references_title = key_references_obj[i].title,
-                        references_type = key_references_obj[i].type;
+                  arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
 
-                    arrayTpl.push('' +
-                        '<div class="ref-item">' +
-                        '<div class="authors">'+references_title+'</div>' +
-                        '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
-                        '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
-                        '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
-                        '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
-                        '</div>'
-                    );
-                }
-            }
+                  for (i = 0; i < key_references_obj.length; i++) {
+                      var references_full_citation = key_references_obj[i].full_citation,
+                          references_method = key_references_obj[i].method,
+                          references_position = key_references_obj[i].position,
+                          references_source = key_references_obj[i].source,
+                          references_title = key_references_obj[i].title,
+                          references_type = key_references_obj[i].type;
 
-            if(key_additional_obj) {
-                var key_additional_length = key_additional_obj.length;
-                arrayTpl.push('<h3>Additional references from '+key_country+'</h3>');
-                for (i = 0; i < key_additional_obj.length; i++) {
-                    var additional_full_citation = key_additional_obj[i].full_citation,
-                        additional_method = key_additional_obj[i].title;
+                      arrayTpl.push('' +
+                          '<div class="ref-item">' +
+                          '<div class="authors">'+references_title+'</div>' +
+                          '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
+                          '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
+                          '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
+                          '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
+                          '</div>'
+                      );
+                  }
+              }
 
-                    arrayTpl.push('' +
-                        '<div class="ref-item">' +
-                        '<div class="link">'+additional_full_citation+'</div>' +
-                        '<div class="method">'+additional_method+'</div>' +
-                        '</div>'
-                    );
-                }
-            }
+              if(key_additional_obj) {
+                  var key_additional_length = key_additional_obj.length;
+                  arrayTpl.push('<h3>Additional references from '+key_country+'</h3>');
+                  for (i = 0; i < key_additional_obj.length; i++) {
+                      var additional_full_citation = key_additional_obj[i].full_citation,
+                          additional_method = key_additional_obj[i].title;
 
-            var key_ref_tpl;
+                      arrayTpl.push('' +
+                          '<div class="ref-item">' +
+                          '<div class="link">'+additional_full_citation+'</div>' +
+                          '<div class="method">Method(s): '+additional_method+'</div>' +
+                          '</div>'
+                      );
+                  }
+              }
 
-            if(arrayTpl) {
-                key_ref_tpl = arrayTpl.join("\n");
-            }
+              var key_ref_tpl;
 
-            if(key_references_length === undefined){
-                key_references_length = 0;
-            }
+              if(arrayTpl) {
+                  key_ref_tpl = arrayTpl.join("\n");
+              }
 
-            if(key_additional_length === undefined){
-                key_additional_length = 0;
-            }
+              if(key_references_length === undefined){
+                  key_references_length = 0;
+              }
 
-            var articles_count = key_references_length + key_additional_length;
+              if(key_additional_length === undefined){
+                  key_additional_length = 0;
+              }
 
-            var LeafIcon = L.divIcon({
-                iconSize: new L.Point(24, 35),
-                html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
-            });
+              var articles_count = key_references_length + key_additional_length;
 
-            var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
+              var LeafIcon = L.divIcon({
+                  iconSize: new L.Point(24, 35),
+                  html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
+              });
 
-            marker.on('click', mapObj.onMapClick );
-        }
+              var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
+
+              marker.on('click', mapObj.onMapClick );
+          }
+      };
     });
 
     })

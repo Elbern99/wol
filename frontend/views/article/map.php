@@ -244,7 +244,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                 <?php $count_related = count($related) ?>
                     <?php if ($count_related > 0): ?>
-                    <div class="sidebar-widget">
+                    <div class="sidebar-widget expand-more">
                         <div class="widget-title">Related Articles</div>
                         <ul class="sidebar-news-list">
                             <?php foreach ($related as $relate): ?>
@@ -257,7 +257,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         </ul>
                         <?php
                             if($count_related > 5) {
-                                echo '<a href="" class="more-link">More</a>';
+                                echo '<a href="" class="more-link"><span class="more">More</span><span class="less">Less</span></a>';
                             }
                         ?>
                     </div>
