@@ -1876,7 +1876,7 @@
   padding: 0;
 
   li {
-    &:nth-child(-n+1),
+    &:nth-child(-n+5 ),
     &.opened{
       display: block;
     }
