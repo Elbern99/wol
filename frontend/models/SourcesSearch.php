@@ -6,12 +6,12 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\DataSource;
 use common\models\SourceTaxonomy;
-use common\models\Taxonomy;
 /*
  * class for filters in article manager
  */
 class SourcesSearch extends DataSource
 {
+    public $sourceTaxonomies;
     /**
      * @inheritdoc
      */
@@ -41,8 +41,9 @@ class SourcesSearch extends DataSource
      */
     public function search($params)
     {
-        
-        $taxonomyFilter = $params['SourcesSearch']['sourceTaxonomies'] ?? false;
+        $this->load($params);
+
+        $taxonomyFilter = $this->sourceTaxonomies ?? false;
 
         $query = DataSource::find()
                 ->alias('s')
