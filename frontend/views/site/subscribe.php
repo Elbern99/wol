@@ -50,8 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="icon-question tooltip"></div>
                                     <div class="tooltip-content drop-content">
                                         <div class="icon-close"></div>
-                                        <strong>At vero eos et accusamus</strong>
-                                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis volupt atibus maiores alias consequatur aut per ferendis recusan ciedae doloribus asperiores.
+                                        <strong>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</strong>
+                                        <ul>
+                                            <li>To enable you to receive alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below)</li>
+                                            <li>To better understand our audience</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

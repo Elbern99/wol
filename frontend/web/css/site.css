@@ -460,10 +460,10 @@ th {
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
-  background: #0053a0; }
+  background: #d3d3d3; }
   .no-image:after, .editor-item .img-holder:after, .search-results-media-item .img-holder:after, .contributor-profile .img-holder:after {
     content: 'no image';
-    color: #fff; }
+    color: #383838; }
   .no-image .img, .editor-item .img-holder .img, .search-results-media-item .img-holder .img, .contributor-profile .img-holder .img {
     background-size: cover;
     background-position: 50% 50%;
@@ -1708,6 +1708,9 @@ blockquote {
       .post-item h2 {
         overflow: hidden;
         margin-top: 0; } }
+  .article-item .desc p + br,
+  .post-item .desc p + br {
+    margin-bottom: 0 !important; }
   .article-item .desc p,
   .post-item .desc p {
     margin: 0 0 5px; }
@@ -2168,6 +2171,8 @@ blockquote {
     transition: margin 0.3s ease, opacity 0.3s ease;
     margin: 0 0 5px 0;
     z-index: 10; }
+    .tooltip-dropdown .tooltip-content ul {
+      padding: 0; }
     .tooltip-dropdown .tooltip-content.open {
       opacity: 1;
       position: absolute; }
@@ -2612,8 +2617,7 @@ blockquote {
     @media only screen and (min-width: 769px) {
       .key-topics-item h2 {
         font-size: 16px;
-        max-height: 66px;
-        overflow: hidden;
+        max-height: 46px;
         line-height: 1.4em; } }
   .key-topics-item .caption {
     position: absolute;
@@ -2621,11 +2625,12 @@ blockquote {
     left: 0;
     right: 0;
     padding: 6px 12px 18px;
-    min-height: 30%;
+    min-height: 38px;
     z-index: 2; }
     @media only screen and (min-width: 769px) {
       .key-topics-item .caption {
-        padding: 19px 29px 24px; } }
+        padding: 19px 29px 24px;
+        min-height: 75px; } }
   .key-topics-item p {
     margin: 6px 0 0;
     overflow: hidden;
@@ -6748,7 +6753,7 @@ iframe[name=advpp_manager] {
       @media only screen and (min-width: 769px) {
         .reference-popup .reference-popup-inner .container {
           overflow-y: auto;
-          max-height: 250px;
+          max-height: 280px;
           margin-right: 307px;
           position: relative;
           z-index: 1; } }
@@ -6810,8 +6815,10 @@ iframe[name=advpp_manager] {
     margin: 0 0 20px; }
   .reference-popup p {
     margin-bottom: 6px; }
-  .reference-popup .column-countries {
-    padding-top: 16px; }
+  @media only screen and (max-width: 769px) {
+    .reference-popup .column-sources .item,
+    .reference-popup .column-types .item {
+      min-height: 1px !important; } }
   .reference-popup .column-caption,
   .reference-popup .column,
   .reference-popup .column-types,
@@ -6831,6 +6838,11 @@ iframe[name=advpp_manager] {
     .reference-popup .column-bg-info.visible,
     .reference-popup .column-additional-references.visible {
       display: block; }
+  @media only screen and (min-width: 769px) {
+    .reference-popup .column-countries,
+    .reference-popup .column-methods {
+      padding-top: 16px;
+      margin: 0; } }
   .reference-popup .columns {
     margin: 0 -24px 0px; }
     @media only screen and (min-width: 769px) {

@@ -419,14 +419,24 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                                         <?php
                                                         $s = 1;
                                                         foreach ($reference->data_source as $dSource) {
-                                                            echo '['.$s.'] '.$dSource.'<br>';
+                                                            echo '<div class="item">['.$s.'] '.$dSource.'</div>';
                                                             $s++;
                                                         }
                                                         ?>
                                                     <?php endif; ?>
                                                 </div>
-                                                <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : '' ?></div>
-                                                <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
+                                                <div class="types">
+                                                    <?php if(is_array($reference->data_type)): ?>
+                                                        <?php
+                                                        $s = 1;
+                                                        foreach ($reference->data_type as $Types) {
+                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$Types.'</div>';
+                                                            $s++;
+                                                        }
+                                                        ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="methods"><?= (is_array($reference->method)) ? implode(' - ', $reference->method) : $reference->method ?></div>
                                                 <div class="countries"><?= (is_array($reference->countries)) ? implode(', ', $reference->countries) : '' ?></div>
                                             </div>
                                         </li>
@@ -606,19 +616,21 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         <a href=""></a>
                     </div>
                 </div>
-                <div class="columns">
-                    <div class="column column-sources">
-                        <h3>Data source(s)</h3>
-                        <div class="Data source"></div>
+                <div class="columns-holder">
+                    <div class="columns">
+                        <div class="column column-sources">
+                            <h3>Data source(s)</h3>
+                            <div class="sources"></div>
+                        </div>
+                        <div class="column column-types">
+                            <h3>Data type(s)</h3>
+                            <div class="types"></div>
+                        </div>
                     </div>
-                    <div class="column column-types">
-                        <h3>Data type(s)</h3>
-                        <div class="types"></div>
-                    </div>
-                    <div class="column column-methods">
-                        <h3>Method(s)</h3>
-                        <div class="methods"></div>
-                    </div>
+                </div>
+                <div class="column-methods">
+                    <h3>Method(s)</h3>
+                    <div class="methods"></div>
                 </div>
                 <div class="column-countries">
                     <h3>Countries</h3>

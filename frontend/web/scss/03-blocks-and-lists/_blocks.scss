@@ -151,6 +151,10 @@
 
   .desc {
 
+    p + br {
+      margin-bottom: 0!important;
+    }
+
     p {
       margin: 0 0 5px;
 
@@ -829,9 +833,13 @@
     margin: 0 0 5px 0;
     z-index: 10;
 
+    ul {
+      padding: 0 ;
+    }
+
     &.open {
       opacity: 1;
-      position: absolute;
+      position: absolute ;
     }
 
     &:after {
@@ -1408,8 +1416,7 @@
 
     @include breakpoint('tablet') {
       font-size: 16px;
-      max-height: 66px;
-      overflow: hidden;
+      max-height: 46px;
       line-height: 1.4em;
     }
   }
@@ -1420,11 +1427,12 @@
     left: 0;
     right: 0;
     padding: 6px 12px 18px;
-    min-height: 30%;
+    min-height: 38px;
     z-index: 2;
 
     @include breakpoint('tablet') {
       padding: 19px 29px 24px;
+      min-height: 75px;
     }
   }
 

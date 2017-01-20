@@ -736,7 +736,7 @@
 
       @include breakpoint('tablet') {
         overflow-y: auto;
-        max-height: 250px;
+        max-height: 280px;
         margin-right: 307px;
         position: relative;
         z-index: 1
@@ -842,8 +842,14 @@
     margin-bottom: 6px
   }
 
-  .column-countries {
-    padding-top: 16px;
+  .column-sources,
+  .column-types {
+    .item {
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        min-height: 1px !important;
+      }
+    }
   }
 
   .column-caption,
@@ -859,6 +865,15 @@
 
     &.visible {
       display: block;
+    }
+  }
+
+  .column-countries,
+  .column-methods {
+
+    @include breakpoint('tablet') {
+      padding-top: 16px;
+      margin: 0;
     }
   }
 
