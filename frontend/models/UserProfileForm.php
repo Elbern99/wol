@@ -3,6 +3,8 @@ namespace frontend\models;
 
 use yii\base\Model;
 use Yii;
+use common\models\UserActivation;
+
 /**
  * Signup form
  */
@@ -23,11 +25,22 @@ class UserProfileForm extends Model
     public $first_name;
     public $last_name;
     public $avatar;
+    public $messages = [];
     
     public function __construct() {
         
         $this->user = Yii::$app->user->identity;
         $this->load($this->user->getAttributes(), '');
+    }
+    
+    protected function validateSaveEmail() {
+        
+        if ($this->user->email != $this->email) {
+            $activated = new UserActivation();
+            $activated->changeUserEmailVerification($this->user, $this->email);
+            $this->messages[] = 'In your mail sent to a confirmation email.';
+        }
+
     }
 
     /**
@@ -80,8 +93,9 @@ class UserProfileForm extends Model
 
         $this->user->first_name = $this->first_name;
         $this->user->last_name = $this->last_name;
-        $this->user->email = $this->email;
-
+        
+        $this->validateSaveEmail();
+        
         if ($this->password) {
             
             if (!$this->checkOldPassword()) {

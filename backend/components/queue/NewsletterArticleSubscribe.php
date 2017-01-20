@@ -73,7 +73,7 @@ class NewsletterArticleSubscribe {
                 'route' => 'mail/send', 
                 'data' => [
                     'to' => $subscriber->email, 
-                    'from' => 'info@wol.iza.org', 
+                    'from' => Yii::$app->params['supportEmail'], 
                     'subject' => 'Newsletter', 
                     'body' => $body,
                     'article_id' => $event->id

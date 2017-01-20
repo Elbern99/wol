@@ -15,6 +15,8 @@ use frontend\models\SignupForm;
 use frontend\models\SignupPopupForm;
 use frontend\models\NewsletterForm;
 use common\models\NewsletterNews;
+use yii\helpers\Html;
+use common\models\UserActivation;
 
 /**
  * Site controller
@@ -123,8 +125,19 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect('/my-account');
         }
-
-        Yii::$app->getSession()->setFlash('error', 'Incorrect email or password.');
+        
+        if ($model->getErrors()) {
+            
+            $text = '';
+            
+            foreach ($model->getErrors() as $error) {
+                $text .= Html::tag('p', current($error));
+            }
+            
+            Yii::$app->getSession()->setFlash('error', $text);
+        } else {
+            Yii::$app->getSession()->setFlash('error', 'Incorrect email or password.');
+        }
         return $this->goBack();
     }
 
@@ -153,14 +166,20 @@ class SiteController extends Controller {
 
             if ($model->load(Yii::$app->request->post())) {
                 
-                if ($user = $model->signup()) {
-                    Yii::$app->session->setFlash('success', 'You have been successfully registered');
+                if ($model->signup()) {
+                    
+                    if ($model->errorMessage === false) {
+                        Yii::$app->session->setFlash('success', 'You have been successfully registered, Please confirm your email!');
+                    } else {
+                        Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
+                    }
+                    
                     return $this->goHome();
                 }
                 
             } elseif ($modelPopup->load(Yii::$app->request->post())) {
                 
-                if ($user = $modelPopup->signup()) {
+                if ($modelPopup->signup()) {
                     Yii::$app->session->setFlash('success', 'You have been successfully registered');
                     return $this->goHome();
                 }
@@ -225,6 +244,16 @@ class SiteController extends Controller {
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+    
+    public function actionConfirm($token, $email = null) {
+        
+        if($user = UserActivation::verifyToken($token, $email)) {
+            Yii::$app->user->login($user);
+            return $this->redirect('/my-account');
+        }
+
+        return $this->goHome();
     }
 
 }

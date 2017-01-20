@@ -4,6 +4,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use common\models\UserActivation;
 
 /**
  * Login form
@@ -13,7 +14,7 @@ class LoginForm extends Model
     public $email;
     public $password;
     public $rememberMe = true;
-
+    public $activated;
     private $_user;
 
 
@@ -30,6 +31,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
+            ['activated', 'validateActivated', 'skipOnEmpty' => false],
             ['password', 'validatePassword'],
         ];
     }
@@ -51,6 +53,19 @@ class LoginForm extends Model
         }
     }
 
+    public function validateActivated($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user->activated) {
+                
+                $activated = new UserActivation();
+                $activated->resendConfirmedEmail($user);
+                
+                $this->addError($attribute, 'You did not confirm email, we resend confirmation email');
+            }
+        }
+    }
     /**
      * Logs in a user using the provided username and password.
      *

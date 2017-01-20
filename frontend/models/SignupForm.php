@@ -4,6 +4,7 @@ namespace frontend\models;
 use yii\base\Model;
 use common\models\User;
 use Yii;
+use common\models\UserActivation;
 
 /**
  * Signup form
@@ -22,7 +23,8 @@ class SignupForm extends Model
     public $agree;
     public $items = null;
     public $newsletter = 0;
-
+    public $errorMessage = false;
+    
     /**
      * @inheritdoc
      */
@@ -54,7 +56,7 @@ class SignupForm extends Model
             ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions'],
             ['items', 'safe'],
             ['newsletter', 'safe']
-
+            
         ];
     }
     
@@ -70,15 +72,20 @@ class SignupForm extends Model
         }
         
         $user = new User();
+        $activated = new UserActivation();
         $user->username = null;
         $user->email = $this->email;
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
-        if ($user->save()) {
 
+        if ($user->save()) {
+            
+            if (!$activated->addActivated($user)) {
+                $this->errorMessage[] = 'We can not send confirmation email, Please try login later.';
+            }
+            
             if ($this->newsletter && is_array($this->items)) {
                 
                 $newsletter = new NewsletterForm();
@@ -98,7 +105,7 @@ class SignupForm extends Model
                     }
                     
                 } catch(\yii\db\Exception $e) {
-                    return $user;
+                    $this->errorMessage[] = 'Subscription is currently unavailable, try again later.';
                 }
                 
             }

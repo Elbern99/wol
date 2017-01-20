@@ -194,12 +194,13 @@ class MyAccountController extends Controller {
             
             $user = new UserProfileForm();
             $newslatter = new NewsletterForm();
-
+            $messages = [];
+            
             if ($user->load(Yii::$app->request->post()) && $user->validate()) {
 
                 if ($user->saveUserData()) {
-                    
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Your data was change'), false);
+                    $messages = array_merge($messages,$user->messages);
+                    $messages[] = 'Your info updated.';
                 }
                 
                 if ($newslatter->load(Yii::$app->request->post())) {
@@ -211,10 +212,11 @@ class MyAccountController extends Controller {
                     $newslatter->email = Yii::$app->user->identity->email;
                     
                     if ($facade->setSubscriber($newslatter->getAttributes())) {
-                        Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'You subscribed.'), false);
+                        $messages[] = 'You subscribed.';
                     }
                 }
                 
+                Yii::$app->getSession()->setFlash('success', implode('<br>', $messages));
                 return $this->redirect('/my-account');
             }
             
