@@ -31,6 +31,9 @@ $this->registerMetaTag([
             <ul class="search-results-media-list">
                 <?php foreach($collection as $author): ?>
                     <li class="search-results-media-item">
+                        <div class="img-holder">
+                            <div class="img"></div>
+                        </div>
                         <div class="name">
                             <a href="<?= Author::getAuthorUrl($author['url_key']) ?>">
                                 <?= $author['name']->first_name ?>

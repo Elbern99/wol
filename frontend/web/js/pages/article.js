@@ -41,6 +41,29 @@
                 $(triggerEl).trigger('click');
             });
         },
+        heightEq: function(item, firstColumn) {
+
+            $(item).each(function(index) {
+                var cur = $(this),
+                    curHeight = cur.height(),
+                    curHeightIndex = cur.index(),
+                    curSiblings = $('.column-types .types').find('.item').eq(index),
+                    curSiblingsHeight = curSiblings.height(),
+                    countHeight = 0;
+
+                if(curHeight > curSiblingsHeight) {
+                    countHeight = curHeight;
+                } else {
+                    countHeight = curSiblingsHeight;
+                }
+
+                cur.css('min-height', '1px');
+                curSiblings.css('min-height', '1px');
+
+                cur.css('min-height', countHeight);
+                curSiblings.css('min-height', countHeight);
+            });
+        },
         closeReference: function(btn,parent,overlay) {
             $(btn).click(function(e) {
                 $('a,li').removeClass('opened-reflink');
@@ -141,6 +164,18 @@
             var visibleEl = $('.container-inner > .visible');
                 visibleEl.removeClass('last-visible');
                 visibleEl.last().addClass('last-visible');
+
+            console.log(_window_width,_tablet);
+
+            if(_window_width >= _mobile-100) {
+                setTimeout(function(){
+                    article.heightEq('.column-sources .item');
+
+                    elements.window.resize(function() {
+                        article.heightEq('.column-sources .item');
+                    });
+                }, article.delay+201);
+            }
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
@@ -174,17 +209,11 @@
                 //action
                 $('li').removeClass(classEl);
                 curParent.addClass(classEl);
-                parentHolder.fadeOut(article.delay);
-
-                if(_window_width > _mobile){
-                    parentHolder.fadeIn(article.delay);
-                }
-
-                if(keyLink.length>0){
-                    keyLink.trigger('click');
-                } else {
-                    curParent.find('.rel-tooltip').trigger('click');
-                }
+                // parentHolder.fadeOut(article.delay);
+                //
+                // if(_window_width > _mobile){
+                //     parentHolder.fadeIn(article.delay);
+                // }
 
                 e.preventDefault();
             });

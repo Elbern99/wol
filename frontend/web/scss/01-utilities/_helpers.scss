@@ -29,11 +29,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $blue;
+  background: $gray-light;
 
   &:after {
     content: 'no image';
-    color: #fff;
+    color: $gray;
   }
 
   .img {

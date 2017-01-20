@@ -12,9 +12,12 @@
       position: relative;
 
       @include breakpoint_custom($breakpoint-tablet) {
-        text-transform: capitalize;
         margin-left: 2px;
         width: auto;
+
+        &:first-letter {
+          text-transform: capitalize;
+        }
       }
     }
   }

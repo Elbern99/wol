@@ -52,7 +52,6 @@ label {
       right: 0;
       font-size: 10px;
       content: 'Required';
-      text-transform: capitalize;
 
       @include breakpoint('tablet') {
         top: 3px;
@@ -195,8 +194,8 @@ label {
 
   li,
   .item {
-    text-transform: capitalize;
     margin: 0 0 12px;
+    text-transform: none;
   }
 
   .subcheckbox-list {

@@ -292,7 +292,7 @@ $authorLink = [];
                 </div>
             </div>
 
-            <div class="sidebar-widget">
+            <div class="sidebar-widget sidebar-widget-keywords">
                 <div class="widget-title">Keywords</div>
                 <?=
                 implode(', ', array_map(
@@ -448,14 +448,24 @@ $authorLink = [];
                                                 <?php
                                                     $s = 1;
                                                     foreach ($reference->data_source as $dSource) {
-                                                        echo '['.$s.'] '.$dSource.'<br>';
+                                                        echo '<div class="item">['.$s.'] '.$dSource.'</div>';
                                                         $s++;
                                                     }
                                                 ?>
                                             <?php endif; ?>
                                             </div>
-                                            <div class="types"><?=  (is_array($reference->data_type)) ? implode('<br>', $reference->data_type) : '' ?></div>
-                                            <div class="methods"><?= (is_array($reference->method)) ? implode('<br>', $reference->method) : $reference->method ?></div>
+                                            <div class="types">
+                                                <?php if(is_array($reference->data_type)): ?>
+                                                    <?php
+                                                    $s = 1;
+                                                    foreach ($reference->data_type as $Types) {
+                                                        echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$Types.'</div>';
+                                                        $s++;
+                                                    }
+                                                    ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="methods"><?= (is_array($reference->method)) ? implode(' - ', $reference->method) : $reference->method ?></div>
                                             <div class="countries"><?= (is_array($reference->countries)) ? implode(', ', $reference->countries) : '' ?></div>
                                         </div>
                                     </li>
@@ -633,10 +643,10 @@ $authorLink = [];
                         <h3>Data type(s)</h3>
                         <div class="types"></div>
                     </div>
-                    <div class="column column-methods">
-                        <h3>Method(s)</h3>
-                        <div class="methods"></div>
-                    </div>
+                </div>
+                <div class="column-methods">
+                    <h3>Method(s)</h3>
+                    <div class="methods"></div>
                 </div>
                 <div class="column-countries">
                     <h3>Countries</h3>

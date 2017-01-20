@@ -34,7 +34,10 @@
   h3 {
     margin: 0 0 15px;
     font-size: 18px;
-    text-transform: capitalize;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
 
     @include breakpoint('tablet') {
       margin: 0 0 13px;

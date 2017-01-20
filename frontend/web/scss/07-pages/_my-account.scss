@@ -271,8 +271,11 @@
       margin: 0 0 0 7px;
 
       span {
-        text-transform: capitalize;
         width: auto;
+
+        &:first-letter {
+          text-transform: capitalize;
+        }
       }
     }
 
