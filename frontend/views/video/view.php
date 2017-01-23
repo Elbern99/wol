@@ -80,7 +80,10 @@ $this->params['breadcrumbs'][] = $model->title;
                     </div>
                 </div>
             </div>
-            <h1>Dawn or Doom: The effects of Brexit on immigration, wages, and employment</h1>
+            <h1><?= $model->title; ?></h1>
+            <?php if (($category = $model->category) != null) : ?>
+            <p><b>Classification</b> <?= Html::a($category->meta_title, $category->url_key); ?></p>
+            <?php endif; ?>
         </div>
     </div>
 

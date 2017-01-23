@@ -43,6 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ])->label($model->getAttributeLabel('video_ids')); ?>
             
+                <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+                    'data' => $model->categoriesList(),
+                    'options' => ['placeholder' => 'Select category...',],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('category_id')); ?>
+            
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>
