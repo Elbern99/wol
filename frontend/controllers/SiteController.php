@@ -17,6 +17,7 @@ use frontend\models\NewsletterForm;
 use common\models\NewsletterNews;
 use yii\helpers\Html;
 use common\models\UserActivation;
+use common\models\Newsletter;
 
 /**
  * Site controller
@@ -253,6 +254,25 @@ class SiteController extends Controller {
             return $this->redirect('/my-account');
         }
 
+        return $this->goHome();
+    }
+    
+    public function actionUnsubscribe($id) {
+        
+        try {
+            
+            $model = Newsletter::findOne($id);
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','You unsubscribe from newsletter!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','You cannot unsubscribe now, try later!'));
+        }
+             
         return $this->goHome();
     }
 

@@ -57,7 +57,8 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user->activated) {
+
+            if (is_object($user) && !$user->activated) {
                 
                 $activated = new UserActivation();
                 $activated->resendConfirmedEmail($user);

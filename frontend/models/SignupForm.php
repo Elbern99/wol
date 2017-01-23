@@ -86,6 +86,8 @@ class SignupForm extends Model
                 $this->errorMessage[] = 'We can not send confirmation email, Please try login later.';
             }
             
+            $subscriberId = null;
+            
             if ($this->newsletter && is_array($this->items)) {
                 
                 $newsletter = new NewsletterForm();
@@ -99,9 +101,10 @@ class SignupForm extends Model
                     
                     if ($newsletter->validate()) {
 
-                        $newslatter = Yii::$container->get('newsletter');
-                        $newslatter->getSubscriber($newsletter->email);
-                        $newslatter->setSubscriber($newsletter->getAttributes());
+                        $obj = Yii::$container->get('newsletter');
+                        $obj->getSubscriber($newsletter->email);
+                        $obj->setSubscriber($newsletter->getAttributes());
+                        $subscriberId = $obj->getAttribute('id');
                     }
                     
                 } catch(\yii\db\Exception $e) {
@@ -110,9 +113,28 @@ class SignupForm extends Model
                 
             }
             
+            $this->sendRegisteredEmail($subscriberId);
+            
             return $user;
         }
         
         return null;
+    }
+    
+    protected function sendRegisteredEmail($subscriberId) {
+        
+        $body = Yii::$app->view->renderFile('@frontend/views/emails/registered.php', ['subscriber' => $subscriberId]);
+            
+        $job = new \UrbanIndo\Yii2\Queue\Job([
+            'route' => 'mail/send', 
+            'data' => [
+                'to' => $this->email, 
+                'from' => Yii::$app->params['supportEmail'], 
+                'subject' => 'Welcome to IZA World of Labor', 
+                'body' => $body
+            ]
+        ]);
+
+        Yii::$app->queue->post($job);
     }
 }

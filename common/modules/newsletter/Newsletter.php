@@ -29,6 +29,9 @@ class Newsletter {
         return $this->model->getAttributes();
     }
     
+    public function getAttribute($name) {
+        return $this->model->getAttribute($name) ?? null;
+    }
     
 }
 

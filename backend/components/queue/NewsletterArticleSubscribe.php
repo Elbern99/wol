@@ -74,7 +74,7 @@ class NewsletterArticleSubscribe {
                 'data' => [
                     'to' => $subscriber->email, 
                     'from' => Yii::$app->params['supportEmail'], 
-                    'subject' => 'Newsletter', 
+                    'subject' => 'Article from IZA World of Labor', 
                     'body' => $body,
                     'article_id' => $event->id
                 ]

@@ -301,6 +301,9 @@ class ArticleParser implements ParserInterface {
         $event->title = $this->article->title;
         $event->url = 'articles/'.$this->article->seo;
         $event->categoryIds = $this->categoryIds;
+        $event->availability = $this->article->availability;
+        $event->pdf = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
+        
         Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
         
         return $result;

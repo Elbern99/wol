@@ -9,5 +9,7 @@ class ArticleEvent extends Event
     public $title;
     public $url;
     public $categoryIds;
+    public $availability;
+    public $pdf;
 }
 

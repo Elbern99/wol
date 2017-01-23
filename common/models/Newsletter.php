@@ -5,6 +5,7 @@ namespace common\models;
 use common\modules\newsletter\contracts\NewsletterInterface;
 use Yii;
 use common\components\TimestampBehavior;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "newsletter".
@@ -19,29 +20,25 @@ use common\components\TimestampBehavior;
  * @property integer $iza
  * @property integer $created_at
  */
-class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface
-{
-    
+class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
+
     public function behaviors() {
         return [
             TimestampBehavior::className(),
         ];
     }
-    
-    
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'newsletter';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['email', 'first_name', 'last_name'], 'required'],
             [['interest', 'iza_world', 'iza', 'created_at'], 'integer'],
@@ -53,8 +50,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'email' => Yii::t('app', 'Email'),
@@ -67,42 +63,123 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface
             'created_at' => Yii::t('app', 'Created At'),
         ];
     }
-    
+
     public function beforeValidate() {
-        
-        $parent =parent::beforeValidate();
-        
-        if($parent) {
-          
+
+        $parent = parent::beforeValidate();
+
+        if ($parent) {
+
             if (is_array($this->areas_interest) && count($this->areas_interest)) {
                 $this->setAttribute('areas_interest', implode(',', $this->areas_interest));
             }
-
         }
-        
+
         return $parent;
     }
-    
+
     public function getSubscriber(string $email) {
-        $model = $this->find()->where(['email'=>$email])->one();
-        
+        $model = $this->find()->where(['email' => $email])->one();
+
         if (is_object($model)) {
             if (is_string($model->areas_interest)) {
                 $model->areas_interest = explode(',', $model->areas_interest);
             }
         }
-        
+
         return $model;
     }
-    
+
     public function setSubscriber(array $data) {
 
         if ($this->load($data, '') && $this->save()) {
-            
+
+            $this->sendSuccessEmail();
             return true;
         }
-        
+
         return false;
     }
-    
+
+    public function sendSuccessEmail() {
+
+        if (count($this->getOldAttributes())) {
+            $mails = $this->forIssetSubscriber();
+        } else {
+            $mails = $this->forNewSubscriber();
+        }
+
+        foreach ($mails as $mail) {
+            $this->sendEmail($mail['subject'], ['body']);
+        }
+    }
+
+    protected function forIssetSubscriber() {
+
+        $mails = [];
+
+        if (!$this->getOldAttribute('iza_world') && !$this->getOldAttribute('iza')) {
+
+            if ($this->getAttribute('iza_world') || $this->getAttribute('iza')) {
+
+                $mails[] = [
+                    'body' => Yii::$app->view->renderFile('@frontend/views/emails/subscribe.php', ['subscriber' => $this]),
+                    'subject' => 'Welcome to the IZA World of Labor newsletter'
+                ];
+            }
+        }
+
+        if (($this->getAttribute('interest') && count($this->areas_interest)) && ($this->getOldAttribute('interest') != $this->getAttribute('interest'))) {
+            
+            $link = (Yii::$app->user->getIsGuest()) ? Url::to('/subscribe', true) : Url::to('/my-account', true);
+            
+            $mails[] = [
+                'body' => Yii::$app->view->renderFile('@frontend/views/emails/articleAlert.php', ['link' => $link, 'subscriber' => $this]),
+                'subject' => 'Article alerts for IZA World of Labor'
+            ];
+        }
+
+        return $mails;
+    }
+
+    protected function forNewSubscriber() {
+
+        $mails = [];
+        
+        if ($this->getAttribute('iza_world') || $this->getAttribute('iza')) {
+            
+            $mails[] = [
+                'body' => Yii::$app->view->renderFile('@frontend/views/emails/subscribe.php', ['subscriber' => $this]),
+                'subject' => 'Welcome to the IZA World of Labor newsletter'
+            ];
+        }
+
+        if ($this->getAttribute('interest') && count($this->areas_interest)) {
+            
+            $link = (Yii::$app->user->getIsGuest()) ? Url::to('/subscribe', true) : Url::to('/my-account', true);
+            
+            $mails[] = [
+                'body' => Yii::$app->view->renderFile('@frontend/views/emails/articleAlert.php', ['link' => $link, 'subscriber' => $this]),
+                'subject' => 'Article alerts for IZA World of Labor'
+            ];
+        }
+        
+        return $mails;
+    }
+
+    protected function sendEmail($subject = '', string $body): void {
+
+        $job = new \UrbanIndo\Yii2\Queue\Job([
+            'route' => 'mail/send',
+            'data' => [
+                'to' => $this->email,
+                'from' => Yii::$app->params['supportEmail'],
+                'subject' => $subject,
+                'body' => $body
+            ]
+        ]);
+
+        Yii::$app->queue->post($job);
+    }
+
 }
