@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use common\models\Newsletter;
+use common\models\Category;
+use yii\helpers\ArrayHelper;
 
 /*
  * Newslletter Manager Class Controller
@@ -21,7 +24,7 @@ class NewsletterController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['news', 'news-view', 'news-delete'],
+                        'actions' => ['news', 'news-view', 'news-delete', 'subscribers', 'subscriber-delete', 'subscribers-export'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -31,6 +34,7 @@ class NewsletterController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'news-delete' => ['post'],
+                    'subscriber-delete' => ['post']
                 ],
             ],
         ];
@@ -78,4 +82,38 @@ class NewsletterController extends Controller
              
         return $this->redirect('@web/newsletter/news');
     }
+    
+    public function actionSubscribers() {
+        $categories =  Category::find()
+                            ->alias('s')
+                            ->select(['c.id', 'c.title'])
+                            ->innerJoin(Category::tableName().' AS c', 's.id = c.root')
+                            ->where(['s.url_key' => 'articles', 'c.active' => 1, 'c.lvl' => 1])
+                            ->asArray()
+                            ->all();
+        
+        $areas = ArrayHelper::map($categories, 'id', 'title');
+        
+        $news = Newsletter::find()->orderBy('created_at');
+        return $this->render('newsletter', ['dataProvider' => new ActiveDataProvider(['query' => $news, 'pagination' => ['pageSize' => 30]]), 'areas' => $areas]);
+    }
+    
+    public function actionSubscriberDelete($id) {
+        
+        try {
+            $model = Newsletter::findOne($id);
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Subscriber was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Subscriber did not delete!'));
+        }
+             
+        return $this->redirect('@web/newsletter/subscribers');
+    }
+    
 }

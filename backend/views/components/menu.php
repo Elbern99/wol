@@ -55,13 +55,13 @@ if (Yii::$app->user->isGuest) {
     ];
     
     $menuItems[] = [
-            'label' => 'Newsletter',
-            'url' => ['#'], 'template' => 
-            '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
-            'items' => [
-                ['label' => Yii::t('app/menu','News'), 'url' => ['/newsletter/news']
-            ],
-        ]
+        'label' => 'Newsletter',
+        'url' => ['#'], 'template' => 
+        '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
+        'items' => [
+            ['label' => Yii::t('app/menu','News'), 'url' => ['/newsletter/news']],
+            ['label' => Yii::t('app/menu','Subscribers'), 'url' => ['/newsletter/subscribers']],
+        ],
     ];
         
     $menuItems[] = ['label' => Yii::t('app/menu','Category'), 'url' => ['/category']];
