@@ -17,13 +17,16 @@ class MailController extends \UrbanIndo\Yii2\Queue\Worker\Controller {
                 }
             }
             
-            Yii::$app->mailer->compose()
-                        ->setFrom($to)
-                        ->setTo(htmlspecialchars($from))
-                        ->setSubject($subject)
-                        ->setHtmlBody($body)
-                        ->send();
+            $result = Yii::$app->mailer->compose()
+                            ->setFrom($to)
+                            ->setTo(htmlspecialchars($from))
+                            ->setSubject($subject)
+                            ->setHtmlBody($body)
+                            ->send();
 
+            if ($result) {
+                Yii::error('email in queue not send '.$to);
+            }
             
         } catch (\Exception $ex) {
             Yii::error('email in queue not send '.$to);
