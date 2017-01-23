@@ -21,11 +21,11 @@
 //HEADER-TOP
 .header-top {
   padding: 9px 0 3px;
+  border-bottom: 1px solid #d8d8d8;
 
   @include breakpoint('tablet') {
     padding: 0;
     height: 39px;
-    border-bottom: 1px solid #d8d8d8;
 
     .container {
       display: flex;

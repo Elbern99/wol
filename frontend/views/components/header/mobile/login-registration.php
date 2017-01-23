@@ -70,7 +70,7 @@
                     <?= $form->field($model, 'newsletter')->checkbox()->label('<span class="label-text">I would like to register for the IZA World of Labor newsletter</span>', ['class'=>'def-checkbox']) ?>
                 </div>
                 <div class="form-line">
-                    <?= $form->field($model, 'agree', ['options'=>['class' => 'form-item no-required']])->checkbox()->label('<span class="label-text">I agree to the <a href="">terms and conditions</a> and <a href="">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
+                    <?= $form->field($model, 'agree', ['options'=>['class' => 'form-item no-required']])->checkbox()->label('<span class="label-text">I agree to the <a href="/terms-and-conditions">terms and conditions</a> and <a href="/privacy-and-cookie-policy">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
                 </div>
                 <?= Html::submitButton('Create Account', ['class' => 'btn-blue', 'name' => 'signup-button']) ?>
                 <?php ActiveForm::end(); ?>

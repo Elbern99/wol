@@ -222,7 +222,7 @@
               if(key_references_obj) {
                   var key_references_length = value.key_references.length;
 
-                  arrayTpl.push('<h3>Key references from '+key_country+'</h3>');
+                  arrayTpl.push('<h3>Key reference(s) from '+key_country+'</h3>');
 
                   for (i = 0; i < key_references_obj.length; i++) {
                       var references_full_citation = key_references_obj[i].full_citation,
@@ -246,7 +246,7 @@
 
               if(key_additional_obj) {
                   var key_additional_length = key_additional_obj.length;
-                  arrayTpl.push('<h3>Additional references from '+key_country+'</h3>');
+                  arrayTpl.push('<h3>Additional reference(s) from '+key_country+'</h3>');
                   for (i = 0; i < key_additional_obj.length; i++) {
                       var additional_full_citation = key_additional_obj[i].full_citation,
                           additional_method = key_additional_obj[i].title;
@@ -278,7 +278,7 @@
 
               var LeafIcon = L.divIcon({
                   iconSize: new L.Point(24, 35),
-                  html: '<div class="icon-number-reference">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
+                  html: '<div class="icon-number-reference '+ key_country+'">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
               });
 
               var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);
