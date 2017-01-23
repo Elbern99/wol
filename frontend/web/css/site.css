@@ -924,8 +924,8 @@ th {
   height: 17px;
   display: inline-block; }
   [class*='icon-square-'].icon-square-dark-green {
-    background: #00806a;
-    border: 2px solid #006655; }
+    background: #00453a;
+    border: 2px solid #00352d; }
   [class*='icon-square-'].icon-square-green {
     background: #008954;
     border: 2px solid #006c42; }
@@ -4914,6 +4914,8 @@ label {
   @media only screen and (min-width: 820px) {
     .dropdown-login .form-line {
       margin: 0 0 10px; } }
+  .dropdown-login .form-line .label-text {
+    text-transform: none; }
 .dropdown-login .label-holder {
   margin: 0px 0 6px; }
   @media only screen and (min-width: 820px) {
@@ -5616,12 +5618,12 @@ iframe[name=advpp_manager] {
         z-index: 1003; } }
 
 .header-top {
-  padding: 9px 0 3px; }
+  padding: 9px 0 3px;
+  border-bottom: 1px solid #d8d8d8; }
   @media only screen and (min-width: 820px) {
     .header-top {
       padding: 0;
-      height: 39px;
-      border-bottom: 1px solid #d8d8d8; }
+      height: 39px; }
       .header-top .container {
         display: -ms-flexbox;
         display: flex;
@@ -7913,6 +7915,31 @@ iframe[name=advpp_manager] {
   display: none;
   position: absolute; }
 
+.icon-number-reference.Guatemala + .leaflet-marker-iconlabel,
+.icon-number-reference.Israel + .leaflet-marker-iconlabel,
+.icon-number-reference.Slovenia + .leaflet-marker-iconlabel {
+  transform: translateX(-77%); }
+
+.icon-number-reference.Honduras + .leaflet-marker-iconlabel,
+.icon-number-reference.Finland + .leaflet-marker-iconlabel,
+.icon-number-reference.Slovakia + .leaflet-marker-iconlabel {
+  transform: translateX(-30%); }
+
+.icon-number-reference.Syria + .leaflet-marker-iconlabel,
+.icon-number-reference.Georgia + .leaflet-marker-iconlabel {
+  transform: translateX(0%); }
+
+.icon-number-reference.Jordan + .leaflet-marker-iconlabel {
+  transform: translateX(-10%); }
+
+.icon-number-reference.Senegal + .leaflet-marker-iconlabel {
+  transform: translateX(-83%); }
+
+.icon-number-reference.Guinea + .leaflet-marker-iconlabel,
+.icon-number-reference.Lebanon + .leaflet-marker-iconlabel,
+.icon-number-reference.Austria + .leaflet-marker-iconlabel {
+  transform: translateX(-106%); }
+
 .map-title,
 .extra-title {
   color: #717171;
@@ -7925,6 +7952,9 @@ iframe[name=advpp_manager] {
       font-size: 12px;
       margin: 0 0 3px; } }
 
+@media only screen and (max-width: 820px) {
+  .article-map .evidence-map-text {
+    margin-bottom: 20px; } }
 @media only screen and (min-width: 820px) {
   .article-map .sidebar-buttons-holder {
     margin: -3px 0 0 0; } }
@@ -8077,7 +8107,7 @@ iframe[name=advpp_manager] {
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 20px; }
+  margin: 0 -15px 0px; }
   @media only screen and (min-width: 820px) {
     .map-holder {
       position: relative;
@@ -8143,10 +8173,7 @@ iframe[name=advpp_manager] {
       margin: 0 0 4px; }
     .map-info-content .ref-item .link {
       font-size: 10px;
-      margin: 0px 0 3px; }
-      @media only screen and (min-width: 820px) {
-        .map-info-content .ref-item .link {
-          font-style: italic; } }
+      margin: 0 0 3px; }
     .map-info-content .ref-item .text {
       margin: 0 0 2px; }
     .map-info-content .ref-item .dates {
@@ -8229,8 +8256,8 @@ path {
     fill: #49da2c !important;
     stroke: #3bc81f !important; }
   path.innovation {
-    fill: #00806a !important;
-    stroke: #006655 !important; }
+    fill: #00453a !important;
+    stroke: #00352d !important; }
 
 .event-page h3 {
   font-size: 18px;

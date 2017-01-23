@@ -16,6 +16,41 @@
   position: absolute;
 }
 
+.icon-number-reference.Guatemala+.leaflet-marker-iconlabel,
+.icon-number-reference.Israel+.leaflet-marker-iconlabel,
+.icon-number-reference.Slovenia+.leaflet-marker-iconlabel
+{
+  transform: translateX(-77%);
+}
+
+.icon-number-reference.Honduras+.leaflet-marker-iconlabel,
+.icon-number-reference.Finland+.leaflet-marker-iconlabel,
+.icon-number-reference.Slovakia+.leaflet-marker-iconlabel
+{
+  transform: translateX(-30%);
+}
+
+.icon-number-reference.Syria+.leaflet-marker-iconlabel,
+.icon-number-reference.Georgia+.leaflet-marker-iconlabel
+{
+  transform: translateX(0%);
+}
+
+.icon-number-reference.Jordan+.leaflet-marker-iconlabel
+{
+  transform: translateX(-10%);
+}
+
+.icon-number-reference.Senegal+.leaflet-marker-iconlabel {
+  transform: translateX(-83%);
+}
+
+.icon-number-reference.Guinea+.leaflet-marker-iconlabel,
+.icon-number-reference.Lebanon+.leaflet-marker-iconlabel,
+.icon-number-reference.Austria+.leaflet-marker-iconlabel {
+  transform: translateX(-106%);
+}
+
 .map-title,
 .extra-title {
   color: #717171;
@@ -30,6 +65,12 @@
 }
 
 .article-map {
+
+  .evidence-map-text {
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-bottom: 20px;
+    }
+  }
 
   .sidebar-buttons-holder {
 
@@ -259,7 +300,7 @@
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 20px;
+  margin: 0 -15px 0px;
 
   @include breakpoint('tablet') {
     position: relative;
@@ -347,11 +388,7 @@
 
     .link {
       font-size: 10px;
-      margin: 0px 0 3px;
-
-      @include breakpoint('tablet') {
-        font-style: italic;
-      }
+      margin: 0 0 3px;
     }
 
     .text {
@@ -470,7 +507,7 @@ path {
     stroke: rgba(59, 200, 31, 1) !important;
   }
   &.innovation {
-    fill: rgba(0, 128, 106, 1) !important;
-    stroke: rgba(0, 102, 85, 1) !important;
+    fill: rgba(0, 69, 58, 1) !important;
+    stroke: rgba(0, 53, 45, 1) !important;
   }
 }

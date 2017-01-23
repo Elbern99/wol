@@ -59,6 +59,10 @@
     @include breakpoint('tablet') {
       margin: 0 0 10px;
     }
+
+    .label-text {
+      text-transform: none;
+    }
   }
 
   .label-holder {
