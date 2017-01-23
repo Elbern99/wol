@@ -828,19 +828,18 @@
     min-width: 132px;
     color: #262626;
     font-size: 12px;
-    text-transform: capitalize;
     opacity: 0;
     transition: margin 0.3s ease, opacity 0.3s ease;
     margin: 0 0 5px 0;
     z-index: 10;
 
     ul {
-      padding: 0 ;
+      padding: 0;
     }
 
     &.open {
       opacity: 1;
-      position: absolute ;
+      position: absolute;
     }
 
     &:after {
@@ -1873,6 +1872,7 @@
     float: left;
     width: 30%;
     overflow: hidden;
+    height: 100%;
 
     &:after {
       @extend .pinout;

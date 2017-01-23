@@ -12,7 +12,7 @@
     <?php else: ?>
     <ul class="login-registration-list logout">
         <li class="dropdown dropdown-login">
-            <a href ="/my-account" class="welcome-link">Welcome, <strong><?= Yii::$app->user->identity->first_name ?? '' ?></strong></a>
+            <a href ="/my-account" class="welcome-link">Welcome,<strong><?= Yii::$app->user->identity->first_name ?? '' ?></strong></a>
         </li>
         <li class="hide-mobile">
             <?= Html::beginForm(['/site/logout'], 'post')

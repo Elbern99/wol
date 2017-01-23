@@ -8,13 +8,16 @@ use yii\helpers\Url;
     'options' => ['enctype' => 'multipart/form-data']
 ]); ?>
 
-<div class="img">
-    <div class="inner">
-        <?= $form->field($model, 'avatar')->fileInput(['id'=>'load_image'])->label('') ?>
-        <img class="user-avatar" src="<?= $model->avatar ? $model->getAvatarUrl($model->avatar): '' ?>" alt="">
+<div class="img-holder img-holder-bg">
+    <div class="img" style="background-image: url(<?= $model->avatar ? $model->getAvatarUrl($model->avatar): '' ?>)">
+        <div class="inner">
+            <?= $form->field($model, 'avatar')->fileInput(['id'=>'load_image'])->label('') ?>
+            <img class="user-avatar" src="" alt="">
+
+        </div>
+        <div class="icon-photo"></div>
+        <div class="text">change photo</div>
     </div>
-    <div class="icon-photo"></div>
-    <div class="text">change photo</div>
 </div>
 
 <?php ActiveForm::end(); ?>

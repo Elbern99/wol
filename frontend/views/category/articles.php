@@ -56,8 +56,8 @@ $roleLabel = new Roles();
                             <div class="article-user-list">
                                 <?php foreach($authors as $author): ?>
                                 <div class="article-user">
-                                    <div class="img">
-                                        <a href="<?= $authorsValue[$author]['profile'] ?>"><img src="<?= $authorsValue[$author]['avatar'] ?>" alt=""></a>
+                                    <div class="img-holder img-holder-bg">
+                                        <a href="<?= $authorsValue[$author]['profile'] ?>" class="img" style="background-image: url(<?= $authorsValue[$author]['avatar'] ?>)"></a>
                                     </div>
                                     <div class="desc">
                                         <div class="name">

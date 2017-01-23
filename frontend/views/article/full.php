@@ -98,7 +98,9 @@ $authorLink = [];
 
         <?php foreach ($authors as $author): ?>
             <div class="article-user">
-                <div class="img"><a href="<?= $author['profile'] ?>"><img src="<?= $author['avatar'] ?>" alt=""></a></div>
+                <div class="img-holder img-holder-bg">
+                    <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
+                </div>
 
                 <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
 
