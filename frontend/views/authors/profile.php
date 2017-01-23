@@ -57,7 +57,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </div>
             </div>
             <div class="contributor-profile">
-                <div class="img-holder">
+                <div class="img-holder img-holder-bg">
                     <div class="img" style="background-image: url(<?= Author::getImageUrl($author['author']->avatar)?>)"></div>
                 </div>
                 <div class="description">

@@ -93,23 +93,23 @@
     }
   }
 
-  .img {
+  .img-holder {
     margin: 0 auto;
     width: 118px;
     height: 118px;
     position: relative;
-    color: $light-blue;
+    @extend .no-image;
+    transition: background 0.3s ease;
+
+    .img,
+    &:after {
+      border-radius: 50%;
+    }
 
     .inner {
       overflow: hidden;
       @extend .pinout;
       border-radius: 50%;
-
-      &:after {
-        content: 'No image';
-        background: $blue;
-        font-size: 10px;
-      }
     }
 
     .help-block,
@@ -128,10 +128,6 @@
       margin: 0;
       border-radius: 50%;
       font-size: 7px;
-
-      &:after {
-        display: none;
-      }
     }
 
     input[type="file"] {
@@ -152,8 +148,9 @@
 
     @include breakpoint('tablet') {
       &:hover {
-        &:after {
-          opacity: 1;
+
+        .img {
+          background: $light-blue !important;
         }
 
         .icon-photo {
@@ -166,15 +163,6 @@
           opacity: 1;
         }
       }
-    }
-    
-    &:after {
-      background: rgba(0,148,242,0.8);
-      @extend .pinout;
-      border-radius: 50%;
-      z-index: 2;
-      transition: opacity 0.3s ease;
-      opacity: 0;
     }
 
     @include breakpoint('tablet') {

@@ -29,11 +29,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $gray-light;
 
-  &:after {
-    content: 'no image';
-    color: $gray;
+  &.img-holder-bg {
+    .img {
+      z-index: 2;
+    }
+
+    &:after {
+      background: #F5F5F5 url(../images/avatars/default_user.png);
+      background-size: cover;
+      @extend .pinout;
+      z-index: 1;
+    }
   }
 
   .img {
@@ -41,6 +48,7 @@
     background-size: cover;
     background-position: 50% 50%;
     font-size: 0;
+    z-index: 2;
   }
 }
 

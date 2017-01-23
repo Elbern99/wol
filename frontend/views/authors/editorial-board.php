@@ -32,8 +32,8 @@ $this->registerMetaTag([
                 <ul class="editors-list">
                     <?php foreach($editors as $author): ?>
                         <li class="editor-item">
-                            <div class="img-holder">
-                                <div class="img"><img src="<?= $author['avatar'] ?>" alt=""></div>
+                            <div class="img-holder img-holder-bg">
+                                <div class="img" style="background-image: url(<?= $author['avatar'] ?>)></div>
                             </div>
                             <div class="name">
                                 <a href="<?= $author['profile'] ?>">

@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="form-line">
-                <?= $form->field($model, 'agree')->checkbox(['id' => 'agree_desktop'])->label('<span class="label-text">I agree to the <a href="">terms and conditions</a> and <a href="">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
+                <?= $form->field($model, 'agree')->checkbox(['id' => 'agree_desktop'])->label('<span class="label-text">I agree to the <a href="/terms-and-conditions">terms and conditions</a> and <a href="/privacy-and-cookie-policy">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
             </div>
 
             <?= Html::submitButton('Signup', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
