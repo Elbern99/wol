@@ -129,7 +129,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['language'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">language</a>
                                 <div class="text">
                                     <div class="checkbox-list more-extra-list">
@@ -153,7 +153,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['expertise'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">expertise</a>
                                 <div class="text expand-more">
                                     <div class="checkbox-list more-extra-list">
@@ -178,7 +178,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['experience_type'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">media experience</a>
                                 <div class="text">
                                     <div class="checkbox-list">

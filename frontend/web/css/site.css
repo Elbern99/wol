@@ -2085,6 +2085,9 @@ blockquote {
   color: #fff; }
   .btn-save-search.added [class*='icon-'].icon-save {
     margin: -7px 19px 0 7px; }
+    @media only screen and (max-width: 820px) {
+      .btn-save-search.added [class*='icon-'].icon-save {
+        margin-top: -4px !important; } }
   .btn-save-search.added [class*='icon-']:before {
     content: '';
     width: 4px;
@@ -5782,12 +5785,18 @@ iframe[name=advpp_manager] {
   .header .search {
     position: absolute;
     top: calc(49vh*.75);
-    left: 40px;
-    right: 40px;
+    left: 15px;
+    right: 15px;
     background: white;
     max-width: none;
-    width: auto; }
-    .header .search .btn-border-blue,
+    width: auto;
+    padding-right: 80px; }
+    .header .search .btn-border-blue {
+      position: absolute;
+      top: 1px;
+      right: -80px;
+      width: 71px;
+      height: 33px; }
     .header .search .search-bottom {
       display: none; } }
 
@@ -7045,7 +7054,7 @@ iframe[name=advpp_manager] {
           left: auto;
           right: 8px; }
     .search-results-top .btn-save-search-inner {
-      padding: 15px 16px 13px;
+      padding: 5px 16px 4px;
       width: auto; }
     .search-results-top .search-results-top-text {
       display: none; } }

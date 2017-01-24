@@ -240,13 +240,21 @@
     @include breakpoint_custom($breakpoint-tablet) {
       position: absolute;
       top: calc(49vh*.75);
-      left: 40px;
-      right: 40px;
+      left: 15px;
+      right: 15px;
       background: white;
       max-width: none;
       width: auto;
+      padding-right: 80px;
 
-      .btn-border-blue,
+      .btn-border-blue {
+        position: absolute;
+        top: 1px;
+        right: -80px;
+        width: 71px;
+        height: 33px;
+      }
+
       .search-bottom {
         display: none;
       }

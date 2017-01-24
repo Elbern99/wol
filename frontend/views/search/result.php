@@ -31,7 +31,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
     <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
         <div class="search-results-top">
             <div class="search">
-                <a href="" class="btn-border-blue-large with-icon-r btn-save-search">
+                <a href="/search/save" class="btn-border-blue-large with-icon-r btn-save-search">
                     <span class="icon-save"></span>
                     <div class="btn-save-search-inner">search saved to your account</div>
                 </a>

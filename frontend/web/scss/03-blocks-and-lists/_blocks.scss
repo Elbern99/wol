@@ -698,6 +698,10 @@
 
       &.icon-save {
         margin: -7px 19px 0 7px;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          margin-top: -4px !important;
+        }
       }
 
       &:before {
