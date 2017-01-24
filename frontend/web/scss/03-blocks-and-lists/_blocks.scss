@@ -778,7 +778,7 @@
       display: block;
       font-size: 10px;
       line-height: 16px;
-      padding: 18px 20px 12px;
+      padding: 18px 28px 12px 20px;
       display: block;
       z-index: 500;
 
@@ -790,7 +790,7 @@
         width: 20px;
         height: 20px;
         top: 6px;
-        right: 11px;
+        right: 7px;
         transform: scale(0.8);
 
         &:after,
@@ -832,6 +832,11 @@
     transition: margin 0.3s ease, opacity 0.3s ease;
     margin: 0 0 5px 0;
     z-index: 10;
+
+    p {
+      font-size: 11px;
+      margin: 0 0 3px;
+    }
 
     ul {
       padding: 0;
@@ -1463,7 +1468,7 @@
 
   @include breakpoint('tablet') {
     margin: 0 0 37px;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.3em;
   }
 

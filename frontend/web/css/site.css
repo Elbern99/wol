@@ -2136,14 +2136,14 @@ blockquote {
     display: block;
     font-size: 10px;
     line-height: 16px;
-    padding: 18px 20px 12px;
+    padding: 18px 28px 12px 20px;
     display: block;
     z-index: 500; }
     .tooltip-dropdown.left .tooltip-content .icon-close {
       width: 20px;
       height: 20px;
       top: 6px;
-      right: 11px;
+      right: 7px;
       transform: scale(0.8); }
       .tooltip-dropdown.left .tooltip-content .icon-close:after, .tooltip-dropdown.left .tooltip-content .icon-close:before {
         left: 3px; }
@@ -2174,6 +2174,9 @@ blockquote {
     transition: margin 0.3s ease, opacity 0.3s ease;
     margin: 0 0 5px 0;
     z-index: 10; }
+    .tooltip-dropdown .tooltip-content p {
+      font-size: 11px;
+      margin: 0 0 3px; }
     .tooltip-dropdown .tooltip-content ul {
       padding: 0; }
     .tooltip-dropdown .tooltip-content.open {
@@ -2652,7 +2655,7 @@ blockquote {
   @media only screen and (min-width: 820px) {
     .sidebar-widget {
       margin: 0 0 37px;
-      font-size: 11px;
+      font-size: 12px;
       line-height: 1.3em; } }
   .sidebar-widget.sidebar-widget-journals .img {
     margin: 3px 30px 0px 20px;
