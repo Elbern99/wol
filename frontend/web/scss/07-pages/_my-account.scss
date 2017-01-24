@@ -107,9 +107,14 @@
     }
 
     .inner {
-      overflow: hidden;
       @extend .pinout;
       border-radius: 50%;
+    }
+
+    .help-block {
+      &:after {
+        display: none !important;
+      }
     }
 
     .help-block,
@@ -123,10 +128,6 @@
       width: 218px;
       padding: 3px 4px;
       margin: -12px 0 0 84px;
-
-      &:after {
-        display: none;
-      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         width: 320px;
@@ -150,6 +151,7 @@
       opacity: 0;
       width: 100%;
       cursor: pointer;
+      height: 100%;
     }
 
     img {
