@@ -434,7 +434,12 @@
     var sidebarNews = {
         moreSidebarNews: function(btnMore,parent,item,step) {
 
-            var countClick = 0;
+            var countClick = 0,
+                detectMore = 0;
+
+            $(btnMore).each(function() {
+                $(this).attr('data-hidden-eleemnts');
+            });
 
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
@@ -449,37 +454,28 @@
                         arrayItems[i] = newItemArray;
                     };
 
-                    var allHiddenElements = curParent.find(arrayItems.join()).addClass('hidden');
+                    var nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden'),
+                        allHiddenElements = (curParent.find(item).length - step)/step;
 
+                    detectMore = detectMore + 1;
 
-                    if(allHiddenElements.length !== 0) {
-                        allHiddenElements.addClass('hidden').slideDown(200);
-
-
-                        // if(cur.hasClass('showed')) {
-                        //     curParent.find('.hidden').slideUp(200);
-                        //
-                        //     setTimeout(function(){
-                        //         $('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
-                        //     }, 300);
-                        //
-                        // }
+                    if (allCount !== allHiddenElements) {
+                        nextAllHiddenElements.addClass('hidden').slideDown(200);
                         cur.removeClass('showed');
 
+                        console.log(detectMore);
                     } else {
                         cur.addClass('showed');
                         countClick = countClick + 1;
+                        detectMore = 0;
                     }
 
                     if(countClick === 2) {
                         curParent.find('.hidden').slideUp(200);
-
-                        setTimeout(function(){
-                            //$('html,body').animate({scrollTop: cur.offset().top - _window_height/2 }, 300);
-                        }, 300);
                         cur.removeClass('showed');
                         countClick = 0;
                     }
+
                     e.preventDefault();
                 }
             });
