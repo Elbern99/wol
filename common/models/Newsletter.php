@@ -92,10 +92,10 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
     public function setSubscriber(array $data) {
 
-        if ($this->load($data, '') && $this->save()) {
+        if ($this->load($data, '') && $this->validate()) {
 
             $this->sendSuccessEmail();
-            return true;
+            return $this->save(false);
         }
 
         return false;
@@ -103,14 +103,14 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
     public function sendSuccessEmail() {
 
-        if (count($this->getOldAttributes())) {
+        if (!is_null($this->id) && count($this->getOldAttributes())) {
             $mails = $this->forIssetSubscriber();
         } else {
             $mails = $this->forNewSubscriber();
         }
 
         foreach ($mails as $mail) {
-            $this->sendEmail($mail['subject'], ['body']);
+            $this->sendEmail($mail['subject'], $mail['body']);
         }
     }
 
@@ -167,7 +167,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
         return $mails;
     }
 
-    protected function sendEmail($subject = '', string $body): void {
+    protected function sendEmail($subject = '', string $body) {
 
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send',
