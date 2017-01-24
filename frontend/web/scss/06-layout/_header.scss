@@ -235,6 +235,7 @@
 
     .btn-border-blue {
       width: 80px;
+      padding: 0 6px;
     }
 
     @include breakpoint_custom($breakpoint-tablet) {

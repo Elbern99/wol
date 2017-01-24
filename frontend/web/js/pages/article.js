@@ -223,7 +223,7 @@
                 var cur = $(this),
                     curAttr = cur.attr('data-target');
 
-                if (curAttr !== undefined) {
+                if (curAttr.trim().length > 0) {
                     cur.wrap('<a href="'+curAttr+'" class="text-reference" data-type="bible"></a>')
                 }
             });
@@ -237,7 +237,7 @@
             });
         },
         openReferenceTextLink: function(btn,parent,btnPrev,btnNext){
-            $(document).on('click', btn, function(e) {
+            elements.document.on('click', btn, function(e) {
                 var
                     cur = $(this),
                     curAttr = cur.attr('href'),

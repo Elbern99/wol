@@ -40,6 +40,7 @@
       background-size: cover;
       @extend .pinout;
       z-index: 1;
+      border-radius: 50%;
     }
   }
 
@@ -49,6 +50,7 @@
     background-position: 50% 50%;
     font-size: 0;
     z-index: 2;
+    border-radius: 50%;
   }
 }
 
