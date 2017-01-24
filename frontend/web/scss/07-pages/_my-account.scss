@@ -117,17 +117,29 @@
       display: flex;
       align-items: center;
       z-index: 1;
-      height: 100%;
+      top: 100%;
       justify-content: center;
       text-align: center;
+      width: 218px;
+      padding: 3px 4px;
+      margin: -12px 0 0 84px;
+
+      &:after {
+        display: none;
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        width: 320px;
+        margin: -151px 0 0 -160px;
+        left: 50%;
+        position: relative;
+      }
     }
 
     .field-load_image,
     .help-block {
       @extend .pinout;
-      margin: 0;
-      border-radius: 50%;
-      font-size: 7px;
+      font-size: 9px;
     }
 
     input[type="file"] {
@@ -184,6 +196,7 @@
         bottom: 0;
         opacity: 0;
         transition: all 0.3s ease;
+        color: $blue;
       }
     }
 
@@ -220,7 +233,7 @@
 //ACCOUNT-TABS
 .account-tabs {
   border-bottom: 1px solid #a8a8a8;
-  margin: 0 0 30px;
+  margin: 0 0 33px;
   @extend .clearfix;
 
   @include breakpoint('tablet') {

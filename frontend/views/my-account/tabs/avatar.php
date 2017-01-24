@@ -12,8 +12,6 @@ use yii\helpers\Url;
     <div class="img" style="background-image: url(<?= $model->avatar ? $model->getAvatarUrl($model->avatar): '' ?>)">
         <div class="inner">
             <?= $form->field($model, 'avatar')->fileInput(['id'=>'load_image'])->label('') ?>
-            <img class="user-avatar" src="" alt="">
-
         </div>
         <div class="icon-photo"></div>
         <div class="text">change photo</div>

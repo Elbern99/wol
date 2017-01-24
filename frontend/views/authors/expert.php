@@ -28,7 +28,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
-        <h1>Find a topic spokesperson</h1>
+        <h1>IZA World of Labor - Find a topic spokesperson</h1>
         <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>
@@ -129,7 +129,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['language'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">language</a>
                                 <div class="text">
                                     <div class="checkbox-list more-extra-list">
@@ -153,7 +153,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['expertise'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">expertise</a>
                                 <div class="text expand-more">
                                     <div class="checkbox-list more-extra-list">
@@ -178,7 +178,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['experience_type'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">media experience</a>
                                 <div class="text">
                                     <div class="checkbox-list">

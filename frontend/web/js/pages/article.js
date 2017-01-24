@@ -165,8 +165,6 @@
                 visibleEl.removeClass('last-visible');
                 visibleEl.last().addClass('last-visible');
 
-            console.log(_window_width,_tablet);
-
             if(_window_width >= _mobile-100) {
                 setTimeout(function(){
                     article.heightEq('.column-sources .item');
@@ -174,7 +172,7 @@
                     elements.window.resize(function() {
                         article.heightEq('.column-sources .item');
                     });
-                }, article.delay+201);
+                }, 0);
             }
         },
         openTooltip: function(btn,parent) {
@@ -204,22 +202,42 @@
                     parentHolder = $(parent),
                     curAttr = cur.attr('href'),
                     keyLink = $('.content-inner-text a[href$="'+curAttr+'"]').first(),
-                    classEl = 'opened-reflink';
+                    classEl = 'opened-reflink',
+                    textReferenceOpened = 'text-reference-opened';
 
                 //action
                 $('li').removeClass(classEl);
                 curParent.addClass(classEl);
-                // parentHolder.fadeOut(article.delay);
-                //
-                // if(_window_width > _mobile){
-                //     parentHolder.fadeIn(article.delay);
-                // }
+
+                article.detectCoordinate(keyLink,parent);
+                keyLink.addClass(textReferenceOpened);
+
+                article.setIndex(parentHolder,curAttr);
+                article.detectNextPrevArrows(keyLink,curAttr,parentHolder,'.icon-circle-arrow.left','icon-circle-arrow.right');
 
                 e.preventDefault();
             });
         },
+        openReferenceImg: function(img) {
+            $(img).each(function(index) {
+                var cur = $(this),
+                    curAttr = cur.attr('data-target');
+
+                if (curAttr !== undefined) {
+                    cur.wrap('<a href="'+curAttr+'" class="text-reference" data-type="bible"></a>')
+                }
+            });
+        },
+        setIndex: function(parentHolder,curAttr) {
+            var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
+                parentHolder.fadeOut(article.delay);
+
+            $(allLinks).each(function( index ) {
+                $(this).attr('data-index', index+1);
+            });
+        },
         openReferenceTextLink: function(btn,parent,btnPrev,btnNext){
-            $(btn).click(function(e) {
+            $(document).on('click', btn, function(e) {
                 var
                     cur = $(this),
                     curAttr = cur.attr('href'),
@@ -227,9 +245,7 @@
                     refLink = $('.text-reference'),
                     parentHolder = $(parent),
                     textReferenceOpened = 'text-reference-opened',
-                    openedClass = 'opened-reflink',
-                    btnPrevEl = $(btnPrev),
-                    btnNextEl = $(btnNext);
+                    openedClass = 'opened-reflink';
 
                 refLink.removeClass(textReferenceOpened);
                 cur.addClass(textReferenceOpened);
@@ -241,41 +257,43 @@
                 article.showPopupMobile(parent);
 
                 keyLink.parent().addClass(openedClass);
-                var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
-                parentHolder.fadeOut(article.delay);
 
-                $(allLinks).each(function( index ) {
-                    $(this).attr('data-index', index+1);
-                });
-
-                if(_window_width > _mobile) {
-                    parentHolder.fadeIn(article.delay);
-                }
-
-                var
-                    curAttrIndex = cur.data('index'),
-                    nextAttrIndex = curAttrIndex+1,
-                    nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
-
-                var
-                    prevAttrIndex = curAttrIndex-1,
-                    prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']');
-
-                btnPrevEl.removeClass('disabled');
-                btnNextEl.removeClass('disabled');
-
-                if(prevCur.length == 0) {
-                    btnPrevEl.addClass('disabled');
-                }
-
-                if(nextCur.length == 0) {
-                    btnNextEl.addClass('disabled');
-                }
-
-                parentHolder.find('.arrows').fadeIn(0);
+                article.setIndex(parentHolder,curAttr);
+                article.detectNextPrevArrows(cur,curAttr,parentHolder,btnPrev,btnNext);
 
                 e.preventDefault();
             });
+        },
+        detectNextPrevArrows: function(cur,curAttr,parentHolder,btnPrev,btnNext) {
+
+            var btnPrevEl = $(btnPrev),
+                btnNextEl = $(btnNext);
+
+            if(_window_width > _mobile) {
+                parentHolder.fadeIn(article.delay);
+            }
+
+            var
+                curAttrIndex = cur.data('index'),
+                nextAttrIndex = curAttrIndex+1,
+                nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']').attr('href');
+
+            var
+                prevAttrIndex = curAttrIndex-1,
+                prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']').attr('href');
+
+            btnPrevEl.removeClass('disabled');
+            btnNextEl.removeClass('disabled');
+
+            if(prevCur == undefined) {
+                btnPrevEl.addClass('disabled');
+            }
+
+            if(nextCur == undefined) {
+                $('.icon-circle-arrow.right').addClass('disabled');
+            }
+
+            parentHolder.find('.arrows').fadeIn(0);
         },
         showPopupMobile: function(parent) {
 
@@ -590,6 +608,7 @@
         article.closeOverlay('.overlay','.icon-close-popup');
         article.citeInit();
         article.closeOpen('.btn-cite','.reference-popup');
+        article.openReferenceImg('.article_image img');
     });
 
     elements.window.load(function() {

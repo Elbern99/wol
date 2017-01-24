@@ -434,15 +434,16 @@
     var sidebarNews = {
         moreSidebarNews: function(btnMore,parent,item,step) {
 
-            var countClick = 0,
-                detectMore = 0;
-
-            $(btnMore).each(function() {
-                $(this).attr('data-hidden-eleemnts');
+            $(parent).next(btnMore).each(function() {
+                var cur = $(this),
+                    curParent =  cur.parents('li,.expand-more');
+                this.setAttribute("data-length-hidden", curParent.find(item).length);
+                this.setAttribute("data-count", step);
             });
 
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
+                    curNode = this,
                     curParent =  cur.parents('li,.expand-more');
 
                 if(!cur.hasClass('no-open')) {
@@ -454,26 +455,22 @@
                         arrayItems[i] = newItemArray;
                     };
 
-                    var nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden'),
-                        allHiddenElements = (curParent.find(item).length - step)/step;
+                    var allHiddenCount = curNode.getAttribute('data-length-hidden'),
+                        curCount = parseInt(curNode.getAttribute('data-count')),
+                        nextCount = curCount +(curParent.find(arrayItems.join()).addClass('hidden')).length,
+                        nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden');
 
-                    detectMore = detectMore + 1;
-
-                    if (allCount !== allHiddenElements) {
+                    if(curCount < allHiddenCount) {
                         nextAllHiddenElements.addClass('hidden').slideDown(200);
-                        cur.removeClass('showed');
-
-                        console.log(detectMore);
+                        curNode.setAttribute('data-count', nextCount);
                     } else {
-                        cur.addClass('showed');
-                        countClick = countClick + 1;
-                        detectMore = 0;
+                        curParent.find('.hidden').slideUp(200);
+                        curNode.setAttribute("data-count", step);
+                        cur.removeClass('showed');
                     }
 
-                    if(countClick === 2) {
-                        curParent.find('.hidden').slideUp(200);
-                        cur.removeClass('showed');
-                        countClick = 0;
+                    if(parseInt(curNode.getAttribute('data-count')) == allHiddenCount) {
+                        cur.addClass('showed');
                     }
 
                     e.preventDefault();
@@ -669,12 +666,12 @@
         accordion.toggleItem($('.faq-accordion-list .title'), '.text',$('.faq-accordion-list'));
         accordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
         sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list','li,.item',5);
-        sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item',10);
-        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item',10);
-        sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item',10);
-        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item',10);
-        sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item',10);
-        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',10);
+        sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',13);
         sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
         sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
