@@ -410,11 +410,38 @@
             if (typeof citeConfig === 'undefined'){
                 return false;
             }
+            
+            function getAuthorFromat() {
+                
+                let authors = [];
+                
+                for(let author in citeConfig.authors) {
+                    
+                    let attribute = citeConfig.authors[author].name;
+                    let name = attribute.last_name;
+                    
+                    if (attribute.first_name) {
+                        name += ', '+attribute.first_name.substring(1, 0).toUpperCase()+'.';
+                    }
+                    
+                    authors.push(name);
+                }
+                
+                return authors.join(', ');
+            }
 
             function getCiteValue() {
-
-                return citeConfig.authors+' '+citeConfig.title+' '+citeConfig.publisher+
-                    ' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+                
+                let cite = '';
+                
+                cite += getAuthorFromat();
+                
+                cite += ' ';
+                cite += citeConfig.title;
+                cite += '. ';
+                cite += citeConfig.publisher+' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+                
+                return cite;
             }
 
             var value = getCiteValue();

@@ -31,7 +31,6 @@ $this->registerMetaTag([
 ]);
 
 $authorLink = [];
-$cite_authors = [];
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -96,34 +95,31 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         <h3><?= $attributes['teaser']->getData('teaser', $currentLang) ?></h3>
     </div>
 
-    <?php foreach ($authors as $author): ?>
-        <div class="article-user">
-            <div class="img-holder img-holder-bg">
-                <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
-            </div>
-
-            <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
-
-            <div class="desc">
-                <div class="name">
-                    <?php
-
-                    $link = Html::a($authorAttributes['name']->getData('first_name').' '.
-                        $authorAttributes['name']->getData('middle_name').' '.
-                        $authorAttributes['name']->getData('last_name')
-                        ,$author['profile']
-                    );
-                    
-                    $cite_authors[] = $authorAttributes['name']->getData('first_name').' '.$authorAttributes['name']->getData('middle_name');
-                    $authorLink[] = $link;
-                    echo $link;
-                    ?>
+        <?php foreach ($authors as $author): ?>
+            <div class="article-user">
+                <div class="img-holder img-holder-bg">
+                    <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
                 </div>
-                <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
-            </div>
 
-        </div>
-    <?php endforeach; ?>
+                <div class="desc">
+                    <div class="name">
+                        <?php
+                        $link = Html::a($author['name']->first_name.' '.
+                            $author['name']->middle_name.' '.
+                            $author['name']->last_name
+                            ,$author['profile']
+                        );
+
+                        $authorLink[] = $link;
+                        echo $link;
+                        ?>
+                    </div>
+                    <p><?= $author['affiliation'] ?></p>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
+
 </div>
 
 <div class="content-inner">
@@ -654,14 +650,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
 <?php
 
-if (!count($cite_authors)) {
-    $cite_authors = $article->availability;
-} else {
-    $cite_authors = implode(', ', $cite_authors);
-}
-
 $cite = [
-    'authors' => $cite_authors,
+    'authors' => $authors,
     'title' => $attributes['title']->getData('title', $currentLang),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),

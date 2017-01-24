@@ -3,12 +3,11 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-//use Yii;
 ?>
 
 <?php
 $attributes = $collection->getEntity()->getValues();
-//var_dump($attributes['creation']->getData('main_creation'));exit;
+
 $this->title = $attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = $this->title;
@@ -42,8 +41,6 @@ $config = [
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json'
 ];
-
-$cite_authors = [];
 
 $mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').' '.
         $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
@@ -102,24 +99,20 @@ $authorLink = [];
                     <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
                 </div>
 
-                <?php $authorAttributes = $author['collection']->getEntity()->getValues(); ?>
-
                 <div class="desc">
                     <div class="name">
                         <?php
-
-                        $link = Html::a($authorAttributes['name']->getData('first_name').' '.
-                            $authorAttributes['name']->getData('middle_name').' '.
-                            $authorAttributes['name']->getData('last_name')
+                        $link = Html::a($author['name']->first_name.' '.
+                            $author['name']->middle_name.' '.
+                            $author['name']->last_name
                             ,$author['profile']
                         );
 
-                        $cite_authors[] = $authorAttributes['name']->getData('first_name').' '.$authorAttributes['name']->getData('middle_name');
                         $authorLink[] = $link;
                         echo $link;
                         ?>
                     </div>
-                    <p><?= $authorAttributes['affiliation']->getData('affiliation') ?></p>
+                    <p><?= $author['affiliation'] ?></p>
                 </div>
 
             </div>
@@ -672,14 +665,9 @@ $authorLink = [];
     <div class="icon-close-popup"></div>
 </div>
 <?php
-if (!count($cite_authors)) {
-    $cite_authors = $article->availability;
-} else {
-    $cite_authors = implode(', ', $cite_authors);
-}
 
 $cite = [
-    'authors' => $cite_authors,
+    'authors' => $authors,
     'title' => $attributes['title']->getData('title'),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),

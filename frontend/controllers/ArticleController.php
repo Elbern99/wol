@@ -88,7 +88,7 @@ class ArticleController extends Controller {
             if (count($article->articleAuthors)) {
                 
                 foreach ($article->articleAuthors as $author) {
-                    $authors[] = Html::a($author->author['name'],Author::getAuthorUrl($author->author['url_key']));
+                    $authors[] = Html::a($author->author['name'], Author::getAuthorUrl($author->author['url_key']));
                 }
             } else {
                 $authors[] = $article->availability;

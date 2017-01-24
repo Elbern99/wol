@@ -9,6 +9,8 @@ use common\modules\eav\Collection;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use Yii;
+use common\modules\eav\helper\EavValueHelper;
+use common\modules\eav\CategoryCollection;
 
 trait ArticleTrait {
     
@@ -82,7 +84,7 @@ trait ArticleTrait {
             $model = Article::find()
                     ->with([
                         'articleAuthors.author' => function($query) {
-                            return $query->select(['id', 'avatar', 'url_key']);
+                            return $query->select(['id', 'avatar', 'url_key'])->where(['enabled' => 1])->asArray();
                         }, 
                         'articleCategories' => function($query) {
                             return $query->select(['category_id', 'article_id'])->asArray();
@@ -112,18 +114,32 @@ trait ArticleTrait {
             $langs = [];
             $currentLang = null;
             
-            if (isset($records['articleAuthors'])) {
-
+            if (is_array($records['articleAuthors']) && count($records['articleAuthors'])) {
+                
+                $authorCollection = Yii::createObject(CategoryCollection::class);
+                $authorCollection->setAttributeFilter(['affiliation', 'name']);
+                $authorCollection->initCollection(Author::tableName(), ArrayHelper::getColumn($records['articleAuthors'], 'author_id'));
+                $authorValues = $authorCollection->getValues();
+                
                 foreach ($records['articleAuthors'] as $author) {
+                    
+                    if (!isset($author->author['id'])) {
+                        continue;
+                    }
 
-                    $authorCollection = Yii::createObject(Collection::class);
-                    $authorCollection->setAttributeFilter(['affiliation', 'name']);
-                    $authorCollection->initCollection(Author::tableName(), $author->author);
-
-                    $authors[$author->author->id] = [
-                        'collection' => $authorCollection,
-                        'avatar' => $author->author->getAvatarBaseUrl(),
-                        'profile' => $author->author->getUrl()
+                    $name = EavValueHelper::getValue($authorValues[$author->author['id']], 'name', function($data) {
+                        return $data;
+                    });
+                    
+                    $affiliation = EavValueHelper::getValue($authorValues[$author->author['id']], 'affiliation', function($data) {
+                        return $data->affiliation;
+                    }, 'string');
+                    
+                    $authors[] = [
+                        'name' => $name,
+                        'affiliation' => $affiliation,
+                        'avatar' => Author::getImageUrl($author->author['avatar']),
+                        'profile' => Author::getAuthorUrl($author->author['url_key'])
                     ];
                 }
             }
