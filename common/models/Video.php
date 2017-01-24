@@ -10,6 +10,7 @@ use common\models\Video;
 class Video extends \yii\db\ActiveRecord implements VideoInterface
 {
     public $video_ids;
+    //public $category_id;
     
     /**
      * @inheritdoc
@@ -33,7 +34,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             [['title'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 60],
             [['url_key'], 'unique'],
-            [['video_ids',], 'safe'],
+            [['video_ids', 'category_id',], 'safe'],
         ];
     }
 
@@ -51,6 +52,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             'description' => Yii::t('app', 'Description'),
             'order' => Yii::t('app', 'Order'),
             'video_ids' => Yii::t('app', 'Related Videos'),
+            'category_id' => Yii::t('app', 'Category'),
         ];
     }
     
@@ -105,7 +107,26 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
         return $videosList;
     }
     
-   public function saveData()
+    public function categoriesList() 
+    {
+        $categoriesList = [];
+        $articleCategory = Category::find()->where(['url_key' => 'articles'])->one();
+        
+        if ($articleCategory) {
+            $categories = Category::find()->where([
+               'root' => $articleCategory->id,
+               'lvl' => 1,
+            ])->all();
+            
+            foreach ($categories as $category) {
+                $categoriesList[$category->id] = $category->meta_title; 
+            }
+        }
+        
+        return $categoriesList;
+    }
+    
+    public function saveData()
     {
         RelatedVideo::deleteAll(['=', 'parent_id', $this->id]);
         
@@ -132,5 +153,10 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             }
         }
         return true;
+    }
+    
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 }
