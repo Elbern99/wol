@@ -165,8 +165,6 @@
                 visibleEl.removeClass('last-visible');
                 visibleEl.last().addClass('last-visible');
 
-            console.log(_window_width,_tablet);
-
             if(_window_width >= _mobile-100) {
                 setTimeout(function(){
                     article.heightEq('.column-sources .item');
@@ -174,7 +172,7 @@
                     elements.window.resize(function() {
                         article.heightEq('.column-sources .item');
                     });
-                }, article.delay+201);
+                }, 0);
             }
         },
         openTooltip: function(btn,parent) {
@@ -220,6 +218,16 @@
                 e.preventDefault();
             });
         },
+        openReferenceImg: function(img) {
+            $(img).each(function(index) {
+                var cur = $(this),
+                    curAttr = cur.attr('data-target');
+
+                if (curAttr !== undefined) {
+                    cur.wrap('<a href="'+curAttr+'" class="text-reference" data-type="bible"></a>')
+                }
+            });
+        },
         setIndex: function(parentHolder,curAttr) {
             var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
                 parentHolder.fadeOut(article.delay);
@@ -229,7 +237,7 @@
             });
         },
         openReferenceTextLink: function(btn,parent,btnPrev,btnNext){
-            $(btn).click(function(e) {
+            $(document).on('click', btn, function(e) {
                 var
                     cur = $(this),
                     curAttr = cur.attr('href'),
@@ -281,15 +289,9 @@
                 btnPrevEl.addClass('disabled');
             }
 
-            console.log(btnNextEl);
-
             if(nextCur == undefined) {
                 $('.icon-circle-arrow.right').addClass('disabled');
-
-                console.log(1,btnNextEl);
             }
-
-            console.log(nextCur,prevCur);
 
             parentHolder.find('.arrows').fadeIn(0);
         },
@@ -606,6 +608,7 @@
         article.closeOverlay('.overlay','.icon-close-popup');
         article.citeInit();
         article.closeOpen('.btn-cite','.reference-popup');
+        article.openReferenceImg('.article_image img');
     });
 
     elements.window.load(function() {

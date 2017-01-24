@@ -892,7 +892,7 @@
     }
 
     .grid-item {
-      padding: 0 4px 8px ;
+      padding: 0 4px 8px;
     }
 
     &.one {
@@ -916,6 +916,10 @@
         width: 50%;
 
         @include breakpoint('tablet') {
+          width: 33.3%;
+        }
+
+        @include breakpoint('desktop') {
           width: 25%;
         }
       }
