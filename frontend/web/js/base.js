@@ -437,10 +437,6 @@
             var countClick = 0,
                 detectMore = 0;
 
-            $(btnMore).each(function() {
-                $(this).attr('data-hidden-eleemnts');
-            });
-
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
                     curParent =  cur.parents('li,.expand-more');
@@ -457,9 +453,15 @@
                     var nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden'),
                         allHiddenElements = (curParent.find(item).length - step)/step;
 
+                    if(countClick === 2) {
+                        curParent.find('.hidden').slideUp(200);
+                        cur.removeClass('showed');
+                        countClick = 0;
+                    }
+
                     detectMore = detectMore + 1;
 
-                    if (allCount !== allHiddenElements) {
+                    if (detectMore !== allHiddenElements) {
                         nextAllHiddenElements.addClass('hidden').slideDown(200);
                         cur.removeClass('showed');
 
@@ -467,15 +469,7 @@
                     } else {
                         cur.addClass('showed');
                         countClick = countClick + 1;
-                        detectMore = 0;
                     }
-
-                    if(countClick === 2) {
-                        curParent.find('.hidden').slideUp(200);
-                        cur.removeClass('showed');
-                        countClick = 0;
-                    }
-
                     e.preventDefault();
                 }
             });
