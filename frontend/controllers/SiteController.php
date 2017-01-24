@@ -257,16 +257,18 @@ class SiteController extends Controller {
         return $this->goHome();
     }
     
-    public function actionUnsubscribe($id) {
+    public function actionUnsubscribe($number) {
         
         try {
             
-            $model = Newsletter::findOne($id);
+            $model = Newsletter::find()->where(['code' => $number])->one();
+            
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
             }
             
             $model->delete();
+            
             Yii::$app->getSession()->setFlash('success', Yii::t('app/text','You unsubscribe from newsletter!'));
             
         } catch (\yii\db\Exception $e) {

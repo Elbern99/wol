@@ -104,7 +104,7 @@ class SignupForm extends Model
                         $obj = Yii::$container->get('newsletter');
                         $obj->getSubscriber($newsletter->email);
                         $obj->setSubscriber($newsletter->getAttributes());
-                        $subscriberId = $obj->getAttribute('id');
+                        $subscriberId = $obj->getAttribute('code');
                     }
                     
                 } catch(\yii\db\Exception $e) {

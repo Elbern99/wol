@@ -15,7 +15,7 @@ wol.iza.org – supporting evidence-based policy making
 <p>
 You are receiving this email to XXX@XXX.com as you are opted in to IZA World of Labor updates. 
 You can manage your IZA World of Labor contact details and preferences at <?= Url::to('/my-account', true) ?>
-or <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->id], true) ?>">unsubscribe</a>  from all IZA World of Labor emails.
+or <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->code], true) ?>">unsubscribe</a>  from all IZA World of Labor emails.
 </p>
 <p>
 Contact Us:

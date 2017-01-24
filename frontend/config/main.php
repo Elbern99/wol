@@ -71,7 +71,7 @@ return [
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
                 'editorial-board' => 'authors/editorial',
                 'data-sources' => 'site/sources',
-                'unsubscribe/<number:[1-9]+>' => 'site/unsubscribe'
+                'unsubscribe' => 'site/unsubscribe'
             ],
         ],
         'assetManager' => [

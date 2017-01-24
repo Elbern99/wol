@@ -42,7 +42,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
         return [
             [['email', 'first_name', 'last_name'], 'required'],
             [['interest', 'iza_world', 'iza', 'created_at'], 'integer'],
-            [['email', 'first_name', 'last_name', 'areas_interest'], 'string', 'max' => 255],
+            [['email', 'first_name', 'last_name', 'areas_interest', 'code'], 'string', 'max' => 255],
             [['email'], 'unique'],
         ];
     }
@@ -93,8 +93,10 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
     public function setSubscriber(array $data) {
 
         if ($this->load($data, '') && $this->validate()) {
-
+            
+            $this->setAttribute('code', Yii::$app->security->generateRandomString());
             $this->sendSuccessEmail();
+            
             return $this->save(false);
         }
 
