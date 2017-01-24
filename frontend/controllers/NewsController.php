@@ -93,7 +93,7 @@ class NewsController extends Controller {
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
            
             $newsTree[$groupYear]['months'][] = [
-                'isActive' => $groupMonth == $month ? true : false,
+                'isActive' => $groupMonth == $month && $groupYear == $year ? true : false,
                 'num' => $groupMonth,
             ];
             
