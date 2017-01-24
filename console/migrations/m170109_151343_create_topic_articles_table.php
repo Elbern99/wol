@@ -12,7 +12,7 @@ class m170109_151343_create_topic_articles_table extends Migration
      */
     public function up()
     {
-         $this->createTable('topic_articles', [
+        $this->createTable('topic_articles', [
             'id' => $this->primaryKey(),
             'topic_id' => $this->integer()->notNull(),
             'article_id' => $this->integer()->notNull(),

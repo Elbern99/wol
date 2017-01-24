@@ -322,11 +322,13 @@ $this->params['breadcrumbs'][] = $model->title;
                             </ul>
                         </div>
                     </li>
+                    <?php if ($articlesSidebar) : ?>
                     <li class="sidebar-accrodion-item">
-                        <a href="" class="title">latest articles</a>
+                        <a href="" class="title">related articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
                                 <?php foreach($articlesSidebar as $article) : ?>
+                                <?php $article = $article->article; ?>
                                 <li>
                                     <h3>
                                         <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
@@ -343,6 +345,7 @@ $this->params['breadcrumbs'][] = $model->title;
                             <?php endif; ?>
                         </div>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
 
