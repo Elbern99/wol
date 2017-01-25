@@ -35,6 +35,8 @@
     @include breakpoint_custom($breakpoint-tablet) {
       margin-bottom: 17px;
       width: 135px;
+      height: 41px;
+      overflow: hidden;
 
       img {
         height: 52px;

@@ -13,10 +13,6 @@
       background: none !important;
     }
 
-    @include breakpoint('tablet') {
-      //max-height: 408px;
-    }
-
     h2 {
       font-size: 18px;
       margin: 0 0 12px;

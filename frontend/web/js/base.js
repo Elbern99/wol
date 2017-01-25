@@ -689,11 +689,11 @@
         headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
         headerMenu.desktop($('.header-desktop .header-menu-top-list > .has-drop >a'),$('.header-desktop .submenu'));
         forms.clearAll('.clear-all', '.select-all', '.content-types');
-        forms.clearAll('.clear-all', '.select-all', '.checkboxes');
+        forms.clearAll('.clear-all', '.select-all', '.checkboxes-holder');
         forms.clearAll('.clear-all', '.select-all', '.dropdown-login');
         forms.clearAll('.clear-all', '.select-all', '.grid');
         forms.selectAll('.clear-all', '.select-all', '.content-types');
-        forms.selectAll('.clear-all', '.select-all', '.checkboxes');
+        forms.selectAll('.clear-all', '.select-all', '.checkboxes-holder');
         forms.selectAll('.clear-all', '.select-all', '.dropdown-login');
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');

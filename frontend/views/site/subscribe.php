@@ -38,65 +38,69 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-                
-                <div class="checkboxes">
+            </div>
 
-                    <div class="grid-line one title-checkboxes">
-                        <div class="grid-item form-item">
-                            <div class="select-clear-all">
-                                <span class="clear-all">Clear all</span>
-                                <span class="select-all">Select all</span>
-                                <div class="tooltip-dropdown dropdown left">
-                                    <div class="icon-question tooltip"></div>
-                                    <div class="tooltip-content drop-content">
-                                        <div class="icon-close"></div>
-                                        <p>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</p>
-                                        <ul>
-                                            <li>To enable you to receive alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below)</li>
-                                            <li>To better understand our audience</li>
-                                        </ul>
+            <div class="checkboxes-holder">
+                <div class="grid">
+                    <div class="checkboxes">
+
+                        <div class="grid-line one title-checkboxes">
+                            <div class="grid-item form-item">
+                                <div class="select-clear-all">
+                                    <span class="clear-all">Clear all</span>
+                                    <span class="select-all">Select all</span>
+                                    <div class="tooltip-dropdown dropdown left">
+                                        <div class="icon-question tooltip"></div>
+                                        <div class="tooltip-content drop-content">
+                                            <div class="icon-close"></div>
+                                            <p>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</p>
+                                            <ul>
+                                                <li>To enable you to receive alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below)</li>
+                                                <li>To better understand our audience</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="label-holder">
-                                <span class="label-text">areas of interest</span>
+                                <div class="label-holder">
+                                    <span class="label-text">areas of interest</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="grid-line four">
-                        <?= $form->field($model, 'areas_interest')->checkboxList($model->getSubjectItems(),[
-                            'item'=> function($index, $label, $name, $checked, $value) {
-                                return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
-                                Html::checkbox($name, $checked, [
-                                    'value' => $value,
-                                ]).'<span class="label-text">'.$label.'</span></label></div></div>';
-                            }
-                        ])->label('');
-                        ?>
+                        <div class="grid-line four">
+                            <?= $form->field($model, 'areas_interest')->checkboxList($model->getSubjectItems(),[
+                                'item'=> function($index, $label, $name, $checked, $value) {
+                                    return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
+                                    Html::checkbox($name, $checked, [
+                                        'value' => $value,
+                                    ]).'<span class="label-text">'.$label.'</span></label></div></div>';
+                                }
+                            ])->label('');
+                            ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-line">
-                <?= Html::activeCheckbox($model, 'iza_world', 
-                    ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
-                ) ?>
-            </div>
+                <div class="form-line">
+                    <?= Html::activeCheckbox($model, 'iza_world',
+                        ['labelOptions' => ['class'=>'def-checkbox'],
+                            'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
+                    ) ?>
+                </div>
 
-            <div class="form-line">
-                <?= Html::activeCheckbox($model, 'interest', 
-                    ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to receive new article alerts in my areas of interest</span>']
-                ) ?>
-            </div>
+                <div class="form-line">
+                    <?= Html::activeCheckbox($model, 'interest',
+                        ['labelOptions' => ['class'=>'def-checkbox'],
+                            'label' => '<span class="label-text">I would like to receive new article alerts in my areas of interest</span>']
+                    ) ?>
+                </div>
 
-            <div class="form-line">
-                <?= Html::activeCheckbox($model, 'iza', 
-                    ['labelOptions' => ['class'=>'def-checkbox'],
-                    'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
-                ) ?>
+                <div class="form-line">
+                    <?= Html::activeCheckbox($model, 'iza',
+                        ['labelOptions' => ['class'=>'def-checkbox'],
+                            'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
+                    ) ?>
+                </div>
             </div>
             
              <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>

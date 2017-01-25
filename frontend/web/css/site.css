@@ -408,7 +408,8 @@ th {
   unicode-range: U+0009-FFFD; }
 @font-face {
   font-family: 'lucidaSansBold';
-  src: url("../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff") format("woff"), url("../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.svg#lucidaSansBold") format("svg");
+  src: url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot");
+  src: url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff") format("woff"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.svg#lucidaSansBold") format("svg");
   font-weight: normal;
   font-style: normal; }
 @font-face {
@@ -1033,14 +1034,18 @@ th {
     transform: rotate(45deg); }
 
 .icon-play {
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 2px solid #fff;
   background: rgba(0, 0, 0, 0.5);
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease; }
+  @media only screen and (min-width: 820px) {
+    .icon-play {
+      width: 42px;
+      height: 42px; } }
   .icon-play:hover {
     background: black; }
   .icon-play:after {
@@ -1048,9 +1053,13 @@ th {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 11.5px 0 11.5px 17px;
+    border-width: 7px 10px 7px;
     border-color: transparent transparent transparent #ffffff;
-    margin: 0 0 0 2px; }
+    margin: 0 0 0 6px; }
+    @media only screen and (min-width: 820px) {
+      .icon-play:after {
+        margin: 0 0 0 2px;
+        border-width: 11.5px 0 11.5px 17px; } }
 
 [class^="btn-"],
 [class*=" btn-"],
@@ -1827,10 +1836,7 @@ blockquote {
       .article-item .img,
       .post-item .img {
         float: left;
-        margin: 0 13px 0 0; }
-        .article-item .img .icon-play,
-        .post-item .img .icon-play {
-          display: none; } }
+        margin: 0 13px 0 0; } }
   .article-item.media-item,
   .post-item.media-item {
     overflow: hidden; }
@@ -2377,11 +2383,6 @@ blockquote {
         .news-item.has-image .img,
         .video-item.has-image .img {
           height: 232px; } }
-      @media only screen and (max-width: 820px) {
-        .opinion-item.has-image .img .icon-play,
-        .news-item.has-image .img .icon-play,
-        .video-item.has-image .img .icon-play {
-          display: none; } }
       .opinion-item.has-image .img img,
       .news-item.has-image .img img,
       .video-item.has-image .img img {
@@ -2485,8 +2486,7 @@ blockquote {
   max-height: 435px; }
   .opinion-item h2 {
     max-height: 60px;
-    overflow: hidden;
-    min-height: 29px; }
+    overflow: hidden; }
     @media only screen and (min-width: 820px) {
       .opinion-item h2 {
         max-height: 72px; } }
@@ -5580,7 +5580,9 @@ iframe[name=advpp_manager] {
   @media only screen and (max-width: 820px) {
     .footer .logo-main {
       margin-bottom: 17px;
-      width: 135px; }
+      width: 135px;
+      height: 41px;
+      overflow: hidden; }
       .footer .logo-main img {
         height: 52px; } }
   @media only screen and (max-width: 820px) {
@@ -5641,7 +5643,10 @@ iframe[name=advpp_manager] {
       display: block;
       margin: 0 0 15px; }
       .header-mobile .logo-main {
-        z-index: 1003; } }
+        z-index: 1003;
+        height: 25px;
+        overflow: hidden;
+        margin: 4px 0; } }
 
 .header-top {
   padding: 9px 0 3px;
@@ -7061,14 +7066,11 @@ iframe[name=advpp_manager] {
     background: #fff; }
     @media only screen and (max-width: 820px) {
       .select-clear-all span {
-        text-transform: uppercase;
         position: absolute;
         right: 20px;
         width: 75px;
         text-align: center;
-        padding: 7px 5px; }
-        .select-clear-all span.active {
-          z-index: -1; } }
+        padding: 7px 5px; } }
     .select-clear-all span.active {
       color: #0053a0; }
     @media only screen and (min-width: 820px) {
@@ -7315,7 +7317,7 @@ iframe[name=advpp_manager] {
         font-size: 10px; } }
     @media only screen and (max-width: 820px) {
       .search-results-item .name {
-        margin: 0 0 2px; } }
+        margin: 0 0 6px; } }
   @media only screen and (max-width: 820px) {
     .search-results-item .article-more {
       font-size: 12px; } }

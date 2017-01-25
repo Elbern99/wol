@@ -27,10 +27,12 @@
 
 @font-face {
   font-family: 'lucidaSansBold';
-  src:  url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff2') format('woff2'),
-        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.woff') format('woff'),
-        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.ttf') format('truetype'),
-        url('../fonts/lucida-sanse/bold/ufonts.com_lucida-sans-bold-webfont.svg#lucidaSansBold') format('svg');
+  src:  url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot');
+  src:  url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff2') format('woff2'),
+        url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff') format('woff'),
+        url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.ttf') format('truetype'),
+        url('../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.svg#lucidaSansBold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
