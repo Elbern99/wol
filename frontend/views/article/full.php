@@ -3,12 +3,14 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\modules\eav\helper\EavAttributeHelper;
 ?>
 
 <?php
 $attributes = $collection->getEntity()->getValues();
+EavAttributeHelper::initEavAttributes($attributes);
 
-$this->title = $attributes['title']->getData('title');
+$this->title = EavAttributeHelper::getAttribute('title')->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -19,7 +21,7 @@ $this->registerMetaTag([
             array_map(
                 function($item) {
                     return $item->word;
-                }, $attributes['keywords']->getData()
+                }, EavAttributeHelper::getAttribute('keywords')->getData()
             )
         )
     )
@@ -27,7 +29,7 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+    'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser'))
 ]);
 
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -42,9 +44,9 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').' '.
-        $attributes['teaser']->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
-        '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract').'\n\n View the article: '.
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.EavAttributeHelper::getAttribute('title')->getData('title').' '.
+        EavAttributeHelper::getAttribute('teaser')->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
+        '\n\n Elevator pitch: '.EavAttributeHelper::getAttribute('abstract')->getData('abstract').'\n\n View the article: '.
         Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 $authorLink = [];
@@ -89,8 +91,8 @@ $authorLink = [];
         </div>
 
         <div class="article-top">
-            <h1><?= $attributes['title']->getData('title') ?></h1>
-            <h3><?= $attributes['teaser']->getData('teaser') ?></h3>
+            <h1><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></h1>
+            <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser') ?></h3>
         </div>
 
         <?php foreach ($authors as $author): ?>
@@ -130,45 +132,45 @@ $authorLink = [];
                 </div>
 
                 <h2>Elevator pitch</h2>
-                <p><?= $attributes['abstract']->getData('abstract') ?></p>
-
+                <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract') ?></p>
+                <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
                 <figure>
-                    <img id="<?= $attributes['ga_image']->getData('id'); ?>" data-target="<?= $attributes['ga_image']->getData('target') ?>" src="<?= $attributes['ga_image']->getData('path') ?>" alt="<?= $attributes['ga_image']->getData('title') ?>">
+                    <img id="<?= $gaImage->getData('id'); ?>" data-target="<?= $gaImage->getData('target') ?>" src="<?= $gaImage->getData('path') ?>" alt="<?= $gaImage->getData('title') ?>">
                 </figure>
 
                 <h2>Key findings</h2>
                 <div class="article-columns">
                     <div class="clumn">
                         <h3>Pros</h3>
-                        <?php foreach ($attributes['findings_positive']->getData() as $finding): ?>
+                        <?php foreach (EavAttributeHelper::getAttribute('findings_positive')->getData() as $finding): ?>
                             <p><?= $finding->item ?></p>
                         <?php endforeach; ?>
                     </div>
                     <div class="clumn">
                         <h3>Cons</h3>
-                        <?php foreach ($attributes['findings_negative']->getData() as $finding): ?>
+                        <?php foreach (EavAttributeHelper::getAttribute('findings_negative')->getData() as $finding): ?>
                             <p><?= $finding->item ?></p>
                         <?php endforeach; ?>
                     </div>
                 </div>
 
                 <h2>Author's main message</h2>
-                <p><?= $attributes['main_message']->getData('text') ?></p>
+                <p><?= EavAttributeHelper::getAttribute('main_message')->getData('text') ?></p>
                 
-                <?php foreach ($attributes['main_text']->getData() as $main): ?>
+                <?php foreach (EavAttributeHelper::getAttribute('main_text')->getData() as $main): ?>
                     <h2><?= \Yii::t('app/text',$main->type) ?></h2>
                     <p><?= $main->text ?></p>
                 <?php endforeach; ?>
                     
                 <h2>Competing interests</h2>
-                <p><?= $attributes['creation']->getData('main_creation') ?></p>
+                <p><?= EavAttributeHelper::getAttribute('creation')->getData('main_creation') ?></p>
                 <p>&copy; <?=$article->availability?></p>
 
                 <div class="article-map-medium">
                     <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
-                            <p><?= $attributes['title']->getData('title') ?></p>
+                            <p><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></p>
                             <span class="icon-arrow-square-blue">
                             <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
@@ -293,7 +295,7 @@ $authorLink = [];
                 implode(', ', array_map(
                     function($item) {
                         return Html::a($item->word);
-                    }, $attributes['keywords']->getData()
+                    }, EavAttributeHelper::getAttribute('keywords')->getData()
                 ));
                 ?>
             </div>
@@ -668,7 +670,7 @@ $authorLink = [];
 
 $cite = [
     'authors' => $authors,
-    'title' => $attributes['title']->getData('title'),
+    'title' => EavAttributeHelper::getAttribute('title')->getData('title'),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
     'id' => $article->id,

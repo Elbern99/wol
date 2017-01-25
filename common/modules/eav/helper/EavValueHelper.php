@@ -15,6 +15,11 @@ class EavValueHelper {
         return self::convertReturnType($typeReturn, $attr, $functConvert);
     }
     
+    public static function getAttributeValue($attribute, \Closure $functConvert, $typeReturn = null) {
+        
+        return self::convertReturnType($typeReturn, $attribute, $functConvert);
+    }
+    
     protected static function convertReturnType($typeReturn, $attr, $convert) {
         
         if (is_null($typeReturn)) {

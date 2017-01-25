@@ -3,6 +3,7 @@
 namespace common\modules\eav\collection;
 
 use common\modules\eav\collection\Attribute;
+use common\modules\eav\helper\EavValueHelper;
 
 class Value {
 
@@ -55,20 +56,23 @@ class Value {
     public function getData($key = null, $lang_key = null) {
 
         if ($this->multi) {
+            
             return $this->getMultiData($key, $lang_key);
         } else {
 
-            if ($key) {
-
-                if (is_object($this->data)) {
-                    return $this->data->$key ?? null;
-                } elseif (is_array($this->data)) {
-                    return $this->data[$key] ?? null;
+            return EavValueHelper::getAttributeValue($this->data, function($data) use ($key) {
+                
+                if ($key) {
+                    if (is_object($data)) {
+                        return $data->$key ?? null;
+                    } elseif (is_array($data)) {
+                        return $data[$key] ?? null;
+                    }
                 }
-            }
+                
+                return $data;
+            });
         }
-
-        return $this->data;
     }
 
     public function __toString():string {

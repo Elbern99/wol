@@ -3,12 +3,14 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\modules\eav\helper\EavAttributeHelper;
 ?>
 
 <?php
 $attributes = $collection->getEntity()->getValues();
+EavAttributeHelper::initEavAttributes($attributes);
 
-$this->title = $attributes['title']->getData('title', $currentLang);
+$this->title = EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -19,7 +21,7 @@ $this->registerMetaTag([
             array_map(
                 function($item) {
                     return $item->word;
-                }, $attributes['keywords']->getData(null, $currentLang)
+                }, EavAttributeHelper::getAttribute('keywords')->getData(null, $currentLang)
             )
         )
     )
@@ -27,7 +29,7 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
         'name' => 'description',
-        'content' => Html::encode($attributes['teaser']->getData('teaser', $currentLang))
+        'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
 ]);
 
 $authorLink = [];
@@ -44,9 +46,9 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title', $currentLang).' '.
-    $attributes['teaser']->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
-    '\n\n Elevator pitch: '.$attributes['abstract']->getData('abstract', $currentLang).'\n\n View the article: '.
+$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.EavAttributeHelper::getAttribute('title')->getData('title', $currentLang).' '.
+    EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
+    '\n\n Elevator pitch: '.EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang).'\n\n View the article: '.
     Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 
@@ -91,8 +93,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     </div>
 
     <div class="article-top">
-        <h1><?= $attributes['title']->getData('title', $currentLang) ?></h1>
-        <h3><?= $attributes['teaser']->getData('teaser', $currentLang) ?></h3>
+        <h1><?= EavAttributeHelper::getAttribute('title')->getData('title', $currentLang) ?></h1>
+        <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang) ?></h3>
     </div>
 
         <?php foreach ($authors as $author): ?>
@@ -156,23 +158,23 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             </div>
 
             <h2>Elevator pitch</h2>
-            <p><?= $attributes['abstract']->getData('abstract', $currentLang) ?></p>
-
+            <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
+            <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
             <figure>
-                <img id="<?= $attributes['ga_image']->getData('id', $currentLang); ?>" data-target="<?= $attributes['ga_image']->getData('target', $currentLang) ?>" src="<?= $attributes['ga_image']->getData('path', $currentLang) ?>" alt="<?= $attributes['ga_image']->getData('title', $currentLang) ?>">
+                <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
             </figure>
 
             <h2>Key findings</h2>
             <div class="article-columns">
                 <div class="clumn">
                     <h3>Pros</h3>
-                    <?php foreach ($attributes['findings_positive']->getData(null, $currentLang) as $finding): ?>
+                    <?php foreach (EavAttributeHelper::getAttribute('findings_positive')->getData(null, $currentLang) as $finding): ?>
                         <p><?= $finding->item ?></p>
                     <?php endforeach; ?>
                 </div>
                 <div class="clumn">
                     <h3>Cons</h3>
-                    <?php foreach ($attributes['findings_negative']->getData(null, $currentLang) as $finding): ?>
+                    <?php foreach (EavAttributeHelper::getAttribute('findings_negative')->getData(null, $currentLang) as $finding): ?>
                         <p><?= $finding->item ?></p>
                     <?php endforeach; ?>
                 </div>
@@ -180,7 +182,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
             <div class="authors-main-message">
                 <h2>Author's main message</h2>
-                <?= $attributes['main_message']->getData('text', $currentLang) ?>
+                <?= EavAttributeHelper::getAttribute('main_message')->getData('text', $currentLang) ?>
             </div>
 
             <div class="article-buttons">
@@ -300,7 +302,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             implode(', ', array_map(
                     function($item) {
                         return Html::a($item->word);
-                    }, $attributes['keywords']->getData(null, $currentLang)
+                    }, EavAttributeHelper::getAttribute('keywords')->getData(null, $currentLang)
             ));
             ?>
         </div>
@@ -656,7 +658,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
 $cite = [
     'authors' => $authors,
-    'title' => $attributes['title']->getData('title', $currentLang),
+    'title' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
     'id' => $article->id,
