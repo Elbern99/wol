@@ -651,7 +651,7 @@ $authorLink = [];
         </div>
         <div class="arrows">
             <div class="icon-circle-arrow left">
-                <span class="icon-arrow-square-blue">
+                <span class="icon-icon-arrow-square-blue-left">
                     <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                 </span>
             </div>

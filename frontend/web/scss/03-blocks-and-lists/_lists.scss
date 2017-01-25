@@ -1469,13 +1469,6 @@
     @include breakpoint('tablet') {
       margin: 0 0 17px;
     }
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      .writer {
-        font-size: 10px;
-        padding: 0;
-      }
-    }
   }
 
   h3 {
@@ -1734,13 +1727,13 @@
 //ABS-LIST
 .abs-list {
   overflow: hidden;
-  margin: 0 -6px -5px;
+  margin: 0 -5px -5px;
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
 
   li {
-    margin: 0 6px 4px;
+    margin: 0 5px 4px;
 
     &.active {
       a {

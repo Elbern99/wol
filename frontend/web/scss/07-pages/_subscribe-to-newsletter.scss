@@ -44,12 +44,15 @@
     padding: 1px;
 
     @include breakpoint_custom($breakpoint-tablet) {
-      margin-top: -5px;
+      margin-top: -3px;
     }
   }
 
   form {
-    max-width: 744px;
+
+    @include breakpoint('tablet') {
+      max-width: 744px;
+    }
   }
 
   .form-line {
@@ -106,7 +109,7 @@
     cursor: pointer;
     color: $light-blue;
     transition: color 0.3s ease;
-    font-size: 8px;
+    font-size: 10px;
     display: inline-block;
     margin: 0 0 0 8px;
     padding: 0 5px;
@@ -116,10 +119,9 @@
       text-transform: uppercase;
       position: absolute;
       right: 20px;
-      width: 60px;
+      width: 75px;
       text-align: center;
       padding: 7px 5px;
-
       &.active {
         z-index: -1;
       }

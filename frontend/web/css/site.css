@@ -790,6 +790,20 @@ th {
 .icon-trash:before {
   content: "\e916"; }
 
+.icon-icon-arrow-square-blue-left .path1:before {
+  content: "\e91a";
+  color: black; }
+
+.icon-icon-arrow-square-blue-left .path2:before {
+  content: "\e91b";
+  margin-left: -1em;
+  color: black; }
+
+.icon-icon-arrow-square-blue-left .path3:before {
+  content: "\e91c";
+  margin-left: -1em;
+  color: white; }
+
 .icon-arrow-square-blue .path1:before {
   content: "\e917";
   color: #0053a0; }
@@ -1949,6 +1963,14 @@ blockquote {
 .mobile-accordion-item {
   overflow: hidden; }
 
+.sidebar-widget .writer {
+  text-transform: none;
+  font-size: 10px;
+  padding: 3px 0 0 0; }
+  @media only screen and (max-width: 820px) {
+    .sidebar-widget .writer {
+      padding: 0; } }
+
 .sidebar-accrodion-item .writer,
 .mobile-accordion-item .writer {
   text-transform: none;
@@ -2953,8 +2975,8 @@ blockquote {
     font-size: 18px;
     float: left;
     margin: 6px 10px 0 0;
-    width: 17px;
-    height: 17px; }
+    width: 20px;
+    height: 20px; }
     @media only screen and (min-width: 820px) {
       .data-method-item .icon-arrow-square-blue {
         margin: 2px 10px 0 0;
@@ -3977,11 +3999,6 @@ blockquote {
     .sidebar-news-list li,
     .bg-news-list li {
       margin: 0 0 17px; } }
-  @media only screen and (max-width: 820px) {
-    .sidebar-news-list li .writer,
-    .bg-news-list li .writer {
-      font-size: 10px;
-      padding: 0; } }
 .sidebar-news-list h3,
 .bg-news-list h3 {
   font-size: 12px;
@@ -4130,7 +4147,7 @@ blockquote {
 
 .abs-list {
   overflow: hidden;
-  margin: 0 -6px -5px;
+  margin: 0 -5px -5px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
@@ -4138,7 +4155,7 @@ blockquote {
   -ms-flex-flow: row wrap;
       flex-flow: row wrap; }
   .abs-list li {
-    margin: 0 6px 4px; }
+    margin: 0 5px 4px; }
     .abs-list li.active a {
       color: #0094f2;
       border-color: #0094f2; }
@@ -5709,13 +5726,18 @@ iframe[name=advpp_manager] {
         padding: 0 10px 1px; }
         .header-bottom .header-menu-bottom-list .item,
         .header-bottom .owl-stage-outer .item {
-          font-size: 14px;
-          margin: 0 18px; } }
-      @media only screen and (min-width: 820px) and (max-width: 1024px) {
+          font-size: 11px;
+          margin: 0 5px; } }
+      @media only screen and (min-width: 820px) and (min-width: 1024px) {
         .header-bottom .header-menu-bottom-list .item,
         .header-bottom .owl-stage-outer .item {
-          font-size: 13px;
-          margin: 0 8px; } }
+          font-size: 14px;
+          margin: 0 10px; } }
+      @media only screen and (min-width: 820px) and (min-width: 1430px) {
+        .header-bottom .header-menu-bottom-list .item,
+        .header-bottom .owl-stage-outer .item {
+          font-size: 14px;
+          margin: 0 18px; } }
   @media only screen and (min-width: 820px) {
         .header-bottom .header-menu-bottom-list .jspPane > .item,
         .header-bottom .header-menu-bottom-list > .item,
@@ -6745,6 +6767,13 @@ iframe[name=advpp_manager] {
   position: absolute;
   display: none;
   overflow: hidden; }
+  .reference-popup.tooltip-ref-popup {
+    width: 300px;
+    border: 0;
+    left: auto;
+    position: absolute; }
+    .reference-popup.tooltip-ref-popup .reference-popup-inner .container {
+      margin: 0; }
   @media only screen and (min-width: 820px) {
     .reference-popup {
       bottom: 0;
@@ -6860,9 +6889,11 @@ iframe[name=advpp_manager] {
     .reference-popup .column-additional-references.visible {
       display: block; }
   @media only screen and (min-width: 820px) {
-    .reference-popup .column-countries,
-    .reference-popup .column-methods {
+    .reference-popup .column-countries {
       padding-top: 16px;
+      margin: 0; } }
+  @media only screen and (min-width: 820px) {
+    .reference-popup .column-methods {
       margin: 0; } }
   .reference-popup .columns {
     margin: 0 -24px 0px; }
@@ -6876,32 +6907,41 @@ iframe[name=advpp_manager] {
         .reference-popup .columns .column {
           max-width: 33.3%;
           margin-bottom: 0;
-          padding: 0 24px;
+          padding: 0 24px 15px;
           vertical-align: top; }
           .reference-popup .columns .column.visible {
             display: inline-block; } }
-  .reference-popup .icon-arrow-square-blue {
+  .reference-popup .icon-arrow-square-blue,
+  .reference-popup .icon-icon-arrow-square-blue-left {
     font-size: 20px;
     border: 1px solid #0053a0;
     border-radius: 50%;
     padding: 2px; }
     @media only screen and (min-width: 1430px) {
-      .reference-popup .icon-arrow-square-blue {
+      .reference-popup .icon-arrow-square-blue,
+      .reference-popup .icon-icon-arrow-square-blue-left {
         padding: 1px; } }
     @media only screen and (min-width: 820px) {
-      .reference-popup .icon-arrow-square-blue:hover {
+      .reference-popup .icon-arrow-square-blue:hover,
+      .reference-popup .icon-icon-arrow-square-blue-left:hover {
         background: #0053a0; }
-        .reference-popup .icon-arrow-square-blue:hover .path1:before {
+        .reference-popup .icon-arrow-square-blue:hover .path1:before,
+        .reference-popup .icon-icon-arrow-square-blue-left:hover .path1:before {
           color: #0053a0; }
-        .reference-popup .icon-arrow-square-blue:hover .path2:before {
+        .reference-popup .icon-arrow-square-blue:hover .path2:before,
+        .reference-popup .icon-icon-arrow-square-blue-left:hover .path2:before {
           color: #0053a0; }
-        .reference-popup .icon-arrow-square-blue:hover .path3:before {
+        .reference-popup .icon-arrow-square-blue:hover .path3:before,
+        .reference-popup .icon-icon-arrow-square-blue-left:hover .path3:before {
           color: #fff; } }
-    .reference-popup .icon-arrow-square-blue .path1:before {
+    .reference-popup .icon-arrow-square-blue .path1:before,
+    .reference-popup .icon-icon-arrow-square-blue-left .path1:before {
       color: #fff; }
-    .reference-popup .icon-arrow-square-blue .path2:before {
+    .reference-popup .icon-arrow-square-blue .path2:before,
+    .reference-popup .icon-icon-arrow-square-blue-left .path2:before {
       color: #fff; }
-    .reference-popup .icon-arrow-square-blue .path3:before {
+    .reference-popup .icon-arrow-square-blue .path3:before,
+    .reference-popup .icon-icon-arrow-square-blue-left .path3:before {
       color: #0053a0; }
   .reference-popup .icon-circle-arrow {
     cursor: pointer;
@@ -6972,9 +7012,10 @@ iframe[name=advpp_manager] {
   padding: 1px; }
   @media only screen and (max-width: 820px) {
     .subscribe-to-newsletter .icon-question {
-      margin-top: -5px; } }
-.subscribe-to-newsletter form {
-  max-width: 744px; }
+      margin-top: -3px; } }
+@media only screen and (min-width: 820px) {
+  .subscribe-to-newsletter form {
+    max-width: 744px; } }
 .subscribe-to-newsletter .form-line {
   margin: 0 0 20px; }
   @media only screen and (min-width: 820px) {
@@ -7015,7 +7056,7 @@ iframe[name=advpp_manager] {
     cursor: pointer;
     color: #0094f2;
     transition: color 0.3s ease;
-    font-size: 8px;
+    font-size: 10px;
     display: inline-block;
     margin: 0 0 0 8px;
     padding: 0 5px;
@@ -7025,7 +7066,7 @@ iframe[name=advpp_manager] {
         text-transform: uppercase;
         position: absolute;
         right: 20px;
-        width: 60px;
+        width: 75px;
         text-align: center;
         padding: 7px 5px; }
         .select-clear-all span.active {
@@ -7646,7 +7687,8 @@ iframe[name=advpp_manager] {
       z-index: 4;
       opacity: 0;
       width: 100%;
-      cursor: pointer; }
+      cursor: pointer;
+      height: 100%; }
     .account-head .img-holder img {
       min-height: 100%;
       min-width: 100%;

@@ -638,10 +638,14 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         </div>
         <div class="arrows">
             <div class="icon-circle-arrow left">
-                <div class="icon-arrow"></div>
+                <span class="icon-icon-arrow-square-blue-left">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span>
             </div>
             <div class="icon-circle-arrow right">
-                <div class="icon-arrow"></div>
+                <span class="icon-arrow-square-blue">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span>
             </div>
         </div>
     </div>

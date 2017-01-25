@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ) ?>
             </div>
             
-             <?= Html::submitButton('Signup', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
+             <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
              <?php ActiveForm::end(); ?>
         </div>
 
