@@ -421,12 +421,12 @@
             
             function getAuthorFromat() {
                 
-                let authors = [];
+                var authors = [];
                 
-                for(let author in citeConfig.authors) {
-                    
-                    let attribute = citeConfig.authors[author].name;
-                    let name = attribute.last_name;
+                for(var author in citeConfig.authors) {
+
+                    var attribute = citeConfig.authors[author].name;
+                    var name = attribute.last_name;
                     
                     if (attribute.first_name) {
                         name += ', '+attribute.first_name.substring(1, 0).toUpperCase()+'.';
@@ -439,8 +439,8 @@
             }
 
             function getCiteValue() {
-                
-                let cite = '';
+
+                var cite = '';
                 
                 cite += getAuthorFromat();
                 

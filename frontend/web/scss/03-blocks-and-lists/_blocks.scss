@@ -1427,7 +1427,7 @@
       padding: 5px 12px 6px 12px;
 
       @include breakpoint('tablet') {
-        padding: 17px 24px 7px 24px;
+        padding: 17px 19px 7px;
       }
     }
   }
@@ -1938,10 +1938,6 @@
     width: 100%;
     margin: 0 0 7px;
     height: 210px;
-
-    &:last-child {
-      height: 180px;
-    }
   }
 
   &:hover {

@@ -112,6 +112,8 @@
     }
 
     .help-block {
+      pointer-events: none;
+
       &:after {
         display: none !important;
       }

@@ -57,7 +57,7 @@
     }
 
     .img {
-      width: 80px;
+      min-width: 80px;
       height: 64px;
 
       @include breakpoint('mobile-large') {
