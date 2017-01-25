@@ -447,7 +447,19 @@
                 cite += ' ';
                 cite += citeConfig.title;
                 cite += '. ';
-                cite += citeConfig.publisher+' '+citeConfig.date+': '+citeConfig.id+' doi:'+citeConfig.doi;
+                cite += citeConfig.publisher;
+                
+                if (citeConfig.date) {
+                    cite += ' '+citeConfig.date+': ';
+                } else {
+                    cite += ' ';
+                }
+                
+                cite += citeConfig.id;
+                
+                if (citeConfig.doi) {
+                    cite += ' doi: '+citeConfig.doi;
+                }
                 
                 return cite;
             }
