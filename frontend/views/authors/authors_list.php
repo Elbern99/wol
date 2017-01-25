@@ -42,10 +42,6 @@ $this->registerMetaTag([
                             </a>
                         </div>
                         <p class="location"><?= $author['affiliation'] ?></p>
-
-                        <?php foreach ($author['articles'] as $article): ?>
-                            <a href="/articles/<?= $article['seo'] ?>"><?= $article['title'] ?></a>
-                        <?php endforeach; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
