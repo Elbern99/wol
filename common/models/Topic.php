@@ -28,7 +28,7 @@ class Topic extends \yii\db\ActiveRecord
     public function getImagePath()
     {
         if ($this->image_link) {
-            return Yii::getAlias('@frontend') . $this->imagePath . $this->image_link;
+            return Yii::getAlias('@frontend') . $this->imagePath . '/' . $this->image_link;
         }
   
         return null;
@@ -141,7 +141,20 @@ class Topic extends \yii\db\ActiveRecord
         }
         
     }
-
+    
+    public function deleteImage()
+    {
+        if ($this->image_link) {
+            if (file_exists($this->getImagePath())) {
+                unlink($this->getImagePath());
+            }
+            
+            Yii::$app->db->createCommand()
+            ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
+            ->execute();
+        }
+    }
+    
     public function checkImageLink()
     {
         $image =  UploadedFile::getInstance($this, 'image_link');

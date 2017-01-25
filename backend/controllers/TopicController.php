@@ -20,7 +20,7 @@ class TopicController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete'],
+                        'actions' => ['index', 'view', 'delete', 'delete-image'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -86,5 +86,26 @@ class TopicController extends Controller
         }
              
         return $this->redirect('@web/topic');
+    }
+    
+    public function actionDeleteImage() {
+        if (Yii::$app->request->isPost && Yii::$app->request->isAjax) {
+            try {
+                $id = Yii::$app->request->post('id');
+                $model = Topic::findOne($id);
+                if (!is_object($model)) {
+                    throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
+                }
+                $model->deleteImage();
+                return Yii::t('app/text', 'Image has been deleted successfully.');
+
+            } catch (\yii\db\Exception $e) {
+                return Yii::t('app/text', 'An error occurred during deletion.');
+            }
+             
+       
+        } else {
+            return $this->redirect('@web/news');
+        }
     }
 }
