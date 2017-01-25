@@ -74,6 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
+                <?php if ($model->image_link) : ?>
+                <a href="#" id="remove-link">Remove image</a>
+                <?php endif; ?>
+                <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
@@ -81,3 +85,18 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php
+if ($model->image_link) {
+$url = Url::toRoute('delete-image');
+$this->registerJs(<<<JS
+   $('#remove-link').click(function (e) {
+      e.preventDefault();
+      $.post("$url", { id: $model->id }, function( data ) {
+         alert(data);
+         $('.file-caption-name').html('<i class="glyphicon glyphicon-file kv-caption-icon"></i>');
+      });
+   });
+JS
+,\yii\web\View::POS_END);
+}
+?>
