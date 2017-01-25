@@ -51,27 +51,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid">
-                    <div class="checkboxes">
-                        <div class="grid-line four">
-                            <?= $form->field($model, 'items')->checkboxList($model->getSubjectItems(),[
-                                'item'=> function($index, $label, $name, $checked, $value) {
-                                    return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
-                                    Html::checkbox($name, $checked, [
-                                        'value' => $value,
-                                    ]).'<span class="label-text">'.$label.'</span></label></div></div>';
-                                }
-                            ])->label('');
-                            ?>
+                <div class="checkboxes-holder">
+                    <div class="grid">
+                        <div class="checkboxes">
+                            <div class="grid-line four">
+                                <?= $form->field($model, 'items')->checkboxList($model->getSubjectItems(),[
+                                    'item'=> function($index, $label, $name, $checked, $value) {
+                                        return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
+                                        Html::checkbox($name, $checked, [
+                                            'value' => $value,
+                                        ]).'<span class="label-text">'.$label.'</span></label></div></div>';
+                                    }
+                                ])->label('');
+                                ?>
+                            </div>
                         </div>
                     </div>
+                    <div class="form-line">
+                        <?= $form->field($model, 'newsletter')->checkbox()->label('<span class="label-text">I would like to register for the IZA World of Labor newsletter</span>', ['class'=>'def-checkbox']) ?>
+                    </div>
+                    <div class="form-line">
+                        <?= $form->field($model, 'agree', ['options'=>['class' => 'form-item no-required']])->checkbox()->label('<span class="label-text">I agree to the <a href="/terms-and-conditions">terms and conditions</a> and <a href="/privacy-and-cookie-policy">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
+                    </div>
                 </div>
-                <div class="form-line">
-                    <?= $form->field($model, 'newsletter')->checkbox()->label('<span class="label-text">I would like to register for the IZA World of Labor newsletter</span>', ['class'=>'def-checkbox']) ?>
-                </div>
-                <div class="form-line">
-                    <?= $form->field($model, 'agree', ['options'=>['class' => 'form-item no-required']])->checkbox()->label('<span class="label-text">I agree to the <a href="/terms-and-conditions">terms and conditions</a> and <a href="/privacy-and-cookie-policy">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
-                </div>
+
                 <?= Html::submitButton('Create Account', ['class' => 'btn-blue', 'name' => 'signup-button']) ?>
                 <?php ActiveForm::end(); ?>
             </div>

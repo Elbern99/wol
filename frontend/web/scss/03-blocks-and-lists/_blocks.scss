@@ -266,10 +266,6 @@
     @include breakpoint_custom($breakpoint-tablet) {
       float: left;
       margin: 0 13px 0 0;
-
-      .icon-play {
-        display: none;
-      }
     }
 
     .icon-play {
@@ -1070,10 +1066,6 @@
 
       .icon-play {
         @extend .icon-to-center;
-
-        @include breakpoint_custom($breakpoint-tablet) {
-          display: none;
-        }
       }
 
       img {
@@ -1189,7 +1181,7 @@
   h2 {
     max-height: 60px;
     overflow: hidden;
-    min-height: 29px;
+    //min-height: 29px;
 
     @include breakpoint('tablet') {
       max-height: 72px;

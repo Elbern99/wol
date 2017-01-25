@@ -116,14 +116,15 @@
     background: #fff;
 
     @include breakpoint_custom($breakpoint-tablet) {
-      text-transform: uppercase;
+      //text-transform: uppercase;
       position: absolute;
       right: 20px;
       width: 75px;
       text-align: center;
       padding: 7px 5px;
+
       &.active {
-        z-index: -1;
+        //z-index: -1;
       }
     }
     
