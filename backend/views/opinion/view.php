@@ -43,6 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'shiftEnterMode'=>1
                     ]
                 ]) ?>
+                <?= $form->field($model, 'author_ids')->widget(Select2::classname(), [
+                    'data' => $model->authorsList(),
+                    'options' => ['placeholder' => 'Select opinion authors', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('author_ids')); ?>
             
                 <?=
                 $form->field($model, 'image_link')->fileInput()->widget(FileInput::classname(), [
@@ -59,18 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
-            
-                <?= $form->field($model, 'author_ids')->widget(Select2::classname(), [
-                    'data' => $model->authorsList(),
-                    'options' => ['placeholder' => 'Select opinion authors', 'multiple' => true],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'tokenSeparators' => [',', ' '],
-                        'maximumInputLength' => 10
-                    ],
-                ])->label($model->getAttributeLabel('author_ids')); ?>
-            
-            
+                <?php if ($model->image_link) : ?>
+                <a href="#" id="remove-link">Remove image</a>
+                <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
+                <?php endif; ?>
+             
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
@@ -78,3 +80,18 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php 
+if ($model->image_link) {
+$url = Url::toRoute('delete-image');
+$this->registerJs(<<<JS
+   $('#remove-link').click(function (e) {
+      e.preventDefault();
+      $.post("$url", { id: $model->id }, function( data ) {
+         alert(data);
+         $('.file-caption-name').html('<i class="glyphicon glyphicon-file kv-caption-icon"></i>');
+      });
+   });
+JS
+,\yii\web\View::POS_END);
+}
+?>

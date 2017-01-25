@@ -76,8 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
                 <?php if ($model->image_link) : ?>
                 <a href="#" id="remove-link">Remove image</a>
-                <?php endif; ?>
                 <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
+                <?php endif; ?>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
