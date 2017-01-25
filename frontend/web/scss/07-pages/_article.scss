@@ -697,6 +697,19 @@
   display: none;
   overflow: hidden;
 
+  &.tooltip-ref-popup {
+    width: 300px;
+    border: 0;
+    left: auto;
+    position: absolute;
+
+    .reference-popup-inner {
+      .container {
+        margin: 0;
+      }
+    }
+  }
+
   @include breakpoint('tablet') {
     bottom: 0;
     position: fixed;
@@ -864,11 +877,16 @@
     }
   }
 
-  .column-countries,
-  .column-methods {
+  .column-countries{
 
     @include breakpoint('tablet') {
       padding-top: 16px;
+      margin: 0;
+    }
+  }
+
+  .column-methods {
+    @include breakpoint('tablet') {
       margin: 0;
     }
   }
@@ -891,13 +909,15 @@
         &.visible {
           display: inline-block;
         }
-        padding: 0 24px;
+
+        padding: 0 24px 15px;
         vertical-align: top;
       }
     }
   }
 
-  .icon-arrow-square-blue {
+  .icon-arrow-square-blue,
+  .icon-icon-arrow-square-blue-left {
     font-size: 20px;
     border: 1px solid $blue;
     border-radius: 50%;

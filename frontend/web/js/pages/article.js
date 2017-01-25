@@ -180,10 +180,18 @@
                 var cur = $(this),
                     parentEl = $(parent),
                     classEl = 'opened-reflink',
-                    arrows = '.arrows';
+                    arrows = '.arrows',
+                    bottom = $(window).height() - cur.height(),
+                    offset = cur.offset(),
+                    curCordTop = offset.top,
+                    curCordBottom = curCordTop - bottom,
+                    curCordLeft = offset.left;
 
                 $('li').removeClass(classEl);
                 cur.parent('li').addClass(classEl);
+                // parentEl.addClass('tooltip-ref-popup');
+                // parentEl.css('bottom',curCordBottom);
+                // parentEl.css('left', curCordLeft);
                 parentEl.find(arrows).fadeOut(0);
 
                 article.changeContentPopup(cur);

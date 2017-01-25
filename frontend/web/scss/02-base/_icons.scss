@@ -119,6 +119,23 @@
   content: "\e916";
 }
 
+.icon-icon-arrow-square-blue-left .path1:before {
+  content: "\e91a";
+  color: rgb(0, 0, 0);
+}
+
+.icon-icon-arrow-square-blue-left .path2:before {
+  content: "\e91b";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-icon-arrow-square-blue-left .path3:before {
+  content: "\e91c";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+
 .icon-arrow-square-blue .path1:before {
   content: "\e917";
   color: $blue;

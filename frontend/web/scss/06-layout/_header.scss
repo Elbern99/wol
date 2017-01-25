@@ -136,12 +136,17 @@
       padding: 0 10px 1px;
 
       .item {
-        font-size: 14px;
-        margin: 0 18px;
+        font-size: 11px;
+        margin: 0 5px;
 
-        @include breakpoint_custom($breakpoint-desktop) {
-          font-size: 13px;
-          margin: 0 8px;
+        @include breakpoint('desktop') {
+          font-size: 14px;
+          margin: 0 10px;
+        }
+
+        @include breakpoint('desktop-large') {
+          font-size: 14px;
+          margin: 0 18px;
         }
       }
 

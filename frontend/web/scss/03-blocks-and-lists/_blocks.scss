@@ -517,6 +517,18 @@
   }
 }
 
+.sidebar-widget {
+  .writer {
+    text-transform: none;
+    font-size: 10px;
+    padding: 3px 0 0 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding: 0;
+    }
+  }
+}
+
 .sidebar-accrodion-item,
 .mobile-accordion-item {
 
@@ -1979,8 +1991,8 @@
     font-size: 18px;
     float: left;
     margin: 6px 10px 0 0;
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
 
     @include breakpoint('tablet') {
       margin: 2px 10px 0 0;
