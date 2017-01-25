@@ -6,6 +6,7 @@ use yii\helpers\Url;
 
 use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UrlRewrite */
@@ -22,7 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'url_key') ?>
                 <?= $form->field($model, 'title') ?>
-                <?= $form->field($model, 'editor') ?>
+            
+                <?= $form->field($model, 'editor')->widget(CKEditor::className(), [
+                    'options' => ['rows' => 8],
+                    'preset' => 'standard',
+                    'clientOptions'=>[
+                        'enterMode' => 2,
+                        'forceEnterMode'=>false,
+                        'shiftEnterMode'=>1
+                    ]
+                ]) ?>
                 <?= $form->field($model, 'created_at') ?>
             
                 <?= $form->field($model, 'description')->widget(CKEditor::className(), [
@@ -60,6 +70,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
+                <?php if ($model->image_link) : ?>
+                <a href="#" id="remove-link">Remove image</a>
+                <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
+                <?php endif; ?>
+                
+                <?= $form->field($model, 'article_ids')->widget(Select2::classname(), [
+                    'data' => $model->articlesList(),
+                    'options' => ['placeholder' => 'Select topic articles...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label($model->getAttributeLabel('article_ids')); ?>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
@@ -67,3 +91,18 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php
+if ($model->image_link) {
+$url = Url::toRoute('delete-image');
+$this->registerJs(<<<JS
+   $('#remove-link').click(function (e) {
+      e.preventDefault();
+      $.post("$url", { id: $model->id }, function( data ) {
+         alert(data);
+         $('.file-caption-name').html('<i class="glyphicon glyphicon-file kv-caption-icon"></i>');
+      });
+   });
+JS
+,\yii\web\View::POS_END);
+}
+?>

@@ -23,7 +23,7 @@ class NewsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete'],
+                        'actions' => ['index', 'view', 'delete', 'delete-image'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -50,6 +50,7 @@ class NewsController extends Controller
         } else {
             $model = NewsItem::findOne($id);
             $model->created_at = $model->created_at->format('d-m-Y');
+            $model->loadAttributes();
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
@@ -89,5 +90,26 @@ class NewsController extends Controller
         }
              
         return $this->redirect('@web/news');
+    }
+    
+    public function actionDeleteImage() {
+        if (Yii::$app->request->isPost && Yii::$app->request->isAjax) {
+            try {
+                $id = Yii::$app->request->post('id');
+                $model = NewsItem::findOne($id);
+                if (!is_object($model)) {
+                    throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
+                }
+                $model->deleteImage();
+                return Yii::t('app/text', 'Image has been deleted successfully.');
+
+            } catch (\yii\db\Exception $e) {
+                return Yii::t('app/text', 'An error occurred during deletion.');
+            }
+             
+       
+        } else {
+            return $this->redirect('@web/news');
+        }
     }
 }

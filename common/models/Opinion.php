@@ -23,7 +23,7 @@ class Opinion extends \yii\db\ActiveRecord
     public function getImagePath()
     {
         if ($this->image_link) {
-            return Yii::getAlias('@frontend') . $this->imagePath . $this->image_link;
+            return Yii::getAlias('@frontend') . $this->imagePath . '/'. $this->image_link;
         }
   
         return null;
@@ -118,6 +118,19 @@ class Opinion extends \yii\db\ActiveRecord
             if ($currentItem && $currentItem->image_link) {
                 $this->image_link = $currentItem->image_link;
             }
+        }
+    }
+    
+    public function deleteImage()
+    {
+        if ($this->image_link) {
+            if (file_exists($this->getImagePath())) {
+                unlink($this->getImagePath());
+            }
+            
+            Yii::$app->db->createCommand()
+            ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
+            ->execute();
         }
     }
     

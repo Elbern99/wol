@@ -51,7 +51,7 @@ class OpinionController extends Controller {
         $opinionsQuery = Opinion::find()->orderBy('id desc');
         $videosQuery = Video::find()->orderBy('id desc');
         $widgets = Widget::find()->where([
-            'name' => ['Subscribe to newsletter'],
+            'name' => ['stay_up_to_date'],
         ])->all();
         
         return $this->render('index', [

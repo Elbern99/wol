@@ -93,7 +93,7 @@ class NewsController extends Controller {
             $groupYear = (int)ArrayHelper::getValue($value, 'y');
            
             $newsTree[$groupYear]['months'][] = [
-                'isActive' => $groupMonth == $month ? true : false,
+                'isActive' => $groupMonth == $month && $groupYear == $year ? true : false,
                 'num' => $groupMonth,
             ];
             
@@ -128,7 +128,7 @@ class NewsController extends Controller {
             return $this->redirect(Url::to(['/news/index']));
         
         $widgets = Widget::find()->where([
-            'name' => ['Subscribe to newsletter', 'Socials'],
+            'name' => ['stay_up_to_date', 'Socials'],
         ])->orderBy('id desc')->all();
         
         $latestNews = NewsItem::find()->orderBy('id desc')->limit(10)->all();
@@ -154,9 +154,9 @@ class NewsController extends Controller {
             $newsTree[$groupYear]['isActive'] = false;
         }
         
-        $articles = Article::find()->orderBy('id desc')
-                                   ->limit(10)
-                                   ->all();
+        $articles = $newsItem->getNewsArticles()
+                ->orderBy('id desc')
+                ->limit(10)->all();
         
         krsort($newsTree, SORT_NUMERIC);
         
