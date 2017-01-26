@@ -549,20 +549,35 @@
                 //get
                 var title = $('title').text(),
                     desc = $('meta[name="description"]').attr("content"),
-                    titleClear = title.replace(/\s+/g," "),
+                    titleClear,
                     descClear,
                     firstText = $('.content-inner-text p').text(),
                     firstTitle = $('.content-inner h1'),
                     url = document.URL;
-                
+
+
                 desc === undefined ? descClear = firstText : descClear = desc;
+                title === undefined ? titleClear = firstText : firstText = title;
 
                 descClear = descClear.replace(/\s+/g," ");
+                titleClear = title.replace(/\s+/g," ");
+
+                function sliceText(text,symbols) {
+                    var slicedText = text.slice(0,symbols);
+                        if (slicedText.length < text.length) {
+                            slicedText += '...';
+                        }
+
+                    return slicedText;
+                }
+
+                var slicedDesc = sliceText(descClear,140);
+                var slicedTitle = sliceText(titleClear,140);
 
                 //set
-                var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titleClear+"&summary="+descClear+"",
-                    twitter = "http://twitter.com/intent/tweet/?text="+descClear+".&amp;url="+url+"",
-                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+descClear+'&app_id=1273981299361667';
+                var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
+                    twitter = "http://twitter.com/intent/tweet/?text="+slicedDesc+".&amp;url="+url+"",
+                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
 
                 $(item).each(function() {
                     var cur = $(this);
