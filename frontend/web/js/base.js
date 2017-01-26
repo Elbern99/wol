@@ -546,26 +546,23 @@
         btnContent: function(item) {
             if($(item).length) {
 
-
-
+                //get
                 var title = $('title').text(),
                     desc = $('meta[name="description"]').attr("content"),
-                    descClear = desc.replace(/\s+/g," "),
                     titleClear = title.replace(/\s+/g," "),
-                    firstText = '',
+                    descClear,
+                    firstText = $('.content-inner-text p').text(),
                     firstTitle = $('.content-inner h1'),
-                    url = document.URL,
-                    linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titleClear+"&summary="+descClear+"",
-                    twitter = "https://twitter.com/intent/tweet/?text="+descClear+".&amp;url=http%3A%2F%2F"+url+"",
-                    facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+descClear+'&app_id=1273981299361667';
+                    url = document.URL;
+                
+                desc === undefined ? descClear = firstText : descClear = desc;
 
-                if(titleClear === undefined) {
-                    title = titleH1;
-                }
+                descClear = descClear.replace(/\s+/g," ");
 
-                if(descClear === undefined) {
-                    console.log(title, description);
-                }
+                //set
+                var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titleClear+"&summary="+descClear+"",
+                    twitter = "http://twitter.com/intent/tweet/?text="+descClear+".&amp;url="+url+"",
+                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+descClear+'&app_id=1273981299361667';
 
                 $(item).each(function() {
                     var cur = $(this);

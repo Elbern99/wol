@@ -232,13 +232,39 @@
                           references_title = key_references_obj[i].title,
                           references_type = key_references_obj[i].type;
 
+                      //template
+                      var dataSourceText,
+                          dataTypesText,
+                          dataMethodText,
+                          dataLinkText;
+
+                      if(references_source !== '') {
+                          dataSourceText = '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>';
+                      } else {
+                          dataSourceText = '';
+                      }
+
+                      if(references_type !== '') {
+                          dataTypesText = '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>';
+                      } else {
+                          dataTypesText = '';
+                      }
+
+                      if(references_method !== '') {
+                          dataMethodText = '<div class="method">Method(s): <strong>'+references_method+'</strong></div>';
+                      } else {
+                          dataMethodText = '';
+                      }
+
+                      if(references_full_citation !== '') {
+                          dataLinkText = '<div class="link">'+references_full_citation+' ['+references_position+']</div>';
+                      } else {
+                          dataLinkText = '';
+                      }
+
                       arrayTpl.push('' +
                           '<div class="ref-item">' +
-                          '<div class="authors">'+references_title+'</div>' +
-                          '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
-                          '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
-                          '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
-                          '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
+                          '<div class="authors">'+references_title+'</div>' +dataLinkText+dataSourceText+dataTypesText+dataMethodText+
                           '</div>'
                       );
                   }
@@ -251,11 +277,24 @@
                       var additional_full_citation = key_additional_obj[i].full_citation,
                           additional_method = key_additional_obj[i].title;
 
+                      //template
+                      var dataAdditionalMethodText,
+                          dataAdditionalLinkText;
+
+                      if(additional_method !== '') {
+                          dataAdditionalMethodText = '<div class="method">Method(s): '+additional_method+'</div>';
+                      } else {
+                          dataAdditionalMethodText = '';
+                      }
+
+                      if(additional_full_citation !== '') {
+                          dataAdditionalLinkText = '<div class="link">'+additional_full_citation+'</div>';
+                      } else {
+                          dataAdditionalLinkText = '';
+                      }
+
                       arrayTpl.push('' +
-                          '<div class="ref-item">' +
-                          '<div class="link">'+additional_full_citation+'</div>' +
-                          '<div class="method">Method(s): '+additional_method+'</div>' +
-                          '</div>'
+                          '<div class="ref-item">' +dataAdditionalLinkText+dataAdditionalMethodText+ '</div>'
                       );
                   }
               }
