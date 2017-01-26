@@ -656,12 +656,12 @@
         article.citeInit();
         article.closeOpen('.btn-cite','.reference-popup');
         article.openReferenceImg('.article_image img');
+        article.addToFavourite('.btn-like');
     });
 
     elements.window.load(function() {
         shareSelected('.article-full article');
         article.mapInit();
-        article.addToFavourite('.btn-like');
     });
 
 })(jQuery);
