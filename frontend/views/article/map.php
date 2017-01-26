@@ -26,6 +26,11 @@ $this->registerMetaTag([
         )
     )
 ]);
+                
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+]);
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');

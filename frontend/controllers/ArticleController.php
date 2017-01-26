@@ -147,7 +147,7 @@ class ArticleController extends Controller {
         
         $records = $model->getRelatedRecords();
         $articleCollection = Yii::createObject(Collection::class);
-        $articleCollection->setAttributeFilter(['title', 'keywords', 'related', 'key_references', 'add_references']);
+        $articleCollection->setAttributeFilter(['teaser','title', 'keywords', 'related', 'key_references', 'add_references']);
         $articleCollection->initCollection(Article::tableName(), $model);
 
         $categories = [];
