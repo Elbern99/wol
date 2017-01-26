@@ -546,7 +546,7 @@
   }
 
   li {
-    padding: 0 0 14px;
+    padding: 0 0 13px;
 
     @include breakpoint('mobile-large') {
       padding: 5px;
@@ -614,7 +614,7 @@
   }
 
   li {
-    padding: 0 0 14px;
+    padding: 0 0 13px;
 
     @include breakpoint('mobile-large') {
       padding: 5px 5px 20px;
@@ -920,7 +920,6 @@
     text-transform: uppercase;
     position: relative;
     line-height: 1.1;
-    padding: 0 6px 0 0;
     margin: 0 5px 3px 0;
     font-size: 10px;
 
@@ -932,12 +931,11 @@
 
     &:after {
       content: '';
-      position: absolute;
-      bottom: 1px;
-      right: 0;
-      top: 1px;
       border-right: 1px solid #676767;
-      display: block;
+      display: inline-block;
+      vertical-align: top;
+      height: 9px;
+      margin: 1px 0 0 6px;
     }
   }
 
@@ -953,26 +951,26 @@
 //ARTICLES-LIST
 .articles-list {
   >li {
-    margin: 0 0 21px;
+    margin: 0 0 25px;
 
     @include breakpoint('tablet') {
       margin: 0 0 35px;
-    }
 
-    &:first-child {
-      h2 {
-        font-size: 28px;
-        margin: 0 0 5px;
-      }
+      &:first-child {
+        h2 {
+          font-size: 28px;
+          margin: 0 0 5px;
+        }
 
-      h3 {
-        font-size: 14px;
-        margin: 0 0 5px;
-        line-height: 1.5em;
-      }
+        h3 {
+          font-size: 14px;
+          margin: 0 0 5px;
+          line-height: 1.5em;
+        }
 
-      .publish {
-        margin: 0 0 4px;
+        .publish {
+          margin: 0 0 4px;
+        }
       }
     }
   }
@@ -1486,14 +1484,12 @@
 
   li {
     margin: 0 0 10px;
-    line-height: 1.3em;
 
     @include breakpoint_custom($breakpoint-tablet) {
       font-size: 12px;
     }
 
     @include breakpoint('tablet') {
-      line-height: 1.5em;
       margin: 0 0 13px;
     }
   }
@@ -1513,7 +1509,7 @@
   }
 
   li {
-    margin: 0 0 14px;
+    margin: 0 0 13px;
     position: relative;
     padding-right: 20px;
 
@@ -1590,6 +1586,14 @@
     font-size: 12px;
     overflow: hidden;
 
+    li {
+      &.open {
+        a {
+          color: $dark-brown !important;
+        }
+      }
+    }
+
     &.open {
       a {
         color: $blue;
@@ -1602,7 +1606,7 @@
   }
 
   li{
-    padding: 0 0 0 14px;
+    padding: 0 0 0 13px;
     position: relative;
 
     &.open {
@@ -1864,6 +1868,7 @@
     //transform: translateY(-30%);
     //transition: transform .5s ease, opacity .5s ease;
     display: none;
+    line-height: 1.4em;
   }
 }
 

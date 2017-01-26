@@ -408,8 +408,8 @@ th {
   unicode-range: U+0009-FFFD; }
 @font-face {
   font-family: 'lucidaSansBold';
-  src: url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot");
-  src: url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.woff") format("woff"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/bold/lucida_grande_bold-webfont.svg#lucidaSansBold") format("svg");
+  src: url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.eot");
+  src: url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.woff") format("woff"), url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/bold/lucida-sans-bold-webfont.svg#lucidaSansBold") format("svg");
   font-weight: normal;
   font-style: normal; }
 @font-face {
@@ -420,7 +420,8 @@ th {
   font-style: normal; }
 @font-face {
   font-family: 'lucidaSansDemibold';
-  src: url("../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.woff") format("woff"), url("../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/demibold/lucida_sans_demibold_roman-webfont.svg#lucidaSansDemibold") format("svg");
+  src: url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.eot");
+  src: url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.woff2") format("woff2"), url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.woff") format("woff"), url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.ttf") format("truetype"), url("../fonts/lucida-sanse/demibold/lucida-sans-demibold-webfont.svg#lucidaSansDemibold") format("svg");
   font-weight: normal;
   font-style: normal; }
 @font-face {
@@ -963,7 +964,7 @@ th {
   border: 2px solid #0053a0;
   border-radius: 50%;
   text-align: center;
-  font: 8px/14px "lucidaSansBold", Helvetica, Arial, Sans-serif;
+  font: 8px/13px "lucidaSansBold", Helvetica, Arial, Sans-serif;
   margin-bottom: 10px;
   background: #fff;
   display: -ms-flexbox;
@@ -1730,13 +1731,14 @@ blockquote {
   height: 100%; }
   .article-item h2,
   .post-item h2 {
-    font-size: 20px;
-    margin: -4px 0 9px; }
+    font-size: 16px;
+    margin: -4px 0 1px; }
     @media only screen and (min-width: 820px) {
       .article-item h2,
       .post-item h2 {
         overflow: hidden;
-        margin-top: 0; } }
+        margin: 0 0 5px;
+        font-size: 20px; } }
   .article-item .desc p + br,
   .post-item .desc p + br {
     margin-bottom: 0 !important; }
@@ -1789,26 +1791,37 @@ blockquote {
     font-size: 10px;
     text-transform: uppercase;
     margin: -4px 0 4px; }
-  .article-item .publish,
   .article-item .category,
-  .post-item .publish,
   .post-item .category {
     margin: 0 0 9px;
-    font-size: 12px;
-    text-transform: uppercase; }
+    font-size: 12px; }
     @media only screen and (min-width: 820px) {
-      .article-item .publish,
       .article-item .category,
-      .post-item .publish,
       .post-item .category {
         margin: 0 0 1px;
         font-size: 10px; } }
+  .article-item .publish,
+  .post-item .publish {
+    margin-bottom: 8px;
+    font-size: 12px; }
+    @media only screen and (min-width: 820px) {
+      .article-item .publish,
+      .post-item .publish {
+        font-size: 10px; } }
+  .article-item .category,
+  .post-item .category {
+    text-transform: uppercase; }
   .article-item .description,
   .post-item .description {
-    font-size: 11px;
-    line-height: 1.6em;
+    font-size: 13px;
+    line-height: 1.4em;
     display: none;
     margin-bottom: 10px; }
+    @media only screen and (min-width: 820px) {
+      .article-item .description,
+      .post-item .description {
+        font-size: 11px;
+        line-height: 1.6em; } }
   .article-item .img,
   .post-item .img {
     position: relative;
@@ -1972,16 +1985,11 @@ blockquote {
 .sidebar-widget .writer {
   text-transform: none;
   font-size: 10px;
-  padding: 3px 0 0 0; }
+  padding: 2px 0 0 0; }
   @media only screen and (max-width: 820px) {
     .sidebar-widget .writer {
       padding: 0; } }
 
-.sidebar-accrodion-item .writer,
-.mobile-accordion-item .writer {
-  text-transform: none;
-  font-size: 10px;
-  padding: 3px 0 0 0; }
 .sidebar-accrodion-item .text,
 .mobile-accordion-item .text {
   display: none; }
@@ -2304,7 +2312,7 @@ blockquote {
   font-size: 12px;
   background: #dbe8f4;
   overflow: hidden;
-  line-height: 1.45em; }
+  line-height: 1.4em; }
   @media only screen and (min-width: 820px) {
     .opinion-item,
     .news-item,
@@ -3409,7 +3417,7 @@ blockquote {
       -ms-flex-flow: row wrap;
           flex-flow: row wrap; } }
   .commentary-opinions-list li {
-    padding: 0 0 14px; }
+    padding: 0 0 13px; }
     @media only screen and (min-width: 568px) {
       .commentary-opinions-list li {
         padding: 5px; } }
@@ -3457,7 +3465,7 @@ blockquote {
           flex-flow: row wrap;
       margin: 0 -5px -20px; } }
   .commentary-videos-list li {
-    padding: 0 0 14px; }
+    padding: 0 0 13px; }
     @media only screen and (min-width: 568px) {
       .commentary-videos-list li {
         padding: 5px 5px 20px;
@@ -3637,38 +3645,36 @@ blockquote {
     text-transform: uppercase;
     position: relative;
     line-height: 1.1;
-    padding: 0 6px 0 0;
     margin: 0 5px 3px 0;
     font-size: 10px; }
     .article-rubrics-list li:last-child:after {
       display: none; }
     .article-rubrics-list li:after {
       content: '';
-      position: absolute;
-      bottom: 1px;
-      right: 0;
-      top: 1px;
       border-right: 1px solid #676767;
-      display: block; }
+      display: inline-block;
+      vertical-align: top;
+      height: 9px;
+      margin: 1px 0 0 6px; }
   .article-rubrics-list a {
     color: #0094f2; }
     .article-rubrics-list a:hover {
       color: #0053a0; }
 
 .articles-list > li {
-  margin: 0 0 21px; }
+  margin: 0 0 25px; }
   @media only screen and (min-width: 820px) {
     .articles-list > li {
-      margin: 0 0 35px; } }
-  .articles-list > li:first-child h2 {
-    font-size: 28px;
-    margin: 0 0 5px; }
-  .articles-list > li:first-child h3 {
-    font-size: 14px;
-    margin: 0 0 5px;
-    line-height: 1.5em; }
-  .articles-list > li:first-child .publish {
-    margin: 0 0 4px; }
+      margin: 0 0 35px; }
+      .articles-list > li:first-child h2 {
+        font-size: 28px;
+        margin: 0 0 5px; }
+      .articles-list > li:first-child h3 {
+        font-size: 14px;
+        margin: 0 0 5px;
+        line-height: 1.5em; }
+      .articles-list > li:first-child .publish {
+        margin: 0 0 4px; } }
 
 .editors-list {
   display: -ms-flexbox;
@@ -4011,14 +4017,12 @@ blockquote {
 .classification-list {
   font-size: 12px; }
   .classification-list li {
-    margin: 0 0 10px;
-    line-height: 1.3em; }
+    margin: 0 0 10px; }
     @media only screen and (max-width: 820px) {
       .classification-list li {
         font-size: 12px; } }
     @media only screen and (min-width: 820px) {
       .classification-list li {
-        line-height: 1.5em;
         margin: 0 0 13px; } }
 
 .further-reading-list {
@@ -4029,7 +4033,7 @@ blockquote {
     margin: 0 20px 0 0;
     font-size: 12px; }
   .further-reading-list li {
-    margin: 0 0 14px;
+    margin: 0 0 13px;
     position: relative;
     padding-right: 20px; }
     .further-reading-list li:first-letter {
@@ -4070,12 +4074,14 @@ blockquote {
   margin: 0 0 10px;
   font-size: 12px;
   overflow: hidden; }
+  .articles-filter-list li li.open a {
+    color: #242424 !important; }
   .articles-filter-list li.open a {
     color: #0053a0; }
     .articles-filter-list li.open a:hover {
       color: #0094f2; }
 .articles-filter-list li {
-  padding: 0 0 0 14px;
+  padding: 0 0 0 13px;
   position: relative; }
   .articles-filter-list li.open > a {
     font-family: "LucidaGrandeBold", Helvetica, Arial, Sans-serif; }
@@ -4255,7 +4261,8 @@ blockquote {
 .more-extra-list .item,
 .bg-news-list li,
 .bg-news-list .item {
-  display: none; }
+  display: none;
+  line-height: 1.4em; }
 
 .key-references-list li:nth-child(-n+13), .key-references-list li.opened,
 .key-references-list .item:nth-child(-n+13),
@@ -4857,7 +4864,7 @@ label {
       background-color: #f2dede; }
 
 .alert {
-  padding: 10px;
+  padding: 10px 18px 10px;
   border: 1px solid transparent;
   border-radius: 4px;
   margin: 20px 0 20px;
@@ -4870,7 +4877,10 @@ label {
     border: 0;
     font-size: 20px;
     width: 25px;
-    height: 25px; }
+    height: 25px;
+    position: absolute;
+    right: 0;
+    top: 0; }
 
 .alert-danger {
   color: #8a6d3b;

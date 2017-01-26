@@ -37,7 +37,7 @@ if ($category) {
     <div class="content-inner">
         <div class="content-inner-text">
             <p class="small-paragraph">We have selected events that we think are relevant to policymakers and/or that involve the IZA World of
-                Labor. Also included are a selection of IZA events (further IZA events can be found <a href="">here</a>)</p>
+                Labor. Also included are a selection of IZA events (further IZA events can be found <a target="_blank" href="http://legacy.iza.org/en/webcontent/events/index">here</a>)</p>
 
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">

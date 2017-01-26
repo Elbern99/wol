@@ -545,12 +545,27 @@
     var shareBtns = {
         btnContent: function(item) {
             if($(item).length) {
+
+
+
                 var title = $('title').text(),
-                    description = $('meta[name="description"]').attr("content"),
+                    desc = $('meta[name="description"]').attr("content"),
+                    descClear = desc.replace(/\s+/g," "),
+                    titleClear = title.replace(/\s+/g," "),
+                    firstText = '',
+                    firstTitle = $('.content-inner h1'),
                     url = document.URL,
-                    linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+title+"&summary="+description+"",
-                    twitter = "https://twitter.com/intent/tweet/?text="+description+".&amp;url=http%3A%2F%2F"+url+"",
-                    facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+description+'&app_id=1273981299361667';
+                    linkEdn = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titleClear+"&summary="+descClear+"",
+                    twitter = "https://twitter.com/intent/tweet/?text="+descClear+".&amp;url=http%3A%2F%2F"+url+"",
+                    facebook = 'https://facebook.com/dialog/share?display=popup&href='+url+'&description='+descClear+'&app_id=1273981299361667';
+
+                if(titleClear === undefined) {
+                    title = titleH1;
+                }
+
+                if(descClear === undefined) {
+                    console.log(title, description);
+                }
 
                 $(item).each(function() {
                     var cur = $(this);
