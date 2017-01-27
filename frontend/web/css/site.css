@@ -5913,6 +5913,8 @@ iframe[name=advpp_manager] {
 @media only screen and (max-width: 820px) {
   .login-registration {
     padding: 29px 0 20px; }
+    .login-registration strong {
+      font-family: "lucidaSansBold", Helvetica, Arial, Sans-serif; }
     .login-registration .login-registration-list {
       text-align: center;
       font-size: 16px;
