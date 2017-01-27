@@ -29,26 +29,26 @@ if ($category) {
             <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
             <ul class="key-topics-list">
                 <?php foreach ($topics as $topic) : ?>
-                <?php $hasImage = $topic->image_link ? true : false; ?>
+                <?php $hasImage = $topic['image_link'] ? true : false; ?>
                 <li>
                     <?php if ($hasImage) : ?>
                     <?= Html::beginTag('a', [
-                        'href' => Url::to(['/topic/view', 'slug' => $topic->url_key]),
+                        'href' => Url::to(['/topic/view', 'slug' => $topic['url_key']]),
                         'class' => 'key-topics-item has-image',
-                        'style' => 'background-image: url(/uploads/topics/' . $topic->image_link .')',
+                        'style' => 'background-image: url(/uploads/topics/' . $topic['image_link']  .')',
                     ]) ?>
                     <?php else : ?>
                         <?=
                         Html::beginTag('a', [
-                            'href' =>  Url::to(['/topic/view', 'slug' => $topic->url_key]),
+                            'href' =>  Url::to(['/topic/view', 'slug' => $topic['url_key']]),
                             'class' => 'key-topics-item',
                         ])
                         ?>
                     <?php endif; ?>
                     <div class="caption">
-                        <h2><?= $topic->title; ?></h2>
+                        <h2><?= $topic['title']; ?></h2>
                         <?php if (!$hasImage) : ?>
-                        <p><?= $topic->short_description; ?> </p>
+                        <p><?= $topic['short_description']; ?> </p>
                         <?php endif; ?>
                     </div>
                     <?= Html::endTag('a'); ?>
