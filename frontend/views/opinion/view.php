@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 <?php $hasImage= $model->image_link ? true : false; ?>
                 <?php if ($hasImage) : ?>
                 <figure>
-                    <?= Html::img('@web/uploads/opinions/'.$model->image_link, [
+                    <?= Html::img('uploads/opinions/'.$model->image_link, [
                         'alt' => 'Opinion image',
                     ]); ?>
                 </figure>

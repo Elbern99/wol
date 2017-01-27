@@ -71,7 +71,9 @@ return [
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
                 'editorial-board' => 'authors/editorial',
                 'data-sources' => 'site/sources',
-                'unsubscribe' => 'site/unsubscribe'
+                'unsubscribe' => 'site/unsubscribe',
+                'press-releases' => 'press-releases/index',
+                'press-releases/<slug:[0-9a-z-]+>' => 'press-releases/view',
             ],
         ],
         'assetManager' => [

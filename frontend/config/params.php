@@ -18,7 +18,7 @@ return [
     'article_limit' => 10,
     'opinion_limit' => 4,
     'video_limit' => 4,
-    'news_limit' => 4,
+    'news_limit' => 7,
     'topic_limit' => 12,
     'opinion_sidebar_limit' => 5,
     'video_sidebar_limit' => 5,
