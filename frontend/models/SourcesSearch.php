@@ -54,6 +54,7 @@ class SourcesSearch extends DataSource
         }
         
         $query->with('sourceTaxonomies.taxonomy');
+        $query->with('sourceTaxonomies.additionalTaxonomy');
         
         // add conditions that should always apply here
 
@@ -61,8 +62,6 @@ class SourcesSearch extends DataSource
             'query' => $query,
             'pagination' => false
         ]);
-
-        
 
         if (!$this->validate()) {
             return $dataProvider;

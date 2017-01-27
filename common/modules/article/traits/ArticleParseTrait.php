@@ -16,6 +16,8 @@ trait ArticleParseTrait {
     abstract protected function getParseImagePath($name);
     abstract protected function setTaxonomyData();
     
+    protected $usedImages = [];
+    
     protected function getRelated() {
         
         $relatedList = $this->getBackElementByType('related');
@@ -550,42 +552,90 @@ trait ArticleParseTrait {
             unset($vals);
 
             $authors = [];
+            $editors = [];
             $analitics = $ref->analytic;
             $monogr = $ref->monogr;
 
             if (isset($analitics->author)) {
 
                 foreach ($analitics->author as $author) {
-                    $name = (string) $author->persName->surname;
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
+                    
+                    $name = false;
+                    
+                    if (isset($author->persName)) {
+                        
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
                         }
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                     }
                     
-                    $authors[] = $name;
+                    if ($name || trim($name)) {
+                        $authors[] = $name;
+                    }
                 }
             }
             
             if (isset($monogr->author)) {
 
                 foreach ($monogr->author as $author) {
-                    $name = (string) $author->persName->surname;
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
+                    
+                    $name = false;
+                    
+                    if (isset($author->persName)) {
+                        
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
                         }
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                     }
                     
-                    $authors[] = $name;
+                    if ($name || trim($name)) {
+                        $authors[] = $name;
+                    }
+                    
                 }
             }
+            
+            if (isset($monogr->editor)) {
 
-            $date = (string) $monogr->imprint->date->attributes();
+                foreach ($monogr->editor as $editor) {
+                    
+                    $name = false;
+                    
+                    if (isset($editor->persName)) {
+                        
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
+                        }
+                        $name .= implode(' ', $forenameArray);
+                    }
+                    
+                    if ($name || trim($name)) {
+                        $editors[] = $name;
+                    }
+                    
+                }
+            }
 
             $obj = new stdClass;
             $obj->method = '';
@@ -606,11 +656,13 @@ trait ArticleParseTrait {
             }
 
             $obj->ref = $id;
-
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
+            
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
-
+            $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
+            
             if (isset($monogr->imprint->biblScope)) {
 
                 $bibl = array();
@@ -625,20 +677,84 @@ trait ArticleParseTrait {
                 extract($bibl);
             }
             
-            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
-
-            $fullCitation = '';
-            $fullCitation .= (string) implode(', ', $authors);
-            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
-            $fullCitation .= $analitics->title . ' ';
-            $fullCitation .= $monogr->title . ' ';
-            $fullCitation .= $biblScope_vol . ': ';
-            $fullCitation .= $biblScope_issue . ' ';
-            $fullCitation .= $biblScope_pp . ' ';
-            if ($idno['doi']) {
-                $fullCitation .= ' DOI: '.$idno['doi'];
+            $date = false;
+            if ($monogr->imprint->date) {
+                $date = (string) $monogr->imprint->date->attributes();
+                if (!trim($date)) {
+                    $date = (string) $monogr->imprint->date;
+                }
             }
-            
+            $authorsText = (string) implode(', ', $authors);
+            $dateBracket = ($date) ? ' ('.$date.'):': '';
+            $titleQuotes = '"'.$analitics->title.'"';
+            $titleItalics = '<i>'.$monogr->title.'</i>';
+            $publisher = (string) $monogr->imprint->publisher;
+            $pubPlace  = (string) $monogr->imprint->pubPlace;
+
+            if ($publisher && $pubPlace) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                }
+                
+                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= $pubPlace.': ';
+                $fullCitation .= $publisher;
+
+                if ($date) {
+                    $fullCitation .= ', '. $date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif (isset($ref->series)) {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '. (string)$ref->series->title;
+                if ($ref->series->idno) {
+                    $fullCitation .= ', '.(string)$ref->series->idno;
+                }
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif ($idno['doi']) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                $fullCitation .= $dateBracket;
+                $fullCitation .= ' '.$biblScope_pp;
+                $fullCitation .= '.';
+                $fullCitation .= ' '.$doi;
+                
+            } else {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
+            }
+     
             if ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
@@ -703,6 +819,7 @@ trait ArticleParseTrait {
         foreach ($readStruct as $read) {
             
             $authors = [];
+            $editors = [];
             $analitics = $read->analytic;
             $readAttribute = $read->attributes();
             $monogr = $read->monogr;
@@ -710,58 +827,97 @@ trait ArticleParseTrait {
             if (isset($analitics->author)) {
 
                 foreach ($analitics->author as $author) {
-                    $name = (string) $author->persName->surname;
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
-                        }
+                    $name = false;
+                    
+                    if (isset($author->persName)) {
                         
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
+                        }
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                     }
                     
-                    $authors[] = $name;
+                    if ($name || trim($name)) {
+                        $authors[] = $name;
+                    }
                 }
             }
             
             if (isset($monogr->author)) {
 
                 foreach ($monogr->author as $author) {
-                    $name = (string) $author->persName->surname;
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
+                   $name = false;
+                    
+                    if (isset($author->persName)) {
+                        
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
                         }
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                     }
                     
-                    $authors[] = $name;
+                    if ($name || trim($name)) {
+                        $authors[] = $name;
+                    }
                 }
             }
-
-            $date = '';
-            $pubPlace = '';
-            $publisher = '';
-            $siries = '';
             
+            if (isset($monogr->editor)) {
+
+                foreach ($monogr->editor as $editor) {
+                    
+                    $name = false;
+                    
+                    if (isset($editor->persName)) {
+                        
+                        $name = (string) $author->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
+                        }
+                        $name .= implode(' ', $forenameArray);
+                    }
+                    
+                    if ($name || trim($name)) {
+                        $editors[] = $name;
+                    }
+                    
+                }
+            }
+            
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
+            
+            $date = false;
             if ($monogr->imprint->date) {
                 $date = (string) $monogr->imprint->date->attributes();
+                if (!trim($date)) {
+                    $date = (string) $monogr->imprint->date;
+                }
             }
-            
-            if (isset($monogr->imprint->pubPlace)) {
-                $pubPlace = (string)$monogr->imprint->pubPlace;
-            }
-            
-            if (isset($monogr->imprint->publisher)) {
-                $publisher = (string) $monogr->imprint->publisher;
-            }
-            
-            if (isset($read->series->title)) {
-                $siries = (string) $read->series->title;
-                $siries .= ' ';
-            }
-            
+            $authorsText = (string) implode(', ', $authors);
+            $dateBracket = ($date) ? ' ('.$date.'):': '';
+            $titleQuotes = '"'.$analitics->title.'"';
+            $titleItalics = '<i>'.$monogr->title.'</i>';
+            $publisher = (string) $monogr->imprint->publisher;
+            $pubPlace  = (string) $monogr->imprint->pubPlace;
+            $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
@@ -780,24 +936,71 @@ trait ArticleParseTrait {
                 extract($bibl);
             }
             
-            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
+            
             
             $obj = new stdClass;
             
-            $fullCitation = '';
-
-            $fullCitation .= (string) implode(', ', $authors);
-            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
-            $fullCitation .= $analitics->title . ' ';
-            $fullCitation .= $monogr->title . ' ';
-            $fullCitation .= ($biblScope_vol) ? $biblScope_vol . ': ' : '';
-            $fullCitation .= ($biblScope_issue) ? $biblScope_issue . ' ' : '';
-            $fullCitation .= ($biblScope_pp) ? $biblScope_pp . ' ' : '';
-            $fullCitation .= $siries;
-            $fullCitation .= $pubPlace . ' ';
-            $fullCitation .= $publisher . ' ';
-            if ($idno['doi']) {
-                $fullCitation .= 'DOI: '.$idno['doi'].' ';
+            if ($publisher && $pubPlace) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                }
+                
+                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= $pubPlace.': ';
+                $fullCitation .= $publisher;
+                if ($date) {
+                    $fullCitation .= ', '. $date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif (isset($read->series)) {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '. (string)$read->series->title;
+                if ($read->series->idno) {
+                    $fullCitation .= ', '.(string)$read->series->idno;
+                }
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif ($idno['doi']) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                $fullCitation .= $dateBracket;
+                $fullCitation .= ' '.$biblScope_pp;
+                $fullCitation .= '.';
+                $fullCitation .= ' '.$doi;
+                
+            } else {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
             }
             
             if ($idno['url']) {
@@ -872,7 +1075,8 @@ trait ArticleParseTrait {
             $id = $vals[0]['attributes']['XML:ID'];
             $types = explode(' ', $vals[0]['attributes']['TARGET']);
             $sourceText = [];
-           
+            $typeIds = [];
+            
             $link = false;
             
             foreach ($types as $type) {
@@ -881,19 +1085,35 @@ trait ArticleParseTrait {
                     $sourceText[] = $this->taxonomy[$type];
                 }
             }
+            
+            foreach ($types as $type) {
+                $typeTaxId = array_search($type, $this->taxonomyCodeId);
+                if (preg_match('/(IWOL_COL_40)[0-9A-Za-z\.-_]+/', $type) && $typeTaxId) {
+                    $typeIds['col'] = $typeTaxId;
+                } elseif (preg_match('/(IWOL_DIM_50)[0-9A-Za-z\.-_]+/', $type) && $typeTaxId) {
+                    $typeIds['dim'] = $typeTaxId;
+                }
+            }
 
             if (isset($source->p->ptr)) {
                 $link = (string) $source->p->ptr->attributes();
             }
             
             if ($link) {
-                $source = Html::a((string) $source->head, $link, ['target' => '_blank']);
+                $title = Html::a((string) $source->head, $link, ['target' => '_blank']);
             } else {
-                $source = (string) $source->head;
+                $title = (string) $source->head;
             }
             
+            $obj = new stdClass;
+            $obj->source = (string)$source->head;
+            $obj->website = $link;
+            $obj->types = $typeIds;
+            
+            $this->sourceAttribute[] = $obj;
+            
             $this->sources[$id] = [
-                'source' => $source,
+                'source' => $title,
                 'type' => implode(' ', $sourceText)
             ];
 
@@ -1102,6 +1322,38 @@ trait ArticleParseTrait {
 
                 if ($val['type'] == 'close') {
                     $text .= '</p>';
+                    
+                    if (count($images)) {
+                        
+                        $imageContent = '';
+                        
+                        foreach ($images as $image) {
+
+                            if (isset($this->images[$image])) {
+                                
+                                $imgObj = $this->images[$image];
+                                $img =  Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => $image, 'data-target' => $imgObj->target]);
+                                
+                                if ($imgObj->target) {
+                                    $img = Html::a($img, $imgObj->target, ['class' => 'text-reference']);
+                                }
+                                
+                                $imageContent .= Html::tag(
+                                    'p', 
+                                    $img, 
+                                    ['class' => 'article_image']
+                                );
+                            }
+
+                            
+                        }
+
+                        if ($imageContent) {
+                            $text .= Html::tag('div', $imageContent, ['class' => 'figures']);
+                        }
+                        
+                        $images = [];
+                    }
                 }
 
             } elseif ($val['tag'] == 'DIV') {
@@ -1121,9 +1373,25 @@ trait ArticleParseTrait {
                 }
 
                 if ($val['attributes']['TYPE'] == 'figure') {
+                    $imgId = str_replace('#', '', $val['attributes']['TARGET']);
+                    
+                    if (array_search($imgId, $this->usedImages) === false) {
+                        $images[] = $imgId;
+                        $this->usedImages[] = $imgId;
+                    }
+                    
+                    $figNumber = false;
+                    $counter = 1;
+                    foreach ($this->images as $key => $attribute) {
+                        if ($key == $imgId) {
+                            $figNumber = $counter;
+                            break;
+                        }
+                        $counter++;
+                    }
+                    $imgTitle = ($figNumber) ? 'Figure '.$figNumber : 'Illustration';
 
-                    $images[] = str_replace('#', '', $val['attributes']['TARGET']);
-                    $text .= Html::a('Figure', $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type'=>'figure']);
+                    $text .= Html::a($imgTitle, $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type'=>'figure']);
                     
                 } elseif ($val['attributes']['TYPE'] == 'bib') {
 
@@ -1136,22 +1404,25 @@ trait ArticleParseTrait {
                 
             } elseif ($val['tag'] == 'HEAD') {
                 $text .= Html::tag('h3', $val['value']);
-            }
-        }
+            } elseif ($val['tag'] == 'LIST') {
+                if ($val['type'] == 'open') {
+                    $text .= '<ul class="content-bullete">';
+                }
 
-        if (count($images)) {
+                if ($val['type'] == 'close') {
+                    $text .= '</ul>';
+                }
+            } elseif ($val['tag'] == 'ITEM') {
+                if ($val['type'] == 'open') {
+                    $text .= '<li>';
+                }
 
-            foreach ($images as $image) {
-
-                if (isset($this->images[$image])) {
-                    $imgObj = $this->images[$image];
-                    $text .= Html::tag(
-                        'p', Html::img($imgObj->path, ['alt' => $imgObj->title, 'id' => $image, 'data-target' => $imgObj->target]), ['class' => 'article_image']
-                    );
+                if ($val['type'] == 'close') {
+                    $text .= '</li>';
                 }
             }
         }
-
+        
         return $text;
     }
     

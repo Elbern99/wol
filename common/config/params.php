@@ -6,7 +6,8 @@ return [
     'articleModelDetail' => [
         'language' => '\common\models\Lang',
         'article_category' => '\common\models\ArticleCategory',
-        'article_author' => '\common\models\ArticleAuthor'
+        'article_author' => '\common\models\ArticleAuthor',
+        'source' => '\common\models\DataSource',
     ],
     'authorModelDetail' => [
         'author_roles' => '\common\models\AuthorRoles',
