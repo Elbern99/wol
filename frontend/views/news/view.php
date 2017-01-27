@@ -4,7 +4,7 @@ use yii\helpers\Url;
 ?>
 
 <?php
-$newsItemDirectLink = Url::to(['/opinion/view', 'slug' => $model->url_key], true);
+$newsItemDirectLink = Url::to(['/news/view', 'slug' => $model->url_key], true);
 $mailLink = $newsItemDirectLink;
 $mailTitle = $model->title;
 $mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = $model->title;
                     <?php $hasImage= $model->image_link ? true : false; ?>
                     <?php if ($hasImage) : ?>
                     <figure class="align-left">
-                        <?= Html::img('@web/uploads/news/'.$model->image_link, [
+                        <?= Html::img('uploads/news/'.$model->image_link, [
                             'alt' => $model->title,
                         ]); ?>
                     </figure>

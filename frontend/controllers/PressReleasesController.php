@@ -8,28 +8,27 @@ use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-use common\models\NewsItem;
+use common\models\PressReleaseItem;
 use common\models\Category;
 use common\models\Widget;
 use common\models\Article;
-use common\models\NewsletterNews;
 
 /**
  * Site controller
  */
-class NewsController extends Controller {
+class PressReleasesController extends Controller {
     
     protected function _getMainCategory() 
     {
         $category = Category::find()->where([
-            'url_key' => 'news',
+            'url_key' => 'press-releases',
         ])->one();
         return $category;
     }
     
-    public function _getNewsList($limit = null, $year = null, $month = null)
+    public function _getPressReleasesList($limit = null, $year = null, $month = null)
     {
-        $newsQuery = NewsItem::find()->orderBy('created_at desc');
+        $newsQuery = PressReleaseItem::find()->orderBy('created_at desc');
         
         if ($month && $year) {
            $newsQuery->andWhere([
@@ -65,7 +64,7 @@ class NewsController extends Controller {
         ])->orderBy('id desc')->all();
         
         
-        $newsQuery = NewsItem::find()->orderBy('created_at desc');
+        $newsQuery = PressReleaseItem::find()->orderBy('created_at desc');
         
         if ($month && $year) {
            $newsQuery->andWhere([
@@ -81,7 +80,7 @@ class NewsController extends Controller {
 
         $groupsQuery = (new \yii\db\Query())
                 ->select(['MONTH(created_at) as m', 'YEAR(created_at) as y'])
-                ->from('news')
+                ->from('press_releases')
                 ->groupBy(['MONTH(created_at)', 'YEAR(created_at)'])
                 ->orderBy('MONTH(created_at) desc, YEAR(created_at) desc');
         
@@ -100,20 +99,16 @@ class NewsController extends Controller {
             $newsTree[$groupYear]['isActive'] = $groupYear == $year ? true : false;
         }
         
-        $articles = Article::find()->orderBy('id desc')
-                                   ->limit(10)
-                                   ->all();
         
         krsort($newsTree, SORT_NUMERIC);
         
         return $this->render('index', [
-            'news' => $this->_getNewsList($limit, $year, $month),
+            'news' => $this->_getPressReleasesList($limit, $year, $month),
             'newsCount' => $newsQuery->count(),
             'category' => $this->_getMainCategory(),
             'widgets' => $widgets,
             'newsTree' => $newsTree,
             'limit' => $limit,
-            'articlesSidebar' => $articles,
         ]);
     }
     
@@ -122,20 +117,20 @@ class NewsController extends Controller {
         if (!$slug)
             return $this->goHome();
         
-        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->one();
+        $newsItem = PressReleaseItem::find()->andWhere(['url_key' => $slug])->one();
         
         if (!$newsItem) 
-            return $this->redirect(Url::to(['/news/index']));
+            return $this->redirect(Url::to(['/press-releases/index']));
         
         $widgets = Widget::find()->where([
             'name' => ['stay_up_to_date', 'Socials'],
         ])->orderBy('id desc')->all();
         
-        $latestNews = NewsItem::find()->orderBy('id desc')->limit(10)->all();
+        $latestNews = PressReleaseItem::find()->orderBy('id desc')->limit(10)->all();
         
         $groupsQuery = (new \yii\db\Query())
                 ->select(['MONTH(created_at) as m', 'YEAR(created_at) as y'])
-                ->from('news')
+                ->from('press_releases')
                 ->groupBy(['MONTH(created_at)', 'YEAR(created_at)'])
                 ->orderBy('MONTH(created_at) desc, YEAR(created_at) desc');
         
@@ -154,9 +149,6 @@ class NewsController extends Controller {
             $newsTree[$groupYear]['isActive'] = false;
         }
         
-        $articles = $newsItem->getNewsArticles()
-                ->orderBy('id desc')
-                ->limit(10)->all();
         
         krsort($newsTree, SORT_NUMERIC);
         
@@ -166,19 +158,7 @@ class NewsController extends Controller {
             'widgets' => $widgets,
             'newsSidebar' => $latestNews,
             'newsTree' => $newsTree,
-            'articlesSidebar' => $articles,
         ]);
     }
     
-    public function actionNewsletters($year, $month) {
-        
-        $urlKey = $year.'/'.$month;
-        $model = NewsletterNews::find()->where(['url_key' => $urlKey])->one();
-        
-        if (!is_object($model)) {
-            throw new NotFoundHttpException();
-        }
-        
-        return $this->render('newsletter',['model'=>$model]);
-    }
 }

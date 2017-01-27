@@ -167,7 +167,7 @@ if ($category) {
                     <?= Html::a("show more", Url::current($params), ['class' => 'btn-gray align-center']) ?>
                     <?php else: ?>
                         <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("clear", Url::current(), ['class' => 'btn-gray align-center']) ?>
+                            <?= Html::a("clear", Url::to(['/news/index']), ['class' => 'btn-gray align-center']) ?>
                         <?php endif; ?>
                     <?php endif; ?>
                     <?php Pjax::end(); ?>

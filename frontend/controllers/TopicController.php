@@ -52,11 +52,10 @@ class TopicController extends Controller {
         $topics = Topic::find()
                             ->where('sticky_at is not null')
                             ->orderBy('sticky_at asc')
-                            ->union($query)
-                            ->limit($limit)
                             ->all();
         
-        return array_slice($topics, 0, $limit);
+        $resultArr = ArrayHelper::merge($topics, $query->all()); 
+        return array_slice($resultArr, 0, $limit);
     }
     
     public function actionIndex()
