@@ -131,6 +131,7 @@
 }
 
 //ARTICLE-ITEM & POST-ITEM
+
 .article-item,
 .post-item {
   margin: 0 0 20px;
@@ -138,6 +139,32 @@
   width: 100%;
   position: relative;
   height: 100%;
+
+  h2,h3,a{
+    transition: all 0s ease !important;
+  }
+
+  h2{
+    transition: font-size 0.1s ease !important;
+  }
+
+  &.opened-article {
+
+    h2 {
+      font-size: 28px !important;
+      margin: 0 0 5px;
+    }
+
+    h3 {
+      font-size: 14px !important;
+      margin: 0 0 5px;
+      line-height: 1.5em;
+    }
+
+    .publish {
+      margin: 0 0 4px;
+    }
+  }
 
   h2 {
     font-size: 16px;
@@ -206,7 +233,6 @@
     @include breakpoint('tablet') {
       font-size: 12px;
       margin: 0 0 6px;
-      max-height: 55px;
     }
   }
 

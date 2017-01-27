@@ -136,7 +136,8 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 <div class="sidebar-widget sidebar-widget-save">
                     <a href="/search/save" class="btn-border-blue-large with-icon btn-save-search">
                         <span class="inner">
-                            <span class="icon-save"></span>save search
+                            <span class="icon-save"></span>
+                            <span class="text">save search</span>
                         </span>
                         <div class="btn-save-search-inner">search saved to your account</div>
                     </a>

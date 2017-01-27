@@ -26,7 +26,8 @@
     var article = {
         delay: 0,
         overlayOpen: function(overlay) {
-            var overlayEl = $(overlay);
+            var
+                overlayEl = $(overlay);
 
             overlayEl.removeClass('js-tab-hidden').addClass('active');
             overlayEl.css('height', '1px');
@@ -34,7 +35,8 @@
             overlayEl.css('max-height', $(document).height());
         },
         closeOverlay: function(overlay,triggerEl) {
-            var overlayEl = $(overlay);
+            var
+                overlayEl = $(overlay);
 
             overlayEl.click(function(e) {
                 overlayEl.addClass('js-tab-hidden').removeClass('active');
@@ -44,18 +46,20 @@
         heightEq: function(item, firstColumn) {
 
             $(item).each(function(index) {
-                var cur = $(this),
+                var
+                    cur = $(this),
                     curHeight = cur.height(),
                     curHeightIndex = cur.index(),
                     curSiblings = $('.column-types .types').find('.item').eq(index),
                     curSiblingsHeight = curSiblings.height(),
-                    countHeight = 0;
+                    countHeight = 0,
+                    equalHeight = curHeight > curSiblingsHeight;
 
-                if(curHeight > curSiblingsHeight) {
-                    countHeight = curHeight;
-                } else {
-                    countHeight = curSiblingsHeight;
-                }
+                    if(equalHeight) {
+                        countHeight = curHeight;
+                    } else {
+                        countHeight = curSiblingsHeight;
+                    }
 
                 cur.css('min-height', '1px');
                 curSiblings.css('min-height', '1px');
@@ -66,18 +70,32 @@
         },
         closeReference: function(btn,parent,overlay) {
             $(btn).click(function(e) {
-                $('a,li').removeClass('opened-reflink');
-                $('a').removeClass('text-reference-opened');
-                $(this).parents(parent).fadeOut(article.delay+200);
-                $('.icon-circle-arrow').removeClass('disabled');
-                $(parent).find('.arrows').fadeOut(article.delay+200);
-                $(overlay).addClass('js-tab-hidden').removeClass('active');
+
+                var
+                    cur = $(this),
+                    parentEl = $(parent),
+                    allListItem = $('a,li'),
+                    allLInks =  $('a'),
+                    overlayEl = $(overlay),
+                    arrowItem = $('.icon-circle-arrow');
+
+                    allListItem.removeClass('opened-reflink');
+                    allLInks.removeClass('text-reference-opened');
+                    cur.parents(parent).fadeOut(article.delay+200);
+                    arrowItem.removeClass('disabled');
+                    parentEl.find('.arrows').fadeOut(article.delay+200);
+                    overlayEl.addClass('js-tab-hidden').removeClass('active');
+
+                    setTimeout(function() {
+                        parentEl.removeClass('def-reference-popup tooltip-ref-popup');
+                    }, 300);
                 e.preventDefault();
             });
         },
         changeContentPopup: function(cur){
 
-            var curEl = cur,
+            var
+                curEl = cur,
                 curElParent = curEl.parent(),
                 curCaption = curElParent.find('.caption').html(),
                 curSources = curElParent.find('.sources').html(),
@@ -161,11 +179,14 @@
 
             article.overlayOpen('.overlay');
 
-            var visibleEl = $('.container-inner > .visible');
-                visibleEl.removeClass('last-visible');
-                visibleEl.last().addClass('last-visible');
+            var
+                visibleEl = $('.container-inner > .visible'),
+                getWindowLessMobile = _window_width >= _mobile-100;
 
-            if(_window_width >= _mobile-100) {
+            visibleEl.removeClass('last-visible');
+            visibleEl.last().addClass('last-visible');
+
+            if(getWindowLessMobile) {
                 setTimeout(function(){
                     article.heightEq('.column-sources .item');
 
@@ -177,53 +198,50 @@
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
-                var cur = $(this),
+                var
+                    cur = $(this),
                     parentEl = $(parent),
                     classEl = 'opened-reflink',
                     arrows = '.arrows',
-                    bottom = $(window).height() - cur.height(),
-                    offset = cur.offset(),
-                    curCordTop = offset.top,
-                    curCordBottom = curCordTop - bottom,
-                    curCordLeft = offset.left;
+                    htmlEl = $('html, body');
+
+                parentEl.removeClass('def-reference-popup');
+                parentEl.addClass('tooltip-ref-popup');
+
+                function setCoordinatePopup(cur) {
+                    var offset = cur.offset(),
+                        curCordTop = offset.top,
+                        curCordLeft = offset.left;
+
+                    parentEl.css('top',curCordTop + 18);
+                    parentEl.css('left', curCordLeft);
+
+                    var
+                        getCenter = curCordTop - _window_height/2,
+                        checkDesktop = _window_width > _mobile,
+                        checkElAfterCenter = getCenter > $(document).scrollTop();
+
+                    if(checkDesktop) {
+                        if(checkElAfterCenter) {
+                            htmlEl.animate({ scrollTop: getCenter }, article.delay+200);
+                        }
+                    } else {
+                        htmlEl.animate({ scrollTop: curCordTop }, article.delay+200);
+                    }
+                };
 
                 $('li').removeClass(classEl);
                 cur.parent('li').addClass(classEl);
-                // parentEl.addClass('tooltip-ref-popup');
-                // parentEl.css('bottom',curCordBottom);
-                // parentEl.css('left', curCordLeft);
                 parentEl.find(arrows).fadeOut(0);
+
+                setCoordinatePopup(cur);
+
+                elements.window.resize(function() {
+                    setCoordinatePopup(cur);
+                });
 
                 article.changeContentPopup(cur);
                 parentEl.fadeIn(article.delay+200);
-
-                if(_window_width < _tablet){
-                    article.showPopupMobile(parent);
-                }
-            });
-        },
-        openReference: function(btn,parent) {
-            $(btn).click(function(e) {
-                var
-                    cur = $(this),
-                    curParent = cur.parent(),
-                    parentHolder = $(parent),
-                    curAttr = cur.attr('href'),
-                    keyLink = $('.content-inner-text a[href$="'+curAttr+'"]').first(),
-                    classEl = 'opened-reflink',
-                    textReferenceOpened = 'text-reference-opened';
-
-                //action
-                $('li').removeClass(classEl);
-                curParent.addClass(classEl);
-
-                article.detectCoordinate(keyLink,parent);
-                keyLink.addClass(textReferenceOpened);
-
-                article.setIndex(parentHolder,curAttr);
-                article.detectNextPrevArrows(keyLink,curAttr,parentHolder,'.icon-circle-arrow.left','icon-circle-arrow.right');
-
-                e.preventDefault();
             });
         },
         openReferenceImg: function(img) {
@@ -251,7 +269,7 @@
                     curAttr = cur.attr('href'),
                     keyLink = $('.sidebar-widget-articles-references a[href$="'+curAttr+'"]'),
                     refLink = $('.text-reference'),
-                    parentHolder = $(parent),
+                    parentEl = $(parent),
                     textReferenceOpened = 'text-reference-opened',
                     openedClass = 'opened-reflink';
 
@@ -262,51 +280,61 @@
 
                 article.changeContentPopup(keyLink);
                 article.detectCoordinate(cur,parent);
-                article.showPopupMobile(parent);
 
                 keyLink.parent().addClass(openedClass);
 
-                article.setIndex(parentHolder,curAttr);
-                article.detectNextPrevArrows(cur,curAttr,parentHolder,btnPrev,btnNext);
+                article.setIndex(parentEl,curAttr);
+                article.detectNextPrevArrows(cur,curAttr,parentEl,btnPrev,btnNext);
+
+                parentEl.removeClass('tooltip-ref-popup');
+                parentEl.addClass('def-reference-popup');
+
+                article.showPopupMobile('.def-reference-popup');
 
                 e.preventDefault();
             });
         },
         detectNextPrevArrows: function(cur,curAttr,parentHolder,btnPrev,btnNext) {
 
-            var btnPrevEl = $(btnPrev),
-                btnNextEl = $(btnNext);
+            var
+                btnPrevEl = $(btnPrev),
+                btnNextEl = $(btnNext),
+                checkDesktop = _window_width > _mobile;
 
-            if(_window_width > _mobile) {
+            if(checkDesktop) {
                 parentHolder.fadeIn(article.delay);
             }
 
             var
                 curAttrIndex = cur.data('index'),
                 nextAttrIndex = curAttrIndex+1,
-                nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']').attr('href');
-
-            var
+                nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']').attr('href'),
                 prevAttrIndex = curAttrIndex-1,
                 prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']').attr('href');
 
             btnPrevEl.removeClass('disabled');
             btnNextEl.removeClass('disabled');
 
-            if(prevCur == undefined) {
+            var
+                checkPrev = prevCur == undefined,
+                checkNext = nextCur == undefined;
+
+            if(checkPrev) {
                 btnPrevEl.addClass('disabled');
             }
 
-            if(nextCur == undefined) {
+            if(checkNext) {
                 $('.icon-circle-arrow.right').addClass('disabled');
             }
 
             parentHolder.find('.arrows').fadeIn(0);
         },
         showPopupMobile: function(parent) {
+            var checkWindow = _window_width < _tablet;
 
-            if(_window_width < _tablet){
-                var parentHolder = $(parent);
+            if(checkWindow){
+                var
+                    parentHolder = $(parent);
 
                 setTimeout(function(){
                     parentHolder.css('top',  elements.window.scrollTop() - 2);
@@ -314,7 +342,7 @@
                 }, article.delay+402);
 
                 elements.window.bind('scrollstop', function(e){
-                    if (parentHolder.is(":visible") == true){
+                    if (parentHolder.is(":visible") == true && parentHolder.hasClass('def-reference-popup')){
                         parentHolder.css('top',  elements.window.scrollTop() - 2);
                     }
                 });
@@ -324,9 +352,10 @@
             if($('.text-reference').length) {
                 var alignCenter = (_window_height - $(parent).height())/2,
                     CurCord = cur.offset().top,
-                    htmlEl = $('html, body');
+                    htmlEl = $('html, body'),
+                    checkWindow = _window_width > _mobile;
 
-                if(_window_width > _mobile){
+                if(checkWindow){
                     htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
                 } else {
                     htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
@@ -339,9 +368,10 @@
                     curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href'),
                     nextAttrIndex = curAttrIndex+1,
-                    nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
+                    nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']'),
+                    checkNext = nextCur.length == 0;
 
-                if(nextCur.length == 0) {
+                if(checkNext) {
                     $(btnNext).addClass('disabled');
 
                 } else {
@@ -356,9 +386,10 @@
                     curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href'),
                     nextAttrIndex = curAttrIndex-1,
-                    prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']');
+                    prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']'),
+                    checkPrev = prevCur.length == 0;
 
-                if(prevCur.length == 0) {
+                if(checkPrev) {
                     $(btnPrev).addClass('disabled');
                 } else {
                     $(btnNext).removeClass('disabled');
@@ -382,32 +413,66 @@
             });
         },
         articleReference: function(parent,tag) {
-            if(_window_width < _tablet) {
+            var
+                checkWindow = _window_width < _tablet,
+                cur = $(this);
+
+            if(checkWindow) {
                 $(parent).find(tag).each(function( index ) {
-                    $(this).attr('data-li-index',index+1);
+                    cur.attr('data-li-index',index+1);
                 });
             }
         },
-        openReferencePopup: function(btn) {
+        openReferencePopup: function(curAttr,keyLink,parent) {
+            $(parent).fadeIn(article.delay+200);
+        },
+        openReference: function(btn,parent) {
             $(btn).click(function(e) {
-                $(this).parent().find('.rel-tooltip').trigger('click');
+                var
+                    cur = $(this),
+                    curParent = cur.parent(),
+                    parentEl = $(parent),
+                    curAttr = cur.attr('href'),
+                    keyLink = $('.content-inner-text a[href$="'+curAttr+'"]').first(),
+                    classEl = 'opened-reflink',
+                    textReferenceOpened = 'text-reference-opened';
+
+                //action
+                $('li').removeClass(classEl);
+                curParent.addClass(classEl);
+
+                keyLink.addClass(textReferenceOpened);
+
+                article.setIndex(parentEl,curAttr);
+
+                article.openReferencePopup(curAttr,keyLink,parent);
+                article.changeContentPopup(cur);
+                article.detectNextPrevArrows(keyLink,curAttr,parentEl,'.icon-circle-arrow.left','icon-circle-arrow.right');
+
+                parentEl.removeClass('tooltip-ref-popup');
+                parentEl.addClass('def-reference-popup');
+
+                var
+                    checkAttr = curAttr.length> 0,
+                    checkWindow = _window_width < _tablet;
+
+                if(checkAttr) {
+                    article.detectCoordinate(keyLink,parentEl);
+
+                    if(checkWindow){
+                        article.showPopupMobile('.def-reference-popup');
+                    }
+                }
+
                 e.preventDefault();
             });
         },
         openReferenceListInPopup: function(btn,parent) {
             $(btn).click(function(e) {
-                var cur = $(this),
+                var
+                    cur = $(this),
                     curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href');
-
-                $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
-                e.preventDefault();
-            });
-        },
-        openListInpopup: function(btn,parent) {
-            $(btn).click(function(e) {
-                var cur = $(this),
-                    curIndex = cur.parent().index();
 
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
@@ -507,17 +572,23 @@
             });
         },
         closeOpen: function(btn,popup) {
-            var popupHolder = $(popup);
+            var
+                popupHolder = $(popup);
+
             $(btn).on('click', function(e) {
                 popupHolder.fadeIn();
                 popupHolder.find('div').removeClass('visible');
+                popupHolder.addClass('def-reference-popup');
 
                 article.overlayOpen('.overlay');
 
                 $('.cite-input-box-holder').addClass('visible');
 
-                if(_window_width < _tablet){
-                    article.showPopupMobile(popup);
+                var
+                    checkWindow = _window_width < _tablet;
+
+                if(checkWindow){
+                    article.showPopupMobile('.def-reference-popup');
                 }
 
                 e.preventDefault();
@@ -642,11 +713,8 @@
     //EVENTS
     elements.document.ready(function() {
         article.closeReference('.icon-close-popup ','.reference-popup','.overlay');
-        article.openReferencePopup('.sidebar-widget-articles-references ul li li>a');
-        article.openReference('.key-references-list a','.reference-popup');
-        article.openReference('.bg-news-list a','.reference-popup');
-        article.openReferenceTextLink('.text-reference[data-type="bible"]','.reference-popup', '.reference-popup .left','.reference-popup .right');
-        article.openReferenceTextLink('.text-reference[data-type="term"]','.reference-popup', '.reference-popup .left','.reference-popup .right');
+        article.openReferencePopup('.sidebar-widget-articles-references ul li li>a', '.reference-popup');
+        article.openReferenceTextLink('.text-reference','.reference-popup', '.reference-popup .left','.reference-popup .right');
         article.openTooltip('.rel-tooltip','.reference-popup');
         article.arrowsSwitchNext('.reference-popup .right','.reference-popup .left');
         article.arrowsSwitchPrev('.reference-popup .left','.reference-popup .right');
@@ -656,6 +724,12 @@
         article.citeInit();
         article.closeOpen('.btn-cite','.reference-popup');
         article.openReferenceImg('.article_image img');
+
+        //
+
+        article.openReference('.key-references-list a','.reference-popup');
+        article.openReference('.additional-references-list a','.reference-popup');
+        article.openReference('.bg-news-list a','.reference-popup');
     });
 
     elements.window.load(function() {
