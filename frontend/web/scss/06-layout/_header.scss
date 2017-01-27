@@ -354,7 +354,7 @@
   .btn-blue {
     margin-left: 8px;
     float: right;
-    line-height: 29px;
+    line-height: 29px ;
   }
 }
 
@@ -362,6 +362,10 @@
 .login-registration {
   @include breakpoint_custom($breakpoint-tablet) {
     padding: 29px 0 20px;
+
+    strong {
+      font-family: $lucida-sans-bold;
+    }
 
     .login-registration-list {
       text-align: center;
@@ -471,6 +475,7 @@
     &.dropdown-link {
       color: $dark-blue-black;
       position: relative;
+
 
       &.active {
         @include breakpoint_custom($breakpoint-tablet) {
