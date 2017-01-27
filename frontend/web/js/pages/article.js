@@ -727,6 +727,7 @@
         article.addToFavourite('.btn-like');
         article.openReference('.key-references-list a','.reference-popup');
         article.openReference('.additional-references-list a','.reference-popup');
+        article.openReference('.further-reading-list a','.reference-popup');
         article.openReference('.bg-news-list a','.reference-popup');
     });
 
