@@ -1224,7 +1224,7 @@ th {
     height: 39px;
     padding: 0 18px;
     font-size: 11px;
-    font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif; }
+    font-family: "lucidaSansBold", Helvetica, Arial, Sans-serif; }
     [class^="btn-"].btn-border-blue-large .icon-save,
     [class*=" btn-"].btn-border-blue-large .icon-save,
     .btn.btn-border-blue-large .icon-save,
@@ -1729,6 +1729,26 @@ blockquote {
   width: 100%;
   position: relative;
   height: 100%; }
+  .article-item h2, .article-item h3, .article-item a,
+  .post-item h2,
+  .post-item h3,
+  .post-item a {
+    transition: all 0s ease !important; }
+  .article-item h2,
+  .post-item h2 {
+    transition: font-size 0.1s ease !important; }
+  .article-item.opened-article h2,
+  .post-item.opened-article h2 {
+    font-size: 28px !important;
+    margin: 0 0 5px; }
+  .article-item.opened-article h3,
+  .post-item.opened-article h3 {
+    font-size: 14px !important;
+    margin: 0 0 5px;
+    line-height: 1.5em; }
+  .article-item.opened-article .publish,
+  .post-item.opened-article .publish {
+    margin: 0 0 4px; }
   .article-item h2,
   .post-item h2 {
     font-size: 16px;
@@ -1780,8 +1800,7 @@ blockquote {
       .article-item h3,
       .post-item h3 {
         font-size: 12px;
-        margin: 0 0 6px;
-        max-height: 55px; } }
+        margin: 0 0 6px; } }
   .article-item .author,
   .post-item .author {
     font-size: 10px;
@@ -3665,16 +3684,7 @@ blockquote {
   margin: 0 0 25px; }
   @media only screen and (min-width: 820px) {
     .articles-list > li {
-      margin: 0 0 35px; }
-      .articles-list > li:first-child h2 {
-        font-size: 28px;
-        margin: 0 0 5px; }
-      .articles-list > li:first-child h3 {
-        font-size: 14px;
-        margin: 0 0 5px;
-        line-height: 1.5em; }
-      .articles-list > li:first-child .publish {
-        margin: 0 0 4px; } }
+      margin: 0 0 35px; } }
 
 .editors-list {
   display: -ms-flexbox;
@@ -4864,7 +4874,7 @@ label {
       background-color: #f2dede; }
 
 .alert {
-  padding: 10px 18px 10px;
+  padding: 10px 27px;
   border: 1px solid transparent;
   border-radius: 4px;
   margin: 20px 0 20px;
@@ -6710,7 +6720,7 @@ iframe[name=advpp_manager] {
 .cite-input-box textarea {
   margin-bottom: 8px;
   resize: none;
-  height: 150px;
+  height: 100px;
   padding: 5px 10px; }
   @media only screen and (min-width: 820px) {
     .cite-input-box textarea {
@@ -6771,30 +6781,74 @@ iframe[name=advpp_manager] {
   position: relative; }
 
 .reference-popup {
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 1003;
   font-size: 12px;
   line-height: 1.4em;
   position: absolute;
   display: none;
   overflow: hidden; }
+  .reference-popup a {
+    transition: all 0s ease; }
+  .reference-popup.def-reference-popup {
+    bottom: 0;
+    right: 0;
+    left: 0 !important; }
+    @media only screen and (min-width: 820px) {
+      .reference-popup.def-reference-popup {
+        bottom: 0;
+        position: fixed;
+        top: auto !important;
+        background: #fff;
+        font-size: 13px;
+        line-height: 1.4em; } }
   .reference-popup.tooltip-ref-popup {
-    width: 300px;
-    border: 0;
+    width: 290px;
     left: auto;
-    position: absolute; }
+    top: auto;
+    position: absolute;
+    overflow: visible;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d8d8d8;
+    margin-left: -276px; }
+    .reference-popup.tooltip-ref-popup .icon-close-popup {
+      top: 0;
+      right: 0; }
+    @media only screen and (min-width: 820px) {
+      .reference-popup.tooltip-ref-popup {
+        width: 500px;
+        margin-left: -486px; } }
+    .reference-popup.tooltip-ref-popup a {
+      transition: all 0.3s ease; }
+    .reference-popup.tooltip-ref-popup:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      right: 2px;
+      width: 6px;
+      height: 6px;
+      box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      transform: rotate(45deg);
+      z-index: -1;
+      border: 1px solid #d8d8d8; }
+    .reference-popup.tooltip-ref-popup .columns {
+      margin: 0 -24px 0px; }
+      @media only screen and (min-width: 820px) {
+        .reference-popup.tooltip-ref-popup .columns {
+          margin: 0 -24px 0; } }
+      .reference-popup.tooltip-ref-popup .columns .column {
+        padding: 0 24px 23px;
+        margin: 0; }
+        .reference-popup.tooltip-ref-popup .columns .column .item {
+          min-height: 1px !important; }
+          .reference-popup.tooltip-ref-popup .columns .column .item .hide-desktop {
+            display: inline-block !important; }
+        @media only screen and (min-width: 820px) {
+          .reference-popup.tooltip-ref-popup .columns .column {
+            max-width: 100%;
+            padding: 0 24px 15px; } }
     .reference-popup.tooltip-ref-popup .reference-popup-inner .container {
       margin: 0; }
-  @media only screen and (min-width: 820px) {
-    .reference-popup {
-      bottom: 0;
-      position: fixed;
-      top: auto !important;
-      background: #fff;
-      font-size: 13px;
-      line-height: 1.4em; } }
   .reference-popup .reference-popup-inner {
     background: #fff;
     padding: 45px 15px 60px;
@@ -6913,6 +6967,9 @@ iframe[name=advpp_manager] {
     @media only screen and (min-width: 820px) {
       .reference-popup .columns {
         margin: 0 -24px 0; } }
+    @media only screen and (min-width: 820px) {
+      .reference-popup .columns .hide-desktop {
+        padding-right: 4px; } }
     .reference-popup .columns .column {
       padding: 0 24px 23px;
       margin: 0; }
@@ -7189,10 +7246,7 @@ iframe[name=advpp_manager] {
         .search-results-top .search .btn-border-blue-large {
           display: none; } }
   .search-results-top .refine-link {
-    display: inline-block;
-    vertical-align: bottom;
-    font-size: 10px;
-    margin: 0 0 -1px 10px; }
+    font-size: 10px; }
   .search-results-top .search-results-top-filter {
     margin: 0px -15px 0;
     border-bottom: 1px solid #c0c0c0;
@@ -8011,15 +8065,25 @@ iframe[name=advpp_manager] {
 .icon-number-reference.Georgia + .leaflet-marker-iconlabel {
   transform: translateX(0%); }
 
-.icon-number-reference.Jordan + .leaflet-marker-iconlabel {
+.icon-number-reference.Finland + .leaflet-marker-iconlabel {
+  transform: translateX(20%); }
+
+.icon-number-reference.Jordan + .leaflet-marker-iconlabel,
+.icon-number-reference.Mozambique + .leaflet-marker-iconlabel,
+.icon-number-reference.Republic-of-Serbia + .leaflet-marker-iconlabel,
+.icon-number-reference.Rwanda + .leaflet-marker-iconlabel,
+.icon-number-reference.Macedonia + .leaflet-marker-iconlabel {
   transform: translateX(-10%); }
 
-.icon-number-reference.Senegal + .leaflet-marker-iconlabel {
+.icon-number-reference.Senegal + .leaflet-marker-iconlabel,
+.icon-number-reference.Haiti + .leaflet-marker-iconlabel {
   transform: translateX(-83%); }
 
 .icon-number-reference.Guinea + .leaflet-marker-iconlabel,
 .icon-number-reference.Lebanon + .leaflet-marker-iconlabel,
-.icon-number-reference.Austria + .leaflet-marker-iconlabel {
+.icon-number-reference.Austria + .leaflet-marker-iconlabel,
+.icon-number-reference.Bosnia-and-Herzegovina + .leaflet-marker-iconlabel,
+.icon-number-reference.Montenegro + .leaflet-marker-iconlabel {
   transform: translateX(-106%); }
 
 .map-title,
@@ -8189,7 +8253,7 @@ iframe[name=advpp_manager] {
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 0px; }
+  margin: 0 -15px 30px; }
   @media only screen and (min-width: 820px) {
     .map-holder {
       position: relative;

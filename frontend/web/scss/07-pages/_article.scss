@@ -594,7 +594,7 @@
   textarea {
     margin-bottom: 8px;
     resize: none;
-    height: 150px;
+    height: 100px;
     padding: 5px 10px;
 
 
@@ -687,9 +687,6 @@
 
 //REFERENCE-POPUP
 .reference-popup {
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 1003;
   font-size: 12px;
   line-height: 1.4em;
@@ -697,26 +694,96 @@
   display: none;
   overflow: hidden;
 
+  a {
+    transition: all 0s ease;
+  }
+
+  //def
+  &.def-reference-popup {
+    bottom: 0;
+    right: 0;
+    left: 0 !important;
+
+    @include breakpoint('tablet') {
+      bottom: 0;
+      position: fixed;
+      top: auto !important;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.4em;
+    }
+  }
+
+  //tooltip
   &.tooltip-ref-popup {
-    width: 300px;
-    border: 0;
+    width: 290px;
     left: auto;
+    top: auto;
     position: absolute;
+    overflow: visible;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d8d8d8;
+    margin-left: -276px;
+
+    .icon-close-popup {
+      top: 0;
+      right: 0;
+    }
+
+    @include breakpoint('tablet') {
+      width: 500px;
+      margin-left: -486px;
+    }
+
+    a {
+      transition: all 0.3s ease;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      right: 2px;
+      width: 6px;
+      height: 6px;
+      box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      transform: rotate(45deg);
+      z-index: -1;
+      border: 1px solid #d8d8d8;
+    }
+
+    .columns {
+      margin: 0 -24px 0px;
+
+      @include breakpoint('tablet') {
+        margin: 0 -24px 0;
+      }
+
+      .column {
+        padding: 0 24px 23px;
+        margin: 0;
+
+        .item {
+          min-height: 1px !important;
+
+          .hide-desktop {
+            display: inline-block !important;
+          }
+        }
+
+        @include breakpoint('tablet') {
+          max-width: 100%;
+          padding: 0 24px 15px;
+        }
+      }
+    }
 
     .reference-popup-inner {
       .container {
         margin: 0;
       }
     }
-  }
-
-  @include breakpoint('tablet') {
-    bottom: 0;
-    position: fixed;
-    top: auto !important;
-    background: #fff;
-    font-size: 13px;
-    line-height: 1.4em;
   }
 
   .reference-popup-inner {
@@ -896,6 +963,13 @@
 
     @include breakpoint('tablet') {
       margin: 0 -24px 0;
+    }
+
+    .hide-desktop {
+
+      @include breakpoint('tablet') {
+        padding-right: 4px;
+      }
     }
 
     .column {

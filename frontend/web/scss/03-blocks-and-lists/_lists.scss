@@ -955,23 +955,6 @@
 
     @include breakpoint('tablet') {
       margin: 0 0 35px;
-
-      &:first-child {
-        h2 {
-          font-size: 28px;
-          margin: 0 0 5px;
-        }
-
-        h3 {
-          font-size: 14px;
-          margin: 0 0 5px;
-          line-height: 1.5em;
-        }
-
-        .publish {
-          margin: 0 0 4px;
-        }
-      }
     }
   }
 }

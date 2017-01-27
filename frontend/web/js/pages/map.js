@@ -317,7 +317,7 @@
 
               var LeafIcon = L.divIcon({
                   iconSize: new L.Point(24, 35),
-                  html: '<div class="icon-number-reference '+ key_country+'">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
+                  html: '<div class="icon-number-reference '+ key_country.replace(/\s/ig, '-')+'">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
               });
 
               var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);

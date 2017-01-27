@@ -340,9 +340,13 @@
         delay: 200,
         openMoreText: function(btn,text) {
             $(btn).click(function(e) {
-                var cur = $(this);
+                var
+                    cur = $(this),
+                    curParent = cur.parent();
+
                 cur.toggleClass('opened');
-                cur.parent().find(text).slideToggle(articleList.delay);
+                curParent.toggleClass('opened-article');
+                curParent.find(text).slideToggle(articleList.delay);
                 e.preventDefault();
             });
         },
@@ -571,8 +575,9 @@
                     return slicedText;
                 }
 
-                var slicedDesc = sliceText(descClear,140);
-                var slicedTitle = sliceText(titleClear,140);
+                var
+                    slicedDesc = sliceText(descClear,140),
+                    slicedTitle = sliceText(titleClear,140);
 
                 //set
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",

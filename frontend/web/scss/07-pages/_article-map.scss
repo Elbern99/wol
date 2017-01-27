@@ -36,18 +36,30 @@
   transform: translateX(0%);
 }
 
-.icon-number-reference.Jordan+.leaflet-marker-iconlabel
+.icon-number-reference.Finland+.leaflet-marker-iconlabel
+{
+  transform: translateX(20%);
+}
+
+.icon-number-reference.Jordan+.leaflet-marker-iconlabel,
+.icon-number-reference.Mozambique+.leaflet-marker-iconlabel,
+.icon-number-reference.Republic-of-Serbia+.leaflet-marker-iconlabel,
+.icon-number-reference.Rwanda+.leaflet-marker-iconlabel,
+.icon-number-reference.Macedonia+.leaflet-marker-iconlabel
 {
   transform: translateX(-10%);
 }
 
-.icon-number-reference.Senegal+.leaflet-marker-iconlabel {
+.icon-number-reference.Senegal+.leaflet-marker-iconlabel,
+.icon-number-reference.Haiti+.leaflet-marker-iconlabel {
   transform: translateX(-83%);
 }
 
 .icon-number-reference.Guinea+.leaflet-marker-iconlabel,
 .icon-number-reference.Lebanon+.leaflet-marker-iconlabel,
-.icon-number-reference.Austria+.leaflet-marker-iconlabel {
+.icon-number-reference.Austria+.leaflet-marker-iconlabel,
+.icon-number-reference.Bosnia-and-Herzegovina+.leaflet-marker-iconlabel,
+.icon-number-reference.Montenegro+.leaflet-marker-iconlabel{
   transform: translateX(-106%);
 }
 
@@ -300,7 +312,7 @@
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 0px;
+  margin: 0 -15px 30px;
 
   @include breakpoint('tablet') {
     position: relative;
