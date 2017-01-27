@@ -25,8 +25,10 @@ class ArticleRepository implements RepositoryInterface {
     private function getArticleIds($limit) {
         
         return ArticleCategory::find()
+                                ->alias('ac')
                                 ->select(['article_id'])
-                                ->where(['category_id' => $this->current->id])
+                                ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
+                                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
                                 ->asArray()
                                 ->limit($limit)
                                 ->all();
