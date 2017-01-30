@@ -733,8 +733,6 @@
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown');
-
-        console.log(shareTextForEmail);
     });
 
 })(jQuery);

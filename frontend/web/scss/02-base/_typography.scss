@@ -254,3 +254,10 @@ blockquote {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+.content-bullete {
+  p {
+    display: inline;
+    margin: 0;
+  }
+}

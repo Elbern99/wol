@@ -584,6 +584,17 @@
                 e.preventDefault();
             });
         },
+        changeFigureClass: function(item) {
+            $(item).each(function() {
+                var cur = $(this),
+                    curType = cur.data('type'),
+                    checkType = curType === 'figure';
+
+                if(checkType) {
+                    cur.attr('class','scroll-to-img');
+                }
+            });
+        },
         mapInit: function() {
             var countries_arrays = mapConfig.source;
             var countries_array = {};
@@ -723,6 +734,7 @@
     elements.window.load(function() {
         shareSelected('.article-full article');
         article.mapInit();
+        article.changeFigureClass('.text-reference[data-type="figure"]');
     });
 
 })(jQuery);
