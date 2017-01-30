@@ -295,8 +295,10 @@
     }
   }
 
-  .description-center {
+  .article-item {
     overflow: hidden;
+    width: auto;
+    margin: 0;
 
     @include breakpoint('tablet') {
       padding: 0 50px 0 10px;

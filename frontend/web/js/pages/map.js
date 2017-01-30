@@ -104,16 +104,19 @@
         map.on('click', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
         });
 
         map.on('movestart', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
         });
 
         $(btn).on('click', '.icon-close', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
         });
       },
       onMapClick: function(event) {
@@ -124,6 +127,10 @@
             elements.overlay.css('height', '1px');
             elements.overlay.css('height', $(document).height());
             elements.overlay.css('max-height', $(document).height());
+
+          $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+
+            this._icon.classList.add("opened-ref-tooltip");
 
           if(_window_width < _mobile){
               if(elements.window.scrollTop() !== 0) {
