@@ -77,7 +77,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
         <span class="icon-quote"></span>
     </a>
-    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+    <a target="_blank" href="" class="btn-border-gray-middle short">
         <span class="icon-message"></span>
     </a>
     <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
@@ -123,6 +123,15 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         <?php endforeach; ?>
 
 </div>
+
+<?php $mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+    array(
+        'articleDoi'=>$article->doi,
+        'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
+        'articleAuthors'=>$authorLink,
+        'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
+    ));
+?>
 
 <div class="content-inner">
     <div class="content-inner-text">
@@ -233,7 +242,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                             <div class="btn-like-inner"></div>
                         </a>
                         <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                        <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+                        <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
                             <span class="icon-message"></span>
                         </a>
                     </div>
@@ -263,7 +272,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <div class="btn-like-inner"></div>
             </a>
             <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-            <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+            <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
                 <span class="icon-message"></span>
             </a>
         </div>
@@ -442,7 +451,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <?php if(count($references) > 13): ?>
+                                <?php if(count($references) > 10): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>
@@ -570,7 +579,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 </div>
                 <div class="doi">
                     <div class="title">DOI</div>
-                    <a href=""><?= $article->doi ?></a>
+                    <a href="<?= $article->doi ?>" target="_blank"><?= $article->doi ?></a>
                 </div>
                 <div class="authors">
                     <div class="title">authors</div>
