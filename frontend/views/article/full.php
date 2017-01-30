@@ -44,13 +44,16 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json'
 ];
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.EavAttributeHelper::getAttribute('title')->getData('title').' '.
-        EavAttributeHelper::getAttribute('teaser')->getData('teaser'). ' '.Url::to(['/articles/'.$article->seo],true).
-        '\n\n Elevator pitch: '.EavAttributeHelper::getAttribute('abstract')->getData('abstract').'\n\n View the article: '.
-        Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
-
 $authorLink = [];
+
+$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php');
+
+
+$this->registerJs('var shareTextForEmail = "'. $mailArticleShare.'"');
+
+
 ?>
+
 <div class="container article-full">
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
@@ -75,7 +78,7 @@ $authorLink = [];
         <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
             <span class="icon-quote"></span>
         </a>
-        <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+        <a target="_blank" href="" class="btn-border-gray-middle short">
             <span class="icon-message"></span>
         </a>
         <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
@@ -120,6 +123,15 @@ $authorLink = [];
             </div>
         <?php endforeach; ?>
     </div>
+
+    <?php $mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+        array(
+            'articleDoi'=>$article->doi,
+            'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
+            'articleAuthors'=>$authorLink,
+            'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
+        ));
+    ?>
 
     <div class="content-inner">
         <div class="content-inner-text">
@@ -227,7 +239,7 @@ $authorLink = [];
                                 <div class="btn-like-inner"></div>
                             </a>
                             <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                            <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+                            <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
                                 <span class="icon-message"></span>
                             </a>
                         </div>
@@ -256,7 +268,7 @@ $authorLink = [];
                     <div class="btn-like-inner"></div>
                 </a>
                 <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-                <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
+                <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
                     <span class="icon-message"></span>
                 </a>
             </div>

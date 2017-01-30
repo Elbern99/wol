@@ -450,6 +450,8 @@
                     curNode = this,
                     curParent =  cur.parents('li,.expand-more');
 
+                console.log(curParent);
+
                 if(!cur.hasClass('no-open')) {
 
                     var arrayItems = item.split(',');
@@ -699,7 +701,7 @@
         accordion.toggleItem($('.sidebar-accrodion-list .title'), '.text',$('.sidebar-accrodion-list'));
         sidebarNews.moreSidebarNews('.more-link','.sidebar-news-list','li,.item',5);
         sidebarNews.moreSidebarNews('.more-link','.additional-references-list','li,.item',13);
-        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li,.item',13);
+        sidebarNews.moreSidebarNews('.more-link','.key-references-list','li',10);
         sidebarNews.moreSidebarNews('.more-link','.further-reading-list','li,.item',13);
         sidebarNews.moreSidebarNews('.more-link','.sidebar-key-topics-list','li,.item',13);
         sidebarNews.moreSidebarNews('.more-link','.more-extra-list','li,.item',13);
@@ -731,6 +733,8 @@
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown');
+
+        console.log(shareTextForEmail);
     });
 
 })(jQuery);
