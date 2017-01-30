@@ -26,7 +26,8 @@ class AuthorsController extends Controller {
         $collection = [];
 
         $query = Author::find()
-                ->select(['id', 'url_key'])
+                ->select(['id', 'url_key', 'avatar'])
+                ->orderBy('name')
                 ->with(['articleAuthors.article' => function($query) {
                         return $query->select(['id', 'seo', 'title']);
                     }])
@@ -57,6 +58,7 @@ class AuthorsController extends Controller {
             }
 
             $collection[$author['id']] = [
+                'avatar' => Author::getImageUrl($author['avatar']),
                 'url_key' => $author['url_key'],
                 'name' => $name,
                 'affiliation' => $affiliation,

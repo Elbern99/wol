@@ -32,7 +32,7 @@ $this->registerMetaTag([
                 <?php foreach($collection as $author): ?>
                     <li class="search-results-media-item">
                         <div class="img-holder img-holder-bg">
-                            <div class="img" style="background-image: url()"></div>
+                            <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
                         </div>
                         <div class="name">
                             <a href="<?= Author::getAuthorUrl($author['url_key']) ?>">

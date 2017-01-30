@@ -213,8 +213,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 </div>
                 <div class="extra-buttons">
                     <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-blue-middle btn-show-one-pager">show full article</a>
-                    <?php if (isset($attributes['full_pdf'])): ?>
-                        <a href="<?= $attributes['full_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <?php if (isset($attributes['one_pager_pdf'])): ?>
+                        <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                             <div class="inner">
                                 <span class="icon-download"></span>
                                 <span class="text">download pdf</span>
