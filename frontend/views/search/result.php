@@ -82,14 +82,14 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 
                 <div class="search-results-table">
                     <div class="search-results-table-top">
-                        <div class="search-results-item article-item">
+                        <div class="search-results-item">
                             <div class="publication-date">
                                 Publication date
                             </div>
                             <div class="type">
                                 Type
                             </div>
-                            <div class="description-center">
+                            <div class="article-item">
                                 Description
                             </div>
                         </div>

@@ -244,16 +244,6 @@
                 parentEl.fadeIn(article.delay+200);
             });
         },
-        openReferenceImg: function(img) {
-            $(img).each(function(index) {
-                var cur = $(this),
-                    curAttr = cur.attr('data-target');
-
-                if (curAttr.trim().length > 0) {
-                    cur.wrap('<a href="'+curAttr+'" class="text-reference" data-type="bible"></a>')
-                }
-            });
-        },
         setIndex: function(parentHolder,curAttr) {
             var allLinks = $('.content-inner-text a[href$="'+curAttr+'"]');
                 parentHolder.fadeOut(article.delay);
@@ -723,7 +713,6 @@
         article.closeOverlay('.overlay','.icon-close-popup');
         article.citeInit();
         article.closeOpen('.btn-cite','.reference-popup');
-        article.openReferenceImg('.article_image img');
         article.addToFavourite('.btn-like');
         article.openReference('.key-references-list a','.reference-popup');
         article.openReference('.additional-references-list a','.reference-popup');

@@ -5,7 +5,7 @@
     <div class="type">
         News
     </div>
-    <div class="description-center">
+    <div class="article-item">
         <h2><a href="<?= '/news/'.$value['url_key'] ?>"><?= $value['title'] ?></a></h2>
         <div class="name"><?= $value['editor'] ?></div>
         <div class="paragraph">
