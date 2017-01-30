@@ -625,11 +625,11 @@ trait ArticleParseTrait {
                     
                     if (isset($editor->persName)) {
                         
-                        $name = (string) $author->persName->surname.', ';
+                        $name = (string) $editor->persName->surname.', ';
                         $forenameArray = [];
                         
-                        if (isset($author->persName->forename)) {
-                            foreach ($author->persName->forename as $forename) {
+                        if (isset($editor->persName->forename)) {
+                            foreach ($editor->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
                             }
                         }
@@ -890,11 +890,11 @@ trait ArticleParseTrait {
                     
                     if (isset($editor->persName)) {
                         
-                        $name = (string) $author->persName->surname.', ';
+                        $name = (string) $editor->persName->surname.', ';
                         $forenameArray = [];
                         
-                        if (isset($author->persName->forename)) {
-                            foreach ($author->persName->forename as $forename) {
+                        if (isset($editor->persName->forename)) {
+                            foreach ($editor->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
                             }
                         }
