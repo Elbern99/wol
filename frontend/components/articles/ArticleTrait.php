@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use Yii;
 use common\modules\eav\helper\EavValueHelper;
 use common\modules\eav\CategoryCollection;
+use yii\helpers\Url;
 
 trait ArticleTrait {
     
@@ -139,7 +140,7 @@ trait ArticleTrait {
                         'name' => $name,
                         'affiliation' => $affiliation,
                         'avatar' => Author::getImageUrl($author->author['avatar']),
-                        'profile' => Author::getAuthorUrl($author->author['url_key'])
+                        'profile' => Url::to([Author::AUTHOR_PREFIX.'/'.$author->author['url_key']], true)
                     ];
                 }
             }
