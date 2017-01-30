@@ -450,7 +450,13 @@ trait ArticleParseTrait {
 
             $publisher = (string) $monogr->imprint->publisher;
             $pubPlace = (string) $monogr->imprint->pubPlace;
-            $date = (string) $monogr->imprint->date->attributes();
+            $date = false;
+            if ($monogr->imprint->date) {
+                $date = (string) $monogr->imprint->date->attributes();
+                if (!trim($date)) {
+                    $date = (string) $monogr->imprint->date;
+                }
+            }
             $mTitle = (string) $monogr->title;
             $aTitle = (string) $analitics->title;
 
@@ -619,11 +625,11 @@ trait ArticleParseTrait {
                     
                     if (isset($editor->persName)) {
                         
-                        $name = (string) $author->persName->surname.', ';
+                        $name = (string) $editor->persName->surname.', ';
                         $forenameArray = [];
                         
-                        if (isset($author->persName->forename)) {
-                            foreach ($author->persName->forename as $forename) {
+                        if (isset($editor->persName->forename)) {
+                            foreach ($editor->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
                             }
                         }
@@ -884,11 +890,11 @@ trait ArticleParseTrait {
                     
                     if (isset($editor->persName)) {
                         
-                        $name = (string) $author->persName->surname.', ';
+                        $name = (string) $editor->persName->surname.', ';
                         $forenameArray = [];
                         
-                        if (isset($author->persName->forename)) {
-                            foreach ($author->persName->forename as $forename) {
+                        if (isset($editor->persName->forename)) {
+                            foreach ($editor->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
                             }
                         }
@@ -1065,9 +1071,17 @@ trait ArticleParseTrait {
     protected function setSources() {
 
         $sources = $this->getBackElementByType('sources');
+
+        if (is_null($sources)) {
+            return;
+        }
         
         foreach ($sources as $source) {
-
+            
+            if (!isset($source->p[1]->ref)) {
+                continue;
+            }
+            
             $p = xml_parser_create();
             xml_parse_into_struct($p, $source->p[1]->ref->asXML(), $vals);
             xml_parser_free($p);
@@ -1251,8 +1265,26 @@ trait ArticleParseTrait {
                         $obj->title = $val['value'];
 
                     } elseif ($val['tag'] == 'EMPH') {
-
-                        $obj->text .= Html::tag('em',$val['value']);
+                        
+                        if ($val['type'] == 'open') {
+                            $obj->text .= '<em>';
+                        }elseif (isset($val['value']) && str_replace(' ', '', $val['value'])) {
+                            $obj->text .= $val['value'];
+                        }elseif ($val['type'] == 'close') {
+                            $obj->text .= '</em>';
+                        }elseif ($val['type'] == 'complete') {
+                            $obj->text .= Html::tag('em', $val['value']);
+                        }
+                        
+                    } elseif ($val['tag'] == 'HI') {
+                        
+                        if ($val['type'] == 'complete') {
+                            $prop = [];
+                            if(isset($val['attributes']['REND'])){
+                                $prop['class'] = $val['attributes']['REND'];
+                            }
+                            $obj->text .= Html::tag('em', $val['value'], $prop);
+                        }
                     }
                 }
                 
@@ -1344,8 +1376,6 @@ trait ArticleParseTrait {
                                     ['class' => 'article_image']
                                 );
                             }
-
-                            
                         }
 
                         if ($imageContent) {
@@ -1355,7 +1385,7 @@ trait ArticleParseTrait {
                         $images = [];
                     }
                 }
-
+                
             } elseif ($val['tag'] == 'DIV') {
 
                 if ($val['type'] == 'open') {
@@ -1419,6 +1449,31 @@ trait ArticleParseTrait {
 
                 if ($val['type'] == 'close') {
                     $text .= '</li>';
+                }
+                
+            } elseif ($val['tag'] == 'EMPH') {
+                        
+                if ($val['type'] == 'open') {
+                    $text .= '<em>';
+                }
+                
+                if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
+                    $text .= $val['value'];
+                }
+                
+                if ($val['type'] == 'close') {
+                    $text .= '</em>';
+                }
+
+            } elseif ($val['tag'] == 'HI') {
+
+                if ($val['type'] == 'complete') {
+                    $prop = [];
+                    if(isset($val['attributes']['REND'])){
+                        $prop['class'] = $val['attributes']['REND'];
+                    }
+                    $text .= Html::tag('em', $val['value'], $prop);
+                    unset($prop);
                 }
             }
         }

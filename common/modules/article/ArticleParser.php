@@ -58,7 +58,7 @@ class ArticleParser implements ParserInterface {
     /*
      * property for save parsed information
      */
-    protected $images = null;
+    protected $images = [];
     protected $gaImage = null;
     protected $sources = [];
     protected $furtherReading = null;
@@ -173,7 +173,7 @@ class ArticleParser implements ParserInterface {
 
     protected function getImages() {
         
-        if (is_null($this->images)) {
+        if (count($this->images)) {
             return null;
         }
         
@@ -246,7 +246,7 @@ class ArticleParser implements ParserInterface {
                     $this->$attrName($attribute->getAttribute('required'));
                 }
             }
-            
+
         } catch(\Exception $e) {
             throw new \Exception('Can not add article error - '.$e->getMessage());
         }
