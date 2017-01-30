@@ -38,19 +38,19 @@ $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']])
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerCssFile('/css/leaflet.css');
 
+$authorLink = [];
+
+$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
+    'articleAuthors'=>$authorLink,
+    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
+));
+
 $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
-        'json_path_economytypes' => '/json/economytypes.json'
+        'json_path_economytypes' => '/json/economytypes.json',
+        'share_text_for_email' => $mailArticleShare
 ];
-
-$authorLink = [];
-
-$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php');
-
-
-$this->registerJs('var shareTextForEmail = "'. $mailArticleShare.'"');
-
 
 ?>
 
