@@ -46,7 +46,7 @@ foreach ($authors as $author):
     array_push($artilceAuthorsList, $link);
 endforeach;
 
-$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
+$mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'articleAuthors'=>$artilceAuthorsList,
     'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title'),
     'siteUrl'=>Url::home(true),

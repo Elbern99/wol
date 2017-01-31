@@ -1836,15 +1836,10 @@ blockquote {
     text-transform: uppercase; }
   .article-item .description,
   .post-item .description {
-    font-size: 13px;
-    line-height: 1.4em;
+    font-size: 11px;
+    line-height: 1.6em;
     display: none;
     margin-bottom: 10px; }
-    @media only screen and (min-width: 820px) {
-      .article-item .description,
-      .post-item .description {
-        font-size: 11px;
-        line-height: 1.6em; } }
   .article-item .img,
   .post-item .img {
     position: relative;
@@ -2889,12 +2884,6 @@ blockquote {
   @media only screen and (max-width: 820px) {
     .sidebar-widget.sidebar-widget-save {
       display: none; } }
-
-.sidebar-widget-sort-by {
-  display: none; }
-  @media only screen and (min-width: 820px) {
-    .sidebar-widget-sort-by {
-      display: block; } }
 
 .data-method-item {
   position: relative;

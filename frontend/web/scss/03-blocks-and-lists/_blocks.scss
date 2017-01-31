@@ -271,15 +271,10 @@
   }
 
   .description {
-    font-size: 13px;
-    line-height: 1.4em;
+    font-size: 11px;
+    line-height: 1.6em;
     display: none;
     margin-bottom: 10px;
-
-    @include breakpoint('tablet') {
-      font-size: 11px;
-      line-height: 1.6em;
-    }
   }
 
   .img {
@@ -1836,15 +1831,6 @@
     @include breakpoint_custom($breakpoint-tablet) {
       display: none;
     }
-  }
-}
-
-//SIDEBAR-WIDGET-SORT-BY
-.sidebar-widget-sort-by {
-  display: none;
-
-  @include breakpoint('tablet') {
-    display: block;
   }
 }
 

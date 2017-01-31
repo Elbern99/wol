@@ -44,6 +44,22 @@ $roleLabel = new Roles();
         
         <div class="content-inner-text">
             <div class="articles">
+                <div class="sidebar-widget sidebar-widget-sort-by hide-desktop">
+                    <label>sort by</label>
+                    <div class="custom-select dropdown">
+                        <div class="custom-select-title dropdown-link">
+                            Publication date (descending)
+                        </div>
+                        <div class="sort-list drop-content">
+                            <div>
+                                <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
+                            </div>
+                            <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
+                                <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <?php if ( count($authorsRoles) > 0): ?>
                 <div class="article-user-list-holder">
                     <div class="mobile-accordion-item dropdown">
@@ -121,7 +137,7 @@ $roleLabel = new Roles();
         <?php Pjax::end(); ?>
         
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-sort-by">
+            <div class="sidebar-widget sidebar-widget-sort-by hide-mobile">
                 <label>sort by</label>
                 <div class="custom-select dropdown">
                     <div class="custom-select-title dropdown-link">
