@@ -125,12 +125,12 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 </div>
 
 <?php $mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
-    array(
+    [
         'articleDoi'=>$article->doi,
-        'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
+        'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang),
         'articleAuthors'=>$authorLink,
-        'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
-    ));
+        'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title', $currentLang)
+    ]);
 ?>
 
 <div class="content-inner">
