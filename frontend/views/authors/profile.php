@@ -62,18 +62,19 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </div>
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
-                    <p class="short-desc"><?= $author['degree'] ?></p>
+                    <p class="short-desc"><?= $author['affiliation'] ?></p>
                     <div class="quote">
                         <em><?= $author['testimonial'] ?></em>
                     </div>
 
                     <div class="item">
                         <h2>IZA World of Labor role</h2>
-                        <p><?= implode(', ', $author['roles']) ?></p>
+                        <p><?= implode(', ', array_map(function($role) {
+                           return Yii::t('app/text', $role);
+                        }, $author['roles'])) ?></p>
                     </div>
-
                     <div class="item">
-                        <h2>Positions/functions as a policy advisor</h2>
+                        <h2>Current position</h2>
                         <?php if(is_array($author['position']->current)): ?>
                             <?php foreach($author['position']->current as $current): ?>
                                 <p><?= $current ?></p>
@@ -81,7 +82,20 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php else: ?>
                                 <p><?= $author['position']->current ?></p>
                         <?php endif; ?>
-                                
+                    </div>
+                    
+                    <div class="item">
+                        <h2>Research interest</h2>
+                        <p><?= $author['interests'] ?></p>
+                    </div>
+                    
+                    <div class="item">
+                        <h2>Website</h2>
+                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
+                    </div>
+                    
+                    <div class="item">
+                        <h2>Positions/functions as a policy advisor</h2>
                         <?php if(is_array($author['position']->advisory)): ?>
                             <?php foreach($author['position']->advisory as $advisory): ?>
                                 <p><?= $advisory ?></p>
@@ -89,11 +103,6 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php else: ?>
                                 <p><?= $author['position']->advisory ?></p>
                         <?php endif; ?>
-                    </div>
-
-                    <div class="item">
-                        <h2>Website</h2>
-                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
                     </div>
 
                     <div class="item">
@@ -113,13 +122,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     </div>
 
                     <div class="item">
-                        <h2>Research interest</h2>
-                        <p><?= $author['interests'] ?></p>
-                    </div>
-
-                    <div class="item">
                         <h2>Qualifications</h2>
-                        <p><?= $author['experience_type'] ?></p>
+                        <p><?= $author['degree'] ?></p>
                     </div>
 
                     <div class="selected-publications">
@@ -137,7 +141,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
             </div>
 
             <div class="articles">
-                <div class="widget-title medium"><a href="/articles">articles</a></div>
+                <div class="widget-title medium"><a href="/articles">article(s)</a></div>
                 <ul class="other-articles-list">
                     <?php foreach($author['articles'] as $article): ?>
                         <li class="article-item">
