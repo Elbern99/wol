@@ -30,6 +30,8 @@ trait ProfileTrait {
                         ->orderBy(['created_at' => SORT_DESC])
                         ->all();
         
+        $this->subjectAreas = $this->getSubjectAreas();
+        
         if (!count($articles)) {
             return $articlesCollection;
         }
@@ -39,9 +41,7 @@ trait ProfileTrait {
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $articlesIds);
         $values = $categoryCollection->getValues();
-        
-        $this->subjectAreas = $this->getSubjectAreas();
-        
+
         $categoryFormat = ArrayHelper::map($this->subjectAreas, 'id', function($data) {
             return ['title' => $data['title'], 'url_key' => $data['url_key']];
         });

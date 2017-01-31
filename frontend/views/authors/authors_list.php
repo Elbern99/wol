@@ -37,8 +37,8 @@ $this->registerMetaTag([
                         <div class="name">
                             <a href="<?= Author::getAuthorUrl($author['url_key']) ?>">
                                 <?= $author['name']->first_name ?>
-                                <?= $author['name']->last_name ?>
                                 <?= $author['name']->middle_name ?>
+                                <?= $author['name']->last_name ?>
                             </a>
                         </div>
                         <p class="location"><?= $author['affiliation'] ?></p>
