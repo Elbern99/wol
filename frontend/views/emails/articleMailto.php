@@ -22,7 +22,7 @@
 
     $mailSubject = 'Article from IZA World of Labor';
     $mailThink = 'I think you that you would be interested in the following article from IZA World of Labor';
-    $mailAuthor = $articleTitle.$mailAuthors;
+    $mailAuthor = '"'.$articleTitle.'"'.$mailAuthors;
     $mailBody = 'mailto:?Content-type=text/html?subject='.$mailSubject.'&body='.$mailThink.'%0D%0A%0D%0A'.$mailAuthor.'%0D%0A%0D%0A'.$mailDOI.'%0D%0A%0D%0A'.$mailElevatorPitch;
     echo $mailBody;
 ?>

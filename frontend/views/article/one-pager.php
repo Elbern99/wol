@@ -32,7 +32,28 @@ $this->registerMetaTag([
         'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
 ]);
 
+$artilceAuthorsList = [];
 $authorLink = [];
+
+foreach ($authors as $author):
+    $link = $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name.' - '.$author['profile'];
+    array_push($artilceAuthorsList, $link);
+endforeach;
+
+$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
+    'articleAuthors'=>$artilceAuthorsList,
+    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title'),
+    'siteUrl'=>Url::home(true),
+    'articleUrl'=>Url::to('articles/'.$article->seo)
+));
+
+$mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+array(
+    'articleDoi'=>$article->doi,
+    'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
+    'articleAuthors'=>$artilceAuthorsList,
+    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
+));
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -43,13 +64,9 @@ $this->registerCssFile('/css/leaflet.css');
 $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
-        'json_path_economytypes' => '/json/economytypes.json'
+        'json_path_economytypes' => '/json/economytypes.json',
+        'share_text_for_email' => $mailArticleShare
 ];
-
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.EavAttributeHelper::getAttribute('title')->getData('title', $currentLang).' '.
-    EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
-    '\n\n Elevator pitch: '.EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang).'\n\n View the article: '.
-    Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 
 <div class="container article-full">
@@ -123,15 +140,6 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         <?php endforeach; ?>
 
 </div>
-
-<?php $mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
-    array(
-        'articleDoi'=>$article->doi,
-        'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
-        'articleAuthors'=>$authorLink,
-        'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
-    ));
-?>
 
 <div class="content-inner">
     <div class="content-inner-text">

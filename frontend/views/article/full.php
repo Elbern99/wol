@@ -38,10 +38,26 @@ $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']])
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerCssFile('/css/leaflet.css');
 
+$artilceAuthorsList = [];
 $authorLink = [];
 
+foreach ($authors as $author):
+    $link = $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name.' - '.$author['profile'];
+    array_push($artilceAuthorsList, $link);
+endforeach;
+
 $mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
-    'articleAuthors'=>$authorLink,
+    'articleAuthors'=>$artilceAuthorsList,
+    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title'),
+    'siteUrl'=>Url::home(true),
+    'articleUrl'=>Url::to('articles/'.$article->seo)
+));
+
+$mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+array(
+    'articleDoi'=>$article->doi,
+    'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
+    'articleAuthors'=>$artilceAuthorsList,
     'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
 ));
 
@@ -123,15 +139,6 @@ $config = [
             </div>
         <?php endforeach; ?>
     </div>
-
-    <?php $mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
-        array(
-            'articleDoi'=>$article->doi,
-            'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract'),
-            'articleAuthors'=>$authorLink,
-            'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title')
-        ));
-    ?>
 
     <div class="content-inner">
         <div class="content-inner-text">

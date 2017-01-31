@@ -6303,7 +6303,8 @@ iframe[name=advpp_manager] {
     .source-table-holder .table .filters td {
       border-color: #0053a0; }
     .source-table-holder .table th, .source-table-holder .table td {
-      width: 30%; }
+      width: 30%;
+      padding: 13px 12px; }
       .source-table-holder .table th:last-child, .source-table-holder .table td:last-child {
         width: 35%; }
       .source-table-holder .table th:first-child, .source-table-holder .table td:first-child {
