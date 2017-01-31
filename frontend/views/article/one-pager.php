@@ -32,28 +32,30 @@ $this->registerMetaTag([
         'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
 ]);
 
-$artilceAuthorsList = [];
-$authorLink = [];
+$authorsList = [];
 
-foreach ($authors as $author):
-    $link = $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name.' - '.$author['profile'];
-    array_push($artilceAuthorsList, $link);
-endforeach;
+foreach ($authors as $author) {
+    
+    $authorsList[] = [
+        'name' => $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name,
+        'url' => $author['profile']
+    ];
+}
 
-$mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
-    'articleAuthors'=>$artilceAuthorsList,
-    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title'),
-    'siteUrl'=>Url::home(true),
-    'articleUrl'=>Url::to('articles/'.$article->seo)
-));
+$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php', [
+    'authorsList' => $authorsList,
+    'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
+    'articleUrl' => Url::to('/articles/'.$article->seo, true)
+]);
 
-$mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+$mailArticle= '';
+/*$mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
 array(
     'articleDoi'=>$article->doi,
-    'articleElevatorPitch'=>EavAttributeHelper::getAttribute('abstract')->getData('abstract',$currentLang),
-    'articleAuthors'=>$artilceAuthorsList,
-    'articleTitle'=>EavAttributeHelper::getAttribute('title')->getData('title',$currentLang)
-));
+    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang),
+    'artilceAuthorsList' => $artilceAuthorsList,
+    'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang)
+));*/
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -122,15 +124,11 @@ $config = [
 
                 <div class="desc">
                     <div class="name">
-                        <?php
-                        $link = Html::a($author['name']->first_name.' '.
+                        <?= Html::a($author['name']->first_name.' '.
                             $author['name']->middle_name.' '.
                             $author['name']->last_name
                             ,$author['profile']
                         );
-
-                        $authorLink[] = $link;
-                        echo $link;
                         ?>
                     </div>
                     <p><?= $author['affiliation'] ?></p>
@@ -591,12 +589,10 @@ $config = [
                 </div>
                 <div class="authors">
                     <div class="title">authors</div>
-                    <?php if(count($authorLink)): ?>
-                        <?php foreach($authorLink as $link): ?>
-                            <?= $link ?>
+                    <?php if(count($authorsList)): ?>
+                        <?php foreach($authorsList as $authorAttribute): ?>
+                            <?= Html::a($authorAttribute['name'], $authorAttribute['url']) ?>
                         <?php endforeach; ?>
-                    <?php else: ?>
-                        <?= $article->availability ?>
                     <?php endif; ?>
                 </div>
                 <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
