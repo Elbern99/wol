@@ -1,28 +1,36 @@
 <?php
-    $articleDoiFixed = preg_replace("/ {2,}/"," ",$articleDoi);
-    $articleElevatorPitchFixed =  preg_replace("/ {2,}/"," ",$articleElevatorPitch);
-    $mailElevatorPitch = '';
-    $mailDOI = '';
-    $articleAuthors = implode(",", $articleAuthors);
-    $mailAuthors = '';
-    $articleAuthorsFixed = preg_replace("/ {2,}/"," ",$articleAuthors);
-    $articleTitle = preg_replace("/ {2,}/"," ",$articleTitle);
+use yii\helpers\Url;
 
-    if ($articleDoi) {
-        $mailDOI = "DOI: http://dx.doi.org/".$articleDoi;
-    }
+$mailSubject = 'Thank you for sharing IZA World of Labor';
+$articleTitle = trim($articleTitle);
+$articleElevatorPitch = trim($articleElevatorPitch);
+$articleDoi = trim($articleDoi);
+$mailAuthors = '';
+$mailDOI = '';
+$mailElevatorPitch = '';
+$siteUrl = Url::home(true);
 
-    if ($articleElevatorPitch) {
-        $mailElevatorPitch = 'Elevator Pitch: '.$articleElevatorPitchFixed;
-    }
+if (count($authorsList)) {
+    $authors = implode(",", array_map(function($author) {
+        return ''.$author['name'].' at '.$author['url'];
+    }, $authorsList));
+    $mailAuthors = 'by '.$authors;
+}
 
-    if ($articleAuthors) {
-        $mailAuthors = ' by '.$articleAuthorsFixed;
-    }
+if (count($articleDoi)) {
+    $mailDOI = 'DOI: '.$articleDoi;
+}
 
-    $mailSubject = 'Article from IZA World of Labor';
-    $mailThink = 'I think you that you would be interested in the following article from IZA World of Labor';
-    $mailAuthor = '"'.$articleTitle.'"'.$mailAuthors;
-    $mailBody = 'mailto:?Content-type=text/html?subject='.$mailSubject.'&body='.$mailThink.'%0D%0A%0D%0A'.$mailAuthor.'%0D%0A%0D%0A'.$mailDOI.'%0D%0A%0D%0A'.$mailElevatorPitch;
-    echo $mailBody;
+if (count($articleElevatorPitch)) {
+    $mailElevatorPitch = 'Elevator Pitch: '.$articleElevatorPitch;
+}
+
+$mailText = "I think you that you would be interested in the following article from IZA World of Labor.\r\n\r\n";
+$mailText .= "$articleTitle - $articleUrl' $mailAuthors\r\n\r\n";
+$mailText .= $mailDOI."\r\n\r\n";
+$mailText .= $mailElevatorPitch;
+$mailText = htmlentities(urlencode($mailText));
+echo 'mailto:?subject='.$mailSubject.'&body='.$mailText;
 ?>
+
+

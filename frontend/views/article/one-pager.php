@@ -48,14 +48,14 @@ $mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.
     'articleUrl' => Url::to('/articles/'.$article->seo, true)
 ]);
 
-$mailArticle= '';
-/*$mailArticle = \Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+$mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
 array(
-    'articleDoi'=>$article->doi,
-    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang),
-    'artilceAuthorsList' => $artilceAuthorsList,
-    'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang)
-));*/
+        'authorsList' => $authorsList,
+        'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
+        'articleUrl' => Url::to('/articles/'.$article->seo, true),
+        'articleDoi' => $article->doi,
+        'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
+));
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
@@ -67,7 +67,7 @@ $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json',
-        'share_text_for_email' => $mailArticleShare
+        'share_text_for_email' => $mailArticle
 ];
 ?>
 
@@ -96,7 +96,7 @@ $config = [
     <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
         <span class="icon-quote"></span>
     </a>
-    <a target="_blank" href="" class="btn-border-gray-middle short">
+    <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
         <span class="icon-message"></span>
     </a>
     <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
@@ -248,7 +248,7 @@ $config = [
                             <div class="btn-like-inner"></div>
                         </a>
                         <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                        <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
+                        <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
                             <span class="icon-message"></span>
                         </a>
                     </div>
@@ -278,7 +278,7 @@ $config = [
                 <div class="btn-like-inner"></div>
             </a>
             <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-            <a target="_blank" href="<?= Html::encode($mailArticle)?>" class="btn-border-gray-middle short">
+            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
                 <span class="icon-message"></span>
             </a>
         </div>

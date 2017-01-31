@@ -1,0 +1,69 @@
+//SOCIALS
+.socials-list {
+  margin: 0 0 39px;
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 6px;
+    font-size: 11px;
+  }
+
+  [class*='icon-'] {
+    font-size: 34px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    @include breakpoint('tablet') {
+      font-size: 30px;
+    }
+  }
+
+  a {
+    color: $light-blue;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $blue;
+
+      [class*='icon-'] {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      }
+    }
+
+    &:active {
+      [class*='icon-'] {
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  &.socials-vertical-list {
+    margin: 0 0 0 4px;
+
+    li {
+
+      margin: 0 0 15px -4px;
+      width: 50%;
+
+      @include breakpoint('tablet') {
+        display: block;
+        width: 100%;
+        margin: 0 0 13px;
+      }
+    }
+
+    [class*='icon-'] {
+      margin-right: 13px;
+      color: $blue;
+    }
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  }
+}
