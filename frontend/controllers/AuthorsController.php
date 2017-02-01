@@ -15,6 +15,7 @@ use yii\web\NotFoundHttpException;
 use yii\helpers\Html;
 use common\models\AuthorRoles;
 use frontend\components\widget\SidebarWidget;
+use frontend\models\AuthorSearchForm;
 
 class AuthorsController extends Controller {
 
@@ -23,16 +24,28 @@ class AuthorsController extends Controller {
 
     public function actionIndex() {
 
+        $filter = Yii::$app->request->get('filter');
+        $searchModel = new AuthorSearchForm();
         $collection = [];
 
         $query = Author::find()
                 ->select(['id', 'url_key', 'avatar'])
-                ->orderBy('name')
+                ->orderBy('surname')
                 ->with(['articleAuthors.article' => function($query) {
                         return $query->select(['id', 'seo', 'title']);
                     }])
                 ->where(['enabled' => 1]);
-
+        
+        if (Yii::$app->request->isPost && $searchModel->load(Yii::$app->request->post())) {
+            if ($searchModel->validate()) {
+                $query->andFilterWhere(['like', 'name', $searchModel->search]);
+            }
+        } else {
+            if ($filter) {
+                $query->andWhere('surname LIKE :filter', [':filter' => $filter.'%']);
+            }
+        }
+        
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $pages->defaultPageSize = Yii::$app->params['authors_limit'];
@@ -66,7 +79,7 @@ class AuthorsController extends Controller {
             ];
         }
 
-        return $this->render('authors_list', ['collection' => $collection, 'paginate' => $pages]);
+        return $this->render('authors_list', ['collection' => $collection, 'paginate' => $pages, 'searchModel' => $searchModel]);
     }
 
     public function actionProfile($url_key) {

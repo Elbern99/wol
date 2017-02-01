@@ -31,7 +31,7 @@ return [
     'topic_videos_limit' => 6,
     'topic_opinions_limit' => 6,
     'topic_events_limit' => 6,
-    'authors_limit' => 10,
+    'authors_limit' => 20,
     'home_article_limit' => 4,
     'home_event_limit' => 3,
     'home_news_limit' => 4,
