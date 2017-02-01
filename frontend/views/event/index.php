@@ -106,7 +106,7 @@ if ($category) {
         </div>
 
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-event-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">events archive</a>

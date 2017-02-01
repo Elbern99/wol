@@ -236,7 +236,6 @@
                           references_method = key_references_obj[i].method,
                           references_position = key_references_obj[i].position,
                           references_source = key_references_obj[i].source,
-                          references_title = key_references_obj[i].title,
                           references_type = key_references_obj[i].type;
 
                       //template
@@ -270,9 +269,7 @@
                       }
 
                       arrayTpl.push('' +
-                          '<div class="ref-item">' +
-                          '<div class="authors">'+references_title+'</div>' +dataLinkText+dataSourceText+dataTypesText+dataMethodText+
-                          '</div>'
+                          '<div class="ref-item">' +dataLinkText+dataSourceText+dataTypesText+dataMethodText+ '</div>'
                       );
                   }
               }
@@ -301,7 +298,7 @@
                       }
 
                       arrayTpl.push('' +
-                          '<div class="ref-item">' +dataAdditionalLinkText+dataAdditionalMethodText+ '</div>'
+                          '<div class="ref-item">' +dataAdditionalLinkText+ '</div>'
                       );
                   }
               }

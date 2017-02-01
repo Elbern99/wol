@@ -557,6 +557,14 @@
     text-transform: none;
     font-size: 10px;
     padding: 2px 0 0 0;
+    
+    a {
+      color: #323232;
+      
+      &:hover {
+        color: $light-blue;
+      }
+    }
 
     @include breakpoint_custom($breakpoint-tablet) {
       padding: 0;
