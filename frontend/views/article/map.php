@@ -211,7 +211,13 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
                 <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $this->title ?></a>
-                <div class="writer"><?= $article->availability ?></div>
+                <div class="writer">
+                    <?php if (count($authors)): ?>
+                        <?php foreach($authors as $author): ?>
+                            <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                </div>
             </div>
 
             <div class="sidebar-widget sidebar-widget-keywords">
@@ -254,8 +260,12 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         <ul class="sidebar-news-list">
                             <?php foreach ($related as $relate): ?>
                                 <li>
-                                    <h3><a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                    <div class="writer"><?= $relate['availability'] ?></div>
+                                    <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                    <div class="writer">
+                                        <?php foreach($relate['authors'] as $author): ?>
+                                            <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </li>
                             <?php endforeach;
                             unset($related); ?>

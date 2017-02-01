@@ -139,7 +139,17 @@ class ArticleController extends Controller {
 
     public function actionMap($slug) {
         
-        $model = $this->getArticleCategories($slug);
+        $model = Article::find()
+                    ->with([
+                        'articleAuthors.author' => function($query) {
+                            return $query->select(['id', 'avatar', 'url_key','name'])->where(['enabled' => 1])->asArray();
+                        }, 
+                        'articleCategories' => function($query) {
+                            return $query->select(['category_id', 'article_id'])->asArray();
+                        }
+                    ])
+                    ->where(['seo' => $slug, 'enabled' => 1])
+                    ->one();
 
         if (!is_object($model)) {
             throw new NotFoundHttpException('Page Not Found.');
@@ -151,15 +161,32 @@ class ArticleController extends Controller {
         $articleCollection->initCollection(Article::tableName(), $model);
 
         $categories = [];
-
+        $authors = [];
+        
         if (count($records['articleCategories'])) {
 
             $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
             $categories = $this->getFullCategoryArticlesArray($categoryIds);
         }
-        
+
+        if (count($model->articleAuthors)) {
+            
+            foreach($model->articleAuthors as $author) {
+
+                if(!isset($author['author'])) {
+                    continue;
+                }
+                
+                $authors[] = [
+                    'name' => $author['author']['name'],
+                    'url' => Author::getAuthorUrl($author['author']['url_key'])
+                ];
+            }
+        }
+
         return $this->render('map', [
             'article' => $model,
+            'authors' => $authors,
             'collection' => $articleCollection,
             'categories' => $categories
         ]);
