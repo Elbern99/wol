@@ -450,8 +450,6 @@
                     curNode = this,
                     curParent =  cur.parents('li,.expand-more');
 
-                console.log(curParent);
-
                 if(!cur.hasClass('no-open')) {
 
                     var arrayItems = item.split(',');
@@ -553,14 +551,13 @@
             if($(item).length) {
 
                 //get
-                var title = $('title').text(),
+                var title = $('#title-document').text(),
                     desc = $('meta[name="description"]').attr("content"),
                     titleClear,
                     descClear,
                     firstText = $('.content-inner-text p').text(),
                     firstTitle = $('.content-inner h1'),
                     url = document.URL;
-
 
                 desc === undefined ? descClear = firstText : descClear = desc;
                 title === undefined ? titleClear = firstText : firstText = title;
@@ -732,7 +729,7 @@
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
-        search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown');
+        search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
     });
 
 })(jQuery);

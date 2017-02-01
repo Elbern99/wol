@@ -1334,6 +1334,26 @@ th {
   line-height: 31px;
   font-size: 11px; }
 
+.btn-orange {
+  background: #e64727;
+  color: #fff;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px; }
+  .btn-orange:hover {
+    color: #fff;
+    background: #f8512b; }
+
+.btn-pink {
+  background: #c02066;
+  color: #fff;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px; }
+  .btn-pink:hover {
+    color: #fff;
+    background: #dd2d7a; }
+
 .btn-gray,
 [class^="btn-gray-"],
 [class*=" btn-gray-"] {
@@ -1483,7 +1503,11 @@ p {
 
 ul,
 ol {
-  padding: 0 0 20px 10px; }
+  padding: 0 0 20px; }
+  ul ul, ul ol,
+  ol ul,
+  ol ol {
+    padding-left: 10px; }
   ul li,
   ol li {
     position: relative; }
@@ -2541,7 +2565,7 @@ blockquote {
         .mobile-filter-holder .tab-item.blue .articles-filter-list li .icon-arrow,
         .mobile-filter-holder .tab-item.blue .sidebar-news-list li .icon-arrow {
           left: auto;
-          right: 0;
+          right: -10px;
           width: 30px;
           height: 30px;
           top: -6px;
@@ -2648,7 +2672,7 @@ blockquote {
   font-size: 8px;
   display: block;
   color: #323232 !important;
-  border: 1px solid #fff;
+  margin: 2px;
   line-height: 1.29em; }
   @media only screen and (min-width: 820px) {
     .key-topics-item {
@@ -6120,7 +6144,7 @@ iframe[name=advpp_manager] {
       .mobile-menu .subscribe-link a {
         padding: 0 7px;
         height: 44px;
-        line-height: 43px;
+        line-height: 49px;
         font-size: 14px;
         font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif;
         background: #0094f2;

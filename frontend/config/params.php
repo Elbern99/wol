@@ -3,7 +3,7 @@ return [
     'adminEmail' => 'admin@example.com',
     'default_lang' => [
         'id' => 0,
-        'name' => 'English',
+        'name' => 'En',
         'image' => '/images/lang/english.jpg'
     ],
     'search' => [

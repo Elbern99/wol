@@ -143,22 +143,19 @@ $config = [
     <div class="content-inner-text">
         <article>
             <div class="article-pagers-holder">
-                
                 <?php if ($collection->isMulti): ?>
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
-                        <?php foreach($langs as $lang): ?> 
-                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
+                        <?php foreach($langs as $lang): ?>
+                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-pink">
                             <div class="inner">
-                                <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
+                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-orange">
                             <div class="inner">
-                                <div class="lang"><img src="<?= Yii::$app->params['default_lang']['image'] ?>" alt=""></div>
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
                         </a>

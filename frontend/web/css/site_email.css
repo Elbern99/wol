@@ -1211,6 +1211,26 @@ th {
   line-height: 31px;
   font-size: 11px; }
 
+.btn-orange {
+  background: #e64727;
+  color: #fff;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px; }
+  .btn-orange:hover {
+    color: #fff;
+    background: #f8512b; }
+
+.btn-pink {
+  background: #c02066;
+  color: #fff;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px; }
+  .btn-pink:hover {
+    color: #fff;
+    background: #dd2d7a; }
+
 .btn-gray,
 [class^="btn-gray-"],
 [class*=" btn-gray-"] {
@@ -1360,7 +1380,11 @@ p {
 
 ul,
 ol {
-  padding: 0 0 20px 10px; }
+  padding: 0 0 20px; }
+  ul ul, ul ol,
+  ol ul,
+  ol ol {
+    padding-left: 10px; }
   ul li,
   ol li {
     position: relative; }

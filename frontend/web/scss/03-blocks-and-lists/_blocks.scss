@@ -1261,7 +1261,7 @@
 
           .icon-arrow {
             left: auto;
-            right: 0;
+            right: -10px;
             width: 30px;
             height: 30px;
             top: -6px;
@@ -1419,7 +1419,7 @@
   font-size: 8px;
   display: block;
   color: #323232 !important;
-  border: 1px solid #fff;
+  margin: 2px;
   line-height: 1.29em;
 
   @include breakpoint('tablet') {

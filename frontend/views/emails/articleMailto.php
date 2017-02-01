@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Url;
 
-$mailSubject = 'Thank you for sharing IZA World of Labor';
-$articleTitle = trim($articleTitle);
-$articleElevatorPitch = trim($articleElevatorPitch);
-$articleDoi = trim($articleDoi);
+$mailSubject = 'Article from IZA World of Labor';
+$articleTitle = trim(preg_replace('~\s+~s', ' ', $articleTitle));
+$articleElevatorPitch = trim(preg_replace('~\s+~s', ' ', $articleElevatorPitch));
+$articleDoi = trim(preg_replace('~\s+~s', ' ', $articleDoi));
 $mailAuthors = '';
 $mailDOI = '';
 $mailElevatorPitch = '';
@@ -29,7 +29,7 @@ $mailText = "I think you that you would be interested in the following article f
 $mailText .= "$articleTitle - $articleUrl' $mailAuthors\r\n\r\n";
 $mailText .= $mailDOI."\r\n\r\n";
 $mailText .= $mailElevatorPitch;
-$mailText = htmlentities(urlencode($mailText));
+$mailText = htmlentities(rawurlencode($mailText));
 echo 'mailto:?subject='.$mailSubject.'&body='.$mailText;
 ?>
 

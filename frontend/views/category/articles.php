@@ -32,6 +32,24 @@ $roleLabel = new Roles();
         <div class="breadcrumbs">
             <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>
+        <div class="mobile-filter-holder custom-tabs-holder">
+            <ul class="mobile-filter-list">
+                <li><a href="" class="js-widget">Subject areas</a></li>
+                <li><a href="" class="js-widget">Trending topics</a></li>
+                <li><a href="" class="js-widget">Authors</a></li>
+            </ul>
+            <div class="mobile-filter-items custom-tabs">
+                <div class="tab-item blue js-tab-hidden expand-more">
+                    <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
+                </div>
+                <div class="tab-item blue js-tab-hidden expand-more">
+                    test 2
+                </div>
+                <div class="tab-item blue js-tab-hidden expand-more">
+                    test 3
+                </div>
+            </div>
+        </div>
         <h1><?= $category->meta_title ?></h1>
         <div class="desc-category">
             <p><?= $category->description ?></p>
@@ -168,7 +186,7 @@ $roleLabel = new Roles();
             <div class="sidebar-widget">
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
-                    <a href="/subject-areas/data" class="data-method-item">
+                    <a href="/data-sources" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
                             <span class="icon-arrow-square-blue">
@@ -177,7 +195,7 @@ $roleLabel = new Roles();
                             <h3>View all of our data sources in one place</h3>
                         </div>
                     </a>
-                    <a href="/subject-areas/methods" class="data-method-item">
+                    <a href="/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
                             <span class="icon-arrow-square-blue">

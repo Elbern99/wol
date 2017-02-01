@@ -222,6 +222,32 @@
   font-size: 11px;
 }
 
+.btn-orange {
+  background: #e64727;
+  color: $white;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px;
+
+  &:hover {
+    color: $white;
+    background: #f8512b;
+  }
+}
+
+.btn-pink {
+  background: #c02066;
+  color: $white;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px;
+
+  &:hover {
+    color: $white;
+    background: #dd2d7a;
+  }
+}
+
 .btn-gray,
 [class^="btn-gray-"],
 [class*=" btn-gray-"]{
