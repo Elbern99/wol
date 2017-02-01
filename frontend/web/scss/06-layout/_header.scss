@@ -277,6 +277,31 @@
   margin: 20px 0 -9px;
   position: relative;
 
+  &.author-search-form {
+    width: auto;
+    margin: 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      padding-right: 80px;
+
+      .btn-border-blue {
+        position: absolute;
+        top: 1px;
+        right: -80px;
+        width: 71px;
+        height: 33px;
+      }
+    }
+
+    .search-top {
+      margin: 0;
+    }
+
+    .form-group .help-block {
+      padding: 5px;
+    }
+  }
+
   form {
     @include breakpoint('tablet') {
       display: flex;
