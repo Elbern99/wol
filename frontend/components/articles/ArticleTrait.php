@@ -34,7 +34,9 @@ trait ArticleTrait {
                          ->select(['id', 'title', 'seo', 'availability', 'created_at'])
                          ->where(['enabled' => 1])
                          ->with(['articleCategories' => function($query) {
-                             return $query->select(['category_id', 'article_id']);
+                             return $query->alias('ac')
+                                     ->select(['category_id', 'article_id'])
+                                     ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                          }])
                          ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();

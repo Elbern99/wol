@@ -11,6 +11,7 @@ use common\modules\eav\CategoryCollection;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\modules\eav\helper\EavValueHelper;
+use common\models\Category;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -40,7 +41,9 @@ class ArticleRepository implements RepositoryInterface {
                         ->select(['id', 'title', 'seo', 'availability', 'created_at'])
                         ->where(['enabled' => 1, 'id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
                         ->with(['articleCategories' => function($query) {
-                                return $query->select(['category_id', 'article_id']);
+                                return $query->alias('ac')
+                                     ->select(['category_id', 'article_id'])
+                                     ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
                         ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
