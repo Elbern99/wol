@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use common\models\Author;
+use yii\widgets\ActiveForm;
 ?>
 
 <?php
@@ -50,5 +52,33 @@ $this->registerMetaTag([
                 'pagination' => $paginate,
             ]); ?>
         </div>
+        <aside class="sidebar-right">
+            <div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
+                <ul class="sidebar-accrodion-list">
+                    <li class="sidebar-accrodion-item  is-open">
+                        <a href="" class="title">Author Search</a>
+                        <div class="text">
+                            <?php $form = ActiveForm::begin(['action' => '/authors']); ?>
+                                <?= $form->field($searchModel, 'search')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Enter author name"])->label('') ?>
+                                <button type="submit" class="btn-blue btn-center">
+                                    <span class="inner">search</span>
+                                </button>
+                            <?php ActiveForm::end(); ?>
+                        </div>
+                    </li>
+                    <li class="sidebar-accrodion-item  is-open">
+                        <a href="" class="title">Authors</a>
+                        <div class="text">
+                            <?php $alphas = range('A', 'Z'); ?>
+                            <ul class="abs-list">
+                                <?php foreach ($alphas as $letter): ?>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
     </div>
 </div>
