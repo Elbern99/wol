@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $model->title;
 
 $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
     'articleTitle' => $model->title,
-    'articleUrl' => '',
+    'articleUrl' => Url::to('/key-topics/'.$model['url_key'], true),
     'typeContent' => 'key topic'
 ]);
 ?>
