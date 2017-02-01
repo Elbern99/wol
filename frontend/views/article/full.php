@@ -394,10 +394,14 @@ $config = [
                             <div class="text">
                                 <ul class="sidebar-news-list">
                                     <?php foreach ($related as $relate): ?>
-                                        <li>
-                                            <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                            <div class="writer"><?= $relate['availability'] ?></div>
-                                        </li>
+                                    <li>
+                                        <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                        <div class="writer">
+                                            <?php foreach($relate['authors'] as $author): ?>
+                                                <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </li>
                                     <?php endforeach; unset($related); ?>
                                 </ul>
                                 <?php if($count_related > 5): ?>
