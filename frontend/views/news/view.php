@@ -7,8 +7,6 @@ use yii\helpers\Url;
 $newsItemDirectLink = Url::to(['/news/view', 'slug' => $model->url_key], true);
 $mailLink = $newsItemDirectLink;
 $mailTitle = $model->title;
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
-    '\n\n View the article: '. Html::a($mailLink, $mailLink) . '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 if ($category) {
     $this->registerMetaTag([
@@ -22,6 +20,12 @@ if ($category) {
 }
 $this->params['breadcrumbs'][] = ['label' => Html::encode('News'), 'url' => Url::to(['/news/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+
+$mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+    'articleTitle' => $mailTitle,
+    'articleUrl' => $mailLink,
+    'typeContent' => 'news'
+]);
 
 ?>
 
@@ -198,7 +202,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

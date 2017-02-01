@@ -21,8 +21,11 @@
         ]);
     }
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the following event from IZA World of labor. \n\n  Title: ' . $model->title .
-    '\n\n View the event: '. Url::to(['/event/view', 'slug' => $model->url_key], true) .'\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+    $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+        'articleTitle' => $model->title,
+        'articleUrl' => Url::to(['/event/view', 'slug' => $model->url_key], true),
+        'typeContent' => 'event'
+    ]);
 ?>
 
 <?php if (($imagePath = $model->getImagePath()) != null) : ?>
@@ -192,7 +195,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the following event
                 </div>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Event from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

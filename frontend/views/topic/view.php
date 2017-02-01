@@ -18,6 +18,12 @@ if ($category) {
 
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Key Topics'), 'url' => Url::to(['/topic/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+
+$mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+    'articleTitle' => $model->title,
+    'articleUrl' => '',
+    'typeContent' => 'key topic'
+]);
 ?>
 
 <?php if ($model->image_link) : ?>
@@ -223,7 +229,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
