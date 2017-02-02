@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $model->title;
                             </div>
                         </div>
                     </div>
-                    <h1><?php $model->title; ?></h1>
+                    <h1><?= $model->title; ?></h1>
                     <?php $hasImage= $model->image_link ? true : false; ?>
                     <?php if ($hasImage) : ?>
                     <figure class="align-left">
