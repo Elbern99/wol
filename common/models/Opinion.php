@@ -152,7 +152,13 @@ class Opinion extends \yii\db\ActiveRecord
     
     protected function setCreatedAtDate()
     {
-        $created_at = new \DateTime('now');
+        $date = $this->created_at ? $this->created_at : 'now';
+        
+        try {
+            $created_at = new \DateTime($date);
+        } catch (\Exception $e) {
+            $created_at = new \DateTime('now');
+        }
         $this->created_at = $created_at->format('Y-m-d');
     }
     

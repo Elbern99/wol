@@ -24,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'url_key') ?>
                 <?= $form->field($model, 'title') ?>
             
+                <?= $form->field($model, 'created_at') ?>
+            
                 <?= $form->field($model, 'description')->widget(CKEditor::className(), [
                     'options' => ['rows' => 8],
                     'preset' => 'standard',
