@@ -11,8 +11,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php
-$this->title = 'Search Result For ';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Search Result For ';
+$this->params['breadcrumbs'][] = Html::encode('Search Result For ');
 
 $this->registerJsFile('/js/plugins/mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/jquery.mark.min.js', ['depends' => ['yii\web\YiiAsset']]);

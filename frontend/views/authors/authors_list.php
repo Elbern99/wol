@@ -5,8 +5,9 @@ use common\models\Author;
 ?>
 
 <?php
-$this->title = 'Authors';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Authors';
+$this->params['breadcrumbs'][] = Html::encode('Authors');
 
 $this->registerMetaTag([
     'name' => 'keywords',

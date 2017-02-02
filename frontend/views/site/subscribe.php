@@ -4,15 +4,16 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use frontend\components\filters\NewsletterArchiveWidget;
 
-$this->title = 'Subscribe to newsletter';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Subscribe to newsletter';
+$this->params['breadcrumbs'][] = 'Subscribe to newsletter';
 ?>
 <div class="container subscribe-to-newsletter">
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
-        <h1><?= $this->title ?></h1>
+        <h1>Subscribe to newsletter</h1>
         <p>Stay up to date with IZA World of Labor articles, news and commentary sent directly to your inbox.</p>
         <p class="small-paragraph">Fill in your details below to register for the IZA World of Labor newsletter</p>
     </div>

@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = 'My Account';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'My Account';
+$this->params['breadcrumbs'][] = 'My Account';
 $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/my-account.js', ['depends'=>['yii\web\YiiAsset']]);
 ?>

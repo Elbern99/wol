@@ -3,8 +3,9 @@ use yii\helpers\Html;
 ?>
 
 <?php
-$this->title = 'Editorial Board';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Editorial Board';
+$this->params['breadcrumbs'][] = Html::encode('Editorial Board');
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -23,7 +24,7 @@ $this->registerMetaTag([
         </div>
     </div>
 
-    <h1><?= $this->title ?></h1>
+    <h1>Editorial Board</h1>
 
     <div class="content-inner">
         <div class="content-inner-text">

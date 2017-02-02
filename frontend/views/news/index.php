@@ -4,9 +4,9 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 ?>
 <?php
-
-$this->title = 'News';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'News';
+$this->params['breadcrumbs'][] = 'News';
 
 if ($category) {
     $this->registerMetaTag([

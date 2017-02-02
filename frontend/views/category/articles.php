@@ -9,10 +9,10 @@ use common\modules\author\Roles;
 ?>
 
 <?php
-
-$this->title = $category->title;
-$this->params['breadcrumbs'][] =['label'=>'Articles', 'url'=>Url::to('articles', true)];
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$category->title;
+$this->params['breadcrumbs'][] = ['label'=>'Articles', 'url'=>Url::to('articles', true)];
+$this->params['breadcrumbs'][] = $category->title;
 
 $this->registerMetaTag([
     'name' => 'keywords',

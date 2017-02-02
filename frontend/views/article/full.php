@@ -9,10 +9,10 @@ use common\modules\eav\helper\EavAttributeHelper;
 <?php
 $attributes = $collection->getEntity()->getValues();
 EavAttributeHelper::initEavAttributes($attributes);
-
-$this->title = 'IZA World of Labor - '.EavAttributeHelper::getAttribute('title')->getData('title');
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.EavAttributeHelper::getAttribute('title')->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = EavAttributeHelper::getAttribute('title')->getData('title');
 
 $this->registerMetaTag([
     'name' => 'keywords',

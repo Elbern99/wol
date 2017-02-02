@@ -5,7 +5,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $page->Cms('meta_title');
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 
 $this->registerMetaTag([
@@ -23,7 +24,7 @@ $items[0] = 'Show All';
 ?>
 
 <div class="container without-breadcrumbs sources-page">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($page->Cms('meta_title')) ?></h1>
     <div class="col-sm-12 sidenav">
         <?= $page->Page('text') ?>
     </div>

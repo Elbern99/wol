@@ -5,8 +5,9 @@ use yii\helpers\Url;
 ?>
 
 <?php
-$this->title = 'Advanced Search';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Advanced Search';
+$this->params['breadcrumbs'][] = Html::encode('Advanced Search');
 
 $this->registerMetaTag([
     'name' => 'keywords',

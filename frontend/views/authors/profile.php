@@ -6,9 +6,10 @@ use frontend\components\articles\SubjectAreas;
 ?>
 
 <?php
-$this->title = $author['author']->name;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$author['author']->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Authors'), 'url' => Url::toRoute(['/authors'])];
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$this->params['breadcrumbs'][] = Html::encode($author['author']->name);
 
 $this->registerMetaTag([
     'name' => 'keywords',

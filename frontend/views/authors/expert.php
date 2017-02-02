@@ -7,8 +7,9 @@ use common\helpers\Country;
 ?>
 
 <?php
-$this->title = 'Find a topic spokesperson';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Find a topic spokesperson';
+$this->params['breadcrumbs'][] = Html::encode('Find a topic spokesperson');
 
 $this->registerMetaTag([
     'name' => 'keywords',

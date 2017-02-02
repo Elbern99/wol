@@ -9,7 +9,6 @@ use yii\helpers\Url;
 <?php
 $attributes = $collection->getEntity()->getValues();
 
-//var_dump($attributes['add_references']->getData(null, $currentLang));exit;
 $this->title = 'Evidence map for - '.$attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = 'Evidence map';

@@ -8,9 +8,9 @@ use yii\widgets\Pjax;
 ?>
 
 <?php
-
-$this->title = 'Articles';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Articles';
+$this->params['breadcrumbs'][] = 'Articles';
 
 $this->registerMetaTag([
     'name' => 'keywords',
