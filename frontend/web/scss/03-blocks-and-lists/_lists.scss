@@ -1287,18 +1287,15 @@
   li {
     float: left;
     width: 50%;
-    height: calc(50vh*0.435);
-    min-height: 120px;
-    max-height: 255px;
+    height: 120px;
 
     @include breakpoint('mobile-large') {
-      height: calc(50vh*0.3);
-      min-height: 160px;
+      height: 160px;
     }
 
     @include breakpoint('tablet') {
       width: 33.3%;
-      height: calc(50vh*0.519);
+      height: 200px;
     }
 
     @include breakpoint('desktop') {

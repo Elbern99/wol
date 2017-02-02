@@ -77,7 +77,12 @@
     overflow: hidden;
   }
 
-  img,
+  img{
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
   iframe {
     min-width: 100%;
     width: 100%;
