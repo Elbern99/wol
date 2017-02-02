@@ -247,6 +247,7 @@
     border-radius: 2px;
     margin-right: 25px;
     margin-left: 10px;
+    width: 100px;
 
     @include breakpoint('tablet') {
       margin: -3px 0 0 0;
@@ -255,6 +256,7 @@
       font-size: 13px;
       padding: 0 14px;
       letter-spacing: 0.04em;
+      width: auto;
     }
   }
 
