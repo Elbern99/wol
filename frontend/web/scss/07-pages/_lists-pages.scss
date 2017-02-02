@@ -92,7 +92,7 @@
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    .sidebar-widget-articles-filter,
+    .sidebar-widget-event-filter,
     .small-paragraph {
       display: none;
     }
@@ -143,7 +143,7 @@
 .video-page {
 
   @include breakpoint_custom($breakpoint-tablet) {
-    .sidebar-widget-articles-filter {
+    .sidebar-widget-event-filter {
       display: none;
     }
     .mobile-filter-holder {

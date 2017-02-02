@@ -57,7 +57,7 @@
   margin: 0 0 30px;
 
   @include breakpoint('tablet') {
-    margin: 0 0 46px;
+    margin: 0 0 46px ;
   }
 
   figure {
@@ -112,6 +112,10 @@
 //AUTHORS-PAGE
 
 .authors-page {
+  .mobile-filter-holder {
+    margin-top: -20px;
+  }
+
   .search-results-media-list {
     justify-content: center;
   }

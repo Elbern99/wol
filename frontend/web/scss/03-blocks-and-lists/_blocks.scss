@@ -144,6 +144,10 @@
     transition: all 0s ease !important;
   }
 
+  .img {
+    transition: all 0.3s ease !important;
+  }
+
   h2{
     transition: font-size 0.1s ease !important;
   }
@@ -557,6 +561,14 @@
     text-transform: none;
     font-size: 10px;
     padding: 2px 0 0 0;
+    
+    a {
+      color: #323232;
+      
+      &:hover {
+        color: $light-blue;
+      }
+    }
 
     @include breakpoint_custom($breakpoint-tablet) {
       padding: 0;

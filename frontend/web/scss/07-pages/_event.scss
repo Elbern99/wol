@@ -22,7 +22,7 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     .sidebar-right {
-      .sidebar-widget-articles-filter {
+      .sidebar-widget-event-filter {
         display: none;
       }
       .event-page-buttons {
