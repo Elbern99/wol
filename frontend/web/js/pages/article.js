@@ -464,6 +464,8 @@
                     curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href');
 
+
+                console.log(curAttr);
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });

@@ -183,7 +183,7 @@ p+br {
   }
 }
 
-strong {
+strong,b {
   font-weight: normal;
   font-family: $lucida-sans-demi-bold;
 }
@@ -240,7 +240,7 @@ img {
   }
 }
 
-em {
+em,i {
   font-family: $lucida-sans-italic;
 }
 
