@@ -9,7 +9,7 @@ use yii\helpers\Url;
 ]); ?>
 
 <div class="img-holder img-holder-bg">
-    <div class="img" style="background-image: url(<?= $model->avatar ? $model->getAvatarUrl($model->avatar): '' ?>)">
+    <div class="img user-avatar" style="background-image: url(<?= $model->avatar ? $model->getAvatarUrl($model->avatar): '' ?>)">
         <div class="inner">
             <?= $form->field($model, 'avatar')->fileInput(['id'=>'load_image'])->label('') ?>
         </div>

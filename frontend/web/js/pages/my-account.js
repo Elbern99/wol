@@ -14,7 +14,7 @@
                 success: function (result) {
 
                     if ('success' in result) {
-                        $('.user-avatar').prop('src', result.success);
+                        $('.user-avatar').css({'background-image':'url('+result.success+')'});
                     }
                 },
                 cache: false,
