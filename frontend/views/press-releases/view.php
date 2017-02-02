@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $model->title;
                     <?php $hasImage= $model->image_link ? true : false; ?>
                     <?php if ($hasImage) : ?>
                     <figure class="align-left">
-                        <?= Html::img('uploads/press-releases/'.$model->image_link, [
+                        <?= Html::img('/uploads/press-releases/'.$model->image_link, [
                             'alt' => $model->title,
                         ]); ?>
                     </figure>
