@@ -271,7 +271,7 @@ if ($category) {
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Related Articles</a>
+                        <a href="" class="title">Latest Articles</a>
                         <div class="text">
                             <ul class="sidebar-news-list">
                                 <?php foreach($articlesSidebar as $article) : ?>

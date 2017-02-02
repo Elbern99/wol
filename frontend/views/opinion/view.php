@@ -94,7 +94,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                 <?php $hasImage= $model->image_link ? true : false; ?>
                 <?php if ($hasImage) : ?>
                 <figure>
-                    <?= Html::img('uploads/opinions/'.$model->image_link, [
+                    <?= Html::img('/uploads/opinions/'.$model->image_link, [
                         'alt' => 'Opinion image',
                     ]); ?>
                 </figure>

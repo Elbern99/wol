@@ -34,7 +34,7 @@ return [
     'authors_limit' => 10,
     'home_article_limit' => 4,
     'home_event_limit' => 3,
-    'home_news_limit' => 4,
+    'home_news_limit' => 6,
     'page_widget' => [
         'editorial_board' => [
             'views_on_iza', 'socials', 
