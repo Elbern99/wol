@@ -10,7 +10,7 @@ use yii\helpers\Url;
 $attributes = $collection->getEntity()->getValues();
 
 //var_dump($attributes['add_references']->getData(null, $currentLang));exit;
-$this->title = $attributes['title']->getData('title');
+$this->title = 'Evidence map for - '.$attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = 'Evidence map';
 
@@ -26,7 +26,12 @@ $this->registerMetaTag([
         )
     )
 ]);
-                
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+]);
+
 $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode($attributes['teaser']->getData('teaser'))
@@ -213,7 +218,7 @@ $this->registerCssFile('/css/leaflet.css');
             
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
-                <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $this->title ?></a>
+                <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title') ?></a>
                 <div class="writer">
                     <?php if (count($authors)): ?>
                         <?php foreach($authors as $author): ?>

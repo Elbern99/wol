@@ -10,7 +10,7 @@ use common\modules\eav\helper\EavAttributeHelper;
 $attributes = $collection->getEntity()->getValues();
 EavAttributeHelper::initEavAttributes($attributes);
 
-$this->title = EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
+$this->title = 'IZA World of Labor - '.EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = $this->title;
 
