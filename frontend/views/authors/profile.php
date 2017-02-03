@@ -76,12 +76,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     </div>
                     <div class="item">
                         <h2>Current position</h2>
-                        <?php if(is_array($author['position']->current)): ?>
-                            <?php foreach($author['position']->current as $current): ?>
-                                <p><?= $current ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->current ?></p>
+                        <?php if(isset($author['position']->current)): ?>
+                            <?php if(is_array($author['position']->current)): ?>
+                                <?php foreach($author['position']->current as $current): ?>
+                                    <p><?= $current ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->current ?></p>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                     
@@ -97,12 +99,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     
                     <div class="item">
                         <h2>Positions/functions as a policy advisor</h2>
-                        <?php if(is_array($author['position']->advisory)): ?>
-                            <?php foreach($author['position']->advisory as $advisory): ?>
-                                <p><?= $advisory ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->advisory ?></p>
+                        <?php if(isset($author['position']->advisory)): ?>
+                            <?php if(is_array($author['position']->advisory)): ?>
+                                <?php foreach($author['position']->advisory as $advisory): ?>
+                                    <p><?= $advisory ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->advisory ?></p>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
 
@@ -113,12 +117,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
 
                     <div class="item">
                         <h2>Past positions</h2>
-                        <?php if(is_array($author['position']->past)): ?>
-                            <?php foreach($author['position']->past as $past): ?>
-                                <p><?= $past ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->past ?></p>
+                        <?php if(isset($author['position']->past)): ?>
+                            <?php if(is_array($author['position']->past)): ?>
+                                <?php foreach($author['position']->past as $past): ?>
+                                    <p><?= $past ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->past ?></p>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
 
