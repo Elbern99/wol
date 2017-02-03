@@ -73,7 +73,6 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                 </h3>
                             </li>
                             <?php endforeach; ?>
-                        
                         </ul>
                         <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                         <a href="" class="more-link">
@@ -93,7 +92,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             <article class="post-full-item">
                 <?php $hasImage= $model->image_link ? true : false; ?>
                 <?php if ($hasImage) : ?>
-                <figure>
+                <figure class="align-left">
                     <?= Html::img('/uploads/opinions/'.$model->image_link, [
                         'alt' => 'Opinion image',
                     ]); ?>

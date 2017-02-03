@@ -459,7 +459,7 @@ $config = [
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <?php if(count($references) > 10): ?>
+                                <?php if(count($references) > 13): ?>
                                     <a href="" class="more-link">
                                         <span class="more">More</span>
                                         <span class="less">Less</span>

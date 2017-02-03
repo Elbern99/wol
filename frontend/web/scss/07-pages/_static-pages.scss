@@ -57,12 +57,14 @@
   margin: 0 0 30px;
 
   @include breakpoint('tablet') {
-    margin: 0 0 46px ;
+    margin: 0 0 46px;
   }
 
   figure {
     margin: 0 0 17px;
   }
+
+  @extend .img-left-in-article;
 
   p {
     font-size: 12px;

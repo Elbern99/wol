@@ -51,7 +51,8 @@
             }
 
             appendElements(el,elToMobile,elToDesktop);
-            $(window).resize(function() {
+
+            elements.window.on('orientationchange', function() {
                 setTimeout(function(){
                     appendElements(el,elToMobile,elToDesktop);
                 }, 600);
@@ -113,7 +114,6 @@
         },
         customTriggerFocus: function(btn,elClick,parent) {
             $(btn).on('click', function(e) {
-                console.log($(this).parents(parent).find(elClick));
                 $(this).parents(parent).find(elClick).trigger('click');
             })
         }
