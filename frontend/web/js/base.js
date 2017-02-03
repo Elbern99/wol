@@ -319,22 +319,21 @@
             var elementsAll = $(docHeightForElement.elements.toString()),
                 elHeight = elements.document.height();
 
-
-            elementsAll.css('height', '1px');
+            elementsAll.css('height', '100vh');
             elementsAll.css('height', elHeight);
             elementsAll.css('max-height', elHeight);
 
             elements.window.on("orientationchange",function(){
                 elementsAll.css({
-                    'height': '1px',
-                    'max-height': '1px'
+                    'height': '100vh',
+                    'max-height': '100vh'
                 });
                 setTimeout(function(){
                     elementsAll.css({
                         'height': elements.document.height(),
                         'max-height': elements.document.height(),
                     });
-                }, 1000);
+                }, 100);
             });
         }
     };

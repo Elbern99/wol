@@ -586,7 +586,8 @@ th {
 .auto-search-list {
   overflow: hidden;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  transition: all 0.1s ease; }
 
 .clip {
   white-space: nowrap;

@@ -665,7 +665,8 @@ th {
 .auto-search-list {
   overflow: hidden;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  transition: all 0.1s ease; }
 
 .clip, .account-head h1 {
   white-space: nowrap;
@@ -4802,8 +4803,11 @@ label {
   .form-item .hidden {
     display: none; }
     .form-item .hidden .form-control {
-      width: 40%;
+      width: 100%;
       margin: 0 5px 5px 0; }
+      @media only screen and (min-width: 820px) {
+        .form-item .hidden .form-control {
+          width: 40%; } }
   .form-item.no-required:after {
     display: none !important; }
   .form-item.required:after {
