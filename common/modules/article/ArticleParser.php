@@ -67,7 +67,8 @@ class ArticleParser implements ParserInterface {
     protected $config = null;
     protected $taxonomyCodeId = [];
     protected $sourceAttribute = [];
-     
+    protected $usedImages = [];
+    
     public function __construct (
             ArticleInterface $article,
             EntityInterface $entity, 
@@ -213,6 +214,14 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('updated_at', $time);
         $this->article->setAttribute('publisher', $publisher);
     }
+    
+    public function clearParseData() {
+        
+        $this->usedImages = [];
+        $this->furtherReading = null;
+        $this->keyReferences = null;
+        $this->addReferences = null;
+    }
 
     public function parse(ReaderInterface $reader) {
 
@@ -251,7 +260,7 @@ class ArticleParser implements ParserInterface {
             throw new \Exception('Can not add article error - '.$e->getMessage());
         }
         
-        $this->usedImages = [];
+        $this->clearParseData();
 
         if (!$this->article->save()) {
             

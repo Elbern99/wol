@@ -42,7 +42,11 @@ trait AuthorParseTrait {
 
     protected function getAuthorEmail() {
         
-        return (string) $this->person->email;
+        if ($this->person->email) {
+            return (string) $this->person->email;
+        }
+        
+        return null;
     }
 
     protected function getAuthorPhone() {

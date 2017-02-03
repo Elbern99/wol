@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\modules\eav\helper\EavValueHelper;
 use common\models\Category;
+use common\modules\author\Roles;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -53,12 +54,12 @@ class ArticleRepository implements RepositoryInterface {
     }
     
     /* get Authors for category on top */
-    private function getAuthorIds() {
+    private function getAuthorIds(array $roles) {
         
-        return AuthorCategory::find()->select(['author_id'])
+        return AuthorCategory::find()->alias('ac')->select(['ac.author_id'])
                                ->where(['category_id' => $this->current->id])
-                               ->with(['authorRoles' => function($query) {
-                                   return $query->select(['role_id', 'author_id']);
+                               ->innerJoinWith(['authorRoles' => function($query) use ($roles) {
+                                   return $query->where(['role_id' => $roles]);
                                }])
                                ->asArray()
                                ->all();
@@ -69,8 +70,11 @@ class ArticleRepository implements RepositoryInterface {
     public function getPageParams() {
         
         $order = SORT_DESC;
-        $authorsRoles = [];
-        $authorsValue = [];
+        $authorRoles = new Roles();
+        $editor = [
+            'subject' => [],
+            'associate' => []
+        ];
         
         if (Yii::$app->request->get('sort')) {
             $order = SORT_ASC;
@@ -95,7 +99,14 @@ class ArticleRepository implements RepositoryInterface {
         });
         
         $categoryIds = $this->getArticleIds($limit);
-        $authorRoleIds = $this->getAuthorIds();
+        
+        $roles = [];
+        $associateEditor = $authorRoles->getTypeByLabel('associateEditor');
+        $subjectEditor = $authorRoles->getTypeByLabel('subjectEditor');
+        array_push($roles, $subjectEditor);
+        array_push($roles, $associateEditor);
+        
+        $authorRoleIds = $this->getAuthorIds($roles);
         
         if (count($authorRoleIds)) {
             
@@ -118,24 +129,32 @@ class ArticleRepository implements RepositoryInterface {
             $authorCollection->setAttributeFilter(['affiliation']);
             $authorCollection->initCollection(Author::tableName(), $authorIds);
             $authorValues = $authorCollection->getValues();
-            
+
             foreach ($authorRoleIds as $data) {
 
-                $affiliation = unserialize($authorValues[$data['author_id']]['affiliation']);
+                $affiliation =  EavValueHelper::getValue($authorValues[$data['author_id']], 'affiliation', function($data) {
+                    return $data->affiliation;
+                }, 'string');
+                    
                 $params = $authors[$data['author_id']];
-                
-                $authorsValue[$data['author_id']] = [
-                    'avatar' => $params['avatar'],
-                    'profile' => $params['profile'],
-                    'name' => $params['name'],
-                    'affiliation' => $affiliation->affiliation
-                ];
-
                 $roles = ArrayHelper::getColumn($data['authorRoles'], 'role_id');
 
-                foreach ($roles as $role) {
-                    $authorsRoles[$role][] = $data['author_id'];
+                if (in_array($subjectEditor, $roles)) {
+                    $editor['subject'][] = [
+                        'avatar' => $params['avatar'],
+                        'profile' => $params['profile'],
+                        'name' => $params['name'],
+                        'affiliation' => $affiliation
+                    ];
+                } elseif (in_array($associateEditor, $roles)) {
+                    $editor['associate'][] = [
+                        'avatar' => $params['avatar'],
+                        'profile' => $params['profile'],
+                        'name' => $params['name'],
+                        'affiliation' => $affiliation
+                    ];
                 }
+                
             }
             
             unset($authors);
@@ -150,8 +169,7 @@ class ArticleRepository implements RepositoryInterface {
                 'sort' => $order,
                 'limit' => $limit,
                 'articleCount' => 1,
-                'authorsValue' => $authorsValue,
-                'authorsRoles' => $authorsRoles
+                'editors' => $editor,
             ];
         }
 
@@ -210,8 +228,7 @@ class ArticleRepository implements RepositoryInterface {
             'sort' => $order,
             'limit' => $limit,
             'articleCount' => $this->getCategoryArticleCount(),
-            'authorsValue' => $authorsValue,
-            'authorsRoles' => $authorsRoles
+            'editors' => $editor,
         ];
     }
     

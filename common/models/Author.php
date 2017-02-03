@@ -62,6 +62,7 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
             [['enabled'], 'integer'],
             [['author_key', 'phone', 'url', 'avatar'], 'string', 'max' => 50],
             [['email', 'url_key', 'name'], 'string', 'max' => 255],
+            [['surname'], 'string', 'max' => 80],
             [['author_key'], 'unique'],
         ];
     }

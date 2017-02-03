@@ -15,9 +15,7 @@ trait ArticleParseTrait {
     abstract public function parse(ReaderInterface $reader);
     abstract protected function getParseImagePath($name);
     abstract protected function setTaxonomyData();
-    
-    protected $usedImages = [];
-    
+     
     protected function getRelated() {
         
         $relatedList = $this->getBackElementByType('related');

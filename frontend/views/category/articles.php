@@ -78,31 +78,49 @@ $roleLabel = new Roles();
                         </div>
                     </div>
                 </div>
-                <?php if ( count($authorsRoles) > 0): ?>
+                <?php if (count($editors['subject']) || count($editors['associate'])): ?>
                 <div class="article-user-list-holder">
                     <div class="mobile-accordion-item dropdown">
                         <div class="title mobile-accordion-link">
                             editorial team
                         </div>
                         <div class="mobile-accordion-drop drop-content">
-                            <?php foreach ($authorsRoles as $role => $authors): ?>
-                            <h3><?= Yii::t('app/text', $roleLabel->getTypeByKey($role)) ?></h3>
+                            <?php if (count($editors['subject'])): ?>
+                            <h3><?= Yii::t('app/text', 'Subject Editor') ?></h3>
                             <div class="article-user-list">
-                                <?php foreach($authors as $author): ?>
+                                <?php foreach ($editors['subject'] as $editor): ?>
                                 <div class="article-user">
                                     <div class="img-holder img-holder-bg">
-                                        <a href="<?= $authorsValue[$author]['profile'] ?>" class="img" style="background-image: url(<?= $authorsValue[$author]['avatar'] ?>)"></a>
+                                        <a href="<?= $editor['profile'] ?>" class="img" style="background-image: url(<?= $editor['avatar'] ?>)"></a>
                                     </div>
                                     <div class="desc">
                                         <div class="name">
-                                            <a href="<?= $authorsValue[$author]['profile'] ?>"><?= $authorsValue[$author]['name'] ?></a>
+                                            <a href="<?= $editor['profile'] ?>"><?= $editor['name'] ?></a>
                                         </div>
-                                        <p><?= $authorsValue[$author]['affiliation'] ?? '' ?></p>
+                                        <p><?= $editor['affiliation'] ?? '' ?></p>
                                     </div>
                                 </div>
                                 <?php endforeach; ?>
                             </div>
-                            <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php if (count($editors['associate'])): ?>
+                            <h3><?= Yii::t('app/text', 'Associate Editor') ?></h3>
+                            <div class="article-user-list">
+                                <?php foreach ($editors['associate'] as $editor): ?>
+                                <div class="article-user">
+                                    <div class="img-holder img-holder-bg">
+                                        <a href="<?= $editor['profile'] ?>" class="img" style="background-image: url(<?= $editor['avatar'] ?>)"></a>
+                                    </div>
+                                    <div class="desc">
+                                        <div class="name">
+                                            <a href="<?= $editor['profile'] ?>"><?= $editor['name'] ?></a>
+                                        </div>
+                                        <p><?= $editor['affiliation'] ?? '' ?></p>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
