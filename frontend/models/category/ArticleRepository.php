@@ -24,13 +24,14 @@ class ArticleRepository implements RepositoryInterface {
         $this->current = $currentCategory;
     }
     
-    private function getArticleIds($limit) {
+    private function getArticleIds($limit, $order) {
         
         return ArticleCategory::find()
                                 ->alias('ac')
                                 ->select(['article_id'])
                                 ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
                                 ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
+                                ->orderBy(['created_at' => $order])
                                 ->asArray()
                                 ->limit($limit)
                                 ->all();
@@ -98,7 +99,7 @@ class ArticleRepository implements RepositoryInterface {
             return ['title' => $data['title'], 'url_key' => $data['url_key']];
         });
         
-        $categoryIds = $this->getArticleIds($limit);
+        $categoryIds = $this->getArticleIds($limit, $order);
         
         $roles = [];
         $associateEditor = $authorRoles->getTypeByLabel('associateEditor');
