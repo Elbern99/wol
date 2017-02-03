@@ -12,7 +12,7 @@ trait AreasOfInterest {
                             ->alias('s')
                             ->select(['c.id', 'c.title'])
                             ->innerJoin(Category::tableName().' AS c', 's.id = c.root')
-                            ->where(['s.url_key' => 'articles', 'c.active' => 1, 'c.lvl' => 1])
+                            ->where(['s.url_key' => 'articles', 'c.active' => 1, 'c.lvl' => 1, 'c.filterable' => 0])
                             ->asArray()
                             ->all();
         
