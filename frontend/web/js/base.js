@@ -355,9 +355,26 @@
             });
         },
         pajax: function(container) {
-            $(container).on('pjax:end',   function() {
+            $(container).on('pjax:end', function() {
                 articleList.openMoreText('.article-more','.description');
             });
+        },
+        pajaxLoader: function(container) {
+            var container = $(container);
+
+            container.on('pjax:end', function() {
+                var curButtton = $(this).find('.btn-gray');
+                    curButtton.removeClass("loaded-timer");
+            });
+
+            container.on('pjax:click', function() {
+                var curButtton = $(this).find('.btn-gray');
+                    curButtton.addClass("loaded-timer");
+            });
+
+            container.on('click','.loaded-timer',function() {
+                return false;
+            })
         },
         accrodionSingleItem: function(btn,container) {
             $(btn).click(function(e) {
@@ -584,8 +601,6 @@
 
                 //set
 
-                console.log(slicedTitle)
-
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
                     twitter = "http://twitter.com/intent/tweet/?text="+slicedTitle+".&amp;url="+url+"",
                     facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
@@ -720,6 +735,7 @@
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
         articleList.pajax('#w0');
+        articleList.pajaxLoader('#w2,#w1,#w0');
         articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
         articlesFilter.sort('.custom-select-title','.custom-select');
