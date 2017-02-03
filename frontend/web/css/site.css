@@ -1824,18 +1824,19 @@ blockquote {
   .article-item h2,
   .post-item h2 {
     transition: font-size 0.1s ease !important; }
-  .article-item.opened-article h2,
-  .post-item.opened-article h2 {
-    font-size: 28px !important;
-    margin: 0 0 5px; }
-  .article-item.opened-article h3,
-  .post-item.opened-article h3 {
-    font-size: 14px !important;
-    margin: 0 0 5px;
-    line-height: 1.5em; }
-  .article-item.opened-article .publish,
-  .post-item.opened-article .publish {
-    margin: 0 0 4px; }
+  @media only screen and (min-width: 820px) {
+    .article-item.opened-article h2,
+    .post-item.opened-article h2 {
+      font-size: 28px !important;
+      margin: 0 0 5px; }
+    .article-item.opened-article h3,
+    .post-item.opened-article h3 {
+      font-size: 14px !important;
+      margin: 0 0 5px;
+      line-height: 1.5em; }
+    .article-item.opened-article .publish,
+    .post-item.opened-article .publish {
+      margin: 0 0 4px; } }
   .article-item h2,
   .post-item h2 {
     font-size: 16px;

@@ -154,19 +154,21 @@
 
   &.opened-article {
 
-    h2 {
-      font-size: 28px !important;
-      margin: 0 0 5px;
-    }
+    @include breakpoint('tablet') {
+      h2 {
+        font-size: 28px !important;
+        margin: 0 0 5px;
+      }
 
-    h3 {
-      font-size: 14px !important;
-      margin: 0 0 5px;
-      line-height: 1.5em;
-    }
+      h3 {
+        font-size: 14px !important;
+        margin: 0 0 5px;
+        line-height: 1.5em;
+      }
 
-    .publish {
-      margin: 0 0 4px;
+      .publish {
+        margin: 0 0 4px;
+      }
     }
   }
 
