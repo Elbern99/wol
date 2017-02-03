@@ -21,7 +21,7 @@
 
                     cur.find(list).tagit({
                         singleField: true,
-                        placeholderText: 'Enter words separate with spaces',
+                        placeholderText: 'Enter words separated with spaces',
                         singleFieldNode: curInput
                     });
                 });
