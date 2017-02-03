@@ -361,6 +361,7 @@
 
 .loaded-timer {
   position: relative;
+  z-index: 100;
 
   &:after {
     position: absolute;
@@ -376,6 +377,5 @@
     border-top: 5px solid #4d9bc1;
     border-left: 5px solid #cccccc;
     @include animation (spin, 1s, infinite, linear);
-    z-index: 1;
   }
 }

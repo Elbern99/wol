@@ -372,7 +372,7 @@
                     curButtton.addClass("loaded-timer");
             });
 
-            container.on('click','.loaded-timer',function() {
+            elements.document.on('click','.loaded-timer',function() {
                 return false;
             })
         },

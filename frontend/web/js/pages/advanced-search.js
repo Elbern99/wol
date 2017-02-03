@@ -52,7 +52,7 @@
 
             appendElements(el,elToMobile,elToDesktop);
 
-            elements.window.on('orientationchange', function() {
+            $(window).on('orientationchange', function() {
                 setTimeout(function(){
                     appendElements(el,elToMobile,elToDesktop);
                 }, 600);
