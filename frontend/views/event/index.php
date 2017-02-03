@@ -5,9 +5,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <?php
-
-$this->title = 'Events';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Events';
+$this->params['breadcrumbs'][] = 'Events';
 
 if ($category) {
     $this->registerMetaTag([
@@ -44,7 +44,7 @@ if ($category) {
                     <li class="active"><a href="" class="js-widget">Latest events</a></li>
                     <li><a href="" class="js-widget">Events archive</a></li>
                 </ul>
-                <h1 class="hide-desktop"><?= $this->title; ?></h1>
+                <h1 class="hide-desktop">Events</h1>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active">
                         <?php if (!empty($eventGroups)): ?>

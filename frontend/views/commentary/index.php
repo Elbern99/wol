@@ -5,8 +5,9 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 ?>
 <?php
-$this->title = 'Commentary';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Commentary';
+$this->params['breadcrumbs'][] = 'Commentary';
 
 if ($category) {
     $this->registerMetaTag([
