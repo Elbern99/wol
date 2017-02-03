@@ -121,21 +121,25 @@
 
     .help-block,
     .inner:after {
-      display: flex;
-      align-items: center;
       z-index: 1;
-      top: 100%;
-      justify-content: center;
-      text-align: center;
-      width: 218px;
-      padding: 3px 4px;
-      margin: -12px 0 0 84px;
+
+      @include breakpoint('tablet') {
+        display: flex;
+        align-items: center;
+        top: 100%;
+        justify-content: center;
+        text-align: center;
+        width: 218px;
+        padding: 3px 4px;
+        margin: -12px 0 0 84px;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
-        width: 320px;
-        margin: -151px 0 0 -160px;
-        left: 50%;
-        position: relative;
+        width: 94px;
+        margin: 0 0 0 3px;
+        left: 100%;
+        position: absolute;
+        padding: 6px;
       }
     }
 
@@ -273,7 +277,7 @@
 
   .select-clear-all {
     @include breakpoint_custom($breakpoint-tablet) {
-      margin: 0 0 0 7px;
+      margin: 0 0 0 -8px;
 
       span {
         width: auto;

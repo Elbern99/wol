@@ -31,8 +31,8 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="" class="js-widget">Opinions</a></li>
-                    <li><a href="" class="js-widget">Videos</a></li>
+                    <li><a href="/opinions" class="">Opinions</a></li>
+                    <li class="active"><a href="javascript:void(0)">Videos</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden expand-more">
@@ -122,7 +122,7 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
         </div>
         <?php Pjax::end(); ?>
 
-        <aside class="sidebar-right">
+        <aside class="sidebar-right hide-mobile">
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item">

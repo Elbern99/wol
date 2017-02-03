@@ -120,6 +120,24 @@
   }
 }
 
+
+.img-left-in-article {
+  .align-left {
+    margin: 0 0 16px 0;
+    overflow: hidden;
+
+    @include breakpoint('tablet') {
+      width: 47.3%;
+      margin: 6px 37px 20px 0;
+    }
+
+    img {
+      display: block;
+      min-width: 100%;
+    }
+  }
+}
+
 //NORMALIZE
 .clearfix:after {
 	content:"";

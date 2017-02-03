@@ -27,10 +27,10 @@ if ($category) {
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
             <?php if ($opinions) : ?>
-            <li><a href="" class="js-widget">Opinions</a></li>
+            <li><?= Html::a('Opinions', ['/opinion/index']); ?></li>
             <?php endif; ?>
             <?php if ($hasVideo) : ?>
-            <li><a href="" class="js-widget">Videos</a></li>
+            <li><?= Html::a('Videos', ['/videos/index']); ?></li>
             <?php endif; ?>
         </ul>
         <div class="mobile-filter-items custom-tabs">

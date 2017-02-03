@@ -35,8 +35,8 @@ if ($category) {
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="" class="js-widget">Opinions</a></li>
-                    <li><a href="" class="js-widget">Videos</a></li>
+                    <li class="active"><a href="javascript:void(0)">Opinions</a></li>
+                    <li><a href="/videos" class="">Videos</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden expand-more">
@@ -126,7 +126,7 @@ if ($category) {
         <?php Pjax::end(); ?>
 
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">opinions</a>

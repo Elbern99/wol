@@ -247,10 +247,12 @@
                 e.preventDefault();
             });
 
-            elements.window.resize(function() {
-                if(_window_width > _mobile) {
-                    $(list).find('li').eq(0).find('a').trigger('click');
-                }
+            elements.window.on('orientationchange', function() {
+                setTimeout(function(){
+                    if(_window_width > _mobile) {
+                        $(list).find('li').eq(0).find('a').trigger('click');
+                    }
+                }, 10);
             });
         },
         cloneTab: function(el,elToMobile,elToDesktop){
@@ -268,10 +270,13 @@
                 }
 
                 appendElements(el,elToMobile,elToDesktop);
-                elements.window.resize(function() {
+
+                elements.window.on('orientationchange', function() {
                     setTimeout(function(){
-                        appendElements(el,elToMobile,elToDesktop);
-                    }, 600);
+                        setTimeout(function(){
+                            appendElements(el,elToMobile,elToDesktop);
+                        }, 600);
+                    }, 10);
                 });
             }
         }
@@ -483,7 +488,7 @@
         },
         detectMore: function(item,btn) {
 
-            var itemEl = $(item)
+            var itemEl = $(item);
 
             if(itemEl.length) {
                 itemEl.each(function( index ) {
@@ -579,8 +584,11 @@
                     slicedTitle = sliceText(titleClear,140);
 
                 //set
+
+                console.log(slicedTitle)
+
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
-                    twitter = "http://twitter.com/intent/tweet/?text="+slicedDesc+".&amp;url="+url+"",
+                    twitter = "http://twitter.com/intent/tweet/?text="+slicedTitle+".&amp;url="+url+"",
                     facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
 
                 $(item).each(function() {
@@ -636,7 +644,8 @@
                 }
 
                 appendElements(el,elToMobile,elToDesktop);
-                elements.window.resize(function() {
+
+                elements.window.on('orientationchange', function() {
                     setTimeout(function(){
                         appendElements(el,elToMobile,elToDesktop);
                     }, 600);
