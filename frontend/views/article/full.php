@@ -181,8 +181,9 @@ $config = [
                     
                 <h2>Competing interests</h2>
                 <p><?= EavAttributeHelper::getAttribute('creation')->getData('main_creation') ?></p>
-                <p>&copy; <?=$article->availability?></p>
-
+                <?php if ($article->availability): ?>
+                    <p>&copy; <?=$article->availability?></p>
+                <?php endif; ?>
                 <div class="article-map-medium">
                     <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
                         <div class="article-map-medium-text">
