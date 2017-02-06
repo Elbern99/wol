@@ -174,7 +174,13 @@ $config = [
             <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
             <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
             <figure>
-                <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                <?php if ($gaImage->getData('target', $currentLang)): ?>
+                    <a href="<?= $gaImage->getData('target', $currentLang) ?>" class="text-reference">
+                        <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                    </a>
+                <?php else: ?>
+                    <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                <?php endif; ?>
             </figure>
 
             <h2>Key findings</h2>

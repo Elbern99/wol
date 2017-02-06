@@ -121,12 +121,10 @@
       },
       onMapClick: function(event) {
         event.target.closePopup();
-        var popup = event.target.getPopup();
+        var
+            popup = event.target.getPopup();
             elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
             elements.overlay.removeClass('js-tab-hidden').addClass('active');
-            elements.overlay.css('height', '1px');
-            elements.overlay.css('height', $(document).height());
-            elements.overlay.css('max-height', $(document).height());
 
           $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
 

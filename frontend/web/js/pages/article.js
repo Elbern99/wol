@@ -30,9 +30,6 @@
                 overlayEl = $(overlay);
 
             overlayEl.removeClass('js-tab-hidden').addClass('active');
-            overlayEl.css('height', '1px');
-            overlayEl.css('height', $(document).height());
-            overlayEl.css('max-height', $(document).height());
         },
         closeOverlay: function(overlay,triggerEl) {
             var
@@ -261,14 +258,18 @@
                     refLink = $('.text-reference'),
                     parentEl = $(parent),
                     textReferenceOpened = 'text-reference-opened',
-                    openedClass = 'opened-reflink';
+                    openedClass = 'opened-reflink',
+                    checkReferenceOpened = $('.'+textReferenceOpened).length;
+
+                if(!checkReferenceOpened) {
+                    article.changeContentPopup(keyLink);
+                }
 
                 refLink.removeClass(textReferenceOpened);
                 cur.addClass(textReferenceOpened);
 
                 $('li').removeClass(openedClass);
 
-                article.changeContentPopup(keyLink);
                 article.detectCoordinate(cur,parent);
 
                 keyLink.parent().addClass(openedClass);
@@ -464,8 +465,6 @@
                     curAttrIndex = cur.data('index'),
                     curAttr = cur.attr('href');
 
-
-                console.log(curAttr);
                 $(parent).find('a[href$="'+curAttr+'"]').trigger('click');
                 e.preventDefault();
             });

@@ -10,7 +10,16 @@
 <body>
     <?php $this->beginBody() ?>
     <?= $content ?>
-    <div class="footer">Copyright © IZA 2017</div>
+    <p>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">You are receiving this email to<span style="background:yellow"><a href="mailto:anna.fleming@bloomsbury.com" target="_blank">anna.fleming@bloomsbury.com</a></span> as you are opted in to IZA World of Labor updates.<br>
+        You can manage your IZA World of Labor contact details and preferences at <span style="background:lime"><a href="<?= Url::to('/my-account', true) ?>" target="_blank">http://iza.lokomotiv.cloud/my-account</a></span> or <span style="background:lime"><a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->code], true) ?>" target="_blank">unsubscribe</a></span> from all IZA World of Labor emails. </span>
+    </p>
+    <p>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Contact <span style="color:#1f497d"> u</span>s: <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> - IZA World of Labor, Forschungsinstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany.</span>
+    </p>
+    <p>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright © IZA <span style="background:yellow">2017</span></span>
+    </p>
     <?php $this->endBody() ?>
 </body>
 </html>

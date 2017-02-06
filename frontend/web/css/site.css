@@ -693,7 +693,8 @@ th {
   overflow: hidden;
   min-height: 100%;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  position: relative; }
   .holder .wrapper {
     width: 100%; }
 @keyframes spin {
@@ -8347,7 +8348,7 @@ iframe[name=advpp_manager] {
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px 30px; }
+  margin: 0 -15px; }
   @media only screen and (min-width: 820px) {
     .map-holder {
       position: relative;

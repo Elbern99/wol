@@ -151,7 +151,7 @@ $this->registerMetaTag([
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>View all of our data sources in one place</h3>
+                            <h3>Looking for economic data sets?</h3>
                         </div>
                     </a>
                     <a href="/methods" class="data-method-item">
@@ -160,7 +160,7 @@ $this->registerMetaTag([
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>Explore our methods</h3>
+                            <h3>Want to learn more about empirical methods?</h3>
                         </div>
                     </a>
                 </div>

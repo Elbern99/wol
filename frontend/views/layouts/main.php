@@ -43,9 +43,9 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 <body>
 <?php $this->beginBody() ?>
 <div class="holder">
+<div class="overlay js-tab-hidden"></div>
 
 <div class="wrapper">
-    <div class="overlay js-tab-hidden"></div>
 
     <main class="content">
         

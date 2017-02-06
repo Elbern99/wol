@@ -202,7 +202,7 @@ $roleLabel = new Roles();
                 </ul>
             </div>
             <div class="sidebar-widget">
-               <div class="widget-title">data & methods</div>
+                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
                     <a href="/data-sources" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
@@ -210,7 +210,7 @@ $roleLabel = new Roles();
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>View all of our data sources in one place</h3>
+                            <h3>Looking for economic data sets?</h3>
                         </div>
                     </a>
                     <a href="/methods" class="data-method-item">
@@ -219,7 +219,7 @@ $roleLabel = new Roles();
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>Explore our methods</h3>
+                            <h3>Want to learn more about empirical methods?</h3>
                         </div>
                     </a>
                 </div>

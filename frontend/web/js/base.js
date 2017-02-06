@@ -572,16 +572,26 @@
             if($(item).length) {
 
                 //get
-                var title = $('#title-document').text(),
+                var metaTitle = $('#title-document').text(),
                     desc = $('meta[name="description"]').attr("content"),
                     titleClear,
                     descClear,
-                    firstText = $('.content-inner-text p').text(),
-                    firstTitle = $('.content-inner h1'),
-                    url = document.URL;
+                    descText = $('.content-inner-text p').text(),
+                    title = $('.content h1').text(),
+                    url = document.URL,
+                    urlArray = url.split("//"),
+                    urlText = urlArray[1];
 
-                desc === undefined ? descClear = firstText : descClear = desc;
-                title === undefined ? titleClear = firstText : firstText = title;
+
+                if(desc === undefined) {
+                    descClear = descText;
+                } else{
+                    descClear = desc;
+                }
+
+                if(title === undefined) {
+                    title = metaTitle;
+                }
 
                 descClear = descClear.replace(/\s+/g," ");
                 titleClear = title.replace(/\s+/g," ");
@@ -602,7 +612,7 @@
                 //set
 
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
-                    twitter = "http://twitter.com/intent/tweet/?text="+slicedTitle+".&amp;url="+url+"",
+                    twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=iza_bonn&related=iza_bonn&text="+slicedTitle+"",
                     facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
 
                 $(item).each(function() {

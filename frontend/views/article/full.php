@@ -152,7 +152,13 @@ $config = [
                 <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract') ?></p>
                 <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
                 <figure>
-                    <img id="<?= $gaImage->getData('id'); ?>" data-target="<?= $gaImage->getData('target') ?>" src="<?= $gaImage->getData('path') ?>" alt="<?= $gaImage->getData('title') ?>">
+                    <?php if ($gaImage->getData('target')): ?>
+                        <a href="<?= $gaImage->getData('target') ?>" class="text-reference">
+                            <img id="<?= $gaImage->getData('id'); ?>" data-target="<?= $gaImage->getData('target') ?>" src="<?= $gaImage->getData('path') ?>" alt="<?= $gaImage->getData('title') ?>">
+                        </a>
+                    <?php else: ?>
+                        <img id="<?= $gaImage->getData('id'); ?>" data-target="<?= $gaImage->getData('target') ?>" src="<?= $gaImage->getData('path') ?>" alt="<?= $gaImage->getData('title') ?>">
+                    <?php endif; ?>
                 </figure>
 
                 <h2>Key findings</h2>

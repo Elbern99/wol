@@ -614,7 +614,8 @@ th {
   overflow: hidden;
   min-height: 100%;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  position: relative; }
   .holder .wrapper {
     width: 100%; }
 @keyframes spin {
