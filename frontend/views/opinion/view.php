@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $model->title;
                         <?= $model->created_at->format('F d, Y'); ?>
                     </div>
                     <div class="publish">
-                        <a href="#"><?= $model->getAuthorsLink(); ?></a>
+                        <?= $model->getAuthorsLink(); ?>
                     </div>
                 </div>
             </div>
