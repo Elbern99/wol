@@ -11,6 +11,17 @@
 <p>
     <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif;color:#1f497d">T</span>
     <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">he IZA World of Labor team <span style="color:#1f497d"><br>
-    <a href="<?= $link ?>" target="_blank">wol.iza.org </a></span> – supporting evidence-based policy making </span>
+    <a href="<?= Url::home(true) ?>" target="_blank"><?= Url::home(true) ?></a></span> – supporting evidence-based policy making </span>
+</p>
+<p>
+    <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">You are receiving this email to<span style="background:yellow"><a href="mailto:<?= \Yii::$app->params['moderatorEmail'] ?>" target="_blank"><?= \Yii::$app->params['moderatorEmail'] ?></a></span> as you are opted in to IZA World of Labor updates.<br>
+    You can manage your IZA World of Labor contact details and preferences at 
+    <span style="background:lime">
+        <a href="<?= Url::to('/my-account', true) ?>" target="_blank"><?= Url::to('/my-account', true) ?></a>
+    </span>
+    or
+    <span style="background:lime">
+        <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber], true) ?>" target="_blank">unsubscribe</a>
+    </span> from all IZA World of Labor emails. </span>
 </p>
 <?php $this->endContent(); ?>
