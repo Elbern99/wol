@@ -20,7 +20,7 @@
 
             html += '</ul>';
 
-            _current.next('.header-search-dropdown').html(html);
+            _current.next('.header-search-dropdown').html(html) ;
         }
 
         element.on('keyup',function(event) {
