@@ -208,6 +208,10 @@ class Result {
         }
         
         $authors = $query->asArray()->all();
+        
+        if (is_array($authors)) {
+            $authors = array_reverse($authors);
+        }
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['affiliation']);
