@@ -16,6 +16,7 @@ use yii\helpers\Html;
 use common\models\AuthorRoles;
 use frontend\components\widget\SidebarWidget;
 use frontend\models\AuthorSearchForm;
+use yii\helpers\Url;
 
 class AuthorsController extends Controller {
 
@@ -27,14 +28,17 @@ class AuthorsController extends Controller {
         $filter = Yii::$app->request->get('filter');
         $searchModel = new AuthorSearchForm();
         $collection = [];
-
+        $roles = new Roles();
+        
         $query = Author::find()
-                ->select(['id', 'url_key', 'avatar'])
-                ->orderBy('surname')
+                ->alias('a')
+                ->select(['a.id', 'a.url_key', 'a.avatar'])
+                ->innerJoin(AuthorRoles::tableName().' as ar', 'a.id = ar.author_id')
+                ->orderBy('a.surname')
                 ->with(['articleAuthors.article' => function($query) {
-                        return $query->select(['id', 'seo', 'title']);
-                    }])
-                ->where(['enabled' => 1]);
+                    return $query->select(['id', 'seo', 'title']);
+                }])
+                ->where(['a.enabled' => 1, 'ar.role_id' => $roles->getTypeByLabel('author')]);
         
         if (Yii::$app->request->isPost && $searchModel->load(Yii::$app->request->post())) {
             if ($searchModel->validate()) {
@@ -129,7 +133,7 @@ class AuthorsController extends Controller {
 
         $widgets = new SidebarWidget('profile');
 
-        return $this->render('profile', ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widgets' => $widgets]);
+        return $this->render($this->getProfileTemplate(), ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widgets' => $widgets]);
     }
 
     public function actionExpert() {
@@ -229,7 +233,7 @@ class AuthorsController extends Controller {
                 'expertise' => $expertise,
                 'language' => $language,
                 'author_country' => $author_country,
-                'profile' => $expert->getUrl(),
+                'profile' => Url::to([$expert->getUrl(), 'type' => 'expert']),
             ];
 
             if (Yii::$app->request->isPost) {
@@ -281,10 +285,7 @@ class AuthorsController extends Controller {
         $editorsRoleIds = $roles->getEditorGroup();
 
         $editorAuthor = AuthorRoles::find()->alias('a1')->select(['a1.role_id','a1.author_id', 'a.avatar', 'a.url_key'])
-                                           ->leftJoin(AuthorRoles::tableName().' as a2', 'a1.id + 1 = a2.id')
                                            ->innerJoin(Author::tableName().' as a', 'a.id = a1.author_id')
-                                           ->where('a1.author_id <> a2.author_id')
-                                           ->orWhere('a2.id IS NULL')
                                            ->andWhere(['a1.role_id' => $editorsRoleIds])
                                            ->andWhere(['a.enabled' => 1])
                                            ->orderBy('a.surname')
@@ -316,16 +317,28 @@ class AuthorsController extends Controller {
                 'name' => $name,
                 'affiliation' => $affiliation,
                 'avatar' => Author::getImageUrl($data['avatar']),
-                'profile' => Author::getAuthorUrl($data['url_key']),
+                'profile' => Url::to([Author::getAuthorUrl($data['url_key']), 'type' => 'editor']),
                 'interest' => $interest
             ];
-            
-            $collection[$data['role_id']][] = $userData;
+
+            $collection[$roles->getTypeByKey($data['role_id'])][] = $userData;
         }
         
         $widgets = new SidebarWidget('editorial_board');
+        $top = [];
+        
+        if (isset($collection['chiefEditor'])) {
+            $top = array_merge($top, $collection['chiefEditor']);
+            unset($collection['chiefEditor']);
+        }
+        
+        if (isset($collection['managingEditor'])) {
+            $top = array_merge($top, $collection['managingEditor']);
+            unset($collection['chiefEditor']);
+        }
         
         return $this->render('editorial-board', [
+            'top' => $top,
             'collection' => $collection, 
             'roles' => $roles,
             'widgets' => $widgets

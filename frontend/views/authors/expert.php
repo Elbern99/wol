@@ -30,7 +30,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
         <h1>IZA World of Labor - Find a topic spokesperson</h1>
-        <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
+        <p class="large-paragraph">With over <?= $expertCount ?> experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>
     
