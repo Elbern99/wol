@@ -8,7 +8,9 @@
 <body>
     <?php $this->beginBody() ?>
     <?= $content ?>
-    <div class="footer">Copyright © IZA 2017</div>
+    <p>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA <span style="background:yellow">2017</span></span>
+    </p>
     <?php $this->endBody() ?>
 </body>
 </html>

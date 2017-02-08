@@ -32,10 +32,12 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
     <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
         <div class="search-results-top">
             <div class="search">
-                <a href="/search/save" class="btn-border-blue-large with-icon-r btn-save-search">
-                    <span class="icon-save"></span>
-                    <div class="btn-save-search-inner">search saved to your account</div>
-                </a>
+                <div class="save-search-holder hide-desktop">
+                    <div class="save-search-alert">search saved to your account</div>
+                    <a href="/search/save" class="btn-border-blue-large with-icon-r btn-save-search">
+                        <span class="icon-save"></span>
+                    </a>
+                </div>
                 <div class="search-bottom">
                     <a href="<?= Url::to(['/search/advanced']) ?>">advanced search</a>
                 </div>
@@ -135,13 +137,15 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
             <aside class="sidebar-right">
 
                 <div class="sidebar-widget sidebar-widget-save">
-                    <a href="/search/save" class="btn-border-blue-large with-icon btn-save-search">
+                    <div class="save-search-holder">
+                        <div class="save-search-alert">search saved to your account</div>
+                        <a href="/search/save" class="btn-border-blue-large with-icon btn-save-search">
                         <span class="inner">
                             <span class="icon-save"></span>
                             <span class="text">save search</span>
                         </span>
-                        <div class="btn-save-search-inner">search saved to your account</div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="filter-clone-holder">

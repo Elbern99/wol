@@ -13,7 +13,7 @@
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 820,
+        _mobile = 769,
         _tablet = 1025;
 
     elements.window.resize(function() {
@@ -216,14 +216,17 @@
                     var
                         getCenter = curCordTop - _window_height/2,
                         checkDesktop = _window_width > _mobile,
+                        checkTooltip = $('.tooltip-ref-popup').length > 0,
                         checkElAfterCenter = getCenter > $(document).scrollTop();
 
-                    if(checkDesktop) {
-                        if(checkElAfterCenter) {
-                            htmlEl.animate({ scrollTop: getCenter }, article.delay+200);
+                    if(checkTooltip) {
+                        if(checkDesktop) {
+                            if(checkElAfterCenter) {
+                                htmlEl.animate({ scrollTop: getCenter }, article.delay+200);
+                            }
+                        } else {
+                            htmlEl.animate({ scrollTop: curCordTop }, article.delay+200);
                         }
-                    } else {
-                        htmlEl.animate({ scrollTop: curCordTop }, article.delay+200);
                     }
                 };
 
@@ -270,8 +273,6 @@
 
                 $('li').removeClass(openedClass);
 
-                article.detectCoordinate(cur,parent);
-
                 keyLink.parent().addClass(openedClass);
 
                 article.setIndex(parentEl,curAttr);
@@ -281,6 +282,14 @@
                 parentEl.addClass('def-reference-popup');
 
                 article.showPopupMobile('.def-reference-popup');
+
+                article.detectCoordinate(cur,parentEl);
+
+                elements.window.on('orientationchange', function() {
+                    setTimeout(function(){
+                        article.detectCoordinate(cur,parentEl);
+                    }, 600);
+                });
 
                 e.preventDefault();
             });
@@ -344,12 +353,15 @@
                 var alignCenter = (_window_height - $(parent).height())/2,
                     CurCord = cur.offset().top,
                     htmlEl = $('html, body'),
-                    checkWindow = _window_width > _mobile;
+                    checkWindow = _window_width > _mobile,
+                    checkPopup = $('.def-reference-popup').length > 0;
 
-                if(checkWindow){
-                    htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
-                } else {
-                    htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
+                if(checkPopup) {
+                    if(checkWindow){
+                        htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+                    } else {
+                        htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
+                    }
                 }
             }
         },
@@ -391,12 +403,15 @@
         },
         addToFavourite: function(btn) {
             $(btn).click(function(e) {
-                var cur = $(this);
+                var
+                    cur = $(this),
+                    curParent = cur.parent();
+
                 $.get(cur.prop('href'), function(data, status) {
-                    cur.children('.btn-like-inner').html(data.message);
-                    cur.addClass('added');
+                    curParent.find('.add-fav-alert').html(data.message);
+                    curParent.addClass('added');
                     setTimeout(function() {
-                        cur.removeClass('added');
+                        curParent.removeClass('added');
                     }, 3000);
                 });
 
@@ -449,6 +464,12 @@
 
                 if(checkAttr) {
                     article.detectCoordinate(keyLink,parentEl);
+
+                    elements.window.on('orientationchange', function() {
+                        setTimeout(function(){
+                            article.detectCoordinate(keyLink,parentEl);
+                        }, 600);
+                    });
 
                     if(checkWindow){
                         article.showPopupMobile('.def-reference-popup');

@@ -11,7 +11,7 @@
     <?php $this->beginBody() ?>
     <?= $content ?>
     <p>
-        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Contact <span style="color:#1f497d"> u</span>s: <a href="mailto:<?= Url::home(true) ?>" target="_blank"><?= Url::home(true) ?></a> - IZA World of Labor, Forschungsinstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany.</span>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Contact <span style="color:#1f497d"> u</span>s: <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> - IZA World of Labor, Forschungsinstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany.</span>
     </p>
     <p>
         <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA <span style="background:yellow">2017</span></span>

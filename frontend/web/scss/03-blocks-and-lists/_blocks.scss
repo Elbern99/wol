@@ -680,33 +680,71 @@
 }
 
 //BTN-LIKE
-.btn-like,
-.btn-save-search {
+.add-fav-holder,
+.save-search-holder {
   overflow: visible;
+  position: relative;
+  display: inline-block;
 
   &.added {
-    background: $light-blue;
-    border-color: $light-blue;
-    //overflow: visible;
 
-    .btn-like-inner,
-    .btn-save-search-inner {
+    .btn-like {
+
+      .icon-heart {
+        color: $white;
+
+        &:before {
+          content:'\e90b';
+        }
+      }
+    }
+    .btn-save-search {
+      color: #fff;
+
+      [class*='icon-'] {
+
+        &.icon-save {
+          margin: -7px 19px 0 7px;
+
+          @include breakpoint_custom($breakpoint-tablet) {
+            margin-top: -4px !important;
+          }
+        }
+
+        &:before {
+          content: '';
+          width: 4px;
+          height: 7px;
+          border-bottom: 2px solid #fff;
+          border-right: 2px solid #fff;
+          display: inline-block;
+          transform: rotate(41deg);
+        }
+      }
+    }
+
+    [class^="btn-"],
+    [class*=" btn-"] {
+      background: $light-blue;
+      border-color: $light-blue;
+    }
+
+    .add-fav-alert,
+    .save-search-alert {
       display: block;
       opacity: 1;
       position: absolute;
     }
   }
 
-  .btn-like-inner,
-  .btn-save-search-inner  {
+  .add-fav-alert,
+  .save-search-alert  {
     position: fixed;
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     background: #f5f5f5;
-    //width: 208px;
-    padding: 5px 10px 3px;
-    margin: 0 0 16px 0 !important;
+    margin: 0 0 15px 0 !important;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
     color: #262626 !important;
     font-size: 11px;
@@ -716,6 +754,10 @@
     transition: all 0.3s ease;
     border: 1px solid #d8d8d8;
     height: auto;
+    text-transform: uppercase;
+    width: 178px;
+    padding: 11px 10px 10px;
+    border-radius: 5px;
 
     &:after {
       position: absolute;
@@ -728,46 +770,6 @@
       box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
       background: #f5f5f5;
       z-index: -1;
-    }
-  }
-}
-
-.btn-save-search {
-  &.added {
-    color: #fff;
-
-    [class*='icon-'] {
-
-      &.icon-save {
-        margin: -7px 19px 0 7px;
-
-        @include breakpoint_custom($breakpoint-tablet) {
-          margin-top: -4px !important;
-        }
-      }
-
-      &:before {
-        content: '';
-        width: 4px;
-        height: 7px;
-        border-bottom: 2px solid #fff;
-        border-right: 2px solid #fff;
-        display: inline-block;
-        transform: rotate(41deg);
-      }
-    }
-  }
-}
-
-.btn-like {
-
-  &.added {
-    .icon-heart {
-      color: $white;
-
-      &:before {
-        content:'\e90b';
-      }
     }
   }
 }
@@ -1210,12 +1212,14 @@
 }
 
 .opinion-item {
-  max-height: 435px;
+
+  @include breakpoint('tablet') {
+    max-height: 435px;
+  }
 
   h2 {
     max-height: 60px;
     overflow: hidden;
-    //min-height: 29px;
 
     @include breakpoint('tablet') {
       max-height: 72px;

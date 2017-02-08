@@ -9,7 +9,7 @@
 
     //GLOBAL VARIABLE ---------
     var _window_width = elements.window.width(),
-        _mobile = 820,
+        _mobile = 769,
         _mobileSmall  = 413,
         _tablet = 1025,
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click');

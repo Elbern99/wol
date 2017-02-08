@@ -19,25 +19,20 @@
     .btn-border-blue-large {
       height: 33px;
       width: 33px;
-
-      .btn-save-search-inner {
-        top: auto;
-        left: auto;
-        right: 0;
-        transform: translateX(0);
-        margin: 0 0 13px !important;
-
-        &:after {
-          left: auto;
-          right: 8px;
-        }
-      }
-
     }
 
-    .btn-save-search-inner {
-      padding: 5px 16px 4px;
-      width: auto;
+    .save-search-alert {
+      top: auto;
+      left: auto;
+      right: 0;
+      transform: translateX(0);
+      margin: 0 0 13px !important;
+      width: 160px;
+
+      &:after {
+        left: auto;
+        right: 8px;
+      }
     }
 
     .search-results-top-text {
@@ -140,14 +135,10 @@
       @extend .clearfix;
     }
 
-    .btn-border-blue-large {
+    .save-search-holder {
       position: absolute;
       top: 0;
       right: 0;
-
-      @include breakpoint('tablet') {
-        display: none;
-      }
     }
   }
 

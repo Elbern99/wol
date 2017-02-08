@@ -122,8 +122,6 @@
 
         &:not(.has-image) {
           background: #dbe8f4;
-          //max-height: 395px;
-          //max-height: 408px;
 
           &:after {
             display: none;
@@ -265,7 +263,10 @@
         .post-item {
 
           &:not(.has-image) {
-            background: #dbe8f4;
+
+            @include breakpoint('desktop') {
+              background: #dbe8f4;
+            }
           }
 
           h2 {
@@ -514,7 +515,7 @@
     padding: 0 0 20px;
 
     @include breakpoint('desktop') {
-      width: 50%;
+      width: 33.3%;
       padding: 5px 3px 20px;
 
       .opinion-item,
@@ -680,7 +681,7 @@
     overflow: visible;
 
     @include breakpoint('tablet') {
-      width: 50%;
+      //width: 50%;
       padding: 3px 31px 25px 0;
     }
 

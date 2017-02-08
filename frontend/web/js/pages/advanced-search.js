@@ -5,7 +5,7 @@
         _window_width = $(window).width(),
         _doc_height = $(document).height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 820,
+        _mobile = 769,
         _tablet = 1025;
 
     $(window).resize(function() {
@@ -80,14 +80,15 @@
                     
                         if ('message' in data) {
 
-                            console.log(status)
+                            var
+                                parentEl = element.parent();
 
-                            element.children('.btn-save-search-inner').html(data.message);
-                            element.addClass('added');
+                            parentEl.find('.save-search-alert').html(data.message);
+                            parentEl.addClass('added');
 
                             setTimeout(function(){
-                                element.removeClass('added');
-                            }, 1600);
+                                parentEl.removeClass('added');
+                            }, 3000);
                         }
                     });
                     e.preventDefault();
