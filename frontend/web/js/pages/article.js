@@ -547,9 +547,15 @@
                 $(this).children('textarea').val(value);
             });
 
-            $('.download-cite-button').on('click', function() {
+            $('.download-cite-button').on('click', function(e) {
+
+
                 var querystring = $.param(citeConfig);
+
                 window.location.assign(citeConfig.postUrl+'?'+querystring);
+
+                $('.icon-close-popup').trigger('click');
+                e.preventDefault();
             });
 
             $('.copy-cite-button').on('click', function() {

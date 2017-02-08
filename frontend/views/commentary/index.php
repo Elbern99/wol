@@ -80,7 +80,7 @@ if ($category) {
     <p>Watch exclusive video from conferences, debates and other events on labor market economics as well as reading the latest opinion pieces from IZA World of Labor authors.</p>
     <?php if ($opinions) : ?>
     <div class="widget-title medium"><?= Html::a('opinions', ['/opinion/index']); ?></div>
-    <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+    <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
     <ul class="commentary-opinions-list">
         <?php foreach ($opinions as $opinion) : ?>
         <?php $hasImageClass = $opinion->image_link ? 'has-image' : null; ?>
@@ -118,7 +118,7 @@ if ($category) {
     <?php endif; ?>
     <?php if ($hasVideo) : ?>
     <div class="widget-title medium"><?= Html::a('videos', ['/video/index']); ?></div>
-    <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+    <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
     <ul class="commentary-videos-list">
         <?php foreach ($videos as $video) : ?>
         <li class="">

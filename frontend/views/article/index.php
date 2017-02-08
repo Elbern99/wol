@@ -52,7 +52,7 @@ $this->registerMetaTag([
     </div>
     
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text">
             <div class="articles">
                 <div class="sidebar-widget sidebar-widget-sort-by hide-desktop">

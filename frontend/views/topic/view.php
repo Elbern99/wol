@@ -49,7 +49,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             </p>
             <?php if ($collection) : ?>
             <div class="widget-title medium"><?= Html::a('articles', ['article/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-articles', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-articles', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list topic-articles-list">
                 <?php foreach($collection as $article): ?>
                 <li class="post-item">
@@ -94,7 +94,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             
             <?php if ($relatedOpinions) : ?>
             <div class="widget-title medium"><?= Html::a('opinions', ['opinion/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list topic-opinion-list">
                 <?php foreach ($relatedOpinions as $item) : ?>
                 <?php $opinion = $item->opinion; ?>
@@ -130,7 +130,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             
             <?php if ($relatedVideos) : ?>
             <div class="widget-title medium"><?= Html::a('videos', ['video/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list">
                 <?php foreach ($relatedVideos as $item) : ?>
                 <?php $video = $item->video; ?>
@@ -162,7 +162,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             <?php endif; ?>
             <?php if ($relatedEvents) : ?>
             <div class="widget-title medium"><?= Html::a('events', ['event/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-events', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-events', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list">
                 <?php foreach ($relatedEvents as $item) : ?>
                 <?php $event = $item->event; ?>

@@ -45,14 +45,14 @@
 .icon-number-reference.Mozambique+.leaflet-marker-iconlabel,
 .icon-number-reference.Republic-of-Serbia+.leaflet-marker-iconlabel,
 .icon-number-reference.Rwanda+.leaflet-marker-iconlabel,
-.icon-number-reference.Macedonia+.leaflet-marker-iconlabel
+.icon-number-reference.Macedonia+.leaflet-marker-iconlabel,
+.icon-number-reference.Cameroon+.leaflet-marker-iconlabel
 {
   transform: translateX(-10%);
 }
 
 .icon-number-reference.Senegal+.leaflet-marker-iconlabel,
-.icon-number-reference.Haiti+.leaflet-marker-iconlabel,
-.icon-number-reference.Cameroon+.leaflet-marker-iconlabel {
+.icon-number-reference.Haiti+.leaflet-marker-iconlabel {
   transform: translateX(-83%);
 }
 
@@ -314,7 +314,7 @@
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px;
+  margin: 0 -15px 20px;
 
   @include breakpoint('tablet') {
     position: relative;

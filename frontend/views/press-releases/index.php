@@ -64,7 +64,7 @@ if ($category) {
         <div class="content-inner-text">
             <div class="post-list-clone-holder">
                 <div class="post-list-clone">
-                    <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+                    <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
                     <ul class="post-list clone news-list">
                         <?php foreach ($news as $item) : ?>
                         <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
