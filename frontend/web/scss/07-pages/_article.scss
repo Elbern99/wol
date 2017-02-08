@@ -433,15 +433,13 @@
 //article-buttons
 
 .article-buttons-list {
-  //display: flex;
-  //align-items: center;
-  //flex-flow: row wrap;
   margin: 0 0 0 -3px;
 
   li {
     margin: 0 0 21px 3px;
     display: inline-block;
     vertical-align: top;
+    border: 0;
   }
 }
 
@@ -458,6 +456,7 @@
 
     .article-buttons-list {
       margin-left: 0;
+      margin-right: 5px;
     }
 
     .share-buttons-list {
