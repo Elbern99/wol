@@ -359,7 +359,7 @@ $config = [
                 <?=
                 implode(', ', array_map(
                     function($item) {
-                        return Html::a($item->word);
+                        return Html::a($item->word, Url::to(['/search/advanced', 'phrase' => $item->word]));
                     }, EavAttributeHelper::getAttribute('keywords')->getData()
                 ));
                 ?>

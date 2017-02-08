@@ -191,7 +191,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions' => ['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                                'label' => '<span class="label-text">'.ucfirst($label).'</span>',
                                             ]), ['class' => 'item']);
                                         }]) ?>
                                     </div>
