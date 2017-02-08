@@ -88,23 +88,39 @@ $config = [
         </div>
     </div>
 
-<div class="article-buttons article-buttons-mobile">
-    <?php if (isset($attributes['one_pager_pdf'])): ?>
-    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-        <span class="icon-download"></span>
-    </a>
-    <?php endif; ?>
-    <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
-        <span class="icon-quote"></span>
-    </a>
-    <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
-        <span class="icon-message"></span>
-    </a>
-    <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-    <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-        <span class="icon-heart"></span>
-        <div class="btn-like-inner"></div>
-    </a>
+<div class="article-buttons-mobile hide-desktop">
+
+    <ul class="article-buttons-list">
+        <li>
+            <?php if (isset($attributes['one_pager_pdf'])): ?>
+                <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <span class="icon-download"></span>
+                </a>
+            <?php endif; ?>
+        </li>
+        <li>
+            <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+                <span class="icon-quote"></span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="article-buttons-list">
+        <li class="add-fav-holder">
+            <div class="add-fav-alert"></div>
+            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                <span class="icon-heart"></span>
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                <span class="icon-message"></span>
+            </a>
+        </li>
+        <li>
+            <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+        </li>
+    </ul>
 </div>
 
 <div class="article-head">
@@ -204,7 +220,7 @@ $config = [
                 <?= EavAttributeHelper::getAttribute('main_message')->getData('text', $currentLang) ?>
             </div>
 
-            <div class="article-buttons">
+            <div class="article-buttons-bottom">
                 <div class="share-buttons">
                     <ul class="share-buttons-list">
                         <li class="share-facebook">
@@ -231,60 +247,86 @@ $config = [
                     </ul>
                 </div>
                 <div class="extra-buttons">
-                    <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-blue-middle btn-show-one-pager">show full article</a>
-                    <?php if (isset($attributes['one_pager_pdf'])): ?>
-                        <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-                            <div class="inner">
-                                <span class="icon-download"></span>
-                                <span class="text">download pdf</span>
-                            </div>
-                        </a>
-                    <?php endif; ?>
-                    <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
-                        <div class="inner">
-                            <span class="icon-quote"></span>
-                            <span class="text">cite</span>
-                        </div>
-                    </a>
-                    <div class="article-buttons-short">
-                        <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-                            <span class="icon-heart"></span>
-                            <div class="btn-like-inner"></div>
-                        </a>
-                        <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                        <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
-                            <span class="icon-message"></span>
-                        </a>
-                    </div>
+                    <ul class="article-buttons-list">
+                        <li class="btn-show-one-pager-holder">
+                            <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-blue-middle btn-show-one-pager">show full article</a>
+                        </li>
+                        <li>
+                            <?php if (isset($attributes['one_pager_pdf'])): ?>
+                                <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <div class="inner">
+                                        <span class="icon-download"></span>
+                                        <span class="text">download pdf</span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                        </li>
+                        <li>
+                            <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+                                <div class="inner">
+                                    <span class="icon-quote"></span>
+                                    <span class="text">cite</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="article-buttons-list">
+                        <li class="add-fav-holder">
+                            <div class="add-fav-alert"></div>
+                            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                                <span class="icon-heart"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                                <span class="icon-message"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </article>
     </div>
     <aside class="sidebar-right">
 
-        <div class="article-buttons article-buttons-sidebar">
-            <?php if (isset($attributes['one_pager_pdf'])): ?>
-            <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
-                <div class="inner">
-                    <span class="icon-download"></span>
-                    <span class="text">download pdf</span>
-                </div>
-            </a>
-            <?php endif; ?>
-            <a href="" class="btn-border-blue-middle btn-cite with-icon">
-                <div class="inner">
-                    <span class="icon-quote"></span>
-                    <span>cite</span>
-                </div>
-            </a>
-            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-                <span class="icon-heart"></span>
-                <div class="btn-like-inner"></div>
-            </a>
-            <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
-                <span class="icon-message"></span>
-            </a>
+        <div class="article-buttons-sidebar hide-mobile">
+            <ul class="article-buttons-list">
+                <li><?php if (isset($attributes['one_pager_pdf'])): ?>
+                    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                        <div class="inner">
+                            <span class="icon-download"></span>
+                            <span class="text">download pdf</span>
+                        </div>
+                    </a>
+                <?php endif; ?>
+                </li>
+                <li>
+                    <a href="" class="btn-border-blue-middle btn-cite with-icon">
+                        <div class="inner">
+                            <span class="icon-quote"></span>
+                            <span>cite</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="add-fav-holder">
+                    <div class="add-fav-alert"></div>
+                    <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                        <span class="icon-heart"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+                </li>
+                <li>
+                    <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                        <span class="icon-message"></span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="sidebar-widget sidebar-widget-share-buttons">
@@ -423,7 +465,7 @@ $config = [
                 <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                     <?php if(count($references) > 0): ?>
-                        <li class="sidebar-accrodion-item">
+                        <li class="sidebar-accrodion-item key-references-item">
                             <a href="" class="title">Key references</a>
                             <div class="text">
                                 <?php $i = 1; ?>

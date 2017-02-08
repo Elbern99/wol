@@ -3,7 +3,7 @@
 				//GLOBAL VARIABLE ---------
 				var _window_height = $(window).height(),
 								_window_width = $(window).width(),
-								_mobile = 820,
+								_mobile = 769,
 								_tablet = 1025;
 
 				$(window).resize(function() {

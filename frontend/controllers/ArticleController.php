@@ -222,7 +222,7 @@ class ArticleController extends Controller {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
         if (Yii::$app->user->isGuest || !is_object(Yii::$app->user->identity)) {
-            return ['message' => 'You have not logged'];
+            return ['message' => 'Please <a href="" class="fav-login">login</a> or <a href="/register" class="fav-register">register</a>'];
         }
         
         try {

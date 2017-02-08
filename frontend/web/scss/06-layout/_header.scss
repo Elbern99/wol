@@ -123,10 +123,15 @@
   position: relative;
 
   //desktop
+
+  @include breakpoint('desktop') {
+    .logo-main {
+      width: 160px;
+    }
+  }
+
   @include breakpoint('tablet') {
     padding: 23px 0 18px;
-
-    .logo-main { width: 160px; }
 
     .container {
       display: flex;
@@ -139,8 +144,8 @@
       padding: 0 10px 1px;
 
       .item {
-        font-size: 11px;
-        margin: 0 5px;
+        font-size: 12px;
+        margin: 0 3px;
 
         @include breakpoint('desktop') {
           font-size: 14px;
@@ -273,9 +278,13 @@
 
 .search {
   color: $black-brown;
-  width: 285px;
+  width: 225px;
   margin: 20px 0 -9px;
   position: relative;
+
+  @include breakpoint('desktop') {
+    width: 285px ;
+  }
 
   &.author-search-form {
     width: auto;
