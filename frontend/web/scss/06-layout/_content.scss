@@ -1,10 +1,16 @@
 .wrapper {
   min-height: 100%;
   display: flex;
-  flex-direction: column ;
+  flex-direction: column;
   overflow: hidden;
   position: relative;
 
+  @media print {
+    min-height: 1px;
+    display: block;
+    overflow: visible;
+    position: static;
+  }
 }
 
 .without-breadcrumbs {
@@ -58,12 +64,6 @@
     }
   }
 }
-
-//EXTRA
-.no-js body {
-
-}
-
 
 iframe[name = advpp_manager] {
   display: none;

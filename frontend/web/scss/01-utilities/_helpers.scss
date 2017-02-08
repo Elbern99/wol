@@ -221,10 +221,15 @@
 .holder {
   overflow: hidden;
   min-height: 100%;
-  //height: 100%;
   display: flex;
-  //flex-direction: column;
   position: relative;
+
+  @media print {
+    min-height: 1px;
+    display: block;
+    overflow: visible;
+    position: static;
+  }
 
   .wrapper {
     width: 100%;

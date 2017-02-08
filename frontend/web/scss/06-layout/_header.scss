@@ -3,8 +3,29 @@
 
   @include breakpoint('tablet') {
     display: block;
+    
+    .header-menu-bottom-list {
+      .item {
+
+        .submenu {
+          .item {
+            &:last-child {
+              a {
+                color: $light-blue;
+                
+                &:hover {
+                  color: $blue;
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
   }
 }
+
 .header-mobile {
   display: none;
 

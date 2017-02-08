@@ -393,7 +393,7 @@ th {
 @font-face {
   font-family: 'LucidaGrandeBold';
   src: url("../fonts/lucida-grande/bold/Lucida Grande Bold.eot");
-  src: url("../fonts/lucida-grande/bold/Lucida Grande Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-grande/bold/Lucida Grande Bold.woff2") format("woff2"), url("../fonts/lucida-grande/bold/Lucida Grande Bold.woff") format("woff"), url("../fonts/lucida-grande/bold/Lucida Grande Bold.svg#LucidaGrandeBold") format("svg");
+  src: url("../fonts/lucida-grande/bold/Lucida Grande Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/lucida-grande/bold/Lucida Grande Bold.svg#LucidaGrandeBold") format("svg");
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
@@ -695,6 +695,12 @@ th {
   display: -ms-flexbox;
   display: flex;
   position: relative; }
+  @media print {
+    .holder {
+      min-height: 1px;
+      display: block;
+      overflow: visible;
+      position: static; } }
   .holder .wrapper {
     width: 100%; }
 @keyframes spin {
@@ -1842,7 +1848,10 @@ blockquote {
       line-height: 1.5em; }
     .article-item.opened-article .publish,
     .post-item.opened-article .publish {
-      margin: 0 0 4px; } }
+      margin: 0 0 4px; }
+      .article-item.opened-article .publish p,
+      .post-item.opened-article .publish p {
+        display: inline; } }
   .article-item h2,
   .post-item h2 {
     font-size: 16px;
@@ -5620,6 +5629,12 @@ label {
       flex-direction: column;
   overflow: hidden;
   position: relative; }
+  @media print {
+    .wrapper {
+      min-height: 1px;
+      display: block;
+      overflow: visible;
+      position: static; } }
 
 @media only screen and (min-width: 769px) {
   .without-breadcrumbs {
@@ -5740,7 +5755,11 @@ iframe[name=advpp_manager] {
   display: none; }
   @media only screen and (min-width: 769px) {
     .header-desktop {
-      display: block; } }
+      display: block; }
+      .header-desktop .header-menu-bottom-list .item .submenu .item:last-child a {
+        color: #0094f2; }
+        .header-desktop .header-menu-bottom-list .item .submenu .item:last-child a:hover {
+          color: #0053a0; } }
 
 .header-mobile {
   display: none; }
@@ -6453,28 +6472,6 @@ iframe[name=advpp_manager] {
     .article-head {
       padding-right: 308px; } }
 
-@media print {
-  .footer,
-  .header {
-    display: none; } }
-@media print {
-  .article-full [class^="btn-"],
-  .article-full [class*=" btn-"],
-  .article-full .article-buttons-bottom {
-    display: none; }
-  .article-full .sidebar-widget {
-    display: none; }
-    .article-full .sidebar-widget.sidebar-widget-articles-references {
-      display: block; }
-      .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
-        display: none; }
-        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
-          display: block; }
-          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
-            padding-top: 20px;
-            display: block !important; }
-            .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
-              display: block !important; } }
 .article-full .mobile-filter-holder,
 .article-full .mobile-filter-list {
   margin-bottom: 5px; }
@@ -8414,7 +8411,7 @@ iframe[name=advpp_manager] {
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
-  margin: 0 -15px; }
+  margin: 0 -15px 20px; }
   @media only screen and (min-width: 769px) {
     .map-holder {
       position: relative;
@@ -9078,4 +9075,67 @@ path {
         top: 2px;
         display: block; } }
 
+/******* // PAGES *******/
+/******* PAGES *******/
+@media print {
+  body {
+    background: #fff; }
+
+  body,
+  h2,
+  h3,
+  .article-columns .clumn p:after {
+    color: #000; }
+
+  @page {
+    margin: 2cm; }
+  h2, h3 {
+    page-break-after: avoid; }
+
+  ul, img {
+    page-break-inside: avoid; }
+
+  a {
+    color: #000; }
+
+  a[href^=http]:after {
+    content: " - '" attr(href) "'"; }
+
+  p a {
+    word-wrap: break-word; }
+
+  * {
+    overflow: visible !important;
+    float: none !important;
+    position: relative !important; }
+
+  .footer,
+  .header,
+  .mobile-filter-holder,
+  .article-pagers-holder,
+  [class^="btn-"],
+  [class*=" btn-"],
+  .article-buttons-bottom {
+    display: none !important; }
+
+  .article-full .sidebar-widget {
+    display: none; }
+    .article-full .sidebar-widget.sidebar-widget-articles-references {
+      display: block; }
+      .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
+        display: none; }
+        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
+          display: none; }
+        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
+          display: block;
+          margin-top: -80px; }
+          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
+            padding-top: 20px;
+            display: block !important; }
+            .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
+              display: block !important; } }
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact; } }
 /******* // PAGES *******/

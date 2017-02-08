@@ -81,7 +81,7 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
     </div>
 
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text">
             <ul class="videos-list">
                 <?php foreach ($videos as $video) : ?>

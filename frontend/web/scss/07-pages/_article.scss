@@ -18,47 +18,11 @@
   }
 }
 
-@media print {
-  .footer,
-  .header {
-    display: none;
-  }
-}
 
 //ARTICLE FULL
 .article-full {
 
-  @media print {
-    //.sidebar-right,
-    [class^="btn-"],
-    [class*=" btn-"],
-    .article-buttons-bottom {
-      display: none;
-    }
 
-    .sidebar-widget {
-      display: none;
-
-      &.sidebar-widget-articles-references {
-        display: block;
-
-        .sidebar-accrodion-item {
-          display: none;
-          &.key-references-item  {
-            display: block;
-            .text {
-              padding-top: 20px;
-              display: block !important;
-
-              li {
-                display: block !important;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 
   .mobile-filter-holder,
   .mobile-filter-list {

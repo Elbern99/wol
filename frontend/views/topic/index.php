@@ -26,7 +26,7 @@ if ($category) {
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
             <h1>Key topics</h1>
-            <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+            <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="key-topics-list">
                 <?php foreach ($topics as $topic) : ?>
                 <?php $hasImage = $topic['image_link'] ? true : false; ?>

@@ -86,7 +86,7 @@ if ($category) {
     </div>
 
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text contact-page">
             <ul class="opinions-list">
                 <?php foreach ($opinions as $opinion) : ?>
