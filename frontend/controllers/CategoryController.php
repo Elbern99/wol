@@ -14,7 +14,8 @@ class CategoryController extends Controller {
                                     ->select([
                                         'url_key', 'title', 'root', 
                                         'meta_title', 'meta_keywords',
-                                        'description', 'type', 'lvl', 'id'
+                                        'description', 'type', 'lvl', 'id',
+                                        'lft', 'rgt'
                                     ]) 
                                     ->one();
         

@@ -12,6 +12,9 @@ use common\modules\author\Roles;
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$category->title;
 $this->params['breadcrumbs'][] = ['label'=>'Articles', 'url'=>Url::to('articles', true)];
+if ($parentCategory) {
+    $this->params['breadcrumbs'][] = ['label'=>$parentCategory->title, 'url'=>Url::to($parentCategory->url_key)];
+}
 $this->params['breadcrumbs'][] = $category->title;
 
 $this->registerMetaTag([

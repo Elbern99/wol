@@ -222,7 +222,14 @@ class ArticleRepository implements RepositoryInterface {
             ];
         }
         
+        $parent = null;
+        
+        if ($this->current->lvl > 1) {
+            $parent = $this->current->parents(1)->select(['title', 'url_key'])->one();
+        }
+        
         return [
+            'parentCategory' => $parent,
             'category' => $this->current, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
