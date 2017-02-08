@@ -179,8 +179,9 @@ class AuthorsController extends Controller {
 
 
         $experts = Author::find()
-                ->select(['id', 'avatar', 'author_key'])
-                ->where(['enabled' => 1, 'id' => $experstIds]);
+                ->select(['id', 'avatar', 'author_key', 'url_key'])
+                ->where(['enabled' => 1, 'id' => $experstIds])
+                ->orderBy('surname');
 
         if (!$loadSearch) {
             $experts->limit($limit);
@@ -227,7 +228,8 @@ class AuthorsController extends Controller {
                 'experience_type' => $experience_type,
                 'expertise' => $expertise,
                 'language' => $language,
-                'author_country' => $author_country
+                'author_country' => $author_country,
+                'profile' => $expert->getUrl(),
             ];
 
             if (Yii::$app->request->isPost) {
@@ -241,11 +243,11 @@ class AuthorsController extends Controller {
         }
 
         return $this->render('expert', [
-                    'expertCollection' => $expertCollection,
-                    'limit' => $limit,
-                    'expertCount' => count($experstIds),
-                    'search' => $finds,
-                    'filter' => $filter
+            'expertCollection' => $expertCollection,
+            'limit' => $limit,
+            'expertCount' => count($experstIds),
+            'search' => $finds,
+            'filter' => $filter
         ]);
     }
 
@@ -285,7 +287,7 @@ class AuthorsController extends Controller {
                                            ->orWhere('a2.id IS NULL')
                                            ->andWhere(['a1.role_id' => $editorsRoleIds])
                                            ->andWhere(['a.enabled' => 1])
-                                           ->orderBy('a1.author_id')
+                                           ->orderBy('a.surname')
                                            ->asArray()
                                            ->all();
 

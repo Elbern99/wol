@@ -76,12 +76,16 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <div class="img-holder img-holder-bg">
                         <div class="img" style="background-image: url(<?= $expert['avatar']; ?>)"></div>
                     </div>
-                    <div class="name"><?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?></div>
-                    <p class="location"><?= $expert['affiliation'] ?></p>
-                    <p><strong>Expertise:</strong> <?= implode(',', $expert['expertise'])?></p>
-                    <p><strong>Media Experience:</strong> <?= implode(',', $expert['experience_type'])?></p>
-                    <p><strong>Languages:</strong> <?php array_walk($expert['language'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
-                    <p><strong>Country:</strong><?php array_walk($expert['author_country'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
+                    <div class="name">
+                        <a href="<?= $expert['profile'] ?>">
+                           <?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?>
+                        </a>
+                    </div>
+                    <p class="location"> <?= $expert['affiliation'] ?></p>
+                    <p><strong>Expertise:</strong> <?= implode(', ', $expert['expertise'])?></p>
+                    <p><strong>Media Experience:</strong> <?= implode(', ', array_map(function($value){ return ucfirst($value); }, $expert['experience_type']))?></p>
+                    <p><strong>Languages:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['language'])) ?></p>
+                    <p><strong>Country:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['author_country'])) ?></p>
                 </li>
                 <?php endforeach; ?>
             </ul>
