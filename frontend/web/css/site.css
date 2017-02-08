@@ -6722,20 +6722,16 @@ iframe[name=advpp_manager] {
         transition: color 0.3s ease; } }
 
 .article-buttons-list {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-      align-items: center;
-  -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
-  margin: 0 0 0 -7px; }
+  margin: 0 0 0 -3px; }
   .article-buttons-list li {
-    margin: 0 0 21px 7px; }
+    margin: 0 0 21px 3px;
+    display: inline-block;
+    vertical-align: top; }
 
 .article-buttons-bottom {
   border-top: 1px solid #b0b0b0;
   position: relative;
-  padding: 20px 0 24px; }
+  padding: 20px 0; }
   @media only screen and (min-width: 769px) {
     .article-buttons-bottom {
       display: -ms-flexbox;
@@ -6755,7 +6751,7 @@ iframe[name=advpp_manager] {
         display: flex;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
-        margin: 0 0 -21px -7px; }
+        margin: 0 0 -21px -3px; }
       .article-buttons-bottom .share-buttons {
         -ms-flex-order: 2;
             order: 2; } }

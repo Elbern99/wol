@@ -433,20 +433,22 @@
 //article-buttons
 
 .article-buttons-list {
-  display: flex;
-  align-items: center;
-  flex-flow: row wrap;
-  margin: 0 0 0 -7px;
+  //display: flex;
+  //align-items: center;
+  //flex-flow: row wrap;
+  margin: 0 0 0 -3px;
 
   li {
-    margin: 0 0 21px 7px;
+    margin: 0 0 21px 3px;
+    display: inline-block;
+    vertical-align: top;
   }
 }
 
 .article-buttons-bottom {
   border-top: 1px solid #b0b0b0;
   position: relative;
-  padding: 20px 0 24px;
+  padding: 20px 0;
 
   @include breakpoint('tablet') {
     display: flex;
@@ -468,7 +470,7 @@
       max-width: 60%;
       display: flex;
       flex-flow: row wrap;
-      margin: 0 0 -21px -7px;
+      margin: 0 0 -21px -3px;
     }
 
     .share-buttons {
