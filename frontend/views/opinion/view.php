@@ -83,6 +83,16 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </div>
                 </div>
             </div>
+            <div class="head-news-holder">
+                <div class="head-news">
+                    <div class="date">
+                        <?= $model->created_at->format('F d, Y'); ?>
+                    </div>
+                    <div class="publish">
+                        <?= $model->getAuthorsLink(); ?>
+                    </div>
+                </div>
+            </div>
             <h1><?= $model->title; ?></h1>
         </div>
     </div>

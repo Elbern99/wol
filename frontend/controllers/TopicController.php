@@ -71,7 +71,7 @@ class TopicController extends Controller {
 
         }
          
-        $topicsQuery = Topic::find()->orderBy('id desc');
+        $topicsQuery = Topic::find()->orderBy('created_at desc');
 
         return $this->render('index', [
             'category' => $this->_getMainCategory(),
