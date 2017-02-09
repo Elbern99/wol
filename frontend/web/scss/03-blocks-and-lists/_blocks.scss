@@ -1217,8 +1217,13 @@
 
 .opinion-item {
 
-  @include breakpoint('tablet') {
-    max-height: 435px;
+  @include breakpoint('desktop') {
+    max-height: 409px;
+    height: 409px;
+
+    &.has-image {
+      height: auto;
+    }
   }
 
   h2 {

@@ -35,15 +35,11 @@ $roleLabel = new Roles();
         <div class="mobile-filter-holder custom-tabs-holder">
             <ul class="mobile-filter-list">
                 <li><a href="" class="js-widget">Subject areas</a></li>
-                <li><a href="" class="js-widget">Trending topics</a></li>
                 <li><a href="" class="js-widget">Authors</a></li>
             </ul>
             <div class="mobile-filter-items custom-tabs">
                 <div class="tab-item blue js-tab-hidden expand-more">
                     <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
-                </div>
-                <div class="tab-item blue js-tab-hidden expand-more">
-                    test 2
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
                     test 3

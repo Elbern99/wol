@@ -16,13 +16,15 @@
   @include breakpoint('tablet') {
     padding-right: 308px;
   }
+
+  &.article-head-full {
+    padding-right: 0;
+  }
 }
 
 
 //ARTICLE FULL
 .article-full {
-
-
 
   .mobile-filter-holder,
   .mobile-filter-list {

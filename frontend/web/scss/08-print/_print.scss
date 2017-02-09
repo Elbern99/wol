@@ -14,7 +14,7 @@
   }
 
   @page {
-    margin: 2cm;
+    margin: 2cm 1cm;
   }
 
   h2, h3 {
@@ -60,6 +60,17 @@
 
   //ARTICLE-FULL
   .article-full {
+    margin-top: -2cm;
+
+    .article-user {
+      .img-holder {
+        display: none;
+
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+          display: block;
+        }
+      }
+    }
 
     .sidebar-widget {
       display: none;
@@ -90,6 +101,8 @@
       }
     }
   }
+
+
 }
 
 @media print and (color) {
