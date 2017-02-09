@@ -40,7 +40,6 @@ return [
         'editorial_board' => [
             'views_on_iza', 'socials', 
             'stay_up_to_date', 'iza_journals',
-            'editorial_board_widget',
             'former_editor_thanks'
         ],
         'profile' => ['ask_the_expert']

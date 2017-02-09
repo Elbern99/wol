@@ -5,9 +5,9 @@ use yii\helpers\Url;
 
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle.'Editorial Board';
+$this->title = $prefixTitle.'Editorial board';
 $this->params['breadcrumbs'][] = ['label' => Html::encode('About'), 'url' => Url::to(['/about'])];
-$this->params['breadcrumbs'][] = Html::encode('Editorial Board');
+$this->params['breadcrumbs'][] = Html::encode('Editorial board');
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -26,7 +26,7 @@ $this->registerMetaTag([
         </div>
     </div>
 
-    <h1>Editorial Board</h1>
+    <h1>Editorial board</h1>
 
     <div class="content-inner">
         <div class="content-inner-text">
@@ -45,7 +45,7 @@ $this->registerMetaTag([
                                 <?= $author['name']->last_name ?>
                             </a>
                         </div>
-                        <div class="vacancy"><?= $author['interest'] ?></div>
+                        <div class="vacancy"><?= Yii::t('app/text',$author['role']) ?></div>
                         <p><?= $author['affiliation'] ?></p>
                     </li>
                 <?php endforeach; ?>
@@ -53,7 +53,7 @@ $this->registerMetaTag([
             <?php endif; ?>
             
             <?php if (isset($collection['subjectEditor'])): ?>
-            <h2><?= Html::encode('Subject Editors') ?></h2>
+            <h2><?= Html::encode('Subject editors') ?></h2>
             <ul class="editors-list">
                 <?php foreach($collection['subjectEditor'] as $author): ?>
                     <li class="editor-item">
@@ -68,7 +68,13 @@ $this->registerMetaTag([
                                 <?= $author['name']->last_name ?>
                             </a>
                         </div>
-                        <div class="vacancy"><?= $author['interest'] ?></div>
+                        <?php if(is_array($author['category'])): ?>
+                        <div class="vacancy">
+                            <?php foreach($author['category'] as $category): ?>
+                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
                         <p><?= $author['affiliation'] ?></p>
                     </li>
                 <?php endforeach; ?>
@@ -76,7 +82,7 @@ $this->registerMetaTag([
             <?php endif; ?>
             
             <?php if (isset($collection['associateEditor'])): ?>
-            <h2><?= Html::encode('Associate Editors') ?></h2>
+            <h2><?= Html::encode('Associate editors') ?></h2>
             <ul class="editors-list">
                 <?php foreach($collection['associateEditor'] as $author): ?>
                     <li class="editor-item">
@@ -91,7 +97,13 @@ $this->registerMetaTag([
                                 <?= $author['name']->last_name ?>
                             </a>
                         </div>
-                        <div class="vacancy"><?= $author['interest'] ?></div>
+                        <?php if(is_array($author['category'])): ?>
+                        <div class="vacancy">
+                            <?php foreach($author['category'] as $category): ?>
+                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
                         <p><?= $author['affiliation'] ?></p>
                     </li>
                 <?php endforeach; ?>
@@ -99,7 +111,7 @@ $this->registerMetaTag([
             <?php endif; ?>
             
             <?php if (isset($collection['formerEditor'])): ?>
-            <h2><?= Html::encode('Former Editors') ?></h2>
+            <h2><?= Html::encode('Former editors') ?></h2>
             <?= $widgets->getPageWidget('former_editor_thanks') ?>
             <ul class="editors-list">
                 <?php foreach($collection['formerEditor'] as $author): ?>
@@ -115,18 +127,22 @@ $this->registerMetaTag([
                                 <?= $author['name']->last_name ?>
                             </a>
                         </div>
-                        <div class="vacancy"><?= $author['interest'] ?></div>
+                        <?php if(is_array($author['category'])): ?>
+                        <div class="vacancy">
+                            <?php foreach($author['category'] as $category): ?>
+                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
                         <p><?= $author['affiliation'] ?></p>
                     </li>
                 <?php endforeach; ?>
             </ul>
             <?php endif; ?>
-            
-            <?= $widgets->getPageWidget('editorial_board_widget') ?>
         </div>
 
         <aside class="sidebar-right">
-            <?php foreach ($widgets->getPageWidgets(['editorial_board_widget', 'former_editor_thanks']) as $widget): ?>
+            <?php foreach ($widgets->getPageWidgets(['former_editor_thanks']) as $widget): ?>
                 <?= $widget ?>
             <?php endforeach; ?>
         </aside>

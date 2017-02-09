@@ -17,6 +17,8 @@ use common\models\AuthorRoles;
 use frontend\components\widget\SidebarWidget;
 use frontend\models\AuthorSearchForm;
 use yii\helpers\Url;
+use common\models\AuthorCategory;
+use common\models\Category;
 
 class AuthorsController extends Controller {
 
@@ -293,36 +295,49 @@ class AuthorsController extends Controller {
                                            ->all();
 
         $authorIds = ArrayHelper::getColumn($editorAuthor, 'author_id');
+        $authorCategories = AuthorCategory::find()
+                            ->select(['c.url_key', 'c.title', 'ac.author_id as id'])
+                            ->alias('ac')
+                            ->innerJoin(Category::tableName().' as c', 'c.id = ac.category_id')
+                            ->where(['ac.author_id' => $authorIds, 'c.active' => 1])
+                            ->asArray()
+                            ->all();
         
+        $formatAuthorCategories = [];
+        foreach ($authorCategories as $data) {
+            $formatAuthorCategories[$data['id']][] = $data;
+        }
+        unset($authorCategories);
+
         $authorCollection = Yii::createObject(CategoryCollection::class);
-        $authorCollection->setAttributeFilter(['name', 'affiliation', 'interests']);
+        $authorCollection->setAttributeFilter(['name', 'affiliation']);
         $authorCollection->initCollection(Author::tableName(), $authorIds);
         $authorValues = $authorCollection->getValues();
         
         foreach ($editorAuthor as $data) {
-            
+
             $name = EavValueHelper::getValue($authorValues[$data['author_id']], 'name', function($data) {
-                        return $data;
-                    });
+                return $data;
+            });
 
             $affiliation = EavValueHelper::getValue($authorValues[$data['author_id']], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string');
-                    
-            $interest = EavValueHelper::getValue($authorValues[$data['author_id']], 'interests', function($data) {
-                        return $data->interests;
-                    }, 'string');
+                return $data->affiliation;
+            }, 'string');
+
             
             $userData = [
                 'name' => $name,
                 'affiliation' => $affiliation,
                 'avatar' => Author::getImageUrl($data['avatar']),
                 'profile' => Url::to([Author::getAuthorUrl($data['url_key']), 'type' => 'editor']),
-                'interest' => $interest
+                'role' => $roles->getTypeByKey($data['role_id']),
+                'category' => $formatAuthorCategories[$data['author_id']] ?? null
             ];
 
             $collection[$roles->getTypeByKey($data['role_id'])][] = $userData;
         }
+        
+        unset($formatAuthorCategories);
         
         $widgets = new SidebarWidget('editorial_board');
         $top = [];
