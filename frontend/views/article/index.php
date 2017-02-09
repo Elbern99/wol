@@ -48,7 +48,9 @@ $this->registerMetaTag([
             </div>
         </div>
         <h1><?= $category->meta_title ?></h1>
-        <p><?= $category->description ?></p>
+        <div class="desc-category">
+            <p><?= $category->description ?></p>
+        </div>
     </div>
     
     <div class="content-inner">
