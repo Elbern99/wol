@@ -12,6 +12,8 @@ return [
     'managingEditor' => 'Managing Editor',
     'subjectEditor' => 'Subject Editor',
     'associateEditor' => 'Associate Editor',
-    'formerEditor' => 'Former Editor'
+    'formerEditor' => 'Former Editor',
+    'nativeSpeaker' => 'Native speaker',
+    'nonNativeSpeaker' => 'Non-native speaker'
 ];
 

@@ -84,9 +84,22 @@ trait ProfileTrait {
                             ->select(['name', 'url_key'])
                             ->where(['enabled' => 1])
                             ->andFilterWhere(['like', 'name', $letter.'%', false])
-                            ->orderBy('name')
+                            ->orderBy('surname')
                             ->asArray()
                             ->all();
+    }
+    
+    protected function getProfileTemplate() {
+        $type = Yii::$app->request->get('type');
+        
+        switch($type) {
+            case 'expert':
+                return 'profile-expert';
+            case 'editor':
+                return 'profile-editor';
+            default:
+                return 'profile';
+        }
     }
 }
 

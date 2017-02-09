@@ -63,10 +63,17 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </div>
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
-                    <p class="short-desc"><?= $author['affiliation'] ?></p>
-                    <div class="quote">
-                        <em><?= $author['testimonial'] ?></em>
+                    
+                    <!-- editor type -->
+                    <?php $areas = $author['author']->getAuthorCategoriesArray(); ?>
+                    <?php if (is_array($areas) && count($areas)): ?>
+                    <div class="item">
+                        <?php foreach($areas as $area): ?>
+                        <p><?= Html::a($area['title'], $area['url_key']) ?></p>
+                        <?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
+                    <p class="short-desc"><?= $author['affiliation'] ?></p>
                     <?php if (count($author['roles'])): ?>
                     <div class="item">
                         <h2>IZA World of Labor role</h2>

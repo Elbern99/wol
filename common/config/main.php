@@ -2,15 +2,6 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'modules' => [
-        'treemanager' => [
-            'class' => '\common\modules\category\Module'
-        ],
-        'menu_module' => [
-            'class' => '\common\modules\menu\Module',
-            'components' => [
-                'menu_manager' => '\common\modules\menu\Manager'
-            ]
-        ],
         'eav_module' => [
             'class' => '\common\modules\eav\Module',
             'components' => [
@@ -20,16 +11,6 @@ return [
                 'type' => '\common\models\eav\EavType',
                 'atribute_type' => '\common\models\eav\EavTypeAttributes',
                 'value' => '\common\models\eav\EavValue'
-            ]
-        ],
-        'settings_module' => [
-            'class' => '\common\modules\settings\Module',
-        ],
-        'newsletter_module' => [
-            'class' => '\common\modules\newsletter\Module',
-            'components' => [
-                'newsletter_model' => '\common\models\Newsletter',
-                'newsletter_facade' => '\common\modules\newsletter\Newsletter'
             ]
         ],
         'task' => [

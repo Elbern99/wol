@@ -30,7 +30,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
         <h1>IZA World of Labor - Find a topic spokesperson</h1>
-        <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
+        <p class="large-paragraph">With over <?= $expertCount ?> experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>
     
@@ -76,12 +76,16 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <div class="img-holder img-holder-bg">
                         <div class="img" style="background-image: url(<?= $expert['avatar']; ?>)"></div>
                     </div>
-                    <div class="name"><?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?></div>
-                    <p class="location"><?= $expert['affiliation'] ?></p>
-                    <p><strong>Expertise:</strong> <?= implode(',', $expert['expertise'])?></p>
-                    <p><strong>Media Experience:</strong> <?= implode(',', $expert['experience_type'])?></p>
-                    <p><strong>Languages:</strong> <?php array_walk($expert['language'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
-                    <p><strong>Country:</strong><?php array_walk($expert['author_country'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
+                    <div class="name">
+                        <a href="<?= $expert['profile'] ?>">
+                           <?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?>
+                        </a>
+                    </div>
+                    <p class="location"> <?= $expert['affiliation'] ?></p>
+                    <p><strong>Expertise:</strong> <?= implode(', ', $expert['expertise'])?></p>
+                    <p><strong>Media Experience:</strong> <?= implode(', ', array_map(function($value){ return ucfirst($value); }, $expert['experience_type']))?></p>
+                    <p><strong>Languages:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['language'])) ?></p>
+                    <p><strong>Country:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['author_country'])) ?></p>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -187,7 +191,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions' => ['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                                'label' => '<span class="label-text">'.ucfirst($label).'</span>',
                                             ]), ['class' => 'item']);
                                         }]) ?>
                                     </div>

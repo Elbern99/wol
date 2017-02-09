@@ -137,4 +137,14 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
             return $roles[$data['role_id']] ?? null;
         });
     }
+    
+    public function getAuthorCategoriesArray() {
+        return  AuthorCategory::find()
+                    ->select(['c.url_key', 'c.title'])
+                    ->alias('ac')
+                    ->innerJoin(Category::tableName().' as c', 'c.id = ac.category_id')
+                    ->where(['author_id' => $this->id, 'c.active' => 1])
+                    ->asArray()
+                    ->all();
+    }
 }

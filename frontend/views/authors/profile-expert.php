@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use common\models\Author;
 use frontend\components\articles\SubjectAreas;
+use common\helpers\Country;
 ?>
 
 <?php
@@ -64,15 +65,64 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
                     <p class="short-desc"><?= $author['affiliation'] ?></p>
-                    <div class="quote">
-                        <em><?= $author['testimonial'] ?></em>
-                    </div>
+                    
                     <?php if (count($author['roles'])): ?>
                     <div class="item">
                         <h2>IZA World of Labor role</h2>
                         <p><?= implode(', ', array_map(function($role) {
                            return Yii::t('app/text', $role);
                         }, $author['roles'])) ?></p>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if (count($author['expertise'])): ?>
+                    <div class="item">
+                        <h2>Expertise</h2>
+                        <p><?= implode(', ', array_map(function($exp) {
+                           return $exp;
+                        }, $author['expertise'])) ?></p>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if (count($author['country'])): ?>
+                    <div class="item">
+                        <h2>Country</h2>
+                        <p><?= implode(', ', array_map(function($code) {
+                           return Country::getCountryName($code);
+                        }, $author['country'])) ?></p>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if (count($author['language'])): ?>
+                    <div class="item">
+                        <h2>Languages</h2>
+                        <p><?= implode(', ', array_map(function($lang) {
+                           $str = Country::getCountryName($lang->code);
+                           if ($lang->proficiency) {
+                               $str .= ' - '.Yii::t('app/text',$lang->proficiency);
+                           }
+                           return $str;
+                        }, $author['language'])) ?></p>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($author['experience_type']): ?>
+                    <div class="item">
+                        <h2>Media experience</h2>
+                        <p><?= $author['experience_type'] ?></p>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($author['author']->email): ?>
+                    <div class="item">
+                        <h2>Email</h2>
+                        <p><?= $author['author']->email ?></p>
+                    </div>
+                    <?php endif; ?>
+                    <?php if ($author['author']->phone): ?>
+                    <div class="item">
+                        <h2>Phone</h2>
+                        <p><?= $author['author']->phone ?></p>
                     </div>
                     <?php endif; ?>
                     <?php if(isset($author['position']->current) && $author['position']->current): ?>
@@ -85,12 +135,6 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php else: ?>
                                 <p><?= $author['position']->current ?></p>
                         <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    <?php if($author['interests']): ?>
-                    <div class="item">
-                        <h2>Research interest</h2>
-                        <p><?= $author['interests'] ?></p>
                     </div>
                     <?php endif; ?>
                     <?php if ($author['author']->url): ?>
@@ -111,6 +155,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
+                    
                     <?php if(isset($author['position']->past) && $author['position']->past): ?>
                     <div class="item">
                         <h2>Past positions</h2>
@@ -123,6 +168,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
+                    
                     <?php if($author['degree'] ): ?>
                     <div class="item">
                         <h2>Qualifications</h2>

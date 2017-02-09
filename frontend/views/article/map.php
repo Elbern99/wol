@@ -130,7 +130,7 @@ $this->registerCssFile('/css/leaflet.css');
         </div>
 
         <div class="map-title">Evidence map</div>
-        <h1><?= $attributes['title']->getData('title'); ?></h1>
+        <h1><a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title'); ?></a></h1>
     </div>
 
     <div class="content-inner">
