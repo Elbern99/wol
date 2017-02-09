@@ -67,67 +67,69 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <div class="quote">
                         <em><?= $author['testimonial'] ?></em>
                     </div>
-
+                    <?php if (count($author['roles'])): ?>
                     <div class="item">
                         <h2>IZA World of Labor role</h2>
                         <p><?= implode(', ', array_map(function($role) {
                            return Yii::t('app/text', $role);
                         }, $author['roles'])) ?></p>
                     </div>
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->current) && $author['position']->current): ?>
                     <div class="item">
                         <h2>Current position</h2>
-                        <?php if(isset($author['position']->current)): ?>
-                            <?php if(is_array($author['position']->current)): ?>
-                                <?php foreach($author['position']->current as $current): ?>
-                                    <p><?= $current ?></p>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                    <p><?= $author['position']->current ?></p>
-                            <?php endif; ?>
+                        <?php if(is_array($author['position']->current)): ?>
+                            <?php foreach($author['position']->current as $current): ?>
+                                <p><?= $current ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->current ?></p>
                         <?php endif; ?>
                     </div>
-                    
+                    <?php endif; ?>
+                    <?php if($author['interests']): ?>
                     <div class="item">
                         <h2>Research interest</h2>
                         <p><?= $author['interests'] ?></p>
                     </div>
-                    
+                    <?php endif; ?>
+                    <?php if ($author['author']->url): ?>
                     <div class="item">
                         <h2>Website</h2>
                         <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
                     </div>
-                    
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
                     <div class="item">
                         <h2>Positions/functions as a policy advisor</h2>
-                        <?php if(isset($author['position']->advisory)): ?>
-                            <?php if(is_array($author['position']->advisory)): ?>
-                                <?php foreach($author['position']->advisory as $advisory): ?>
-                                    <p><?= $advisory ?></p>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                    <p><?= $author['position']->advisory ?></p>
-                            <?php endif; ?>
+                        <?php if(is_array($author['position']->advisory)): ?>
+                            <?php foreach($author['position']->advisory as $advisory): ?>
+                                <p><?= $advisory ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->advisory ?></p>
                         <?php endif; ?>
                     </div>
-
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->past) && $author['position']->past): ?>
                     <div class="item">
                         <h2>Past positions</h2>
-                        <?php if(isset($author['position']->past)): ?>
-                            <?php if(is_array($author['position']->past)): ?>
-                                <?php foreach($author['position']->past as $past): ?>
-                                    <p><?= $past ?></p>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                    <p><?= $author['position']->past ?></p>
-                            <?php endif; ?>
+                        <?php if(is_array($author['position']->past)): ?>
+                            <?php foreach($author['position']->past as $past): ?>
+                                <p><?= $past ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <p><?= $author['position']->past ?></p>
                         <?php endif; ?>
                     </div>
-
+                    <?php endif; ?>
+                    <?php if($author['degree'] ): ?>
                     <div class="item">
                         <h2>Qualifications</h2>
                         <p><?= $author['degree'] ?></p>
                     </div>
-
+                    <?php endif; ?>
+                    <?php if(count($author['publications'])): ?>
                     <div class="selected-publications">
                         <h2>Selected publications</h2>
 
@@ -139,9 +141,10 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
+            <?php if(count($author['articles'])): ?>
             <div class="articles">
                 <div class="widget-title medium"><a href="/articles">article(s)</a></div>
                 <ul class="other-articles-list">
@@ -163,6 +166,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <?php endforeach; ?>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>
 
         <aside class="sidebar-right">

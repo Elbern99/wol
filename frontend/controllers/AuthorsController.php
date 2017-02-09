@@ -102,7 +102,7 @@ class AuthorsController extends Controller {
 
         $data = [
             'author' => $author,
-            //'author_country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data; }, 'array'),
+            'country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data->code; }, 'array'),
             'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) {
                         return $data->testimonial;
                     }, 'string'),
@@ -121,11 +121,11 @@ class AuthorsController extends Controller {
             'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) {
                         return $data->interests;
                     }, 'string'),
-            //'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
+            'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
             'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) {
-                        return $data->expertise_type;
+                        return ucfirst($data->expertise_type);
                     }, 'string'),
-            //'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data->code; }, 'array'),
+            'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data; }, 'array'),
             //'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
             'roles' => $author->getAuthorRoles(true),
             'articles' => $this->getAuthorArticles($author->id)
