@@ -125,7 +125,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <p><?= $author['author']->phone ?></p>
                     </div>
                     <?php endif; ?>
-                    <?php if($author['position']->current): ?>
+                    <?php if(isset($author['position']->current) && $author['position']->current): ?>
                     <div class="item">
                         <h2>Current position</h2>
                         <?php if(is_array($author['position']->current)): ?>
@@ -143,7 +143,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
                     </div>
                     <?php endif; ?>
-                    <?php if($author['position']->advisory): ?>
+                    <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
                     <div class="item">
                         <h2>Positions/functions as a policy advisor</h2>
                         <?php if(is_array($author['position']->advisory)): ?>
@@ -156,7 +156,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     </div>
                     <?php endif; ?>
                     
-                    <?php if($author['position']->past): ?>
+                    <?php if(isset($author['position']->past) && $author['position']->past): ?>
                     <div class="item">
                         <h2>Past positions</h2>
                         <?php if(is_array($author['position']->past)): ?>
