@@ -773,7 +773,7 @@
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
         articleList.pajax('#w0');
-        articleList.pajaxLoader('#w2,#w1,#w0');
+        articleList.pajaxLoader('.loader-ajax');
         articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
         articlesFilter.sort('.custom-select-title','.custom-select');
