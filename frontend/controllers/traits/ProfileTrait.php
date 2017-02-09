@@ -8,6 +8,9 @@ use common\models\Author;
 use yii\helpers\ArrayHelper;
 use common\modules\eav\CategoryCollection;
 use common\modules\eav\helper\EavValueHelper;
+use common\models\AuthorRoles;
+use common\modules\author\Roles;
+use frontend\components\widget\SidebarWidget;
 
 trait ProfileTrait {
     
@@ -78,19 +81,33 @@ trait ProfileTrait {
         return $articlesCollection;
     }
     
-    protected function findAuthorsByLetter(string $letter):array {
+    protected function findAuthorsByLetter(string $letter, $type = null):array {
         
+        $roles = new Roles();
+        
+        switch($type) {
+            case 'expert':
+                $filterRole = $roles->getExpertGroup();
+                break;
+            case 'editor':
+                $filterRole = $roles->getEditorGroup();
+                break;
+            default:
+                $filterRole = $roles->getAuthorGroup();
+        }
+
         return  Author::find()
-                            ->select(['name', 'url_key'])
-                            ->where(['enabled' => 1])
-                            ->andFilterWhere(['like', 'name', $letter.'%', false])
-                            ->orderBy('surname')
-                            ->asArray()
-                            ->all();
+                        ->alias('a')
+                        ->innerJoin(AuthorRoles::tableName().' as ar', 'ar.author_id = a.id')
+                        ->select(['a.name', 'a.url_key'])
+                        ->where(['a.enabled' => 1, 'ar.role_id' => $filterRole])
+                        ->andFilterWhere(['like', 'a.name', $letter.'%', false])
+                        ->orderBy('a.surname')
+                        ->asArray()
+                        ->all();
     }
     
-    protected function getProfileTemplate() {
-        $type = Yii::$app->request->get('type');
+    protected function getProfileTemplate($type) {
         
         switch($type) {
             case 'expert':
@@ -100,6 +117,56 @@ trait ProfileTrait {
             default:
                 return 'profile';
         }
+    }
+    
+    protected function renderProfile($url_key, $type = null) {
+        
+        $author = Author::find()
+                ->where(['url_key' => $url_key, 'enabled' => 1])
+                ->one();
+
+        if (!is_object($author)) {
+            throw new NotFoundHttpException('Page Not Found.');
+        }
+
+        $authorCollection = Yii::createObject(CategoryCollection::class);
+        $authorCollection->initCollection(Author::tableName(), $author->id);
+        $authorValues = $authorCollection->getValues();
+
+        $data = [
+            'author' => $author,
+            'country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data->code; }, 'array'),
+            'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) {
+                        return $data->testimonial;
+                    }, 'string'),
+            'publications' => EavValueHelper::getValue($authorValues[$author->id], 'publications', function($data) {
+                        return $data->publication;
+                    }, 'array'),
+            'affiliation' => EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) {
+                        return $data->affiliation;
+                    }, 'string'),
+            'position' => EavValueHelper::getValue($authorValues[$author->id], 'position', function($data) {
+                        return $data;
+                    }),
+            'degree' => EavValueHelper::getValue($authorValues[$author->id], 'degree', function($data) {
+                        return $data->degree;
+                    }, 'string'),
+            'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) {
+                        return $data->interests;
+                    }, 'string'),
+            'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
+            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) {
+                        return ucfirst($data->expertise_type);
+                    }, 'string'),
+            'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data; }, 'array'),
+            //'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
+            'roles' => $author->getAuthorRoles(true),
+            'articles' => $this->getAuthorArticles($author->id)
+        ];
+
+        $widgets = new SidebarWidget('profile');
+
+        return $this->render($this->getProfileTemplate($type), ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widgets' => $widgets, 'type' => $type]);
     }
 }
 

@@ -90,52 +90,17 @@ class AuthorsController extends Controller {
 
     public function actionProfile($url_key) {
 
-        $author = Author::find()
-                ->where(['url_key' => $url_key, 'enabled' => 1])
-                ->one();
+        return $this->renderProfile($url_key);
+    }
+    
+    public function actionExpertProfile($url_key) {
 
-        if (!is_object($author)) {
-            throw new NotFoundHttpException('Page Not Found.');
-        }
+        return $this->renderProfile($url_key, 'expert');
+    }
+    
+    public function actionEditorProfile($url_key) {
 
-        $authorCollection = Yii::createObject(CategoryCollection::class);
-        $authorCollection->initCollection(Author::tableName(), $author->id);
-        $authorValues = $authorCollection->getValues();
-
-        $data = [
-            'author' => $author,
-            'country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data->code; }, 'array'),
-            'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) {
-                        return $data->testimonial;
-                    }, 'string'),
-            'publications' => EavValueHelper::getValue($authorValues[$author->id], 'publications', function($data) {
-                        return $data->publication;
-                    }, 'array'),
-            'affiliation' => EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string'),
-            'position' => EavValueHelper::getValue($authorValues[$author->id], 'position', function($data) {
-                        return $data;
-                    }),
-            'degree' => EavValueHelper::getValue($authorValues[$author->id], 'degree', function($data) {
-                        return $data->degree;
-                    }, 'string'),
-            'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) {
-                        return $data->interests;
-                    }, 'string'),
-            'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
-            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) {
-                        return ucfirst($data->expertise_type);
-                    }, 'string'),
-            'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data; }, 'array'),
-            //'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
-            'roles' => $author->getAuthorRoles(true),
-            'articles' => $this->getAuthorArticles($author->id)
-        ];
-
-        $widgets = new SidebarWidget('profile');
-
-        return $this->render($this->getProfileTemplate(), ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widgets' => $widgets]);
+        return $this->renderProfile($url_key, 'editor');
     }
 
     public function actionExpert() {
@@ -235,7 +200,7 @@ class AuthorsController extends Controller {
                 'expertise' => $expertise,
                 'language' => $language,
                 'author_country' => $author_country,
-                'profile' => Url::to([$expert->getUrl(), 'type' => 'expert']),
+                'profile' => Url::to(['/experts/'.$expert->url_key]),
             ];
 
             if (Yii::$app->request->isPost) {
@@ -257,7 +222,7 @@ class AuthorsController extends Controller {
         ]);
     }
 
-    public function actionLetter() {
+    public function actionLetter($type = null) {
 
         $letter = Yii::$app->request->post('letter');
 
@@ -267,7 +232,7 @@ class AuthorsController extends Controller {
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $authors = $this->findAuthorsByLetter($letter);
+        $authors = $this->findAuthorsByLetter($letter, $type);
         $result = [];
 
         if (count($authors)) {
@@ -329,7 +294,7 @@ class AuthorsController extends Controller {
                 'name' => $name,
                 'affiliation' => $affiliation,
                 'avatar' => Author::getImageUrl($data['avatar']),
-                'profile' => Url::to([Author::getAuthorUrl($data['url_key']), 'type' => 'editor']),
+                'profile' => Url::to(['/editors/'.$data['url_key']]),
                 'role' => $roles->getTypeByKey($data['role_id']),
                 'category' => $formatAuthorCategories[$data['author_id']] ?? null
             ];

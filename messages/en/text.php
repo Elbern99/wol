@@ -7,7 +7,7 @@ return [
     'acknowledgments' => 'Acknowledgments',
     'Competing interests' => 'Competing interests',
     'author' => 'Author',
-    'expert' => 'Expert',
+    'expert' => 'Topic spokesperson',
     'chiefEditor' => 'Chief Editor',
     'managingEditor' => 'Managing Editor',
     'subjectEditor' => 'Subject Editor',

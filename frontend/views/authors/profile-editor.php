@@ -8,7 +8,7 @@ use frontend\components\articles\SubjectAreas;
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$author['author']->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Authors'), 'url' => Url::toRoute(['/authors'])];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Editorial board'), 'url' => Url::toRoute(['/editorial-board'])];
 $this->params['breadcrumbs'][] = Html::encode($author['author']->name);
 
 $this->registerMetaTag([
@@ -63,8 +63,6 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </div>
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
-                    
-                    <!-- editor type -->
                     <?php $areas = $author['author']->getAuthorCategoriesArray(); ?>
                     <?php if (is_array($areas) && count($areas)): ?>
                     <div class="item">
@@ -186,12 +184,12 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item  is-open">
-                        <a href="" class="title">Authors</a>
+                        <a href="" class="title">Editors</a>
                         <div class="text">
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
-                                    <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter/') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors/letter/', 'type' => $type]) ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
                                 <?php endforeach; ?>
                             </ul>
                             <div class="author-letter-result"></div>
