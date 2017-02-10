@@ -103,7 +103,7 @@ $roleLabel = new Roles();
                             </div>
                             <?php endif; ?>
                             <?php if (count($editors['associate'])): ?>
-                            <h3><?= Yii::t('app/text', 'Associate Editor') ?></h3>
+                            <h3><?= Yii::t('app/text', 'Associate Editor(s)') ?></h3>
                             <div class="article-user-list">
                                 <?php foreach ($editors['associate'] as $editor): ?>
                                 <div class="article-user">
