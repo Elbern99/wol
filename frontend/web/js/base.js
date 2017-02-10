@@ -83,6 +83,9 @@
                         .find(content).slideUp(headerMenu.delay)
                         .find('.item').removeClass('open');
                     headerMenu.mobileOpenItem(cur);
+
+                    var checkLast = cur.parent().is(':last-child');
+
                     e.preventDefault();
                 }
             });

@@ -44,7 +44,12 @@ unset($currentParams);
                     <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
-                    test 3
+                    <?php $alphas = range('A', 'Z'); ?>
+                    <ul class="abs-list">
+                        <?php foreach ($alphas as $letter): ?>
+                            <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -131,30 +136,31 @@ unset($currentParams);
                              <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                         </div>
                     </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Authors</a>
+                        <div class="text is-open">
+                            <?php $alphas = range('A', 'Z'); ?>
+                            <ul class="abs-list">
+                                <?php foreach ($alphas as $letter): ?>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Background information</a>
+                        <div class="text">
+                            <?php $alphas = range('A', 'Z'); ?>
+                            <ul class="abs-list">
+                                <?php foreach ($alphas as $letter): ?>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/articles', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <div>
-                <div>Authors</divl>
-                <div class="text">
-                    <?php $alphas = range('A', 'Z'); ?>
-                    <ul class="abs-list">
-                        <?php foreach ($alphas as $letter): ?>
-                            <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div>Background information</divl>
-                <div class="text">
-                    <?php $alphas = range('A', 'Z'); ?>
-                    <ul class="abs-list">
-                        <?php foreach ($alphas as $letter): ?>
-                            <li><a class="profile-author-letter" href="<?= Url::to(['/articles', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
+
             <div class="sidebar-widget">
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">

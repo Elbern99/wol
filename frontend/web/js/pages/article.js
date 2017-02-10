@@ -192,6 +192,8 @@
                     });
                 }, 0);
             }
+
+            article.refLinkNumber('.reference-popup .caption-number');
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
@@ -621,6 +623,13 @@
                 if(checkType) {
                     cur.attr('class','scroll-to-img');
                 }
+            });
+        },
+        refLinkNumber: function(btn) {
+            $(btn).each(function() {
+                var cur = $(this),
+                    curHtml = cur.html();
+                    cur.parent().find('a').prepend(cur);
             });
         },
         mapInit: function() {

@@ -759,6 +759,18 @@
     .item {
 
       &.has-drop {
+
+        .item {
+          &:last-child {
+            >a {
+
+              &:after {
+                display: none !important;
+              }
+            }
+          }
+        }
+
         >a {
           position: relative;
 

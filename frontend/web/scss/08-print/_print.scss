@@ -22,7 +22,17 @@
   }
 
   ul, img {
-    page-break-inside: avoid;
+    //page-break-inside: avoid;
+  }
+
+  ul {
+    list-style: disc;
+    list-style-position: inside;
+    padding-left: 0;
+
+    li {
+      padding-left: 0;
+    }
   }
 
   a {
@@ -31,6 +41,7 @@
 
   a[href^=http]:after {
     content:" - '" attr(href) "'";
+    color: $blue;
   }
 
   p a {

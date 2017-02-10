@@ -23,7 +23,7 @@ $this->registerMetaTag([
     )
 ]);
 ?>
-<div class="container article-full">
+<div class="container">
 
     <div class="breadcrumbs">
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>

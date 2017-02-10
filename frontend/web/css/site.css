@@ -3405,7 +3405,7 @@ blockquote {
           -ms-flex-order: -2;
               order: -2;
           margin: 0 13px 0 0;
-          width: 30%;
+          width: 31%;
           height: 65px;
           min-height: 65px; }
           @media only screen and (min-width: 568px) {
@@ -3413,7 +3413,7 @@ blockquote {
               height: calc(50vw*0.5); } }
           @media only screen and (min-width: 769px) {
             .post-list.news-home-list li:first-child .post-item.has-image .img, .news-home-list.favourite-articles-list li:first-child .post-item.has-image .img {
-              margin: 0 40px 0 0; } }
+              margin: 0 30px 0 0; } }
         .post-list.news-home-list li:first-child .post-item.has-image .desc, .news-home-list.favourite-articles-list li:first-child .post-item.has-image .desc {
           width: 66%; }
       @media only screen and (max-width: 769px) {
@@ -4275,8 +4275,10 @@ blockquote {
   -ms-flex-flow: row wrap;
       flex-flow: row wrap; }
   .abs-list li {
-    margin: 0 5px 4px;
-    width: 3%; }
+    margin: 0 5px 4px; }
+    @media only screen and (min-width: 769px) {
+      .abs-list li {
+        width: 3%; } }
     .abs-list li.active a {
       color: #0094f2;
       border-color: #0094f2; }
@@ -6272,6 +6274,9 @@ iframe[name=advpp_manager] {
       border-bottom: 0; } }
 .mobile-menu .header-menu-top-list li {
   display: block; }
+.mobile-menu .header-menu-bottom-list .item.has-drop .item:last-child > a:after,
+.mobile-menu .header-menu-top-list .item.has-drop .item:last-child > a:after {
+  display: none !important; }
 .mobile-menu .header-menu-bottom-list .item.has-drop > a,
 .mobile-menu .header-menu-top-list .item.has-drop > a {
   position: relative; }
@@ -7223,6 +7228,9 @@ iframe[name=advpp_manager] {
 
 .authors-main-message {
   margin-bottom: 44px; }
+
+.caption-number {
+  padding-right: 5px; }
 
 .subscribe-to-newsletter p {
   margin: 0 0 16px;
@@ -9125,14 +9133,19 @@ path {
   h2, h3 {
     page-break-after: avoid; }
 
-  ul, img {
-    page-break-inside: avoid; }
+  ul {
+    list-style: disc;
+    list-style-position: inside;
+    padding-left: 0; }
+    ul li {
+      padding-left: 0; }
 
   a {
     color: #000; }
 
   a[href^=http]:after {
-    content: " - '" attr(href) "'"; }
+    content: " - '" attr(href) "'";
+    color: #0053a0; }
 
   p a {
     word-wrap: break-word; }
