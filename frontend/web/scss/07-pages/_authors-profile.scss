@@ -96,6 +96,12 @@
     }
   }
 
+  .item-role-subject {
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: center ;
+    }
+  }
+
   .item {
     margin: 0 0 30px;
 

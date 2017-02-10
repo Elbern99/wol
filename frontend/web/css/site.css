@@ -8899,6 +8899,9 @@ path {
     @media only screen and (min-width: 769px) {
       .contributor-profile h2 {
         margin: 0 0 7px; } }
+  @media only screen and (max-width: 769px) {
+    .contributor-profile .item-role-subject {
+      text-align: center; } }
   .contributor-profile .item {
     margin: 0 0 30px; }
     @media only screen and (min-width: 769px) {
