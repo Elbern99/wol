@@ -1513,6 +1513,13 @@ th {
     animation-iteration-count: infinite;
     animation-timing-function: linear; }
 
+.btn-load-more-client-side .less {
+  display: none; }
+.btn-load-more-client-side.showed .more {
+  display: none; }
+.btn-load-more-client-side.showed .less {
+  display: block; }
+
 * {
   box-sizing: border-box !important;
   outline: none !important; }
@@ -2612,9 +2619,12 @@ blockquote {
 .video-item .desc {
   max-height: 223px; }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1024px) {
   .opinion-item {
-    max-height: 435px; } }
+    max-height: 409px;
+    height: 409px; }
+    .opinion-item.has-image {
+      height: auto; } }
 .opinion-item h2 {
   max-height: 60px;
   overflow: hidden; }
@@ -3504,7 +3514,7 @@ blockquote {
   @media only screen and (min-width: 1024px) {
     .opinions-list,
     .videos-list {
-      margin: 0 -3px -20px;
+      margin: 0 -4px -20px;
       display: -ms-flexbox;
       display: flex;
       -ms-flex-flow: row wrap;
@@ -3516,7 +3526,7 @@ blockquote {
       .opinions-list li,
       .videos-list li {
         width: 33.3%;
-        padding: 5px 3px 20px; } }
+        padding: 5px 4px 30px; } }
     @media only screen and (min-width: 1430px) {
       .opinions-list li,
       .videos-list li {
@@ -3551,8 +3561,7 @@ blockquote {
         display: flex;
         -ms-flex-align: stretch;
             align-items: stretch;
-        max-height: 230px;
-        height: 100%; }
+        max-height: 230px; }
         .commentary-opinions-list li .opinion-item.has-image {
           height: 230px; }
         .commentary-opinions-list li .opinion-item h2 {
@@ -3589,9 +3598,6 @@ blockquote {
         padding: 5px 5px 20px;
         width: 100%; } }
     @media only screen and (min-width: 769px) {
-      .commentary-videos-list li {
-        width: 33.3%; } }
-    @media only screen and (min-width: 1430px) {
       .commentary-videos-list li {
         width: 25%; } }
 
@@ -6471,6 +6477,8 @@ iframe[name=advpp_manager] {
   @media only screen and (min-width: 769px) {
     .article-head {
       padding-right: 308px; } }
+  .article-head.article-head-full {
+    padding-right: 0; }
 
 .article-full .mobile-filter-holder,
 .article-full .mobile-filter-list {
@@ -7298,6 +7306,54 @@ iframe[name=advpp_manager] {
       .select-clear-all span:hover {
         color: #0053a0; } }
 
+.js-Pjax {
+  position: relative; }
+
+/* parent element where switch will be made */
+.js-Pjax-child {
+  width: 100%; }
+
+/* position for the elements that will be removed */
+.js-Pjax-remove {
+  position: absolute;
+  left: 50%;
+  /* transform: translateX(-50%) */
+  /* transform can't be used since we already use generic translate for the remove effect (eg animate.css) */
+  /* margin-left: -width/2; // made with js */
+  /* you can totally drop the margin-left thing from switchesOptions if you use custom animations */ }
+
+/* CSS animations */
+.Animated {
+  animation-fill-mode: both;
+  animation-duration: 1s; }
+
+.Animated--reverse {
+  animation-direction: reverse; }
+
+.Animate--fast {
+  animation-duration: 0.5s; }
+
+.Animate--noDelay {
+  animation-delay: 0s !important; }
+
+.Animate--slideInRight {
+  animation-name: Animation-slideInRight; }
+
+@keyframes Animation-slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100rem); }
+  100% {
+    transform: translateX(0); } }
+.Animate--slideInLeft {
+  animation-name: Animation-slideInLeft; }
+
+@keyframes Animation-slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100rem); }
+  100% {
+    transform: translateX(0); } }
 @media only screen and (max-width: 769px) {
   .search-results .sidebar-right {
     display: none; } }
@@ -8218,7 +8274,8 @@ iframe[name=advpp_manager] {
 
 .icon-number-reference.Syria + .leaflet-marker-iconlabel,
 .icon-number-reference.Georgia + .leaflet-marker-iconlabel,
-.icon-number-reference.Republic-of-the-Congo + .leaflet-marker-iconlabel {
+.icon-number-reference.Republic-of-the-Congo + .leaflet-marker-iconlabel,
+.icon-number-reference.Democratic-Republic-of-the-Congo + .leaflet-marker-iconlabel {
   transform: translateX(0%); }
 
 .icon-number-reference.Finland + .leaflet-marker-iconlabel {
@@ -8692,13 +8749,21 @@ path {
   @media only screen and (min-width: 1024px) {
     .editorial-board-page .editors-list {
       margin-bottom: 33px; } }
-.editorial-board-page .show-more {
-  margin: -5px auto 33px; }
+.editorial-board-page .content-inner-text .expand-more:last-child {
+  margin-bottom: -27px; }
+.editorial-board-page .btn-load-more-client-side {
+  margin: -5px auto 33px !important; }
   @media only screen and (min-width: 1024px) {
-    .editorial-board-page .show-more {
-      margin: -33px auto 57px; } }
+    .editorial-board-page .btn-load-more-client-side {
+      margin: -33px auto 57px !important; } }
 .editorial-board-page .editorial-board-widget {
   margin: 0; }
+
+.editorial-board-page .editors-list li {
+  display: none; }
+
+.editorial-board-page .editors-list li:nth-child(-n+9), .editorial-board-page .editors-list li.opened {
+  display: block; }
 
 .editorial-board-widget {
   font-size: 13px;
@@ -8804,6 +8869,9 @@ path {
   .video-page .mobile-filter-holder {
     margin-bottom: 20px; } }
 @media only screen and (min-width: 769px) {
+  .opinions-page .sidebar-right,
+  .video-page .sidebar-right {
+    margin-top: -2px; }
   .opinions-page .mobile-filter-holder,
   .video-page .mobile-filter-holder {
     display: none; } }
@@ -9087,7 +9155,7 @@ path {
     color: #000; }
 
   @page {
-    margin: 2cm; }
+    margin: 2cm 1cm; }
   h2, h3 {
     page-break-after: avoid; }
 
@@ -9117,22 +9185,26 @@ path {
   .article-buttons-bottom {
     display: none !important; }
 
-  .article-full .sidebar-widget {
-    display: none; }
-    .article-full .sidebar-widget.sidebar-widget-articles-references {
-      display: block; }
-      .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
-        display: none; }
-        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
+  .article-full {
+    margin-top: -2cm; }
+    .article-full .article-user .img-holder {
+      display: none; }
+    .article-full .sidebar-widget {
+      display: none; }
+      .article-full .sidebar-widget.sidebar-widget-articles-references {
+        display: block; }
+        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
           display: none; }
-        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
-          display: block;
-          margin-top: -80px; }
-          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
-            padding-top: 20px;
-            display: block !important; }
-            .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
-              display: block !important; } }
+          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
+            display: none; }
+          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
+            display: block;
+            margin-top: -80px; }
+            .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
+              padding-top: 20px;
+              display: block !important; }
+              .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
+                display: block !important; } }
 @media print and (color) {
   * {
     -webkit-print-color-adjust: exact;

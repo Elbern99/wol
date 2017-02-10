@@ -152,6 +152,10 @@
   }
 
   @include breakpoint('tablet') {
+    .sidebar-right {
+      margin-top: -2px;
+    }
+
     .mobile-filter-holder {
       display: none;
     }

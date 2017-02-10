@@ -29,7 +29,7 @@ if ($category) {
 
 <div class="container opinions-page">
     <div class="article-head-holder">
-        <div class="article-head">
+        <div class="article-head article-head-full">
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>

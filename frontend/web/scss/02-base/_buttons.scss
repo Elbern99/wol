@@ -382,3 +382,18 @@
     @include animation (spin, 1s, infinite, linear);
   }
 }
+
+.btn-load-more-client-side {
+  .less {
+    display: none;
+  }
+
+  &.showed {
+    .more {
+      display: none;
+    }
+    .less {
+      display: block;
+    }
+  }
+}
