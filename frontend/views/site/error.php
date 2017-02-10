@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="container site-error without-breadcrumbs">
+<div class="container site-error without-breadcrumbs error-page">
     <div class="content-inner">
         <div class="content-inner-text">
             <div class="article-head">
@@ -21,10 +21,13 @@ $this->title = $name;
             </div>
 
             <p>
-                The above error occurred while the Web server was processing your request.
+                We're sorry the page you have requested does not exist or has moved.
             </p>
             <p>
-                Please contact us if you think this is a server error. Thank you.
+                Please return to the <a href="/">Homepage</a>, to continue to browse IZA World of Labor.
+            </p>
+            <p>
+                Email us to <ins>report a broken link</ins> <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> and we'll fix it.
             </p>
         </div>
     </div>
