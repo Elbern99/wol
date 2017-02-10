@@ -70,9 +70,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <?php if (count($author['roles'])): ?>
                     <div class="item">
                         <h2>IZA World of Labor role</h2>
-                        <p><?= implode(', ', array_map(function($role) {
-                           return Yii::t('app/text', $role);
-                        }, $author['roles'])) ?></p>
+                        <p><?= implode(', ', $author['roles']) ?></p>
                     </div>
                     <?php endif; ?>
                     <?php if(isset($author['position']->current) && $author['position']->current): ?>

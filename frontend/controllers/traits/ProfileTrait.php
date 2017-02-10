@@ -101,7 +101,7 @@ trait ProfileTrait {
                         ->innerJoin(AuthorRoles::tableName().' as ar', 'ar.author_id = a.id')
                         ->select(['a.name', 'a.url_key'])
                         ->where(['a.enabled' => 1, 'ar.role_id' => $filterRole])
-                        ->andFilterWhere(['like', 'a.name', $letter.'%', false])
+                        ->andFilterWhere(['like', 'a.surname', $letter.'%', false])
                         ->orderBy('a.surname')
                         ->asArray()
                         ->all();
