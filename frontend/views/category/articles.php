@@ -27,6 +27,11 @@ $this->registerMetaTag([
 ]);
 
 $roleLabel = new Roles();
+$currentUrl[] = $category->url_key;
+$currentParams = Yii::$app->getRequest()->getQueryParams();
+unset($currentParams['id']);
+$currentUrl = array_merge($currentUrl, $currentParams);
+unset($currentParams);
 ?>
 
 <div class="container">
@@ -69,10 +74,10 @@ $roleLabel = new Roles();
                         </div>
                         <div class="sort-list drop-content">
                             <div>
-                                <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
+                                <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 0])) ?>">Publication date (descending)</a>
                             </div>
                             <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
-                                <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
+                                <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 1])) ?>">Publication date (ascending)</a>
                             </div>
                         </div>
                     </div>
@@ -145,25 +150,11 @@ $roleLabel = new Roles();
                     <?php endforeach; ?>
                 </ul>
                 <?php if ($articleCount > $limit): ?>
-                    <?php
-                        if ($sort == 3) {
-                            $params = [$category->url_key, 'limit' => $limit];
-                        } else {
-                            $params = [$category->url_key, 'limit' => $limit, 'sort' => 1];
-                        }
-                    ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center','update']) ?>
+                    <?= Html::a("show more", Url::to(array_merge($currentUrl, ['limit' => $limit])), ['class' => 'btn-gray align-center','update']) ?>
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
-                        <?php
-                        if ($sort == 3) {
-                            $params = [$category->url_key];
-                        } else {
-                            $params = [$category->url_key, 'sort' => 1];
-                        }
-                        ?>
                         <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                            <?= Html::a("clear", Url::to(array_merge($currentUrl, ['limit' => 0])), ['class' => 'btn-gray align-center']) ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -180,10 +171,10 @@ $roleLabel = new Roles();
                     </div>
                     <div class="sort-list drop-content">
                         <div>
-                            <a href="<?= Url::to($category->url_key, [ 'data-pjax' => false]) ?>">Publication date (descending)</a>
+                            <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 0])) ?>">Publication date (descending)</a>
                         </div>
                         <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
-                            <a href="<?= Url::to([$category->url_key, 'sort' => 1]) ?>">Publication date (ascending)</a>
+                            <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 1])) ?>">Publication date (ascending)</a>
                         </div>
                     </div>
                 </div>
@@ -199,6 +190,28 @@ $roleLabel = new Roles();
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div>
+                <div>Authors</divl>
+                <div class="text">
+                    <?php $alphas = range('A', 'Z'); ?>
+                    <ul class="abs-list">
+                        <?php foreach ($alphas as $letter): ?>
+                            <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div>Background information</divl>
+                <div class="text">
+                    <?php $alphas = range('A', 'Z'); ?>
+                    <ul class="abs-list">
+                        <?php foreach ($alphas as $letter): ?>
+                            <li><a class="profile-author-letter" href="<?= Url::to([$category->url_key, 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
             <div class="sidebar-widget">
                 <div class="widget-title">data & methods</div>

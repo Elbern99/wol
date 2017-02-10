@@ -112,13 +112,20 @@ class ArticleController extends Controller {
             
         }
         
+        if (Yii::$app->request->get('filter')) {
+            $letter = Yii::$app->request->get('filter');
+            $articleCnt = Article::find()->where(['enabled' => 1])->andFilterWhere(['like', 'title', $letter.'%', false])->count('id');
+        } else {
+            $articleCnt = Article::find()->where(['enabled' => 1])->count('id');
+        }
+        
         return $this->render('index', [
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
             'sort' => $order,
             'limit' => $limit,
-            'articleCount' => Article::find()->where(['enabled' => 1])->count('id')
+            'articleCount' => $articleCnt
         ]);
     }
 

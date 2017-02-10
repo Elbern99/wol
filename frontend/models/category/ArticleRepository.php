@@ -39,10 +39,21 @@ class ArticleRepository implements RepositoryInterface {
     
     private function getArticlesModel($categoryIds, $order) {
         
-        return Article::find()
+        $letter = null;
+        
+        if (Yii::$app->request->get('filter')) {
+            $letter = Yii::$app->request->get('filter');
+        }
+
+        $query = Article::find()
                         ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                        ->where(['enabled' => 1, 'id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
-                        ->with(['articleCategories' => function($query) {
+                        ->where(['enabled' => 1, 'id' => ArrayHelper::getColumn($categoryIds, 'article_id')]);
+        
+        if ($letter) {
+            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
+        }
+        
+        return $query->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
@@ -86,11 +97,10 @@ class ArticleRepository implements RepositoryInterface {
         if (Yii::$app->request->getIsPjax()) {
 
             $limitPrev = Yii::$app->request->get('limit');
-            
+
             if (isset($limitPrev) && intval($limitPrev)) {
                 $limit += (int)$limitPrev;
             }
-
         }
         
         $subjectAreas = $this->getSubjectAreas();
@@ -100,7 +110,7 @@ class ArticleRepository implements RepositoryInterface {
         });
         
         $categoryIds = $this->getArticleIds($limit, $order);
-        
+
         $roles = [];
         $associateEditor = $authorRoles->getTypeByLabel('associateEditor');
         $subjectEditor = $authorRoles->getTypeByLabel('subjectEditor');
@@ -241,11 +251,22 @@ class ArticleRepository implements RepositoryInterface {
     }
     
     public function getCategoryArticleCount() {
-        return ArticleCategory::find()
+        $letter = null;
+        
+        if (Yii::$app->request->get('filter')) {
+            $letter = Yii::$app->request->get('filter');
+        }
+        
+        $query = ArticleCategory::find()
                 ->alias('ac')
                 ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
-                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
-                ->count('a.id');
+                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1]);
+        
+        if ($letter) {
+            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
+        }
+
+        return $query->count('a.id');
     }
     
     public function getTamplate() {
