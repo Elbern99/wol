@@ -65,7 +65,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <div class="name"><?= $author['author']->name ?></div>
                     <?php $areas = $author['author']->getAuthorCategoriesArray(); ?>
                     <?php if (is_array($areas) && count($areas)): ?>
-                    <div class="item-role-sunject">
+                    <div class="item-role-subject">
                         <span>
                         <?php
                             foreach ($author['roles'] as $role) {
