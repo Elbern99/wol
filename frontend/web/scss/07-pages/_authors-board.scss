@@ -38,15 +38,30 @@
   }
 }
 
-.editorial-board-page .editors-list {
+.editorial-board-page .associate-editor-list {
+  li {
+    display: none ;
+  }
+}
+
+.editorial-board-page .associate-editor-list {
+  li {
+    &:nth-child(-n+9),
+    &.opened {
+      display: block;
+    }
+  }
+}
+
+.editorial-board-page .former-editor-list {
   li {
     display: none;
   }
 }
 
-.editorial-board-page .editors-list {
+.editorial-board-page .former-editor-list {
   li {
-    &:nth-child(-n+9),
+    &:nth-child(-n+3),
     &.opened {
       display: block;
     }

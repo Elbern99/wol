@@ -8716,10 +8716,16 @@ path {
 .editorial-board-page .editorial-board-widget {
   margin: 0; }
 
-.editorial-board-page .editors-list li {
+.editorial-board-page .associate-editor-list li {
   display: none; }
 
-.editorial-board-page .editors-list li:nth-child(-n+9), .editorial-board-page .editors-list li.opened {
+.editorial-board-page .associate-editor-list li:nth-child(-n+9), .editorial-board-page .associate-editor-list li.opened {
+  display: block; }
+
+.editorial-board-page .former-editor-list li {
+  display: none; }
+
+.editorial-board-page .former-editor-list li:nth-child(-n+3), .editorial-board-page .former-editor-list li.opened {
   display: block; }
 
 .editorial-board-widget {

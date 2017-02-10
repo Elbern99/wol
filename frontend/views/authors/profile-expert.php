@@ -37,16 +37,12 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
                     <li><a href="" class="js-widget">subject areas</a></li>
-                    <!-- <li><a href="" class="js-widget">trending topics</a></li>-->
                     <li><a href="" class="js-widget">authors</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                     </div>
-                    <!-- <div class="tab-item js-tab-hidden expand-more">
-                        test 2
-                    </div>-->
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <?php $alphas = range('A', 'Z'); ?>
                         <ul class="abs-list">
@@ -73,7 +69,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <p><?= implode(', ', $author['roles']) ?></p>
                     </div>
                     <?php endif; ?>
-                    
+
                     <?php if (count($author['expertise'])): ?>
                     <div class="item">
                         <h2>Expertise</h2>
