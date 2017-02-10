@@ -30,20 +30,31 @@ trait ArticleTrait {
     
     protected function getArticlesList($limit, $order) {
         
-        return  Article::find()
-                         ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                         ->where(['enabled' => 1])
-                         ->with(['articleCategories' => function($query) {
-                             return $query->alias('ac')
+        $letter = null;
+        
+        if (Yii::$app->request->get('filter')) {
+            $letter = Yii::$app->request->get('filter');
+        }
+
+        $query = Article::find()
+                        ->select(['id', 'title', 'seo', 'availability', 'created_at'])
+                        ->where(['enabled' => 1]);
+        
+        if ($letter) {
+            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
+        }
+        
+        return $query->with(['articleCategories' => function($query) {
+                                return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
-                         }])
-                         ->with(['articleAuthors.author' => function($query) {
+                        }])
+                        ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
                          }])
-                         ->orderBy(['created_at' => $order])
-                         ->limit($limit)
-                         ->all();
+                        ->orderBy(['created_at' => $order])
+                        ->limit($limit)
+                        ->all();
     }
     
     protected function getArticleCount() {
