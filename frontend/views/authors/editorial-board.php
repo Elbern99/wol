@@ -31,113 +31,142 @@ $this->registerMetaTag([
     <div class="content-inner">
         <div class="content-inner-text">
             <?php if (count($top)): ?>
-            <ul class="editors-list">
-                <?php foreach($top as $author): ?>
-                    <li class="editor-item">
-                        <div class="img-holder img-holder-bg">
-                            <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
-                            <?= $author['avatar'] ?>
-                        </div>
-                        <div class="name">
-                            <a href="<?= $author['profile'] ?>">
-                                <?= $author['name']->first_name ?>
-                                <?= $author['name']->middle_name ?>
-                                <?= $author['name']->last_name ?>
-                            </a>
-                        </div>
-                        <div class="vacancy"><?= Yii::t('app/text',$author['role']) ?></div>
-                        <p><?= $author['affiliation'] ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <div class="expand-more">
+                <ul class="editors-list">
+                    <?php foreach($top as $author): ?>
+                        <li class="editor-item">
+                            <div class="img-holder img-holder-bg">
+                                <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
+                            </div>
+                            <div class="name">
+                                <a href="<?= $author['profile'] ?>">
+                                    <?= $author['name']->first_name ?>
+                                    <?= $author['name']->middle_name ?>
+                                    <?= $author['name']->last_name ?>
+                                </a>
+                            </div>
+                            <div class="vacancy"><?= Yii::t('app/text',$author['role']) ?></div>
+                            <p><?= $author['affiliation'] ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php if(count($top) > 9): ?>
+                    <a class="btn-gray align-center btn-load-more-client-side" href="">
+                        <span class="more">show more</span>
+                        <span class="less">Clear</span>
+                    </a>
+                <?php endif ?>
+            </div>
             <?php endif; ?>
-            
+
             <?php if (isset($collection['subjectEditor'])): ?>
             <h2><?= Html::encode('Subject editors') ?></h2>
-            <ul class="editors-list">
-                <?php foreach($collection['subjectEditor'] as $author): ?>
-                    <li class="editor-item">
-                        <div class="img-holder img-holder-bg">
-                            <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
-                            <?= $author['avatar'] ?>
-                        </div>
-                        <div class="name">
-                            <a href="<?= $author['profile'] ?>">
-                                <?= $author['name']->first_name ?>
-                                <?= $author['name']->middle_name ?>
-                                <?= $author['name']->last_name ?>
-                            </a>
-                        </div>
-                        <?php if(is_array($author['category'])): ?>
-                        <div class="vacancy">
-                            <?php foreach($author['category'] as $category): ?>
-                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
-                            <?php endforeach; ?>
-                        </div>
-                        <?php endif; ?>
-                        <p><?= $author['affiliation'] ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <div class="expand-more">
+                <ul class="editors-list">
+                    <?php foreach($collection['subjectEditor'] as $author): ?>
+                        <li class="editor-item">
+                            <div class="img-holder img-holder-bg">
+                                <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
+                            </div>
+                            <div class="name">
+                                <a href="<?= $author['profile'] ?>">
+                                    <?= $author['name']->first_name ?>
+                                    <?= $author['name']->middle_name ?>
+                                    <?= $author['name']->last_name ?>
+                                </a>
+                            </div>
+                            <?php if(is_array($author['category'])): ?>
+                                <div class="vacancy">
+                                    <?php foreach($author['category'] as $category): ?>
+                                        <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <p><?= $author['affiliation'] ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php if(count($collection['subjectEditor']) > 9): ?>
+                    <a class="btn-gray align-center btn-load-more-client-side" href="">
+                        <span class="more">show more</span>
+                        <span class="less">Clear</span>
+                    </a>
+                <?php endif ?>
+            </div>
             <?php endif; ?>
-            
+
             <?php if (isset($collection['associateEditor'])): ?>
             <h2><?= Html::encode('Associate editors') ?></h2>
-            <ul class="editors-list">
-                <?php foreach($collection['associateEditor'] as $author): ?>
-                    <li class="editor-item">
-                        <div class="img-holder img-holder-bg">
-                            <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
-                            <?= $author['avatar'] ?>
-                        </div>
-                        <div class="name">
-                            <a href="<?= $author['profile'] ?>">
-                                <?= $author['name']->first_name ?>
-                                <?= $author['name']->middle_name ?>
-                                <?= $author['name']->last_name ?>
-                            </a>
-                        </div>
-                        <?php if(is_array($author['category'])): ?>
-                        <div class="vacancy">
-                            <?php foreach($author['category'] as $category): ?>
-                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
-                            <?php endforeach; ?>
-                        </div>
-                        <?php endif; ?>
-                        <p><?= $author['affiliation'] ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <div class="expand-more">
+                <ul class="editors-list">
+                    <?php foreach($collection['associateEditor'] as $author): ?>
+                        <li class="editor-item">
+                            <div class="img-holder img-holder-bg">
+                                <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
+                            </div>
+                            <div class="name">
+                                <a href="<?= $author['profile'] ?>">
+                                    <?= $author['name']->first_name ?>
+                                    <?= $author['name']->middle_name ?>
+                                    <?= $author['name']->last_name ?>
+                                </a>
+                            </div>
+                            <?php if(is_array($author['category'])): ?>
+                                <div class="vacancy">
+                                    <?php foreach($author['category'] as $category): ?>
+                                        <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <p><?= $author['affiliation'] ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php if(count($collection['associateEditor']) > 9): ?>
+                    <a class="btn-gray align-center btn-load-more-client-side" href="">
+                        <span class="more">show more</span>
+                        <span class="less">Clear</span>
+                    </a>
+                <?php endif ?>
+            </div>
             <?php endif; ?>
-            
+
             <?php if (isset($collection['formerEditor'])): ?>
             <h2><?= Html::encode('Former editors') ?></h2>
             <?= $widgets->getPageWidget('former_editor_thanks') ?>
-            <ul class="editors-list">
-                <?php foreach($collection['formerEditor'] as $author): ?>
-                    <li class="editor-item">
-                        <div class="img-holder img-holder-bg">
-                            <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
-                            <?= $author['avatar'] ?>
-                        </div>
-                        <div class="name">
-                            <a href="<?= $author['profile'] ?>">
-                                <?= $author['name']->first_name ?>
-                                <?= $author['name']->middle_name ?>
-                                <?= $author['name']->last_name ?>
-                            </a>
-                        </div>
-                        <?php if(is_array($author['category'])): ?>
-                        <div class="vacancy">
-                            <?php foreach($author['category'] as $category): ?>
-                            <p><?= Html::a($category['title'], $category['url_key']) ?></p>
-                            <?php endforeach; ?>
-                        </div>
-                        <?php endif; ?>
-                        <p><?= $author['affiliation'] ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <div class="expand-more">
+                <ul class="editors-list">
+                    <?php foreach($collection['formerEditor'] as $author): ?>
+                        <li class="editor-item">
+                            <div class="img-holder img-holder-bg">
+                                <div class="img" style="background-image: url(<?= $author['avatar'] ?>)"></div>
+                            </div>
+                            <div class="name">
+                                <a href="<?= $author['profile'] ?>">
+                                    <?= $author['name']->first_name ?>
+                                    <?= $author['name']->middle_name ?>
+                                    <?= $author['name']->last_name ?>
+                                </a>
+                            </div>
+                            <?php if(is_array($author['category'])): ?>
+                                <div class="vacancy">
+                                    <?php foreach($author['category'] as $category): ?>
+                                        <p><?= Html::a($category['title'], $category['url_key']) ?></p>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <p><?= $author['affiliation'] ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php if(count($collection['formerEditor']) > 9): ?>
+
+                    <a class="btn-gray align-center btn-load-more-client-side" href="">
+                        <span class="more">show more</span>
+                        <span class="less">Clear</span>
+                    </a>
+                <?php endif ?>
+            </div>
             <?php endif; ?>
         </div>
 

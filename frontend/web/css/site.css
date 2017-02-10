@@ -1513,6 +1513,13 @@ th {
     animation-iteration-count: infinite;
     animation-timing-function: linear; }
 
+.btn-load-more-client-side .less {
+  display: none; }
+.btn-load-more-client-side.showed .more {
+  display: none; }
+.btn-load-more-client-side.showed .less {
+  display: block; }
+
 * {
   box-sizing: border-box !important;
   outline: none !important; }
@@ -7299,6 +7306,54 @@ iframe[name=advpp_manager] {
       .select-clear-all span:hover {
         color: #0053a0; } }
 
+.js-Pjax {
+  position: relative; }
+
+/* parent element where switch will be made */
+.js-Pjax-child {
+  width: 100%; }
+
+/* position for the elements that will be removed */
+.js-Pjax-remove {
+  position: absolute;
+  left: 50%;
+  /* transform: translateX(-50%) */
+  /* transform can't be used since we already use generic translate for the remove effect (eg animate.css) */
+  /* margin-left: -width/2; // made with js */
+  /* you can totally drop the margin-left thing from switchesOptions if you use custom animations */ }
+
+/* CSS animations */
+.Animated {
+  animation-fill-mode: both;
+  animation-duration: 1s; }
+
+.Animated--reverse {
+  animation-direction: reverse; }
+
+.Animate--fast {
+  animation-duration: 0.5s; }
+
+.Animate--noDelay {
+  animation-delay: 0s !important; }
+
+.Animate--slideInRight {
+  animation-name: Animation-slideInRight; }
+
+@keyframes Animation-slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100rem); }
+  100% {
+    transform: translateX(0); } }
+.Animate--slideInLeft {
+  animation-name: Animation-slideInLeft; }
+
+@keyframes Animation-slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100rem); }
+  100% {
+    transform: translateX(0); } }
 @media only screen and (max-width: 769px) {
   .search-results .sidebar-right {
     display: none; } }
@@ -8694,13 +8749,21 @@ path {
   @media only screen and (min-width: 1024px) {
     .editorial-board-page .editors-list {
       margin-bottom: 33px; } }
-.editorial-board-page .show-more {
-  margin: -5px auto 33px; }
+.editorial-board-page .content-inner-text .expand-more:last-child {
+  margin-bottom: -27px; }
+.editorial-board-page .btn-load-more-client-side {
+  margin: -5px auto 33px !important; }
   @media only screen and (min-width: 1024px) {
-    .editorial-board-page .show-more {
-      margin: -33px auto 57px; } }
+    .editorial-board-page .btn-load-more-client-side {
+      margin: -33px auto 57px !important; } }
 .editorial-board-page .editorial-board-widget {
   margin: 0; }
+
+.editorial-board-page .editors-list li {
+  display: none; }
+
+.editorial-board-page .editors-list li:nth-child(-n+9), .editorial-board-page .editors-list li.opened {
+  display: block; }
 
 .editorial-board-widget {
   font-size: 13px;

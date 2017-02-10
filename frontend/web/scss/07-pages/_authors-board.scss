@@ -17,16 +17,39 @@
     }
   }
 
-  .show-more {
-    margin: -5px auto 33px;
+  .content-inner-text {
+    .expand-more {
+      &:last-child {
+        margin-bottom: -27px;
+      }
+    }
+  }
+
+  .btn-load-more-client-side {
+    margin: -5px auto 33px !important;
 
     @include breakpoint('desktop') {
-      margin: -33px auto 57px;
+      margin: -33px auto 57px !important;
     }
   }
 
   .editorial-board-widget {
     margin: 0;
+  }
+}
+
+.editorial-board-page .editors-list {
+  li {
+    display: none;
+  }
+}
+
+.editorial-board-page .editors-list {
+  li {
+    &:nth-child(-n+9),
+    &.opened {
+      display: block;
+    }
   }
 }
 
