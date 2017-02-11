@@ -6463,11 +6463,10 @@ iframe[name=advpp_manager] {
         width: 100% !important; }
       .source-table-holder #w1-filters td:nth-child(1), .source-table-holder #w1-filters td:nth-child(2) {
         display: none !important; }
-      .source-table-holder tr {
+      .source-table-holder tbody tr {
         border-left: 1px solid #ccc;
-        border-right: 1px solid #ccc; }
-        .source-table-holder tr:last-child {
-          border-bottom: 1px solid #ccc; }
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; }
       .source-table-holder td {
         border: none;
         position: relative;
@@ -6520,7 +6519,8 @@ iframe[name=advpp_manager] {
         font-weight: bold; }
       @media only screen and (max-width: 769px) {
         .source-table-holder .table tbody td.td-letter {
-          padding-left: 6px !important; }
+          padding-left: 6px !important;
+          margin: 0 0 -1px; }
           .source-table-holder .table tbody td.td-letter:before {
             display: none; } }
   .source-table-holder .table tbody ul {

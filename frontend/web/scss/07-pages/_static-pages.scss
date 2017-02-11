@@ -168,11 +168,10 @@
       }
     }
 
-    tr {
-      border-left: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-
-      &:last-child {
+    tbody {
+      tr {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
       }
     }
@@ -261,6 +260,7 @@
 
           @include breakpoint_custom($breakpoint-tablet) {
             padding-left: 6px !important;
+            margin: 0 0 -1px;
 
             &:before {
               display: none;
