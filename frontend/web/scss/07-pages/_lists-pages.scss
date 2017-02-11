@@ -3,7 +3,7 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     .content-inner-text {
-      display: none;
+      //display: none;
     }
 
     .hide-desktop {

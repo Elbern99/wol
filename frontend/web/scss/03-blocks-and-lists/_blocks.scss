@@ -26,7 +26,7 @@
 
 //HEADER-BACKGROUND
 .header-background {
-  height: calc(50vw*.6);
+  height: calc(40vh);
   max-height: 445px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -38,6 +38,10 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     margin: -16px 0 13px 0;
+  }
+
+  @include breakpoint_custom($breakpoint-mobile-large) {
+    max-height: 145px;
   }
 }
 
@@ -1218,8 +1222,8 @@
 .opinion-item {
 
   @include breakpoint('desktop') {
-    max-height: 409px;
-    height: 409px;
+    max-height: 415px;
+    height: 415px;
 
     &.has-image {
       height: auto;

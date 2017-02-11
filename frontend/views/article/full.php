@@ -245,8 +245,8 @@ $config = [
                     </div>
                     <div class="extra-buttons">
                         <ul class="article-buttons-list">
-                            <li class="btn-show-one-pager-holder">
-                                <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-blue-middle btn-show-one-pager"><span class="text">show one-pager</span></a>
+                            <li class="show-one-pager-holder">
+                                <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-light-blue-middle btn-show-one-pager"><span class="text">show one-pager</span></a>
                             </li>
                             <li>
                                 <?php if (isset($attributes['full_pdf'])): ?>

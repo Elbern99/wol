@@ -31,8 +31,8 @@ if ($category) {
                     <li><a href="" class="js-widget">Press releases archives</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
-                    <div class="tab-item active empty">
-                        <div class="clone-title">Press releases from IZA World of Labor</div>
+                    <div class="tab-item active empty linked-1">
+                        <div class="clone-title">Recent Press Releases</div>
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <ul class="articles-filter-list date-list blue-list">
@@ -52,16 +52,23 @@ if ($category) {
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                   
                 </div>
             </div>
-            <h1 class="hide-mobile">Press releases from IZA World of Labor</h1>
-            <p class="hide-mobile">We draw on a range of global sources to bring you news related to IZA World of Labor articles.</p>
+            <h1 class="hide-mobile">Recent Press Releases</h1>
         </div>
     </div>
 
-    <div class="content-inner">
+    <div class="content-inner linked-1">
         <div class="content-inner-text">
+            <p>
+                IZA World of Labor is a global, freely available online resource that provides policymakers, academics, journalists, and researchers, with clear, concise and evidence-based knowledge on labor economics issues worldwide. The site offers relevant and succinctly information on topics including diversity, migration, minimum wage, youth unemployment, employment protection, development, education, gender balance, labor mobility and flexibility among others - for information by topic see our <a href="/key-topics">Key Topics</a> pages. The concise article format with easy-to-find recommendations provides journalists with the information they need for quick research.
+            </p>
+            <p>
+                IZA World of Labor authors are happy to speak to the press about their research. If you have an enquiry about a labor market issue, please search our <a href="/find-an-expert"></a> to find and directly contact a relevant spokesperson.
+            </p>
+            <p>
+                We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email Francesca.Geach@bloomsbury.com.
+            </p>
             <div class="post-list-clone-holder">
                 <div class="post-list-clone">
                     <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>

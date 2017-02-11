@@ -176,6 +176,29 @@
   }
 }
 
+
+//border-blue
+.btn-border-light-blue ,
+[class^="btn-border-light-blue-"],
+[class*=" btn-border-light-blue-"],
+.btn-primary {
+
+
+  background: $light-blue;
+  color: $white;
+  height: 32px;
+  line-height: 32px;
+  font-size: 11px;
+
+  &:hover {
+    @include breakpoint('tablet') {
+      border-color: $light-blue;
+      color: $light-blue;
+      background: $white;
+    }
+  }
+}
+
 //gray
 .btn-border-gray,
 [class^="btn-border-gray-"],

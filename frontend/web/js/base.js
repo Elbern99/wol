@@ -240,14 +240,23 @@
             $(list).on('click', '.js-widget', function(e) {
                 var cur = $(this),
                     curParent = cur.parent(),
-                    curParentIndex = curParent.index();
+                    curParentIndex = curParent.index(),
+                    curDataLinked = cur.data('linked');
+
+                console.log(curDataLinked);
+
                 curParent.addClass('active').siblings().removeClass('active');
 
-                if(cur.hasClass('active')) {
-                    $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
-                }
+                if(curDataLinked !== undefined) {
+                    $('div[data-linked="'+curDataLinked+'"]').removeClass('js-tab-hidden');
+                } else {
+                    if(cur.hasClass('active')) {
+                        $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                    }
 
-                $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                    $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                    $('div[data-linked="'+curDataLinked+'"]').addClass('js-tab-hidden');
+                }
                 e.preventDefault();
             });
 

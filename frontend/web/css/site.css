@@ -1324,6 +1324,24 @@ th {
       .btn-primary:hover span {
         color: inherit; } }
 
+.btn-border-light-blue,
+[class^="btn-border-light-blue-"],
+[class*=" btn-border-light-blue-"],
+.btn-primary {
+  background: #0094f2;
+  color: #fff;
+  height: 32px;
+  line-height: 32px;
+  font-size: 11px; }
+  @media only screen and (min-width: 769px) {
+    .btn-border-light-blue:hover,
+    [class^="btn-border-light-blue-"]:hover,
+    [class*=" btn-border-light-blue-"]:hover,
+    .btn-primary:hover {
+      border-color: #0094f2;
+      color: #0094f2;
+      background: #fff; } }
+
 .btn-border-gray,
 [class^="btn-border-gray-"],
 [class*=" btn-border-gray-"] {
@@ -1756,7 +1774,7 @@ blockquote {
         height: 64px; } }
 
 .header-background {
-  height: calc(50vw*.6);
+  height: calc(40vh);
   max-height: 445px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -1768,6 +1786,9 @@ blockquote {
   @media only screen and (max-width: 769px) {
     .header-background {
       margin: -16px 0 13px 0; } }
+  @media only screen and (max-width: 568px) {
+    .header-background {
+      max-height: 145px; } }
 
 .widget-title {
   border-bottom: 1px solid #b0b0b0;
@@ -2626,8 +2647,8 @@ blockquote {
 
 @media only screen and (min-width: 1024px) {
   .opinion-item {
-    max-height: 409px;
-    height: 409px; }
+    max-height: 415px;
+    height: 415px; }
     .opinion-item.has-image {
       height: auto; } }
 .opinion-item h2 {
@@ -3314,7 +3335,7 @@ blockquote {
   margin-bottom: 15px; }
   @media only screen and (min-width: 769px) {
     .post-list.news-home-list, .news-home-list.favourite-articles-list {
-      margin-bottom: 43px; } }
+      margin-bottom: 28px; } }
   .post-list.news-home-list li, .news-home-list.favourite-articles-list li {
     padding-bottom: 8px; }
     @media only screen and (min-width: 769px) {
@@ -6779,8 +6800,7 @@ iframe[name=advpp_manager] {
     .article-buttons-bottom {
       margin-top: 90px;
       border-bottom: 1px solid #b0b0b0; }
-      .article-buttons-bottom [class^="btn-"].btn-show-one-pager-holder,
-      .article-buttons-bottom [class*=" btn-"].btn-show-one-pager-holder {
+      .article-buttons-bottom .show-one-pager-holder {
         position: absolute;
         top: -65px;
         left: 50%;
@@ -8759,8 +8779,6 @@ path {
       margin: 0 auto 94px; } }
 
 @media only screen and (max-width: 769px) {
-  .news-list-page .content-inner-text {
-    display: none; }
   .news-list-page .hide-desktop {
     -ms-flex-order: 3;
         order: 3; } }

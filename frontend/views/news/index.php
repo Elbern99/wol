@@ -27,13 +27,13 @@ if ($category) {
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li class="active"><a href="" class="js-widget">Latest news</a></li>
+                    <li class="active"><a href="" class="js-widget" data-linked="1">Latest news</a></li>
                     <li><a href="" class="js-widget">News archives</a></li>
                     <li><a href="" class="js-widget">Newsletters</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active empty">
-                        <div class="clone-title">News from IZA World of Labor</div>
+<!--                        <div class="clone-title">News from IZA World of Labor</div>-->
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <ul class="articles-filter-list date-list blue-list">
@@ -125,11 +125,11 @@ if ($category) {
     </div>
 
     <div class="content-inner">
-        <div class="content-inner-text">
-            <div class="post-list-clone-holder">
-                <div class="post-list-clone">
+        <div class="content-inner-text" data-linked="1">
+            <div class="">
+                <div class="">
                     <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
-                    <ul class="post-list clone news-list">
+                    <ul class="post-list news-list">
                         <?php foreach ($news as $item) : ?>
                         <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
                         <li>
