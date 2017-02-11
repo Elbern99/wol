@@ -64,20 +64,7 @@ unset($currentParams);
         <div class="content-inner-text">
             <div class="articles">
                 <div class="sidebar-widget sidebar-widget-sort-by hide-desktop">
-                    <label>sort by</label>
-                    <div class="custom-select dropdown">
-                        <div class="custom-select-title dropdown-link">
-                            Publication date (descending)
-                        </div>
-                        <div class="sort-list drop-content">
-                            <div>
-                                <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 0])) ?>">Publication date (descending)</a>
-                            </div>
-                            <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
-                                <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 1])) ?>">Publication date (ascending)</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?= $this->renderFile('@frontend/views/article/order.php', ['currentUrl' => $currentUrl]); ?>
                 </div>
                 <ul class="articles-list">
                     <?php foreach($collection as $article): ?>
@@ -113,20 +100,7 @@ unset($currentParams);
         
         <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-sort-by hide-mobile">
-                <label>sort by</label>
-                <div class="custom-select dropdown">
-                    <div class="custom-select-title dropdown-link">
-                        Publication date (descending)
-                    </div>
-                    <div class="sort-list drop-content">
-                        <div>
-                            <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 0])) ?>">Publication date (descending)</a>
-                        </div>
-                        <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
-                            <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 1])) ?>">Publication date (ascending)</a>
-                        </div>
-                    </div>
-                </div>
+                <?= $this->renderFile('@frontend/views/article/order.php', ['currentUrl' => $currentUrl]); ?>
             </div>
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
@@ -143,17 +117,6 @@ unset($currentParams);
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
                                     <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-accrodion-item">
-                        <a href="" class="title">Background information</a>
-                        <div class="text">
-                            <?php $alphas = range('A', 'Z'); ?>
-                            <ul class="abs-list">
-                                <?php foreach ($alphas as $letter): ?>
-                                    <li><a class="profile-author-letter" href="<?= Url::to(['/articles', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

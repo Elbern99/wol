@@ -12,6 +12,8 @@ use Yii;
 use common\modules\eav\helper\EavValueHelper;
 use common\modules\eav\CategoryCollection;
 use yii\helpers\Url;
+use frontend\components\articles\OrderBehavior;
+use common\models\ArticleAuthor;
 
 trait ArticleTrait {
     
@@ -28,33 +30,57 @@ trait ArticleTrait {
                             ->one();
     }
     
-    protected function getArticlesList($limit, $order) {
+    private function addOrderQuery(&$query, $order) {
         
-        $letter = null;
-        
-        if (Yii::$app->request->get('filter')) {
-            $letter = Yii::$app->request->get('filter');
+        switch ($order) {
+            case OrderBehavior::DATE_DESC:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+            case OrderBehavior::DATE_ASC:
+                $query->orderBy(['a.created_at' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_ASC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_DESC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_DESC]);
+                break;
+            case OrderBehavior::TITLE_ASC:
+                $query->orderBy(['a.title' => SORT_ASC]);
+                break;
+            case OrderBehavior::TITLE_DESC:
+                $query->orderBy(['a.title' => SORT_DESC]);
+                break;
+            default:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
         }
-
-        $query = Article::find()
-                        ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                        ->where(['enabled' => 1]);
-        
-        if ($letter) {
-            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
-        }
-        
-        return $query->with(['articleCategories' => function($query) {
+    }
+    
+    
+    protected function getArticlesList($limit) {
+        $order = OrderBehavior::getArticleOrder();
+        $query =  Article::find()
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1])
+                        ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
                         ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
-                         }])
-                        ->orderBy(['created_at' => $order])
-                        ->limit($limit)
-                        ->all();
+                         }]);
+               
+        $this->addOrderQuery($query, $order);
+        return $query->limit($limit)->all();
     }
     
     protected function getArticleCount() {

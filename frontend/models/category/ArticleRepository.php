@@ -7,12 +7,14 @@ use common\models\ArticleCategory;
 use common\models\Article;
 use common\models\AuthorCategory;
 use common\models\Author;
+use common\models\ArticleAuthor;
 use common\modules\eav\CategoryCollection;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\modules\eav\helper\EavValueHelper;
 use common\models\Category;
 use common\modules\author\Roles;
+use frontend\components\articles\OrderBehavior;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -24,45 +26,69 @@ class ArticleRepository implements RepositoryInterface {
         $this->current = $currentCategory;
     }
     
+    private function addOrderQuery(&$query, $order) {
+        
+        switch ($order) {
+            case OrderBehavior::DATE_DESC:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+            case OrderBehavior::DATE_ASC:
+                $query->orderBy(['a.created_at' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_ASC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_DESC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_DESC]);
+                break;
+            case OrderBehavior::TITLE_ASC:
+                $query->orderBy(['a.title' => SORT_ASC]);
+                break;
+            case OrderBehavior::TITLE_DESC:
+                $query->orderBy(['a.title' => SORT_DESC]);
+                break;
+            default:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+        }
+    }
+    
     private function getArticleIds($limit, $order) {
         
-        return ArticleCategory::find()
+        $query = ArticleCategory::find()
                                 ->alias('ac')
-                                ->select(['article_id'])
+                                ->select(['ac.article_id'])
                                 ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
-                                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
-                                ->orderBy(['created_at' => $order])
-                                ->asArray()
-                                ->limit($limit)
-                                ->all();
+                                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1]);
+        
+        $this->addOrderQuery($query, $order);
+        
+        return $query->asArray()->limit($limit)->all();
     }
     
     private function getArticlesModel($categoryIds, $order) {
         
-        $letter = null;
-        
-        if (Yii::$app->request->get('filter')) {
-            $letter = Yii::$app->request->get('filter');
-        }
-
-        $query = Article::find()
-                        ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                        ->where(['enabled' => 1, 'id' => ArrayHelper::getColumn($categoryIds, 'article_id')]);
-        
-        if ($letter) {
-            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
-        }
-        
-        return $query->with(['articleCategories' => function($query) {
+        $query =  Article::find()
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1, 'a.id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
+                        ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
                         ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
-                         }])
-                        ->orderBy(['created_at' => $order])
-                        ->all();
+                         }]);
+                         
+        $this->addOrderQuery($query, $order);
+        return $query->all();
     }
     
     /* get Authors for category on top */
@@ -78,20 +104,14 @@ class ArticleRepository implements RepositoryInterface {
     
     }
 
-
     public function getPageParams() {
         
-        $order = SORT_DESC;
         $authorRoles = new Roles();
         $editor = [
             'subject' => [],
             'associate' => []
         ];
-        
-        if (Yii::$app->request->get('sort')) {
-            $order = SORT_ASC;
-        }
-
+    
         $limit = Yii::$app->params['article_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
@@ -103,6 +123,7 @@ class ArticleRepository implements RepositoryInterface {
             }
         }
         
+        $order = OrderBehavior::getArticleOrder();
         $subjectAreas = $this->getSubjectAreas();
         
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
@@ -176,8 +197,7 @@ class ArticleRepository implements RepositoryInterface {
             return [
                 'category' => $this->current, 
                 'subjectAreas' => $subjectAreas, 
-                'collection' => [], 
-                'sort' => $order,
+                'collection' => [],
                 'limit' => $limit,
                 'articleCount' => 1,
                 'editors' => $editor,
@@ -251,22 +271,12 @@ class ArticleRepository implements RepositoryInterface {
     }
     
     public function getCategoryArticleCount() {
-        $letter = null;
-        
-        if (Yii::$app->request->get('filter')) {
-            $letter = Yii::$app->request->get('filter');
-        }
-        
-        $query = ArticleCategory::find()
+
+        return ArticleCategory::find()
                 ->alias('ac')
                 ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
-                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1]);
-        
-        if ($letter) {
-            $query->andFilterWhere(['like', 'title', $letter.'%', false]);
-        }
-
-        return $query->count('a.id');
+                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
+                ->count('a.id');
     }
     
     public function getTamplate() {

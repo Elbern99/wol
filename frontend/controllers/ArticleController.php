@@ -48,13 +48,7 @@ class ArticleController extends Controller {
             }
 
         }
-        
-        $order = SORT_DESC;
 
-        if (Yii::$app->request->get('sort')) {
-            $order = SORT_ASC;
-        }
-        
         $category = $this->getMainArticleCategory();
         $subjectAreas = $this->getSubjectAreas($category);
         
@@ -62,7 +56,7 @@ class ArticleController extends Controller {
             return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
         });
 
-        $articles = $this->getArticlesList($limit, $order);
+        $articles = $this->getArticlesList($limit);
         
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
         
@@ -111,21 +105,13 @@ class ArticleController extends Controller {
             ];
             
         }
-        
-        if (Yii::$app->request->get('filter')) {
-            $letter = Yii::$app->request->get('filter');
-            $articleCnt = Article::find()->where(['enabled' => 1])->andFilterWhere(['like', 'title', $letter.'%', false])->count('id');
-        } else {
-            $articleCnt = Article::find()->where(['enabled' => 1])->count('id');
-        }
-        
+
         return $this->render('index', [
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
-            'collection' => $articlesCollection, 
-            'sort' => $order,
+            'collection' => $articlesCollection,
             'limit' => $limit,
-            'articleCount' => $articleCnt
+            'articleCount' => Article::find()->where(['enabled' => 1])->count('id')
         ]);
     }
 
