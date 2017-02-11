@@ -2,10 +2,6 @@
 use yii\helpers\Url;
 use frontend\components\articles\OrderBehavior;
 
-$currentParams = Yii::$app->getRequest()->getQueryParams();
-unset($currentParams['id']);
-$currentUrl = array_merge($currentUrl, $currentParams);
-unset($currentParams);
 $sort = Yii::$app->request->get('sort');
 ?>
 <label>sort by</label>

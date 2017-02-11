@@ -28,6 +28,10 @@ $this->registerMetaTag([
 
 $roleLabel = new Roles();
 $currentUrl[] = $category->url_key;
+$currentParams = Yii::$app->getRequest()->getQueryParams();
+unset($currentParams['id']);
+$currentUrl = array_merge($currentUrl, $currentParams);
+unset($currentParams);
 ?>
 
 <div class="container">

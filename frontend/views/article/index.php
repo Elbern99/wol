@@ -22,6 +22,10 @@ $this->registerMetaTag([
 ]);
 
 $currentUrl[] = '/articles';
+$currentParams = Yii::$app->getRequest()->getQueryParams();
+unset($currentParams['id']);
+$currentUrl = array_merge($currentUrl, $currentParams);
+unset($currentParams);
 ?>
 
 <div class="container">
