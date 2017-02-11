@@ -23,6 +23,13 @@ $items = $searchModel->getItems();
 $items[0] = 'Show All';
 ?>
 
+<?php $alphas = range('A', 'Z'); ?>
+<ul class="abs-list">
+    <?php foreach ($alphas as $letter): ?>
+        <li><a class="profile-author-letter" href="<?= Url::to('#'.$letter) ?>"><span class="letter"><?= $letter ?></span></a></li>
+    <?php endforeach; ?>
+</ul>
+
 <div class="container without-breadcrumbs sources-page">
     <h1><?= Html::encode($page->Cms('meta_title')) ?></h1>
     <div class="col-sm-12 sidenav">
@@ -34,6 +41,17 @@ $items[0] = 'Show All';
         GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'beforeRow' => function($model, $key, $index, $grid) {
+                if (!isset($grid->options['previosLetter'])) {
+                    $grid->options['previosLetter'] = false;
+                }
+                $currentLetter = substr($model->source, 0, 1);
+                
+                if ($grid->options['previosLetter'] != $currentLetter) {
+                    $grid->options['previosLetter'] = $currentLetter;
+                    return Html::tag('tr', "<td colspan=3>".Html::a($currentLetter, '#'.$currentLetter, ['id' => $currentLetter])."</td>");
+                }
+            },
             'columns' => [
                 [
                     'label' => 'Data Source',
