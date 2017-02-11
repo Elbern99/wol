@@ -132,6 +132,16 @@
 //SOURCE-TABLE-HOLDER
 .source-table-holder {
   margin-bottom: 20px;
+  position: relative;
+
+  .preloader {
+    position: absolute;
+
+    .loading-ball {
+      top: 60px;
+      margin-top: 0;
+    }
+  }
 
   @include breakpoint('tablet') {
     margin-bottom: 20px;
@@ -142,8 +152,52 @@
     overflow-x: auto;
   }
 
+  @include breakpoint_custom($breakpoint-tablet) {
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+      display: block !important;
+      width: 100% !important;
+    }
+
+    #w1-filters {
+      td {
+        &:nth-child(1),
+        &:nth-child(2) {
+          display: none !important;
+        }
+      }
+    }
+
+    tr {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+
+      &:last-child {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+    td {
+      border: none;
+      position: relative;
+      padding-left: 106px !important;
+
+      &:before {
+        position: absolute;
+        top: 13px;
+        left: 6px;
+        width: 90px;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+
+      &:nth-of-type(1):before { content: "Data Source"; }
+      &:nth-of-type(2):before { content: "Website"; }
+      &:nth-of-type(3):before { content: "Type"; }
+    }
+  }
+
   .table {
-    min-width: 500px;
     .filters,
     th {
       background: $blue;
@@ -179,22 +233,44 @@
       }
     }
 
+    thead {
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        tr {
+          &:first-child {
+            display: none !important;
+          }
+        }
+      }
+    }
+
     tbody {
       td {
-        border: 0 !important;
+        border: 0;
         vertical-align: middle;
+        border-bottom: 1px solid #eee;
+
+        &.td-letter {
+          background: #ccc !important;
+          padding-top: 2px;
+          padding-bottom: 1px;
+
+          a {
+            font-weight: bold;
+          }
+
+          @include breakpoint_custom($breakpoint-tablet) {
+            padding-left: 6px !important;
+
+            &:before {
+              display: none;
+            }
+          }
+        }
       }
 
       ul {
         padding: 0;
-      }
-
-      tr{
-        &:nth-child(even) {
-          td {
-            background: #eee;
-          }
-        }
       }
     }
 
@@ -227,9 +303,22 @@
   }
 }
 
+.stiky {
+  @include breakpoint_custom($breakpoint-tablet) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $white;
+    margin: auto !important;
+    z-index: 10;
+    padding: 10px 15px;
+  }
+}
+
 //error-page
 .error-page {
   p {
-    margin: 0 0 10px ;
+    margin: 0 0 10px;
   }
 }

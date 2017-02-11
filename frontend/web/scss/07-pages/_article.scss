@@ -1003,7 +1003,13 @@
 
   .column-sources,
   .column-types {
+    overflow: hidden;
+
     .item {
+
+      @include breakpoint('tablet') {
+        margin-bottom: 5px;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         min-height: 1px !important;
@@ -1043,6 +1049,7 @@
 
   .columns {
     margin: 0 -24px 0px;
+    overflow: hidden;
 
     @include breakpoint('tablet') {
       margin: 0 -24px 0;

@@ -243,20 +243,18 @@
                     curParentIndex = curParent.index(),
                     curDataLinked = cur.data('linked');
 
-                console.log(curDataLinked);
-
                 curParent.addClass('active').siblings().removeClass('active');
+                $('div[data-linked="1"]').addClass('js-tab-hidden').removeClass('active');
 
                 if(curDataLinked !== undefined) {
-                    $('div[data-linked="'+curDataLinked+'"]').removeClass('js-tab-hidden');
-                } else {
-                    if(cur.hasClass('active')) {
-                        $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
-                    }
-
-                    $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
-                    $('div[data-linked="'+curDataLinked+'"]').addClass('js-tab-hidden');
+                    $('div[data-linked="'+curDataLinked+'"]').removeClass('js-tab-hidden').addClass('active');
                 }
+
+                if(cur.hasClass('active')) {
+                    $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
+                }
+
+                $(tabs).find(item).eq(curParentIndex).addClass('active').removeClass('js-tab-hidden').siblings().removeClass('active').addClass('js-tab-hidden');
                 e.preventDefault();
             });
 

@@ -32,9 +32,7 @@ if ($category) {
                     <li><a href="" class="js-widget">Newsletters</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
-                    <div class="tab-item active empty">
-<!--                        <div class="clone-title">News from IZA World of Labor</div>-->
-                    </div>
+                    <div class="tab-item active empty-nothing"></div>
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <ul class="articles-filter-list date-list blue-list">
                             <?php foreach ($newsTree as $key => $value) : ?>
@@ -125,55 +123,51 @@ if ($category) {
     </div>
 
     <div class="content-inner">
-        <div class="content-inner-text" data-linked="1">
-            <div class="">
-                <div class="">
-                    <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
-                    <ul class="post-list news-list">
-                        <?php foreach ($news as $item) : ?>
-                        <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
-                        <li>
-                            <div class="post-item <?= $hasImageClass; ?>">
-                                <?php if ($hasImageClass) : ?>
-                                <a href="/news/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
-                                <?php endif; ?>
-                                <div class="desc">
-                                    <div class="inner">
-                                        <div class="head-news-holder">
-                                            <div class="head-news">
-                                                <div class="date">
-                                                    <?= $item->created_at->format('F d, Y'); ?>
-                                                </div>
-                                                <div class="publish">
-                                                    <a href="#">
-                                                        <?= $item->editor; ?>
-                                                    </a>
-                                                </div>
-                                            </div>
+        <div class="content-inner-text content-inner-animate active" data-linked="1">
+            <h1 class="clone-title hide-desktop">Latest news from IZA World of Labor</h1>
+            <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
+            <ul class="post-list news-list">
+                <?php foreach ($news as $item) : ?>
+                <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
+                <li>
+                    <div class="post-item <?= $hasImageClass; ?>">
+                        <?php if ($hasImageClass) : ?>
+                        <a href="/news/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
+                        <?php endif; ?>
+                        <div class="desc">
+                            <div class="inner">
+                                <div class="head-news-holder">
+                                    <div class="head-news">
+                                        <div class="date">
+                                            <?= $item->created_at->format('F d, Y'); ?>
                                         </div>
-                                        <h2>
-                                            <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
-                                        </h2>
-                                        <div class="hide-mobile"><?= $item->short_description; ?></div>
+                                        <div class="publish">
+                                            <a href="#">
+                                                <?= $item->editor; ?>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="hide-desktop"><?= $item->short_description; ?></div>
+                                <h2>
+                                    <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
+                                </h2>
+                                <div class="hide-mobile"><?= $item->short_description; ?></div>
                             </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php if ($newsCount > $limit): ?>
-                    <?php $params = [ 'limit' => $limit]; ?>
-                    <?= Html::a("show more", Url::current($params), ['class' => 'btn-gray align-center']) ?>
-                    <?php else: ?>
-                        <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("clear", Url::to(['/news/index']), ['class' => 'btn-gray align-center']) ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    <?php Pjax::end(); ?>
-                </div>
-                
-            </div>
+                        </div>
+                        <div class="hide-desktop"><?= $item->short_description; ?></div>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ($newsCount > $limit): ?>
+            <?php $params = [ 'limit' => $limit]; ?>
+            <?= Html::a("show more", Url::current($params), ['class' => 'btn-gray align-center']) ?>
+            <?php else: ?>
+                <?php if (Yii::$app->request->get('limit')): ?>
+                    <?= Html::a("clear", Url::to(['/news/index']), ['class' => 'btn-gray align-center']) ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php Pjax::end(); ?>
         </div>
 
         <aside class="sidebar-right">

@@ -27,12 +27,11 @@ if ($category) {
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li class="active"><a href="" class="js-widget">Latest press releases</a></li>
+                    <li class="active"><a href="" class="js-widget" data-linked="1">Latest press releases</a></li>
                     <li><a href="" class="js-widget">Press releases archives</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
-                    <div class="tab-item active empty linked-1">
-                        <div class="clone-title">Recent Press Releases</div>
+                    <div class="tab-item active empty-nothing">
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
                         <ul class="articles-filter-list date-list blue-list">
@@ -58,8 +57,9 @@ if ($category) {
         </div>
     </div>
 
-    <div class="content-inner linked-1">
-        <div class="content-inner-text">
+    <div class="content-inner">
+        <div class="content-inner-text content-inner-animate active" data-linked="1">
+            <h1 class="clone-title hide-desktop">Recent Press Releases</h1>
             <p>
                 IZA World of Labor is a global, freely available online resource that provides policymakers, academics, journalists, and researchers, with clear, concise and evidence-based knowledge on labor economics issues worldwide. The site offers relevant and succinctly information on topics including diversity, migration, minimum wage, youth unemployment, employment protection, development, education, gender balance, labor mobility and flexibility among others - for information by topic see our <a href="/key-topics">Key Topics</a> pages. The concise article format with easy-to-find recommendations provides journalists with the information they need for quick research.
             </p>
@@ -69,49 +69,44 @@ if ($category) {
             <p>
                 We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email Francesca.Geach@bloomsbury.com.
             </p>
-            <div class="post-list-clone-holder">
-                <div class="post-list-clone">
-                    <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
-                    <ul class="post-list clone news-list">
-                        <?php foreach ($news as $item) : ?>
-                        <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
-                        <li>
-                            <div class="post-item <?= $hasImageClass; ?>">
-                                <?php if ($hasImageClass) : ?>
-                                <a href="/press-releases/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
-                                <?php endif; ?>
-                                <div class="desc">
-                                    <div class="inner">
-                                        <div class="head-news-holder">
-                                            <div class="head-news">
-                                                <div class="date">
-                                                    <?= $item->created_at->format('F d, Y'); ?>
-                                                </div>
-                                            </div>
+            <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
+            <ul class="post-list news-list">
+                <?php foreach ($news as $item) : ?>
+                <?php $hasImageClass = $item->image_link ? 'has-image' : null; ?>
+                <li>
+                    <div class="post-item <?= $hasImageClass; ?>">
+                        <?php if ($hasImageClass) : ?>
+                        <a href="/press-releases/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
+                        <?php endif; ?>
+                        <div class="desc">
+                            <div class="inner">
+                                <div class="head-news-holder">
+                                    <div class="head-news">
+                                        <div class="date">
+                                            <?= $item->created_at->format('F d, Y'); ?>
                                         </div>
-                                        <h2>
-                                            <?= Html::a($item->title, ['/press-releases/view', 'slug' => $item->url_key]); ?>
-                                        </h2>
-                                        <div class="hide-mobile"><?= $item->short_description; ?></div>
                                     </div>
                                 </div>
-                                <div class="hide-desktop"><?= $item->short_description; ?></div>
+                                <h2>
+                                    <?= Html::a($item->title, ['/press-releases/view', 'slug' => $item->url_key]); ?>
+                                </h2>
+                                <div class="hide-mobile"><?= $item->short_description; ?></div>
                             </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php if ($newsCount > $limit): ?>
-                    <?php $params = [ 'limit' => $limit]; ?>
-                    <?= Html::a("show more", Url::current($params), ['class' => 'btn-gray align-center']) ?>
-                    <?php else: ?>
-                        <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("clear", Url::current(), ['class' => 'btn-gray align-center']) ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    <?php Pjax::end(); ?>
-                </div>
-                
-            </div>
+                        </div>
+                        <div class="hide-desktop"><?= $item->short_description; ?></div>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ($newsCount > $limit): ?>
+            <?php $params = [ 'limit' => $limit]; ?>
+            <?= Html::a("show more", Url::current($params), ['class' => 'btn-gray align-center']) ?>
+            <?php else: ?>
+                <?php if (Yii::$app->request->get('limit')): ?>
+                    <?= Html::a("clear", Url::current(), ['class' => 'btn-gray align-center']) ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php Pjax::end(); ?>
         </div>
 
         <aside class="sidebar-right">

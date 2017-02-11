@@ -494,8 +494,8 @@ $config = [
                                                     <?php if(is_array($reference->data_type)): ?>
                                                         <?php
                                                         $s = 1;
-                                                        foreach ($reference->data_type as $Types) {
-                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$Types.'</div>';
+                                                        foreach ($reference->data_type as $dataType) {
+                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$dataType.'</div>';
                                                             $s++;
                                                         }
                                                         ?>

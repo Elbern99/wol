@@ -39,6 +39,12 @@
   }
 }
 
+.content-inner-text {
+  &.content-inner-animate {
+    @extend .opacityAnimate;
+  }
+}
+
 .content-inner {
 
   >div:first-child {

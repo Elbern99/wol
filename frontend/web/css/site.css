@@ -680,12 +680,12 @@ th {
   .slideAnimate.active {
     transform: translateY(0); }
 
-.opacityAnimate, .mobile-filter-holder .tab-item, .overlay {
+.opacityAnimate, .mobile-filter-holder .tab-item, .overlay, .content-inner-text.content-inner-animate {
   transform: translateY(-10px);
   transition: transform .5s ease, opacity .5s ease;
   overflow: hidden;
   opacity: 0; }
-  .opacityAnimate.active, .mobile-filter-holder .active.tab-item, .active.overlay {
+  .opacityAnimate.active, .mobile-filter-holder .active.tab-item, .active.overlay, .active.content-inner-text.content-inner-animate {
     transform: translateY(0);
     opacity: 1; }
 
@@ -1603,7 +1603,8 @@ ol {
     padding-left: 10px; }
   ul li,
   ol li {
-    position: relative; }
+    position: relative;
+    padding: 0 0 0 10px; }
     ul li:before,
     ol li:before {
       content: '';
@@ -1613,7 +1614,7 @@ ol {
       background: #262626;
       display: inline-block;
       vertical-align: middle;
-      margin: 0 7px 0 0; }
+      margin: -2px 7px 0 -10px; }
 
 ol li {
   counter-increment: step-counter;
@@ -3196,6 +3197,9 @@ blockquote {
 .sidebar-widget-keywords,
 .sidebar-widget-reference-popup {
   font-size: 12px; }
+
+.empty-nothing {
+  display: none; }
 
 .news-home-list .post-item,
 .news-list .post-item {
@@ -6438,62 +6442,120 @@ iframe[name=advpp_manager] {
       justify-content: center; }
 
 .source-table-holder {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  position: relative; }
+  .source-table-holder .preloader {
+    position: absolute; }
+    .source-table-holder .preloader .loading-ball {
+      top: 60px;
+      margin-top: 0; }
   @media only screen and (min-width: 769px) {
     .source-table-holder {
       margin-bottom: 20px; } }
   .source-table-holder .grid-view {
     overflow: hidden;
     overflow-x: auto; }
-  .source-table-holder .table {
-    min-width: 500px; }
-    .source-table-holder .table .filters,
-    .source-table-holder .table th {
-      background: #0053a0;
-      color: #fff;
-      border-color: #0053a0;
-      text-align: left; }
-      .source-table-holder .table .filters a,
-      .source-table-holder .table th a {
-        color: inherit; }
-    .source-table-holder .table .filters td {
-      border-color: #0053a0; }
-    .source-table-holder .table th, .source-table-holder .table td {
-      width: 30%;
-      padding: 13px 12px; }
-      .source-table-holder .table th:last-child, .source-table-holder .table td:last-child {
-        width: 35%; }
-      .source-table-holder .table th:first-child, .source-table-holder .table td:first-child {
-        width: 35%; }
-      .source-table-holder .table th:nth-child(2), .source-table-holder .table td:nth-child(2) {
-        word-break: break-all; }
-    .source-table-holder .table tbody td {
-      border: 0 !important;
-      vertical-align: middle; }
-    .source-table-holder .table tbody ul {
-      padding: 0; }
-    .source-table-holder .table tbody tr:nth-child(even) td {
-      background: #eee; }
-    .source-table-holder .table select.form-control {
-      border: 0;
-      z-index: 2;
-      border-radius: 5px;
-      height: 28px;
-      cursor: pointer;
-      padding: 0 30px 0 10px;
-      background: #fff;
-      overflow: hidden;
-      margin: 0;
-      color: #323232;
-      font: normal 11px/28px "LucidaGrande", Helvetica, Arial, Sans-serif;
-      width: 100%;
-      position: relative;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-          align-items: center; }
-      .source-table-holder .table select.form-control option:first-child {
-        display: none; }
+  @media only screen and (max-width: 769px) {
+    .source-table-holder {
+      /* Force table to not be like tables anymore */ }
+      .source-table-holder table, .source-table-holder thead, .source-table-holder tbody, .source-table-holder th, .source-table-holder td, .source-table-holder tr {
+        display: block !important;
+        width: 100% !important; }
+      .source-table-holder #w1-filters td:nth-child(1), .source-table-holder #w1-filters td:nth-child(2) {
+        display: none !important; }
+      .source-table-holder tr {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc; }
+        .source-table-holder tr:last-child {
+          border-bottom: 1px solid #ccc; }
+      .source-table-holder td {
+        border: none;
+        position: relative;
+        padding-left: 106px !important; }
+        .source-table-holder td:before {
+          position: absolute;
+          top: 13px;
+          left: 6px;
+          width: 90px;
+          padding-right: 10px;
+          white-space: nowrap; }
+        .source-table-holder td:nth-of-type(1):before {
+          content: "Data Source"; }
+        .source-table-holder td:nth-of-type(2):before {
+          content: "Website"; }
+        .source-table-holder td:nth-of-type(3):before {
+          content: "Type"; } }
+  .source-table-holder .table .filters,
+  .source-table-holder .table th {
+    background: #0053a0;
+    color: #fff;
+    border-color: #0053a0;
+    text-align: left; }
+    .source-table-holder .table .filters a,
+    .source-table-holder .table th a {
+      color: inherit; }
+  .source-table-holder .table .filters td {
+    border-color: #0053a0; }
+  .source-table-holder .table th, .source-table-holder .table td {
+    width: 30%;
+    padding: 13px 12px; }
+    .source-table-holder .table th:last-child, .source-table-holder .table td:last-child {
+      width: 35%; }
+    .source-table-holder .table th:first-child, .source-table-holder .table td:first-child {
+      width: 35%; }
+    .source-table-holder .table th:nth-child(2), .source-table-holder .table td:nth-child(2) {
+      word-break: break-all; }
+  @media only screen and (max-width: 769px) {
+    .source-table-holder .table thead tr:first-child {
+      display: none !important; } }
+  .source-table-holder .table tbody td {
+    border: 0;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee; }
+    .source-table-holder .table tbody td.td-letter {
+      background: #ccc !important;
+      padding-top: 2px;
+      padding-bottom: 1px; }
+      .source-table-holder .table tbody td.td-letter a {
+        font-weight: bold; }
+      @media only screen and (max-width: 769px) {
+        .source-table-holder .table tbody td.td-letter {
+          padding-left: 6px !important; }
+          .source-table-holder .table tbody td.td-letter:before {
+            display: none; } }
+  .source-table-holder .table tbody ul {
+    padding: 0; }
+  .source-table-holder .table select.form-control {
+    border: 0;
+    z-index: 2;
+    border-radius: 5px;
+    height: 28px;
+    cursor: pointer;
+    padding: 0 30px 0 10px;
+    background: #fff;
+    overflow: hidden;
+    margin: 0;
+    color: #323232;
+    font: normal 11px/28px "LucidaGrande", Helvetica, Arial, Sans-serif;
+    width: 100%;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center; }
+    .source-table-holder .table select.form-control option:first-child {
+      display: none; }
+
+@media only screen and (max-width: 769px) {
+  .stiky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    margin: auto !important;
+    z-index: 10;
+    padding: 10px 15px; } }
 
 .error-page p {
   margin: 0 0 10px; }
@@ -7134,10 +7196,17 @@ iframe[name=advpp_manager] {
     margin: 0 0 20px; }
   .reference-popup p {
     margin-bottom: 6px; }
-  @media only screen and (max-width: 769px) {
-    .reference-popup .column-sources .item,
-    .reference-popup .column-types .item {
-      min-height: 1px !important; } }
+  .reference-popup .column-sources,
+  .reference-popup .column-types {
+    overflow: hidden; }
+    @media only screen and (min-width: 769px) {
+      .reference-popup .column-sources .item,
+      .reference-popup .column-types .item {
+        margin-bottom: 5px; } }
+    @media only screen and (max-width: 769px) {
+      .reference-popup .column-sources .item,
+      .reference-popup .column-types .item {
+        min-height: 1px !important; } }
   .reference-popup .column-caption,
   .reference-popup .column,
   .reference-popup .column-types,
@@ -7165,7 +7234,8 @@ iframe[name=advpp_manager] {
     .reference-popup .column-methods {
       margin: 0; } }
   .reference-popup .columns {
-    margin: 0 -24px 0px; }
+    margin: 0 -24px 0px;
+    overflow: hidden; }
     @media only screen and (min-width: 769px) {
       .reference-popup .columns {
         margin: 0 -24px 0; } }
