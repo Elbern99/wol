@@ -45,9 +45,9 @@ $items[0] = 'Show All';
                 if (!isset($grid->options['previosLetter'])) {
                     $grid->options['previosLetter'] = false;
                 }
-                $currentLetter = substr($model->source, 0, 1);
+                $currentLetter = strtoupper(substr($model->source, 0, 1));
                 
-                if ($grid->options['previosLetter'] != $currentLetter) {
+                if ($grid->options['previosLetter'] != $currentLetter && preg_match("/[A-Z]{1}/", $currentLetter)) {
                     $grid->options['previosLetter'] = $currentLetter;
                     return Html::tag('tr', "<td colspan=3>".Html::a($currentLetter, '#'.$currentLetter, ['id' => $currentLetter])."</td>");
                 }
