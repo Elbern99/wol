@@ -6546,16 +6546,18 @@ iframe[name=advpp_manager] {
     .source-table-holder .table select.form-control option:first-child {
       display: none; }
 
-@media only screen and (max-width: 769px) {
-  .stiky {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    margin: auto !important;
-    z-index: 10;
-    padding: 10px 15px; } }
+.stiky {
+  transition: all 0.3s ease; }
+  @media only screen and (max-width: 769px) {
+    .stiky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      margin: auto !important;
+      z-index: 10;
+      padding: 10px 15px; } }
 
 .error-page p {
   margin: 0 0 10px; }

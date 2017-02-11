@@ -304,6 +304,8 @@
 }
 
 .stiky {
+  transition: all 0.3s ease;
+
   @include breakpoint_custom($breakpoint-tablet) {
     position: fixed;
     bottom: 0;
