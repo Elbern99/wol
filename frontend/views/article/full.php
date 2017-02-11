@@ -72,18 +72,14 @@ $config = [
 
 ?>
 
-<div class="container article-full">
+<div class="container article-full full-page">
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
             <li><a href="/key-topics">Subject areas</a></li>
-            <!-- <li><a href="" class="js-widget">Trending topics</a></li> -->
             <li><a href="/authors">Authors</a></li>
         </ul>
         <div class="mobile-filter-items custom-tabs">
             <div class="tab-item blue js-tab-hidden expand-more"></div>
-            <!-- <div class="tab-item blue js-tab-hidden expand-more">
-                test 2
-            </div> -->
             <div class="tab-item blue js-tab-hidden expand-more"></div>
         </div>
     </div>

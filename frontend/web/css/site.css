@@ -9261,20 +9261,20 @@ path {
       display: none; }
     .article-full .sidebar-widget {
       display: none; }
-      .article-full .sidebar-widget.sidebar-widget-articles-references {
-        display: block; }
-        .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
+    .article-full.full-page .sidebar-widget.sidebar-widget-articles-references {
+      display: block; }
+      .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
+        display: none; }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
           display: none; }
-          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
-            display: none; }
-          .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
-            display: block;
-            margin-top: -80px; }
-            .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
-              padding-top: 20px;
-              display: block !important; }
-              .article-full .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
-                display: block !important; } }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item {
+          display: block;
+          margin-top: -80px; }
+          .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text {
+            padding-top: 20px;
+            display: block !important; }
+            .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item.key-references-item .text li {
+              display: block !important; } }
 @media print and (color) {
   * {
     -webkit-print-color-adjust: exact;
