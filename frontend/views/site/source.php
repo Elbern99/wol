@@ -44,6 +44,13 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                 GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'pager' => [
+                        'class' => \kop\y2sp\ScrollPager::className(),
+                        'container' => '.grid-view tbody',
+                        'item' => 'tr',
+                        'paginationSelector' => '.grid-view .pagination',
+                        'triggerTemplate' => '<tr class="ias-trigger"><td colspan="100%" style="text-align: center"><a style="cursor: pointer">{text}</a></td></tr>',
+                     ],
                     'beforeRow' => function($model, $key, $index, $grid) {
                         if (!isset($grid->options['previosLetter'])) {
                             $grid->options['previosLetter'] = false;

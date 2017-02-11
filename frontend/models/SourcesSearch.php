@@ -60,7 +60,7 @@ class SourcesSearch extends DataSource
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => false
+            'pagination' => ['pageSize' => 50]
         ]);
 
         if (!$this->validate()) {
