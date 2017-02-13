@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\grid\GridView;
+use frontend\components\widget\CustomGridView;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -39,9 +39,8 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                     <div class="loading-ball"></div>
                 </div>
                 <!-- / .preloader -->
-                <?php \yii\widgets\Pjax::begin(); ?>
                 <?=
-                GridView::widget([
+                CustomGridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'pager' => [
@@ -49,16 +48,22 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                         'container' => '.grid-view tbody',
                         'item' => 'tr',
                         'paginationSelector' => '.grid-view .pagination',
-                        'triggerTemplate' => '<tr class="ias-trigger"><td colspan="100%" style="text-align: center"><a style="cursor: pointer">{text}</a></td></tr>',
+                        'triggerTemplate' => '',
+                        'triggerOffset' => 100,
+                        'noneLeftText' => ''
                      ],
                     'beforeRow' => function($model, $key, $index, $grid) {
-                        if (!isset($grid->options['previosLetter'])) {
-                            $grid->options['previosLetter'] = false;
-                        }
+                         
                         $currentLetter = strtoupper(substr($model->source, 0, 1));
-
-                        if ($grid->options['previosLetter'] != $currentLetter && preg_match("/[A-Z]{1}/", $currentLetter)) {
-                            $grid->options['previosLetter'] = $currentLetter;
+                        $previosLetterGet = Yii::$app->request->get('previosLetter');
+                        
+                        if (!$grid->previosLetter && $previosLetterGet) {
+                            $grid->previosLetter = $previosLetterGet;
+                        }
+                        
+                        if ($grid->previosLetter != $currentLetter && preg_match("/[A-Z]{1}/", $currentLetter)) {
+                            $grid->dataProvider->getPagination()->params = array_merge(Yii::$app->request->get(), ['previosLetter' => $currentLetter]);
+                            $grid->previosLetter = $currentLetter;
                             return Html::tag('tr', "<td colspan=3 class='td-letter'>".Html::a($currentLetter, '#'.$currentLetter, ['id' => $currentLetter])."</td>");
                         }
                     },
@@ -111,7 +116,6 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                     ],
                 ]);
                 ?>
-                <?php \yii\widgets\Pjax::end(); ?>
             </div>
         </div>
         <aside class="sidebar-right stiky">
