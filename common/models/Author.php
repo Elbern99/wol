@@ -123,22 +123,26 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         return Url::to([self::AUTHOR_PREFIX.'/'.$this->url_key]);
     }
     
-    public function getAuthorRoles(bool $link) {
+    public function getAuthorRoles($type) {
         
         $ids = AuthorRoles::find()->where(['author_id' => $this->id])->all();
-
-        if (!$link) {
-            return ArrayHelper::getColumn($ids, 'role_id');
-        }
-        
         $roles = new \common\modules\author\Roles();
         
-        return ArrayHelper::getColumn($ids, function($data) use ($roles) {
+        return ArrayHelper::getColumn($ids, function($data) use ($roles, $type) {
             if (array_search($data['role_id'], $roles->getAuthorGroup()) !== false) {
+                if (is_null($type)) {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
                 return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/authors/'.$this->url_key));
             } elseif(array_search($data['role_id'], $roles->getEditorGroup()) !== false) {
+                if ($type == 'editor') {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
                 return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/editors/'.$this->url_key));
             } elseif(array_search($data['role_id'], $roles->getExpertGroup()) !== false) {
+                if ($type == 'expert') {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
                 return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/experts/'.$this->url_key));
             }
         });
