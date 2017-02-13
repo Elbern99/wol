@@ -81,8 +81,11 @@
         },
         paddingBottomBody:function(item) {
             function setPadding(item) {
-                if(_window_width < _tablet) {
-                    $(item).css('padding-bottom', $('.stiky').outerHeight());
+                var
+                    $stiky = $('.stiky');
+
+                if(_window_width < _mobile) {
+                    $(item).css('padding-bottom', $stiky.outerHeight());
                 } else {
                     $(item).css('padding-bottom', '0');
                 }
@@ -92,6 +95,56 @@
             $window.resize(function() {
                 setPadding(item);
             });
+        },
+        backToTop: function(btn) {
+            var
+                delay = 200;
+
+            $(window).scroll(function(){
+                var
+                    $btn = $(btn);
+
+                if ($(this).scrollTop() > 100) {
+                    $btn.fadeIn();
+                } else {
+                    $btn.fadeOut();
+                }
+            });
+
+            // Click event to scroll to top
+            $(btn).click(function(){
+                $html.animate({scrollTop : 0},delay);
+                return false;
+            });
+
+            function setLeft(btn) {
+                var
+                    $stiky = $('.stiky'),
+                    stikyLeft = $stiky.offset().left,
+                    stikyWidth = $stiky.width(),
+                    stikyHeight = $stiky.height(),
+                    btnWidth = 30,
+                    $btn = $(btn);
+
+                if(_window_width > _mobile) {
+                    $btn.css({
+                        'left': stikyLeft+stikyWidth-btnWidth,
+                        'right': 'auto',
+                        'bottom': '35px'
+                    });
+                } else {
+                    $btn.css({
+                        'left': 'auto',
+                        'right': '15px',
+                        'bottom': stikyHeight
+                    });
+                }
+            }
+
+            setLeft(btn);
+            $window.resize(function() {
+                setLeft(btn);
+            });
         }
     };
 
@@ -100,5 +153,6 @@
         sources.scrollToSelf('.td-letter a');
         sources.stikySidebar('.stiky');
         sources.paddingBottomBody('.wrapper');
+        sources.backToTop('.back-to-top');
     });
 })(jQuery);

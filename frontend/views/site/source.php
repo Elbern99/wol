@@ -34,11 +34,6 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
         <div class="content-inner-text">
             <?= $page->Page('text') ?>
             <div class="source-table-holder">
-                <!-- .preloader -->
-                <div class="preloader">
-                    <div class="loading-ball"></div>
-                </div>
-                <!-- / .preloader -->
                 <?=
                 CustomGridView::widget([
                     'dataProvider' => $dataProvider,
@@ -50,7 +45,8 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                         'paginationSelector' => '.grid-view .pagination',
                         'triggerTemplate' => '',
                         'triggerOffset' => 100,
-                        'noneLeftText' => ''
+                        'noneLeftText' => '',
+                        'spinnerTemplate' => '<div class="preloader-table"><div class="loading-ball"></div></div>'
                      ],
                     'beforeRow' => function($model, $key, $index, $grid) {
                          
@@ -131,3 +127,5 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
     </div>
 
 </div>
+
+<div class="back-to-top"><div class="icon-upwards-arrow"></div></div>
