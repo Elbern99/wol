@@ -2,7 +2,9 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\models\AdvancedSearchForm;
 use common\modules\eav\helper\EavAttributeHelper;
 ?>
 
@@ -35,6 +37,7 @@ $this->registerMetaTag([
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerCssFile('/css/leaflet.css');
 
@@ -351,14 +354,18 @@ $config = [
             </div>
 
             <div class="sidebar-widget sidebar-widget-keywords">
-                <div class="widget-title">Keywords</div>
+            <div class="widget-title">Keywords</div>
                 <?=
                 implode(', ', array_map(
                     function($item) {
-                        return Html::a($item->word, Url::to(['/search/advanced', 'phrase' => $item->word]));
+                        return Html::a($item->word, '#', ['class' => 'search-keywords-article']);
                     }, EavAttributeHelper::getAttribute('keywords')->getData()
                 ));
                 ?>
+                <?php $model = new AdvancedSearchForm(); ?>
+                <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'keywords-search-form', 'style' => 'display:none']]); ?>
+                    <?= $form->field($model, 'search_phrase') ?>
+                <?php ActiveForm::end(); ?>
             </div>
 
             

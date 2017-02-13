@@ -2,8 +2,9 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-//use Yii;
+use frontend\models\AdvancedSearchForm;
 ?>
 
 <?php
@@ -40,6 +41,7 @@ $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsse
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/icon.label.js');
 $this->registerJsFile('/js/pages/map.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerCssFile('/css/leaflet.css');
 ?>
 
@@ -231,11 +233,15 @@ $this->registerCssFile('/css/leaflet.css');
                 <div class="widget-title">Keywords</div>
                 <?=
                 implode(', ', array_map(
-                        function($item) {
-                            return Html::a($item->word);
-                        }, $attributes['keywords']->getData()
+                    function($item) {
+                        return Html::a($item->word, '#', ['class' => 'search-keywords-article']);
+                    }, $attributes['keywords']->getData()
                 ));
                 ?>
+                <?php $model = new AdvancedSearchForm(); ?>
+                <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'keywords-search-form', 'style' => 'display:none']]); ?>
+                    <?= $form->field($model, 'search_phrase') ?>
+                <?php ActiveForm::end(); ?>
             </div>
 
             <?php
