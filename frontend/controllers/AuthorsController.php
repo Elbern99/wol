@@ -200,7 +200,7 @@ class AuthorsController extends Controller {
                 'expertise' => $expertise,
                 'language' => $language,
                 'author_country' => $author_country,
-                'profile' => Url::to(['/experts/'.$expert->url_key]),
+                'profile' => Url::to(['/spokespeople/'.$expert->url_key]),
             ];
 
             if (Yii::$app->request->isPost) {

@@ -9,7 +9,7 @@ use common\helpers\Country;
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$author['author']->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Find a topic spokesperson'), 'url' => Url::toRoute(['/find-an-expert'])];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Find a topic spokesperson'), 'url' => Url::toRoute(['/find-a-topic-spokesperson'])];
 $this->params['breadcrumbs'][] = Html::encode($author['author']->name);
 
 $this->registerMetaTag([
@@ -198,7 +198,10 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             </ul>
                             <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                            <div class="publish"><a href=""><?= $article['availability'] ?></a>, <?= date('F Y', $article['created_at']) ?></div>
+                            <div class="publish">
+                                <?php foreach($article['authors'] as $owner): ?><a href="<?= $owner->getUrl() ?>"><?= $owner->name ?></a><?php endforeach; ?>,
+                                <?= date('F Y', $article['created_at']) ?>
+                            </div>
                             <div class="description">
                                 <?= $article['abstract']->abstract ?? ''; ?>
                             </div>
@@ -220,7 +223,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item  is-open">
-                        <a href="" class="title">Experts</a>
+                        <a href="" class="title">Topic Spokespeople</a>
                         <div class="text">
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">

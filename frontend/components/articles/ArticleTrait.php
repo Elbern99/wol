@@ -103,15 +103,9 @@ trait ArticleTrait {
         
         return  Category::find()
                         ->alias('c1')
-                        ->leftJoin([
-                            'c2' => Category::tableName()], 'c2.lft < c1.lft and c2.rgt > c1.rgt'
-                        )
                         ->where(['c1.id' => $categoryIds])
-                        ->andWhere(['>=', 'c2.lvl', 1])
                         ->select([
-                            'c2.id as p_id',
-                            'c1.title', 'c1.url_key',
-                            'c2.title as p_title', 'c2.url_key as p_url_key',
+                            'c1.title', 'c1.url_key', 'c1.lvl'
                         ])
                         ->asArray()
                         ->all();
@@ -188,7 +182,6 @@ trait ArticleTrait {
 
                 $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
                 $categories = $this->getFullCategoryArticlesArray($categoryIds);
-                
             }
             
             if ($articleCollection->isMulti) {

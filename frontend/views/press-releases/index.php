@@ -64,7 +64,7 @@ if ($category) {
                 IZA World of Labor is a global, freely available online resource that provides policymakers, academics, journalists, and researchers, with clear, concise and evidence-based knowledge on labor economics issues worldwide. The site offers relevant and succinctly information on topics including diversity, migration, minimum wage, youth unemployment, employment protection, development, education, gender balance, labor mobility and flexibility among others - for information by topic see our <a href="/key-topics">Key Topics</a> pages. The concise article format with easy-to-find recommendations provides journalists with the information they need for quick research.
             </p>
             <p>
-                IZA World of Labor authors are happy to speak to the press about their research. If you have an enquiry about a labor market issue, please search our <a href="/find-an-expert">spokesperson database</a> to find and directly contact a relevant spokesperson.
+                IZA World of Labor authors are happy to speak to the press about their research. If you have an enquiry about a labor market issue, please search our <a href="/find-a-topic-spokesperson">spokesperson database</a> to find and directly contact a relevant spokesperson.
             </p>
             <p>
                 We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email <a target="_blank" href="mailto:francesca.geach@bloomsbury.com">Francesca.Geach@bloomsbury.com</a>.

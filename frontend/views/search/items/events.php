@@ -7,6 +7,6 @@
     </div>
     <div class="article-item">
         <h2><a href="<?= '/events/'.$value['url_key'] ?>"><?= $value['title'] ?></a></h2>
-        <div class="name"><a href=""><?= $value['location'] ?></a></div>
+        <p class="location"><a href=""><?= $value['location'] ?></a></p>
     </div>
 </div>

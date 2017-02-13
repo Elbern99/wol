@@ -210,6 +210,7 @@
   .link {
     font-size: 10px;
     margin: 0 0 -2px;
+    text-transform: uppercase;
     
     @include breakpoint_custom($breakpoint-tablet) {
       a {

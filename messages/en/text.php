@@ -8,7 +8,7 @@ return [
     'Competing interests' => 'Competing interests',
     'author' => 'Author',
     'expert' => 'Topic spokesperson',
-    'chiefEditor' => 'Chief Editor',
+    'chiefEditor' => 'Editor-in-Chief',
     'managingEditor' => 'Managing Editor',
     'subjectEditor' => 'Subject Editor',
     'associateEditor' => 'Associate Editor',

@@ -29,7 +29,9 @@
         },
         searchHightLight: function(input,body){
             var mark = function() {
-                var keyword = $(input).val();
+                var
+                    keyword = $(input).val();
+
                 $(body).unmark().mark(keyword);
             };
             if($(body).length) {
@@ -122,7 +124,7 @@
    
     $(document).ready(function() {
         advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
-        advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .description-center');
+        advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .article-item');
         advancedSearch.cloneEl('.filter-clone', '.mobile-filter-container', '.filter-clone-holder');
         advancedSearch.openFilter('.filter-mobile-link', '.mobile-filter');
         advancedSearch.saveSearch('.btn-save-search');
