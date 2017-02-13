@@ -92,6 +92,24 @@
             $window.resize(function() {
                 setPadding(item);
             });
+        },
+        backToTop: function(btn) {
+            var
+                delay = 200;
+            
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 100) {
+                    $(btn).fadeIn();
+                } else {
+                    $(btn).fadeOut();
+                }
+            });
+
+            // Click event to scroll to top
+            $(btn).click(function(){
+                $('html, body').animate({scrollTop : 0},delay);
+                return false;
+            });
         }
     };
 
@@ -100,5 +118,6 @@
         sources.scrollToSelf('.td-letter a');
         sources.stikySidebar('.stiky');
         sources.paddingBottomBody('.wrapper');
+        sources.backToTop('.back-to-top');
     });
 })(jQuery);

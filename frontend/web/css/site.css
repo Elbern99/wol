@@ -6441,6 +6441,10 @@ iframe[name=advpp_manager] {
   -ms-flex-pack: center;
       justify-content: center; }
 
+.preloader-table {
+  position: relative;
+  height: 40px; }
+
 .source-table-holder {
   margin-bottom: 20px;
   position: relative; }
@@ -6507,6 +6511,8 @@ iframe[name=advpp_manager] {
   @media only screen and (max-width: 769px) {
     .source-table-holder .table thead tr:first-child {
       display: none !important; } }
+  .source-table-holder .table tbody tr.ias-trigger td {
+    border: 0 !important; }
   .source-table-holder .table tbody td {
     border: 0;
     vertical-align: middle;
@@ -6561,6 +6567,16 @@ iframe[name=advpp_manager] {
 
 .error-page p {
   margin: 0 0 10px; }
+
+.back-to-top {
+  width: 30px;
+  height: 30px;
+  background: red;
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  cursor: pointer;
+  z-index: 10; }
 
 .article-head {
   margin-bottom: 20px; }

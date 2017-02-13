@@ -129,6 +129,11 @@
 }
 
 
+.preloader-table {
+  position: relative;
+  height: 40px;
+}
+
 //SOURCE-TABLE-HOLDER
 .source-table-holder {
   margin-bottom: 20px;
@@ -244,6 +249,13 @@
     }
 
     tbody {
+
+      tr.ias-trigger {
+        td {
+          border: 0 !important;
+        }
+      }
+
       td {
         border: 0;
         vertical-align: middle;
@@ -323,4 +335,15 @@
   p {
     margin: 0 0 10px;
   }
+}
+
+.back-to-top {
+  width: 30px;
+  height: 30px;
+  background: red;
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  cursor: pointer;
+  z-index: 10;
 }
