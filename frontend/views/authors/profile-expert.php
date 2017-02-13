@@ -224,7 +224,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item  is-open">
-                        <a href="" class="title">Experts</a>
+                        <a href="" class="title">Topic Spokespeople</a>
                         <div class="text">
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">

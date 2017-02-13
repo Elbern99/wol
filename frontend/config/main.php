@@ -90,7 +90,7 @@ return [
                 'authors/letter' => 'authors/letter',
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
                 'editors/<url_key:[0-9a-z-]+>' => 'authors/editor-profile',
-                'experts/<url_key:[0-9a-z-]+>' => 'authors/expert-profile',
+                'spokespeople/<url_key:[0-9a-z-]+>' => 'authors/expert-profile',
                 'key-topics' => 'topic/index',
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
                 'editorial-board' => 'authors/editorial',

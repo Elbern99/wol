@@ -143,7 +143,7 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
                 if ($type == 'expert') {
                     return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
                 }
-                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/experts/'.$this->url_key));
+                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/spokespeople/'.$this->url_key));
             }
         });
     }
