@@ -376,6 +376,8 @@
             container.on('pjax:end', function() {
                 var curButtton = $(this).find('.btn-gray');
                     curButtton.removeClass("loaded-timer");
+
+                console.log(this);
             });
 
             container.on('pjax:click', function() {

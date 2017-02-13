@@ -90,7 +90,7 @@ unset($currentParams);
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
                         <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("clear", Url::to(array_merge($currentUrl, ['limit' => 0])), ['class' => 'btn-gray align-center']) ?>
+                            <?= Html::a("scroll to top", Url::to(array_merge($currentUrl, ['limit' => 0])), ['class' => 'btn-gray align-center btn-scroll-to-top','scrollTo' => 0]) ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>

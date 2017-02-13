@@ -809,14 +809,19 @@
 
     }
 
+    &.disabled {
+      a,span {
+        color: #c7c7c7 !important;
+        cursor: default !important;
+      }
+    }
+
     &.next,
     &.prev {
       margin: 0 8px;
 
       &.disabled {
         a,span {
-          color: #c7c7c7 !important;
-          cursor: default !important;
 
           @include breakpoint_custom($breakpoint-tablet) {
             border-color: #c7c7c7 !important;
@@ -1572,6 +1577,11 @@
     }
 
     &.open {
+
+      >.submenu {
+        display: block;
+      }
+
       a {
         color: $blue;
 

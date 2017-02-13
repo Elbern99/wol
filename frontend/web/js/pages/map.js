@@ -4,8 +4,9 @@
     var elements  = {
         window: $(window),
         mapInfo: $('.map-info'),
-        overlay: $('.overlay')
-    }
+        overlay: $('.overlay'),
+        LMarker: $('.leaflet-marker-icon')
+    };
 
     //GLOBAL VARIABLE ---------
     var _window_width = elements.window.width(),
@@ -101,22 +102,30 @@
         layer.on({});
       },
       hideInfoMap: function(btn,overlay){
+
+          var
+              $overlay = $(overlay);
+
         map.on('click', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
-            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
         });
 
         map.on('movestart', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
-            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
         });
 
         $(btn).on('click', '.icon-close', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
-            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
+
+            $('.map-info-content').animate({
+                scrollTop: 0
+            }, 0);
         });
       },
       onMapClick: function(event) {
@@ -126,7 +135,7 @@
             elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
             elements.overlay.removeClass('js-tab-hidden').addClass('active');
 
-          $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+            elements.LMarker.removeClass('opened-ref-tooltip');
 
             this._icon.classList.add("opened-ref-tooltip");
 
@@ -137,13 +146,15 @@
           }
       },
       zoomControl:  function() {
-        var zoomCount = map.getZoom(),
-        label = $('.leaflet-marker-iconlabel');
+        var
+            zoomCount = map.getZoom(),
+            $label = $('.leaflet-marker-iconlabel'),
+            checkZoom = zoomCount > 4;
 
-        if(zoomCount > 4) {
-          label.fadeIn();
+        if(checkZoom) {
+            $label.fadeIn();
         } else {
-          label.fadeOut();
+            $label.fadeOut();
         }
       }
     };
@@ -152,10 +163,6 @@
         geojson;
 
     mapObj.setZoom(map);
-
-    elements.window.resize(function() {
-        //setTimeout(mapObj.setZoom(map), 1000);
-    });
 
     map.zoomControl.setPosition('bottomright');
     mapObj.hideInfoMap('.map-holder','.overlay');

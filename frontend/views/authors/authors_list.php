@@ -79,9 +79,12 @@ $this->registerMetaTag([
                     </li>
                 <?php endforeach; ?>
             </ul>
-
             <?= LinkPager::widget([
                 'pagination' => $paginate,
+                'nextPageLabel' => 'Next',
+                'prevPageLabel' => 'Prev',
+                'firstPageLabel' => 'First',
+                'lastPageLabel' => 'Last'
             ]); ?>
         </div>
         <aside class="sidebar-right">

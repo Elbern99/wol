@@ -1611,8 +1611,8 @@ ol {
     ul li:before,
     ol li:before {
       content: '';
-      width: 3px;
-      height: 3px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #262626;
       display: inline-block;
@@ -3739,6 +3739,9 @@ blockquote {
           transform: rotate(12deg); }
         .pagination li.next, .pagination li.prev, .pagination li.active, .pagination li.all {
           display: inline-block; } }
+    .pagination li.disabled a, .pagination li.disabled span {
+      color: #c7c7c7 !important;
+      cursor: default !important; }
     .pagination li.next, .pagination li.prev {
       margin: 0 8px; }
       .pagination li.next.disabled a, .pagination li.next.disabled span, .pagination li.prev.disabled a, .pagination li.prev.disabled span {
@@ -4220,6 +4223,8 @@ blockquote {
   overflow: hidden; }
   .articles-filter-list li li.open a {
     color: #242424 !important; }
+  .articles-filter-list li.open > .submenu {
+    display: block; }
   .articles-filter-list li.open a {
     color: #0053a0; }
     .articles-filter-list li.open a:hover {
