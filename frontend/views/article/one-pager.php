@@ -372,14 +372,15 @@ $config = [
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
+                    <li>
                     <?php foreach ($categories as $c): ?>
-                        <li>
-                            <?php if (isset($c['p_id'])): ?>
-                                <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
-                            <?php endif; ?>
-                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
-                        </li>
+                        <?php if ($c['lvl'] > 1): ?>
+                            &nbsp;>&nbsp;<a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        <?php else: ?>
+                            </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
+                    </li>
                 </ul>
             </div>
         <?php endif; ?>
