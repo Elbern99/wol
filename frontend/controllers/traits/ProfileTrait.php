@@ -25,9 +25,11 @@ trait ProfileTrait {
         
         $articles = Article::find()
                         ->alias('a')
-                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
-                        ->innerJoin(ArticleAuthor::tableName().' as au', 'a.id = au.article_id')
-                        ->where(['a.enabled' => 1, 'au.author_id' => $authorId])
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.created_at'])
+                        ->innerJoinWith(['articleAuthors.author' => function($query) {
+                            return $query->alias('au')->select(['au.url_key', 'au.name'])->where(['au.enabled' => 1]);
+                        }])
+                        ->where(['a.enabled' => 1, 'au.id' => $authorId])
                         ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
@@ -55,6 +57,11 @@ trait ProfileTrait {
         foreach ($articles as $article) {
 
             $articleCategory = [];
+            $authors = [];
+            
+            foreach ($article->articleAuthors as $author) {
+                $authors[] = $author['author'];
+            }
 
             foreach ($article->articleCategories as $c) {
 
@@ -69,7 +76,7 @@ trait ProfileTrait {
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/' . $article->seo,
-                'availability' => $article->availability,
+                'authors' => $authors,
                 'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                     return $data;
                 }),
