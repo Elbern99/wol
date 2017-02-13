@@ -35,7 +35,6 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
     public function rules()
     {
         return [
-            [['search_phrase'], 'required'],
             [['id'], 'unique'],
             [['id'], 'integer'],
             [['name', 'search_phrase'], 'string'],
