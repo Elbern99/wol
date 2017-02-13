@@ -244,7 +244,7 @@
                     curDataLinked = cur.data('linked');
 
                 curParent.addClass('active').siblings().removeClass('active');
-                $('div[data-linked="1"]').addClass('js-tab-hidden').removeClass('active');
+                $('div[data-linked="1"]').addClass('js-tab-hidden');
 
                 if(curDataLinked !== undefined) {
                     $('div[data-linked="'+curDataLinked+'"]').removeClass('js-tab-hidden').addClass('active');
@@ -667,7 +667,7 @@
                 //set
 
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
-                    twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=iza_bonn&related=iza_bonn&text="+slicedTitle+"",
+                    twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
                     facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
 
                 $(item).each(function() {

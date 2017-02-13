@@ -53,13 +53,13 @@ if ($category) {
                     </div>
                 </div>
             </div>
-            <h1 class="hide-mobile">Recent Press Releases</h1>
+            <h1 class="hide-mobile">Press releases</h1>
         </div>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text content-inner-animate active" data-linked="1">
-            <h1 class="clone-title hide-desktop">Recent Press Releases</h1>
+            <h1 class="clone-title hide-desktop">Press releases</h1>
             <p>
                 IZA World of Labor is a global, freely available online resource that provides policymakers, academics, journalists, and researchers, with clear, concise and evidence-based knowledge on labor economics issues worldwide. The site offers relevant and succinctly information on topics including diversity, migration, minimum wage, youth unemployment, employment protection, development, education, gender balance, labor mobility and flexibility among others - for information by topic see our <a href="/key-topics">Key Topics</a> pages. The concise article format with easy-to-find recommendations provides journalists with the information they need for quick research.
             </p>
@@ -67,7 +67,7 @@ if ($category) {
                 IZA World of Labor authors are happy to speak to the press about their research. If you have an enquiry about a labor market issue, please search our <a href="/find-an-expert">spokesperson database</a> to find and directly contact a relevant spokesperson.
             </p>
             <p>
-                We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email Francesca.Geach@bloomsbury.com.
+                We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email <a target="_blank" href="mailto:francesca.geach@bloomsbury.com">Francesca.Geach@bloomsbury.com</a>.
             </p>
             <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list news-list">
