@@ -751,6 +751,9 @@ th {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-upwards-arrow:before {
+  content: "\e91d"; }
+
 .icon-minus-circle:before {
   content: "\e913"; }
 
@@ -6441,18 +6444,16 @@ iframe[name=advpp_manager] {
   -ms-flex-pack: center;
       justify-content: center; }
 
-.preloader-table {
-  position: relative;
-  height: 40px; }
-
 .source-table-holder {
-  margin-bottom: 20px;
   position: relative; }
-  .source-table-holder .preloader {
-    position: absolute; }
-    .source-table-holder .preloader .loading-ball {
-      top: 60px;
-      margin-top: 0; }
+  .source-table-holder .grid-view {
+    margin-bottom: 20px; }
+  .source-table-holder .pagination {
+    display: none; }
+  .source-table-holder .loading-ball {
+    top: auto;
+    margin-top: 0;
+    bottom: -39px; }
   @media only screen and (min-width: 769px) {
     .source-table-holder {
       margin-bottom: 20px; } }
@@ -6465,7 +6466,7 @@ iframe[name=advpp_manager] {
       .source-table-holder table, .source-table-holder thead, .source-table-holder tbody, .source-table-holder th, .source-table-holder td, .source-table-holder tr {
         display: block !important;
         width: 100% !important; }
-      .source-table-holder #w1-filters td:nth-child(1), .source-table-holder #w1-filters td:nth-child(2) {
+      .source-table-holder .filters td:nth-child(1), .source-table-holder .filters td:nth-child(2) {
         display: none !important; }
       .source-table-holder tbody tr {
         border-left: 1px solid #ccc;
@@ -6517,6 +6518,12 @@ iframe[name=advpp_manager] {
     border: 0;
     vertical-align: middle;
     border-bottom: 1px solid #eee; }
+    @media only screen and (max-width: 769px) {
+      .source-table-holder .table tbody td.preloader-table-cell {
+        padding-left: 6px !important;
+        border-bottom: 0 !important; }
+        .source-table-holder .table tbody td.preloader-table-cell:before {
+          display: none; } }
     .source-table-holder .table tbody td.td-letter {
       background: #ccc !important;
       padding-top: 2px;
@@ -6537,7 +6544,6 @@ iframe[name=advpp_manager] {
     border-radius: 5px;
     height: 28px;
     cursor: pointer;
-    padding: 0 30px 0 10px;
     background: #fff;
     overflow: hidden;
     margin: 0;
@@ -6571,12 +6577,22 @@ iframe[name=advpp_manager] {
 .back-to-top {
   width: 30px;
   height: 30px;
-  background: red;
   position: fixed;
-  right: 5px;
-  bottom: 5px;
+  left: 100%;
+  bottom: 53px;
   cursor: pointer;
-  z-index: 10; }
+  z-index: 10;
+  display: none;
+  transition: color 0.3s ease;
+  font-size: 30px;
+  color: #d8d8d8;
+  margin-bottom: -15px; }
+  @media only screen and (min-width: 769px) {
+    .back-to-top {
+      bottom: 35px;
+      margin-bottom: 0; } }
+  .back-to-top:hover {
+    color: #bcbcbc; }
 
 .article-head {
   margin-bottom: 20px; }
