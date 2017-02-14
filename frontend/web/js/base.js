@@ -804,8 +804,8 @@
                     pathName = document.location.pathname,
                     $link = $item.find('a[href$="'+pathName+'"]'),
                     $linkPrent = $link.parent(),
-                    $articleHead = $('.article-head'),
-                    $articleHeadCoord = $articleHead.offset().top;
+                    $articleHead = $('.article-head');
+                    //$articleHeadCoord = $articleHead.offset().top;
 
                 $linkPrent.addClass('open');
                 $linkPrent.parent().addClass('open');
