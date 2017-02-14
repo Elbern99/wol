@@ -449,9 +449,22 @@
         },
         clearAllCheckboxes: function(btn) {
             if($(btn).length) {
-                $(btn).text('Select all');
+                var
+                    $btn =  $(btn);
 
-                $(btn).click(function(e) {
+                $btn.each(function( index ) {
+                    var
+                        cur = $(this),
+                        checkChecked = cur.parent().find('input:not(:checked)').length;
+
+                    if(checkChecked) {
+                        $btn.removeClass('active').text('Select all');
+                    } else {
+                        $btn.addClass('active').text('Clear all');
+                    }
+                });
+
+                $btn.click(function(e) {
                     var cur = $(this);
 
                     cur.toggleClass('active');
@@ -476,7 +489,7 @@
                     itemScrollCoord = $item.offset().top;
 
                 if($item.hasClass('scroll-self')) {
-                    elements.htmlBody.animate({ scrollTop: itemScrollCoord }, 200);
+                    elements.htmlBody.animate({ scrollTop: itemScrollCoord }, 0);
                 };
             }
         },
