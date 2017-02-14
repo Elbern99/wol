@@ -40,7 +40,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <li><a href="" class="js-widget">authors</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
-                    <div class="tab-item blue js-tab-hidden expand-more">
+                    <div class="tab-item blue js-tab-hidden expand-more tab-item-subject-areas">
                         <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">

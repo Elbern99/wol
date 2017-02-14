@@ -42,11 +42,11 @@ unset($currentParams);
         </div>
         <div class="mobile-filter-holder custom-tabs-holder">
             <ul class="mobile-filter-list">
-                <li><a href="" class="js-widget">Subject areas</a></li>
+                <li class="active"><a href="" class="js-widget">Subject areas</a></li>
                 <li><a href="" class="js-widget">Authors</a></li>
             </ul>
             <div class="mobile-filter-items custom-tabs">
-                <div class="tab-item blue js-tab-hidden expand-more">
+                <div class="tab-item active blue expand-more tab-item-subject-areas">
                     <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
@@ -158,7 +158,7 @@ unset($currentParams);
             <div class="sidebar-widget sidebar-widget-sort-by hide-mobile">
                 <?= $this->renderFile('@frontend/views/article/order.php', ['currentUrl' => $currentUrl]); ?>
             </div>
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">subject areas</a>

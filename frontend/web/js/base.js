@@ -781,8 +781,24 @@
         }
     };
 
-    var innerPage = {
+    var innerPages = {
+        subjectAreaMobile: function(item) {
 
+            if($(item).length) {
+                var
+                    $item = $(item),
+                    pathName = document.location.pathname,
+                    $link = $item.find('a[href$="'+pathName+'"]'),
+                    $linkPrent = $link.parent(),
+                    $articleHead = $('.article-head'),
+                    $articleHeadCoord = $articleHead.offset().top;
+
+                $linkPrent.addClass('open');
+                $linkPrent.parent().addClass('open');
+
+                elements.htmlBody.animate({ scrollTop: $articleHeadCoord }, 200);
+            }
+        }
     };
 
     //EVENTS
@@ -814,6 +830,7 @@
             headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .has-drop >a'));
             tabs.cloneTab('.post-list-clone','.tab-item.empty','.post-list-clone-holder');
             home.cloneTopic('.clone-topics','.articles-list-holder','.clone-topics-widget');
+            innerPages.subjectAreaMobile('.tab-item-subject-areas');
         }
         //CONTENT
         article.openPrintWindow('.btn-print');
