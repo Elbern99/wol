@@ -272,9 +272,9 @@ class Result {
 
         $articles = Article::find()
                 ->alias('a')
-                ->select(['a.id', 'a.title', 'a.seo', 'a.created_at'])
+                ->select(['a.id as id', 'a.title', 'a.seo', 'a.created_at'])
                 ->with(['articleAuthors.author' => function($query) {
-                    return $query->alias('au')->select(['au.url_key', 'au.name'])->where(['au.enabled' => 1]);
+                    return $query->alias('au')->where(['au.enabled' => 1]);
                 }])
                 ->where(['a.enabled' => 1, 'a.id' => $ids]);
 
@@ -284,28 +284,28 @@ class Result {
             $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
         }
 
-        $articles = $articles->orderBy(['created_at' => $order])->all();
+        $articles = $articles->orderBy(['a.created_at' => $order])->all();
 
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $ids);
         $values = $categoryCollection->getValues();
-
+        
         
         foreach ($articles as $article) {
             
             $eavValue = $values[$article->id] ?? [];
-            $authors = [];
+            $articleOwner = [];
             
-            foreach ($article->articleAuthors as $author) {
-                $authors[] = $author['author'];
+            foreach ($article->articleAuthors as $author) { 
+                $articleOwner[] = $author['author'];
             }
-            
+
             self::$value[] = [
                 'params' => [
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
-                    'authors' => $authors,
+                    'authors' => $articleOwner,
                     'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                         return $data;
                     }),
