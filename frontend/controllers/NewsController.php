@@ -64,16 +64,18 @@ class NewsController extends Controller {
             'name' => ['stay_up_to_date', 'Socials'],
         ])->orderBy('id desc')->all();
         
-        
+        $isInArchive = false;
         $newsQuery = NewsItem::find()->orderBy('created_at desc');
         
         if ($month && $year) {
+           $isInArchive = true;
            $newsQuery->andWhere([
                 'MONTH(created_at)' => $month,
                 'YEAR(created_at)' => $year,
             ]);
         }
         else if (!$month && $year) {
+            $isInArchive = true;
             $newsQuery->andWhere([
                 'YEAR(created_at)' => $year,
             ]);
@@ -117,6 +119,7 @@ class NewsController extends Controller {
             'limit' => $limit,
             'articlesSidebar' => $articles,
             'newsletterArchive' => $newsletterArchive,
+            'isInArchive' => $isInArchive,
         ]);
     }
     

@@ -80,68 +80,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </ul>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
-                    <ul class="sidebar-news-list">
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                    </ul>
-                    <a href="" class="more-link">
-                        <span class="more">More</span>
-                        <span class="less">Less</span>
-                    </a>
+                    <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                 </div>
             </div>
         </div>
