@@ -96,8 +96,9 @@ trait HomeTrait {
         
         return Event::find()
                 ->select(['title', 'url_key', 'date_from', 'date_to', 'location'])
+                ->andWhere('date_from >= now()')
                 ->limit($limit)
-                ->orderBy(['date_from' => SORT_DESC])
+                ->orderBy(['date_from' => SORT_ASC])
                 ->asArray()
                 ->all();
 

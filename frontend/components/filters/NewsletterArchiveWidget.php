@@ -43,7 +43,9 @@ class NewsletterArchiveWidget extends Widget {
                     $html .= Html::beginTag('li', ['class' => 'item has-drop'.$class]);
                     $html .= '<div class="icon-arrow"></div>';
                     
+                    $html .= Html::beginTag('strong');
                     $html .= Html::a($year, '#');
+                    $html .= Html::endTag('strong');
                     $html .= Html::beginTag('ul',['class' => 'submenu'.$class]);
                 }
                 

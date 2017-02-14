@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 <?php
 
 $this->title = 'Videos';
-$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
+$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/commentary'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 if ($category) {

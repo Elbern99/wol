@@ -253,7 +253,14 @@ $this->params['breadcrumbs'][] = $model->title;
                     <span class="more">More</span>
                     <span class="less">Less</span>
                 </a>-->
-                <?= Html::a('More', ['topic/index'], ['class' => 'more-link no-open']); ?> 
+
+                <?php if (count($keyTopics) > Yii::$app->params['key_topics_sidebar_limit']): ?>
+                <a href="" class="more-link">
+                    <span class="more">More</span>
+                    <span class="less">Less</span>
+                </a>
+                <?php endif; ?>
+                <?php //Html::a('More', ['topic/index'], ['class' => 'more-link no-open']); ?> 
                 <?php endif; ?>
             </div>
         </aside>
