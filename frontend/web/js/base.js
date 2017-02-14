@@ -796,7 +796,7 @@
                 $linkPrent.addClass('open');
                 $linkPrent.parent().addClass('open');
 
-                elements.htmlBody.animate({ scrollTop: $articleHeadCoord }, 200);
+                //elements.htmlBody.animate({ scrollTop: $articleHeadCoord }, 200);
             }
         }
     };
