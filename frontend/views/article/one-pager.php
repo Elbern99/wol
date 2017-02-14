@@ -2,7 +2,9 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\models\AdvancedSearchForm;
 use common\modules\eav\helper\EavAttributeHelper;
 ?>
 
@@ -10,9 +12,10 @@ use common\modules\eav\helper\EavAttributeHelper;
 $attributes = $collection->getEntity()->getValues();
 EavAttributeHelper::initEavAttributes($attributes);
 
-$this->title = EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = EavAttributeHelper::getAttribute('title')->getData('title', $currentLang);
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -32,59 +35,91 @@ $this->registerMetaTag([
         'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
 ]);
 
-$authorLink = [];
+$authorsList = [];
+
+foreach ($authors as $author) {
+    
+    $authorsList[] = [
+        'name' => $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name,
+        'url' => $author['profile']
+    ];
+}
+
+$mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php', [
+    'authorsList' => $authorsList,
+    'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
+    'articleUrl' => Url::to('/articles/'.$article->seo, true)
+]);
+
+$mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
+array(
+        'authorsList' => $authorsList,
+        'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
+        'articleUrl' => Url::to('/articles/'.$article->seo, true),
+        'articleDoi' => $article->doi,
+        'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
+));
 
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
+$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerCssFile('/css/leaflet.css');
     
 $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
-        'json_path_economytypes' => '/json/economytypes.json'
+        'json_path_economytypes' => '/json/economytypes.json',
+        'share_text_for_email' => $mailArticle
 ];
-
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.EavAttributeHelper::getAttribute('title')->getData('title', $currentLang).' '.
-    EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang). ' '.Url::to(['/articles/'.$article->seo],true).
-    '\n\n Elevator pitch: '.EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang).'\n\n View the article: '.
-    Url::to(['/articles/'.$article->seo],true). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 ?>
 
-<div class="container article-full">
+<div class="container article-full one-pager-page">
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
             <li><a href="/key-topics">Subject areas</a></li>
-            <!-- <li><a href="" class="js-widget">Trending topics</a></li> -->
             <li><a href="/authors">Authors</a></li>
         </ul>
         <div class="mobile-filter-items custom-tabs">
             <div class="tab-item blue js-tab-hidden expand-more"></div>
-            <!-- <div class="tab-item blue js-tab-hidden expand-more">
-                test 2
-            </div> -->
             <div class="tab-item blue js-tab-hidden expand-more"></div>
         </div>
     </div>
 
-<div class="article-buttons article-buttons-mobile">
-    <?php if (isset($attributes['one_pager_pdf'])): ?>
-    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-        <span class="icon-download"></span>
-    </a>
-    <?php endif; ?>
-    <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
-        <span class="icon-quote"></span>
-    </a>
-    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
-        <span class="icon-message"></span>
-    </a>
-    <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-    <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-        <span class="icon-heart"></span>
-        <div class="btn-like-inner"></div>
-    </a>
+<div class="article-buttons-mobile hide-desktop">
+
+    <ul class="article-buttons-list">
+        <li>
+            <?php if (isset($attributes['one_pager_pdf'])): ?>
+                <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <span class="icon-download"></span>
+                </a>
+            <?php endif; ?>
+        </li>
+        <li>
+            <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+                <span class="icon-quote"></span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="article-buttons-list">
+        <li class="add-fav-holder">
+            <div class="add-fav-alert"></div>
+            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                <span class="icon-heart"></span>
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                <span class="icon-message"></span>
+            </a>
+        </li>
+        <li>
+            <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+        </li>
+    </ul>
 </div>
 
 <div class="article-head">
@@ -105,15 +140,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
 
                 <div class="desc">
                     <div class="name">
-                        <?php
-                        $link = Html::a($author['name']->first_name.' '.
+                        <?= Html::a($author['name']->first_name.' '.
                             $author['name']->middle_name.' '.
                             $author['name']->last_name
                             ,$author['profile']
                         );
-
-                        $authorLink[] = $link;
-                        echo $link;
                         ?>
                     </div>
                     <p><?= $author['affiliation'] ?></p>
@@ -128,22 +159,19 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
     <div class="content-inner-text">
         <article>
             <div class="article-pagers-holder">
-                
                 <?php if ($collection->isMulti): ?>
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
-                        <?php foreach($langs as $lang): ?> 
-                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle with-icon-r">
+                        <?php foreach($langs as $lang): ?>
+                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-pink">
                             <div class="inner">
-                                <div class="lang"><img src="<?= $lang['image'] ?>" alt="<?= $lang['name'] ?>"></div>
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle with-icon-r">
+                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-orange">
                             <div class="inner">
-                                <div class="lang"><img src="<?= Yii::$app->params['default_lang']['image'] ?>" alt=""></div>
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
                         </a>
@@ -161,7 +189,13 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
             <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
             <figure>
-                <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                <?php if ($gaImage->getData('target', $currentLang)): ?>
+                    <a href="<?= $gaImage->getData('target', $currentLang) ?>" class="text-reference">
+                        <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                    </a>
+                <?php else: ?>
+                    <img id="<?= $gaImage->getData('id', $currentLang); ?>" data-target="<?= $gaImage->getData('target', $currentLang) ?>" src="<?= $gaImage->getData('path', $currentLang) ?>" alt="<?= $gaImage->getData('title', $currentLang) ?>">
+                <?php endif; ?>
             </figure>
 
             <h2>Key findings</h2>
@@ -185,87 +219,113 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <?= EavAttributeHelper::getAttribute('main_message')->getData('text', $currentLang) ?>
             </div>
 
-            <div class="article-buttons">
+            <div class="article-buttons-bottom">
                 <div class="share-buttons">
                     <ul class="share-buttons-list">
                         <li class="share-facebook">
                             <!-- Sharingbutton Facebook -->
                             <a class="resp-sharing-button__link facebook-content" href="" target="_blank" aria-label="Facebook">
                                 <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg></div>Facebook</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg></div>Facebook</div>
                             </a>
                         </li>
                         <li class="share-twitter">
                             <!-- Sharingbutton Twitter -->
                             <a class="resp-sharing-button__link twitter-content" href="" target="_blank" aria-label="Twitter">
                                 <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg></div>Twitter</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg></div>Twitter</div>
                             </a>
                         </li>
                         <li class="share-ln">
                             <!-- Sharingbutton LinkedIn -->
                             <a class="resp-sharing-button__link linkedin-content" href="" target="_blank" aria-label="LinkedIn">
                                 <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg></div>LinkedIn</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg></div>LinkedIn</div>
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="extra-buttons">
-                    <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-blue-middle btn-show-one-pager">show full article</a>
-                    <?php if (isset($attributes['full_pdf'])): ?>
-                        <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
-                            <div class="inner">
-                                <span class="icon-download"></span>
-                                <span class="text">download pdf</span>
-                            </div>
-                        </a>
-                    <?php endif; ?>
-                    <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
-                        <div class="inner">
-                            <span class="icon-quote"></span>
-                            <span class="text">cite</span>
-                        </div>
-                    </a>
-                    <div class="article-buttons-short">
-                        <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-                            <span class="icon-heart"></span>
-                            <div class="btn-like-inner"></div>
-                        </a>
-                        <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
-                        <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
-                            <span class="icon-message"></span>
-                        </a>
-                    </div>
+                    <ul class="article-buttons-list">
+                        <li class="show-one-pager-holder">
+                            <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-light-blue-middle btn-show-one-pager">show full article</a>
+                        </li>
+                        <li>
+                            <?php if (isset($attributes['one_pager_pdf'])): ?>
+                                <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <div class="inner">
+                                        <span class="icon-download"></span>
+                                        <span class="text">download pdf</span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                        </li>
+                        <li>
+                            <a href="" class="btn-border-blue-middle btn-cite with-icon-r">
+                                <div class="inner">
+                                    <span class="icon-quote"></span>
+                                    <span class="text">cite</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="article-buttons-list">
+                        <li class="add-fav-holder">
+                            <div class="add-fav-alert"></div>
+                            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                                <span class="icon-heart"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="btn-border-gray-middle btn-print short"><span class="icon-print"></span></a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                                <span class="icon-message"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </article>
     </div>
     <aside class="sidebar-right">
 
-        <div class="article-buttons article-buttons-sidebar">
-            <?php if (isset($attributes['one_pager_pdf'])): ?>
-            <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
-                <div class="inner">
-                    <span class="icon-download"></span>
-                    <span class="text">download pdf</span>
-                </div>
-            </a>
-            <?php endif; ?>
-            <a href="" class="btn-border-blue-middle btn-cite with-icon">
-                <div class="inner">
-                    <span class="icon-quote"></span>
-                    <span>cite</span>
-                </div>
-            </a>
-            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
-                <span class="icon-heart"></span>
-                <div class="btn-like-inner"></div>
-            </a>
-            <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
-            <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-middle short">
-                <span class="icon-message"></span>
-            </a>
+        <div class="article-buttons-sidebar hide-mobile">
+            <ul class="article-buttons-list">
+                <li><?php if (isset($attributes['one_pager_pdf'])): ?>
+                    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                        <div class="inner">
+                            <span class="icon-download"></span>
+                            <span class="text">download pdf</span>
+                        </div>
+                    </a>
+                <?php endif; ?>
+                </li>
+                <li>
+                    <a href="" class="btn-border-blue-middle btn-cite with-icon">
+                        <div class="inner">
+                            <span class="icon-quote"></span>
+                            <span>cite</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="add-fav-holder">
+                    <div class="add-fav-alert"></div>
+                    <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                        <span class="icon-heart"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="btn-border-gray-middle short btn-print"><span class="icon-print"></span></a>
+                </li>
+                <li>
+                    <a target="_blank" href="<?= $mailArticle ?>" class="btn-border-gray-middle short">
+                        <span class="icon-message"></span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="sidebar-widget sidebar-widget-share-buttons">
@@ -300,11 +360,15 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             <div class="widget-title">Keywords</div>
             <?=
             implode(', ', array_map(
-                    function($item) {
-                        return Html::a($item->word);
-                    }, EavAttributeHelper::getAttribute('keywords')->getData(null, $currentLang)
+                function($item) {
+                    return Html::a($item->word, '#', ['class' => 'search-keywords-article']);
+                }, EavAttributeHelper::getAttribute('keywords')->getData(null, $currentLang)
             ));
             ?>
+            <?php $model = new AdvancedSearchForm(); ?>
+            <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'keywords-search-form', 'style' => 'display:none']]); ?>
+                <?= $form->field($model, 'search_phrase') ?>
+            <?php ActiveForm::end(); ?>
         </div>
 
         <?php
@@ -315,14 +379,15 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
                 <ul class="classification-list">
+                    <li>
                     <?php foreach ($categories as $c): ?>
-                        <li>
-                            <?php if (isset($c['p_id'])): ?>
-                                <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
-                            <?php endif; ?>
-                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
-                        </li>
+                        <?php if ($c['lvl'] > 1): ?>
+                            &nbsp;>&nbsp;<a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        <?php else: ?>
+                            </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
+                    </li>
                 </ul>
             </div>
         <?php endif; ?>
@@ -354,7 +419,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                 <?php foreach ($related as $relate): ?>
                                     <li>
                                         <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                        <div class="writer"><?= $relate['availability'] ?></div>
+                                        <div class="writer">
+                                            <?php foreach($relate['authors'] as $author): ?>
+                                                <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </li>
                                 <?php endforeach; unset($related); ?>
                             </ul>
@@ -400,7 +469,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <?php if (isset($attributes['key_references'])): ?>
                     <?php $references = $attributes['key_references']->getData(null, $currentLang); ?>
                     <?php if(count($references) > 0): ?>
-                        <li class="sidebar-accrodion-item">
+                        <li class="sidebar-accrodion-item key-references-item">
                             <a href="" class="title">Key references</a>
                             <div class="text">
                                 <?php $i = 1; ?>
@@ -413,13 +482,13 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                             <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
                                             <div class="icon-exclamatory-circle rel-tooltip"></div>
                                             <div class="key-references-info">
-                                                <div class="caption"><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
+                                                <div class="caption"><span class="caption-number">[<?= $i-1 ?>]</span> <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
                                                 <div class="sources">
                                                     <?php if(is_array($reference->data_source)): ?>
                                                         <?php
                                                         $s = 1;
                                                         foreach ($reference->data_source as $dSource) {
-                                                            echo '<div class="item">['.$s.'] '.$dSource.'</div>';
+                                                            echo '<div class="item"><span class="caption-number">['.$s.']</span> '.$dSource.'</div>';
                                                             $s++;
                                                         }
                                                         ?>
@@ -429,8 +498,8 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                                                     <?php if(is_array($reference->data_type)): ?>
                                                         <?php
                                                         $s = 1;
-                                                        foreach ($reference->data_type as $Types) {
-                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$Types.'</div>';
+                                                        foreach ($reference->data_type as $dataType) {
+                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$dataType.'</div>';
                                                             $s++;
                                                         }
                                                         ?>
@@ -570,16 +639,14 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 </div>
                 <div class="doi">
                     <div class="title">DOI</div>
-                    <a href=""><?= $article->doi ?></a>
+                    <a href="<?= $article->doi ?>" target="_blank"><?= $article->doi ?></a>
                 </div>
                 <div class="authors">
                     <div class="title">authors</div>
-                    <?php if(count($authorLink)): ?>
-                        <?php foreach($authorLink as $link): ?>
-                            <?= $link ?>
+                    <?php if(count($authorsList)): ?>
+                        <?php foreach($authorsList as $authorAttribute): ?>
+                            <?= Html::a($authorAttribute['name'], $authorAttribute['url']) ?>
                         <?php endforeach; ?>
-                    <?php else: ?>
-                        <?= $article->availability ?>
                     <?php endif; ?>
                 </div>
                 <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>

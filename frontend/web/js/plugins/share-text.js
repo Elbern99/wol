@@ -116,6 +116,15 @@
                 parameters.buttons.splice(idx, 1);
             }
         }
+
+        var emailTextArticle = mapConfig.share_text_for_email;
+
+        if ($('.article-full').length) {
+            emailTextArticle = mapConfig.share_text_for_email;
+        } else {
+            emailTextArticle = 'mailto:?subject=Article from IZA World of Labor%0D%0A&body='+PAGE_URL+' + '+text+'';
+        }
+
         var urls = {
             twitter: twitterUrl,
             buffer: 'https://buffer.com/add?text="' + text + '"&url=' + PAGE_URL,
@@ -123,7 +132,7 @@
             linkedin: 'https://www.linkedin.com/shareArticle?url=' + PAGE_URL + '&title=' + text,
             stumbleupon: 'http://www.stumbleupon.com/submit?url=' + PAGE_URL + '&title=' + text,
             reddit: 'https://reddit.com/submit?url=' + PAGE_URL + '&title=' + text,
-            tumblr: 'mailto:?subject=Article from IZA World of Labor&body='+PAGE_URL+' + '+text+'',
+            tumblr: emailTextArticle,
             facebook: facebookUrl
         };
         if (urls.hasOwnProperty(socialType)) {

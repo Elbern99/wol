@@ -6,9 +6,6 @@ use yii\helpers\Url;
 <?php
 
 $mailLink = Url::to(['/opinion/view', 'slug' => $model->url_key], true);
-$mailTitle = 'title';
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
-    '\n\n View the video: '.  Html::a($mailLink, $mailLink) . '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 if ($category) {
     $this->registerMetaTag([
@@ -26,6 +23,12 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/commentary'])];
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Videos'), 'url' => Url::to(['/video/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+
+$mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+    'articleTitle' => $model->title,
+    'articleUrl' => $mailLink,
+    'typeContent' => 'video'
+]);
 
 ?>
 
@@ -130,7 +133,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
@@ -216,7 +219,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

@@ -49,6 +49,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-upwards-arrow:before {
+  content: "\e91d";
+}
+
 .icon-minus-circle:before {
   content: "\e913";
 }
@@ -362,7 +366,7 @@
   border: 2px solid $blue;
   border-radius: 50%;
   text-align: center;
-  font: 8px/14px $lucida-sans-bold;
+  font: 8px/13px $lucida-sans-bold;
   margin-bottom: 10px;
   background: $white;
   display: flex;

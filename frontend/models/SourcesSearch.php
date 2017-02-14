@@ -54,15 +54,14 @@ class SourcesSearch extends DataSource
         }
         
         $query->with('sourceTaxonomies.taxonomy');
-        
+        $query->with('sourceTaxonomies.additionalTaxonomy');
+        $query->orderBy('s.source');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => false
+            'pagination' => ['pageSize' => 30]
         ]);
-
-        
 
         if (!$this->validate()) {
             return $dataProvider;

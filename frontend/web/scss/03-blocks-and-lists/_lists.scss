@@ -122,8 +122,6 @@
 
         &:not(.has-image) {
           background: #dbe8f4;
-          //max-height: 395px;
-          //max-height: 408px;
 
           &:after {
             display: none;
@@ -197,7 +195,7 @@
     margin-bottom: 15px;
 
     @include breakpoint('tablet') {
-      margin-bottom: 43px;
+      margin-bottom: 28px;
     }
 
     li {
@@ -265,7 +263,10 @@
         .post-item {
 
           &:not(.has-image) {
-            background: #dbe8f4;
+
+            @include breakpoint('desktop') {
+              background: #dbe8f4;
+            }
           }
 
           h2 {
@@ -325,7 +326,7 @@
             .img {
               order: -2;
               margin: 0 13px 0 0;
-              width: 30%;
+              width: 31%;
               height: 65px;
               min-height: 65px;
 
@@ -334,7 +335,7 @@
               }
 
               @include breakpoint('tablet') {
-                margin: 0 40px 0 0;
+                margin: 0 30px 0 0;
               }
             }
 
@@ -505,7 +506,7 @@
   margin: 0 0 -20px;
 
   @include breakpoint('desktop') {
-    margin: 0 -3px -20px;
+    margin: 0 -4px -20px;
     display: flex;
     flex-flow: row wrap;
   }
@@ -514,8 +515,8 @@
     padding: 0 0 20px;
 
     @include breakpoint('desktop') {
-      width: 50%;
-      padding: 5px 3px 20px;
+      width: 33.3%;
+      padding: 5px 4px 30px;
 
       .opinion-item,
       .news-item {
@@ -546,7 +547,7 @@
   }
 
   li {
-    padding: 0 0 14px;
+    padding: 0 0 13px;
 
     @include breakpoint('mobile-large') {
       padding: 5px;
@@ -566,7 +567,7 @@
         display: flex;
         align-items: stretch;
         max-height: 230px;
-        height: 100%;
+        //height: 100%;
 
         &.has-image {
           height: 230px;
@@ -614,7 +615,7 @@
   }
 
   li {
-    padding: 0 0 14px;
+    padding: 0 0 13px;
 
     @include breakpoint('mobile-large') {
       padding: 5px 5px 20px;
@@ -622,10 +623,6 @@
     }
 
     @include breakpoint('tablet') {
-      width: 33.3%;
-    }
-
-    @include breakpoint('desktop-large') {
       width: 25%;
     }
 
@@ -680,7 +677,7 @@
     overflow: visible;
 
     @include breakpoint('tablet') {
-      width: 50%;
+      //width: 50%;
       padding: 3px 31px 25px 0;
     }
 
@@ -812,14 +809,19 @@
 
     }
 
+    &.disabled {
+      a,span {
+        color: #c7c7c7 !important;
+        cursor: default !important;
+      }
+    }
+
     &.next,
     &.prev {
       margin: 0 8px;
 
       &.disabled {
         a,span {
-          color: #c7c7c7 !important;
-          cursor: default !important;
 
           @include breakpoint_custom($breakpoint-tablet) {
             border-color: #c7c7c7 !important;
@@ -920,7 +922,6 @@
     text-transform: uppercase;
     position: relative;
     line-height: 1.1;
-    padding: 0 6px 0 0;
     margin: 0 5px 3px 0;
     font-size: 10px;
 
@@ -932,12 +933,11 @@
 
     &:after {
       content: '';
-      position: absolute;
-      bottom: 1px;
-      right: 0;
-      top: 1px;
       border-right: 1px solid #676767;
-      display: block;
+      display: inline-block;
+      vertical-align: top;
+      height: 9px;
+      margin: 1px 0 0 6px;
     }
   }
 
@@ -953,27 +953,10 @@
 //ARTICLES-LIST
 .articles-list {
   >li {
-    margin: 0 0 21px;
+    margin: 0 0 25px;
 
     @include breakpoint('tablet') {
       margin: 0 0 35px;
-    }
-
-    &:first-child {
-      h2 {
-        font-size: 28px;
-        margin: 0 0 5px;
-      }
-
-      h3 {
-        font-size: 14px;
-        margin: 0 0 5px;
-        line-height: 1.5em;
-      }
-
-      .publish {
-        margin: 0 0 4px;
-      }
     }
   }
 }
@@ -1306,18 +1289,15 @@
   li {
     float: left;
     width: 50%;
-    height: calc(50vh*0.435);
-    min-height: 120px;
-    max-height: 255px;
+    height: 120px;
 
     @include breakpoint('mobile-large') {
-      height: calc(50vh*0.3);
-      min-height: 160px;
+      height: 160px;
     }
 
     @include breakpoint('tablet') {
       width: 33.3%;
-      height: calc(50vh*0.519);
+      height: 200px;
     }
 
     @include breakpoint('desktop') {
@@ -1486,14 +1466,12 @@
 
   li {
     margin: 0 0 10px;
-    line-height: 1.3em;
 
     @include breakpoint_custom($breakpoint-tablet) {
       font-size: 12px;
     }
 
     @include breakpoint('tablet') {
-      line-height: 1.5em;
       margin: 0 0 13px;
     }
   }
@@ -1513,7 +1491,7 @@
   }
 
   li {
-    margin: 0 0 14px;
+    margin: 0 0 13px;
     position: relative;
     padding-right: 20px;
 
@@ -1590,7 +1568,20 @@
     font-size: 12px;
     overflow: hidden;
 
+    li {
+      &.open {
+        a {
+          color: $dark-brown !important;
+        }
+      }
+    }
+
     &.open {
+
+      >.submenu {
+        display: block;
+      }
+
       a {
         color: $blue;
 
@@ -1602,7 +1593,7 @@
   }
 
   li{
-    padding: 0 0 0 14px;
+    padding: 0 0 0 13px;
     position: relative;
 
     &.open {
@@ -1731,6 +1722,10 @@
   li {
     margin: 0 5px 4px;
 
+    @include breakpoint('tablet') {
+      width: 3%;
+    }
+
     &.active {
       a {
         color: $light-blue;
@@ -1857,13 +1852,8 @@
 
   li,
   .item {
-    //left: -9999px;
-    //position: absolute;
-    //top: -9999px;
-    //opacity: 0;
-    //transform: translateY(-30%);
-    //transition: transform .5s ease, opacity .5s ease;
     display: none;
+    line-height: 1.4em;
   }
 }
 

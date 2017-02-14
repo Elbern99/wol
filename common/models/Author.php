@@ -6,6 +6,7 @@ use Yii;
 use common\modules\author\contracts\AuthorInterface;
 use common\modules\eav\contracts\EntityModelInterface;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "author".
@@ -60,8 +61,10 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         return [
             [['author_key', 'url_key', 'name'], 'required'],
             [['enabled'], 'integer'],
-            [['author_key', 'phone', 'url', 'avatar'], 'string', 'max' => 50],
-            [['email', 'url_key', 'name'], 'string', 'max' => 255],
+            [['author_key', 'phone', 'avatar'], 'string', 'max' => 50],
+            [['surname'], 'string', 'max' => 80],
+            [['email', 'url_key', 'name', 'url'], 'string', 'max' => 255],
+            [['surname'], 'string', 'max' => 80],
             [['author_key'], 'unique'],
         ];
     }
@@ -120,19 +123,38 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         return Url::to([self::AUTHOR_PREFIX.'/'.$this->url_key]);
     }
     
-    public function getAuthorRoles(bool $label) {
+    public function getAuthorRoles($type) {
         
         $ids = AuthorRoles::find()->where(['author_id' => $this->id])->all();
-
-        if (!$label) {
-            return ArrayHelper::getColumn($ids, 'role_id');
-        }
-        
         $roles = new \common\modules\author\Roles();
-        $roles = $roles->getTypes();
         
-        return ArrayHelper::getColumn($ids, function($data) use ($roles) {
-            return $roles[$data['role_id']] ?? null;
+        return ArrayHelper::getColumn($ids, function($data) use ($roles, $type) {
+            if (array_search($data['role_id'], $roles->getAuthorGroup()) !== false) {
+                if (is_null($type)) {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
+                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/authors/'.$this->url_key));
+            } elseif(array_search($data['role_id'], $roles->getEditorGroup()) !== false) {
+                if ($type == 'editor') {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
+                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/editors/'.$this->url_key));
+            } elseif(array_search($data['role_id'], $roles->getExpertGroup()) !== false) {
+                if ($type == 'expert') {
+                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                }
+                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/spokespeople/'.$this->url_key));
+            }
         });
+    }
+    
+    public function getAuthorCategoriesArray() {
+        return  AuthorCategory::find()
+                    ->select(['c.url_key', 'c.title'])
+                    ->alias('ac')
+                    ->innerJoin(Category::tableName().' as c', 'c.id = ac.category_id')
+                    ->where(['author_id' => $this->id, 'c.active' => 1])
+                    ->asArray()
+                    ->all();
     }
 }

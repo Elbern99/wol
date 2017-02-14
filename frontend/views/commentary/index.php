@@ -5,8 +5,9 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 ?>
 <?php
-$this->title = 'Commentary';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Commentary';
+$this->params['breadcrumbs'][] = 'Commentary';
 
 if ($category) {
     $this->registerMetaTag([
@@ -27,10 +28,10 @@ if ($category) {
     <div class="mobile-filter-holder custom-tabs-holder">
         <ul class="mobile-filter-list">
             <?php if ($opinions) : ?>
-            <li><a href="" class="js-widget">Opinions</a></li>
+            <li><?= Html::a('Opinions', ['/opinion/index']); ?></li>
             <?php endif; ?>
             <?php if ($hasVideo) : ?>
-            <li><a href="" class="js-widget">Videos</a></li>
+            <li><?= Html::a('Videos', ['/videos/index']); ?></li>
             <?php endif; ?>
         </ul>
         <div class="mobile-filter-items custom-tabs">
@@ -79,7 +80,7 @@ if ($category) {
     <p>Watch exclusive video from conferences, debates and other events on labor market economics as well as reading the latest opinion pieces from IZA World of Labor authors.</p>
     <?php if ($opinions) : ?>
     <div class="widget-title medium"><?= Html::a('opinions', ['/opinion/index']); ?></div>
-    <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+    <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
     <ul class="commentary-opinions-list">
         <?php foreach ($opinions as $opinion) : ?>
         <?php $hasImageClass = $opinion->image_link ? 'has-image' : null; ?>
@@ -117,7 +118,7 @@ if ($category) {
     <?php endif; ?>
     <?php if ($hasVideo) : ?>
     <div class="widget-title medium"><?= Html::a('videos', ['/video/index']); ?></div>
-    <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+    <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
     <ul class="commentary-videos-list">
         <?php foreach ($videos as $video) : ?>
         <li class="">

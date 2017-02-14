@@ -1,9 +1,10 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
+    'moderatorEmail' => 'anna.fleming@bloomsbury.com',
     'default_lang' => [
         'id' => 0,
-        'name' => 'English',
+        'name' => 'En',
         'image' => '/images/lang/english.jpg'
     ],
     'search' => [
@@ -31,16 +32,17 @@ return [
     'topic_videos_limit' => 6,
     'topic_opinions_limit' => 6,
     'topic_events_limit' => 6,
-    'authors_limit' => 10,
+    'authors_limit' => 20,
     'home_article_limit' => 4,
     'home_event_limit' => 3,
     'home_news_limit' => 4,
     'key_topics_sidebar_limit' => 5,
+    'home_news_limit' => 3,
     'page_widget' => [
         'editorial_board' => [
             'views_on_iza', 'socials', 
             'stay_up_to_date', 'iza_journals',
-            'editorial_board_widget'
+            'former_editor_thanks'
         ],
         'profile' => ['ask_the_expert']
     ]

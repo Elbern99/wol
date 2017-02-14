@@ -48,13 +48,7 @@ class ArticleController extends Controller {
             }
 
         }
-        
-        $order = SORT_DESC;
 
-        if (Yii::$app->request->get('sort')) {
-            $order = SORT_ASC;
-        }
-        
         $category = $this->getMainArticleCategory();
         $subjectAreas = $this->getSubjectAreas($category);
         
@@ -62,7 +56,7 @@ class ArticleController extends Controller {
             return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
         });
 
-        $articles = $this->getArticlesList($limit, $order);
+        $articles = $this->getArticlesList($limit);
         
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
         
@@ -111,12 +105,11 @@ class ArticleController extends Controller {
             ];
             
         }
-        
+
         return $this->render('index', [
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
-            'collection' => $articlesCollection, 
-            'sort' => $order,
+            'collection' => $articlesCollection,
             'limit' => $limit,
             'articleCount' => Article::find()->where(['enabled' => 1])->count('id')
         ]);
@@ -139,7 +132,17 @@ class ArticleController extends Controller {
 
     public function actionMap($slug) {
         
-        $model = $this->getArticleCategories($slug);
+        $model = Article::find()
+                    ->with([
+                        'articleAuthors.author' => function($query) {
+                            return $query->select(['id', 'avatar', 'url_key','name'])->where(['enabled' => 1])->asArray();
+                        }, 
+                        'articleCategories' => function($query) {
+                            return $query->select(['category_id', 'article_id'])->asArray();
+                        }
+                    ])
+                    ->where(['seo' => $slug, 'enabled' => 1])
+                    ->one();
 
         if (!is_object($model)) {
             throw new NotFoundHttpException('Page Not Found.');
@@ -147,19 +150,36 @@ class ArticleController extends Controller {
         
         $records = $model->getRelatedRecords();
         $articleCollection = Yii::createObject(Collection::class);
-        $articleCollection->setAttributeFilter(['title', 'keywords', 'related', 'key_references', 'add_references']);
+        $articleCollection->setAttributeFilter(['teaser','title', 'keywords', 'related', 'key_references', 'add_references']);
         $articleCollection->initCollection(Article::tableName(), $model);
 
         $categories = [];
-
+        $authors = [];
+        
         if (count($records['articleCategories'])) {
 
             $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
             $categories = $this->getFullCategoryArticlesArray($categoryIds);
         }
-        
+
+        if (count($model->articleAuthors)) {
+            
+            foreach($model->articleAuthors as $author) {
+
+                if(!isset($author['author'])) {
+                    continue;
+                }
+                
+                $authors[] = [
+                    'name' => $author['author']['name'],
+                    'url' => Author::getAuthorUrl($author['author']['url_key'])
+                ];
+            }
+        }
+
         return $this->render('map', [
             'article' => $model,
+            'authors' => $authors,
             'collection' => $articleCollection,
             'categories' => $categories
         ]);
@@ -195,7 +215,7 @@ class ArticleController extends Controller {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
         if (Yii::$app->user->isGuest || !is_object(Yii::$app->user->identity)) {
-            return ['message' => 'You have not logged'];
+            return ['message' => 'Please <a href="" class="fav-login">login</a> or <a href="/register" class="fav-register">register</a>'];
         }
         
         try {

@@ -8,9 +8,9 @@ use yii\widgets\Pjax;
 ?>
 
 <?php
-
-$this->title = 'Articles';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Articles';
+$this->params['breadcrumbs'][] = 'Articles';
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -21,6 +21,11 @@ $this->registerMetaTag([
     'content' => Html::encode($category->meta_title)
 ]);
 
+$currentUrl[] = '/articles';
+$currentParams = Yii::$app->getRequest()->getQueryParams();
+unset($currentParams['id']);
+$currentUrl = array_merge($currentUrl, $currentParams);
+unset($currentParams);
 ?>
 
 <div class="container">
@@ -29,14 +34,38 @@ $this->registerMetaTag([
         <div class="breadcrumbs">
             <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
         </div>
+        <div class="mobile-filter-holder custom-tabs-holder">
+            <ul class="mobile-filter-list">
+                <li><a href="" class="js-widget">Subject areas</a></li>
+                <li><a href="" class="js-widget">Authors</a></li>
+            </ul>
+            <div class="mobile-filter-items custom-tabs">
+                <div class="tab-item blue js-tab-hidden expand-more">
+                    <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
+                </div>
+                <div class="tab-item blue js-tab-hidden expand-more">
+                    <?php $alphas = range('A', 'Z'); ?>
+                    <ul class="abs-list">
+                        <?php foreach ($alphas as $letter): ?>
+                            <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <h1><?= $category->meta_title ?></h1>
-        <p><?= $category->description ?></p>
+        <div class="desc-category">
+            <p><?= $category->description ?></p>
+        </div>
     </div>
     
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text">
             <div class="articles">
+                <div class="sidebar-widget sidebar-widget-sort-by hide-desktop">
+                    <?= $this->renderFile('@frontend/views/article/order.php', ['currentUrl' => $currentUrl]); ?>
+                </div>
                 <ul class="articles-list">
                     <?php foreach($collection as $article): ?>
                     <li class="article-item">
@@ -57,24 +86,12 @@ $this->registerMetaTag([
                     <?php endforeach; ?>
                 </ul>
                 <?php if ($articleCount > $limit): ?>
-                    <?php
-                    if ($sort == 3) {
-                        $params = ['/articles', 'limit' => $limit];
-                    } else {
-                        $params = ['/articles', 'limit' => $limit, 'sort' => 1];
-                    }
-                    ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                    <?= Html::a("show more", Url::to(array_merge($currentUrl, ['limit' => $limit])), ['class' => 'btn-gray align-center','update']) ?>
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
-                        <?php
-                        if ($sort == 3) {
-                            $params = ['/articles'];
-                        } else {
-                            $params = ['/articles', 'sort' => 1];
-                        }
-                        ?>
-                        <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center']) ?>
+                        <?php if (Yii::$app->request->get('limit')): ?>
+                            <?= Html::a("clear", Url::to(array_merge($currentUrl, ['limit' => 0])), ['class' => 'btn-gray align-center btn-scroll-to-top']) ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
@@ -82,21 +99,8 @@ $this->registerMetaTag([
         <?php Pjax::end(); ?>
         
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-sort-by">
-                <label>sort by</label>
-                <div class="custom-select dropdown">
-                    <div class="custom-select-title dropdown-link">
-                        Publication date (descending)
-                    </div>
-                    <div class="sort-list drop-content">
-                        <div>
-                            <a href="<?= Url::to('/articles') ?>">Publication date (descending)</a>
-                        </div>
-                        <div <?= ($sort != 3) ? 'data-select="selected"' : '' ?>>
-                            <a href="<?= Url::to(['/articles', 'sort' => 1]) ?>">Publication date (ascending)</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="sidebar-widget sidebar-widget-sort-by hide-mobile">
+                <?= $this->renderFile('@frontend/views/article/order.php', ['currentUrl' => $currentUrl]); ?>
             </div>
             <div class="sidebar-widget sidebar-widget-articles-filter">
                 <ul class="sidebar-accrodion-list">
@@ -106,27 +110,39 @@ $this->registerMetaTag([
                              <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                         </div>
                     </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Authors</a>
+                        <div class="text is-open">
+                            <?php $alphas = range('A', 'Z'); ?>
+                            <ul class="abs-list">
+                                <?php foreach ($alphas as $letter): ?>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
+
             <div class="sidebar-widget">
                <div class="widget-title">data & methods</div>
                 <div class="data-method-list">
-                    <a href="/subject-areas/data" class="data-method-item">
+                    <a href="/data-sources" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
                         <div class="caption">
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>View all of our data sources in one place</h3>
+                            <h3>Looking for economic data sets?</h3>
                         </div>
                     </a>
-                    <a href="/subject-areas/methods" class="data-method-item">
+                    <a href="/methods" class="data-method-item">
                         <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
                         <div class="caption">
                             <span class="icon-arrow-square-blue">
                                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
                             </span>
-                            <h3>Explore our methods</h3>
+                            <h3>Want to learn more about empirical methods?</h3>
                         </div>
                     </a>
                 </div>

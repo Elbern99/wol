@@ -9,8 +9,6 @@ $opinionDirectLink = Url::to(['/opinion/view', 'slug' => $model->url_key], true)
 $mailLink = $opinionDirectLink;
 
 $mailTitle = $model->title;
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '. $mailTitle .
-    '\n\n View the opinion: '. Html::a($mailLink, $mailLink). '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
 
 if ($category) {
     $this->registerMetaTag([
@@ -28,6 +26,12 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/commentary'])];
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Opinions'), 'url' => Url::to(['/opinion/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+
+$mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+    'articleTitle' => $mailTitle,
+    'articleUrl' => $mailLink,
+    'typeContent' => 'opinion'
+]);
 ?>
 
 <div class="container single-post-page">
@@ -69,7 +73,6 @@ $this->params['breadcrumbs'][] = $model->title;
                                 </h3>
                             </li>
                             <?php endforeach; ?>
-                        
                         </ul>
                         <?php if (count($videosSidebar) > Yii::$app->params['video_sidebar_limit']): ?>
                         <a href="" class="more-link">
@@ -99,7 +102,7 @@ $this->params['breadcrumbs'][] = $model->title;
             <article class="post-full-item">
                 <?php $hasImage= $model->image_link ? true : false; ?>
                 <?php if ($hasImage) : ?>
-                <figure>
+                <figure class="align-left">
                     <?= Html::img('/uploads/opinions/'.$model->image_link, [
                         'alt' => 'Opinion image',
                     ]); ?>
@@ -138,7 +141,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

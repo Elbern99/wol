@@ -3,7 +3,7 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     .content-inner-text {
-      display: none;
+      //display: none;
     }
 
     .hide-desktop {
@@ -92,7 +92,7 @@
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    .sidebar-widget-articles-filter,
+    .sidebar-widget-event-filter,
     .small-paragraph {
       display: none;
     }
@@ -143,7 +143,7 @@
 .video-page {
 
   @include breakpoint_custom($breakpoint-tablet) {
-    .sidebar-widget-articles-filter {
+    .sidebar-widget-event-filter {
       display: none;
     }
     .mobile-filter-holder {
@@ -152,6 +152,10 @@
   }
 
   @include breakpoint('tablet') {
+    .sidebar-right {
+      margin-top: -2px;
+    }
+
     .mobile-filter-holder {
       display: none;
     }

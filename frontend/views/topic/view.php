@@ -18,6 +18,12 @@ if ($category) {
 
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Key Topics'), 'url' => Url::to(['/topic/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+
+$mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+    'articleTitle' => $model->title,
+    'articleUrl' => Url::to('/key-topics/'.$model['url_key'], true),
+    'typeContent' => 'key topic'
+]);
 ?>
 
 <?php if ($model->image_link) : ?>
@@ -43,7 +49,7 @@ $this->params['breadcrumbs'][] = $model->title;
             </p>
             <?php if ($collection) : ?>
             <div class="widget-title medium"><?= Html::a('articles', ['article/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-articles', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-articles', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list topic-articles-list">
                 <?php foreach($collection as $article): ?>
                 <li class="post-item">
@@ -88,7 +94,7 @@ $this->params['breadcrumbs'][] = $model->title;
             
             <?php if ($relatedOpinions) : ?>
             <div class="widget-title medium"><?= Html::a('opinions', ['opinion/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-opinions', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list topic-opinion-list">
                 <?php foreach ($relatedOpinions as $item) : ?>
                 <?php $opinion = $item->opinion; ?>
@@ -124,7 +130,7 @@ $this->params['breadcrumbs'][] = $model->title;
             
             <?php if ($relatedVideos) : ?>
             <div class="widget-title medium"><?= Html::a('videos', ['video/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-videos', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list">
                 <?php foreach ($relatedVideos as $item) : ?>
                 <?php $video = $item->video; ?>
@@ -156,7 +162,7 @@ $this->params['breadcrumbs'][] = $model->title;
             <?php endif; ?>
             <?php if ($relatedEvents) : ?>
             <div class="widget-title medium"><?= Html::a('events', ['event/index']); ?></div>
-            <?php Pjax::begin(['linkSelector' => '#load-events', 'enableReplaceState' => false, 'enablePushState' => false]); ?>
+            <?php Pjax::begin(['linkSelector' => '#load-events', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list media-list">
                 <?php foreach ($relatedEvents as $item) : ?>
                 <?php $event = $item->event; ?>
@@ -223,7 +229,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>

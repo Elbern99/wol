@@ -3,8 +3,8 @@
 /* @var $page common\models\Page */
 
 use yii\helpers\Html;
-
-$this->title = $page->Cms('meta_title');
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 
 $this->registerMetaTag([

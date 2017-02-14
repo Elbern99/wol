@@ -126,9 +126,45 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             $ids[] = $article->id;
         }
         
-        if (!empty($ids)) {
-            $related = $this->find()->where(['id' => $ids, 'enabled' => 1])->select(['seo', 'availability', 'title'])->asArray()->all();
+        if (count($ids)) {
+            $related = $this
+                    ->find()
+                    ->where(['id' => $ids, 'enabled' => 1])
+                    ->with(['articleAuthors.author' => function($query) {
+                        return $query->select(['id', 'name', 'url_key']);
+                    }])
+                    ->select(['id', 'seo', 'title'])
+                    ->all();
+                    
             unset($ids);
+        }
+        
+        if (count($related)) {
+            
+            $formatRelated = [];
+            
+            foreach ($related as $article) {
+                
+                $authors = [];
+                
+                foreach ($article->articleAuthors as $author) {
+                    
+                    if (isset($author->author)) {
+                        $authors[] = [
+                            'name' => $author->author->name,
+                            'url' => Author::getAuthorUrl($author->author->url_key)
+                        ];
+                    }
+                }
+                
+                $formatRelated[] = [
+                    'seo' => $article->seo,
+                    'title' => $article->title,
+                    'authors' => $authors
+                ];
+            }
+
+            return $formatRelated;
         }
         
         return $related;

@@ -7,7 +7,8 @@ use yii\helpers\Url;
 
 <?php
 $attributes = $collection->getEntity()->getValues();
-$this->title = $attributes['title']->getData('title');
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 
 $this->registerMetaTag([
@@ -22,7 +23,7 @@ $this->registerMetaTag([
     )
 ]);
 ?>
-<div class="container article-full">
+<div class="container">
 
     <div class="breadcrumbs">
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>

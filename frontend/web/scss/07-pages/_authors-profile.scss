@@ -78,7 +78,6 @@
     margin: 0 0 35px;
 
     @include breakpoint('tablet') {
-      max-width: 260px;
       margin: 0 0 38px;
     }
 
@@ -94,6 +93,12 @@
 
     @include breakpoint('tablet') {
       margin: 0 0 7px;
+    }
+  }
+
+  .item-role-subject {
+    @include breakpoint_custom($breakpoint-tablet) {
+      text-align: center ;
     }
   }
 

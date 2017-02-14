@@ -66,7 +66,32 @@ class ArticleCategory extends \yii\db\ActiveRecord
     }
     
     public static function getCategoryByCode($codes) {
-        return Category::find()->where(['taxonomy_code'=>$codes])->select(['id'])->asArray()->all();
+        
+        $categories = [];
+        
+        $subQuery = Category::find()
+                ->alias('t2')
+                ->select('t2.id')
+                ->where('(`t2`.`lft` < `t1`.`lft`) AND (`t2`.`rgt` > `t1`.`rgt`) AND (`t2`.`lvl` > 0)');
+        
+        $model = Category::find()
+                            ->alias('t1')
+                            ->where(['t1.taxonomy_code'=>$codes])
+                            ->select(['t1.id', 'parent' => $subQuery])
+                            ->asArray()
+                            ->orderBy('t1.id')
+                            ->all();
+        
+        foreach ($model as $category) {
+            
+            if ($category['parent']) {
+                $categories[] = $category['parent'];
+            }
+            
+            $categories[] = $category['id'];
+        }
+        
+        return array_unique($categories);
     }
     
     public static function massInsert(array $bulkInsertArray) {

@@ -12,6 +12,25 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log', 'eav_module'],
     'modules' => [
+        'treemanager' => [
+            'class' => '\common\modules\category\Module'
+        ],
+        'menu_module' => [
+            'class' => '\common\modules\menu\Module',
+            'components' => [
+                'menu_manager' => '\common\modules\menu\Manager'
+            ]
+        ],
+        'settings_module' => [
+            'class' => '\common\modules\settings\Module',
+        ],
+        'newsletter_module' => [
+            'class' => '\common\modules\newsletter\Module',
+            'components' => [
+                'newsletter_model' => '\common\models\Newsletter',
+                'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ]
     ],
     'components' => [
         'formatter' => [

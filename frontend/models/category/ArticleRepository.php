@@ -7,10 +7,14 @@ use common\models\ArticleCategory;
 use common\models\Article;
 use common\models\AuthorCategory;
 use common\models\Author;
+use common\models\ArticleAuthor;
 use common\modules\eav\CategoryCollection;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\modules\eav\helper\EavValueHelper;
+use common\models\Category;
+use common\modules\author\Roles;
+use frontend\components\articles\OrderBehavior;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -22,75 +26,119 @@ class ArticleRepository implements RepositoryInterface {
         $this->current = $currentCategory;
     }
     
-    private function getArticleIds($limit) {
+    private function addOrderQuery(&$query, $order) {
         
-        return ArticleCategory::find()
-                                ->select(['article_id'])
-                                ->where(['category_id' => $this->current->id])
-                                ->asArray()
-                                ->limit($limit)
-                                ->all();
+        switch ($order) {
+            case OrderBehavior::DATE_DESC:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+            case OrderBehavior::DATE_ASC:
+                $query->orderBy(['a.created_at' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_ASC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_DESC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_DESC]);
+                break;
+            case OrderBehavior::TITLE_ASC:
+                $query->orderBy(['a.title' => SORT_ASC]);
+                break;
+            case OrderBehavior::TITLE_DESC:
+                $query->orderBy(['a.title' => SORT_DESC]);
+                break;
+            default:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+        }
+    }
+    
+    private function getArticleIds($limit, $order) {
+        
+        $query = ArticleCategory::find()
+                                ->alias('ac')
+                                ->select(['ac.article_id'])
+                                ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
+                                ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1]);
+        
+        $this->addOrderQuery($query, $order);
+        
+        return $query->asArray()->limit($limit)->all();
     }
     
     private function getArticlesModel($categoryIds, $order) {
         
-        return Article::find()
-                        ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                        ->where(['enabled' => 1, 'id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
+        $query =  Article::find()
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1, 'a.id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
                         ->with(['articleCategories' => function($query) {
-                                return $query->select(['category_id', 'article_id']);
+                                return $query->alias('ac')
+                                     ->select(['category_id', 'article_id'])
+                                     ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
                         ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
-                         }])
-                        ->orderBy(['created_at' => $order])
-                        ->all();
+                         }]);
+                         
+        $this->addOrderQuery($query, $order);
+        return $query->all();
     }
     
     /* get Authors for category on top */
-    private function getAuthorIds() {
+    private function getAuthorIds(array $roles) {
         
-        return AuthorCategory::find()->select(['author_id'])
+        return AuthorCategory::find()->alias('ac')->select(['ac.author_id'])
                                ->where(['category_id' => $this->current->id])
-                               ->with(['authorRoles' => function($query) {
-                                   return $query->select(['role_id', 'author_id']);
+                               ->innerJoinWith(['authorRoles' => function($query) use ($roles) {
+                                   return $query->where(['role_id' => $roles]);
                                }])
                                ->asArray()
                                ->all();
     
     }
 
-
     public function getPageParams() {
         
-        $order = SORT_DESC;
-        $authorsRoles = [];
-        $authorsValue = [];
-        
-        if (Yii::$app->request->get('sort')) {
-            $order = SORT_ASC;
-        }
-
+        $authorRoles = new Roles();
+        $editor = [
+            'subject' => [],
+            'associate' => []
+        ];
+    
         $limit = Yii::$app->params['article_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
 
             $limitPrev = Yii::$app->request->get('limit');
-            
+
             if (isset($limitPrev) && intval($limitPrev)) {
                 $limit += (int)$limitPrev;
             }
-
         }
         
+        $order = OrderBehavior::getArticleOrder();
         $subjectAreas = $this->getSubjectAreas();
         
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
             return ['title' => $data['title'], 'url_key' => $data['url_key']];
         });
         
-        $categoryIds = $this->getArticleIds($limit);
-        $authorRoleIds = $this->getAuthorIds();
+        $categoryIds = $this->getArticleIds($limit, $order);
+
+        $roles = [];
+        $associateEditor = $authorRoles->getTypeByLabel('associateEditor');
+        $subjectEditor = $authorRoles->getTypeByLabel('subjectEditor');
+        array_push($roles, $subjectEditor);
+        array_push($roles, $associateEditor);
+        
+        $authorRoleIds = $this->getAuthorIds($roles);
         
         if (count($authorRoleIds)) {
             
@@ -113,24 +161,32 @@ class ArticleRepository implements RepositoryInterface {
             $authorCollection->setAttributeFilter(['affiliation']);
             $authorCollection->initCollection(Author::tableName(), $authorIds);
             $authorValues = $authorCollection->getValues();
-            
+
             foreach ($authorRoleIds as $data) {
 
-                $affiliation = unserialize($authorValues[$data['author_id']]['affiliation']);
+                $affiliation =  EavValueHelper::getValue($authorValues[$data['author_id']], 'affiliation', function($data) {
+                    return $data->affiliation;
+                }, 'string');
+                    
                 $params = $authors[$data['author_id']];
-                
-                $authorsValue[$data['author_id']] = [
-                    'avatar' => $params['avatar'],
-                    'profile' => $params['profile'],
-                    'name' => $params['name'],
-                    'affiliation' => $affiliation->affiliation
-                ];
-
                 $roles = ArrayHelper::getColumn($data['authorRoles'], 'role_id');
 
-                foreach ($roles as $role) {
-                    $authorsRoles[$role][] = $data['author_id'];
+                if (in_array($subjectEditor, $roles)) {
+                    $editor['subject'][] = [
+                        'avatar' => $params['avatar'],
+                        'profile' => $params['profile'],
+                        'name' => $params['name'],
+                        'affiliation' => $affiliation
+                    ];
+                } elseif (in_array($associateEditor, $roles)) {
+                    $editor['associate'][] = [
+                        'avatar' => $params['avatar'],
+                        'profile' => $params['profile'],
+                        'name' => $params['name'],
+                        'affiliation' => $affiliation
+                    ];
                 }
+                
             }
             
             unset($authors);
@@ -141,12 +197,10 @@ class ArticleRepository implements RepositoryInterface {
             return [
                 'category' => $this->current, 
                 'subjectAreas' => $subjectAreas, 
-                'collection' => [], 
-                'sort' => $order,
+                'collection' => [],
                 'limit' => $limit,
                 'articleCount' => 1,
-                'authorsValue' => $authorsValue,
-                'authorsRoles' => $authorsRoles
+                'editors' => $editor,
             ];
         }
 
@@ -198,19 +252,26 @@ class ArticleRepository implements RepositoryInterface {
             ];
         }
         
+        $parent = null;
+        
+        if ($this->current->lvl > 1) {
+            $parent = $this->current->parents(1)->select(['title', 'url_key'])->one();
+        }
+        
         return [
+            'parentCategory' => $parent,
             'category' => $this->current, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection, 
             'sort' => $order,
             'limit' => $limit,
             'articleCount' => $this->getCategoryArticleCount(),
-            'authorsValue' => $authorsValue,
-            'authorsRoles' => $authorsRoles
+            'editors' => $editor,
         ];
     }
     
     public function getCategoryArticleCount() {
+
         return ArticleCategory::find()
                 ->alias('ac')
                 ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')

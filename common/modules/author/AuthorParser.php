@@ -70,6 +70,7 @@ class AuthorParser implements ParserInterface {
         }
         
         $args['url_key'] = $url_key;
+        $args['surname'] = $names->last_name;
 
         $author = $this->author->addNewAuthor($args);
         
@@ -142,7 +143,6 @@ class AuthorParser implements ParserInterface {
             $author = $this->addBaseTableValue();
             
             if ($author === false) {
-            
                 continue;
             }
             
@@ -195,13 +195,13 @@ class AuthorParser implements ParserInterface {
         $class = $this->config['article_category'];
 
         $bulkInsertArray = [];
-        $subjectEditorRole = $this->getSubjectEditor();
+        $facets = $this->person->facets;
 
-        if (isset($subjectEditorRole->subjectArea)) {
+        if ($facets) {
             
             $codes = [];
             
-            foreach ($subjectEditorRole->subjectArea as $area) {
+            foreach ($facets->facet as $area) {
                 
                 $label = (string)$area->attributes();
                 $codes[] = $label;

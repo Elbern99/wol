@@ -4,12 +4,13 @@
     var elements  = {
         window: $(window),
         mapInfo: $('.map-info'),
-        overlay: $('.overlay')
-    }
+        overlay: $('.overlay'),
+        LMarker: $('.leaflet-marker-icon')
+    };
 
     //GLOBAL VARIABLE ---------
     var _window_width = elements.window.width(),
-        _mobile = 820,
+        _mobile = 769,
         _mobileSmall  = 413,
         _tablet = 1025,
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click');
@@ -101,29 +102,42 @@
         layer.on({});
       },
       hideInfoMap: function(btn,overlay){
+
+          var
+              $overlay = $(overlay);
+
         map.on('click', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
         });
 
         map.on('movestart', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
         });
 
         $(btn).on('click', '.icon-close', function(e) {
             elements.mapInfo.removeClass('map-info-open');
-            $(overlay).addClass('js-tab-hidden').removeClass('active');
+            $overlay.addClass('js-tab-hidden').removeClass('active');
+            elements.LMarker.removeClass('opened-ref-tooltip');
+
+            $('.map-info-content').animate({
+                scrollTop: 0
+            }, 0);
         });
       },
       onMapClick: function(event) {
         event.target.closePopup();
-        var popup = event.target.getPopup();
+        var
+            popup = event.target.getPopup();
             elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
             elements.overlay.removeClass('js-tab-hidden').addClass('active');
-            elements.overlay.css('height', '1px');
-            elements.overlay.css('height', $(document).height());
-            elements.overlay.css('max-height', $(document).height());
+
+            elements.LMarker.removeClass('opened-ref-tooltip');
+
+            this._icon.classList.add("opened-ref-tooltip");
 
           if(_window_width < _mobile){
               if(elements.window.scrollTop() !== 0) {
@@ -132,13 +146,15 @@
           }
       },
       zoomControl:  function() {
-        var zoomCount = map.getZoom(),
-        label = $('.leaflet-marker-iconlabel');
+        var
+            zoomCount = map.getZoom(),
+            $label = $('.leaflet-marker-iconlabel'),
+            checkZoom = zoomCount > 4;
 
-        if(zoomCount > 4) {
-          label.fadeIn();
+        if(checkZoom) {
+            $label.fadeIn();
         } else {
-          label.fadeOut();
+            $label.fadeOut();
         }
       }
     };
@@ -147,10 +163,6 @@
         geojson;
 
     mapObj.setZoom(map);
-
-    elements.window.resize(function() {
-        //setTimeout(mapObj.setZoom(map), 1000);
-    });
 
     map.zoomControl.setPosition('bottomright');
     mapObj.hideInfoMap('.map-holder','.overlay');
@@ -229,17 +241,40 @@
                           references_method = key_references_obj[i].method,
                           references_position = key_references_obj[i].position,
                           references_source = key_references_obj[i].source,
-                          references_title = key_references_obj[i].title,
                           references_type = key_references_obj[i].type;
 
+                      //template
+                      var dataSourceText,
+                          dataTypesText,
+                          dataMethodText,
+                          dataLinkText;
+
+                      if(references_source !== '') {
+                          dataSourceText = '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>';
+                      } else {
+                          dataSourceText = '';
+                      }
+
+                      if(references_type !== '') {
+                          dataTypesText = '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>';
+                      } else {
+                          dataTypesText = '';
+                      }
+
+                      if(references_method !== '') {
+                          dataMethodText = '<div class="method">Method(s): <strong>'+references_method+'</strong></div>';
+                      } else {
+                          dataMethodText = '';
+                      }
+
+                      if(references_full_citation !== '') {
+                          dataLinkText = '<div class="link">'+references_full_citation+' ['+references_position+']</div>';
+                      } else {
+                          dataLinkText = '';
+                      }
+
                       arrayTpl.push('' +
-                          '<div class="ref-item">' +
-                          '<div class="authors">'+references_title+'</div>' +
-                          '<div class="link">'+references_full_citation+' ['+references_position+']</div>' +
-                          '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>' +
-                          '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>' +
-                          '<div class="method">Method(s): <strong>'+references_method+'</strong></div>' +
-                          '</div>'
+                          '<div class="ref-item">' +dataLinkText+dataSourceText+dataTypesText+dataMethodText+ '</div>'
                       );
                   }
               }
@@ -251,11 +286,24 @@
                       var additional_full_citation = key_additional_obj[i].full_citation,
                           additional_method = key_additional_obj[i].title;
 
+                      //template
+                      var dataAdditionalMethodText,
+                          dataAdditionalLinkText;
+
+                      if(additional_method !== '') {
+                          dataAdditionalMethodText = '<div class="method">Method(s): '+additional_method+'</div>';
+                      } else {
+                          dataAdditionalMethodText = '';
+                      }
+
+                      if(additional_full_citation !== '') {
+                          dataAdditionalLinkText = '<div class="link">'+additional_full_citation+'</div>';
+                      } else {
+                          dataAdditionalLinkText = '';
+                      }
+
                       arrayTpl.push('' +
-                          '<div class="ref-item">' +
-                          '<div class="link">'+additional_full_citation+'</div>' +
-                          '<div class="method">Method(s): '+additional_method+'</div>' +
-                          '</div>'
+                          '<div class="ref-item">' +dataAdditionalLinkText+ '</div>'
                       );
                   }
               }
@@ -278,7 +326,7 @@
 
               var LeafIcon = L.divIcon({
                   iconSize: new L.Point(24, 35),
-                  html: '<div class="icon-number-reference '+ key_country+'">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
+                  html: '<div class="icon-number-reference '+ key_country.replace(/\s/ig, '-')+'">'+ articles_count +'</div><div class="leaflet-marker-iconlabel">'+value.country+'</div>',
               });
 
               var marker = L.marker([y,x], {icon: LeafIcon, labelText: "Love it!"}).bindPopup(key_ref_tpl).addTo(map);

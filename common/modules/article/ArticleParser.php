@@ -58,13 +58,16 @@ class ArticleParser implements ParserInterface {
     /*
      * property for save parsed information
      */
-    protected $images = null;
+    protected $images = [];
     protected $gaImage = null;
     protected $sources = [];
     protected $furtherReading = null;
     protected $keyReferences = null;
     protected $addReferences = null;
     protected $config = null;
+    protected $taxonomyCodeId = [];
+    protected $sourceAttribute = [];
+    protected $usedImages = [];
     
     public function __construct (
             ArticleInterface $article,
@@ -92,8 +95,9 @@ class ArticleParser implements ParserInterface {
     
     protected function setTaxonomyData() {
         
-        $data = $this->taxonomy->find()->select(['code', 'value'])->asArray()->all();
+        $data = $this->taxonomy->find()->select(['id','code', 'value'])->asArray()->all();
         $this->taxonomy = ArrayHelper::map($data, 'code', 'value');
+        $this->taxonomyCodeId = ArrayHelper::map($data, 'id', 'code');
     }
     
     protected function setLangData() {
@@ -170,11 +174,21 @@ class ArticleParser implements ParserInterface {
 
     protected function getImages() {
         
-        if (is_null($this->images)) {
+        if (count($this->images)) {
             return null;
         }
         
         return serialize($this->images);
+    }
+    
+    protected function getSources() {
+        return serialize($this->sourceAttribute);
+    }
+    
+    protected function addDataSources() {
+
+        $sourceClass = $this->config['source'];
+        $sourceClass::addSources($this->sourceAttribute);
     }
 
     protected function addBaseTableValue() {
@@ -200,6 +214,14 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('updated_at', $time);
         $this->article->setAttribute('publisher', $publisher);
     }
+    
+    public function clearParseData() {
+        
+        $this->usedImages = [];
+        $this->furtherReading = null;
+        $this->keyReferences = null;
+        $this->addReferences = null;
+    }
 
     public function parse(ReaderInterface $reader) {
 
@@ -207,12 +229,39 @@ class ArticleParser implements ParserInterface {
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
 
         $this->addBaseTableValue();
-               
+    
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
         $reader->removeTemporaryFolder();
         unset($reader);
-       
+        
+        $attributes = $this->type->find()
+                            ->where(['name' => 'article'])
+                            ->with('eavTypeAttributes.eavAttribute')
+                            ->one();
+
+        $this->setImages();
+        $this->setSources();
+        
+        try {
+            
+            foreach ($attributes->eavTypeAttributes as $attrType) {
+
+                $related = $attrType->getRelatedRecords();
+
+                foreach ($related as $attribute) {
+
+                    $attrName = $attribute->getAttribute('name');
+                    $this->$attrName($attribute->getAttribute('required'));
+                }
+            }
+
+        } catch(\Exception $e) {
+            throw new \Exception('Can not add article error - '.$e->getMessage());
+        }
+        
+        $this->clearParseData();
+
         if (!$this->article->save()) {
             
             $errors = [];
@@ -228,12 +277,8 @@ class ArticleParser implements ParserInterface {
         
         $this->addArticleCategory($articleId);
         $this->addArticleAuthor($articleId);
+        $this->addDataSources();
         
-        $attributes = $this->type->find()
-                ->where(['name' => 'article'])
-                ->with('eavTypeAttributes.eavAttribute')
-                ->one();
-
         $typeId = $attributes->id;
         
         $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
@@ -244,8 +289,6 @@ class ArticleParser implements ParserInterface {
             throw new \Exception(Yii::t('app/messages','Entity could not be created'));
         }
 
-        $this->setImages();
-        $this->setSources();
         $result = true;
         
         foreach ($attributes->eavTypeAttributes as $attrType) {
@@ -351,15 +394,15 @@ class ArticleParser implements ParserInterface {
         }
         
         $categories = $class::getCategoryByCode($categories);
-        
+
         foreach ($categories as $category) {
-            
-            $this->categoryIds[] = $category['id'];
+
+            $this->categoryIds[] = $category;
             
             $bulkInsertArray[] = [
-                            'article_id' => $articleId,
-                            'category_id' => $category['id'],
-                        ];
+                'article_id' => $articleId,
+                'category_id' => $category,
+            ];
         }
         
         $class::massInsert($bulkInsertArray);

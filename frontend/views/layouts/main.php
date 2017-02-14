@@ -13,14 +13,14 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta http-equiv="content-type" content="text/html; charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta http-equiv="cleartype" content="on"/>
     <![endif]-->
     <meta name="HandheldFriendly" content="true"/>
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title id="title-document"><?= Html::encode($this->title) ?></title>
     <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
@@ -42,11 +42,10 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="holder">
+<div class="overlay js-tab-hidden"></div>
 
 <div class="wrapper">
-    <div class="overlay js-tab-hidden"></div>
 
     <main class="content">
         
@@ -66,7 +65,7 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
                   <?= $this->renderFile('@app/views/components/footer/footer.php'); ?>
               </div>
               <p class="copyright">
-                  Copyright &copy; IZA <?= date('Y') ?> <a href="https://www.iza.org/imprint" target="_blank">Impressum</a>. All Rights Reserved. ISSN: 2054-9571
+                  Copyright &copy; IZA <?= date('Y') ?> <a href="https://www.iza.org/imprint" target="_blank">Impressum</a>. <br>All Rights Reserved. ISSN: 2054-9571
               </p>
           </div>
       </div>

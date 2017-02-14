@@ -65,7 +65,7 @@ class NewsletterController extends Controller
         return $this->render('news-view', ['model'=>$model]);
     }
     
-    public function actionDelete($id) {
+    public function actionNewsDelete($id) {
         
         try {
             $model = NewsletterNews::findOne($id);

@@ -224,7 +224,7 @@
 
   .icon-close {
     top: 50%;
-    margin-top: -22px;
+    margin-top: -21px;
     z-index: 101;
 
     @include breakpoint_custom($breakpoint-tablet) {
@@ -247,14 +247,16 @@
     border-radius: 2px;
     margin-right: 25px;
     margin-left: 10px;
+    width: 100px;
 
     @include breakpoint('tablet') {
-      margin: -3px 0 0 0;
+      margin: -3px 33px 0 0;
       height: 40px;
       line-height: 40px;
       font-size: 13px;
       padding: 0 14px;
       letter-spacing: 0.04em;
+      width: auto;
     }
   }
 

@@ -64,6 +64,8 @@
     margin: 0 0 17px;
   }
 
+  @extend .img-left-in-article;
+
   p {
     font-size: 12px;
 
@@ -77,7 +79,12 @@
     overflow: hidden;
   }
 
-  img,
+  img{
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
   iframe {
     min-width: 100%;
     width: 100%;
@@ -112,15 +119,32 @@
 //AUTHORS-PAGE
 
 .authors-page {
+  .mobile-filter-holder {
+    margin-top: -20px;
+  }
+
   .search-results-media-list {
     justify-content: center;
   }
 }
 
-
 //SOURCE-TABLE-HOLDER
 .source-table-holder {
-  margin-bottom: 20px;
+  position: relative;
+
+  .grid-view {
+    margin-bottom: 20px;
+  }
+
+  .pagination {
+    display: none;
+  }
+
+  .loading-ball {
+    top: auto;
+    margin-top: 0;
+    bottom: -39px;
+  }
 
   @include breakpoint('tablet') {
     margin-bottom: 20px;
@@ -131,8 +155,51 @@
     overflow-x: auto;
   }
 
+  @include breakpoint_custom($breakpoint-tablet) {
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+      display: block !important;
+      width: 100% !important;
+    }
+
+    .filters {
+      td {
+        &:nth-child(1),
+        &:nth-child(2) {
+          display: none !important;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+    td {
+      border: none;
+      position: relative;
+      padding-left: 106px !important;
+
+      &:before {
+        position: absolute;
+        top: 13px;
+        left: 6px;
+        width: 90px;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+
+      &:nth-of-type(1):before { content: "Data Source"; }
+      &:nth-of-type(2):before { content: "Website"; }
+      &:nth-of-type(3):before { content: "Type"; }
+    }
+  }
+
   .table {
-    min-width: 500px;
     .filters,
     th {
       background: $blue;
@@ -153,6 +220,7 @@
 
     th,td {
       width: 30%;
+      padding: 13px 12px;
 
       &:last-child {
         width: 35%;
@@ -167,22 +235,63 @@
       }
     }
 
+    thead {
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        tr {
+          &:first-child {
+            display: none !important;
+          }
+        }
+      }
+    }
+
     tbody {
+
+      tr.ias-trigger {
+        td {
+          border: 0 !important;
+        }
+      }
+
       td {
-        border: 0 !important;
+        border: 0;
         vertical-align: middle;
+        border-bottom: 1px solid #eee;
+
+        &.preloader-table-cell {
+          @include breakpoint_custom($breakpoint-tablet) {
+            padding-left: 6px !important;
+            border-bottom: 0 !important;
+
+            &:before {
+              display: none;
+            }
+          }
+        }
+
+        &.td-letter {
+          background: #ccc !important;
+          padding-top: 2px;
+          padding-bottom: 1px;
+
+          a {
+            font-weight: bold;
+          }
+
+          @include breakpoint_custom($breakpoint-tablet) {
+            padding-left: 6px !important;
+            margin: 0 0 -1px;
+
+            &:before {
+              display: none;
+            }
+          }
+        }
       }
 
       ul {
         padding: 0;
-      }
-
-      tr{
-        &:nth-child(even) {
-          td {
-            background: #eee;
-          }
-        }
       }
     }
 
@@ -193,7 +302,6 @@
         border-radius: 5px;
         height: 28px;
         cursor: pointer;
-        padding: 0 30px 0 10px;
         background: #fff;
         overflow: hidden;
         margin: 0;
@@ -212,5 +320,51 @@
       }
     }
 
+  }
+}
+
+.stiky {
+  transition: all 0.3s ease;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $white;
+    margin: auto !important;
+    z-index: 10;
+    padding: 10px 15px;
+  }
+}
+
+//error-page
+.error-page {
+  p {
+    margin: 0 0 10px;
+  }
+}
+
+.back-to-top {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  left: 100%;
+  bottom: 53px;
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+  transition: color 0.3s ease;
+  font-size: 30px;
+  color: #d8d8d8;
+  margin-bottom: -15px;
+
+  @include breakpoint('tablet') {
+    bottom: 35px;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    color: #bcbcbc;
   }
 }

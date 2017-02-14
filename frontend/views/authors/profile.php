@@ -6,9 +6,10 @@ use frontend\components\articles\SubjectAreas;
 ?>
 
 <?php
-$this->title = $author['author']->name;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$author['author']->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Authors'), 'url' => Url::toRoute(['/authors'])];
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$this->params['breadcrumbs'][] = Html::encode($author['author']->name);
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -62,18 +63,19 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                 </div>
                 <div class="description">
                     <div class="name"><?= $author['author']->name ?></div>
-                    <p class="short-desc"><?= $author['degree'] ?></p>
+                    <p class="short-desc"><?= $author['affiliation'] ?></p>
                     <div class="quote">
                         <em><?= $author['testimonial'] ?></em>
                     </div>
-
+                    <?php if (count($author['roles'])): ?>
                     <div class="item">
                         <h2>IZA World of Labor role</h2>
                         <p><?= implode(', ', $author['roles']) ?></p>
                     </div>
-
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->current) && $author['position']->current): ?>
                     <div class="item">
-                        <h2>Positions/functions as a policy advisor</h2>
+                        <h2>Current position</h2>
                         <?php if(is_array($author['position']->current)): ?>
                             <?php foreach($author['position']->current as $current): ?>
                                 <p><?= $current ?></p>
@@ -81,7 +83,23 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php else: ?>
                                 <p><?= $author['position']->current ?></p>
                         <?php endif; ?>
-                                
+                    </div>
+                    <?php endif; ?>
+                    <?php if($author['interests']): ?>
+                    <div class="item">
+                        <h2>Research interest</h2>
+                        <p><?= $author['interests'] ?></p>
+                    </div>
+                    <?php endif; ?>
+                    <?php if ($author['author']->url): ?>
+                    <div class="item">
+                        <h2>Website</h2>
+                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
+                    </div>
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
+                    <div class="item">
+                        <h2>Positions/functions as a policy advisor</h2>
                         <?php if(is_array($author['position']->advisory)): ?>
                             <?php foreach($author['position']->advisory as $advisory): ?>
                                 <p><?= $advisory ?></p>
@@ -90,17 +108,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                                 <p><?= $author['position']->advisory ?></p>
                         <?php endif; ?>
                     </div>
-
-                    <div class="item">
-                        <h2>Website</h2>
-                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
-                    </div>
-
-                    <div class="item">
-                        <h2>Affiliations</h2>
-                        <p><?= $author['affiliation'] ?></p>
-                    </div>
-
+                    <?php endif; ?>
+                    <?php if(isset($author['position']->past) && $author['position']->past): ?>
                     <div class="item">
                         <h2>Past positions</h2>
                         <?php if(is_array($author['position']->past)): ?>
@@ -111,17 +120,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                                 <p><?= $author['position']->past ?></p>
                         <?php endif; ?>
                     </div>
-
-                    <div class="item">
-                        <h2>Research interest</h2>
-                        <p><?= $author['interests'] ?></p>
-                    </div>
-
+                    <?php endif; ?>
+                    <?php if($author['degree'] ): ?>
                     <div class="item">
                         <h2>Qualifications</h2>
-                        <p><?= $author['experience_type'] ?></p>
+                        <p><?= $author['degree'] ?></p>
                     </div>
-
+                    <?php endif; ?>
+                    <?php if(count($author['publications'])): ?>
                     <div class="selected-publications">
                         <h2>Selected publications</h2>
 
@@ -133,11 +139,12 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
+            <?php if(count($author['articles'])): ?>
             <div class="articles">
-                <div class="widget-title medium"><a href="/articles">articles</a></div>
+                <div class="widget-title medium"><a href="/articles">article(s)</a></div>
                 <ul class="other-articles-list">
                     <?php foreach($author['articles'] as $article): ?>
                         <li class="article-item">
@@ -148,7 +155,10 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             </ul>
                             <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                            <div class="publish"><a href=""><?= $article['availability']  ?></a>, <?= date('F Y', $article['created_at']) ?></div>
+                            <div class="publish">
+                                <?php foreach($article['authors'] as $owner): ?><a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a><?php endforeach; ?>,
+                                <?= date('F Y', $article['created_at']) ?>
+                            </div>
                             <div class="description">
                                 <?= $article['abstract']->abstract ?? ''; ?>
                             </div>
@@ -157,6 +167,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <?php endforeach; ?>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>
 
         <aside class="sidebar-right">

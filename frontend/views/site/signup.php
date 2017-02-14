@@ -7,8 +7,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Register';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Register';
+$this->params['breadcrumbs'][] = 'Register';
 ?>
 <div class="container content-inner subscribe-to-newsletter">
     <div class="content-inner-text">

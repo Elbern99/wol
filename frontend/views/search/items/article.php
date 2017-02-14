@@ -5,7 +5,7 @@
     <div class="type">
         Article
     </div>
-    <div class="description-center">
+    <div class="article-item">
         <h2><a href="<?= $value['url'] ?>"><?= $value['title'] ?></a></h2>
         <h3><?= $value['teaser']->teaser ?? ''; ?></h3>
         <div class="name"><a href=""><?= $value['availability'] ?></a></div>

@@ -34,9 +34,10 @@ class SourceTaxonomy extends \yii\db\ActiveRecord
             [['source_id', 'taxonomy_id'], 'integer'],
             [['source_id'], 'exist', 'skipOnError' => true, 'targetClass' => DataSource::className(), 'targetAttribute' => ['source_id' => 'id']],
             [['taxonomy_id'], 'exist', 'skipOnError' => true, 'targetClass' => Taxonomy::className(), 'targetAttribute' => ['taxonomy_id' => 'id']],
+            [['additional_taxonomy_id'], 'exist', 'skipOnError' => true, 'targetClass' => Taxonomy::className(), 'targetAttribute' => ['additional_taxonomy_id' => 'id']],
         ];
     }
-
+	
     /**
      * @inheritdoc
      */
@@ -65,4 +66,8 @@ class SourceTaxonomy extends \yii\db\ActiveRecord
         return $this->hasOne(Taxonomy::className(), ['id' => 'taxonomy_id']);
     }
     
+    public function getAdditionalTaxonomy()
+    {
+        return $this->hasOne(Taxonomy::className(), ['id' => 'additional_taxonomy_id']);
+    }
 }

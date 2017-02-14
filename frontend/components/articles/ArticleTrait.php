@@ -11,6 +11,9 @@ use yii\web\NotFoundHttpException;
 use Yii;
 use common\modules\eav\helper\EavValueHelper;
 use common\modules\eav\CategoryCollection;
+use yii\helpers\Url;
+use frontend\components\articles\OrderBehavior;
+use common\models\ArticleAuthor;
 
 trait ArticleTrait {
     
@@ -27,20 +30,57 @@ trait ArticleTrait {
                             ->one();
     }
     
-    protected function getArticlesList($limit, $order) {
+    private function addOrderQuery(&$query, $order) {
         
-        return  Article::find()
-                         ->select(['id', 'title', 'seo', 'availability', 'created_at'])
-                         ->where(['enabled' => 1])
-                         ->with(['articleCategories' => function($query) {
-                             return $query->select(['category_id', 'article_id']);
-                         }])
-                         ->with(['articleAuthors.author' => function($query) {
+        switch ($order) {
+            case OrderBehavior::DATE_DESC:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+            case OrderBehavior::DATE_ASC:
+                $query->orderBy(['a.created_at' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_ASC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_ASC]);
+                break;
+            case OrderBehavior::AUTHOR_DESC:
+                $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
+                      ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
+            
+                $query->orderBy(['au.surname' => SORT_DESC]);
+                break;
+            case OrderBehavior::TITLE_ASC:
+                $query->orderBy(['a.title' => SORT_ASC]);
+                break;
+            case OrderBehavior::TITLE_DESC:
+                $query->orderBy(['a.title' => SORT_DESC]);
+                break;
+            default:
+                $query->orderBy(['a.created_at' => SORT_DESC]);
+                break;
+        }
+    }
+    
+    
+    protected function getArticlesList($limit) {
+        $order = OrderBehavior::getArticleOrder();
+        $query =  Article::find()
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1])
+                        ->with(['articleCategories' => function($query) {
+                                return $query->alias('ac')
+                                     ->select(['category_id', 'article_id'])
+                                     ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
+                        }])
+                        ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
-                         }])
-                         ->orderBy(['created_at' => $order])
-                         ->limit($limit)
-                         ->all();
+                         }]);
+               
+        $this->addOrderQuery($query, $order);
+        return $query->limit($limit)->all();
     }
     
     protected function getArticleCount() {
@@ -63,15 +103,9 @@ trait ArticleTrait {
         
         return  Category::find()
                         ->alias('c1')
-                        ->leftJoin([
-                            'c2' => Category::tableName()], 'c2.lft < c1.lft and c2.rgt > c1.rgt'
-                        )
                         ->where(['c1.id' => $categoryIds])
-                        ->andWhere(['>=', 'c2.lvl', 1])
                         ->select([
-                            'c2.id as p_id',
-                            'c1.title', 'c1.url_key',
-                            'c2.title as p_title', 'c2.url_key as p_url_key',
+                            'c1.title', 'c1.url_key', 'c1.lvl'
                         ])
                         ->asArray()
                         ->all();
@@ -139,7 +173,7 @@ trait ArticleTrait {
                         'name' => $name,
                         'affiliation' => $affiliation,
                         'avatar' => Author::getImageUrl($author->author['avatar']),
-                        'profile' => Author::getAuthorUrl($author->author['url_key'])
+                        'profile' => Url::to([Author::AUTHOR_PREFIX.'/'.$author->author['url_key']], true)
                     ];
                 }
             }
@@ -148,7 +182,6 @@ trait ArticleTrait {
 
                 $categoryIds = ArrayHelper::getColumn($records['articleCategories'], 'category_id');
                 $categories = $this->getFullCategoryArticlesArray($categoryIds);
-                
             }
             
             if ($articleCollection->isMulti) {

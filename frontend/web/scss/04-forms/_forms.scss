@@ -1,6 +1,11 @@
 //DROPDOWN-LOGIN
 .dropdown-login {
 
+  strong {
+    font-family: $lucida-sans-bold;
+    padding-left: 3px;
+  }
+
   .dropdown-widget {
     margin-top: -5px;
     padding-bottom: 19px;

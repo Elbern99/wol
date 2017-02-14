@@ -172,6 +172,16 @@ class ArticleSchemaAttributes {
                 array_combine($attributeSchema, ['one_pager_pdf', 'One Pager Pdf', 0, 1, 1]), 
                 [['label' => 'Url', 'type' => 'String']]
         );
+        
+        $this->attributes[] = new Attribute(
+                'sources', 
+                array_combine($attributeSchema, ['sources', 'Sources', 1, 1, 1]), 
+                [
+                    ['label' => 'source', 'type' => 'String'],
+                    ['label' => 'website', 'type' => 'String'],
+                    ['label' => 'types', 'type' => 'Array']
+                ]
+        );
     }
     
     /*public function addAttribute($name, $params, $options) {

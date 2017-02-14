@@ -5,7 +5,7 @@
     <div class="type">
         Opinion
     </div>
-    <div class="description-center">
+    <div class="article-item">
         <h2><a href="<?= '/opinions/'.$value['url_key'] ?>"><?= $value['title'] ?></a></h2>
         <p>
             <?= $value['short_description'] ?>

@@ -20,7 +20,7 @@ trait SubjectTrait {
                                'url_key','root', 
                                'lvl', 'lft', 'rgt'
                             ])
-                            ->andWhere(['active' => 1])
+                            ->andWhere(['active' => 1, 'filterable' => 0])
                             ->asArray()
                             ->all();
     }

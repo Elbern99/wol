@@ -5,7 +5,7 @@
         _window_width = $(window).width(),
         _doc_height = $(document).height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 820,
+        _mobile = 769,
         _tablet = 1025;
 
     $(window).resize(function() {
@@ -21,7 +21,7 @@
 
                     cur.find(list).tagit({
                         singleField: true,
-                        placeholderText: 'Enter words seperated with spaces',
+                        placeholderText: 'Enter words separated with spaces',
                         singleFieldNode: curInput
                     });
                 });
@@ -29,7 +29,9 @@
         },
         searchHightLight: function(input,body){
             var mark = function() {
-                var keyword = $(input).val();
+                var
+                    keyword = $(input).val();
+
                 $(body).unmark().mark(keyword);
             };
             if($(body).length) {
@@ -51,7 +53,8 @@
             }
 
             appendElements(el,elToMobile,elToDesktop);
-            $(window).resize(function() {
+
+            $(window).on('orientationchange', function() {
                 setTimeout(function(){
                     appendElements(el,elToMobile,elToDesktop);
                 }, 600);
@@ -79,14 +82,15 @@
                     
                         if ('message' in data) {
 
-                            console.log(status)
+                            var
+                                parentEl = element.parent();
 
-                            element.children('.btn-save-search-inner').html(data.message);
-                            element.addClass('added');
+                            parentEl.find('.save-search-alert').html(data.message);
+                            parentEl.addClass('added');
 
                             setTimeout(function(){
-                                element.removeClass('added');
-                            }, 1600);
+                                parentEl.removeClass('added');
+                            }, 3000);
                         }
                     });
                     e.preventDefault();
@@ -113,7 +117,6 @@
         },
         customTriggerFocus: function(btn,elClick,parent) {
             $(btn).on('click', function(e) {
-                console.log($(this).parents(parent).find(elClick));
                 $(this).parents(parent).find(elClick).trigger('click');
             })
         }
@@ -121,7 +124,7 @@
    
     $(document).ready(function() {
         advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
-        advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .description-center');
+        advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .article-item');
         advancedSearch.cloneEl('.filter-clone', '.mobile-filter-container', '.filter-clone-holder');
         advancedSearch.openFilter('.filter-mobile-link', '.mobile-filter');
         advancedSearch.saveSearch('.btn-save-search');

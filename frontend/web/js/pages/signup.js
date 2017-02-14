@@ -11,7 +11,7 @@
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 820,
+        _mobile = 769,
         _tablet = 1025;
 
     elements.window.resize(function() {

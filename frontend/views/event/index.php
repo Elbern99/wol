@@ -5,9 +5,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <?php
-
-$this->title = 'Events';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Events';
+$this->params['breadcrumbs'][] = 'Events';
 
 if ($category) {
     $this->registerMetaTag([
@@ -37,14 +37,14 @@ if ($category) {
     <div class="content-inner">
         <div class="content-inner-text">
             <p class="small-paragraph">We have selected events that we think are relevant to policymakers and/or that involve the IZA World of
-                Labor. Also included are a selection of IZA events (further IZA events can be found <a href="">here</a>)</p>
+                Labor. Also included are a selection of IZA events (further IZA events can be found <a target="_blank" href="http://legacy.iza.org/en/webcontent/events/index">here</a>)</p>
 
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
                     <li class="active"><a href="" class="js-widget">Latest events</a></li>
                     <li><a href="" class="js-widget">Events archive</a></li>
                 </ul>
-                <h1 class="hide-desktop"><?= $this->title; ?></h1>
+                <h1 class="hide-desktop">Events</h1>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active">
                         <?php if (!empty($eventGroups)): ?>
@@ -106,7 +106,7 @@ if ($category) {
         </div>
 
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-event-filter">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">events archive</a>

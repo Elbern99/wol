@@ -10,7 +10,8 @@ use yii\helpers\Url;
 use common\models\Video;
 use common\models\Opinion;
 
-$this->title = $page->Cms('meta_title');
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.$page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 
 $this->registerMetaTag([
@@ -39,7 +40,7 @@ $this->registerMetaTag([
                     <?= $page->getWidgetByName('home_featured_article') ?>
                     
                     <div class="articles-list-holder">
-                        <?php Pjax::begin(['linkSelector' => '#article_limit_button']); ?>
+                        <?php Pjax::begin(['linkSelector' => '#article_limit_button','options' => ['class' => 'loader-ajax']]); ?>
                         <div class="widget-title medium"><a href="/articles">latest articles</a></div>
                         <ul class="post-list home-articles-list">
                             <?php foreach($collection as $article): ?>
@@ -64,7 +65,7 @@ $this->registerMetaTag([
                         <?php Pjax::end(); ?>
                     </div>
                     
-                    <?php Pjax::begin(['linkSelector' => '#news_limit_button']); ?>
+                    <?php Pjax::begin(['linkSelector' => '#news_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
                     <div class="news-list-holder">
                         <div class="widget-title medium"><a href="/news">latest news</a></div>
                         <ul class="post-list news-home-list">
@@ -152,7 +153,7 @@ $this->registerMetaTag([
                         </ul>
                     </div>
                     <?php endif; ?>
-                    <?php Pjax::begin(['linkSelector' => '#event_limit_button']); ?>
+                    <?php Pjax::begin(['linkSelector' => '#event_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
                     <div class="other-events-list-holder">
                         
                         <div class="widget-title medium"><a href="/events">events</a></div>

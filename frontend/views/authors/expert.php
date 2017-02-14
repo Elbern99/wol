@@ -7,8 +7,9 @@ use common\helpers\Country;
 ?>
 
 <?php
-$this->title = 'Find a topic spokesperson';
-$this->params['breadcrumbs'][] = Html::encode($this->title);
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Find a topic spokesperson';
+$this->params['breadcrumbs'][] = Html::encode('Find a topic spokesperson');
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -22,14 +23,14 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['class' => 'expert-filter-form']]); ?>
 <div class="container find-expert">
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
         <h1>IZA World of Labor - Find a topic spokesperson</h1>
-        <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
+        <p class="large-paragraph">With over <?= $expertCount ?> experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
         <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
     </div>
     
@@ -66,7 +67,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
     </div>
     
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text">
             <ul class="search-results-media-list">
                 
@@ -75,12 +76,16 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                     <div class="img-holder img-holder-bg">
                         <div class="img" style="background-image: url(<?= $expert['avatar']; ?>)"></div>
                     </div>
-                    <div class="name"><?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?></div>
-                    <p class="location"><?= $expert['affiliation'] ?></p>
-                    <p><strong>Expertise:</strong> <?= implode(',', $expert['expertise'])?></p>
-                    <p><strong>Media Experience:</strong> <?= implode(',', $expert['experience_type'])?></p>
-                    <p><strong>Languages:</strong> <?php array_walk($expert['language'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
-                    <p><strong>Country:</strong><?php array_walk($expert['author_country'], function($value) { echo Country::getCountryName($value)."\n"; }) ?></p>
+                    <div class="name">
+                        <a href="<?= $expert['profile'] ?>">
+                           <?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?>
+                        </a>
+                    </div>
+                    <p class="location"> <?= $expert['affiliation'] ?></p>
+                    <p><strong>Expertise:</strong> <?= implode(', ', $expert['expertise'])?></p>
+                    <p><strong>Media Experience:</strong> <?= implode(', ', array_map(function($value){ return ucfirst($value); }, $expert['experience_type']))?></p>
+                    <p><strong>Languages:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['language'])) ?></p>
+                    <p><strong>Country:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['author_country'])) ?></p>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -102,6 +107,31 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                         <h3>Filter by</h3>
                         
                         <ul class="sidebar-accrodion-list">
+                            <?php if (isset($filter['expertise'])): ?>
+                                <li class="sidebar-accrodion-item is-open">
+                                    <a href="" class="title">expertise</a>
+                                    <div class="text expand-more">
+                                        <div class="checkbox-list more-extra-list">
+                                            <?= Html::activeCheckboxList($search, 'expertise', $filter['expertise'], ['item' => function($index, $label, $name, $checked, $value) {
+                                                return Html::tag('div', Html::checkbox($name, $checked, [
+                                                    'labelOptions'=>['class' => 'def-checkbox light'],
+                                                    'value' => $value,
+                                                    'label' => '<span class="label-text">'.$label.'</span>',
+                                                ]), ['class' => 'item']);
+                                            }]) ?>
+                                        </div>
+
+                                        <?php if(count($filter['expertise']) > 13): ?>
+                                            <a href="" class="more-link">
+                                                <span class="more">More</span>
+                                                <span class="less">Less</span>
+                                            </a>
+                                        <?php endif ?>
+
+                                        <a href="" class="clear-all">Clear all</a>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
                             <?php if (isset($filter['author_country'])): ?>
                             <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">country</a>
@@ -152,31 +182,6 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                 </div>
                             </li>
                             <?php endif; ?>
-                            <?php if (isset($filter['expertise'])): ?>
-                            <li class="sidebar-accrodion-item is-open">
-                                <a href="" class="title">expertise</a>
-                                <div class="text expand-more">
-                                    <div class="checkbox-list more-extra-list">
-                                        <?= Html::activeCheckboxList($search, 'expertise', $filter['expertise'], ['item' => function($index, $label, $name, $checked, $value) {
-                                            return Html::tag('div', Html::checkbox($name, $checked, [
-                                                'labelOptions'=>['class' => 'def-checkbox light'],
-                                                'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
-                                            ]), ['class' => 'item']);
-                                        }]) ?>
-                                    </div>
-
-                                    <?php if(count($filter['expertise']) > 13): ?>
-                                        <a href="" class="more-link">
-                                            <span class="more">More</span>
-                                            <span class="less">Less</span>
-                                        </a>
-                                    <?php endif ?>
-
-                                    <a href="" class="clear-all">Clear all</a>
-                                </div>
-                            </li>
-                            <?php endif; ?>
                             <?php if (isset($filter['experience_type'])): ?>
                             <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">media experience</a>
@@ -186,7 +191,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions' => ['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.$label.'</span>',
+                                                'label' => '<span class="label-text">'.ucfirst($label).'</span>',
                                             ]), ['class' => 'item']);
                                         }]) ?>
                                     </div>

@@ -33,7 +33,7 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
             [['id'], 'required'],
             [['id'], 'unique'],
             [['id'], 'integer'],
-            [['name', 'value', 'url_key'], 'string']
+            [['name', 'value', 'url_key', 'url'], 'string']
         ];
     }
 
@@ -100,7 +100,7 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(name|value|url_key) (' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(name|value|url_key|url) (' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         if ($attributes['any_words']) {
@@ -113,7 +113,7 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(name|value|url_key) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(name|value|url_key|url) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         $result = self::find()

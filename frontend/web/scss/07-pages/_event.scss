@@ -22,7 +22,7 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     .sidebar-right {
-      .sidebar-widget-articles-filter {
+      .sidebar-widget-event-filter {
         display: none;
       }
       .event-page-buttons {
@@ -97,7 +97,7 @@
 
     a {
       height: 32px;
-      line-height: 31px;
+      line-height: 33px;
       width: 160px;
       font-size: 11px;
       font-family: $lucida-sans-demi-bold;

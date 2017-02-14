@@ -4,7 +4,6 @@
 .btn {
   color: #FFFFFF;
   font: normal 10px/32px $lucida-sans;
-  //padding: 8px 11px 9px;
   padding: 0 11px;
   height: 33px;
   position: relative;
@@ -112,7 +111,7 @@
     height: 39px;
     padding: 0 18px;
     font-size: 11px;
-    font-family: $lucida-sans-demi-bold;
+    font-family: $lucida-sans-bold;
 
     .icon-save {
       margin-right: 17px;
@@ -126,6 +125,10 @@
     &:first-letter {
       text-transform: capitalize;
     }
+  }
+
+  &.btn-cite {
+    padding: 0 25px 0 10px;
   }
 }
 
@@ -169,6 +172,29 @@
       span {
         color: inherit;
       }
+    }
+  }
+}
+
+
+//border-blue
+.btn-border-light-blue ,
+[class^="btn-border-light-blue-"],
+[class*=" btn-border-light-blue-"],
+.btn-primary {
+
+
+  background: $light-blue;
+  color: $white;
+  height: 32px;
+  line-height: 32px;
+  font-size: 11px;
+
+  &:hover {
+    @include breakpoint('tablet') {
+      border-color: $light-blue;
+      color: $light-blue;
+      background: $white;
     }
   }
 }
@@ -220,6 +246,34 @@
   height: 32px;
   line-height: 31px;
   font-size: 11px;
+}
+
+.btn-orange {
+  background: #e64727;
+  color: $white;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px;
+  text-transform: lowercase;
+
+  &:hover {
+    color: $white;
+    background: #f8512b;
+  }
+}
+
+.btn-pink {
+  background: #c02066;
+  color: $white;
+  height: 32px;
+  line-height: 31px;
+  font-size: 11px;
+  text-transform: lowercase;
+
+  &:hover {
+    color: $white;
+    background: #dd2d7a;
+  }
 }
 
 .btn-gray,
@@ -328,5 +382,41 @@
 
   >span {
     @extend .icon-to-center;
+  }
+}
+
+.loaded-timer {
+  position: relative;
+  z-index: 100;
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 10px;
+    left: 50%;
+    top: 50%;
+    margin: -9px 0 0 -6px;
+    font-size: 0;
+    border-radius: 50%;
+    border: 5px solid #cccccc;
+    border-top: 5px solid #4d9bc1;
+    border-left: 5px solid #cccccc;
+    @include animation (spin, 1s, infinite, linear);
+  }
+}
+
+.btn-load-more-client-side {
+  .less {
+    display: none;
+  }
+
+  &.showed {
+    .more {
+      display: none;
+    }
+    .less {
+      display: block;
+    }
   }
 }

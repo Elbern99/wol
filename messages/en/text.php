@@ -7,11 +7,13 @@ return [
     'acknowledgments' => 'Acknowledgments',
     'Competing interests' => 'Competing interests',
     'author' => 'Author',
-    'expert' => 'Expert',
-    'chiefEditor' => 'Chief Editor',
+    'expert' => 'Topic spokesperson',
+    'chiefEditor' => 'Editor-in-Chief',
     'managingEditor' => 'Managing Editor',
     'subjectEditor' => 'Subject Editor',
     'associateEditor' => 'Associate Editor',
-    'formerEditor' => 'Former Editor'
+    'formerEditor' => 'Former Editor',
+    'nativeSpeaker' => 'Native speaker',
+    'nonNativeSpeaker' => 'Non-native speaker'
 ];
 

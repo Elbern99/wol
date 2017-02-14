@@ -32,7 +32,7 @@ trait AuthorParseTrait {
         $p = xml_parser_create();
         xml_parse_into_struct($p, $this->person->asXML(), $vals);
         xml_parser_free($p);
-        
+
         if (!isset($vals[0]['attributes']['XML:ID'])) {
             throw new \Exception('Not correct xml format');
         }
@@ -42,7 +42,11 @@ trait AuthorParseTrait {
 
     protected function getAuthorEmail() {
         
-        return (string) $this->person->email;
+        if ($this->person->email) {
+            return (string) $this->person->email;
+        }
+        
+        return null;
     }
 
     protected function getAuthorPhone() {
@@ -60,8 +64,11 @@ trait AuthorParseTrait {
 
     protected function getAuthorUrl() {
         
-        $url = (string) $this->person->url->attributes();
-        return $url;
+        if ($this->person->url) {
+            return (string)$this->person->url->attributes();
+        }
+
+        return null;
     }
     
     protected function getName() {
@@ -106,17 +113,19 @@ trait AuthorParseTrait {
         
         $testimonials = [];
         
-        foreach ($this->person->testimonial->p as $testimonial) {
-            
-            $str  = (string) $testimonial;
-                
-            if (!$str) {
-                continue;
+        if ($this->person->testimonial) {
+            foreach ($this->person->testimonial->p as $testimonial) {
+
+                $str  = (string) $testimonial;
+
+                if (!$str) {
+                    continue;
+                }
+
+                $obj = new stdClass;
+                $obj->testimonial = $str;
+                $testimonials[] = $obj;
             }
-                
-            $obj = new stdClass;
-            $obj->testimonial = $str;
-            $testimonials[] = $obj;
         }
 
         return serialize($testimonials);
@@ -126,7 +135,7 @@ trait AuthorParseTrait {
         
         $publications = [];
         
-        if ($this->person->publications->p) {
+        if ($this->person->publications) {
             
             foreach ($this->person->publications->p as $publication) {
                 
@@ -172,40 +181,49 @@ trait AuthorParseTrait {
     }
     
     protected function getPosition() {
-
-        $positions = [
-            'current' => '',
-            'past' => '',
-            'advisory' => ''
-        ];
-
-        $obj = new stdClass;
-
-        foreach ($this->person->positions->position as $position) {
-            
-            $type = (string) $position->attributes();
-            if (count($position->children()) > 1) {
-                $positions[$type] = [];
-                
-                foreach ($position->p as $p) {
-                    $positions[$type][] = (string)$p;
-                }
-                
-            } else {
-                $positions[$type] = (string) $position->p;
-            }
-        }
-
-        $obj->current = $positions['current'];
-        $obj->past = $positions['past'];
-        $obj->advisory = $positions['advisory'];
         
-        return serialize($obj);
+        if ($this->person->positions) {
+            
+            $positions = [
+                'current' => '',
+                'past' => '',
+                'advisory' => ''
+            ];
+
+            $obj = new stdClass;
+
+
+
+                foreach ($this->person->positions->position as $position) {
+
+                    $type = (string) $position->attributes();
+                    if (count($position->children()) > 1) {
+                        $positions[$type] = [];
+
+                        foreach ($position->p as $p) {
+                            $positions[$type][] = (string)$p;
+                        }
+
+                    } else {
+                        $positions[$type] = (string) $position->p;
+                    }
+                }
+
+                $obj->current = $positions['current'];
+                $obj->past = $positions['past'];
+                $obj->advisory = $positions['advisory'];
+
+
+            return serialize($obj);
+        }
+        
+        return null;
     }
     
     protected function getDegree() {
         
         if ($this->person->degree) {
+            
             $obj = new stdClass;
             $obj->degree = (string) $this->person->degree;
 
@@ -218,6 +236,7 @@ trait AuthorParseTrait {
     protected function getInterests() {
        
         if ($this->person->interests) {
+            
             $obj = new stdClass;
             $obj->interests = (string) $this->person->interests;
 

@@ -15,6 +15,10 @@ use yii\web\NotFoundHttpException;
 use yii\helpers\Html;
 use common\models\AuthorRoles;
 use frontend\components\widget\SidebarWidget;
+use frontend\models\AuthorSearchForm;
+use yii\helpers\Url;
+use common\models\AuthorCategory;
+use common\models\Category;
 
 class AuthorsController extends Controller {
 
@@ -23,15 +27,31 @@ class AuthorsController extends Controller {
 
     public function actionIndex() {
 
+        $filter = Yii::$app->request->get('filter');
+        $searchModel = new AuthorSearchForm();
         $collection = [];
-
+        $roles = new Roles();
+        
         $query = Author::find()
-                ->select(['id', 'url_key'])
+                ->alias('a')
+                ->select(['a.id', 'a.url_key', 'a.avatar'])
+                ->innerJoin(AuthorRoles::tableName().' as ar', 'a.id = ar.author_id')
+                ->orderBy('a.surname')
                 ->with(['articleAuthors.article' => function($query) {
-                        return $query->select(['id', 'seo', 'title']);
-                    }])
-                ->where(['enabled' => 1]);
-
+                    return $query->select(['id', 'seo', 'title']);
+                }])
+                ->where(['a.enabled' => 1, 'ar.role_id' => $roles->getTypeByLabel('author')]);
+        
+        if (Yii::$app->request->isPost && $searchModel->load(Yii::$app->request->post())) {
+            if ($searchModel->validate()) {
+                $query->andFilterWhere(['like', 'name', $searchModel->search]);
+            }
+        } else {
+            if ($filter) {
+                $query->andWhere('surname LIKE :filter', [':filter' => $filter.'%']);
+            }
+        }
+        
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $pages->defaultPageSize = Yii::$app->params['authors_limit'];
@@ -57,6 +77,7 @@ class AuthorsController extends Controller {
             }
 
             $collection[$author['id']] = [
+                'avatar' => Author::getImageUrl($author['avatar']),
                 'url_key' => $author['url_key'],
                 'name' => $name,
                 'affiliation' => $affiliation,
@@ -64,57 +85,22 @@ class AuthorsController extends Controller {
             ];
         }
 
-        return $this->render('authors_list', ['collection' => $collection, 'paginate' => $pages]);
+        return $this->render('authors_list', ['collection' => $collection, 'paginate' => $pages, 'searchModel' => $searchModel]);
     }
 
     public function actionProfile($url_key) {
 
-        $author = Author::find()
-                ->where(['url_key' => $url_key, 'enabled' => 1])
-                ->one();
+        return $this->renderProfile($url_key);
+    }
+    
+    public function actionExpertProfile($url_key) {
 
-        if (!is_object($author)) {
-            throw new NotFoundHttpException('Page Not Found.');
-        }
+        return $this->renderProfile($url_key, 'expert');
+    }
+    
+    public function actionEditorProfile($url_key) {
 
-        $authorCollection = Yii::createObject(CategoryCollection::class);
-        $authorCollection->initCollection(Author::tableName(), $author->id);
-        $authorValues = $authorCollection->getValues();
-
-        $data = [
-            'author' => $author,
-            //'author_country' => EavValueHelper::getValue($authorValues[$author->id], 'author_country', function($data){ return $data; }, 'array'),
-            'testimonial' => EavValueHelper::getValue($authorValues[$author->id], 'testimonial', function($data) {
-                        return $data->testimonial;
-                    }, 'string'),
-            'publications' => EavValueHelper::getValue($authorValues[$author->id], 'publications', function($data) {
-                        return $data->publication;
-                    }, 'array'),
-            'affiliation' => EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string'),
-            'position' => EavValueHelper::getValue($authorValues[$author->id], 'position', function($data) {
-                        return $data;
-                    }),
-            'degree' => EavValueHelper::getValue($authorValues[$author->id], 'degree', function($data) {
-                        return $data->degree;
-                    }, 'string'),
-            'interests' => EavValueHelper::getValue($authorValues[$author->id], 'interests', function($data) {
-                        return $data->interests;
-                    }, 'string'),
-            //'expertise' => EavValueHelper::getValue($authorValues[$author->id], 'expertise', function($data) { return $data->expertise; }, 'array'),
-            'experience_type' => EavValueHelper::getValue($authorValues[$author->id], 'experience_type', function($data) {
-                        return $data->expertise_type;
-                    }, 'string'),
-            //'language' => EavValueHelper::getValue($authorValues[$author->id], 'language', function($data){ return $data->code; }, 'array'),
-            //'experience_url' => EavValueHelper::getValue($authorValues[$author->id], 'experience_url', function($data) { return $data; }, 'array'),
-            'roles' => $author->getAuthorRoles(true),
-            'articles' => $this->getAuthorArticles($author->id)
-        ];
-
-        $widgets = new SidebarWidget('profile');
-
-        return $this->render('profile', ['author' => $data, 'subjectAreas' => $this->subjectAreas, 'widgets' => $widgets]);
+        return $this->renderProfile($url_key, 'editor');
     }
 
     public function actionExpert() {
@@ -164,8 +150,9 @@ class AuthorsController extends Controller {
 
 
         $experts = Author::find()
-                ->select(['id', 'avatar', 'author_key'])
-                ->where(['enabled' => 1, 'id' => $experstIds]);
+                ->select(['id', 'avatar', 'author_key', 'url_key'])
+                ->where(['enabled' => 1, 'id' => $experstIds])
+                ->orderBy('surname');
 
         if (!$loadSearch) {
             $experts->limit($limit);
@@ -212,7 +199,8 @@ class AuthorsController extends Controller {
                 'experience_type' => $experience_type,
                 'expertise' => $expertise,
                 'language' => $language,
-                'author_country' => $author_country
+                'author_country' => $author_country,
+                'profile' => Url::to(['/spokespeople/'.$expert->url_key]),
             ];
 
             if (Yii::$app->request->isPost) {
@@ -226,15 +214,15 @@ class AuthorsController extends Controller {
         }
 
         return $this->render('expert', [
-                    'expertCollection' => $expertCollection,
-                    'limit' => $limit,
-                    'expertCount' => count($experstIds),
-                    'search' => $finds,
-                    'filter' => $filter
+            'expertCollection' => $expertCollection,
+            'limit' => $limit,
+            'expertCount' => count($experstIds),
+            'search' => $finds,
+            'filter' => $filter
         ]);
     }
 
-    public function actionLetter() {
+    public function actionLetter($type = null) {
 
         $letter = Yii::$app->request->post('letter');
 
@@ -244,7 +232,7 @@ class AuthorsController extends Controller {
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $authors = $this->findAuthorsByLetter($letter);
+        $authors = $this->findAuthorsByLetter($letter, $type);
         $result = [];
 
         if (count($authors)) {
@@ -264,51 +252,73 @@ class AuthorsController extends Controller {
         $editorsRoleIds = $roles->getEditorGroup();
 
         $editorAuthor = AuthorRoles::find()->alias('a1')->select(['a1.role_id','a1.author_id', 'a.avatar', 'a.url_key'])
-                                           ->leftJoin(AuthorRoles::tableName().' as a2', 'a1.id + 1 = a2.id')
                                            ->innerJoin(Author::tableName().' as a', 'a.id = a1.author_id')
-                                           ->where('a1.author_id <> a2.author_id')
-                                           ->orWhere('a2.id IS NULL')
                                            ->andWhere(['a1.role_id' => $editorsRoleIds])
                                            ->andWhere(['a.enabled' => 1])
-                                           ->orderBy('a1.author_id')
+                                           ->orderBy('a.surname')
                                            ->asArray()
                                            ->all();
 
         $authorIds = ArrayHelper::getColumn($editorAuthor, 'author_id');
+        $authorCategories = AuthorCategory::find()
+                            ->select(['c.url_key', 'c.title', 'ac.author_id as id'])
+                            ->alias('ac')
+                            ->innerJoin(Category::tableName().' as c', 'c.id = ac.category_id')
+                            ->where(['ac.author_id' => $authorIds, 'c.active' => 1])
+                            ->asArray()
+                            ->all();
         
+        $formatAuthorCategories = [];
+        foreach ($authorCategories as $data) {
+            $formatAuthorCategories[$data['id']][] = $data;
+        }
+        unset($authorCategories);
+
         $authorCollection = Yii::createObject(CategoryCollection::class);
-        $authorCollection->setAttributeFilter(['name', 'affiliation', 'interests']);
+        $authorCollection->setAttributeFilter(['name', 'affiliation']);
         $authorCollection->initCollection(Author::tableName(), $authorIds);
         $authorValues = $authorCollection->getValues();
         
         foreach ($editorAuthor as $data) {
-            
+
             $name = EavValueHelper::getValue($authorValues[$data['author_id']], 'name', function($data) {
-                        return $data;
-                    });
+                return $data;
+            });
 
             $affiliation = EavValueHelper::getValue($authorValues[$data['author_id']], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string');
-                    
-            $interest = EavValueHelper::getValue($authorValues[$data['author_id']], 'interests', function($data) {
-                        return $data->interests;
-                    }, 'string');
+                return $data->affiliation;
+            }, 'string');
+
             
             $userData = [
                 'name' => $name,
                 'affiliation' => $affiliation,
                 'avatar' => Author::getImageUrl($data['avatar']),
-                'profile' => Author::getAuthorUrl($data['url_key']),
-                'interest' => $interest
+                'profile' => Url::to(['/editors/'.$data['url_key']]),
+                'role' => $roles->getTypeByKey($data['role_id']),
+                'category' => $formatAuthorCategories[$data['author_id']] ?? null
             ];
-            
-            $collection[$data['role_id']][] = $userData;
+
+            $collection[$roles->getTypeByKey($data['role_id'])][] = $userData;
         }
         
+        unset($formatAuthorCategories);
+        
         $widgets = new SidebarWidget('editorial_board');
+        $top = [];
+        
+        if (isset($collection['chiefEditor'])) {
+            $top = array_merge($top, $collection['chiefEditor']);
+            unset($collection['chiefEditor']);
+        }
+        
+        if (isset($collection['managingEditor'])) {
+            $top = array_merge($top, $collection['managingEditor']);
+            unset($collection['chiefEditor']);
+        }
         
         return $this->render('editorial-board', [
+            'top' => $top,
             'collection' => $collection, 
             'roles' => $roles,
             'widgets' => $widgets

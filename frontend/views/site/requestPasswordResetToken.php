@@ -7,8 +7,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Request password reset';
-$this->params['breadcrumbs'][] = $this->title;
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Request password reset';
+$this->params['breadcrumbs'][] = 'Request password reset';
 ?>
 <div class="container site-request-password-reset without-breadcrumbs">
     <div class="content-inner">

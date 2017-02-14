@@ -16,26 +16,14 @@
   @include breakpoint('tablet') {
     padding-right: 308px;
   }
-}
 
-@media print {
-  .footer,
-  .header {
-    display: none;
+  &.article-head-full {
+    padding-right: 0;
   }
 }
 
 //ARTICLE FULL
 .article-full {
-
-  @media print {
-    .sidebar-right,
-    [class^="btn-"],
-    [class*=" btn-"],
-    .article-buttons {
-      display: none;
-    }
-  }
 
   .mobile-filter-holder,
   .mobile-filter-list {
@@ -213,6 +201,8 @@
 
       a {
         height: 36px;
+        font-size: 12px;
+        line-height: 35px;
       }
     }
   }
@@ -406,6 +396,102 @@
 }
 
 //article-buttons
+
+.article-buttons-list {
+  margin: 0 0 0 -3px;
+
+  li {
+    margin: 0 0 21px 3px;
+    display: inline-block;
+    vertical-align: top;
+    border: 0;
+  }
+}
+
+.article-buttons-bottom {
+  border-top: 1px solid #b0b0b0;
+  position: relative;
+  padding: 20px 0;
+
+  @include breakpoint('tablet') {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 0;
+
+    .article-buttons-list {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+
+    .share-buttons-list {
+      li {
+        margin-bottom: 0;
+      }
+    }
+
+    .extra-buttons {
+      max-width: 60%;
+      display: flex;
+      flex-flow: row wrap;
+      margin: 0 0 -21px -3px;
+    }
+
+    .share-buttons {
+      order: 2;
+    }
+  }
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    margin-top: 90px;
+    border-bottom: 1px solid #b0b0b0;
+
+    .show-one-pager-holder {
+      position: absolute;
+      top: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+
+    .resp-sharing-button {
+      padding: 0 9px;
+      font-size: 13px !important;
+      height: 27px;
+      line-height: 28px;
+    }
+
+    .resp-sharing-button__icon {
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .share-buttons-list {
+      justify-content: space-between;
+      margin: 0 -4px 20px;
+    }
+
+    .article-buttons-list {
+      margin-bottom: -20px;
+    }
+
+    .extra-buttons {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+  }
+}
+
+.article-buttons-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0;
+}
+
 .article-buttons {
   border-top: 1px solid #b0b0b0;
   padding: 30px 0 0;
@@ -418,6 +504,8 @@
 
     .extra-buttons {
       max-width: 60%;
+      display: flex;
+      flex-flow: row wrap;
     }
 
     .share-buttons {
@@ -484,66 +572,62 @@
     }
   }
 
-  [class^="btn-"],
-  [class*=" btn-"] {
-    margin: 0 5px 22px 0;
+  //[class^="btn-"],
+  //[class*=" btn-"] {
+  //  //margin: 0 5px 22px 0;
+  //
+  //  @include breakpoint_custom($breakpoint-tablet) {
+  //    //margin: 22px 5px 0 0;
+  //
+  //    &.btn-show-one-pager {
+  //      position: absolute;
+  //      top: -86px;
+  //      left: 50%;
+  //      transform: translateX(-50%);
+  //    }
+  //  }
+  //}
 
-    &.btn-cite {
-      padding: 0 25px 0 10px;
-    }
+  //&.article-buttons-sidebar {
+  //  display: none;
+  //  padding: 0;
+  //
+  //  @include breakpoint('tablet') {
+  //    border: 0;
+  //    display: block;
+  //
+  //    [class^="btn-"],
+  //    [class*=" btn-"] {
+  //      //margin: 0 3px 22px 0;
+  //    }
+  //  }
+  //}
 
-    @include breakpoint_custom($breakpoint-tablet) {
-      margin: 22px 5px 0 0;
-
-      &.btn-show-one-pager {
-        position: absolute;
-        top: -86px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-  }
-
-  &.article-buttons-sidebar {
-    display: none;
-    padding: 0;
-
-    @include breakpoint('tablet') {
-      border: 0;
-      display: block;
-
-      [class^="btn-"],
-      [class*=" btn-"] {
-        margin: 0 3px 22px 0;
-      }
-    }
-  }
-
-  &.article-buttons-mobile {
-    margin: 0;
-    border: 0;
-    padding: 10px 0 20px;
-    @extend .clearfix;
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      margin-right: -5px;
-    }
-
-    [class^="btn-"],
-    [class*=" btn-"] {
-      float: right;
-      margin: 0 5px 5px 0;
-    }
-
-    .btn-download,
-    .btn-cite {
-      float: left;
-    }
-
-    @include breakpoint('tablet') {
-      display: none;
-    }
-  }
+  //&.article-buttons-mobile {
+  //  margin: 0;
+  //  border: 0;
+  //  padding: 10px 0 20px;
+  //  @extend .clearfix;
+  //
+  //  @include breakpoint_custom($breakpoint-tablet) {
+  //    margin-right: -5px;
+  //  }
+  //
+  //  [class^="btn-"],
+  //  [class*=" btn-"] {
+  //    float: right;
+  //    margin: 0 5px 5px 0;
+  //  }
+  //
+  //  .btn-download,
+  //  .btn-cite {
+  //    float: left;
+  //  }
+  //
+  //  @include breakpoint('tablet') {
+  //    display: none;
+  //  }
+  //}
 }
 
 #article-map-medium,
@@ -594,7 +678,7 @@
   textarea {
     margin-bottom: 8px;
     resize: none;
-    height: 150px;
+    height: 100px;
     padding: 5px 10px;
 
 
@@ -687,9 +771,6 @@
 
 //REFERENCE-POPUP
 .reference-popup {
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 1003;
   font-size: 12px;
   line-height: 1.4em;
@@ -697,26 +778,95 @@
   display: none;
   overflow: hidden;
 
+  a {
+    transition: all 0s ease;
+  }
+
+  //def
+  &.def-reference-popup {
+    right: 0;
+    left: 0 !important;
+
+    @include breakpoint('tablet') {
+      bottom: 0;
+      position: fixed;
+      top: auto !important;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.4em;
+    }
+  }
+
+  //tooltip
   &.tooltip-ref-popup {
-    width: 300px;
-    border: 0;
+    width: 290px;
     left: auto;
+    top: auto;
     position: absolute;
+    overflow: visible;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d8d8d8;
+    margin-left: -276px;
+
+    .icon-close-popup {
+      top: 0;
+      right: 0;
+    }
+
+    @include breakpoint('tablet') {
+      width: 500px;
+      margin-left: -486px;
+    }
+
+    a {
+      transition: all 0.3s ease;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      right: 2px;
+      width: 6px;
+      height: 6px;
+      box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      transform: rotate(45deg);
+      z-index: -1;
+      border: 1px solid #d8d8d8;
+    }
+
+    .columns {
+      margin: 0 -24px 0px;
+
+      @include breakpoint('tablet') {
+        margin: 0 -24px 0;
+      }
+
+      .column {
+        padding: 0 24px 23px;
+        margin: 0;
+
+        .item {
+          min-height: 1px !important;
+
+          .hide-desktop {
+            display: inline-block !important;
+          }
+        }
+
+        @include breakpoint('tablet') {
+          max-width: 100%;
+          padding: 0 24px 15px;
+        }
+      }
+    }
 
     .reference-popup-inner {
       .container {
         margin: 0;
       }
     }
-  }
-
-  @include breakpoint('tablet') {
-    bottom: 0;
-    position: fixed;
-    top: auto !important;
-    background: #fff;
-    font-size: 13px;
-    line-height: 1.4em;
   }
 
   .reference-popup-inner {
@@ -853,7 +1003,13 @@
 
   .column-sources,
   .column-types {
+    overflow: hidden;
+
     .item {
+
+      @include breakpoint('tablet') {
+        margin-bottom: 5px;
+      }
 
       @include breakpoint_custom($breakpoint-tablet) {
         min-height: 1px !important;
@@ -893,9 +1049,17 @@
 
   .columns {
     margin: 0 -24px 0px;
+    overflow: hidden;
 
     @include breakpoint('tablet') {
       margin: 0 -24px 0;
+    }
+
+    .hide-desktop {
+
+      @include breakpoint('tablet') {
+        padding-right: 4px;
+      }
     }
 
     .column {
@@ -1030,4 +1194,8 @@
 
 .authors-main-message {
   margin-bottom: 44px;
+}
+
+.caption-number {
+  padding-right: 5px;
 }

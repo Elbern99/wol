@@ -72,20 +72,25 @@ p {
 
 ul,
 ol {
-  padding: 0 0 20px 10px;
+  padding: 0 0 20px;
+
+  ul,ol {
+    padding-left: 10px;
+  }
 
   li {
     position: relative;
+    padding: 0 0 0 10px;
     
     &:before {
       content: '';
-      width: 3px;
-      height: 3px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #262626;
       display: inline-block;
       vertical-align: middle;
-      margin: 0 7px 0 0;
+      margin: -2px 7px 0 -10px;
     }
   }
 }
@@ -179,7 +184,7 @@ p+br {
   }
 }
 
-strong {
+strong,b {
   font-weight: normal;
   font-family: $lucida-sans-demi-bold;
 }
@@ -236,7 +241,7 @@ img {
   }
 }
 
-em {
+em,i {
   font-family: $lucida-sans-italic;
 }
 
@@ -253,4 +258,23 @@ blockquote {
   overflow: hidden;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.content-bullete {
+  p {
+    display: inline;
+    margin: 0;
+  }
+}
+
+.item-comma {
+  &:last-child {
+    &:before {
+      display: none;
+    }
+  }
+
+  &:before {
+    content: ',';
+  }
 }

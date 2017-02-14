@@ -2,15 +2,15 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-//use Yii;
+use frontend\models\AdvancedSearchForm;
 ?>
 
 <?php
 $attributes = $collection->getEntity()->getValues();
 
-//var_dump($attributes['add_references']->getData(null, $currentLang));exit;
-$this->title = $attributes['title']->getData('title');
+$this->title = 'Evidence map for '.$attributes['title']->getData('title');
 $this->params['breadcrumbs'][] = ['label' => Html::encode('articles'), 'url' => Url::to(['/articles'])];
 $this->params['breadcrumbs'][] = 'Evidence map';
 
@@ -27,10 +27,21 @@ $this->registerMetaTag([
     )
 ]);
 
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+]);
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($attributes['teaser']->getData('teaser'))
+]);
+
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/leaflet.js');
 $this->registerJsFile('/js/plugins/icon.label.js');
 $this->registerJsFile('/js/pages/map.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerCssFile('/css/leaflet.css');
 ?>
 
@@ -106,8 +117,11 @@ $this->registerCssFile('/css/leaflet.css');
     
     $this->registerJs("var mapConfig = ".json_encode($config), 3);
 
-$mailBody = 'Hi.\n\n I think that you would be interested in the  following article from IZA World of labor. \n\n  Title: '.$attributes['title']->getData('title').
-    '\n\n View the article: '. Url::to(['/articles/'.$article->seo],true). '/map'. '\n\n Copyright © IZA 2016'.'Impressum. All Rights Reserved. ISSN: 2054-9571';
+    $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
+        'articleTitle' => $attributes['title']->getData('title'),
+        'articleUrl' => Url::to('/articles/'.$article->seo, true),
+        'typeContent' => 'article'
+    ]);
 ?>
 
 <div class="container article-map">
@@ -118,16 +132,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
         </div>
 
         <div class="map-title">Evidence map</div>
-        <h1><?= $attributes['title']->getData('title'); ?></h1>
+        <h1><a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title'); ?></a></h1>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text">
-
-            <div class="evidence-map-text">
-                <p>The colored countries below have empirical evidence for this topic. The color indicates the country's development status, based on the country classification shown in the legend, and the number on the flag indicates how many relevant academic studies address this policy question. If you click on the flag, an overlay pops up that shows the key and additional references for an article.</p>
-                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
-            </div>
 
             <div class="map-holder">
                 <div class="map-info">
@@ -147,6 +156,11 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <li><div class="icon-square-yellow"></div>Factor-driven economy</li>
                 <li><div class="icon-number-reference">3</div>Number of references</li>
             </ul>
+
+            <div class="evidence-map-text">
+                <p>The colored countries above have empirical evidence for this topic. The color indicates the country's development status, based on the country classification shown in the legend, and the number on the flag indicates how many relevant academic studies address this policy question. If you click on the flag, an overlay pops up that shows the key and additional references for an article.</p>
+                <a href="" class="more-evidence-map-text-mobile"><span class="more">More</span><span class="less">Less</span></a>
+            </div>
         </div>
 
         <aside class="sidebar-right">
@@ -194,7 +208,7 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 </ul>
 
                 <div class="sidebar-email-holder">
-                    <a href="mailto:?subject=<?= Html::encode('Article from IZA World of Labor') ?>&body=<?= Html::encode($mailBody) ?>" class="btn-border-gray-small with-icon-r">
+                    <a target="_blank" href="<?= $mailMap ?>" class="btn-border-gray-small with-icon-r">
                         <div class="inner">
                             <span class="icon-message"></span>
                             <span class="text">email</span>
@@ -205,19 +219,29 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
             
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
-                <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $this->title ?></a>
-                <div class="writer"><?= $article->availability ?></div>
+                <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title') ?></a>
+                <div class="writer">
+                    <?php if (count($authors)): ?>
+                        <?php foreach($authors as $author): ?>
+                            <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                </div>
             </div>
 
             <div class="sidebar-widget sidebar-widget-keywords">
                 <div class="widget-title">Keywords</div>
                 <?=
                 implode(', ', array_map(
-                        function($item) {
-                            return Html::a($item->word);
-                        }, $attributes['keywords']->getData()
+                    function($item) {
+                        return Html::a($item->word, '#', ['class' => 'search-keywords-article']);
+                    }, $attributes['keywords']->getData()
                 ));
                 ?>
+                <?php $model = new AdvancedSearchForm(); ?>
+                <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'keywords-search-form', 'style' => 'display:none']]); ?>
+                    <?= $form->field($model, 'search_phrase') ?>
+                <?php ActiveForm::end(); ?>
             </div>
 
             <?php
@@ -228,14 +252,15 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                 <div class="sidebar-widget">
                     <div class="widget-title">Classification</div>
                     <ul class="classification-list">
+                        <li>
                         <?php foreach ($categories as $c): ?>
-                            <li>
-                                <?php if (isset($c['p_id'])): ?>
-                                    <a href="<?= Url::to([$c['p_url_key']]) ?>"><?= $c['p_title'] ?></a>&nbsp;>&nbsp;
-                                <?php endif; ?>
-                                <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
-                            </li>
+                            <?php if ($c['lvl'] > 1): ?>
+                                &nbsp;>&nbsp;<a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php else: ?>
+                                </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php endif; ?>
                         <?php endforeach; ?>
+                        </li>
                     </ul>
                 </div>
             <?php endif; ?>
@@ -249,8 +274,12 @@ $mailBody = 'Hi.\n\n I think that you would be interested in the  following arti
                         <ul class="sidebar-news-list">
                             <?php foreach ($related as $relate): ?>
                                 <li>
-                                    <h3><a href="<?= Url::to('/articles/' . $relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                    <div class="writer"><?= $relate['availability'] ?></div>
+                                    <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
+                                    <div class="writer">
+                                        <?php foreach($relate['authors'] as $author): ?>
+                                            <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </li>
                             <?php endforeach;
                             unset($related); ?>

@@ -4,7 +4,7 @@
     <div class="type">
         Biography
     </div>
-    <div class="description-center">
+    <div class="article-item">
         <h2><a href="<?= $value['url'] ?>"><?= $value['name'] ?></a></h2>
         <h3><?= $value['affiliation'] ?? ''; ?></h3>
     </div>

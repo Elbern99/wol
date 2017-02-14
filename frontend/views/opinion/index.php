@@ -29,14 +29,14 @@ if ($category) {
 
 <div class="container opinions-page">
     <div class="article-head-holder">
-        <div class="article-head">
+        <div class="article-head article-head-full">
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="" class="js-widget">Opinions</a></li>
-                    <li><a href="" class="js-widget">Videos</a></li>
+                    <li class="active"><a href="javascript:void(0)">Opinions</a></li>
+                    <li><a href="/videos" class="">Videos</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item js-tab-hidden expand-more">
@@ -86,7 +86,7 @@ if ($category) {
     </div>
 
     <div class="content-inner">
-        <?php Pjax::begin(['linkSelector' => '.btn-gray']); ?>
+        <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text contact-page">
             <ul class="opinions-list">
                 <?php foreach ($opinions as $opinion) : ?>
@@ -126,7 +126,7 @@ if ($category) {
         <?php Pjax::end(); ?>
 
         <aside class="sidebar-right">
-            <div class="sidebar-widget sidebar-widget-articles-filter">
+            <div class="sidebar-widget sidebar-widget-articles-filter hide-mobile">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">opinions</a>

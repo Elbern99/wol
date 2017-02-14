@@ -11,6 +11,27 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'treemanager' => [
+            'class' => '\common\modules\category\Module'
+        ],
+        'menu_module' => [
+            'class' => '\common\modules\menu\Module',
+            'components' => [
+                'menu_manager' => '\common\modules\menu\Manager'
+            ]
+        ],
+        'settings_module' => [
+            'class' => '\common\modules\settings\Module',
+        ],
+        'newsletter_module' => [
+            'class' => '\common\modules\newsletter\Module',
+            'components' => [
+                'newsletter_model' => '\common\models\Newsletter',
+                'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ]
+    ],
     'components' => [
         'request' => [
             'class' => 'common\components\Request',
@@ -64,9 +85,12 @@ return [
                 'news' => 'news/index',
                 'news/<slug:[0-9a-z-]+>' => 'news/view',
                 'news/newsletters/<year:[0-9]+>/<month:[0-9]+>' => 'news/newsletters',
-                'find-an-expert' => 'authors/expert',
+                'find-a-topic-spokesperson' => 'authors/expert',
                 'authors' => 'authors/index',
+                'authors/letter' => 'authors/letter',
                 'authors/<url_key:[0-9a-z-]+>' => 'authors/profile',
+                'editors/<url_key:[0-9a-z-]+>' => 'authors/editor-profile',
+                'spokespeople/<url_key:[0-9a-z-]+>' => 'authors/expert-profile',
                 'key-topics' => 'topic/index',
                 'key-topics/<slug:[0-9a-z-]+>' => 'topic/view',
                 'editorial-board' => 'authors/editorial',
