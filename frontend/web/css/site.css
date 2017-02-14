@@ -9286,8 +9286,10 @@ path {
   p a {
     word-wrap: break-word; }
 
-  img {
-    page-break-inside: avoid; }
+  img,
+  table {
+    display: block !important;
+    page-break-inside: avoid !important; }
 
   * {
     overflow: visible !important;
