@@ -27,13 +27,28 @@ class ShowMore {
             $step = (int)Yii::$app->request->get($key);
             
             if ($step) {
-                $limit = $limit * ($step + 1);
+                $diff = $this->getDiff($key);
+                return ($limit * ($step + 1)) + $diff;
             }
+        }
+        
+        if ($this->isFirstStep($key) && isset($this->params[$key]['first_step'])) {
+            return $this->params[$key]['first_step'];
         }
         
         return $limit;
     }
     
+    public function getDiff($key) {
+        
+        if (!isset($this->params[$key]['first_step'])) {
+            return 0;
+        }
+        
+        return $this->params[$key]['first_step'] - $this->params[$key]['step'];
+    }
+
+
     public function isFirstStep($key) {
         
         if (Yii::$app->request->get($key)) {
@@ -50,7 +65,8 @@ class ShowMore {
         }
         
         $step = Yii::$app->request->get($key) ?? 0;
-        $current = $this->params[$key]['step'] * ($step + 1);
+        $diff = $this->getDiff($key);
+        $current = ($this->params[$key]['step'] * ($step + 1)) + $diff;
         
         if ($this->params[$key]['count'] > $current) {
             return Html::a("show more", Url::current([$key => $step + 1]), ['class' => 'btn-gray align-center', 'id' => $key.'_button']);
