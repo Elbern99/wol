@@ -10,7 +10,7 @@
         <h3><?= $value['teaser']->teaser ?? ''; ?></h3>
         <div class="name">
             <?php foreach($value['authors'] as $owner): ?>
-                <a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a>
+                <?php /*<a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a>*/ ?>
             <?php endforeach; ?>
         </div>
         <div class="description">
