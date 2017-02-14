@@ -4,11 +4,11 @@ jQuery(function($){
     
     function createResult(data) {
         
-        let html = '<ul class="abs-authors-list">';
+        var html = '<ul class="abs-authors-list">';
         
         if (data.length) {
             
-            for (let item in data) {
+            for (var item in data) {
                 html += '<li>'+data[item]+'</li>';
             }
             
@@ -21,7 +21,7 @@ jQuery(function($){
     }
     
     $('.profile-author-letter').on('click', function() {
-       let link = $(this);
+       var link = $(this);
        
        block.html('');
        

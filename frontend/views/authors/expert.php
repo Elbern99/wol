@@ -23,7 +23,7 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['class' => 'expert-filter-form']]); ?>
 <div class="container find-expert">
     <div class="article-head">
         <div class="breadcrumbs">
