@@ -191,10 +191,17 @@ class ArticleRepository implements RepositoryInterface {
             
             unset($authors);
         }
+        
+        $parent = null;
+        
+        if ($this->current->lvl > 1) {
+            $parent = $this->current->parents(1)->select(['title', 'url_key'])->one();
+        }
 
         if (!count($categoryIds)) {
             
             return [
+                'parentCategory' => $parent,
                 'category' => $this->current, 
                 'subjectAreas' => $subjectAreas, 
                 'collection' => [],
@@ -251,13 +258,7 @@ class ArticleRepository implements RepositoryInterface {
                 'category' => $articleCategory,
             ];
         }
-        
-        $parent = null;
-        
-        if ($this->current->lvl > 1) {
-            $parent = $this->current->parents(1)->select(['title', 'url_key'])->one();
-        }
-        
+
         return [
             'parentCategory' => $parent,
             'category' => $this->current, 

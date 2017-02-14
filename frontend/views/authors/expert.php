@@ -105,7 +105,6 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                 <div class="filter-clone">
                     <div class="sidebar-widget sidebar-widget-filter">
                         <h3>Filter by</h3>
-                        
                         <ul class="sidebar-accrodion-list">
                             <?php if (isset($filter['expertise'])): ?>
                                 <li class="sidebar-accrodion-item is-open">
