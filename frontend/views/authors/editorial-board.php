@@ -82,7 +82,7 @@ $this->registerMetaTag([
             <?php if (isset($collection['associateEditor'])): ?>
             <h2><?= Html::encode('Associate editors') ?></h2>
             <div class="expand-more">
-                <ul class="editors-list former-editor-list">
+                <ul class="editors-list associate-editor-list">
                     <?php foreach($collection['associateEditor'] as $author): ?>
                         <li class="editor-item">
                             <div class="img-holder img-holder-bg">
@@ -106,7 +106,7 @@ $this->registerMetaTag([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <?php if(count($collection['associateEditor']) > 3): ?>
+                <?php if(count($collection['associateEditor']) > 9): ?>
                     <a class="btn-gray align-center btn-load-more-client-side" href="">
                         <span class="more">show more</span>
                         <span class="less">Clear</span>
