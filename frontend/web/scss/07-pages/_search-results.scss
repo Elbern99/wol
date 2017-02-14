@@ -226,6 +226,14 @@
   .name {
     font-size: 15px;
     margin: 0 0 1px;
+    
+    a {
+      color: #323232;
+      
+      &:hover {
+        color: $blue;
+      }
+    }
 
     @include breakpoint_custom($breakpoint-tablet) {
       line-height: 1.3em;

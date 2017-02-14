@@ -376,8 +376,6 @@
             container.on('pjax:end', function() {
                 var curButtton = $(this).find('.btn-gray');
                     curButtton.removeClass("loaded-timer");
-
-                console.log(this);
             });
 
             container.on('pjax:click', function() {
@@ -386,6 +384,12 @@
             });
 
             elements.document.on('click','.loaded-timer',function() {
+                return false;
+            });
+
+            elements.document.on('click','.btn-back-to-top',function() {
+
+                    elements.htmlBody.animate({ scrollTop: 0 }, 200);
                 return false;
             })
         },
@@ -420,7 +424,7 @@
         }
     };
     /* end */
-
+    console.log(3);
     // 2.7 SUBSCRIBE
     var forms = {
         clearAll: function(btnClear,btnSelect,checkboxes) {
@@ -434,6 +438,7 @@
             $(checkboxes).on('click', btnSelect, function(e) {
                 $(this).addClass('active');
                 $(btnClear).removeClass('active');
+
                 $(checkboxes).find(':checkbox').prop('checked', true);
             });
         },
@@ -452,15 +457,40 @@
                     cur.toggleClass('active');
 
                     if(cur.hasClass('active')) {
-                        cur.parents('li').find(':checkbox:enabled').prop('checked', true);
+                        cur.parents('li').find('input:not(:checked)').trigger('click');
                         cur.text('Clear all');
                     } else {
-                        cur.parents('li').find(':checkbox:enabled').prop('checked', false);
+                        cur.parents('li').find('input:checked').trigger('click');
                         cur.text('Select all');
                     }
 
                     e.preventDefault();
                 });
+            }
+        },
+        scrollToEl: function(item) {
+
+            if ($(item).length) {
+                var
+                    $item = $(item),
+                    itemScrollCoord = $item.offset().top;
+
+                if($item.hasClass('scroll-self')) {
+                    elements.htmlBody.animate({ scrollTop: itemScrollCoord }, 200);
+                };
+            }
+        },
+        addScrollToEl: function(selfEl,item,el) {
+
+            if($(selfEl).length) {
+                var
+                    $item = $(item),
+                    $selfEl = $(selfEl),
+                    checkScroll = $item.find(el);
+
+                if(checkScroll.length>0) {
+                    $selfEl.addClass('scroll-self');
+                };
             }
         }
     };
@@ -751,6 +781,10 @@
         }
     };
 
+    var innerPage = {
+
+    };
+
     //EVENTS
     elements.document.ready(function() {
 
@@ -823,6 +857,8 @@
         forms.selectAll('.clear-all', '.select-all', '.dropdown-login');
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
+        forms.addScrollToEl('.search-results-top', '.find-expert .sidebar-widget-filter', 'input:checked');
+        forms.scrollToEl('.search-results-top');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
     });

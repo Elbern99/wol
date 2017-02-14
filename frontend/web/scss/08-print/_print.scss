@@ -44,6 +44,10 @@
     word-wrap: break-word;
   }
 
+  img {
+    page-break-inside: avoid;
+  }
+
 
   //RESET
   * {
