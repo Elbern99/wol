@@ -272,7 +272,10 @@ class Result {
 
         $articles = Article::find()
                 ->alias('a')
-                ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                ->select(['a.id', 'a.title', 'a.seo', 'a.created_at'])
+                ->with(['articleAuthors.author' => function($query) {
+                    return $query->alias('au')->select(['au.url_key', 'au.name'])->where(['au.enabled' => 1]);
+                }])
                 ->where(['a.enabled' => 1, 'a.id' => $ids]);
 
         if ($filtered) {
@@ -292,12 +295,17 @@ class Result {
         foreach ($articles as $article) {
             
             $eavValue = $values[$article->id] ?? [];
+            $authors = [];
+            
+            foreach ($article->articleAuthors as $author) {
+                $authors[] = $author['author'];
+            }
             
             self::$value[] = [
                 'params' => [
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
-                    'availability' => $article->availability,
+                    'authors' => $authors,
                     'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                         return $data;
                     }),
