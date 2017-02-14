@@ -45,15 +45,21 @@
                     e.preventDefault();
                 });
             }
+        },
+        checkFilterMobile: function(item) {
+
+        },
+        scrollToCheck: function(item) {
+
         }
-    }
+    };
     
     function dynamicFilter(filter) {
         $('.expert-filter-form').submit();
     }
 
     $(document).ready(function () {
-        $('.item').find('input:checkbox').bind('click', dynamicFilter);
+        $('.item').find('input:checkbox').bind('change', dynamicFilter);
         advancedSearch.cloneEl('.filter-clone', '.mobile-filter-container', '.filter-clone-holder');
         advancedSearch.openFilter('.filter-mobile-link', '.mobile-filter');
     });

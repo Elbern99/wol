@@ -106,7 +106,7 @@ $this->registerMetaTag([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <?php if(count($collection['associateEditor']) > ): ?>
+                <?php if(count($collection['associateEditor']) > 3): ?>
                     <a class="btn-gray align-center btn-load-more-client-side" href="">
                         <span class="more">show more</span>
                         <span class="less">Clear</span>
