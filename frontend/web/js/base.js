@@ -459,9 +459,9 @@
                         checkChecked = $curParent.find('input:not(:checked)').length > 1;
 
                     if(checkChecked) {
-                        $btn.removeClass('active').text('Select all');
+                        $cur.removeClass('active').text('Select all');
                     } else {
-                        $btn.addClass('active').text('Clear all');
+                        $cur.addClass('active').text('Clear all');
                     }
                 });
 
@@ -804,8 +804,8 @@
                     pathName = document.location.pathname,
                     $link = $item.find('a[href$="'+pathName+'"]'),
                     $linkPrent = $link.parent(),
-                    $articleHead = $('.article-head'),
-                    $articleHeadCoord = $articleHead.offset().top;
+                    $articleHead = $('.article-head');
+                    //$articleHeadCoord = $articleHead.offset().top;
 
                 $linkPrent.addClass('open');
                 $linkPrent.parent().addClass('open');
