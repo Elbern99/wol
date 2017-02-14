@@ -22,7 +22,7 @@ $this->registerMetaTag([
 $items = $searchModel->getItems();
 $items[0] = 'Show All';
 
-$this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']]);
+$this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
 
 <?php $alphas = range('A', 'Z'); ?>
@@ -38,7 +38,7 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                 CustomGridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
-                    'pager' => [
+                    /*'pager' => [
                         'class' => \kop\y2sp\ScrollPager::className(),
                         'container' => '.grid-view tbody',
                         'item' => 'tr',
@@ -47,7 +47,7 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                         'triggerOffset' => 100,
                         'noneLeftText' => '',
                         'spinnerTemplate' => '<div class="preloader-table"><div class="loading-ball"></div></div>'
-                     ],
+                     ],*/
                     'beforeRow' => function($model, $key, $index, $grid) {
                          
                         $currentLetter = strtoupper(substr($model->source, 0, 1));
@@ -58,7 +58,7 @@ $this->registerJsFile('/js/pages/sources.js', ['depends'=>['yii\web\YiiAsset']])
                         }
                         
                         if ($grid->previosLetter != $currentLetter && preg_match("/[A-Z]{1}/", $currentLetter)) {
-                            $grid->dataProvider->getPagination()->params = array_merge(Yii::$app->request->get(), ['previosLetter' => $currentLetter]);
+                            //$grid->dataProvider->getPagination()->params = array_merge(Yii::$app->request->get(), ['previosLetter' => $currentLetter]);
                             $grid->previosLetter = $currentLetter;
                             return Html::tag('tr', "<td colspan=3 class='td-letter'>".Html::a($currentLetter, '#'.$currentLetter, ['id' => $currentLetter])."</td>");
                         }
