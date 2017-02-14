@@ -34,6 +34,15 @@ class ShowMore {
         return $limit;
     }
     
+    public function isFirstStep($key) {
+        
+        if (Yii::$app->request->get($key)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     public function getLink($key) {
         
         if (!isset($this->params[$key])) {
