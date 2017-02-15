@@ -61,6 +61,7 @@ trait HomeTrait {
         $params = [
             'step' => Yii::$app->params['home_news_limit'],
             'count' => NewsItem::find()->count('id'),
+            'first_step' => 4
         ];
         
         $this->more->addParam($params, 'news_limit');
