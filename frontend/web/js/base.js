@@ -207,9 +207,6 @@
             '<div class="item"><a href="/key-topics/brexit-and-the-labor-market">What is Brexit?</a></div>' +
             '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
             '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
-            '<div class="item"><a href="/key-topics/gender-divide">What is the gender divide?</a></div>' +
-            '<div class="item"><a href="/key-topics/higher-education-and-human-capital">Higher education and human capital </a></div>' +
-            '<div class="item"><a href="/key-topics/aging-workforce-pensions-reform">The aging workforce and pensions reform</a></div>' +
             '<div class="item no-submenu"><a href="/key-topics/aging-workforce-pensions-reform">View all</a></div>' +
             '</div>'
         },
