@@ -161,7 +161,11 @@ $this->registerMetaTag([
                             <?php foreach ($events as $event): ?>
                             <li class="post-item media-item">
                                 <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?> - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
-                                <h2><a href=""><?= $event['title'] ?></a></h2>
+                                <h2>
+                                    <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event['url_key']])]) ?>
+                                    <?= $event['title'] ?>
+                                    <?= Html::endTag('a') ?>
+                                </h2>
                                 <p><?= $event['location'] ?></p>
                                 <!--<div class="location">Daniel S. Hamermesh</div>-->
                             </li>

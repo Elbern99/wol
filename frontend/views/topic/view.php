@@ -60,7 +60,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </ul>
                     <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                     <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                    <div class="publish"><a href=""><?= $article['availability']  ?></a></div>
+                    <div class="publish"><?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
                     <div class="description">
                         <?= $article['abstract']->abstract ?? ''; ?>
                     </div>
@@ -259,7 +259,14 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     <span class="more">More</span>
                     <span class="less">Less</span>
                 </a>-->
-                <?= Html::a('More', ['topic/index'], ['class' => 'more-link no-open']); ?> 
+
+                <?php if (count($keyTopics) > Yii::$app->params['key_topics_sidebar_limit']): ?>
+                <a href="" class="more-link">
+                    <span class="more">More</span>
+                    <span class="less">Less</span>
+                </a>
+                <?php endif; ?>
+                <?php //Html::a('More', ['topic/index'], ['class' => 'more-link no-open']); ?> 
                 <?php endif; ?>
             </div>
         </aside>
