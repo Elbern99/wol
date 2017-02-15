@@ -109,19 +109,19 @@
         map.on('click', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $overlay.addClass('js-tab-hidden').removeClass('active');
-            elements.LMarker.removeClass('opened-ref-tooltip');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
         });
 
         map.on('movestart', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $overlay.addClass('js-tab-hidden').removeClass('active');
-            elements.LMarker.removeClass('opened-ref-tooltip');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
         });
 
         $(btn).on('click', '.icon-close', function(e) {
             elements.mapInfo.removeClass('map-info-open');
             $overlay.addClass('js-tab-hidden').removeClass('active');
-            elements.LMarker.removeClass('opened-ref-tooltip');
+            $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
 
             $('.map-info-content').animate({
                 scrollTop: 0
