@@ -13,7 +13,7 @@
         <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Contact <span style="color:#1f497d"> u</span>s: <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> - IZA World of Labor, Forschungsinstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany.</span>
     </p>
     <p>
-        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA 2017/span>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA 2017</span>
     </p>
     <?php $this->endBody() ?>
 </body>

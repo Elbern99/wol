@@ -1634,7 +1634,7 @@ ol {
       background: #262626;
       display: inline-block;
       vertical-align: middle;
-      margin: -2px 7px 0 -10px; }
+      margin: -2px 4px 0 -10px; }
 
 ol li {
   counter-increment: step-counter;
