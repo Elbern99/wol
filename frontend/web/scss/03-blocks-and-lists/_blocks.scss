@@ -458,6 +458,10 @@
   .publish {
     margin: 0px 0 10px;
     font-size: 11px;
+
+    p {
+      display: inline !important;
+    }
   }
 }
 

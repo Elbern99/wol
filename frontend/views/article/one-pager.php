@@ -132,6 +132,7 @@ $config = [
         <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang) ?></h3>
     </div>
 
+    <div class="article-user-list">
         <?php foreach ($authors as $author): ?>
             <div class="article-user">
                 <div class="img-holder img-holder-bg">
@@ -152,6 +153,7 @@ $config = [
 
             </div>
         <?php endforeach; ?>
+    </div>
 
 </div>
 
