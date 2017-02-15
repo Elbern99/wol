@@ -191,6 +191,40 @@
         }
     };
 
+    var hardCode = {
+        templates: {
+            about:  '<ul class="submenu">' +
+            '<li><a href="/about">About the IZA World of Labor</a></li> ' +
+            '<li><a href="/about/iza">About IZA</a></li>' +
+            '<li><a href="/about/partners">About our partners</a></li>' +
+            '</ul>',
+            commentary:'<div class="submenu">' +
+            '<div class="item"><a href="/opinions">Opinions</a></div>' +
+            '<div class="item"><a href="/videos">Videos</a></div>' +
+            '</div>',
+            key:'<div class="submenu">' +
+            '<div class="item"><a href="/key-topics/innovation-and-the-future-of-work">Innovation and the future of work</a></div>' +
+            '<div class="item"><a href="/key-topics/brexit-and-the-labor-market">What is Brexit?</a></div>' +
+            '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
+            '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
+            '<div class="item"><a href="/key-topics/gender-divide">What is the gender divide?</a></div>' +
+            '<div class="item"><a href="/key-topics/higher-education-and-human-capital">Higher education and human capital </a></div>' +
+            '<div class="item"><a href="/key-topics/aging-workforce-pensions-reform">The aging workforce and pensions reform</a></div>' +
+            '<div class="item no-submenu"><a href="/key-topics/aging-workforce-pensions-reform">View all</a></div>' +
+            '</div>'
+        },
+        appendCode: function(templte,item) {
+
+            if($(item).length) {
+                var
+                    $item = $(item);
+
+                $item.addClass('item has-drop');
+                $item.append(templte);
+            }
+        }
+    };
+
     // 1.2 HEADER SEARCH
 
     var search = {
@@ -995,40 +1029,6 @@
         sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
     });
-
-    var hardCode = {
-        templates: {
-            about:  '<ul class="submenu">' +
-                        '<li><a href="/about">About the IZA World of Labor</a></li> ' +
-                        '<li><a href="/about/iza">About IZA</a></li>' +
-                        '<li><a href="/about/partners">About our partners</a></li>' +
-                    '</ul>',
-            commentary:'<div class="submenu">' +
-                            '<div class="item"><a href="/opinions">Opinions</a></div>' +
-                            '<div class="item"><a href="/videos">Videos</a></div>' +
-                        '</div>',
-            key:'<div class="submenu">' +
-                    '<div class="item"><a href="/key-topics/innovation-and-the-future-of-work">Innovation and the future of work</a></div>' +
-                    '<div class="item"><a href="/key-topics/brexit-and-the-labor-market">What is Brexit?</a></div>' +
-                    '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
-                    '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
-                    '<div class="item"><a href="/key-topics/gender-divide">What is the gender divide?</a></div>' +
-                    '<div class="item"><a href="/key-topics/higher-education-and-human-capital">Higher education and human capital </a></div>' +
-                    '<div class="item"><a href="/key-topics/aging-workforce-pensions-reform">The aging workforce and pensions reform</a></div>' +
-                    '<div class="item no-submenu"><a href="/key-topics/aging-workforce-pensions-reform">View all</a></div>' +
-                '</div>'
-        },
-        appendCode: function(templte,item) {
-
-            if($(item).length) {
-                var
-                    $item = $(item);
-
-                $item.addClass('item has-drop');
-                $item.append(templte);
-            }
-        }
-    };
 
     elements.window.load(function() {
         $('.preloader').fadeOut();
