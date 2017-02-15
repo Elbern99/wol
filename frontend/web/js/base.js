@@ -1019,11 +1019,14 @@
                 '</div>'
         },
         appendCode: function(templte,item) {
-            var
-                $item = $(item);
 
-            $item.addClass('item has-drop');
-            $item.append(templte);
+            if($(item).length) {
+                var
+                    $item = $(item);
+
+                $item.addClass('item has-drop');
+                $item.append(templte);
+            }
         }
     };
 
