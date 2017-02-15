@@ -1055,8 +1055,8 @@
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
         hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
-        hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list .item:nth-child(6)');
-        hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list .item:nth-child(1)');
+        hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
+        hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
     });
 
 })(jQuery);
