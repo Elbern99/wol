@@ -9299,10 +9299,9 @@ path {
   p a {
     word-wrap: break-word; }
 
-  img,
-  table {
+  img {
     display: block !important;
-    page-break-inside: avoid !important; }
+    page-break-before: always !important; }
 
   * {
     overflow: visible !important;
