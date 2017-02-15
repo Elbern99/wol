@@ -326,7 +326,7 @@
             .img {
               order: -2;
               margin: 0 13px 0 0;
-              width: 31%;
+              width: 30%;
               height: 65px;
               min-height: 65px;
 
@@ -336,6 +336,7 @@
 
               @include breakpoint('tablet') {
                 margin: 0 30px 0 0;
+                width: 31%;
               }
             }
 

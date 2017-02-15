@@ -33,7 +33,14 @@
         detectSubmenu: function(item) {
             $(item).each(function( index ) {
                 var
-                    $cur = $(this);
+                    $cur = $(this),
+                    $curLink = $cur.find('a'),
+                    curLinkText = $curLink.attr('href'),
+                    curLinkTextLast = curLinkText.substr(curLinkText.lastIndexOf("/")+1);
+
+                if(curLinkTextLast == 'articles' && $cur.parent(".submenu").length > 0) {
+                    $cur.addClass('no-submenu');
+                }
 
                 if ($cur.find(headerMenu.submenu).length > 0) {
                     $cur.addClass('has-drop');
@@ -83,11 +90,18 @@
         },
         mobile: function(btn,content,parent) {
             parent.find('.'+headerMenu.classes).find(content).slideDown(0);
-            btn.click(function(e) {
+            $('.mobile-menu').on('click', '.has-drop >a', function(e) {
                 var
                     $cur = $(this),
                     $curParent = $cur.parent(),
-                    checkLast = $curParent.is(':last-child');
+                    $curParentIndex = $curParent.index(),
+                    checkReturn = true,
+                    checkLast = $curParent.hasClass('no-submenu'),
+                    checkHash = $cur.attr('href') == '#';
+
+                if (checkHash) {
+                    e.preventDefault();
+                };
 
                 setTimeout(function(){
                     docHeightForElement.changeHeight();
@@ -97,24 +111,31 @@
                     headerMenu.mobileCloseItem($cur);
                 } else {
 
-                    if(!checkLast) {
+                    if (!checkLast) {
+                        e.preventDefault();
+                    };
+
+                    if (checkHash) {
                         $curParent.siblings().removeClass(headerMenu.classes)
                             .find(content).slideUp(headerMenu.delay)
                             .find('.item').removeClass('open');
-                        headerMenu.mobileOpenItem($cur);
+                    };
 
-                        e.preventDefault();
-                    }
+                    headerMenu.mobileOpenItem($cur);
                 }
             });
         },
-        desktop: function(btn, dropWidget) {
-            btn.on('click',function(e) {
-                var cur = $(this),
-                    curAttr = cur.attr('href');
+        desktop: function(parent, btn, dropWidget) {
+            $(parent).on('click', btn, function(e) {
+                var
+                    cur = $(this),
+                    curAttr = cur.attr('href'),
+                    $dropWidget = $(parent).find(dropWidget),
+                    $btn = $(parent).find(btn);
+
                 elements.document.unbind('click.submenu');
-                dropWidget.removeClass('open');
-                btn.not(cur).removeClass('active');
+                $('.submenu').removeClass('open');
+                $('.has-drop>a').not(cur).removeClass('active');
 
                 if ( !cur.hasClass('active') ) {
                     if(curAttr !== '#') {
@@ -132,15 +153,15 @@
                     elements.document.bind('click.submenu', function (e) {
                         if(_window_width > _mobile ) {
                             if (!yourClick  && !$(e.target).closest(drop).length || $(e.target).closest(drop.find('div')).length ) {
-                                dropWidget.removeClass('open');
-                                btn.removeClass('active');
+                                $dropWidget.removeClass('open');
+                                $btn.removeClass('active');
                                 elements.document.unbind('click.submenu');
                             }
                             yourClick  = false;
                         }
                     });
                 } else {
-                    dropWidget.removeClass('open');
+                    $dropWidget.removeClass('open');
                     cur.removeClass('active');
                 }
             });
@@ -185,24 +206,31 @@
     };
 
     /* dropDown */
-    function dropDown(btn, dropWidget, mobile) {
+    function dropDown(parent, btn, dropWidget) {
+
         if ( $(dropWidget).length ) {
-            btn.on('click',function(e) {
-                var cur = $(this);
+            $(parent).on('click', btn, function(e) {
+                var
+                    cur = $(this),
+                    $parent = $(parent),
+                    $dropWidget = $parent.find(dropWidget),
+                    $btn = $parent.find(btn);
+
                 elements.document.unbind('click.drop-content');
 
-                btn.not(cur).removeClass('active');
+                $btn.not(cur).removeClass('active');
                 if ( !cur.hasClass('active') ) {
-                    var yourClick = true;
-                    var drop = cur.parents('.dropdown').find('>.drop-content');
-                    drop.addClass('open');
-                    cur.addClass('active');
+                    var yourClick = true,
+                        drop = cur.parents('.dropdown').find('>.drop-content');
+
+                        drop.addClass('open');
+                        cur.addClass('active');
 
                     elements.document.bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
                             if (!yourClick  && !$(e.target).closest(drop).length || $(e.target).closest(drop.find('li')).length ) {
-                                $(dropWidget).removeClass('open');
-                                btn.removeClass('active');
+                                $dropWidget.removeClass('open');
+                                $btn.removeClass('active');
                                 elements.document.unbind('click.drop-content');
                             }
 
@@ -923,10 +951,10 @@
     elements.document.ready(function() {
         shareBtns.btnContent('.share-buttons-list li');
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
-        dropDown($('.header-desktop .dropdown-link'), '.drop-content');
-        dropDown($('.custom-select .dropdown-link'), '.drop-content');
-        dropDown($('.sidebar-widget-reference-popup .dropdown-link'), '.drop-content');
-        dropDown($('.tooltip-dropdown .icon-question'), '.drop-content');
+        dropDown('.header-desktop', '.dropdown-link', '.drop-content');
+        dropDown('.custom-select', '.dropdown-link', '.drop-content');
+        dropDown('.sidebar-widget-reference-popup', '.dropdown-link', '.drop-content');
+        dropDown('.tooltip-dropdown', '.icon-question', '.drop-content');
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
@@ -968,6 +996,37 @@
         home.closeSubscribe('.icon-close','.sticky-newsletter');
     });
 
+    var hardCode = {
+        templates: {
+            about:  '<ul class="submenu">' +
+                        '<li><a href="/about">About the IZA World of Labor</a></li> ' +
+                        '<li><a href="/about/iza">About IZA</a></li>' +
+                        '<li><a href="/about/partners">About our partners</a></li>' +
+                    '</ul>',
+            commentary:'<div class="submenu">' +
+                            '<div class="item"><a href="/opinions">Opinions</a></div>' +
+                            '<div class="item"><a href="/videos">Videos</a></div>' +
+                        '</div>',
+            key:'<div class="submenu">' +
+                    '<div class="item"><a href="/key-topics/innovation-and-the-future-of-work">Innovation and the future of work</a></div>' +
+                    '<div class="item"><a href="/key-topics/brexit-and-the-labor-market">What is Brexit?</a></div>' +
+                    '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
+                    '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
+                    '<div class="item"><a href="/key-topics/gender-divide">What is the gender divide?</a></div>' +
+                    '<div class="item"><a href="/key-topics/higher-education-and-human-capital">Higher education and human capital </a></div>' +
+                    '<div class="item"><a href="/key-topics/aging-workforce-pensions-reform">The aging workforce and pensions reform</a></div>' +
+                    '<div class="item no-submenu"><a href="/key-topics/aging-workforce-pensions-reform">View all</a></div>' +
+                '</div>'
+        },
+        appendCode: function(templte,item) {
+            var
+                $item = $(item);
+
+            $item.addClass('item has-drop');
+            $item.append(templte);
+        }
+    };
+
     elements.window.load(function() {
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
@@ -980,8 +1039,8 @@
         tooltipWhenAddToFav.openLogin('.fav-login', '.login-registration-list.mobile', '.btn-mobile-login-show');
         tooltipWhenAddToFav.openRegister('.fav-register', '.login-registration-list.mobile', '.btn-mobile-login-show');
         docHeightForElement.changeHeight();
-        headerMenu.desktop($('.header-desktop .header-menu-bottom-list > .has-drop >a'),$('.header-desktop .submenu'));
-        headerMenu.desktop($('.header-desktop .header-menu-top-list > .has-drop >a'),$('.header-desktop .submenu'));
+        headerMenu.desktop('.header-desktop .header-menu-bottom-list', '> .has-drop >a', '.submenu');
+        headerMenu.desktop('.header-desktop .header-menu-top-list', '> .has-drop >a', '.submenu');
         forms.clearAll('.clear-all', '.select-all', '.content-types');
         forms.clearAll('.clear-all', '.select-all', '.checkboxes-holder');
         forms.clearAll('.clear-all', '.select-all', '.dropdown-login');
@@ -995,6 +1054,9 @@
         forms.scrollToEl('.search-results-top');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
+        hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
+        hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list .item:nth-child(6)');
+        hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list .item:nth-child(1)');
     });
 
 })(jQuery);
