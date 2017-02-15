@@ -23,7 +23,7 @@ class BiographyWidget extends Widget {
         foreach ($this->param['data'] as $item) {
 
             $content .= Html::beginTag('li');
-            $content .= Html::beginTag('label', ['class' => "def-checkbox light"]);
+            $content .= Html::beginTag('label', ['class' => "def-checkbox light item-filter-box"]);
 
             if ($selected) {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $item['id'], $this->isChecked($item['id']));

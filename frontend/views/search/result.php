@@ -71,7 +71,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 </div>
             </div>
         </div>
-
+        <?= Html::hiddenInput('result_page', 1) ?>
         <div class="content-inner">
             <div class="content-inner-text">
                 
@@ -173,29 +173,37 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
                                     <div class="text">
-                                        <?= ContentTypesWidget::widget(['param' => $filters['types']]); ?>
-                                        <a href="" class="clear-all">Clear all</a>
+                                        <?php if (isset($filters['types'])): ?>
+                                            <?= ContentTypesWidget::widget(['param' => $filters['types']]); ?>
+                                            <a href="" class="clear-all">Clear all</a>
+                                        <?php endif; ?>
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item">
                                     <a href="" class="title">subject areas <strong>(<?= array_sum(Result::$articleCategoryIds) ?>)</strong></a>
                                     <div class="text">
-                                        <?= SubjectAreasWidget::widget(['param' => $filters['category']]); ?>
-                                        <a href="" class="clear-all">Clear all</a>
+                                        <?php if (isset($filters['category'])): ?>
+                                            <?= SubjectAreasWidget::widget(['param' => $filters['category']]); ?>
+                                            <a href="" class="clear-all">Clear all</a>
+                                        <?php endif; ?>
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item">
                                     <a href="" class="title">Authors <strong>(<?= count($filters['biography']['data']) ?>)</strong></a>
                                     <div class="text">
-                                        <?= BiographyWidget::widget(['param' => $filters['biography']]); ?>
-                                        <a href="" class="clear-all">Clear all</a>
+                                        <?php if (isset($filters['biography'])): ?>
+                                            <?= BiographyWidget::widget(['param' => $filters['biography']]); ?>
+                                            <a href="" class="clear-all">Clear all</a>
+                                        <?php endif; ?>
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item">
                                     <a href="" class="title">Topics <strong>(<?= count($filters['topics']['data']) ?>)</strong></a>
                                     <div class="text">
-                                        <?= TopicsWidget::widget(['param' => $filters['topics']]); ?>
-                                        <a href="" class="clear-all">Clear all</a>
+                                        <?php if (isset($filters['topics'])): ?>
+                                            <?= TopicsWidget::widget(['param' => $filters['topics']]); ?>
+                                            <a href="" class="clear-all">Clear all</a>
+                                        <?php endif; ?>
                                     </div>
                                 </li>
                             </ul>

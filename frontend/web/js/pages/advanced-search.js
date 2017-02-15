@@ -121,8 +121,13 @@
             })
         }
     }
+    
+    function dynamicFilter(filter) {
+        $('.result-search').submit();
+    }
    
     $(document).ready(function() {
+        $('.item-filter-box').children('input:checkbox').bind('change', dynamicFilter);
         advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .article-item');
         advancedSearch.cloneEl('.filter-clone', '.mobile-filter-container', '.filter-clone-holder');

@@ -31,7 +31,7 @@ class ContentTypesWidget extends Widget {
             }
 
             $content .= Html::beginTag('li');
-            $content .= Html::beginTag('label', ['class' => "def-checkbox light"]);
+            $content .= Html::beginTag('label', ['class' => "def-checkbox light item-filter-box"]);
             $selected = $this->param['selected'];
 
             if (isset($selected[$model])) {
