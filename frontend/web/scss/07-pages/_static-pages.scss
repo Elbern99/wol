@@ -344,27 +344,3 @@
     margin: 0 0 10px;
   }
 }
-
-.back-to-top {
-  width: 30px;
-  height: 30px;
-  position: fixed;
-  left: 100%;
-  bottom: 53px;
-  cursor: pointer;
-  z-index: 10;
-  display: none;
-  transition: color 0.3s ease;
-  font-size: 30px;
-  color: #d8d8d8;
-  margin-bottom: -15px;
-
-  @include breakpoint('tablet') {
-    bottom: 35px;
-    margin-bottom: 0;
-  }
-
-  &:hover {
-    color: #bcbcbc;
-  }
-}

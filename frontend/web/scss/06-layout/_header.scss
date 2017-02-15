@@ -598,8 +598,8 @@
     background: #fff;
     left: -150%;
     transition: all 0.3s ease;
-    height: 100vh;
     opacity: 0;
+    bottom: 0;
 
     &.mobile-login {
       z-index: 1003;
@@ -624,7 +624,7 @@
     left: 0;
     right: 0;
 
-    >.dropdown {
+    >.custom-dropdown {
 
       >.btn-mobile-icon {
         position: absolute;
@@ -654,6 +654,7 @@
     transition: all 0.3s ease;
     opacity: 0;
     z-index: 1003;
+    bottom: 0;
 
     .btn-mobile-icon {
       position: absolute;
