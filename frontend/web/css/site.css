@@ -1424,24 +1424,16 @@ th {
     .btn-gray,
     [class^="btn-gray-"],
     [class*=" btn-gray-"] {
-      color: #1e1e1e; } }
+      color: #1e1e1e;
+      height: 42px;
+      line-height: 41px;
+      font-size: 12px; } }
   @media only screen and (min-width: 769px) {
     .btn-gray:hover,
     [class^="btn-gray-"]:hover,
     [class*=" btn-gray-"]:hover {
       background: #7b7b7b;
       color: #eaeaea; } }
-  @media only screen and (max-width: 769px) {
-    .btn-gray.show-more,
-    [class^="btn-gray-"].show-more,
-    [class*=" btn-gray-"].show-more {
-      height: 42px;
-      line-height: 41px;
-      font-size: 12px; } }
-  .btn-gray .btn-back-to-top,
-  [class^="btn-gray-"] .btn-back-to-top,
-  [class*=" btn-gray-"] .btn-back-to-top {
-    min-width: 200px; }
   .btn-gray.align-center,
   [class^="btn-gray-"].align-center,
   [class*=" btn-gray-"].align-center {
@@ -1544,6 +1536,27 @@ th {
   display: none; }
 .btn-load-more-client-side.showed .less {
   display: block; }
+
+.back-to-top {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  left: 100%;
+  bottom: 53px;
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+  transition: color 0.3s ease;
+  font-size: 30px;
+  color: #d8d8d8;
+  margin-bottom: -15px;
+  opacity: 0.9; }
+  @media only screen and (min-width: 769px) {
+    .back-to-top {
+      bottom: 35px;
+      margin-bottom: 0; } }
+  .back-to-top:hover {
+    color: #bcbcbc; }
 
 * {
   box-sizing: border-box !important;
@@ -2383,6 +2396,8 @@ blockquote {
       margin: 0 0 3px; }
     .tooltip-dropdown .tooltip-content ul {
       padding: 0; }
+      .tooltip-dropdown .tooltip-content ul li {
+        margin: 0; }
     .tooltip-dropdown .tooltip-content.open {
       opacity: 1;
       position: absolute; }
@@ -6209,8 +6224,8 @@ iframe[name=advpp_manager] {
     background: #fff;
     left: -150%;
     transition: all 0.3s ease;
-    height: 100vh;
-    opacity: 0; }
+    opacity: 0;
+    bottom: 0; }
     .mobile-search.mobile-login,
     .mobile-login.mobile-login {
       z-index: 1003; }
@@ -6230,15 +6245,15 @@ iframe[name=advpp_manager] {
     top: 0;
     left: 0;
     right: 0; }
-    .header-mobile-buttons > .dropdown > .btn-mobile-icon {
+    .header-mobile-buttons > .custom-dropdown > .btn-mobile-icon {
       position: absolute;
       top: 2px;
       right: 6px;
       height: 47px;
       width: 45px; }
-    .header-mobile-buttons > .dropdown:nth-child(2) > .btn-mobile-icon {
+    .header-mobile-buttons > .custom-dropdown:nth-child(2) > .btn-mobile-icon {
       right: 48px; }
-    .header-mobile-buttons > .dropdown:nth-child(1) > .btn-mobile-icon {
+    .header-mobile-buttons > .custom-dropdown:nth-child(1) > .btn-mobile-icon {
       right: 91px; }
 
   .mobile-menu {
@@ -6250,7 +6265,8 @@ iframe[name=advpp_manager] {
     padding: 45px 35px 57px;
     transition: all 0.3s ease;
     opacity: 0;
-    z-index: 1003; }
+    z-index: 1003;
+    bottom: 0; }
     .mobile-menu .btn-mobile-icon {
       position: absolute;
       top: 4px;
@@ -6579,26 +6595,6 @@ iframe[name=advpp_manager] {
 
 .error-page p {
   margin: 0 0 10px; }
-
-.back-to-top {
-  width: 30px;
-  height: 30px;
-  position: fixed;
-  left: 100%;
-  bottom: 53px;
-  cursor: pointer;
-  z-index: 10;
-  display: none;
-  transition: color 0.3s ease;
-  font-size: 30px;
-  color: #d8d8d8;
-  margin-bottom: -15px; }
-  @media only screen and (min-width: 769px) {
-    .back-to-top {
-      bottom: 35px;
-      margin-bottom: 0; } }
-  .back-to-top:hover {
-    color: #bcbcbc; }
 
 .article-head {
   margin-bottom: 20px; }
@@ -7005,12 +7001,25 @@ iframe[name=advpp_manager] {
 #article-map-medium:after {
   content: '';
   z-index: 560; }
+#article-map-medium .leaflet-pane {
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 0, 0) !important; }
 #article-map-medium svg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.3) !important;
-  margin: 149px 0 0 283px; }
+  transform: translate3d(0, 0, 0px) !important; }
+  @media only screen and (max-width: 1024px) {
+    #article-map-medium svg {
+      margin: -154px 0 0 -251px !important;
+      width: 500px !important;
+      height: 400px !important; } }
+  @media only screen and (min-width: 1024px) {
+    #article-map-medium svg {
+      margin: -386px 0 0 -634px !important;
+      width: 1300px !important;
+      height: 900px !important; } }
 
 .text-reference {
   position: relative; }

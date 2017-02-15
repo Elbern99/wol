@@ -153,6 +153,5 @@
         sources.scrollToSelf('.td-letter a');
         sources.stikySidebar('.stiky');
         sources.paddingBottomBody('.wrapper');
-        sources.backToTop('.back-to-top');
     });
 })(jQuery);

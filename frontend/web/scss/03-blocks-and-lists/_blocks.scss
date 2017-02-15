@@ -838,10 +838,6 @@
       display: block;
       z-index: 500;
 
-      &.open {
-
-      }
-
       .icon-close {
         width: 20px;
         height: 20px;
@@ -896,6 +892,10 @@
 
     ul {
       padding: 0;
+
+      li {
+        margin: 0;
+      }
     }
 
     &.open {

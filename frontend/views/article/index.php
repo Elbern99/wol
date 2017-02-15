@@ -90,7 +90,7 @@ unset($currentParams);
                 <?php else: ?>
                     <?php if (Yii::$app->request->get('limit')): ?>
                         <?php if (Yii::$app->request->get('limit')): ?>
-                            <?= Html::a("back to top", Url::to(array_merge($currentUrl/*, ['limit' => 0]*/)), ['class' => 'btn-gray align-center btn-back-to-top']) ?>
+                            <?= Html::a("clear", Url::to(array_merge($currentUrl, ['limit' => 0])), ['class' => 'btn-gray align-center']) ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -150,3 +150,5 @@ unset($currentParams);
         </aside>
     </div>
 </div>
+
+<div class="back-to-top"><div class="icon-upwards-arrow"></div></div>
