@@ -165,14 +165,14 @@ $config = [
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?>
-                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-pink">
+                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-orange">
+                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>

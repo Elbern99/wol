@@ -619,7 +619,7 @@ th {
     display: block;
     min-width: 100%; }
 
-.clearfix:after, .search .search-top:after, .sidebar-right:after, .article-pagers-holder:after, .search-results-top .search .search-top:after, .search-results-top .search-results-top-filter:after, .account-tabs:after {
+.clearfix:after, .search .search-top:after, .sidebar-right:after, .article-pagers-holder:after, .article-pagers:after, .search-results-top .search .search-top:after, .search-results-top .search-results-top-filter:after, .account-tabs:after {
   content: "";
   display: block;
   clear: both; }
@@ -647,7 +647,7 @@ th {
   padding: 0 10px;
   max-width: 1230px; }
 
-.pinout, .no-image.img-holder-bg:after, .editor-item .img-holder-bg.img-holder:after, .article-user .img-holder-bg.img-holder:after, .search-results-media-item .img-holder-bg.img-holder:after, .account-head .img-holder-bg.img-holder:after, .contributor-profile .img-holder-bg.img-holder:after, .no-image .img, .editor-item .img-holder .img, .article-user .img-holder .img, .search-results-media-item .img-holder .img, .account-head .img-holder .img, .contributor-profile .img-holder .img, .key-topics-item:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .data-method-item .img:after, .key-topics-list li a, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .overlay, .article-pagers:after, #article-map-medium,
+.pinout, .no-image.img-holder-bg:after, .editor-item .img-holder-bg.img-holder:after, .article-user .img-holder-bg.img-holder:after, .search-results-media-item .img-holder-bg.img-holder:after, .account-head .img-holder-bg.img-holder:after, .contributor-profile .img-holder-bg.img-holder:after, .no-image .img, .editor-item .img-holder .img, .article-user .img-holder .img, .search-results-media-item .img-holder .img, .account-head .img-holder .img, .contributor-profile .img-holder .img, .key-topics-item:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .data-method-item .img:after, .key-topics-list li a, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .overlay, .article-pagers:before, #article-map-medium,
 #map-mini, #article-map-medium:after, .account-head .img-holder .inner, .account-head .img-holder .field-load_image,
 .account-head .img-holder .help-block, .account-head .img-holder input[type="file"] {
   position: absolute;
@@ -1350,6 +1350,16 @@ th {
 [class*=" btn-border-gray-"] {
   border-color: #aaa;
   color: #323232; }
+  .btn-border-gray.color-blue,
+  [class^="btn-border-gray-"].color-blue,
+  [class*=" btn-border-gray-"].color-blue {
+    color: #0053a0;
+    background: none !important;
+    text-transform: capitalize; }
+    .btn-border-gray.color-blue:hover,
+    [class^="btn-border-gray-"].color-blue:hover,
+    [class*=" btn-border-gray-"].color-blue:hover {
+      color: #0094f2; }
   @media only screen and (min-width: 769px) {
     .btn-border-gray:hover,
     [class^="btn-border-gray-"]:hover,
@@ -5021,7 +5031,6 @@ label {
     border-radius: 5px;
     margin: 10px 0 0 0;
     opacity: 0;
-    transition: all 0.3s ease;
     position: fixed;
     z-index: -1;
     width: 100%;
@@ -6737,13 +6746,12 @@ iframe[name=advpp_manager] {
         float: right; } }
 
 .article-pagers {
-  width: 240px;
-  overflow: hidden;
+  width: 209px;
   position: relative; }
   @media only screen and (min-width: 769px) {
     .article-pagers {
       width: 223px; } }
-  .article-pagers:after {
+  .article-pagers:before {
     border-radius: 4px;
     border: 1px solid #aaa;
     content: ''; }
