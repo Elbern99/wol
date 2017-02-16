@@ -149,11 +149,15 @@ trait ArticleParseTrait {
         xml_parser_free($p);
 
         $str = $vals[0]["value"];
-        $str .= Html::a($vals[1]["value"], $vals[1]["attributes"]["TARGET"], ['target' => '_blank']);
+        if (isset($vals[1]["attributes"]["TARGET"])) {
+            $str .= Html::a($vals[1]["value"], $vals[1]["attributes"]["TARGET"], ['target' => '_blank']);
+        } else {
+            $str .= $vals[1]["value"];
+        }
         $str .= $vals[2]["value"];
         $count = count($creation);
         $i = 1;
-        
+
         unset($vals);
         
         if ($count > $i) {
