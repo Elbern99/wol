@@ -528,7 +528,7 @@
 
 
             $checkboxes.on('click', btnClear, function(e) {
-                $checkboxes.find('.grid-line.four').find(':checkbox:checked').trigger('click');
+                $checkboxes.find('.grid-line.four, .field-advancedsearchform-types').find(':checkbox:checked').trigger('click');
             });
         },
         selectAll: function(btnClear,btnSelect,checkboxes) {
@@ -536,7 +536,7 @@
                 $checkboxes = $(checkboxes);
 
             $checkboxes.on('click', btnSelect, function(e) {
-                $checkboxes.find('.grid-line.four').find(':checkbox:not(:checked)').trigger('click');
+                $checkboxes.find('.grid-line.four, .field-advancedsearchform-types').find(':checkbox:not(:checked)').trigger('click');
             });
         },
         close: function(btn,alert) {

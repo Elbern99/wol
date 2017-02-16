@@ -217,15 +217,15 @@
 }
 
 .article-pagers {
-  width: 240px;
-  overflow: hidden;
+  width: 209px;
+  @extend .clearfix;
   position: relative;
 
   @include breakpoint('tablet') {
     width: 223px;
   }
 
-  &:after {
+  &:before {
     @extend .pinout;
     border-radius: 4px;
     border: 1px solid #aaa;
@@ -246,6 +246,7 @@
     z-index: 1;
     text-transform: uppercase;
     font-size: 12px;
+    //@extend.material-state;
 
     @include breakpoint('tablet') {
       font-size: 11px;
