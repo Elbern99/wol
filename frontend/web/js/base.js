@@ -523,18 +523,20 @@
     // 2.7 SUBSCRIBE
     var forms = {
         clearAll: function(btnClear,btnSelect,checkboxes) {
-            $(checkboxes).on('click', btnClear, function(e) {
-                $(this).addClass('active');
-                $(btnSelect).removeClass('active');
-                $(checkboxes).find(':checkbox').prop('checked', false);
+            var
+                $checkboxes = $(checkboxes);
+
+
+            $checkboxes.on('click', btnClear, function(e) {
+                $checkboxes.find('.grid-line.four').find(':checkbox:checked').trigger('click');
             });
         },
         selectAll: function(btnClear,btnSelect,checkboxes) {
-            $(checkboxes).on('click', btnSelect, function(e) {
-                $(this).addClass('active');
-                $(btnClear).removeClass('active');
+            var
+                $checkboxes = $(checkboxes);
 
-                $(checkboxes).find(':checkbox').prop('checked', true);
+            $checkboxes.on('click', btnSelect, function(e) {
+                $checkboxes.find('.grid-line.four').find(':checkbox:not(:checked)').trigger('click');
             });
         },
         close: function(btn,alert) {
@@ -883,7 +885,7 @@
                 var
                     $parent = $(parent);
 
-                if(Cookie.Read('close_subscribe') == 'true'){
+                if(Cookie.Read('close_subscribse') == 'true'){
                     $parent.fadeOut(0);
                 } else {
                     $parent.fadeIn(300);
@@ -892,8 +894,9 @@
                 $(btn).click(function(e) {
                     var
                         cur = $(this);
+
                     $parent.fadeOut();
-                    Cookie.Create('close_subscribe', true, 30);
+                    Cookie.Create('close_subscribse', true, 30);
                 });
             }
         }
@@ -986,7 +989,7 @@
                     $bg = $(item);
 
                 $bg.css('height', _window_height*0.4);
-                
+
                 elements.window.on('orientationchange', function() {
                     setTimeout(function(){
                         $bg.css('height', _window_height*0.4);

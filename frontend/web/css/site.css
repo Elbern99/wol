@@ -9250,6 +9250,9 @@ path {
         margin: 4px 0 0 0; } }
   .sticky-newsletter .link {
     color: #0094f2; }
+    @media only screen and (max-width: 568px) {
+      .sticky-newsletter .link {
+        display: none; } }
     .sticky-newsletter .link:hover {
       color: #0053a0; }
   .sticky-newsletter .icon-circle-arrow {
