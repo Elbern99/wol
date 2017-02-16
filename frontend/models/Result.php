@@ -194,7 +194,7 @@ class Result {
 
         if (is_array(self::$filters) && array_key_exists('biography', self::$filters)) {
 
-            if (!is_null(self::$filters['biography'])) {
+            if (self::$filters['biography']) {
                 $filtered = true;
             } elseif (count(self::$biographyFilter) && is_null(self::$filters['biography'])) {
                 return false;
@@ -264,7 +264,7 @@ class Result {
 
         if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
 
-            if (!is_null(self::$filters['subject'])) {
+            if (self::$filters['subject']) {
                 $filtered = true;
             }
 

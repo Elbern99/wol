@@ -72,9 +72,7 @@ class SearchController extends Controller
             'selected' => count(Result::getFilter('topics')) ? true : false,
             'filtered' => Result::getFilter('topics'),
         ];
-        
-        SearchResult::refreshResult($searchResultId, null, $model->getAttributes(), $filters);
-        
+
         return $filters;
     }
 
@@ -84,7 +82,7 @@ class SearchController extends Controller
      * @return mixed
      */
     public function actionIndex($phrase = null) {
-        
+
         $model = new AdvancedSearchForm();
         Result::setModel($model);
         $searchFiltersData = null;
@@ -111,13 +109,12 @@ class SearchController extends Controller
 
                     try {
                         $searchResult = $model->search();
-                        SearchResult::refreshResult($searchResultId, $searchResult, $model->getAttributes());
                     } catch (\Exception $e) {
-                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Have problems in search request'));
+                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
                     }
 
                     $phrase = $model->search_phrase; 
-                    
+
                 } else {
                     $searchResult = unserialize($searchResultData->result);
                     Result::setFilter('types', Yii::$app->request->post('filter_content_type'));
@@ -125,34 +122,35 @@ class SearchController extends Controller
                     Result::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
                     Result::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
                 }
-            }
-   
-        } else {
-
-            $searchFiltersData = $searchResultData->filters;
-            
-            if ($searchFiltersData) {
                 
-                $searchFiltersData = unserialize($searchFiltersData);
+                Result::initData($searchResult);
+                $filterData = $this->getFilterData($model);
+                
+                SearchResult::refreshResult($searchResultId, $searchResult, $model->getAttributes(), $filterData);
 
-                if ($searchFiltersData['types']['filtered']) {
-                    Result::setFilter('types', $searchFiltersData['types']['filtered']);
-                }
-                if ($searchFiltersData['category']['filtered']) {
-                    Result::setFilter('subject', $searchFiltersData['category']['filtered']);
-                }
-                if ($searchFiltersData['biography']['filtered']) {
-                    Result::setFilter('biography', $searchFiltersData['biography']['filtered']);
-                }
-                if ($searchFiltersData['topics']['filtered']) {
-                    Result::setFilter('topics', $searchFiltersData['topics']['filtered']);
-                }
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app/text',"Your search parameters are incorrect,<br>Content types/Search phrase can not be empty"));
             }
             
-            $searchResult = unserialize($searchResultData->result);
-            $searchCreteria = unserialize($searchResultData->creteria);
-            $model->load($searchCreteria, '');      
+            return $this->redirect(['/search', 'phrase' => $phrase]);
         }
+
+        $searchFiltersData = $searchResultData->filters;
+
+        if ($searchFiltersData) {
+
+            $searchFiltersData = unserialize($searchFiltersData);
+            if ($searchFiltersData['types']['filtered']) {
+                Result::setFilter('types', $searchFiltersData['types']['filtered']);
+            }
+            Result::setFilter('subject', $searchFiltersData['category']['filtered']);
+            Result::setFilter('biography', $searchFiltersData['biography']['filtered']);
+            Result::setFilter('topics', $searchFiltersData['topics']['filtered']);
+        }
+
+        $searchResult = unserialize($searchResultData->result);
+        $searchCreteria = unserialize($searchResultData->creteria);
+        $model->load($searchCreteria, '');      
         
         $results = is_array($searchResult) ? $searchResult : [];
         
@@ -163,15 +161,12 @@ class SearchController extends Controller
             Result::initData($results);
         }
         
-        $paginate = new Pagination(['totalCount' => count(Result::getSearchValue())]);
+        $paginate = new Pagination(['totalCount' => count(Result::getSearchValue()), 'params' =>  array_merge(Yii::$app->request->get(), ['phrase' => $phrase])]);
         $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
         
         $resultData = array_slice(Result::getSearchValue(), $paginate->offset, $paginate->limit);
-        
-        if ($resultCount) {
-            $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
-        }
-
+        $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
+//var_dump($searchFiltersData['biography']);exit;
         return $this->render('result', [
             'phrase' => $phrase,
             'search' => $model,
@@ -238,7 +233,13 @@ class SearchController extends Controller
                 
                 $result = $model->search();
                 $previosResult = Yii::$app->getSession()->get('search_result_id');
-                $currentResult = SearchResult::refreshResult($previosResult, $result, Yii::$app->request->post('AdvancedSearchForm'));
+                $searchResultData = SearchResult::findOne($previosResult);
+        
+                if ($searchResultData) {
+                    $searchResultData->delete();
+                }
+                
+                $currentResult = SearchResult::addNewResult($result, Yii::$app->request->post('AdvancedSearchForm'));
                 
                 if ($currentResult) {
                     return $this->redirect(Url::to(['/search', 'phrase' => $model->search_phrase]));
