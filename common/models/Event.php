@@ -49,8 +49,8 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url_key', 'title', 'location', 'date_from', 'date_to', 'book_link', 'contact_link'], 'required'],
-            [['body', 'short_description'], 'string'],
+            [['url_key', 'title', 'location', 'date_from', 'date_to', 'book_link'], 'required'],
+            [['body', 'short_description', 'contact_link'], 'string'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -72,7 +72,7 @@ class Event extends \yii\db\ActiveRecord
             'date_to' => Yii::t('app', 'Date To'),
             'location' => Yii::t('app', 'Location'),
             'short_decription' => Yii::t('app', 'Short Description'),
-            'book_link' => Yii::t('app', 'Book Link'),
+            'book_link' => Yii::t('app', 'Event site'),
             'contact_link' => Yii::t('app', 'Contact Link'),
             'image_link' => Yii::t('app', 'Image'),
         ];
