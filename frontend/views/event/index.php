@@ -60,12 +60,14 @@ if ($category) {
                                              <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
                                                 <?= $event->date_from->format('F d'); ?><span class="year">, <?= $event->date_from->format('Y'); ?></span>
                                              <?= Html::endTag('a'); ?>
+                                             <?php if ($event->date_from->format('F d, Y') != $event->date_to->format('F d, Y')) : ?>
                                              <span class="to-word">TO</span>
                                              <div class="last">
                                                 <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event->url_key])]) ?>
                                                     <?= $event->date_to->format('F d'); ?><span class="year">, <?= $event->date_to->format('Y'); ?></span>
                                                 <?= Html::endTag('a'); ?>
                                              </div>
+                                             <?php endif; ?>
                                          </div>
                                          <div class="desc">
                                              <h2><?= Html::a($event->title, ['/event/view', 'slug' => $event->url_key]); ?></h2>

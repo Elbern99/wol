@@ -123,39 +123,7 @@ class TopicController extends Controller {
             $articles[] = $item->article;
         }
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
-        
-//        $categoryCollection = Yii::createObject(CategoryCollection::class);
-//        $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
-//        $categoryCollection->initCollection(Article::tableName(), $articlesIds);
-//        $values = $categoryCollection->getValues();
-//        $articlesCollection = [];
-// 
-//        foreach ($articles as $article) {
-//            
-//            $articleCategory = [];
-//            
-//            foreach ($article->articleCategories as $c) {
-//
-//                if (isset($categoryFormat[$c->category_id])) {
-//
-//                    $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
-//                }
-//            }
-//            
-//            $articlesCollection[$article->id] = [
-//                'title' => $article->title,
-//                'url' => '/articles/'.$article->seo,
-//                'availability' => $article->availability,
-//                'teaser' => unserialize($values[$article->id]['teaser']),
-//                'abstract' => unserialize($values[$article->id]['abstract']), 
-//                'created_at' => $article->created_at,
-//                'category' => $articleCategory,
-//            ];
-//        }
-        
-        
-        
-        
+
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $articlesIds);

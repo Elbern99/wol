@@ -50,7 +50,7 @@ class NewsletterArchiveWidget extends Widget {
                 }
                 
                 $html .= Html::beginTag('li', ['class' => 'item']);
-                $html .= Html::tag('div', date('M Y', $data->getOldAttribute('date')), ['class'=>'date']);
+//               $html .= Html::tag('div', date('M Y', $data->getOldAttribute('date')), ['class'=>'date']);
                 $html .= Html::a($data['title'], $this->routePrefix.$data['url_key']);
                 $html .= Html::endTag('li');
                 

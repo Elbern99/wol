@@ -160,7 +160,11 @@ $this->registerMetaTag([
                         <ul class="post-list home-other-events-list media-list">
                             <?php foreach ($events as $event): ?>
                             <li class="post-item media-item">
+                                <?php if (date('M d, Y', strtotime($event['date_from'])) != date('M d, Y', strtotime($event['date_to']))) : ?>
                                 <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?> - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
+                                <?php else : ?>
+                                <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?></div>
+                                <?php endif; ?>
                                 <h2>
                                     <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event['url_key']])]) ?>
                                     <?= $event['title'] ?>
