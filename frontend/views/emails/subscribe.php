@@ -3,7 +3,7 @@
     <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Welcome,</span></p>
 
     <p>
-        <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have successfully created your IZA World of Labor account. To manage your preferences and view your saved articles, just sign into your account here <a href="<?= Url::to('/my-account', true) ?>" target="_blank"><?= Url::to('/my-account', true) ?></span>
+        <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have successfully subscribed to the IZA World of Labor newsletter. We look forward to keeping you updated with the latest labor market news and research. </span>
     </p>
 
     <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Best wishes, </span></p>

@@ -209,6 +209,8 @@
     margin-bottom: 0;
     font-size: 11px;
 
+
+
     @include breakpoint('tablet') {
       font-size: 17px;
       margin-bottom: 3px;
@@ -272,6 +274,10 @@
 
   .link {
     color: $light-blue;
+
+    @include breakpoint_custom($breakpoint-mobile-large) {
+      display: none ;
+    }
 
     &:hover {
       color: $blue;

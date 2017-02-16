@@ -250,19 +250,19 @@
                           dataLinkText;
 
                       if(references_source !== '') {
-                          dataSourceText = '<div class="dates">Data source(s): <strong>'+references_source+'</strong></div>';
+                          dataSourceText = '<div class="dates">Data source(s): <br><strong>'+references_source+'</strong></div>';
                       } else {
                           dataSourceText = '';
                       }
 
                       if(references_type !== '') {
-                          dataTypesText = '<div class="types">Data type(s): <strong>'+references_type+'</strong></div>';
+                          dataTypesText = '<div class="types">Data type(s): <br><strong>'+references_type+'</strong></div>';
                       } else {
                           dataTypesText = '';
                       }
 
                       if(references_method !== '') {
-                          dataMethodText = '<div class="method">Method(s): <strong>'+references_method+'</strong></div>';
+                          dataMethodText = '<div class="method">Method(s): <br><strong>'+references_method+'</strong></div>';
                       } else {
                           dataMethodText = '';
                       }
