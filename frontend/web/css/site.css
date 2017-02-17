@@ -4721,7 +4721,8 @@ textarea.form-control {
 .custom-select {
   position: relative;
   display: block;
-  margin: 0 0 20px; }
+  margin: 0 0 20px;
+  z-index: 10; }
   .custom-select .sort-list {
     position: absolute;
     top: 100%;
@@ -9313,7 +9314,12 @@ path {
 
   img {
     display: block !important;
-    page-break-inside: auto; }
+    page-break-before: always;
+    /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-after: always;
+    /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-inside: avoid;
+    /* or 'auto' */ }
 
   * {
     overflow: visible !important;

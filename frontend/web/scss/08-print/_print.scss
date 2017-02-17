@@ -46,7 +46,9 @@
 
   img {
     display: block !important;
-    page-break-inside : auto;
+    page-break-before: always; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-after: always; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-inside: avoid; /* or 'auto' */
   }
 
 
