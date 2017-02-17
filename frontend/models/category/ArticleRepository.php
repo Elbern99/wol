@@ -95,10 +95,12 @@ class ArticleRepository implements RepositoryInterface {
     private function getAuthorIds(array $roles) {
         
         return AuthorCategory::find()->alias('ac')->select(['ac.author_id'])
+                               ->leftJoin(Author::tableName().' as a', 'a.id = ac.author_id')
                                ->where(['category_id' => $this->current->id])
                                ->innerJoinWith(['authorRoles' => function($query) use ($roles) {
                                    return $query->where(['role_id' => $roles]);
                                }])
+                               ->orderBy('a.surname')
                                ->asArray()
                                ->all();
     
@@ -139,7 +141,7 @@ class ArticleRepository implements RepositoryInterface {
         array_push($roles, $associateEditor);
         
         $authorRoleIds = $this->getAuthorIds($roles);
-        
+
         if (count($authorRoleIds)) {
             
             $authorIds = ArrayHelper::getColumn($authorRoleIds, 'author_id');
