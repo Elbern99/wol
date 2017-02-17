@@ -281,8 +281,10 @@ class Result {
             $articles->innerJoin(ArticleCategory::tableName() . ' AS ac', 'ac.article_id = a.id');
             $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
         }
-          
-        if (!is_null(Yii::$app->request->get('sort'))) {
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
             $articles->orderBy(['a.created_at' => SORT_DESC]);
         }
 
