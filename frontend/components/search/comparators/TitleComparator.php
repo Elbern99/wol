@@ -43,7 +43,7 @@ class TitleComparator implements ComparatorInterface {
             if ($this->order == 'asc') {
                 ksort($this->types[$type]);
             } else {
-                arsort($this->types[$type]);
+                krsort($this->types[$type]);
             }
             $date = array_merge($date, $this->types[$type]);
         }
