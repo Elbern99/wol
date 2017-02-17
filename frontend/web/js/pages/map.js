@@ -65,13 +65,11 @@
     var mapObj = {
       options: {
           maxBounds: new L.LatLngBounds( new L.LatLng(-60, -180), new L.LatLng(86, 180)),
-          //inertia: false,
           minZoom: 0,
           maxZoom: 5,
           zoom: 2,
           attributionControl: false,
           clickable: false,
-          //boxZoom: true,
           tap: true,
           trackResize: true,
           center: [30, 10]
@@ -95,7 +93,7 @@
               map.setZoom(2);
           }
       },
-       getColor: function(d) {
+      getColor: function(d) {
            if(d !== undefined) return d;
       },
       onEachFeature: function(feature, layer) {
@@ -128,6 +126,25 @@
             }, 0);
         });
       },
+      addNumbersForSources: function(list) {
+          if($(list).length) {
+
+              var
+                  $list = $(list);
+
+              $list.each(function(i) {
+                  var $curParent = $(this);
+
+                  $curParent.find('li').each(function(i) {
+                      var
+                          $cur = $(this),
+                          curIndex = parseInt(i)+1;
+
+                          $cur.prepend('['+curIndex+'] ');
+                  });
+              });
+          }
+      },
       onMapClick: function(event) {
         event.target.closePopup();
         var
@@ -138,6 +155,9 @@
             elements.LMarker.removeClass('opened-ref-tooltip');
 
             this._icon.classList.add("opened-ref-tooltip");
+
+
+          mapObj.addNumbersForSources('.ref-type-list,.ref-source-list');
 
           if(_window_width < _mobile){
               if(elements.window.scrollTop() !== 0) {
@@ -249,14 +269,15 @@
                           dataMethodText,
                           dataLinkText;
 
-                      if(references_source !== '') {
-                          dataSourceText = '<div class="dates">Data source(s): <br><strong>'+references_source+'</strong></div>';
+                      if(references_source !== '<li></li>') {
+
+                          dataSourceText = '<div class="dates">Data source(s): <ul class="ref-source-list">'+references_source+'</ul></div>';
                       } else {
                           dataSourceText = '';
                       }
 
-                      if(references_type !== '') {
-                          dataTypesText = '<div class="types">Data type(s): <br><strong>'+references_type+'</strong></div>';
+                      if(references_type !== '<li></li>') {
+                          dataTypesText = '<div class="types">Data type(s): <ul class="ref-type-list">'+references_type+'</ul></div>';
                       } else {
                           dataTypesText = '';
                       }

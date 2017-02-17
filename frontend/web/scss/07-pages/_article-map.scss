@@ -340,10 +340,14 @@
   top: -99999px;
   overflow: hidden;
 
+  .ref-type-list,
+  .ref-source-list {
+    font-family: $lucida-sans-demi-bold;
+  }
+
   @include breakpoint('tablet') {
     width: 355px;
     top: 4px;
-    //bottom: 4px;
     right: -400px;
     height: auto !important;
     transition: all 0.3s ease;

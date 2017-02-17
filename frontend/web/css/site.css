@@ -2910,7 +2910,7 @@ blockquote {
     .sidebar-widget.sidebar-widget-views .link-holder a {
       color: #0094f2; }
   .sidebar-widget.sidebar-widget-subscribe .widget-title {
-    margin-bottom: 11px; }
+    margin-bottom: -1px; }
   .sidebar-widget.sidebar-widget-subscribe p {
     margin: 0 0 19px; }
     @media only screen and (min-width: 769px) {
@@ -4721,7 +4721,8 @@ textarea.form-control {
 .custom-select {
   position: relative;
   display: block;
-  margin: 0 0 20px; }
+  margin: 0 0 20px;
+  z-index: 10; }
   .custom-select .sort-list {
     position: absolute;
     top: 100%;
@@ -8610,6 +8611,9 @@ iframe[name=advpp_manager] {
   opacity: 0;
   top: -99999px;
   overflow: hidden; }
+  .map-info .ref-type-list,
+  .map-info .ref-source-list {
+    font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif; }
   @media only screen and (min-width: 769px) {
     .map-info {
       width: 355px;
@@ -9310,8 +9314,12 @@ path {
 
   img {
     display: block !important;
-    page-break-after: always !important; }
-
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid; }
+  @-moz-document url-prefix() {
+    img {
+      page-break-after: always; } }
   * {
     overflow: visible !important;
     float: none !important;

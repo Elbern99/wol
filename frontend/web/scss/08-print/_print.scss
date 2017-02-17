@@ -46,7 +46,13 @@
 
   img {
     display: block !important;
-    page-break-after: always !important ;
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+
+    @-moz-document url-prefix() {
+      page-break-after: always;
+    }
   }
 
 
