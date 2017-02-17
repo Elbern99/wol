@@ -259,7 +259,6 @@ class Result {
 
         self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
 
-        $order = !Yii::$app->request->get('sort') ? SORT_DESC : SORT_ASC;
         $filtered = false;
 
         if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
@@ -284,7 +283,7 @@ class Result {
             $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
         }
 
-        $articles = $articles->orderBy(['a.created_at' => $order])->all();
+        $articles = $articles->orderBy(['a.created_at' => SORT_DESC])->all();
 
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);

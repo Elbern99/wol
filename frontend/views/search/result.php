@@ -18,6 +18,11 @@ $this->params['breadcrumbs'][] = Html::encode('Search Result For ');
 $this->registerJsFile('/js/plugins/mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/jquery.mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\YiiAsset']]);
+
+$currentUrl[] = '/search';
+$currentParams = Yii::$app->getRequest()->getQueryParams();
+$currentUrl = array_merge($currentUrl, $currentParams);
+unset($currentParams);
 ?>
 
 <div class="container search-results">
@@ -151,20 +156,7 @@ $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\Yi
                 <div class="filter-clone-holder">
                     <div class="filter-clone">
                         <div class="sidebar-widget sidebar-widget-sort-by">
-                            <label>sort by</label>
-                            <div class="custom-select dropdown">
-                                <div class="custom-select-title dropdown-link">
-                                    Publication date (descending)
-                                </div>
-                                <div class="sort-list drop-content">
-                                    <div>
-                                        <a href="<?=Url::current(['sort' => 0, 'phrase' => $phrase]) ?>">Publication date (descending)</a>
-                                    </div>
-                                    <div <?= Yii::$app->request->get('sort') ? 'data-select="selected"' : '' ?>>
-                                        <a href="<?=Url::current(['sort' => 1, 'phrase' => $phrase]) ?>">Publication date (ascending)</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <?= $this->renderFile('@frontend/views/search/order.php', ['currentUrl' => $currentUrl]); ?>
                         </div>
 
                         <div class="sidebar-widget sidebar-widget-filter">

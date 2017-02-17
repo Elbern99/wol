@@ -12,7 +12,7 @@ use frontend\models\Result;
 use yii\helpers\Url;
 use frontend\models\SavedSearch;
 use common\models\SearchResult;
-
+use frontend\components\search\ResultStrategy;
 /**
  * Search controller
  */
@@ -153,18 +153,43 @@ class SearchController extends Controller
         $model->load($searchCreteria, '');      
         
         $results = is_array($searchResult) ? $searchResult : [];
-        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+
+        switch($order) {
+            case 'relevance':
+                $comparator = new \frontend\components\search\comparators\RelevantComparator();
+                break;
+            case 0:
+                $comparator = new \frontend\components\search\comparators\DateComparator('desc');
+                break;
+            case 1:
+                $comparator = new \frontend\components\search\comparators\DateComparator('asc');
+                break;
+            case 4:
+                $comparator = new \frontend\components\search\comparators\TitleComparator('asc');
+                break;
+            case 5:
+                $comparator = new \frontend\components\search\comparators\TitleComparator('desc');
+                break;
+            default :
+                $comparator = new \frontend\components\search\comparators\RelevantComparator();
+        }
+
         unset($searchResult);
         $resultCount = count($results);
         
         if ($resultCount) {
             Result::initData($results);
         }
+
+        $sortingResult = new ResultStrategy(Result::getSearchValue());
+        $sortingResult->setComparator($comparator);
+        $resultOrdered = $sortingResult->sort();
         
-        $paginate = new Pagination(['totalCount' => count(Result::getSearchValue()), 'params' =>  array_merge(Yii::$app->request->get(), ['phrase' => $phrase])]);
+        $paginate = new Pagination(['totalCount' => count($resultOrdered), 'params' =>  array_merge(Yii::$app->request->get(), ['phrase' => $phrase])]);
         $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
         
-        $resultData = array_slice(Result::getSearchValue(), $paginate->offset, $paginate->limit);
+        $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
         $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
 //var_dump($searchFiltersData['biography']);exit;
         return $this->render('result', [
@@ -175,7 +200,7 @@ class SearchController extends Controller
             'topData' => Result::getSearchTopValue(),
             'resultCount' => $resultCount, 
             'filters' => $searchFiltersData,
-            'currentCountResult' => count(Result::getSearchValue())
+            'currentCountResult' => count($resultOrdered)
         ]);
     }
     
