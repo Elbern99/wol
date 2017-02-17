@@ -13,6 +13,7 @@ use yii\helpers\Url;
 use frontend\models\SavedSearch;
 use common\models\SearchResult;
 use frontend\components\search\ResultStrategy;
+use frontend\components\articles\OrderBehavior;
 /**
  * Search controller
  */
@@ -159,16 +160,22 @@ class SearchController extends Controller
             case 'relevance':
                 $comparator = new \frontend\components\search\comparators\RelevantComparator();
                 break;
-            case 0:
+            case OrderBehavior::DATE_DESC:
                 $comparator = new \frontend\components\search\comparators\DateComparator('desc');
                 break;
-            case 1:
+            case OrderBehavior::DATE_ASC:
                 $comparator = new \frontend\components\search\comparators\DateComparator('asc');
                 break;
-            case 4:
+            case OrderBehavior::AUTHOR_ASC:
+                $comparator = new \frontend\components\search\comparators\AuthorComparator('asc');
+                break;
+            case OrderBehavior::AUTHOR_DESC:
+                $comparator = new \frontend\components\search\comparators\AuthorComparator('desc');
+                break;
+            case OrderBehavior::TITLE_ASC:
                 $comparator = new \frontend\components\search\comparators\TitleComparator('asc');
                 break;
-            case 5:
+            case OrderBehavior::TITLE_DESC:
                 $comparator = new \frontend\components\search\comparators\TitleComparator('desc');
                 break;
             default :

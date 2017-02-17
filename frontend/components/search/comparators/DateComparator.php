@@ -25,9 +25,17 @@ class DateComparator implements ComparatorInterface {
     
     private function orderByType($elements) {
         
-        foreach ($elements as $el) {
+        foreach ($elements as $k => $el) {
             if (isset($el['params']['created_at'])) {
-                $this->types[$el['type']][$el['params']['created_at']] = $el;
+                
+                $key = $el['params']['created_at'];
+                
+                if (isset($this->types[$el['type']]) && array_key_exists($key,  $this->types[$el['type']])) {
+                    $key += (int)$k;
+                }
+                
+                $this->types[$el['type']][$key] = $el;
+                
             } else {
                 $this->types[$el['type']][] = $el;
             }
