@@ -21,14 +21,21 @@
     page-break-after: avoid;
   }
 
-  ul {
-    list-style: disc;
-    list-style-position: inside;
+  ol,ul {
     padding-left: 0;
 
     li {
       padding-left: 0;
+
+      &:before {
+        display: none;
+      }
     }
+  }
+
+  ul {
+    list-style: disc;
+    list-style-position: inside;
   }
 
   a {

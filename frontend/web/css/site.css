@@ -9295,12 +9295,16 @@ path {
   h2, h3 {
     page-break-after: avoid; }
 
+  ol, ul {
+    padding-left: 0; }
+    ol li, ul li {
+      padding-left: 0; }
+      ol li:before, ul li:before {
+        display: none; }
+
   ul {
     list-style: disc;
-    list-style-position: inside;
-    padding-left: 0; }
-    ul li {
-      padding-left: 0; }
+    list-style-position: inside; }
 
   a {
     color: #000; }
