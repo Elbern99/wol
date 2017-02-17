@@ -203,7 +203,7 @@ $this->registerMetaTag([
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-widget sidebar-widget-subscribe">
+                    <div class="sidebar-widget sidebar-widget-twitter">
                         <div class="widget-title">iza world of labor on twitter</div>
                         <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>">
                             Tweets by IZAWorldofLabor

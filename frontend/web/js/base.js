@@ -813,7 +813,7 @@
 
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
                     twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
-                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&description='+slicedDesc+'&app_id=1273981299361667';
+                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
 
                 $(item).each(function() {
                     var cur = $(this);

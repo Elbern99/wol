@@ -167,7 +167,9 @@ table {
 a {
   color: $link-color;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition-property: color, border-color, background-color;
+  transition-duration: 0.2s, 0.2s, 0.2s;
+  transition-delay: 0s, 0s, 0s;
   
   &:hover {
     color: $light-blue;

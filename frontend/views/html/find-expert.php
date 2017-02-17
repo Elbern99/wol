@@ -28,7 +28,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
         </div>
         <h1>Find a topic spokesperson</h1>
         <p class="large-paragraph">With over XXX experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
-        <p>If you can’t find the expert you are looking for please <a href="">get in touch.</a></p>
+        <p>If you can’t find the expert you are looking for please <a href="/contact">get in touch.</a></p>
     </div>
 
     <div class="search-results-top">
