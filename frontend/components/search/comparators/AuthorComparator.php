@@ -3,7 +3,7 @@ namespace frontend\components\search\comparators;
 
 use frontend\components\search\contracts\ComparatorInterface;
 
-class TitleComparator implements ComparatorInterface {
+class AuthorComparator implements ComparatorInterface {
     
     private $types;
     private $order;
@@ -26,8 +26,23 @@ class TitleComparator implements ComparatorInterface {
     private function orderByType($elements) {
         
         foreach ($elements as $key=>$el) {
-            if (isset($el['params']['title'])) {
-                $k = strtolower(strstr($el['params']['title'], ' ', true)).$key;
+            $k = $key;
+            if (isset($el['params']['authors'])) {
+                if (is_array($el['params']['authors'])) {
+                    $author = current($el['params']['authors']);
+                    if (isset($author->surname)) {
+                        $k = strtolower($author->surname);
+                    }
+                } elseif (is_object($el['params']['authors'])) {
+                    $author = $el['params']['authors'];
+                    if (isset($author->surname)) {
+                        $k = strtolower($author->surname);
+                    }
+                } else {
+                    $this->types[$el['type']][] = $el;
+                    continue;
+                }
+
                 $this->types[$el['type']][$k] = $el;
             } else {
                 $this->types[$el['type']][] = $el;

@@ -13,7 +13,7 @@ $sort = Yii::$app->request->get('sort');
         <div>
             <a href="<?= Url::to(array_merge($currentUrl, ['sort' => 'relevance'])) ?>">Relevance</a>
         </div>
-        <div>
+        <div <?= (!$sort && !is_null($sort)) ? 'data-select="selected"' : '' ?>>
             <a href="<?= Url::to(array_merge($currentUrl, ['sort' => OrderBehavior::DATE_DESC])) ?>">Publication date (descending)</a>
         </div>
         <div <?= ($sort == OrderBehavior::DATE_ASC) ? 'data-select="selected"' : '' ?>>

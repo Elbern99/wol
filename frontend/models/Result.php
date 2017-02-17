@@ -209,9 +209,9 @@ class Result {
         
         $authors = $query->asArray()->all();
         
-        if (is_array($authors)) {
+        /*if (is_array($authors)) {
             $authors = array_reverse($authors);
-        }
+        }*/
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['affiliation']);
@@ -278,12 +278,15 @@ class Result {
                 ->where(['a.enabled' => 1, 'a.id' => $ids]);
 
         if ($filtered) {
-
             $articles->innerJoin(ArticleCategory::tableName() . ' AS ac', 'ac.article_id = a.id');
             $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
         }
+          
+        if (!is_null(Yii::$app->request->get('sort'))) {
+            $articles->orderBy(['a.created_at' => SORT_DESC]);
+        }
 
-        $articles = $articles->orderBy(['a.created_at' => SORT_DESC])->all();
+        $articles = $articles->all();
 
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
