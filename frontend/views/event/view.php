@@ -110,17 +110,23 @@
 
             <h1 class="hide-desktop"><?= $model->title; ?></h1>
             <div class="event-date">
-                <?= $model->date_from->format('F d, Y'); ?> - 
-                <?= $model->date_to->format('F d, Y'); ?>
+                <?php if ($model->date_from->format('F d, Y') != $model->date_to->format('F d, Y')) : ?>
+                    <?= $model->date_from->format('F d, Y'); ?> - 
+                    <?= $model->date_to->format('F d, Y'); ?>
+                <?php else : ?>
+                    <?= $model->date_from->format('F d, Y'); ?>
+                <?php endif; ?>
             </div>
 
             <div class="event-buttons-top">
                 <div>
-                    <?= Html::a('Book tickets', $model->book_link, ['class' => 'btn-blue']); ?>
+                    <?= Html::a('Event site', $model->book_link, ['class' => 'btn-blue']); ?>
                 </div>
+                <?php if ($model->contact_link) : ?>
                 <div>
-                    <?= Html::a('Contact', $model->contact_link, ['class' => 'btn-border-blue']); ?>
+                    <?= Html::a('Contact', 'mailto: ' . $model->contact_link, ['class' => 'btn-border-blue']); ?>
                 </div>
+                <?php endif; ?>
             </div>
 
             <div class="event-text-holder">
@@ -133,7 +139,8 @@
             <?php if(!empty($otherEvents)) : ?>
             <div class="other-events-holder">
                 <div class="other-events">
-                    <div class="widget-title medium">other events in <?= $model->date_from->format('F'); ?></div>
+                    <!--<div class="widget-title medium">other events in <?= $model->date_from->format('F'); ?></div>-->
+                    <div class="widget-title medium">upcoming events</div>
                     <ul class="other-events-list">
                         <?php foreach ($otherEvents as $event) : ?>
                         <li class="other-events-item">
@@ -141,7 +148,12 @@
                                 <?php 
                                     $dateFrom = $event->date_from->format('F d, Y');
                                     $dateTo =  $event->date_to->format('F d, Y'); 
-                                    $eventDates = "$dateFrom - $dateTo";
+                                    if ($dateFrom != $dateTo) {
+                                        $eventDates = "$dateFrom - $dateTo";
+                                    }
+                                    else {
+                                        $eventDates = $dateFrom;
+                                    }
                                 ?>
                                 <?= Html::a($eventDates, ['/event/view', 'slug' => $event->url_key]); ?>
                             </div>
@@ -161,11 +173,13 @@
             <div class="sidebar-buttons-holder">
                 <div class="event-page-buttons">
                     <div>
-                        <?= Html::a('Book your ticket', $model->book_link, ['class' => 'btn-blue']); ?>
+                        <?= Html::a('Event site', $model->book_link, ['class' => 'btn-blue']); ?>
                     </div>
+                    <?php if ($model->contact_link) : ?>
                     <div>
-                        <?= Html::a('Contact organiser', $model->contact_link, ['class' => 'btn-border-blue']); ?>
+                        <?= Html::a('Contact organiser', 'mailto: ' . $model->contact_link, ['class' => 'btn-border-blue']); ?>
                     </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="share-buttons">

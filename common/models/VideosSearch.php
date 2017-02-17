@@ -15,6 +15,8 @@ use yii\sphinx\MatchExpression;
  */
 class VideosSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterface
 {
+    const SEARCH_LIMIT = 500;
+    
     /**
      * @inheritdoc
      */
@@ -117,6 +119,7 @@ class VideosSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
         return  self::find()
                         ->select(['id'])
                         ->match($match)
+                        ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
     }

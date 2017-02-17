@@ -16,6 +16,8 @@ use yii\sphinx\MatchExpression;
  */
 class OpinionsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterface
 {
+    const SEARCH_LIMIT = 500;
+    
     /**
      * @inheritdoc
      */
@@ -119,6 +121,7 @@ class OpinionsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInte
         return  self::find()
                         ->select(['id'])
                         ->match($match)
+                        ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
     }

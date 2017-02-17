@@ -7,12 +7,16 @@ use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 use common\models\Topic;
 use common\models\Category;
 use common\modules\eav\CategoryCollection;
 use common\models\Article;
+
+use common\models\Author;
 use common\modules\eav\Collection;
+use common\modules\eav\helper\EavValueHelper;
 /**
  * Site controller
  */
@@ -119,16 +123,17 @@ class TopicController extends Controller {
             $articles[] = $item->article;
         }
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
-        
+
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $articlesIds);
         $values = $categoryCollection->getValues();
         $articlesCollection = [];
- 
+
         foreach ($articles as $article) {
             
             $articleCategory = [];
+            $authors = [];
             
             foreach ($article->articleCategories as $c) {
 
@@ -137,16 +142,32 @@ class TopicController extends Controller {
                     $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
                 }
             }
+
+            if (count($article->articleAuthors)) {
+                
+                foreach ($article->articleAuthors as $author) {
+                    $authors[] = Html::a($author->author['name'], Author::getAuthorUrl($author->author['url_key']));
+                }
+            } else {
+                $authors[] = $article->availability;
+            }
+            
+            $eavValue = $values[$article->id] ?? [];
             
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
                 'url' => '/articles/'.$article->seo,
-                'availability' => $article->availability,
-                'teaser' => unserialize($values[$article->id]['teaser']),
-                'abstract' => unserialize($values[$article->id]['abstract']), 
+                'authors' => $authors,
+                'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
+                    return $data;
+                }),
+                'abstract' => EavValueHelper::getValue($eavValue, 'abstract', function($data) {
+                    return $data;
+                }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
             ];
+            
         }
         
         

@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\components\filters\NewsletterArchiveWidget;
 ?>
 
 <?php
@@ -79,68 +80,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </ul>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
-                    <ul class="sidebar-news-list">
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/where-do-immigrants-retire-to">Where do immigrants retire to?</a></h3>
-                            <div class="writer">Augustin De Coulon</div>
-                        </li>
-                        <li>
-                            <h3><a href="/articles/pros-and-cons-of-workplace-tournaments">The pros and cons of workplace tournaments</a></h3>
-                            <div class="writer">Roman M. Sheremeta</div>
-                        </li>
-                    </ul>
-                    <a href="" class="more-link">
-                        <span class="more">More</span>
-                        <span class="less">Less</span>
-                    </a>
+                    <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                 </div>
             </div>
         </div>
@@ -260,70 +200,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     <li class="sidebar-accrodion-item hide-mobile">
                         <a href="" class="title">newsletters</a>
                         <div class="text">
-                            <ul class="articles-filter-list date-list">
-                                <li class="item open">
-                                    <div class="icon-arrow"></div>
-                                    <a href="/subject-areas/program-evaluation"><strong>2016</strong></a>
-                                    <ul class="submenu">
-                                        <li class="item">
-                                            <div class="date">July 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">June 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">May 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">April 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">March 2016</div>
-                                            <a href="">IZA WoL Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">February 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">January 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="item">
-                                    <div class="icon-arrow"></div>
-                                    <a href="/subject-areas/program-evaluation"><strong>2015</strong></a>
-                                    <ul class="submenu">
-                                        <li class="item">
-                                            <div class="date">July 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">June 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="item">
-                                    <div class="icon-arrow"></div>
-                                    <a href="/subject-areas/program-evaluation"><strong>2014</strong></a>
-                                    <ul class="submenu">
-                                        <li class="item">
-                                            <div class="date">July 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                        <li class="item">
-                                            <div class="date">June 2016</div>
-                                            <a href="">IZA World of Labor Newsletter</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                         </div>
                     </li>
                     <?php if ($articlesSidebar) : ?>

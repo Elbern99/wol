@@ -27,7 +27,7 @@ trait ProfileTrait {
                         ->alias('a')
                         ->select(['a.id', 'a.title', 'a.seo', 'a.created_at'])
                         ->innerJoinWith(['articleAuthors.author' => function($query) {
-                            return $query->alias('au')->select(['au.url_key', 'au.name'])->where(['au.enabled' => 1]);
+                            return $query->alias('au')->where(['au.enabled' => 1]);
                         }])
                         ->where(['a.enabled' => 1, 'au.id' => $authorId])
                         ->with(['articleCategories' => function($query) {

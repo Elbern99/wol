@@ -43,7 +43,7 @@ class OpinionController extends Controller {
             $limitPrev = Yii::$app->request->get('limit');
             
             if (isset($limitPrev) && intval($limitPrev)) {
-                $limit += (int)$limitPrev;
+                $limit += (int)$limitPrev - 1;
             }
 
         }

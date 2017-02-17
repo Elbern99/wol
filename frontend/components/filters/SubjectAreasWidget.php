@@ -69,7 +69,7 @@ class SubjectAreasWidget extends Widget {
                 }
 
                 $content .= Html::beginTag('li', ['class' => $css]) .
-                        Html::tag('label', $labelContent, ['class' => 'def-checkbox light']);
+                        Html::tag('label', $labelContent, ['class' => 'def-checkbox light item-filter-box']);
 
                 ++$counter;
             }
@@ -86,7 +86,7 @@ class SubjectAreasWidget extends Widget {
         $filtered = $this->param['filtered'];
 
         if (is_null($filtered)) {
-            return [];
+            return ['checked' => 'checked'];
         } elseif (is_array($filtered) && (array_search($id, $filtered) === false)) {
             return [];
         }

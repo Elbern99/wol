@@ -20,7 +20,7 @@ if ($category) {
 
 $this->title = $model->title;
 
-$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/event/index'])];
+$this->params['breadcrumbs'][] = ['label' => Html::encode('Commentary'), 'url' => Url::to(['/commentary'])];
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Videos'), 'url' => Url::to(['/video/index'])];
 $this->params['breadcrumbs'][] = $model->title;
 

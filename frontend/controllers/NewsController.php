@@ -64,16 +64,18 @@ class NewsController extends Controller {
             'name' => ['stay_up_to_date', 'Socials'],
         ])->orderBy('id desc')->all();
         
-        
+        $isInArchive = false;
         $newsQuery = NewsItem::find()->orderBy('created_at desc');
         
         if ($month && $year) {
+           $isInArchive = true;
            $newsQuery->andWhere([
                 'MONTH(created_at)' => $month,
                 'YEAR(created_at)' => $year,
             ]);
         }
         else if (!$month && $year) {
+            $isInArchive = true;
             $newsQuery->andWhere([
                 'YEAR(created_at)' => $year,
             ]);
@@ -106,6 +108,8 @@ class NewsController extends Controller {
         
         krsort($newsTree, SORT_NUMERIC);
         
+        $newsletterArchive = NewsletterNews::find()->select(['title', 'date', 'url_key'])->orderBy(['date' => SORT_DESC])->all();
+        
         return $this->render('index', [
             'news' => $this->_getNewsList($limit, $year, $month),
             'newsCount' => $newsQuery->count(),
@@ -114,6 +118,8 @@ class NewsController extends Controller {
             'newsTree' => $newsTree,
             'limit' => $limit,
             'articlesSidebar' => $articles,
+            'newsletterArchive' => $newsletterArchive,
+            'isInArchive' => $isInArchive,
         ]);
     }
     
@@ -159,6 +165,7 @@ class NewsController extends Controller {
                 ->limit(10)->all();
         
         krsort($newsTree, SORT_NUMERIC);
+        $newsletterArchive = NewsletterNews::find()->select(['title', 'date', 'url_key'])->orderBy(['date' => SORT_DESC])->all();
         
         return $this->render('view', [
             'model' => $newsItem,
@@ -167,6 +174,7 @@ class NewsController extends Controller {
             'newsSidebar' => $latestNews,
             'newsTree' => $newsTree,
             'articlesSidebar' => $articles,
+            'newsletterArchive' => $newsletterArchive,
         ]);
     }
     

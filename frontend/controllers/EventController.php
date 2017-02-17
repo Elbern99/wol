@@ -112,9 +112,10 @@ class EventController extends Controller {
         if (!$event) 
             return $this->redirect(Url::to(['/event/index']));
         
-        $yearMonth = $event->date_from->format('Y-m');
-        $otherEvents = Event::find()->andWhere("date_from like '$yearMonth%'")
+        $yearMonth = $event->date_from->format('Y-m-d');
+        $otherEvents = Event::find()->andWhere("date_from >= now()")
                                     ->andWhere("id <> $event->id")
+                                    ->limit(3)
                                     ->all();
         
         $groupsQuery = (new \yii\db\Query())
