@@ -115,6 +115,7 @@ class EventController extends Controller {
         $yearMonth = $event->date_from->format('Y-m-d');
         $otherEvents = Event::find()->andWhere("date_from >= now()")
                                     ->andWhere("id <> $event->id")
+                                    ->orderBy('date_from asc')
                                     ->limit(3)
                                     ->all();
         

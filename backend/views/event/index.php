@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'label' => 'Date To',
                         'value' => function ($model) {
-                            return $model->date_from->format('d F Y');
+                            return $model->date_to->format('d F Y');
                         }
                     ],
                     [
