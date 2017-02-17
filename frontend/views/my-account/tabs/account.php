@@ -69,7 +69,7 @@ use yii\helpers\Html;
                                         <div class="icon-question tooltip"></div>
                                         <div class="tooltip-content drop-content">
                                             <div class="icon-close"></div>
-                                            <p>Selecting your areas of interest helps us to better understand our audience. We use your areas of interest in the following ways:</p>
+                                            <p>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</p>
                                             <ul>
                                                 <li>To enable you to receive alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below)</li>
                                                 <li>To better understand our audience</li>

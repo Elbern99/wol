@@ -8610,6 +8610,9 @@ iframe[name=advpp_manager] {
   opacity: 0;
   top: -99999px;
   overflow: hidden; }
+  .map-info .ref-type-list,
+  .map-info .ref-source-list {
+    font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif; }
   @media only screen and (min-width: 769px) {
     .map-info {
       width: 355px;
@@ -9310,7 +9313,7 @@ path {
 
   img {
     display: block !important;
-    page-break-after: always !important; }
+    page-break-inside: auto; }
 
   * {
     overflow: visible !important;

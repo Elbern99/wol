@@ -60,13 +60,13 @@ $this->registerCssFile('/css/leaflet.css');
                     'position' => $i,
                     'title' => $reference->title,
                     'full_citation' => (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation,
-                    'source' => (is_array($reference->data_source)) ? implode('<br>', $reference->data_source) : $reference->data_source,
-                    'type' => (is_array($reference->data_type)) ? implode(', ', $reference->data_type) : $reference->data_type,
+                    'source' => (is_array($reference->data_source)) ? '<li>'.implode('</li><li>', $reference->data_source).'</li>' : '<li>'.$reference->data_source.'</li>',
+                    'type' => (is_array($reference->data_type)) ? '<li>'.implode('</li><li>', $reference->data_type).'</li>' : '<li>'.$reference->data_type.'</li>',
                     'method' => (is_array($reference->method)) ? implode(', ', $reference->method) : $reference->method
                 ];
                 
                 foreach ($reference->country_codes as $code) {
-                    
+
                     if (isset($source[$code])) {
                         $source[$code]['key_references'][] = $data;
                         continue;
