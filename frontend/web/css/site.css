@@ -2910,7 +2910,7 @@ blockquote {
     .sidebar-widget.sidebar-widget-views .link-holder a {
       color: #0094f2; }
   .sidebar-widget.sidebar-widget-subscribe .widget-title {
-    margin-bottom: 11px; }
+    margin-bottom: -1px; }
   .sidebar-widget.sidebar-widget-subscribe p {
     margin: 0 0 19px; }
     @media only screen and (min-width: 769px) {
