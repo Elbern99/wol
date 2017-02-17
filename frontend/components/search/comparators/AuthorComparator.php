@@ -31,12 +31,12 @@ class AuthorComparator implements ComparatorInterface {
                 if (is_array($el['params']['authors'])) {
                     $author = current($el['params']['authors']);
                     if (isset($author->surname)) {
-                        $k = strtolower($author->surname).$key;
+                        $k = strtolower($author->surname);
                     }
                 } elseif (is_object($el['params']['authors'])) {
                     $author = $el['params']['authors'];
                     if (isset($author->surname)) {
-                        $k = strtolower($author->surname).$key;
+                        $k = strtolower($author->surname);
                     }
                 } else {
                     $this->types[$el['type']][] = $el;
