@@ -144,10 +144,6 @@
   position: relative;
   height: 100%;
 
-  h2,h3,a{
-    transition: all 0s ease !important;
-  }
-
   .img {
     transition: all 0.3s ease !important;
   }
@@ -390,6 +386,10 @@
 
   .less {
     display: none;
+  }
+
+  &:hover {
+    color: $blue;
   }
 
   &.opened {

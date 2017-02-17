@@ -871,22 +871,20 @@ th {
   .icon-burger:before {
     top: 12px; }
 
-.active .icon-burger {
-  z-index: 10000; }
-  .active .icon-burger:after, .active .icon-burger:before,
-  .active .icon-burger span {
-    left: 3px;
-    right: 3px; }
-  .active .icon-burger:after {
-    opacity: 0; }
-  .active .icon-burger:before {
-    transform: rotate(45deg);
-    top: 6px;
-    background: #fff; }
-  .active .icon-burger span {
-    transform: rotate(-45deg);
-    top: 6px;
-    background: #fff; }
+.active .icon-burger:after, .active .icon-burger:before,
+.active .icon-burger span {
+  left: 3px;
+  right: 3px; }
+.active .icon-burger:after {
+  opacity: 0; }
+.active .icon-burger:before {
+  transform: rotate(45deg);
+  top: 6px;
+  background: #fff; }
+.active .icon-burger span {
+  transform: rotate(-45deg);
+  top: 6px;
+  background: #fff; }
 
 .icon-cross {
   width: 14px;
@@ -1711,7 +1709,9 @@ table {
 a {
   color: #0053a0;
   text-decoration: none;
-  transition: all 0.2s ease; }
+  transition-property: color, border-color, background-color;
+  transition-duration: 0.2s, 0.2s, 0.2s;
+  transition-delay: 0s, 0s, 0s; }
   a:hover {
     color: #0094f2; }
 
@@ -1889,11 +1889,6 @@ blockquote {
   width: 100%;
   position: relative;
   height: 100%; }
-  .article-item h2, .article-item h3, .article-item a,
-  .post-item h2,
-  .post-item h3,
-  .post-item a {
-    transition: all 0s ease !important; }
   .article-item .img,
   .post-item .img {
     transition: all 0.3s ease !important; }
@@ -2060,6 +2055,8 @@ blockquote {
       font-size: 10px; } }
   .article-more .less {
     display: none; }
+  .article-more:hover {
+    color: #0053a0; }
   .article-more.opened span {
     display: none; }
     .article-more.opened span.less {
@@ -6391,6 +6388,9 @@ iframe[name=advpp_manager] {
     .auto-search-list span:hover {
       color: #0094f2; }
 
+.btn-mobile-menu-show.active {
+  z-index: 10000; }
+
 .sidebar-right {
   margin: 0 0 27px; }
   @media only screen and (min-width: 769px) {
@@ -8837,7 +8837,7 @@ path {
     margin: 0 0 16px; }
     .event-page-buttons > div a {
       height: 32px;
-      line-height: 33px;
+      line-height: 34px;
       width: 160px;
       font-size: 11px;
       font-family: "lucidaSansDemibold", Helvetica, Arial, Sans-serif; }

@@ -158,7 +158,7 @@
                     </li>
                 </ul>
                 <div class="faq-accordion-bottom">
-                    Not found the answer to your question? <a href="">Get in touch</a>
+                    Not found the answer to your question? <a href="/contact">Get in touch</a>
                 </div>
             </div>
         </div>

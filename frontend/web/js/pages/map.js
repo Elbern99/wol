@@ -31,7 +31,7 @@
             ],
             anchorsClass: '',
             twitterUsername: '',
-            facebookAppID: '1273981299361667',
+            facebookAppID: '686925074844965',
             facebookDisplayMode: 'popup',
             tooltipTimeout: 50
         });
