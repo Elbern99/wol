@@ -1579,10 +1579,18 @@
   }
 
   //item
-  &.sidebar-widget-subscribe {
+  &.sidebar-widget-twitter {
 
     .widget-title {
       margin-bottom: -1px;
+    }
+  }
+
+  //item
+  &.sidebar-widget-subscribe {
+
+    .widget-title {
+      margin-bottom: 11px;
     }
 
     p {
