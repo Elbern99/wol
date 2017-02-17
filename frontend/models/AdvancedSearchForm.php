@@ -4,6 +4,7 @@ namespace frontend\models;
 use yii\base\Model;
 use Yii;
 use frontend\models\contracts\SearchInterface;
+use frontend\components\search\ResultStrategy;
 /**
  * Signup form
  */
@@ -54,7 +55,10 @@ class AdvancedSearchForm extends Model implements SearchInterface
 
         }
         
-        return $result;
+        $comparator = new \frontend\components\search\comparators\RelevantComparator();
+        $sortingResult = new ResultStrategy($result);
+        $sortingResult->setComparator($comparator);
+        return $sortingResult->sort();
     }
     
     /**

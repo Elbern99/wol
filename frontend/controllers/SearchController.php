@@ -198,7 +198,7 @@ class SearchController extends Controller
         
         $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
         $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
-//var_dump($searchFiltersData['biography']);exit;
+
         return $this->render('result', [
             'phrase' => $phrase,
             'search' => $model,
