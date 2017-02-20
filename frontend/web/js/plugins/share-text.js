@@ -94,6 +94,9 @@
         }
         return smartSanitize(text);
     };
+
+    var title = $('h1').text();
+
     var generateSocialUrl = function generateSocialUrl(socialType, text) {
         if (parameters.sanitize) {
             text = sanitizeText(text, socialType);
@@ -104,7 +107,7 @@
         if (parameters.twitterUsername && parameters.twitterUsername.length) {
             twitterUrl += '&via=' + parameters.twitterUsername;
         }
-        var facebookUrl = 'https://facebook.com/dialog/share?display=' + parameters.facebookDisplayMode + '&href=' + PAGE_URL + '&description="' + text + '"';
+        var facebookUrl = 'https://facebook.com/dialog/share?display=' + parameters.facebookDisplayMode + '&href=' + PAGE_URL + '&title='+title+'&description="' + text + '"';
         if (document.querySelector('meta[property="fb:app_id"]') && document.querySelector('meta[property="fb:app_id"]').getAttribute('content')) {
             var content = document.querySelector('meta[property="fb:app_id"]');
             facebookUrl += '&app_id=' + content;
@@ -129,7 +132,7 @@
             twitter: twitterUrl,
             buffer: 'https://buffer.com/add?text="' + text + '"&url=' + PAGE_URL,
             digg: 'http://digg.com/submit?url=' + PAGE_URL + '&title=' + text,
-            linkedin: 'https://www.linkedin.com/shareArticle?url=' + PAGE_URL + '&title=' + text,
+            linkedin: 'https://www.linkedin.com/shareArticle?url=' + PAGE_URL + '&summary=' + text + '&title=' + title,
             stumbleupon: 'http://www.stumbleupon.com/submit?url=' + PAGE_URL + '&title=' + text,
             reddit: 'https://reddit.com/submit?url=' + PAGE_URL + '&title=' + text,
             tumblr: emailTextArticle,
