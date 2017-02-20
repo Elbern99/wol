@@ -649,7 +649,7 @@ th {
 
 .pinout, .no-image.img-holder-bg:after, .editor-item .img-holder-bg.img-holder:after, .article-user .img-holder-bg.img-holder:after, .search-results-media-item .img-holder-bg.img-holder:after, .account-head .img-holder-bg.img-holder:after, .contributor-profile .img-holder-bg.img-holder:after, .no-image .img, .editor-item .img-holder .img, .article-user .img-holder .img, .search-results-media-item .img-holder .img, .account-head .img-holder .img, .contributor-profile .img-holder .img, .key-topics-item:after, .sidebar-widget.sidebar-widget-evidence-map a:after, .data-method-item .img:after, .key-topics-list li a, .custom-checkbox .label-text:before, .def-checkbox .label-text:before, .overlay, .article-pagers:before, #article-map-medium,
 #map-mini, #article-map-medium:after, .account-head .img-holder .inner, .account-head .img-holder .field-load_image,
-.account-head .img-holder .help-block, .account-head .img-holder input[type="file"] {
+.account-head .img-holder .help-block, .account-head .img-holder input[type="file"], .map-mobile {
   position: absolute;
   top: 0;
   left: 0;
@@ -5206,7 +5206,9 @@ label {
   z-index: 1000; }
   @media only screen and (min-width: 769px) {
     .overlay {
-      background: rgba(0, 0, 0, 0.05); } }
+      background: rgba(0, 0, 0, 0.05); }
+      .overlay.map-overlay {
+        display: none; } }
 
 .tabs-holder {
   position: relative; }
@@ -8778,6 +8780,30 @@ path {
   path.innovation {
     fill: #00453a !important;
     stroke: #00352d !important; }
+
+.map-position {
+  position: relative; }
+
+.map-mobile {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  z-index: 2000;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2); }
+  .map-mobile.map-active {
+    display: none; }
+  .map-mobile span {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px 10px 4px;
+    border-radius: 2px; }
+  @media only screen and (min-width: 769px) {
+    .map-mobile {
+      display: none; } }
 
 .event-page h3 {
   font-size: 18px;

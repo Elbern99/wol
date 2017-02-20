@@ -1052,7 +1052,7 @@
     elements.window.load(function() {
         $('.preloader').fadeOut();
         articleList.openMoreText('.article-more','.description');
-        articleList.pajax('#w0');
+        articleList.pajax('.loader-ajax');
         articleList.pajaxLoader('.loader-ajax');
         articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
