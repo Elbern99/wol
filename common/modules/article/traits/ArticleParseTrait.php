@@ -430,6 +430,32 @@ trait ArticleParseTrait {
                 }
             }
             
+            if (isset($monogr->editor)) {
+
+                foreach ($monogr->editor as $editor) {
+                    
+                    $name = false;
+                    
+                    if (isset($editor->persName)) {
+                        
+                        $name = (string) $editor->persName->surname.', ';
+                        $forenameArray = [];
+                        
+                        if (isset($editor->persName->forename)) {
+                            foreach ($editor->persName->forename as $forename) {
+                                $forenameArray[] = $forename . ".";
+                            }
+                        }
+                        $name .= implode(' ', $forenameArray);
+                    }
+                    
+                    if ($name || trim($name)) {
+                        $authors[] = $name;
+                    }
+                    
+                }
+            }
+            
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
