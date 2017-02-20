@@ -1,7 +1,7 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'info@example.com',
+    'supportEmail' => 'wol@iza.org',
     'user.passwordResetTokenExpire' => 3600,
     'articleModelDetail' => [
         'language' => '\common\models\Lang',
