@@ -7,6 +7,10 @@
 
   @include breakpoint('tablet') {
     background: rgba(0, 0, 0, 0.05);
+
+    &.map-overlay {
+      display: none;
+    }
   }
 }
 

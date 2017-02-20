@@ -145,7 +145,9 @@ $this->registerCssFile('/css/leaflet.css');
                         <div class="icon-close"></div>
                     </div>
                 </div>
-                <div id="map"></div>
+                <div class="map-position">
+                    <div id="map"></div>
+                </div>
             </div>
 
             <ul class="evidence-map-list">

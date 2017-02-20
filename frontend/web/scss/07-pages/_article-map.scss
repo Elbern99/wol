@@ -653,3 +653,32 @@ path {
     stroke: rgba(0, 53, 45, 1) !important;
   }
 }
+
+.map-position {
+  position: relative;
+}
+
+.map-mobile {
+  @extend .pinout;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+
+  &.map-active {
+    display: none;
+  }
+  
+  span {
+    background: rgba(255,255,255,0.7);
+    padding: 6px 10px 4px;
+    border-radius: 2px;
+  }
+
+  @include breakpoint('tablet') {
+    display: none;
+  }
+}
