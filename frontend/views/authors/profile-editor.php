@@ -66,14 +66,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <?php $areas = $author['author']->getAuthorCategoriesArray(); ?>
                     <?php if (is_array($areas) && count($areas)): ?>
                     <div class="item-role-subject">
-                        <span>
+                        <strong>
                         <?php
                             foreach ($author['roles'] as $role) {
                                 if (preg_match("/Editor/", $role)) {
                                     echo $role.", ";
                                 }
                             }
-                         ?></span>
+                         ?></strong>
                         <?php foreach($areas as $area): ?>
                         <span><?= Html::a($area['title'], $area['url_key']) ?></span>
                         <?php endforeach; ?>

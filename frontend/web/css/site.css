@@ -1709,9 +1709,9 @@ table {
 a {
   color: #0053a0;
   text-decoration: none;
-  transition-property: color, border-color, background-color, opacity;
-  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s;
-  transition-delay: 0s, 0s, 0s, 0s; }
+  transition-property: color, border-color, background-color, opacity, margin;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-delay: 0s, 0s, 0s, 0s, 0.2s; }
   a:hover {
     color: #0094f2; }
 
