@@ -148,6 +148,20 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         });
     }
     
+    public function getAuthorUrlByRoleType($type) {
+ 
+        switch($type) {
+            case 'expert':
+                return Html::a($this->name, Url::to('/spokespeople/'.$this->url_key));
+                break;
+            case 'editor':
+                return Html::a($this->name, Url::to('/editors/'.$this->url_key));
+                break;
+            default:
+                return Html::a($this->name, Url::to('/authors/'.$this->url_key));
+        }
+    }
+    
     public function getAuthorCategoriesArray() {
         return  AuthorCategory::find()
                     ->select(['c.url_key', 'c.title'])
