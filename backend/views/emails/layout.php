@@ -9,7 +9,7 @@
     <?php $this->beginBody() ?>
     <?= $content ?>
     <p>
-        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA <span style="background:yellow">2017</span></span>
+        <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">Copyright &copy; IZA <?= date('Y') ?></span>
     </p>
     <?php $this->endBody() ?>
 </body>

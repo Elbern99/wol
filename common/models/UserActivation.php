@@ -17,7 +17,7 @@ use Yii;
 class UserActivation extends \yii\db\ActiveRecord
 {
     
-    protected $subject = 'IZA Confirm Email';
+    protected $subject = 'IZA World of Labor - Confirm Email Address';
     protected static $duration = "10 days";
     /**
      * @inheritdoc

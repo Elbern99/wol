@@ -113,7 +113,7 @@ class SignupForm extends Model
                 
             }
             
-            $this->sendRegisteredEmail($subscriberId);
+            $this->sendRegisteredEmail($subscriberId, $user);
             
             return $user;
         }
@@ -121,10 +121,10 @@ class SignupForm extends Model
         return null;
     }
     
-    protected function sendRegisteredEmail($subscriberId) {
+    protected function sendRegisteredEmail($subscriberId, $user) {
         
-        $body = Yii::$app->view->renderFile('@frontend/views/emails/registered.php', ['subscriber' => $subscriberId]);
-            
+        $body = Yii::$app->view->renderFile('@frontend/views/emails/registered.php', ['subscriber' => $subscriberId, 'user' => $user]);
+        
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [

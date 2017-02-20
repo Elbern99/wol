@@ -10,7 +10,7 @@ $params = (!is_null($newEmail)) ? ['/site/confirm/','token' => $token, 'email' =
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear <?= $user->first_name ?> <?= $user->last_name ?>,</span></p>
 
 <p>
-    <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have received this email because you signed up to IZA World of Labor.  To confirm your email address, <?= Html::a('<span style="color:black">please click here</span>' , Url::to($params, true)); ?>.</span>
+    <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have received this email because you signed up to IZA World of Labor.  To confirm your email address, <?= Html::a('<span style="color:black">please click here</span>', Url::to($params, true)); ?>.</span>
 </p>
 
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Best wishes, </span></p>
