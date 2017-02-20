@@ -238,7 +238,7 @@ class AuthorsController extends Controller {
         if (count($authors)) {
 
             foreach ($authors as $author) {
-                $result[] = Html::a($author['name'], Author::getAuthorUrl($author['url_key']));
+                $result[] = $author->getAuthorUrlByRoleType($type);
             }
         }
 
