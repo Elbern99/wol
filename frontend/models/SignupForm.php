@@ -81,11 +81,7 @@ class SignupForm extends Model
         $user->generateAuthKey();
 
         if ($user->save()) {
-            
-            if (!$activated->addActivated($user)) {
-                $this->errorMessage[] = 'We can not send confirmation email, Please try login later.';
-            }
-            
+
             $subscriberId = null;
             
             if ($this->newsletter && is_array($this->items)) {
@@ -113,7 +109,13 @@ class SignupForm extends Model
                 
             }
             
-            $this->sendRegisteredEmail($subscriberId, $user);
+            if (!$this->errorMessage) {
+                $this->sendRegisteredEmail($subscriberId, $user);
+            }
+            
+            if (!$activated->addActivated($user)) {
+                $this->errorMessage[] = 'We can not send confirmation email, Please try login later.';
+            }
             
             return $user;
         }
