@@ -806,7 +806,7 @@
                 }
 
                 var
-                    slicedDesc = sliceText(descClear,140),
+                    slicedDesc = sliceText(descClear,240),
                     slicedTitle = sliceText(titleClear,140);
 
                 //set
