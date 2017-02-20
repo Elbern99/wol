@@ -129,26 +129,28 @@ $config = [
             <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser') ?></h3>
         </div>
 
-        <?php foreach ($authors as $author): ?>
-            <div class="article-user">
-                <div class="img-holder img-holder-bg">
-                    <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
-                </div>
-
-                <div class="desc">
-                    <div class="name">
-                        <?= Html::a($author['name']->first_name.' '.
-                            $author['name']->middle_name.' '.
-                            $author['name']->last_name
-                            ,$author['profile']
-                        );
-                        ?>
+        <div class="article-user-list">
+            <?php foreach ($authors as $author): ?>
+                <div class="article-user">
+                    <div class="img-holder img-holder-bg">
+                        <a href="<?= $author['profile'] ?>" class="img" style="background-image: url(<?= $author['avatar'] ?>)"></a>
                     </div>
-                    <p><?= $author['affiliation'] ?></p>
-                </div>
 
-            </div>
-        <?php endforeach; ?>
+                    <div class="desc">
+                        <div class="name">
+                            <?= Html::a($author['name']->first_name.' '.
+                                $author['name']->middle_name.' '.
+                                $author['name']->last_name
+                                ,$author['profile']
+                            );
+                            ?>
+                        </div>
+                        <p><?= $author['affiliation'] ?></p>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 
     <div class="content-inner">

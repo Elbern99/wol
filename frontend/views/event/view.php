@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <h1 class="hide-desktop"><?= $model->title; ?></h1>
+            <div class="clone-title hide-desktop"><?= $model->title; ?></div>
             <div class="event-date">
                 <?php if ($model->date_from->format('F d, Y') != $model->date_to->format('F d, Y')) : ?>
                     <?= $model->date_from->format('F d, Y'); ?> - 

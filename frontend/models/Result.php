@@ -194,7 +194,7 @@ class Result {
 
         if (is_array(self::$filters) && array_key_exists('biography', self::$filters)) {
 
-            if (!is_null(self::$filters['biography'])) {
+            if (self::$filters['biography']) {
                 $filtered = true;
             } elseif (count(self::$biographyFilter) && is_null(self::$filters['biography'])) {
                 return false;
@@ -209,9 +209,9 @@ class Result {
         
         $authors = $query->asArray()->all();
         
-        if (is_array($authors)) {
+        /*if (is_array($authors)) {
             $authors = array_reverse($authors);
-        }
+        }*/
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['affiliation']);
@@ -259,12 +259,11 @@ class Result {
 
         self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
 
-        $order = !Yii::$app->request->get('sort') ? SORT_DESC : SORT_ASC;
         $filtered = false;
 
         if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
 
-            if (!is_null(self::$filters['subject'])) {
+            if (self::$filters['subject']) {
                 $filtered = true;
             }
 
@@ -272,32 +271,43 @@ class Result {
 
         $articles = Article::find()
                 ->alias('a')
-                ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                ->select(['a.id as id', 'a.title', 'a.seo', 'a.created_at'])
+                ->with(['articleAuthors.author' => function($query) {
+                    return $query->alias('au')->where(['au.enabled' => 1]);
+                }])
                 ->where(['a.enabled' => 1, 'a.id' => $ids]);
 
         if ($filtered) {
-
             $articles->innerJoin(ArticleCategory::tableName() . ' AS ac', 'ac.article_id = a.id');
             $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
         }
+          
+        if (!is_null(Yii::$app->request->get('sort'))) {
+            $articles->orderBy(['a.created_at' => SORT_DESC]);
+        }
 
-        $articles = $articles->orderBy(['created_at' => $order])->all();
+        $articles = $articles->all();
 
         $categoryCollection = Yii::createObject(CategoryCollection::class);
         $categoryCollection->setAttributeFilter(['teaser', 'abstract']);
         $categoryCollection->initCollection(Article::tableName(), $ids);
         $values = $categoryCollection->getValues();
-
+        
         
         foreach ($articles as $article) {
             
             $eavValue = $values[$article->id] ?? [];
+            $articleOwner = [];
             
+            foreach ($article->articleAuthors as $author) { 
+                $articleOwner[] = $author['author'];
+            }
+
             self::$value[] = [
                 'params' => [
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
-                    'availability' => $article->availability,
+                    'authors' => $articleOwner,
                     'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                         return $data;
                     }),

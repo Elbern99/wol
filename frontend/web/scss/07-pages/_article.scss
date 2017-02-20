@@ -217,15 +217,15 @@
 }
 
 .article-pagers {
-  width: 240px;
-  overflow: hidden;
+  width: 209px;
+  @extend .clearfix;
   position: relative;
 
   @include breakpoint('tablet') {
     width: 223px;
   }
 
-  &:after {
+  &:before {
     @extend .pinout;
     border-radius: 4px;
     border: 1px solid #aaa;
@@ -246,6 +246,7 @@
     z-index: 1;
     text-transform: uppercase;
     font-size: 12px;
+    //@extend.material-state;
 
     @include breakpoint('tablet') {
       font-size: 11px;
@@ -648,12 +649,29 @@
     z-index: 560;
   }
 
+  .leaflet-pane {
+    width: 100%;
+    height: 100%;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
   svg {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.3) !important;
-    margin: 149px 0 0 283px;
+    transform: translate3d(0, 0, 0px) !important;
+
+    @include breakpoint_custom($breakpoint-desktop) {
+      margin: -154px 0 0 -251px !important;
+      width: 500px !important;
+      height: 400px !important;
+    }
+
+    @include breakpoint('desktop') {
+      margin: -386px 0 0 -634px !important;
+      width: 1300px !important;
+      height: 900px !important;
+    }
   }
 }
 

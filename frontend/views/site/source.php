@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
 use frontend\components\widget\CustomGridView;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\models\AdvancedSearchForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -66,10 +68,11 @@ $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']
                     'columns' => [
                         [
                             'label' => 'Data Source',
-                            'format' => 'html',
+                            'format' => 'raw',
                             'attribute' => 'source',
                             'value' => function($model) {
-                                $text = "<br>".Html::a('View articles referencing this data source', Url::to(['/search/advanced', 'phrase' => $model->source]));
+                                $text = "<br>";
+                                $text .= '<a href="#" data-source="'.$model->source.'" class="search-source-article">View articles referencing this data source</a>';
                                 return $model->source.$text;
                             },
                         ],
@@ -114,6 +117,10 @@ $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']
                 ?>
             </div>
         </div>
+        <?php $model = new AdvancedSearchForm(); ?>
+        <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'source-search-form', 'style' => 'display:none']]); ?>
+            <?= $form->field($model, 'search_phrase') ?>
+        <?php ActiveForm::end(); ?>
         <aside class="sidebar-right stiky">
             <div class="sidebar-widget">
                 <div class="widget-title">Filter</div>

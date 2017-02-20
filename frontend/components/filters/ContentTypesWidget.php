@@ -31,10 +31,13 @@ class ContentTypesWidget extends Widget {
             }
 
             $content .= Html::beginTag('li');
-            $content .= Html::beginTag('label', ['class' => "def-checkbox light"]);
+            $content .= Html::beginTag('label', ['class' => "def-checkbox light item-filter-box"]);
             $selected = $this->param['selected'];
-
-            if (isset($selected[$model])) {
+            
+            if (!count($selected)) {
+                $content .= Html::input('checkbox', $this->prefix . '[]', $key);
+                $content .= Html::tag('span', $item, ['class' => "label-text"]);
+            } elseif (isset($selected[$model])) {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $key, $this->isChecked($key));
                 $spanContent = $item;
                 $spanContent .= Html::tag('strong', '(' . count($selected[$model]) . ')', ['class' => "count"]);
@@ -60,7 +63,7 @@ class ContentTypesWidget extends Widget {
         $filtered = $this->param['filtered'];
 
         if (is_null($filtered)) {
-            return [];
+            return ['checked' => 'checked'];
         } elseif (is_array($filtered) && (array_search($id, $filtered) === false)) {
             return [];
         }

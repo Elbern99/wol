@@ -4,7 +4,7 @@ return [
     'moderatorEmail' => 'anna.fleming@bloomsbury.com',
     'default_lang' => [
         'id' => 0,
-        'name' => 'En',
+        'name' => 'English',
         'image' => '/images/lang/english.jpg'
     ],
     'search' => [

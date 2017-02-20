@@ -8,7 +8,13 @@
     <div class="article-item">
         <h2><a href="<?= $value['url'] ?>"><?= $value['title'] ?></a></h2>
         <h3><?= $value['teaser']->teaser ?? ''; ?></h3>
-        <div class="name"><a href=""><?= $value['availability'] ?></a></div>
+        <div class="name">
+            <?php foreach($value['authors'] as $owner): ?>
+                <?php if (is_object($owner)): ?>
+                <a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
         <div class="description">
             <?= $value['abstract']->abstract ?? ''; ?>
         </div>

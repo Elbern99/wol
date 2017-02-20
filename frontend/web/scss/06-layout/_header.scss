@@ -9,12 +9,12 @@
 
         .submenu {
           .item {
-            &:last-child {
+            &.no-submenu {
               a {
                 color: $light-blue;
                 
                 &:hover {
-                  color: $blue;
+                  color: $blue ;
                 }
               }
             }
@@ -64,33 +64,39 @@
   //margin: 0 0 -1px;
 
   @include breakpoint('tablet') {
-    .submenu  {
-      left:  0;
-      right: auto;
-      margin: -5px 0 0 ;
+    li {
 
-      a {
-        color: #2a2a2a;
+      .submenu  {
+        margin-top: -5px;
+        left: 50%;
+        margin-left: -133px;
 
-        &:hover {
-          color: $blue;
+        a {
+          color: #2a2a2a;
+
+          &:hover {
+            color: $blue;
+          }
+        }
+
+        &:after {
+          left: 50%;
         }
       }
 
-      &:after {
-        left: 24px;
-      }
-    }
-  }
+      &:first-child {
 
-  @include breakpoint('desktop-large') {
-    .submenu  {
-      margin-top: -5px;
-      left: 50%;
-      margin-left: -133px;
+        @include breakpoint_custom($breakpoint-desktop-large) {
+          .submenu  {
+            left:  0;
+            right: auto;
+            margin: -5px 0 0;
 
-      &:after {
-        left: 50%;
+            &:after {
+              left: 24px;
+            }
+          }
+        }
       }
     }
   }
@@ -210,8 +216,8 @@
 
         .item {
           font-size: 11px;
-          margin: 0 0 -2px 0;
-          line-height: 20px;
+          margin: 0 0 7px 0;
+          line-height: 15px;
 
           &:last-child { margin-bottom: 0; }
         }
@@ -598,8 +604,8 @@
     background: #fff;
     left: -150%;
     transition: all 0.3s ease;
-    height: 100vh;
     opacity: 0;
+    bottom: 0;
 
     &.mobile-login {
       z-index: 1003;
@@ -624,7 +630,7 @@
     left: 0;
     right: 0;
 
-    >.dropdown {
+    >.custom-dropdown {
 
       >.btn-mobile-icon {
         position: absolute;
@@ -654,6 +660,7 @@
     transition: all 0.3s ease;
     opacity: 0;
     z-index: 1003;
+    bottom: 0;
 
     .btn-mobile-icon {
       position: absolute;
@@ -837,5 +844,11 @@
     &:hover {
       color: $light-blue;
     }
+  }
+}
+
+.btn-mobile-menu-show {
+  &.active {
+    z-index: 10000;
   }
 }

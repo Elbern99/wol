@@ -48,9 +48,6 @@
         },
         checkFilterMobile: function(item) {
 
-        },
-        scrollToCheck: function(item) {
-
         }
     };
     

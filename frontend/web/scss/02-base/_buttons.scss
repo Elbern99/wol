@@ -206,6 +206,16 @@
   border-color: #aaa;
   color: #323232;
 
+  &.color-blue {
+    color: $blue;
+    background: none !important;
+    text-transform: capitalize;
+    
+    &:hover {
+      color:$light-blue;
+    }
+  }
+
   &:hover {
     @include breakpoint('tablet') {
       background: #aaa;
@@ -289,26 +299,16 @@
 
   @include breakpoint_custom($breakpoint-tablet) {
     color: #1e1e1e;
+    height: 42px;
+    line-height: 41px;
+    font-size: 12px;
   }
 
   &:hover {
-
     @include breakpoint('tablet') {
       background: #7b7b7b;
       color: #eaeaea;
     }
-  }
-
-  &.show-more {
-    @include breakpoint_custom($breakpoint-tablet) {
-      height: 42px;
-      line-height: 41px;
-      font-size: 12px;
-    }
-  }
-
-  .btn-back-to-top {
-    min-width: 200px;
   }
 
   &.align-center {
@@ -422,5 +422,30 @@
     .less {
       display: block;
     }
+  }
+}
+
+.back-to-top {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  left: 100%;
+  bottom: 53px;
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+  transition: color 0.3s ease;
+  font-size: 30px;
+  color: #d8d8d8;
+  margin-bottom: -15px;
+  opacity: 0.9;
+
+  @include breakpoint('tablet') {
+    bottom: 35px;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    color: #bcbcbc;
   }
 }

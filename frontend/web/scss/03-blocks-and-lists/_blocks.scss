@@ -144,10 +144,6 @@
   position: relative;
   height: 100%;
 
-  h2,h3,a{
-    transition: all 0s ease !important;
-  }
-
   .img {
     transition: all 0.3s ease !important;
   }
@@ -392,6 +388,10 @@
     display: none;
   }
 
+  &:hover {
+    color: $blue;
+  }
+
   &.opened {
     span {
       display: none;
@@ -458,6 +458,10 @@
   .publish {
     margin: 0px 0 10px;
     font-size: 11px;
+
+    p {
+      display: inline !important;
+    }
   }
 }
 
@@ -838,10 +842,6 @@
       display: block;
       z-index: 500;
 
-      &.open {
-
-      }
-
       .icon-close {
         width: 20px;
         height: 20px;
@@ -896,6 +896,10 @@
 
     ul {
       padding: 0;
+
+      li {
+        margin: 0;
+      }
     }
 
     &.open {
@@ -1571,6 +1575,14 @@
       a {
         color: $light-blue;
       }
+    }
+  }
+
+  //item
+  &.sidebar-widget-twitter {
+
+    .widget-title {
+      margin-bottom: -1px;
     }
   }
 
