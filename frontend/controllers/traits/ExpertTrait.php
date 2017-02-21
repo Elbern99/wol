@@ -8,19 +8,19 @@ use common\models\ExpertSearch;
 
 trait ExpertTrait {
     
+    protected $stepLimit = 3;
+    
     protected function getLimit() {
         
-        $limit = Yii::$app->params['expert_limit'];
-        $limitPrev = Yii::$app->request->get('limit');
+        $limitDefault = Yii::$app->params['expert_limit'];
+        $step = Yii::$app->request->get('step');
+        $limit = $limitDefault;
         
         if (Yii::$app->request->getIsPjax()) {
             
-            if (intval($limitPrev)) {
-                $limit += (int)$limitPrev;
+            if ($step && intval($step)) {
+                $limit = ($step * $this->stepLimit) + $limitDefault;
             }
-            
-        } elseif (intval($limitPrev)) {
-            $limit = $limitPrev;
         }
         
         return $limit;
@@ -94,7 +94,7 @@ trait ExpertTrait {
     }
     
     protected function getSearchResult(ExpertSearch $finds):array {
-        
+
         return $finds->find()->select(['id'])
                              ->match($finds->search_phrase)
                              ->asArray()
