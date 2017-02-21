@@ -194,7 +194,8 @@
     var hardCode = {
         templates: {
             about:  '<ul class="submenu">' +
-            '<li><a href="/about">About the IZA World of Labor</a></li> ' +
+            '<li><a href="/about">About IZA World of Labor</a></li> ' +
+            '<li><a href="/editorial-board">Editorial board</a></li> ' +
             '<li><a href="/about/iza">About IZA</a></li>' +
             '<li><a href="/about/partners">About our partners</a></li>' +
             '</ul>',
@@ -203,11 +204,9 @@
             '<div class="item"><a href="/videos">Videos</a></div>' +
             '</div>',
             key:'<div class="submenu">' +
+            '<div class="item"><a href="/key-topics/economic-inequality">What is economic inequality?</a></div>' +
             '<div class="item"><a href="/key-topics/innovation-and-the-future-of-work">Innovation and the future of work</a></div>' +
-            '<div class="item"><a href="/key-topics/brexit-and-the-labor-market">What is Brexit?</a></div>' +
-            '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
-            '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
-            '<div class="item no-submenu"><a href="/key-topics/aging-workforce-pensions-reform">View all</a></div>' +
+            '<div class="item no-submenu"><a href="/key-topics">View all</a></div>' +
             '</div>'
         },
         appendCode: function(templte,item) {
@@ -780,8 +779,11 @@
                     title = $('.content h1').text(),
                     url = document.URL,
                     urlArray = url.split("//"),
-                    urlText = urlArray[1];
+                    urlText = urlArray[1],
+                    img = $('.logo-main img').attr('src');
 
+
+                console.log(img);
 
                 if(desc === undefined) {
                     descClear = descText;
@@ -810,10 +812,10 @@
                     slicedTitle = sliceText(titleClear,140);
 
                 //set
-
+                https://www.facebook.com/dialog/share?display=popup&href=http://iza.lokomotiv.cloud/news/a-legal-route-to-work-for-african-migrants-could-prevent-many-mediterranean-deaths&title=A%20legal%20route%20to%20work%20for%20African%20migrants%20could%20prevent%20many%20Mediterranean%20deaths&description=%20Europe%20needs%20to%20open%20up%20legal%20routes%20for%20African%20migrants%20to%20work%20on%20the%20continent%20in%20order%20to%20reduce%20the%20number%20of%20those%20losing%20their%20lives%20in%20perilous%20Mediterranean%20crossings,%20according%20to%20the%20International%20Organisation%20for%20Migration%E2%80%99s%20(...&app_id=686925074844965
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
                     twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
-                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
+                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&image=http://iza.lokomotiv.cloud/uploads/news/r7zCBh04k.jpg&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
 
                 $(item).each(function() {
                     var cur = $(this);
