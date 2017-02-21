@@ -815,7 +815,7 @@
                 https://www.facebook.com/dialog/share?display=popup&href=http://iza.lokomotiv.cloud/news/a-legal-route-to-work-for-african-migrants-could-prevent-many-mediterranean-deaths&title=A%20legal%20route%20to%20work%20for%20African%20migrants%20could%20prevent%20many%20Mediterranean%20deaths&description=%20Europe%20needs%20to%20open%20up%20legal%20routes%20for%20African%20migrants%20to%20work%20on%20the%20continent%20in%20order%20to%20reduce%20the%20number%20of%20those%20losing%20their%20lives%20in%20perilous%20Mediterranean%20crossings,%20according%20to%20the%20International%20Organisation%20for%20Migration%E2%80%99s%20(...&app_id=686925074844965
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
                     twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
-                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&image=http://iza.lokomotiv.cloud/uploads/news/r7zCBh04k.jpg&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
+                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
 
                 $(item).each(function() {
                     var cur = $(this);
