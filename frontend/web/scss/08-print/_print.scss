@@ -68,6 +68,7 @@
     overflow: visible !important;
     float: none !important;
     position: relative !important;
+    letter-spacing: 0;
   }
 
   //HIDE
@@ -87,6 +88,11 @@
     margin-top: -2cm;
 
     .article-user {
+
+      a[href^=http]:after {
+        display: none;
+      }
+
       .img-holder {
         display: none;
 
@@ -104,6 +110,39 @@
       .sidebar-widget {
         &.sidebar-widget-articles-references {
           display: block;
+
+          li>a {
+            font-size: 15px;
+          }
+
+          a {
+            display: inline;
+          }
+
+          .key-references-info {
+            display: block;
+            padding: 10px 0 10px 10px;
+
+            h3 {
+              font-size: 14px;
+              margin: 0 0 5px;
+            }
+
+            span {
+              padding-right: 5px !important;
+            }
+
+            .sources,
+            .caption,
+            .types,
+            .methods {
+              margin-bottom: 10px;
+            }
+
+            .hide-desktop {
+              display: inline-block !important;
+            }
+          }
 
           .sidebar-accrodion-item {
             display: none;

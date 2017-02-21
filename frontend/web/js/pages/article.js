@@ -264,7 +264,12 @@
                     parentEl = $(parent),
                     textReferenceOpened = 'text-reference-opened',
                     openedClass = 'opened-reflink',
-                    checkReferenceOpened = $('.'+textReferenceOpened).length;
+                    checkReferenceOpened = $('.'+textReferenceOpened).length,
+                    checkedBib = curAttr === 'bib';
+
+                if(checkedBib) {
+                    return false;
+                }
 
                 if(!checkReferenceOpened) {
                     article.changeContentPopup(keyLink);
