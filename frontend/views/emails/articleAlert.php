@@ -1,7 +1,7 @@
 <?php use yii\helpers\Url; ?>
 <?php $this->beginContent(__DIR__.'/layout.php'); ?>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Welcome, </span></p>
-<p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have successfully created subscriber preferences for IZA World of Labor. You will receive an email alert when new articles are published in your chosen topic areas. You can <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->code], true) ?>" target="_blank">unsubscribe</a> at any time or manage your article preferences by <a href="<?= Url::to('/register', true) ?>" target="_blank">creating/logging</a> into a personal account.</span></p>
+<p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have successfully created subscriber preferences for IZA World of Labor. You will receive an email alert when new articles are published in your chosen topic areas. You can <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->code], true) ?>" target="_blank">unsubscribe</a> at any time or manage your article preferences by creating/logging into a <a href="<?= Url::to('/register', true) ?>" target="_blank">personal account</a>.</span></p>
 
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Questions? Please don’t hesitate to get in touch with us at <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a></span></p>
 
@@ -21,7 +21,7 @@
 <p><span style="font-size:11.0pt;font-family:'Calibri',sans-serif;color:#1f497d">&nbsp;</span></p>
 <p>
     <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">You are receiving this email to <a href="mailto:<?= $subscriber->email ?>" target="_blank"><?= $subscriber->email ?></a> as you are opted in to IZA World of Labor updates.<br>
-    You can manage your IZA World of Labor contact details and preferences at <a href="<?= Url::to('/my-account', true) ?>" target="_blank"><?= Url::to('/register', true) ?></a>
+    You can manage your IZA World of Labor contact details and preferences at <a href="<?= Url::to('/my-account', true) ?>" target="_blank"><?= Url::to('/my-account', true) ?></a>
     or
     <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber->code], true) ?>" target="_blank">unsubscribe</a> from all IZA World of Labor emails. </span>
 </p>
