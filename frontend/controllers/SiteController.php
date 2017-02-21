@@ -250,7 +250,16 @@ class SiteController extends Controller {
     public function actionConfirm($token, $email = null) {
         
         if($user = UserActivation::verifyToken($token, $email)) {
+
+            $register = new SignupForm();
+            
+            $obj = Yii::$container->get('newsletter');
+            $obj->getSubscriber($user->email);
+            $subscriberId = $obj->getAttribute('code');
+            $register->sendRegisteredEmail($subscriberId, $user);
+            
             Yii::$app->user->login($user);
+            
             return $this->redirect('/my-account');
         }
 
