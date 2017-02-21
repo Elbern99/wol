@@ -252,7 +252,7 @@ class SiteController extends Controller {
         if($user = UserActivation::verifyToken($token, $email)) {
 
             $register = new SignupForm();
-            
+            $register->email = $user->email;
             $obj = Yii::$container->get('newsletter');
             $obj->getSubscriber($user->email);
             $subscriberId = $obj->getAttribute('code');
