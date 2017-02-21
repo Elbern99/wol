@@ -22,6 +22,7 @@ $this->registerMetaTag([
 ]);
 
 $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAsset']]);
+$step = intval(Yii::$app->request->get('step')) + 1;
 ?>
 <?php $form = ActiveForm::begin(['options' => ['class' => 'expert-filter-form']]); ?>
 <div class="container find-expert">
@@ -30,8 +31,8 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
         </div>
         <h1>IZA World of Labor - Find a topic spokesperson</h1>
-        <p class="large-paragraph">With over <?= $expertCount ?> experts affiliated with IZA World of Labor, we allow access to the leading thought leaders on labor subjects across the world.</p>
-        <p>If you can’t find the expert you are looking for please <a href="/contact">get in touch.</a></p>
+        <p class="large-paragraph">IZA World of Labor engages leading economists in a range of labor subjects across the world. We invite journalists and policymakers seeking labor market expertise to get in touch directly with one of our designated topic spokespeople.</p>
+        <p>Search for a topic spokesperson by name or expertise and filter by country, language or media experience.</p>
     </div>
     
     
@@ -89,15 +90,15 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                 </li>
                 <?php endforeach; ?>
             </ul>
-            <?php if (!Yii::$app->request->isPost): ?>
-                <?php if ($expertCount > $limit): ?>
-                    <?= Html::a("show more", Url::current(['limit' => $limit]), ['class' => 'btn-gray align-center']) ?>
-                <?php else: ?>
-                    <?php if (Yii::$app->request->get('limit')): ?>
-                        <?= Html::a("clear", Url::current(['limit' => 0]), ['class' => 'btn-gray align-center']) ?>
-                    <?php endif; ?>
+
+            <?php if ($expertCount > $limit): ?>
+                <?= Html::a("show more", Url::current(array_merge(['step' => $step], $filterRules)), ['class' => 'btn-gray align-center']) ?>
+            <?php else: ?>
+                <?php if (Yii::$app->request->get('step')): ?>
+                    <?= Html::a("clear", Url::to(array_merge(['/find-a-topic-spokesperson'], $filterRules)), ['class' => 'btn-gray align-center']) ?>
                 <?php endif; ?>
             <?php endif; ?>
+
         </div>
         <?php Pjax::end(); ?>
         <aside class="sidebar-right">
@@ -107,6 +108,7 @@ $this->registerJsFile('/js/pages/find-expert.js', ['depends' => ['yii\web\YiiAss
                         <h3>Filter by</h3>
                         <ul class="sidebar-accrodion-list">
                             <?php if (isset($filter['expertise'])): ?>
+                            <?php asort($filter['expertise']); ?>
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">expertise</a>
                                     <div class="text expand-more">

@@ -111,60 +111,65 @@ class AuthorsController extends Controller {
 
         $expertCollection = [];
         $expertRoleId = $roles->getTypeByLabel('expert');
+        $filterRules = [];
 
         $filter = $this->getFilterData(Author::tableName(), $expertRoleId);
         $finds->setFilter($filter);
 
         $loadSearch = false;
+        $getSearchFilter = Yii::$app->request->get('filter_params');
 
-        if (Yii::$app->request->isPost && $finds->load(Yii::$app->request->post())) {
+        if (Yii::$app->request->isPost) {
+            $finds->load(Yii::$app->request->post());
+        } elseif ($getSearchFilter) {
+            $finds->load($getSearchFilter,'');
+        }
+        
+        if ($finds->validate()) {
 
-            if ($finds->validate()) {
+            $results = $this->getSearchResult($finds);
 
-                $results = $this->getSearchResult($finds);
-
-                if (count($results)) {
-
-                    $experstIds = ArrayHelper::getColumn($results, 'id');
-                    $loadSearch = true;
-                }
+            if (count($results)) {
+                $experstIds = ArrayHelper::getColumn($results, 'id');
+                $loadSearch = true;
+                $filterRules['filter_params'] = $finds->getFilterAttributes();
             }
         }
 
         if (!$loadSearch) {
-
             $experstIds = $this->getExpertIds($expertRoleId);
             $experstIds = ArrayHelper::getColumn($experstIds, 'author_id');
         }
+        
+        $countExperts = Author::find()
+                            ->where(['enabled' => 1, 'id' => $experstIds])
+                            ->count();
 
-        if (!count($experstIds)) {
+        if (!count($countExperts)) {
 
             return $this->render('expert', [
-                        'expertCollection' => $expertCollection,
-                        'limit' => $limit,
-                        'expertCount' => count($experstIds),
-                        'search' => $finds,
-                        'filter' => $filter
+                'expertCollection' => $expertCollection,
+                'limit' => $limit,
+                'expertCount' => 0,
+                'search' => $finds,
+                'filter' => $filter,
+                'filterRules' => $filterRules
             ]);
         }
 
-
+        
         $experts = Author::find()
-                ->select(['id', 'avatar', 'author_key', 'url_key'])
-                ->where(['enabled' => 1, 'id' => $experstIds])
-                ->orderBy('surname');
-
-        if (!$loadSearch) {
-            $experts->limit($limit);
-        }
-
-        $experts = $experts->all();
+                        ->select(['id', 'avatar', 'author_key', 'url_key'])
+                        ->where(['enabled' => 1, 'id' => $experstIds])
+                        ->orderBy('surname')
+                        ->all();
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['name', 'affiliation', 'experience_type', 'expertise', 'language', 'author_country']);
         $authorCollection->initCollection(Author::tableName(), ArrayHelper::getColumn($experts, function($model) {
-                    return $model->id;
-                }));
+            return $model->id;
+        }));
+
         $authorValues = $authorCollection->getValues();
 
         foreach ($experts as $expert) {
@@ -174,23 +179,23 @@ class AuthorsController extends Controller {
             }
 
             $name = EavValueHelper::getValue($authorValues[$expert->id], 'name', function($data) {
-                        return $data;
-                    });
+                return $data;
+            });
             $experience_type = EavValueHelper::getValue($authorValues[$expert->id], 'experience_type', function($data) {
-                        return $data->expertise_type;
-                    }, 'array');
+                return $data->expertise_type;
+            }, 'array');
             $affiliation = EavValueHelper::getValue($authorValues[$expert->id], 'affiliation', function($data) {
-                        return $data->affiliation;
-                    }, 'string');
+                return $data->affiliation;
+            }, 'string');
             $expertise = EavValueHelper::getValue($authorValues[$expert->id], 'expertise', function($data) {
-                        return $data->expertise;
-                    }, 'array');
+                return $data->expertise;
+            }, 'array');
             $language = EavValueHelper::getValue($authorValues[$expert->id], 'language', function($data) {
-                        return $data->code;
-                    }, 'array');
+                return $data->code;
+            }, 'array');
             $author_country = EavValueHelper::getValue($authorValues[$expert->id], 'author_country', function($data) {
-                        return $data->code;
-                    }, 'array');
+                return $data->code;
+            }, 'array');
 
             $data = [
                 'affiliation' => $affiliation,
@@ -200,25 +205,25 @@ class AuthorsController extends Controller {
                 'expertise' => $expertise,
                 'language' => $language,
                 'author_country' => $author_country,
-                'profile' => Url::to(['/spokespeople/'.$expert->url_key]),
+                'profile' => Url::to(['/spokespeople/' . $expert->url_key]),
             ];
 
-            if (Yii::$app->request->isPost) {
-
-                if ($finds->filtered($data)) {
-                    continue;
-                }
+            if ($finds->filtered($data)) {
+                continue;
             }
 
             $expertCollection[$expert->id] = $data;
         }
 
+        $collection = array_slice($expertCollection, 0, $limit);
+
         return $this->render('expert', [
-            'expertCollection' => $expertCollection,
+            'expertCollection' => $collection,
             'limit' => $limit,
-            'expertCount' => count($experstIds),
+            'expertCount' => count($expertCollection),
             'search' => $finds,
-            'filter' => $filter
+            'filter' => $filter,
+            'filterRules' => $filterRules
         ]);
     }
 

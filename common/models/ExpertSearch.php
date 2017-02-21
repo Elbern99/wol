@@ -59,8 +59,10 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
     
     public function filtered(array $expert): bool {
         
-        $filtered = false;
-        
+        if (empty($this->experience_type) && empty($this->expertise) && empty($this->language) && empty($this->author_country)) {
+            return false;
+        }
+
         if (!empty($this->experience_type)) {
             
             $experience = $this->filter['experience_type'];
@@ -68,32 +70,23 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             foreach ($this->experience_type as $id) {
                 
-                if (!isset($experience[$id]) || array_search($experience[$id], $values) === false) {
-                    $filtered = true;
-                    break;
+                if (isset($experience[$id]) && (array_search($experience[$id], $values) !== false)) {
+                    return false;
                 }
             }
-            
-            if ($filtered) {
-               return $filtered;    
-            }
+
         }
         
         if (!empty($this->expertise)) {
             
             $values = $expert['expertise'];
             $expertise = $this->filter['expertise'];
-            
+
             foreach ($this->expertise as $id) {
                 
-                if (!isset($expertise[$id]) || array_search($expertise[$id], $values) === false) {
-                    $filtered = true;
-                    break;
+                if (isset($expertise[$id]) && (array_search($expertise[$id], $values) !== false)) {
+                    return false;
                 }
-            }
-            
-            if ($filtered) {
-               return $filtered;    
             }
         }
         
@@ -104,14 +97,9 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             foreach ($this->language as $id) {
                 
-                if (!isset($language[$id]) || array_search($language[$id], $values) === false) {
-                    $filtered = true;
-                    break;
+                if (isset($language[$id]) && (array_search($language[$id], $values) !== false)) {
+                    return false;
                 }
-            }
-            
-            if ($filtered) {
-               return $filtered;    
             }
         }
         
@@ -122,13 +110,23 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             foreach ($this->author_country as $id) {
                 
-                if (!isset($author[$id]) || array_search($author[$id], $values) === false) {
-                    $filtered = true;
-                    break;
+                if (isset($author[$id]) && (array_search($author[$id], $values) !== false)) {
+                    return false;
                 }
             }
         }
         
-        return $filtered;     
+        return true;     
+    }
+    
+    public function getFilterAttributes() {
+
+        return [
+            'search_phrase' => $this->search_phrase,
+            'experience_type' => is_array($this->experience_type) ? array_values($this->experience_type) : $this->experience_type,
+            'expertise' => is_array($this->expertise) ? array_values($this->expertise) : $this->expertise,
+            'language' => is_array($this->language) ? array_values($this->language) : $this->language,
+            'author_country' => is_array($this->author_country) ? array_values($this->author_country) : $this->author_country
+        ];
     }
 }

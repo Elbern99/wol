@@ -63,125 +63,124 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <p class="short-desc"><?= $author['affiliation'] ?></p>
                     
                     <?php if (count($author['roles'])): ?>
-
-                    <div class="item">
-                        <h2>IZA World of Labor role</h2>
-                        <p><?= implode(', ', $author['roles']) ?></p>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if (count($author['expertise'])): ?>
-                    <div class="item">
-                        <h2>Expertise</h2>
-                        <p><?= implode(', ', array_map(function($exp) {
-                           return $exp;
-                        }, $author['expertise'])) ?></p>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if (count($author['country'])): ?>
-                    <div class="item">
-                        <h2>Country</h2>
-                        <p><?= implode(', ', array_map(function($code) {
-                           return Country::getCountryName($code);
-                        }, $author['country'])) ?></p>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if (count($author['language'])): ?>
-                    <div class="item">
-                        <h2>Languages</h2>
-                        <p><?= implode(', ', array_map(function($lang) {
-                           $str = Country::getCountryName($lang->code);
-                           if ($lang->proficiency) {
-                               $str .= ' - '.Yii::t('app/text',$lang->proficiency);
-                           }
-                           return $str;
-                        }, $author['language'])) ?></p>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if ($author['experience_type']): ?>
-                    <div class="item">
-                        <h2>Media experience</h2>
-                        <p><?= $author['experience_type'] ?></p>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if ($author['author']->email): ?>
-                    <div class="item">
-                        <h2>Email</h2>
-                        <p><?= $author['author']->email ?></p>
-                    </div>
-                    <?php endif; ?>
-                    <?php if ($author['author']->phone): ?>
-                    <div class="item">
-                        <h2>Phone</h2>
-                        <p><?= $author['author']->phone ?></p>
-                    </div>
-                    <?php endif; ?>
-                    <?php if(isset($author['position']->current) && $author['position']->current): ?>
-                    <div class="item">
-                        <h2>Current position</h2>
-                        <?php if(is_array($author['position']->current)): ?>
-                            <?php foreach($author['position']->current as $current): ?>
-                                <p><?= $current ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->current ?></p>
+                        <div class="item">
+                            <h2>IZA World of Labor role</h2>
+                            <p><?= implode(', ', $author['roles']) ?></p>
+                        </div>
                         <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    <?php if ($author['author']->url): ?>
-                    <div class="item">
-                        <h2>Website</h2>
-                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
-                    </div>
-                    <?php endif; ?>
-                    <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
-                    <div class="item">
-                        <h2>Positions/functions as a policy advisor</h2>
-                        <?php if(is_array($author['position']->advisory)): ?>
-                            <?php foreach($author['position']->advisory as $advisory): ?>
-                                <p><?= $advisory ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->advisory ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if(isset($author['position']->past) && $author['position']->past): ?>
-                    <div class="item">
-                        <h2>Past positions</h2>
-                        <?php if(is_array($author['position']->past)): ?>
-                            <?php foreach($author['position']->past as $past): ?>
-                                <p><?= $past ?></p>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                                <p><?= $author['position']->past ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <?php if($author['degree'] ): ?>
-                    <div class="item">
-                        <h2>Qualifications</h2>
-                        <p><?= $author['degree'] ?></p>
-                    </div>
-                    <?php endif; ?>
-                    <?php if(count($author['publications'])): ?>
-                    <div class="selected-publications">
-                        <h2>Selected publications</h2>
 
-                        <ul class="selected-publications-list">
-                            <?php foreach ($author['publications'] as $publication): ?>
-                            <li>
-                                <p><?= $publication ?></p>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                        <?php if (count($author['expertise'])): ?>
+                        <div class="item">
+                            <h2>Expertise</h2>
+                            <p><?= implode(', ', array_map(function($exp) {
+                               return $exp;
+                            }, $author['expertise'])) ?></p>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (count($author['country'])): ?>
+                        <div class="item">
+                            <h2>Country</h2>
+                            <p><?= implode(', ', array_map(function($code) {
+                               return Country::getCountryName($code);
+                            }, $author['country'])) ?></p>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (count($author['language'])): ?>
+                        <div class="item">
+                            <h2>Languages</h2>
+                            <p><?= implode(', ', array_map(function($lang) {
+                               $str = Country::getCountryName($lang->code);
+                               if ($lang->proficiency) {
+                                   $str .= ' - '.Yii::t('app/text',$lang->proficiency);
+                               }
+                               return $str;
+                            }, $author['language'])) ?></p>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if ($author['experience_type']): ?>
+                        <div class="item">
+                            <h2>Media experience</h2>
+                            <p><?= $author['experience_type'] ?></p>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if ($author['author']->email): ?>
+                        <div class="item">
+                            <h2>Email</h2>
+                            <p><?= $author['author']->email ?></p>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($author['author']->phone): ?>
+                        <div class="item">
+                            <h2>Phone</h2>
+                            <p><?= $author['author']->phone ?></p>
+                        </div>
+                        <?php endif; ?>
+                        <?php if(isset($author['position']->current) && $author['position']->current): ?>
+                        <div class="item">
+                            <h2>Current position</h2>
+                            <?php if(is_array($author['position']->current)): ?>
+                                <?php foreach($author['position']->current as $current): ?>
+                                    <p><?= $current ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->current ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($author['author']->url): ?>
+                        <div class="item">
+                            <h2>Website</h2>
+                            <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
+                        </div>
+                        <?php endif; ?>
+                        <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
+                        <div class="item">
+                            <h2>Positions/functions as a policy advisor</h2>
+                            <?php if(is_array($author['position']->advisory)): ?>
+                                <?php foreach($author['position']->advisory as $advisory): ?>
+                                    <p><?= $advisory ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->advisory ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if(isset($author['position']->past) && $author['position']->past): ?>
+                        <div class="item">
+                            <h2>Past positions</h2>
+                            <?php if(is_array($author['position']->past)): ?>
+                                <?php foreach($author['position']->past as $past): ?>
+                                    <p><?= $past ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p><?= $author['position']->past ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if($author['degree'] ): ?>
+                        <div class="item">
+                            <h2>Qualifications</h2>
+                            <p><?= $author['degree'] ?></p>
+                        </div>
+                        <?php endif; ?>
+                        <?php if(count($author['publications'])): ?>
+                        <div class="selected-publications">
+                            <h2>Selected publications</h2>
+
+                            <ul class="selected-publications-list">
+                                <?php foreach ($author['publications'] as $publication): ?>
+                                <li>
+                                    <p><?= $publication ?></p>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
