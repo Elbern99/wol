@@ -9356,7 +9356,8 @@ path {
   * {
     overflow: visible !important;
     float: none !important;
-    position: relative !important; }
+    position: relative !important;
+    letter-spacing: 0; }
 
   .footer,
   .header,
@@ -9369,12 +9370,33 @@ path {
 
   .article-full {
     margin-top: -2cm; }
+    .article-full .article-user a[href^=http]:after {
+      display: none; }
     .article-full .article-user .img-holder {
       display: none; }
     .article-full .sidebar-widget {
       display: none; }
     .article-full.full-page .sidebar-widget.sidebar-widget-articles-references {
       display: block; }
+      .article-full.full-page .sidebar-widget.sidebar-widget-articles-references li > a {
+        font-size: 15px; }
+      .article-full.full-page .sidebar-widget.sidebar-widget-articles-references a {
+        display: inline; }
+      .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info {
+        display: block;
+        padding: 10px 0 10px 10px; }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info h3 {
+          font-size: 14px;
+          margin: 0 0 5px; }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info span {
+          padding-right: 5px !important; }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info .sources,
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info .caption,
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info .types,
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info .methods {
+          margin-bottom: 10px; }
+        .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .key-references-info .hide-desktop {
+          display: inline-block !important; }
       .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item {
         display: none; }
         .article-full.full-page .sidebar-widget.sidebar-widget-articles-references .sidebar-accrodion-item .rel-tooltip {
