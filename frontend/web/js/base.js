@@ -779,11 +779,7 @@
                     title = $('.content h1').text(),
                     url = document.URL,
                     urlArray = url.split("//"),
-                    urlText = urlArray[1],
-                    img = $('.logo-main img').attr('src');
-
-
-                console.log(img);
+                    urlText = urlArray[1];
 
                 if(desc === undefined) {
                     descClear = descText;
