@@ -393,40 +393,61 @@ trait ArticleParseTrait {
         foreach ($readStruct as $read) {
             
             $authors = [];
+            $authorsTitle = [];
             $monogr = $read->monogr;
             $analitics = $read->analytic;
             
             if (isset($monogr->author)) {
 
                 foreach ($monogr->author as $author) {
+                    $name = '';
                     
-                    $name = (string) $author->persName->surname;
-                    
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
+                    if ($author->persName->surname) {
+                        
+                        $name = (string) $author->persName->surname;
+                        $authorsTitle[] = $name;
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $name .= " " . $forename . ". ";
+                            }
                         }
-                    }  elseif (isset($author->orgName)) {
+                    
+                    } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
                     
-                    $authors[] = $name;
+                    if ($name) {
+                        $authors[] = $name;
+                    }
                 }
             }
             
             if (isset($analitics->author)) {
 
                 foreach ($analitics->author as $author) {
-                    $name = (string) $author->persName->surname;
-                    if (isset($author->persName->forename)) {
-                        foreach ($author->persName->forename as $forename) {
-                            $name .= " " . $forename . ". ";
+                    $name = '';
+                    
+                    if ($author->persName->surname) {
+                        
+                        $name = (string) $author->persName->surname;
+                        $authorsTitle[] = $name;
+                        
+                        if (isset($author->persName->forename)) {
+                            foreach ($author->persName->forename as $forename) {
+                                $name .= " " . $forename . ". ";
+                            }
                         }
-                    }  elseif (isset($author->orgName)) {
+                    
+                    } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
                     
-                    $authors[] = $name;
+                    if ($name) {
+                        $authors[] = $name;
+                    }
                 }
             }
             
@@ -440,6 +461,7 @@ trait ArticleParseTrait {
                         
                         $name = (string) $editor->persName->surname.', ';
                         $forenameArray = [];
+                        $authorsTitle[] = (string)$editor->persName->surname;
                         
                         if (isset($editor->persName->forename)) {
                             foreach ($editor->persName->forename as $forename) {
@@ -495,7 +517,7 @@ trait ArticleParseTrait {
             $fullCitation .= (string) implode(', ', $authors);
             $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
             $fullCitation .= $aTitle . ' ';
-            $fullCitation .= $mTitle . ' ';
+            $fullCitation .= Html::tag('em', $mTitle) . ' ';
             $fullCitation .= ($biblScope_vol) ? $biblScope_vol . ': ' : '';
             $fullCitation .= ($biblScope_issue) ? $biblScope_issue . ' ' : '';
             $fullCitation .= ($biblScope_pp) ? $biblScope_pp . ' ' : '';
@@ -512,16 +534,16 @@ trait ArticleParseTrait {
             }
             
             $title = '';
-            $cnt = count($authors);
+            $cnt = count($authorsTitle);
             
             if ($cnt == 1) {
-                $title = current($authors);
+                $title = current($authorsTitle);
             } elseif ($cnt == 2) {
-                $title = implode(' and ', $authors);
+                $title = implode(' and ', $authorsTitle);
             } elseif ($cnt > 2) {
-                $title = current($authors) .' et al.';
+                $title = current($authorsTitle) .' et al.';
             }
-            
+
             $title .= ($date) ? ' ('.$date.') ': '';
             $obj->title = trim($title);
             $this->furtherReading[] = $obj;
@@ -587,6 +609,8 @@ trait ArticleParseTrait {
 
             $authors = [];
             $editors = [];
+            $authorsTitle = [];
+            
             $analitics = $ref->analytic;
             $monogr = $ref->monogr;
 
@@ -595,12 +619,12 @@ trait ArticleParseTrait {
                 foreach ($analitics->author as $author) {
                     
                     $name = false;
-                    
-                    if (isset($author->persName)) {
-                        
+ 
+                    if (isset($author->persName->surname)) {  
                         $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
                         $forenameArray = [];
-                        
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
@@ -609,6 +633,7 @@ trait ArticleParseTrait {
                         $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
                     
                     if ($name || trim($name)) {
@@ -622,12 +647,12 @@ trait ArticleParseTrait {
                 foreach ($monogr->author as $author) {
                     
                     $name = false;
-                    
-                    if (isset($author->persName)) {
-                        
+
+                    if (isset($author->persName->surname)) {  
                         $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
                         $forenameArray = [];
-                        
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
@@ -636,8 +661,9 @@ trait ArticleParseTrait {
                         $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
-                    
+
                     if ($name || trim($name)) {
                         $authors[] = $name;
                     }
@@ -654,6 +680,7 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
+                        $authorsTitle[] = (string) $editor->persName->surname;
                         $forenameArray = [];
                         
                         if (isset($editor->persName->forename)) {
@@ -665,6 +692,7 @@ trait ArticleParseTrait {
                     }
                     
                     if ($name || trim($name)) {
+                        $authors[] = $name;
                         $editors[] = $name;
                     }
                     
@@ -796,14 +824,14 @@ trait ArticleParseTrait {
             }
             
             $title = '';
-            $cnt = count($authors);
+            $cnt = count($authorsTitle);
             
             if ($cnt == 1) {
-                $title = current($authors);
+                $title = current($authorsTitle);
             } elseif ($cnt == 2) {
-                $title = implode(' and ', $authors);
+                $title = implode(' and ', $authorsTitle);
             } elseif ($cnt > 2) {
-                $title = current($authors) .' et al.';
+                $title = current($authorsTitle) .' et al.';
             }
             
             $title .= ($date) ? ' ('.$date.') ': '';
@@ -854,6 +882,8 @@ trait ArticleParseTrait {
             
             $authors = [];
             $editors = [];
+            $authorsTitle = [];
+            
             $analitics = $read->analytic;
             $readAttribute = $read->attributes();
             $monogr = $read->monogr;
@@ -862,12 +892,12 @@ trait ArticleParseTrait {
 
                 foreach ($analitics->author as $author) {
                     $name = false;
-                    
-                    if (isset($author->persName)) {
-                        
+
+                    if (isset($author->persName->surname)) {
                         $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
                         $forenameArray = [];
-                        
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
@@ -876,6 +906,7 @@ trait ArticleParseTrait {
                         $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
                     
                     if ($name || trim($name)) {
@@ -889,11 +920,11 @@ trait ArticleParseTrait {
                 foreach ($monogr->author as $author) {
                    $name = false;
                     
-                    if (isset($author->persName)) {
-                        
+                    if (isset($author->persName->surname)) {
                         $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
                         $forenameArray = [];
-                        
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
                                 $forenameArray[] = $forename . ".";
@@ -902,6 +933,7 @@ trait ArticleParseTrait {
                         $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
+                        $authorsTitle[] = $name;
                     }
                     
                     if ($name || trim($name)) {
@@ -919,6 +951,8 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
+                        $authorsTitle[] = (string) $editor->persName->surname;
+                        
                         $forenameArray = [];
                         
                         if (isset($editor->persName->forename)) {
@@ -930,6 +964,7 @@ trait ArticleParseTrait {
                     }
                     
                     if ($name || trim($name)) {
+                        $authors[] = $name;
                         $editors[] = $name;
                     }
                     
@@ -1044,14 +1079,14 @@ trait ArticleParseTrait {
             }
 
             $title = '';
-            $cnt = count($authors);
+            $cnt = count($authorsTitle);
             
             if ($cnt == 1) {
-                $title = current($authors);
+                $title = current($authorsTitle);
             } elseif ($cnt == 2) {
-                $title = implode(' and ', $authors);
+                $title = implode(' and ', $authorsTitle);
             } elseif ($cnt > 2) {
-                $title = current($authors) .' et al.';
+                $title = current($authorsTitle) .' et al.';
             }
             
             $title .= ($date) ? ' ('.$date.') ': '';
@@ -1156,7 +1191,7 @@ trait ArticleParseTrait {
             
             $this->sources[$id] = [
                 'source' => $title,
-                'type' => implode(' ', $sourceText)
+                'type' => implode(' - ', $sourceText)
             ];
 
         }
@@ -1189,7 +1224,12 @@ trait ArticleParseTrait {
                     $obj->id = $vals[0]['attributes']['XML:ID'];
                     
                     if (isset($image->head->ref)) {
-                        $obj->target = (string)$image->head->ref->attributes();
+                        
+                        $attributes = $image->head->ref->attributes();
+
+                        if (isset($attributes['target'])) {
+                            $obj->target = (string)$attributes['target'];
+                        }
                     }
 
                     $langId = (isset($vals[0]['attributes']['XML:LANG'])) ? $vals[0]['attributes']['XML:LANG'] : 0;
@@ -1211,7 +1251,12 @@ trait ArticleParseTrait {
                     $obj->id = $id;
                     
                     if (isset($image->head->ref)) {
-                        $obj->target = (string)$image->head->ref->attributes();
+                        
+                        $attributes = $image->head->ref->attributes();
+
+                        if (isset($attributes['target'])) {
+                            $obj->target = (string)$attributes['target'];
+                        }
                     }
 
                     $name = (string) $attr->url;
@@ -1293,15 +1338,24 @@ trait ArticleParseTrait {
                         $obj->title = $val['value'];
 
                     } elseif ($val['tag'] == 'EMPH') {
-                        
-                        if ($val['type'] == 'open') {
-                            $obj->text .= '<em>';
-                        }elseif (isset($val['value']) && str_replace(' ', '', $val['value'])) {
-                            $obj->text .= $val['value'];
-                        }elseif ($val['type'] == 'close') {
-                            $obj->text .= '</em>';
-                        }elseif ($val['type'] == 'complete') {
+                                   
+                        if ($val['type'] == 'complete') {
+                            
                             $obj->text .= Html::tag('em', $val['value']);
+                            
+                        } else {
+                            
+                            if ($val['type'] == 'open') {
+                                $obj->text .= '<em>';
+                            }
+
+                            if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
+                                $obj->text .= $val['value'];
+                            }
+
+                            if ($val['type'] == 'close') {
+                                $obj->text .= '</em>';
+                            }
                         }
                         
                     } elseif ($val['tag'] == 'HI') {
@@ -1312,6 +1366,60 @@ trait ArticleParseTrait {
                                 $prop['class'] = $val['attributes']['REND'];
                             }
                             $obj->text .= Html::tag('em', $val['value'], $prop);
+                        }
+                    }  elseif ($val['tag'] == 'LIST') {
+                        if ($val['type'] == 'open') {
+                            $obj->text .= '<ul class="content-bullete">';
+                        }
+
+                        if ($val['type'] == 'close') {
+                            $obj->text .= '</ul>';
+                        }
+                    } elseif ($val['tag'] == 'ITEM') {
+                        if ($val['type'] == 'open') {
+                            $obj->text .= '<li>';
+                        }
+
+                        if ($val['type'] == 'close') {
+                            $obj->text .= '</li>';
+                        }
+
+                    } elseif ($val['tag'] == 'HI') {
+
+                        if ($val['type'] == 'complete') {
+                            $prop = [];
+                            if(isset($val['attributes']['REND'])){
+                                $prop['class'] = $val['attributes']['REND'];
+                            }
+                            $obj->text .= Html::tag('em', $val['value'], $prop);
+                            unset($prop);
+                        }
+                    } elseif ($val['tag'] == 'REF') {
+                        
+                        if ($val['type'] == 'complete') {
+                            if (isset($val['value']) && isset($val['attributes']['TARGET'])) {
+                                $obj->text .= Html::a($val['value'], $val['attributes']['TARGET']);
+                            } elseif (isset($val['value'])) {
+                                $obj->text .= $val['value'];
+                            }
+                        }
+                        
+                    } else {
+
+                        if (isset($val['tag'])) {
+                            if ($val['type'] == 'open') {
+                                $obj->text .= Html::beginTag(strtolower($val['tag']));
+                            }
+
+                            if ($val['type'] == 'close') {
+                                $obj->text .= Html::endTag(strtolower($val['tag']));
+                            }
+
+                            if ($val['type'] == 'complete') {
+                                if (isset($val['value'])) {
+                                    $obj->text .= Html::tag(strtolower($val['tag']), $val['value']);
+                                }
+                            }
                         }
                     }
                 }
@@ -1480,19 +1588,26 @@ trait ArticleParseTrait {
                 }
                 
             } elseif ($val['tag'] == 'EMPH') {
-                        
-                if ($val['type'] == 'open') {
-                    $text .= '<em>';
-                }
                 
-                if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
-                    $text .= $val['value'];
-                }
-                
-                if ($val['type'] == 'close') {
-                    $text .= '</em>';
-                }
+                if ($val['type'] == 'complete') {
+                            
+                    $text .= Html::tag('em', $val['value']);
+                            
+                } else {
+                    
+                    if ($val['type'] == 'open') {
+                        $text .= '<em>';
+                    }
 
+                    if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
+                        $text .= $val['value'];
+                    }
+
+                    if ($val['type'] == 'close') {
+                        $text .= '</em>';
+                    }
+                }
+                
             } elseif ($val['tag'] == 'HI') {
 
                 if ($val['type'] == 'complete') {
@@ -1502,6 +1617,24 @@ trait ArticleParseTrait {
                     }
                     $text .= Html::tag('em', $val['value'], $prop);
                     unset($prop);
+                }
+                
+            } else {
+                        
+                if (isset($val['tag'])) {
+                    if ($val['type'] == 'open') {
+                        $text .= Html::beginTag(strtolower($val['tag']));
+                    }
+
+                    if ($val['type'] == 'close') {
+                        $text .= Html::endTag(strtolower($val['tag']));
+                    }
+
+                    if ($val['type'] == 'complete') {
+                        if (isset($val['value'])) {
+                            $text .= Html::tag(strtolower($val['tag']), $val['value']);
+                        }
+                    }
                 }
             }
         }
