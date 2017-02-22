@@ -20,14 +20,14 @@ $this->params['breadcrumbs'][] = 'Reset password';
             <p>Please choose your new password:</p>
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
             <div class="grid">
-                <div class="grid-line three">
-                    <div class="form-item">
+                <div class="grid-line two">
+                    <div class="grid-item">
                         <?= $form->field($model, 'password',['options'=>['class' => 'form-item']])->passwordInput(['autofocus' => true]) ?>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn-blue']) ?>
+                <?= Html::submitButton('Save', ['class' => 'btn-blue-large']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

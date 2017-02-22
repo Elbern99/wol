@@ -6659,6 +6659,13 @@ iframe[name=advpp_manager] {
     .article-full .content-inner-text h3 {
       margin: 0 0 8px;
       font-size: 18px; } }
+.article-full .content-inner-text h4 {
+  font-size: 13px;
+  margin: 0 0 15px; }
+  @media only screen and (min-width: 769px) {
+    .article-full .content-inner-text h4 {
+      margin: 0 0 8px;
+      font-size: 16px; } }
 .article-full .sidebar-right {
   margin-top: 0; }
 .article-full .article-top h1 {

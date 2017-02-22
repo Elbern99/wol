@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = 'Request password reset';
 <div class="container site-request-password-reset without-breadcrumbs">
     <div class="content-inner">
         <div class="content-inner-text">
-            <div class="article-heade">
+            <div class="article-head">
                 <h1><?= Html::encode($this->title) ?></h1>
             </div>
             <p>Please fill out your email. A link to reset password will be sent there.</p>
@@ -22,9 +22,7 @@ $this->params['breadcrumbs'][] = 'Request password reset';
             <div class="grid">
                 <div class="grid-line two">
                     <div class="grid-item">
-                        <div class="form-item">
-                            <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput(['autofocus' => true]) ?>
-                        </div>
+                        <?= $form->field($model, 'email', ['options'=>['class' => 'form-item']])->textInput(['autofocus' => true]) ?>
                     </div>
                 </div>
             </div>
