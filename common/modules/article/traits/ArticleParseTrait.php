@@ -1569,7 +1569,12 @@ trait ArticleParseTrait {
                 } 
                 
             } elseif ($val['tag'] == 'HEAD') {
-                $text .= Html::tag('h3', $val['value']);
+                
+                if (isset($val['attributes']['TYPE'])) {
+                    $text .= Html::tag('h4', $val['value']);
+                } else {
+                    $text .= Html::tag('h3', $val['value']);
+                }
             } elseif ($val['tag'] == 'LIST') {
                 if ($val['type'] == 'open') {
                     $text .= '<ul class="content-bullete">';
