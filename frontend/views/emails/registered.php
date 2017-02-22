@@ -26,8 +26,10 @@
     </span>
 </p>
 <p><span style="font-size:11.0pt;font-family:'Calibri',sans-serif;color:#1f497d">&nbsp;</span></p>
+<?php if ($subscriber): ?>
 <p>
     <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">You are receiving this email to <a href="mailto:<?= $user->email ?>" target="_blank"><?= $user->email ?></a> as you are opted in to IZA World of Labor updates.<br>
     You can manage your IZA World of Labor contact details and preferences at my account or <a href="<?= Url::to(['/unsubscribe', 'number' => $subscriber], true) ?>" target="_blank">unsubscribe</a> from all IZA World of Labor emails. </span>
 </p>
+<?php endif; ?>
 <?php $this->endContent(); ?>

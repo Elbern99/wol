@@ -62,16 +62,20 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
         if (empty($this->experience_type) && empty($this->expertise) && empty($this->language) && empty($this->author_country)) {
             return false;
         }
+        
+        $filters = [];
 
         if (!empty($this->experience_type)) {
             
             $experience = $this->filter['experience_type'];
             $values = $expert['experience_type'];
+            $filters['experience_type'] = false;
             
             foreach ($this->experience_type as $id) {
                 
                 if (isset($experience[$id]) && (array_search($experience[$id], $values) !== false)) {
-                    return false;
+                    $filters['experience_type'] = true;
+                    break;
                 }
             }
 
@@ -81,11 +85,13 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             $values = $expert['expertise'];
             $expertise = $this->filter['expertise'];
-
+            $filters['expertise'] = false;
+            
             foreach ($this->expertise as $id) {
                 
                 if (isset($expertise[$id]) && (array_search($expertise[$id], $values) !== false)) {
-                    return false;
+                    $filters['expertise'] = true;
+                    break;
                 }
             }
         }
@@ -94,11 +100,13 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             $values = $expert['language'];
             $language = $this->filter['language'];
+            $filters['language'] = false;
             
             foreach ($this->language as $id) {
                 
                 if (isset($language[$id]) && (array_search($language[$id], $values) !== false)) {
-                    return false;
+                    $filters['language'] = true;
+                    break;
                 }
             }
         }
@@ -107,16 +115,24 @@ class ExpertSearch extends \yii\sphinx\ActiveRecord
             
             $values = $expert['author_country'];
             $author = $this->filter['author_country'];
+            $filters['author_country'] = false;
             
             foreach ($this->author_country as $id) {
                 
                 if (isset($author[$id]) && (array_search($author[$id], $values) !== false)) {
-                    return false;
+                    $filters['author_country'] = true;
+                    break;
                 }
             }
         }
         
-        return true;     
+        foreach ($filters as $filter) {
+            if (!$filter) {
+                return true;
+            }
+        }
+        
+        return false;     
     }
     
     public function getFilterAttributes() {

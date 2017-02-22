@@ -108,11 +108,7 @@ class SignupForm extends Model
                 }
                 
             }
-            
-            if (!$this->errorMessage) {
-                $this->sendRegisteredEmail($subscriberId, $user);
-            }
-            
+
             if (!$activated->addActivated($user)) {
                 $this->errorMessage[] = 'We can not send confirmation email, Please try login later.';
             }
@@ -123,10 +119,10 @@ class SignupForm extends Model
         return null;
     }
     
-    protected function sendRegisteredEmail($subscriberId, $user) {
+    public function sendRegisteredEmail($subscriberId, $user) {
         
         $body = Yii::$app->view->renderFile('@frontend/views/emails/registered.php', ['subscriber' => $subscriberId, 'user' => $user]);
-        
+
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [
