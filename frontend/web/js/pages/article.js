@@ -471,8 +471,6 @@
                     checkAttr = curAttr.length > 0 && keyLink.length > 1,
                     checkWindow = _window_width < _tablet;
 
-                console.log(keyLink);
-
                 if(checkAttr) {
 
                     article.detectCoordinate(keyLink,parentEl);

@@ -137,6 +137,7 @@
 
 .more-evidence-map-text-mobile {
   display: none;
+  transition: all 0.4s ease;
 }
 
 @include breakpoint_custom($breakpoint-tablet) {
@@ -654,7 +655,7 @@ path {
   }
 }
 
-.map-position {
+.map-mobile-overlay {
   position: relative;
 }
 
@@ -663,10 +664,11 @@ path {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 1000;
   text-transform: uppercase;
   cursor: pointer;
   background: rgba(255,255,255,0.2);
+  display: none;
 
   &.map-active {
     display: none;
