@@ -73,10 +73,10 @@
                 maxZoom: 5,
                 zoom: 2,
                 attributionControl: false,
-                clickable: false,
                 tap: true,
                 trackResize: true,
-                center: [30, 10]
+                center: [30, 10],
+                interactive: true
             },
             style: function(feature) {
                 return {
@@ -195,8 +195,24 @@
             mapObj.zoomControl();
         });
 
+        function activateMap() {
+            var
+                $mapMobile = $('.map-mobile'),
+                checkOverlay = $mapMobile.hasClass('map-active');
+
+            if (!checkOverlay) {
+                $mapMobile.addClass('map-active');
+            }
+            else {
+                $mapMobile.removeClass('map-active');
+            }
+        }
+
+        $('.map-mobile').on('click', activateMap);
+        map.on('click', activateMap);
+
         //----------1 get
-        $.getJSON(mapConfig.json_path_country, function( data ) {
+        $.getJSON(mapConfig.json_path_country, function(data) {
             $.each(data[1], function(index, country) {
 
                 $.each(countries_array, function(index, value) {

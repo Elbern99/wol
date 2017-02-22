@@ -6659,6 +6659,13 @@ iframe[name=advpp_manager] {
     .article-full .content-inner-text h3 {
       margin: 0 0 8px;
       font-size: 18px; } }
+.article-full .content-inner-text h4 {
+  font-size: 13px;
+  margin: 0 0 15px; }
+  @media only screen and (min-width: 769px) {
+    .article-full .content-inner-text h4 {
+      margin: 0 0 8px;
+      font-size: 16px; } }
 .article-full .sidebar-right {
   margin-top: 0; }
 .article-full .article-top h1 {
@@ -7117,8 +7124,8 @@ iframe[name=advpp_manager] {
   position: absolute;
   display: none;
   overflow: hidden; }
-  .reference-popup a {
-    transition: all 0s ease; }
+  .reference-popup.show-arrow .arrows {
+    display: block; }
   .reference-popup.def-reference-popup {
     right: 0;
     left: 0 !important; }
@@ -7129,7 +7136,10 @@ iframe[name=advpp_manager] {
         top: auto !important;
         background: #fff;
         font-size: 13px;
-        line-height: 1.4em; } }
+        line-height: 1.4em; }
+        .reference-popup.def-reference-popup .columns .caption-number,
+        .reference-popup.def-reference-popup .columns .hide-desktop {
+          display: none !important; } }
   .reference-popup.tooltip-ref-popup {
     width: 290px;
     left: auto;
@@ -7167,7 +7177,8 @@ iframe[name=advpp_manager] {
           margin: 0 -24px 0; } }
       .reference-popup.tooltip-ref-popup .columns .column {
         padding: 0 24px 23px;
-        margin: 0; }
+        margin: 0;
+        width: 100%; }
         .reference-popup.tooltip-ref-popup .columns .column .item {
           min-height: 1px !important; }
           .reference-popup.tooltip-ref-popup .columns .column .item .hide-desktop {
@@ -8472,7 +8483,8 @@ iframe[name=advpp_manager] {
       display: block; } }
 
 .more-evidence-map-text-mobile {
-  display: none; }
+  display: none;
+  transition: all 0.4s ease; }
 
 @media only screen and (max-width: 769px) {
   .evidence-map-text,
@@ -8782,7 +8794,7 @@ path {
     fill: #00453a !important;
     stroke: #00352d !important; }
 
-.map-position {
+.map-mobile-overlay {
   position: relative; }
 
 .map-mobile {
@@ -8792,10 +8804,11 @@ path {
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
-  z-index: 2000;
+  z-index: 1000;
   text-transform: uppercase;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.2); }
+  background: rgba(255, 255, 255, 0.2);
+  display: none; }
   .map-mobile.map-active {
     display: none; }
   .map-mobile span {

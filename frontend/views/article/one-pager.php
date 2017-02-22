@@ -484,13 +484,13 @@ $config = [
                                             <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
                                             <div class="icon-exclamatory-circle rel-tooltip"></div>
                                             <div class="key-references-info">
-                                                <div class="caption"><span class="caption-number">[<?= $i-1 ?>]</span> <?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
+                                                <div class="caption"><span class="caption-number">[<?= $i-1 ?>]</span><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
                                                 <div class="sources">
                                                     <?php if(is_array($reference->data_source)): ?>
                                                         <?php
                                                         $s = 1;
                                                         foreach ($reference->data_source as $dSource) {
-                                                            echo '<div class="item"><span class="caption-number">['.$s.']</span> '.$dSource.'</div>';
+                                                            echo '<div class="item"><span class="caption-number">['.$s.']</span>'.$dSource.'</div>';
                                                             $s++;
                                                         }
                                                         ?>
@@ -501,7 +501,7 @@ $config = [
                                                         <?php
                                                         $s = 1;
                                                         foreach ($reference->data_type as $dataType) {
-                                                            echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$dataType.'</div>';
+                                                            echo '<div class="item"><span class="hide-desktop caption-number">['.$s.']</span>'.$dataType.'</div>';
                                                             $s++;
                                                         }
                                                         ?>

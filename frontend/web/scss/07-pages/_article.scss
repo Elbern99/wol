@@ -76,6 +76,16 @@
         font-size: 18px;
       }
     }
+
+    h4 {
+      font-size: 13px;
+      margin: 0 0 15px;
+
+      @include breakpoint('tablet') {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+    }
   }
 
   .sidebar-right {
@@ -796,8 +806,10 @@
   display: none;
   overflow: hidden;
 
-  a {
-    transition: all 0s ease;
+  &.show-arrow {
+    .arrows {
+      display: block;
+    }
   }
 
   //def
@@ -812,6 +824,13 @@
       background: #fff;
       font-size: 13px;
       line-height: 1.4em;
+
+      .columns {
+        .caption-number,
+        .hide-desktop {
+          display: none !important;
+        }
+      }
     }
   }
 
@@ -864,6 +883,7 @@
       .column {
         padding: 0 24px 23px;
         margin: 0;
+        width: 100%;
 
         .item {
           min-height: 1px !important;

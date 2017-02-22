@@ -534,7 +534,7 @@ $config = [
                                                     <?php
                                                     $s = 1;
                                                     foreach ($reference->data_type as $dataType) {
-                                                        echo '<div class="item"><span class="hide-desktop">['.$s.'] </span>'.$dataType.'</div>';
+                                                        echo '<div class="item"><span class="hide-desktop caption-number">['.$s.']</span>'.$dataType.'</div>';
                                                         $s++;
                                                     }
                                                     ?>

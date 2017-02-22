@@ -145,8 +145,11 @@ $this->registerCssFile('/css/leaflet.css');
                         <div class="icon-close"></div>
                     </div>
                 </div>
-                <div class="map-position">
+                <div class="map-mobile-overlay">
                     <div id="map"></div>
+                    <div class="map-mobile">
+                        <span>Click to activate</span>
+                    </div>
                 </div>
             </div>
 
