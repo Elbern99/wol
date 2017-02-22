@@ -7117,8 +7117,8 @@ iframe[name=advpp_manager] {
   position: absolute;
   display: none;
   overflow: hidden; }
-  .reference-popup a {
-    transition: all 0s ease; }
+  .reference-popup.show-arrow .arrows {
+    display: block; }
   .reference-popup.def-reference-popup {
     right: 0;
     left: 0 !important; }
@@ -7129,7 +7129,10 @@ iframe[name=advpp_manager] {
         top: auto !important;
         background: #fff;
         font-size: 13px;
-        line-height: 1.4em; } }
+        line-height: 1.4em; }
+        .reference-popup.def-reference-popup .columns .caption-number,
+        .reference-popup.def-reference-popup .columns .hide-desktop {
+          display: none !important; } }
   .reference-popup.tooltip-ref-popup {
     width: 290px;
     left: auto;
@@ -7167,7 +7170,8 @@ iframe[name=advpp_manager] {
           margin: 0 -24px 0; } }
       .reference-popup.tooltip-ref-popup .columns .column {
         padding: 0 24px 23px;
-        margin: 0; }
+        margin: 0;
+        width: 100%; }
         .reference-popup.tooltip-ref-popup .columns .column .item {
           min-height: 1px !important; }
           .reference-popup.tooltip-ref-popup .columns .column .item .hide-desktop {

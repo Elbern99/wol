@@ -44,11 +44,11 @@
 
             $(item).each(function(index) {
                 var
-                    cur = $(this),
-                    curHeight = cur.height(),
-                    curHeightIndex = cur.index(),
-                    curSiblings = $('.column-types .types').find('.item').eq(index),
-                    curSiblingsHeight = curSiblings.height(),
+                    $cur = $(this),
+                    curHeight = $cur.height(),
+                    curHeightIndex = $cur.index(),
+                    $curSiblings = $('.column-types .types').find('.item').eq(index),
+                    curSiblingsHeight = $curSiblings.height(),
                     countHeight = 0,
                     equalHeight = curHeight > curSiblingsHeight;
 
@@ -58,33 +58,34 @@
                         countHeight = curSiblingsHeight;
                     }
 
-                cur.css('min-height', '1px');
-                curSiblings.css('min-height', '1px');
+                $cur.css('min-height', '1px');
+                $curSiblings.css('min-height', '1px');
 
-                cur.css('min-height', countHeight);
-                curSiblings.css('min-height', countHeight);
+                $cur.css('min-height', countHeight);
+                $curSiblings.css('min-height', countHeight);
             });
         },
         closeReference: function(btn,parent,overlay) {
             $(btn).click(function(e) {
 
                 var
-                    cur = $(this),
-                    parentEl = $(parent),
-                    allListItem = $('a,li'),
-                    allLInks =  $('a'),
-                    overlayEl = $(overlay),
-                    arrowItem = $('.icon-circle-arrow');
+                    $cur = $(this),
+                    $parent = $(parent),
+                    $allListItem = $('a,li'),
+                    $allLInks =  $('a'),
+                    $overlayEl = $(overlay),
+                    $arrowItem = $('.icon-circle-arrow');
 
-                    allListItem.removeClass('opened-reflink');
-                    allLInks.removeClass('text-reference-opened');
-                    cur.parents(parent).fadeOut(article.delay+200);
-                    arrowItem.removeClass('disabled');
-                    parentEl.find('.arrows').fadeOut(article.delay+200);
-                    overlayEl.addClass('js-tab-hidden').removeClass('active');
+                    $allListItem.removeClass('opened-reflink');
+                    $allLInks.removeClass('text-reference-opened');
+                    $cur.parents(parent)
+                        .fadeOut(article.delay+200)
+                        .removeClass('show-arrow');
+                    $arrowItem.removeClass('disabled');
+                    $overlayEl.addClass('js-tab-hidden').removeClass('active');
 
                     setTimeout(function() {
-                        parentEl.removeClass('def-reference-popup tooltip-ref-popup');
+                        $parent.removeClass('def-reference-popup tooltip-ref-popup');
                     }, 300);
                 e.preventDefault();
             });
@@ -193,7 +194,7 @@
                 }, 0);
             }
 
-            article.refLinkNumber('.reference-popup .caption-number');
+            //article.refLinkNumber('.reference-popup .caption-number');
         },
         openTooltip: function(btn,parent) {
             $(btn).click(function(e) {
@@ -234,7 +235,7 @@
 
                 $('li').removeClass(classEl);
                 cur.parent('li').addClass(classEl);
-                parentEl.find(arrows).fadeOut(0);
+                parentEl.removeClass('show-arrow');
 
                 setCoordinatePopup(cur);
 
@@ -304,37 +305,38 @@
         detectNextPrevArrows: function(cur,curAttr,parentHolder,btnPrev,btnNext) {
 
             var
-                btnPrevEl = $(btnPrev),
-                btnNextEl = $(btnNext),
-                checkDesktop = _window_width > _mobile;
+                $btnPrevEl = $(btnPrev),
+                $btnNextEl = $(btnNext),
+                checkDesktop = _window_width > _mobile,
+                $parentHolder = parentHolder;
 
             if(checkDesktop) {
-                parentHolder.fadeIn(article.delay);
+                $parentHolder.fadeIn(article.delay);
             }
 
             var
                 curAttrIndex = cur.data('index'),
                 nextAttrIndex = curAttrIndex+1,
-                nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']').attr('href'),
+                $nextCur = $('.text-reference[href$="'+curAttr+'"][data-index='+nextAttrIndex+']').attr('href'),
                 prevAttrIndex = curAttrIndex-1,
-                prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']').attr('href');
+                $prevCur = $('.text-reference[href$="'+curAttr+'"][data-index='+prevAttrIndex+']').attr('href');
 
-            btnPrevEl.removeClass('disabled');
-            btnNextEl.removeClass('disabled');
+            $btnPrevEl.removeClass('disabled');
+            $btnNextEl.removeClass('disabled');
 
             var
-                checkPrev = prevCur == undefined,
-                checkNext = nextCur == undefined;
+                checkPrev = $prevCur == undefined,
+                checkNext = $nextCur == undefined;
 
             if(checkPrev) {
-                btnPrevEl.addClass('disabled');
+                $btnPrevEl.addClass('disabled');
             }
 
             if(checkNext) {
                 $('.icon-circle-arrow.right').addClass('disabled');
             }
 
-            parentHolder.find('.arrows').fadeIn(0);
+            $parentHolder.addClass('show-arrow');
         },
         showPopupMobile: function(parent) {
             var checkWindow = _window_width < _tablet;
@@ -466,10 +468,13 @@
                 parentEl.addClass('def-reference-popup');
 
                 var
-                    checkAttr = curAttr.length> 0,
+                    checkAttr = curAttr.length > 0 && keyLink.length > 1,
                     checkWindow = _window_width < _tablet;
 
+                console.log(keyLink);
+
                 if(checkAttr) {
+
                     article.detectCoordinate(keyLink,parentEl);
 
                     elements.window.on('orientationchange', function() {
@@ -637,6 +642,23 @@
                     cur.parent().find('a').prepend(cur);
             });
         },
+        shareSelected: function(selector) {
+            shareSelectedText(selector, {
+                tooltipClass: '',
+                sanitize: true,
+                buttons: [
+                    'twitter',
+                    'linkedin',
+                    'facebook',
+                    'tumblr',
+                ],
+                anchorsClass: '',
+                twitterUsername: '',
+                facebookAppID: '686925074844965',
+                facebookDisplayMode: 'popup',
+                tooltipTimeout: 50
+            });
+        },
         mapInit: function() {
             var countries_arrays = mapConfig.source;
             var countries_array = {};
@@ -735,24 +757,6 @@
     };
     /* end */
 
-    function shareSelected(selector){
-        shareSelectedText(selector, {
-            tooltipClass: '',
-            sanitize: true,
-            buttons: [
-                'twitter',
-                'linkedin',
-                'facebook',
-                'tumblr',
-            ],
-            anchorsClass: '',
-            twitterUsername: '',
-            facebookAppID: '686925074844965',
-            facebookDisplayMode: 'popup',
-            tooltipTimeout: 50
-        });
-    }
-
     //EVENTS
     elements.document.ready(function() {
         article.closeReference('.icon-close-popup ','.reference-popup','.overlay');
@@ -774,7 +778,7 @@
     });
 
     elements.window.load(function() {
-        shareSelected('.article-full article');
+        article.shareSelected('.article-full article');
         article.mapInit();
         article.changeFigureClass('.text-reference[data-type="figure"]');
     });
