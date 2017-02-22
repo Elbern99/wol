@@ -1595,9 +1595,9 @@ trait ArticleParseTrait {
             } elseif ($val['tag'] == 'EMPH') {
                 
                 if ($val['type'] == 'complete') {
-                            
-                    $text .= Html::tag('em', $val['value']);
-                            
+                    if (isset($val['value'])) {
+                        $text .= Html::tag('em', $val['value']);
+                    }   
                 } else {
                     
                     if ($val['type'] == 'open') {
