@@ -121,18 +121,21 @@ class AuthorsController extends Controller {
 
         if (Yii::$app->request->isPost) {
             $finds->load(Yii::$app->request->post());
+            $loadSearch = true;
         } elseif ($getSearchFilter) {
             $finds->load($getSearchFilter,'');
+            $loadSearch = true;
         }
         
-        if ($finds->validate()) {
+        if ($loadSearch && $finds->validate()) {
 
             $results = $this->getSearchResult($finds);
 
             if (count($results)) {
                 $experstIds = ArrayHelper::getColumn($results, 'id');
-                $loadSearch = true;
                 $filterRules['filter_params'] = $finds->getFilterAttributes();
+            } else {
+                $loadSearch = false;
             }
         }
 
