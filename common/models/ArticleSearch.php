@@ -101,7 +101,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(title|value|availability) (' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(title|value|availability|surname|name) (' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         if ($attributes['any_words']) {
@@ -114,20 +114,27 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(title|value|availability) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(title|value|availability|surname|name) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         $result =  self::find()
                         ->select(['id'])
                         ->match($match)
+                        ->addOptions(['field_weights' => ['title' => 50, 'surname' => 40, 'name' => 30, 'availability' => 20, 'value' => 10]])
                         ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
-        
+
         return self::filterArticleResult($result);
     }
     
     protected static function filterArticleResult(array $ids): array {
-        return Article::find()->select('id')->where(['id' => $ids, 'enabled' => 1])->asArray()->all();
+        
+        return Article::find()
+                    ->select('id')
+                    ->where(['id' => $ids, 'enabled' => 1])
+                    ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', \yii\helpers\ArrayHelper::getColumn($ids, 'id')) . ')')])
+                    ->asArray()
+                    ->all();
     }
 }
