@@ -44,7 +44,7 @@ unset($currentParams);
                     </a>
                 </div>
                 <div class="search-bottom">
-                    <a href="<?= Url::to(['/search/advanced']) ?>">advanced search</a>
+                    <a href="<?= Url::to(['/search/advanced', 'phrase' => $phrase]) ?>">advanced search</a>
                 </div>
                 <div class="search-top">
                     <span class="icon-search"></span>

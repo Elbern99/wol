@@ -245,18 +245,31 @@ class SearchController extends Controller
         if ($id && is_object(Yii::$app->user->identity)) {
             
             $savedSearchModel = SavedSearch::find()->where(['user_id' => Yii::$app->user->identity->id, 'id' => $id])->one();
-            
+
             if (is_object($savedSearchModel)) {
                 $model->load($savedSearchModel->getAttributes(), '');
+                $model->types = explode(',', $savedSearchModel->types);
             }
             
         }
         
         if (Yii::$app->request->isGet) {
             
-            if (Yii::$app->request->get('phrase')) {
+            if (Yii::$app->request->get('refine')) {
+                $searchResultId = Yii::$app->getSession()->get('search_result_id');
+                if ($searchResultId) {
+                    
+                    $searchResultData = SearchResult::findOne($searchResultId);
+                    
+                    if (isset($searchResultData['creteria'])) {
+                        $data = unserialize($searchResultData['creteria']);
+                        $model->load($data, '');
+                    }
+                }
+
+            } elseif (Yii::$app->request->get('phrase')) {
                 $model->search_phrase = Yii::$app->request->get('phrase');
-            }
+            } 
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -264,20 +277,24 @@ class SearchController extends Controller
             try {
                 
                 $result = $model->search();
-                $previosResult = Yii::$app->getSession()->get('search_result_id');
-                $searchResultData = SearchResult::findOne($previosResult);
-        
-                if ($searchResultData) {
-                    $searchResultData->delete();
+                
+                if (count($result)) {
+                    $previosResult = Yii::$app->getSession()->get('search_result_id');
+                    $searchResultData = SearchResult::findOne($previosResult);
+
+                    if ($searchResultData) {
+                        $searchResultData->delete();
+                        Yii::$app->getSession()->remove('search_result_id');
+                    }
+
+                    $currentResult = SearchResult::addNewResult($result, Yii::$app->request->post('AdvancedSearchForm'));
+
+                    if ($currentResult) {
+                        return $this->redirect(Url::to(['/search', 'phrase' => $model->search_phrase]));
+                    }
                 }
                 
-                $currentResult = SearchResult::addNewResult($result, Yii::$app->request->post('AdvancedSearchForm'));
-                
-                if ($currentResult) {
-                    return $this->redirect(Url::to(['/search', 'phrase' => $model->search_phrase]));
-                }
-                
-                Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Search result not found'));
+                Yii::$app->getSession()->setFlash('error', Yii::t('app/text','According to the entered criteria are no results'));
                 
             } catch (\Exception $e) {
                 Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Error in Result'));
@@ -289,17 +306,8 @@ class SearchController extends Controller
     }
     
     public function actionRefine() {
-        
-        $searchResultId = Yii::$app->getSession()->get('search_result_id');
-        $searchResultData = SearchResult::findOne($searchResultId);
-        
-        if ($searchResultData) {
-            $searchResultData->delete();
-        }
-        
-        Yii::$app->getSession()->remove('search_result_id');
-        
-        return $this->redirect(Url::to(['/search']));
+
+        return $this->redirect(Url::to(['/search/advanced', 'refine' => true]));
     }
     
     public function actionSave() {
