@@ -332,17 +332,26 @@
 
             var
                 checkPrev = $prevCur == undefined,
-                checkNext = $nextCur == undefined;
+                checkNext = $nextCur == undefined,
+                checkDisabled = false;
 
             if(checkPrev) {
                 $btnPrevEl.addClass('disabled');
+            } else {
+                checkDisabled = true;
             }
 
             if(checkNext) {
-                $('.icon-circle-arrow.right').addClass('disabled');
+                $btnNextEl.addClass('disabled');
+            } else {
+                checkDisabled = true;
             }
 
-            $parentHolder.addClass('show-arrow');
+            if(checkDisabled) {
+                $parentHolder.addClass('show-arrow');
+            } else {
+                $parentHolder.removeClass('show-arrow');
+            }
         },
         showPopupMobile: function(parent) {
             var checkWindow = _window_width < _tablet;
@@ -373,14 +382,12 @@
                 CurCord,
                 checkReflink = $('.text-reference').length && cur.length > 0;
 
-            console.log( cur.length > 0);
-
                 if(checkPopup) {
                     if(checkReflink) {
 
                          CurCord = cur.offset().top;
 
-                         if(checkWindowAnimate){
+                        if(checkWindowAnimate){
                              $htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
                         } else {
                              $htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
