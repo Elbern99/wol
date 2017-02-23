@@ -394,7 +394,7 @@
                         }
                     } else {
                         CurCord = _windowScrollTop;
-                        $parent.css('top',CurCord);
+                        $parent.css('top',CurCord-2);
                     }
                 }
         },

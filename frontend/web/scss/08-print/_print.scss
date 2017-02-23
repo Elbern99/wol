@@ -112,7 +112,16 @@
           display: block;
 
           li>a {
-            font-size: 15px;
+            display: none;
+
+            &.title {
+              display: block;
+              margin: 0;
+
+              &:before {
+                display: none;
+              }
+            }
           }
 
           a {
@@ -121,26 +130,17 @@
 
           .key-references-info {
             display: block;
-            padding: 10px 0 10px 10px;
 
-            h3 {
-              font-size: 14px;
-              margin: 0 0 5px;
-            }
-
-            span {
-              padding-right: 5px !important;
-            }
-
-            .sources,
-            .caption,
-            .types,
-            .methods {
-              margin-bottom: 10px;
-            }
-
-            .hide-desktop {
+            .caption-number {
               display: inline-block !important;
+            }
+
+            div {
+              display: none;
+
+              &.caption {
+                display: block;
+              }
             }
           }
 
@@ -154,6 +154,7 @@
             &.key-references-item {
               display: block;
               margin-top: -80px;
+
               .text {
                 padding-top: 20px;
                 display: block !important;

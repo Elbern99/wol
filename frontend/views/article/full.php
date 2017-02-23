@@ -514,9 +514,7 @@ $config = [
                                         <a href="#<?= $reference->ref ?>">[<?= $i++ ?>] <?= $reference->title ?></a>
                                         <div class="icon-exclamatory-circle rel-tooltip"></div>
                                         <div class="key-references-info">
-                                            <h3>Full citation</h3>
                                             <div class="caption"><span class="caption-number">[<?= $i-1 ?>]</span><?= (is_array($reference->full_citation)) ? implode('<br>', $reference->full_citation) : $reference->full_citation?></div>
-                                            <h3>Data source(s)</h3>
                                             <div class="sources">
                                             <?php if(is_array($reference->data_source)): ?>
                                                 <?php
@@ -528,7 +526,6 @@ $config = [
                                                 ?>
                                             <?php endif; ?>
                                             </div>
-                                            <h3>Data type(s)</h3>
                                             <div class="types">
                                                 <?php if(is_array($reference->data_type)): ?>
                                                     <?php
@@ -540,9 +537,7 @@ $config = [
                                                     ?>
                                                 <?php endif; ?>
                                             </div>
-                                            <h3>Method(s)</h3>
                                             <div class="methods"><?= (is_array($reference->method)) ? implode(' - ', $reference->method) : $reference->method ?></div>
-                                            <h3>Countries</h3>
                                             <div class="countries"><?= (is_array($reference->countries)) ? implode(', ', $reference->countries) : '' ?></div>
                                         </div>
                                     </li>
