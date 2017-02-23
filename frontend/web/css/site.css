@@ -1632,7 +1632,7 @@ ol {
   ul li,
   ol li {
     position: relative;
-    padding: 0 0 0 17px; }
+    padding: 0 0 6px 17px; }
     ul li:before,
     ol li:before {
       content: '';
