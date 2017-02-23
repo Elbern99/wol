@@ -7126,8 +7126,10 @@ iframe[name=advpp_manager] {
   overflow: hidden; }
   .reference-popup.show-arrow .arrows {
     display: block; }
+  .reference-popup.show-arrow .reference-popup-inner {
+    padding-bottom: 60px; }
   .reference-popup ul {
-    padding: 0 0 6px; }
+    padding: 4px 0 5px; }
   .reference-popup.def-reference-popup {
     right: 0;
     left: 0 !important; }
@@ -7193,7 +7195,7 @@ iframe[name=advpp_manager] {
       margin: 0; }
   .reference-popup .reference-popup-inner {
     background: #fff;
-    padding: 45px 15px 60px;
+    padding: 45px 15px;
     position: relative;
     max-width: 1230px;
     margin: 0 auto; }
@@ -7273,7 +7275,7 @@ iframe[name=advpp_manager] {
   .reference-popup .caption {
     margin: 0 0 20px; }
   .reference-popup p {
-    margin-bottom: 6px; }
+    margin: 6px 0; }
   .reference-popup .column-sources,
   .reference-popup .column-types {
     overflow: hidden; }

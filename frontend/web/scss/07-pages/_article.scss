@@ -810,10 +810,14 @@
     .arrows {
       display: block;
     }
+
+    .reference-popup-inner {
+      padding-bottom: 60px;
+    }
   }
 
   ul {
-    padding: 4px 0 7px;
+    padding: 4px 0 5px;
   }
 
   //def
@@ -913,7 +917,7 @@
 
   .reference-popup-inner {
     background: #fff;
-    padding: 45px 15px 60px;
+    padding: 45px 15px;
     position: relative;
     max-width: $content-area-width;
     margin: 0 auto;
@@ -1040,7 +1044,7 @@
   }
 
   p {
-    margin-bottom: 6px
+    margin: 6px 0;
   }
 
   .column-sources,

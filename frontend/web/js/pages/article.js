@@ -332,17 +332,26 @@
 
             var
                 checkPrev = $prevCur == undefined,
-                checkNext = $nextCur == undefined;
+                checkNext = $nextCur == undefined,
+                checkDisabled = false;
 
             if(checkPrev) {
                 $btnPrevEl.addClass('disabled');
+            } else {
+                checkDisabled = true;
             }
 
             if(checkNext) {
-                $('.icon-circle-arrow.right').addClass('disabled');
+                $btnNextEl.addClass('disabled');
+            } else {
+                checkDisabled = true;
             }
 
-            $parentHolder.addClass('show-arrow');
+            if(checkDisabled) {
+                $parentHolder.addClass('show-arrow');
+            } else {
+                $parentHolder.removeClass('show-arrow');
+            }
         },
         showPopupMobile: function(parent) {
             var checkWindow = _window_width < _tablet;
@@ -372,8 +381,6 @@
                 checkPopup = $('.def-reference-popup').length > 0,
                 CurCord,
                 checkReflink = $('.text-reference').length && cur.length > 0;
-
-            console.log( cur.length > 0);
 
                 if(checkPopup) {
                     if(checkReflink) {
