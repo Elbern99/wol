@@ -110,6 +110,24 @@ class SearchController extends Controller
 
                     try {
                         $searchResult = $model->search();
+                        
+                        if (!count($searchResult)) {
+                            
+                            $searchResultId = Yii::$app->getSession()->get('search_result_id');
+                            
+                            if ($searchResultId) {
+
+                                $searchResultData = SearchResult::findOne($searchResultId);
+
+                                if ($searchResultData) {
+                                    $searchResultData->delete();
+                                    Yii::$app->getSession()->remove('search_result_id');
+                                    return $this->redirect(['/search', 'phrase' => $phrase]);
+                                }
+                            }
+                            
+                        }
+                        
                     } catch (\Exception $e) {
                         Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
                     }
@@ -184,7 +202,7 @@ class SearchController extends Controller
 
         unset($searchResult);
         $resultCount = count($results);
-        
+
         if ($resultCount) {
             Result::initData($results);
         }

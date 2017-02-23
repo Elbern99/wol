@@ -38,6 +38,7 @@ class SearchResult extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['result', 'required'],
             [['result', 'creteria', 'filters'], 'string'],
             [['created_at'], 'integer'],
         ];
@@ -93,7 +94,7 @@ class SearchResult extends \yii\db\ActiveRecord
         if ($filters) {
             $model->filters = serialize($filters);
         }
-        
+
         if ($model->save()) {
             Yii::$app->getSession()->set('search_result_id', $model->id);
             return $model->id;
