@@ -812,6 +812,10 @@
     }
   }
 
+  ul {
+    padding: 0 0 6px;
+  }
+
   //def
   &.def-reference-popup {
     right: 0;
@@ -1105,7 +1109,7 @@
       margin: 0;
 
       @include breakpoint('tablet') {
-        max-width: 33.3%;
+        max-width: 45%;
         margin-bottom: 0;
 
         &.visible {

@@ -1632,7 +1632,7 @@ ol {
   ul li,
   ol li {
     position: relative;
-    padding: 0 0 0 10px; }
+    padding: 0 0 0 17px; }
     ul li:before,
     ol li:before {
       content: '';
@@ -1642,7 +1642,7 @@ ol {
       background: #262626;
       display: inline-block;
       vertical-align: middle;
-      margin: -2px 4px 0 -10px; }
+      margin: -2px 10px 0 -15px; }
 
 ol li {
   counter-increment: step-counter;
@@ -7126,6 +7126,8 @@ iframe[name=advpp_manager] {
   overflow: hidden; }
   .reference-popup.show-arrow .arrows {
     display: block; }
+  .reference-popup ul {
+    padding: 0 0 6px; }
   .reference-popup.def-reference-popup {
     right: 0;
     left: 0 !important; }
@@ -7323,7 +7325,7 @@ iframe[name=advpp_manager] {
       margin: 0; }
       @media only screen and (min-width: 769px) {
         .reference-popup .columns .column {
-          max-width: 33.3%;
+          max-width: 45%;
           margin-bottom: 0;
           padding: 0 24px 15px;
           vertical-align: top; }

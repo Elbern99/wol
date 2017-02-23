@@ -14,12 +14,17 @@
         _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
         _mobile = 769,
-        _tablet = 1025;
+        _tablet = 1025,
+        _windowScrollTop;
 
     elements.window.resize(function() {
         _window_height = elements.window.height();
         _window_width = elements.window.width();
         _doc_height = elements.document.height();
+    });
+
+    elements.window.scroll(function() { //when window is scrolled
+        _windowScrollTop = $(window).scrollTop();
     });
 
     //ARTICLE
@@ -203,13 +208,14 @@
                     parentEl = $(parent),
                     classEl = 'opened-reflink',
                     arrows = '.arrows',
-                    htmlEl = $('html, body');
+                    $htmlEl = $('html, body');
 
                 parentEl.removeClass('def-reference-popup');
                 parentEl.addClass('tooltip-ref-popup');
 
                 function setCoordinatePopup(cur) {
-                    var offset = cur.offset(),
+                    var
+                        offset = cur.offset(),
                         curCordTop = offset.top,
                         curCordLeft = offset.left;
 
@@ -219,16 +225,16 @@
                     var
                         getCenter = curCordTop - _window_height/2,
                         checkDesktop = _window_width > _mobile,
-                        checkTooltip = $('.tooltip-ref-popup').length > 0,
+                        checkTooltip = $('.tooltip-ref-popup').length > 0 && $htmlEl.not('animate'),
                         checkElAfterCenter = getCenter > $(document).scrollTop();
 
                     if(checkTooltip) {
                         if(checkDesktop) {
                             if(checkElAfterCenter) {
-                                htmlEl.animate({ scrollTop: getCenter }, article.delay+200);
+                                $htmlEl.animate({ scrollTop: getCenter }, article.delay+200);
                             }
                         } else {
-                            htmlEl.animate({ scrollTop: curCordTop }, article.delay+200);
+                            $htmlEl.animate({ scrollTop: curCordTop }, article.delay+200);
                         }
                     }
                 };
@@ -269,7 +275,7 @@
                     checkedBib = curAttr === 'bib';
 
                 if(checkedBib) {
-                    return false;
+                    //return false;
                 }
 
                 if(!checkReferenceOpened) {
@@ -358,21 +364,32 @@
             }
         },
         detectCoordinate: function(cur,parent) {
-            if($('.text-reference').length) {
-                var alignCenter = (_window_height - $(parent).height())/2,
-                    CurCord = cur.offset().top,
-                    htmlEl = $('html, body'),
-                    checkWindow = _window_width > _mobile,
-                    checkPopup = $('.def-reference-popup').length > 0;
+            var
+                $parent = $(parent),
+                $htmlEl = $('html, body'),
+                alignCenter = (_window_height - $parent.height())/2,
+                checkWindowAnimate = _window_width > _mobile && $htmlEl.not('animate'),
+                checkPopup = $('.def-reference-popup').length > 0,
+                CurCord,
+                checkReflink = $('.text-reference').length && cur.length > 0;
+
+            console.log( cur.length > 0);
 
                 if(checkPopup) {
-                    if(checkWindow){
-                        htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+                    if(checkReflink) {
+
+                         CurCord = cur.offset().top;
+
+                         if(checkWindowAnimate){
+                             $htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
+                        } else {
+                             $htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
+                        }
                     } else {
-                        htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);
+                        CurCord = _windowScrollTop;
+                        $parent.css('top',CurCord);
                     }
                 }
-            }
         },
         arrowsSwitchNext: function(btnNext,btnPrev) {
             $(btnNext).click(function(e) {
@@ -468,23 +485,20 @@
                 parentEl.addClass('def-reference-popup');
 
                 var
-                    checkAttr = curAttr.length > 0 && keyLink.length > 1,
+                    checkAttr = curAttr.length > 0,
                     checkWindow = _window_width < _tablet;
 
-                if(checkAttr) {
-
-                    article.detectCoordinate(keyLink,parentEl);
-
-                    elements.window.on('orientationchange', function() {
-                        setTimeout(function(){
-                            article.detectCoordinate(keyLink,parentEl);
-                        }, 600);
-                    });
-
-                    if(checkWindow){
-                        article.showPopupMobile('.def-reference-popup');
-                    }
+                if(checkWindow){
+                    article.showPopupMobile('.def-reference-popup');
                 }
+
+                article.detectCoordinate(keyLink,parentEl);
+
+                elements.window.on('orientationchange', function() {
+                    setTimeout(function(){
+                        article.detectCoordinate(keyLink,parentEl);
+                    }, 600);
+                });
 
                 e.preventDefault();
             });
