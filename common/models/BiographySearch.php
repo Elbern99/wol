@@ -124,8 +124,12 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                         ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
-
-        return self::filterAuthorResult($result);
+        
+        if (count($result)) {
+            return self::filterAuthorResult($result);
+        }
+        
+        return [];
     }
     
     protected static function filterAuthorResult(array $ids): array {

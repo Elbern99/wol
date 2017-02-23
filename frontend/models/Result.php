@@ -377,9 +377,11 @@ class Result {
     protected static function formatData($data) {
 
         $format = [];
-
-        foreach ($data as $d) {
-            $format[$d['type']][] = $d['id'];
+        
+        if (count($data)) {
+            foreach ($data as $d) {
+                $format[$d['type']][] = $d['id'];
+            }
         }
 
         return $format;

@@ -124,8 +124,11 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
                         ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
-
-        return self::filterArticleResult($result);
+        if (count($result)) {
+            return self::filterArticleResult($result);
+        }
+        
+        return [];
     }
     
     protected static function filterArticleResult(array $ids): array {
