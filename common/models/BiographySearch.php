@@ -120,14 +120,21 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
         $result = self::find()
                         ->select(['id'])
                         ->match($match)
+                        ->addOptions(['field_weights' => ['name' => 50, 'url_key' => 40, 'url' => 20, 'value' => 10]])
                         ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();
-        
+
         return self::filterAuthorResult($result);
     }
     
     protected static function filterAuthorResult(array $ids): array {
-        return Author::find()->select('id')->where(['id' => $ids, 'enabled' => 1])->asArray()->all();
+        
+        return Author::find()
+                ->select('id')
+                ->where(['id' => $ids, 'enabled' => 1])
+                ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', \yii\helpers\ArrayHelper::getColumn($ids, 'id')) . ')')])
+                ->asArray()
+                ->all();
     }
 }

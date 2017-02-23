@@ -107,9 +107,15 @@ class Result {
             $query->andWhere(['id' => $ids]);
         }
         
-        $items = $query->orderBy(['created_at' => SORT_DESC])
-                        ->asArray()
-                        ->all();
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['created_at' => SORT_DESC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+        }
+        
+        $items = $query->asArray()->all();
         
         foreach ($items as $item) {
 
@@ -122,48 +128,77 @@ class Result {
 
     protected static function getOpinions($ids, $k) {
 
-        $result = Opinion::find()
-                ->select(['title', 'url_key', 'short_description', 'created_at'])
-                ->where(['id' => $ids])
-                ->orderBy(['created_at' => SORT_DESC])
-                ->asArray()
-                ->all();
+        $query = Opinion::find()
+                ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
+                ->where(['id' => $ids]);
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['created_at' => SORT_DESC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+        }
+
+        $result = $query->asArray()->all();
 
         self::addDataToValue($result, $k);
     }
 
     protected static function getEvents($ids, $k) {
 
-        $result = Event::find()
-                ->select(['title', 'url_key', 'location', 'date_to', 'date_from'])
-                ->where(['id' => $ids])
-                ->orderBy(['date_to' => SORT_DESC])
-                ->asArray()
-                ->all();
+        $query = Event::find()
+                ->select(['id', 'title', 'url_key', 'location', 'date_to', 'date_from'])
+                ->where(['id' => $ids]);
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['date_to' => SORT_DESC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+        }
+
+        $result = $query->asArray()->all();
 
         self::addDataToValue($result, $k);
     }
 
     protected static function getVideos($ids, $k) {
 
-        $result = Video::find()
-                ->select(['title', 'url_key'])
-                ->where(['id' => $ids])
-                ->orderBy(['order' => SORT_ASC])
-                ->asArray()
-                ->all();
+        $query = Video::find()
+                        ->select(['id', 'title', 'url_key'])
+                        ->where(['id' => $ids]);
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['order' => SORT_ASC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+        }
+
+        $result = $query->asArray()->all();
+        
         self::addDataToValue($result, $k);
     }
 
     protected static function getNews($ids, $k) {
 
-        $result = NewsItem::find()
-                ->select(['title', 'url_key', 'short_description', 'created_at', 'editor'])
-                ->where(['id' => $ids])
-                ->orderBy(['created_at' => SORT_DESC])
-                ->asArray()
-                ->all();
+        $query = NewsItem::find()
+                ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'editor'])
+                ->where(['id' => $ids]);
 
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['created_at' => SORT_DESC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+        }
+
+        $result = $query->asArray()->all();
+        
         self::addDataToValue($result, $k);
     }
 
@@ -181,14 +216,14 @@ class Result {
     protected static function getBiography($ids, $k) {
            
         self::$biographyFilter = Author::find()
-                ->select(['id', 'name'])
-                ->where(['enabled' => 1, 'id' => $ids])
-                ->asArray()
-                ->all();
+                                        ->select(['id', 'name'])
+                                        ->where(['enabled' => 1, 'id' => $ids])
+                                        ->asArray()
+                                        ->all();
 
         $query = Author::find()
-                ->select(['id', 'url_key', 'name', 'avatar'])
-                ->where(['enabled' => 1]);
+                    ->select(['id', 'url_key', 'name', 'avatar'])
+                    ->where(['enabled' => 1]);
                 
         $filtered = false;
 
@@ -205,6 +240,14 @@ class Result {
             $query->andWhere(['id' => self::$filters['biography']]);
         } else {
             $query->andWhere(['id' => $ids]);
+        }
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+        
+        if ($order != 'relevance') {
+            $query->orderBy(['surname' => SORT_ASC]);
+        } else {
+            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         }
         
         $authors = $query->asArray()->all();
