@@ -326,7 +326,7 @@ class Result {
         if ($order != 'relevance') {
             $articles->orderBy(['a.created_at' => SORT_DESC]);
         } else {
-            $articles->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+            $articles->orderBy([new \yii\db\Expression('FIELD (`a`.`id`, ' . implode(',', $ids) . ')')]);
         }
 
         $articles = $articles->all();
