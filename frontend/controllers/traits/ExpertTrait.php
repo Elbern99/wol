@@ -97,6 +97,7 @@ trait ExpertTrait {
 
         return $finds->find()->select(['id'])
                              ->match($finds->search_phrase)
+                             ->limit(500)
                              ->asArray()
                              ->all();
     }
