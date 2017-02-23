@@ -387,7 +387,7 @@
 
                          CurCord = cur.offset().top;
 
-                         if(checkWindowAnimate){
+                        if(checkWindowAnimate){
                              $htmlEl.animate({ scrollTop: CurCord - alignCenter }, article.delay+200);
                         } else {
                              $htmlEl.animate({ scrollTop: CurCord - _window_height+20 }, article.delay+400);

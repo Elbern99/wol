@@ -1330,7 +1330,7 @@ th {
 [class*=" btn-border-light-blue-"],
 .btn-primary {
   background: #0094f2;
-  color: #fff;
+  color: #fff !important;
   height: 32px;
   line-height: 32px;
   font-size: 11px; }
@@ -1340,7 +1340,7 @@ th {
     [class*=" btn-border-light-blue-"]:hover,
     .btn-primary:hover {
       border-color: #0094f2;
-      color: #0094f2;
+      color: #0094f2 !important;
       background: #fff; } }
 
 .btn-border-gray,
@@ -7126,8 +7126,9 @@ iframe[name=advpp_manager] {
   overflow: hidden; }
   .reference-popup.show-arrow .arrows {
     display: block; }
-  .reference-popup.show-arrow .reference-popup-inner {
-    padding-bottom: 60px; }
+  @media only screen and (max-width: 769px) {
+    .reference-popup.show-arrow .reference-popup-inner {
+      padding-bottom: 60px; } }
   .reference-popup ul {
     padding: 4px 0 5px; }
   .reference-popup.def-reference-popup {

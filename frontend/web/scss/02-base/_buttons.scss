@@ -183,9 +183,8 @@
 [class*=" btn-border-light-blue-"],
 .btn-primary {
 
-
   background: $light-blue;
-  color: $white;
+  color: $white !important;
   height: 32px;
   line-height: 32px;
   font-size: 11px;
@@ -193,7 +192,7 @@
   &:hover {
     @include breakpoint('tablet') {
       border-color: $light-blue;
-      color: $light-blue;
+      color: $light-blue !important;
       background: $white;
     }
   }

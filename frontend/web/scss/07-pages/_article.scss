@@ -812,7 +812,10 @@
     }
 
     .reference-popup-inner {
-      padding-bottom: 60px;
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        padding-bottom: 60px;
+      }
     }
   }
 
