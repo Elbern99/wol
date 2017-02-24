@@ -5,7 +5,7 @@
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">An article has been published on IZA World of Labor in a topic you are interested in:
 <?= $article->title ?> by <?= $article->availability ?> <a href="<?= Url::to('/'.$article->url, true) ?>"><?= Url::to('/'.$article->url, true) ?></a>
 <a href="<?= Url::to($article->pdf, true) ?>">Download as PDF</span></a>
-</p>email
+</p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Know someone who would also be interested in this article? Click the forward button and share with them.</span></p>
 
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You can manage your article alert preferences at my account.</span></p>

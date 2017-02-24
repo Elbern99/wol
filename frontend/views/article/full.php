@@ -660,7 +660,7 @@ $config = [
                     </div>
                     <div class="doi">
                         <div class="title">DOI</div>
-                        <a href=""><?= $article->doi ?></a>
+                        <a href="http://dx.doi.org/<?= $article->doi ?>"><?= $article->doi ?></a>
                     </div>
                     <div class="authors">
                         <div class="title">authors</div>

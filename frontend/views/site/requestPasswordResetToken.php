@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Request password reset';
             <div class="article-head">
                 <h1><?= Html::encode($this->title) ?></h1>
             </div>
-            <p>Please fill out your email. A link to reset password will be sent there.</p>
+            <p>Please fill out your email to send a password reset link.</p>
             <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
             <div class="grid">
                 <div class="grid-line two">
