@@ -93,4 +93,8 @@ class AdvancedSearchForm extends Model implements SearchInterface
         
         return $result;
     }
+    
+    public function setSelectedTypes() {
+        $this->types = $this->getTypeIds();
+    }
 }

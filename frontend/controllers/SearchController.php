@@ -259,7 +259,8 @@ class SearchController extends Controller
     public function actionAdvanced($id = null) {
         
         $model = new AdvancedSearchForm();
-
+        $model->setSelectedTypes();
+        
         if ($id && is_object(Yii::$app->user->identity)) {
             
             $savedSearchModel = SavedSearch::find()->where(['user_id' => Yii::$app->user->identity->id, 'id' => $id])->one();
