@@ -163,6 +163,7 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     }
     
     public function getAuthorCategoriesArray() {
+        
         return  AuthorCategory::find()
                     ->select(['c.url_key', 'c.title'])
                     ->alias('ac')

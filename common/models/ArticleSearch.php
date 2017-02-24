@@ -35,6 +35,8 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             [['seo'], 'string'],
             [['availability'], 'string'],
             [['publisher'], 'string'],
+            [['url'], 'string'],
+            [['surname'], 'string'],
             [['title'], 'string'],
             [['value'], 'string'],
         ];
@@ -101,7 +103,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(title|value|availability|surname|name) (' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(title|value|availability|surname|name|url) (' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         if ($attributes['any_words']) {

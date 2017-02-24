@@ -4,6 +4,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use common\helpers\Country;
+use common\helpers\Languages;
 ?>
 
 <?php
@@ -85,7 +86,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                     <p class="location"> <?= $expert['affiliation'] ?></p>
                     <p><strong>Expertise:</strong> <?= implode(', ', $expert['expertise'])?></p>
                     <p><strong>Media Experience:</strong> <?= implode(', ', array_map(function($value){ return ucfirst($value); }, $expert['experience_type']))?></p>
-                    <p><strong>Languages:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['language'])) ?></p>
+                    <p><strong>Languages:</strong> <?= implode(', ', array_map(function($value) { return Languages::getCountryName($value); }, $expert['language'])) ?></p>
                     <p><strong>Country:</strong> <?= implode(', ', array_map(function($value) { return Country::getCountryName($value); }, $expert['author_country'])) ?></p>
                 </li>
                 <?php endforeach; ?>
@@ -165,10 +166,11 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                                 <div class="text">
                                     <div class="checkbox-list more-extra-list">
                                         <?= Html::activeCheckboxList($search, 'language', $filter['language'], ['item' => function($index, $label, $name, $checked, $value) {
+
                                             return Html::tag('div', Html::checkbox($name, $checked, [
                                                 'labelOptions'=>['class' => 'def-checkbox light'],
                                                 'value' => $value,
-                                                'label' => '<span class="label-text">'.Country::getCountryName($label).'</span>',
+                                                'label' => '<span class="label-text">'.Languages::getCountryName($label).'</span>',
                                             ]), ['class' => 'item']);
                                         }]) ?>
                                     </div>

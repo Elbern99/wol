@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use common\models\Author;
 use frontend\components\articles\SubjectAreas;
 use common\helpers\Country;
+use common\helpers\Languages;
 ?>
 
 <?php
@@ -91,7 +92,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <div class="item">
                             <h2>Languages</h2>
                             <p><?= implode(', ', array_map(function($lang) {
-                               $str = Country::getCountryName($lang->code);
+                               $str = Languages::getCountryName($lang->code);
                                if ($lang->proficiency) {
                                    $str .= ' - '.Yii::t('app/text',$lang->proficiency);
                                }
