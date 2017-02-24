@@ -14,7 +14,7 @@ class RelevantComparator implements ComparatorInterface {
             return $elements;
         }
         
-        $this->cnt = count($elements) - 8;
+        $this->cnt = count($elements);
         $this->orderByType($elements);
         
         return $this->relivantOrder();
@@ -37,6 +37,8 @@ class RelevantComparator implements ComparatorInterface {
             foreach (array_keys($relevant) as $key) {
                 unset($this->types['article'][$key]);
             }
+            
+            $this->cnt -= count($relevant);
         }
         
         if (isset($this->types['biography'])) {
@@ -46,10 +48,11 @@ class RelevantComparator implements ComparatorInterface {
                 unset($this->types['biography'][$key]);
             }
             
+            $this->cnt -= count($relevantAuthor);
             $relevant = array_merge($relevant, $relevantAuthor);
         }
         
-        $i = 1;
+        $i = 0;
 
         while ($i < $this->cnt) {
             
