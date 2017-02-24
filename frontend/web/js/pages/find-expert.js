@@ -76,6 +76,8 @@
 
         if(!checkStorage) {
             $('.preloader').fadeOut(0);
+        } else {
+            $('.filter-mobile-link').trigger('click');
         }
     });
 
@@ -93,7 +95,6 @@
                 itemScrollCoord =  $findItem.offset().top;
 
             elements.htmlBody.animate({scrollTop: itemScrollCoord}, 1);
-            console.log(localStorage.getItem('AccordionItems'));
         }
     });
 })(jQuery);
