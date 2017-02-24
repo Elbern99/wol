@@ -641,7 +641,7 @@ $config = [
                 </div>
                 <div class="doi">
                     <div class="title">DOI</div>
-                    <a href="http://dx.doi.org/<?= $article->doi ?>" target="_blank">http://dx.doi.org/<?= $article->doi ?></a>
+                    <a href="http://dx.doi.org/<?= $article->doi ?>" target="_blank"><?= $article->doi ?></a>
                 </div>
                 <div class="authors">
                     <div class="title">authors</div>
