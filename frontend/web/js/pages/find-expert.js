@@ -1,12 +1,20 @@
 
 (function ($) {
+
+    // ELEMENTS
+    var elements = {
+        document: $(document),
+        window: $(window),
+        htmlBody: $('html, body')
+    };
+
     //GLOBAL VARIABLE ---------
     var _window_height = $(window).height(),
             _window_width = $(window).width(),
             _mobile = 769,
             _tablet = 1025;
 
-    $(window).resize(function () {
+    elements.window.resize(function () {
         _window_width = $(window).width();
     });
 
@@ -45,19 +53,47 @@
                     e.preventDefault();
                 });
             }
-        },
-        checkFilterMobile: function(item) {
-
         }
     };
-    
+
     function dynamicFilter(filter) {
+        var $cur = $(this),
+            $parent = $cur.parents('.sidebar-accrodion-item'),
+            parentIndex = $parent.index();
+
+        localStorage.setItem('AccordionItems', parentIndex);
         $('.expert-filter-form').submit();
     }
 
-    $(document).ready(function () {
+    elements.document.ready(function () {
         $('.item').find('input:checkbox').bind('change', dynamicFilter);
         advancedSearch.cloneEl('.filter-clone', '.mobile-filter-container', '.filter-clone-holder');
         advancedSearch.openFilter('.filter-mobile-link', '.mobile-filter');
+
+        //scroll to el
+        var
+            checkStorage = localStorage.getItem('AccordionItems');
+
+        if(!checkStorage) {
+            $('.preloader').fadeOut(0);
+        }
+    });
+
+    elements.window.load(function() {
+
+        //scroll to el
+        var
+            checkStorage = localStorage.getItem('AccordionItems');
+
+        if ($('.search-results').length>0 || $('.find-expert').length>0 && checkStorage){
+            var
+                $accordionItem = $('.sidebar-accrodion-item'),
+                accordionItemIndex =  localStorage.getItem('AccordionItems'),
+                $findItem = $accordionItem.eq(accordionItemIndex),
+                itemScrollCoord =  $findItem.offset().top;
+
+            elements.htmlBody.animate({scrollTop: itemScrollCoord}, 1);
+            console.log(localStorage.getItem('AccordionItems'));
+        }
     });
 })(jQuery);

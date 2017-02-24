@@ -530,8 +530,13 @@
 
 
             $checkboxes.on('click', btnClear, function(e) {
-                $checkboxes.find('.grid-line.four, .field-advancedsearchform-types').find(':checkbox:checked').trigger('click');
+                if($('.search-site')) {
+                    $checkboxes.find('.field-advancedsearchform-types').find('.grid-item:not(:first)').find(':checkbox:checked').trigger('click');
+                } else {
+                    $checkboxes.find('.grid-line.four').find(':checkbox:checked').trigger('click');
+                }
             });
+
         },
         selectAll: function(btnClear,btnSelect,checkboxes) {
             var
@@ -555,7 +560,13 @@
                     var
                         $cur = $(this),
                         $curParent = $cur.parent(),
+                        accordionItem = $cur.parents('.sidebar-accrodion-item'),
                         checkChecked = $curParent.find(':checkbox:not(:checked)').length > 0;
+
+                    if($curParent.find(':checkbox:checked').length > 0) {
+                        accordionItem.addClass('is-open');
+                        accordionItem.find('.text').slideDown(0);
+                    }
 
                     if(checkChecked) {
                         $cur.removeClass('active').text('Select all');
@@ -590,19 +601,6 @@
 
                 if($item.hasClass('scroll-self')) {
                     elements.htmlBody.animate({ scrollTop: itemScrollCoord }, 0);
-                };
-            }
-        },
-        addScrollToEl: function(selfEl,item,el) {
-
-            if($(selfEl).length) {
-                var
-                    $item = $(item),
-                    $selfEl = $(selfEl),
-                    checkScroll = $item.find(el);
-
-                if(checkScroll.length>0) {
-                    $selfEl.addClass('scroll-self');
                 };
             }
         }
@@ -1073,13 +1071,16 @@
         forms.selectAll('.clear-all', '.select-all', '.dropdown-login');
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
-        forms.addScrollToEl('.search-results-top', '.find-expert .sidebar-widget-filter', 'input:checked');
-        forms.scrollToEl('.search-results-top');
-        forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
+        //forms.scrollToEl('.search-results-top');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
         hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
         hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
         hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
+        forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
+
+        if ($('.search-results').length < 1 || $('.find-expert').length < 1){
+            localStorage.removeItem('AccordionItems');
+        }
     });
 
 })(jQuery);

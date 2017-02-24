@@ -26,6 +26,11 @@ $step = intval(Yii::$app->request->get('step')) + 1;
 ?>
 <?php $form = ActiveForm::begin(['options' => ['class' => 'expert-filter-form']]); ?>
 <div class="container find-expert">
+
+    <div class="preloader">
+        <div class="loading-ball"></div>
+    </div>
+
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
@@ -160,7 +165,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['language'])): ?>
-                            <li class="sidebar-accrodion-item is-open">
+                            <li class="sidebar-accrodion-item">
                                 <a href="" class="title">language</a>
                                 <div class="text">
                                     <div class="checkbox-list more-extra-list">
@@ -184,7 +189,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['experience_type'])): ?>
-                            <li class="sidebar-accrodion-item is-open">
+                            <li class="sidebar-accrodion-item">
                                 <a href="" class="title">media experience</a>
                                 <div class="text">
                                     <div class="checkbox-list">
