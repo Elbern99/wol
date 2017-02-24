@@ -18,7 +18,7 @@ if (count($authorsList)) {
 }
 
 if (count($articleDoi)) {
-    $mailDOI = 'DOI: '.$articleDoi;
+    $mailDOI = 'DOI: http://dx.doi.org/'.$articleDoi;
 }
 
 if (count($articleElevatorPitch)) {
