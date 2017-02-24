@@ -78,7 +78,7 @@ class Result {
     }
 
     protected static function getKeyTopics($ids, $k) {
-
+        
         self::$topicsFilter = Topic::find()
                                     ->select(['id', 'title'])
                                     ->where(['id' => $ids])
@@ -94,13 +94,13 @@ class Result {
 
         if (is_array(self::$filters) && array_key_exists('topics', self::$filters)) {
 
-            if (!is_null(self::$filters['topics'])) {
+            if (self::$filters['topics']) {
                 $filtered = true;
             } elseif (count(self::$topicsFilter) && is_null(self::$filters['topics'])) {
                 return false;
             }
         } 
-        
+
         if ($filtered) {
             $query->andWhere(['id' => self::$filters['topics']]);
         } else {
@@ -114,9 +114,9 @@ class Result {
         } else {
             $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         }
-        
+
         $items = $query->asArray()->all();
-        
+
         foreach ($items as $item) {
 
             self::$topValue[] = [
@@ -276,9 +276,10 @@ class Result {
                 'type' => $k
             ];
             
-            $serched = str_replace(' ', '|', str_replace('  ',' ',$author['name']));
+            $serched = str_replace(' ', '|',  self::$model->search_phrase);
 
-            if (preg_match("/$serched/i", self::$model->search_phrase)) {
+            if (preg_match("/($serched)/i", $author['name'])) {
+
                 self::$topValue[] = [
                     'params' => $params,
                     'type' => 'authors'
