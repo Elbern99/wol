@@ -555,7 +555,7 @@
                     var
                         $cur = $(this),
                         $curParent = $cur.parent(),
-                        checkChecked = $curParent.find('input:not(:checked)').length > 1;
+                        checkChecked = $curParent.find(':checkbox:not(:checked)').length > 0;
 
                     if(checkChecked) {
                         $cur.removeClass('active').text('Select all');
