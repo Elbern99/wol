@@ -9,7 +9,7 @@ class RelevantComparator implements ComparatorInterface {
     private $cnt = 0;
     private $phrase;
     
-    public function __construct($searchPhrase) {
+    public function __construct($searchPhrase = null) {
         $this->phrase = $searchPhrase;
     }
     
