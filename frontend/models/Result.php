@@ -379,7 +379,7 @@ class Result {
 
         $format = [];
         
-        if (count($data)) {
+        if (count($data) && $data) {
             foreach ($data as $d) {
                 $format[$d['type']][] = $d['id'];
             }
