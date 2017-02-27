@@ -13,8 +13,8 @@
         _window_width = elements.window.width(),
         _mobile = 769,
         _tablet = 1025,
-        _LSAccordionItem = localStorage.getItem('AccordionItem'),
-        _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObj');
+        _LSAccordionItem = localStorage.getItem('AccordionItemExpert'),
+        _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjExpert');
 
     elements.window.resize(function () {
         _window_width = $(window).width();
@@ -61,6 +61,9 @@
     var filterLoad = {
         scrollToLastPosition: function(position) {
             setTimeout(function() {
+
+                console.log(position);
+
                 elements.htmlBody.animate({ scrollTop: position }, 0);
             }, 100);
         },
@@ -88,7 +91,7 @@
                     (checkIsOpen) ? LSFilter[i] = true : LSFilter[i] = false;
                 });
 
-                localStorage.setItem('AccordionItemsObj', JSON.stringify(LSFilter));
+                localStorage.setItem('AccordionItemsObjExpert', JSON.stringify(LSFilter));
             });
         },
         showCheckedAccordion: function(item) {
@@ -109,6 +112,8 @@
                         }
                     }
 
+                    console.log(_LSAccordionItem,'asd')
+
                     filterLoad.scrollToLastPosition(_LSAccordionItem);
                 };
         }
@@ -119,7 +124,7 @@
             $cur = $(this),
             curTop = $cur.offset().top;
 
-        localStorage.setItem('AccordionItem', curTop);
+        localStorage.setItem('AccordionItemExpert', curTop);
         $('.expert-filter-form').submit();
     }
 

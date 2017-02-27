@@ -14,8 +14,8 @@
         _doc_height = elements.document.height(),
         _mobile = 769,
         _tablet = 1025,
-        _LSAccordionItem = localStorage.getItem('AccordionItem'),
-        _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObj');
+        _LSAccordionItem = localStorage.getItem('AccordionItemAdvanced'),
+        _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjAdvanced');
 
     $(window).resize(function() {
         _window_width = $(window).width();
@@ -161,7 +161,7 @@
                     (checkIsOpen) ? LSFilter[i] = true : LSFilter[i] = false;
                 });
 
-                localStorage.setItem('AccordionItemsObj', JSON.stringify(LSFilter));
+                localStorage.setItem('AccordionItemsObjAdvanced', JSON.stringify(LSFilter));
             });
         },
         showCheckedAccordion: function(item) {

@@ -602,18 +602,6 @@
                     e.preventDefault();
                 });
             }
-        },
-        scrollToEl: function(item) {
-
-            if ($(item).length) {
-                var
-                    $item = $(item),
-                    itemScrollCoord = $item.offset().top;
-
-                if($item.hasClass('scroll-self')) {
-                    elements.htmlBody.animate({ scrollTop: itemScrollCoord }, 0);
-                };
-            }
         }
     };
     /* end */
@@ -1081,7 +1069,6 @@
         forms.selectAll('.clear-all', '.select-all', '.dropdown-login');
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
-        //forms.scrollToEl('.search-results-top');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
         hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
         hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
@@ -1089,9 +1076,15 @@
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         accordion.scrollToHash('.faq-accordion-list');
 
-        if ($('.search-results').length < 1 || $('.find-expert').length < 1){
-            localStorage.removeItem('AccordionItems');
-            localStorage.removeItem('AccordionItemsObj');
+        if ($('.search-results').length < 1){
+            localStorage.removeItem('AccordionItemAdvanced');
+            localStorage.removeItem('AccordionItemsObjAdvanced');
+        }
+
+
+        if ($('.find-expert').length < 1){
+            localStorage.removeItem('AccordionItemExpert');
+            localStorage.removeItem('AccordionItemsObjExpert');
         }
     });
 
