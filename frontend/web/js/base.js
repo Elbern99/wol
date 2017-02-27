@@ -579,11 +579,6 @@
                         accordionItem = $cur.parents('.sidebar-accrodion-item'),
                         checkChecked = $curParent.find(':checkbox:not(:checked)').length > 0;
 
-                    if($curParent.find(':checkbox:checked').length > 0) {
-                        accordionItem.addClass('is-open');
-                        accordionItem.find('.text').slideDown(0);
-                    }
-
                     if(checkChecked) {
                         $cur.removeClass('active').text('Select all');
                     } else {
@@ -1096,6 +1091,7 @@
 
         if ($('.search-results').length < 1 || $('.find-expert').length < 1){
             localStorage.removeItem('AccordionItems');
+            localStorage.removeItem('AccordionItemsObj');
         }
     });
 
