@@ -63,7 +63,7 @@ unset($currentParams);
             </div>
             <div class="mobile-filter-holder">
                 <div class="search-results-top-filter">
-                    <strong><?= $resultCount ?> results</strong>
+                    <strong><?= $currentCountResult ?> results</strong>
                     <a href="" class="filter-mobile-link">Filter</a>
                     <a href="<?= Url::to(['/search/refine']) ?>" class="refine-mobile-link">Refine</a>
                 </div>

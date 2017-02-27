@@ -225,7 +225,7 @@ class SearchController extends Controller
             'topData' => Result::getSearchTopValue(),
             'resultCount' => $resultCount, 
             'filters' => $searchFiltersData,
-            'currentCountResult' => count($resultOrdered)
+            'currentCountResult' => count($resultOrdered) + count(Result::getSearchTopValue())
         ]);
     }
     
