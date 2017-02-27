@@ -415,6 +415,9 @@
             parent.find('.'+accordion.classes).find(content).slideDown(0);
             btn.click(function(e) {
                 var cur = $(this);
+
+                console.log(1);
+
                 if(cur.parent().hasClass(accordion.classes)){
                     accordion.closeItem(cur);
                 } else {
@@ -422,6 +425,19 @@
                 }
                 e.preventDefault();
             });
+        },
+        scrollToHash:function(accordionList) {
+            if ($(accordionList).length) {
+                var hashItem = window.location.hash;
+
+                if(hashItem !== '') {
+                    var $item = $('a[href$="'+hashItem+'"]').parent(),
+                        itemTop = $item.offset().top;
+
+                    elements.htmlBody.animate({ scrollTop: itemTop }, 300);
+                    $item.addClass('is-open').find('.text').slideDown(0);
+                }
+            }
         }
     };
     /* end */
@@ -809,7 +825,6 @@
                     slicedTitle = sliceText(titleClear,140);
 
                 //set
-                https://www.facebook.com/dialog/share?display=popup&href=http://iza.lokomotiv.cloud/news/a-legal-route-to-work-for-african-migrants-could-prevent-many-mediterranean-deaths&title=A%20legal%20route%20to%20work%20for%20African%20migrants%20could%20prevent%20many%20Mediterranean%20deaths&description=%20Europe%20needs%20to%20open%20up%20legal%20routes%20for%20African%20migrants%20to%20work%20on%20the%20continent%20in%20order%20to%20reduce%20the%20number%20of%20those%20losing%20their%20lives%20in%20perilous%20Mediterranean%20crossings,%20according%20to%20the%20International%20Organisation%20for%20Migration%E2%80%99s%20(...&app_id=686925074844965
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
                     twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
                     facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
@@ -1077,6 +1092,7 @@
         hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
         hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
+        accordion.scrollToHash('.faq-accordion-list');
 
         if ($('.search-results').length < 1 || $('.find-expert').length < 1){
             localStorage.removeItem('AccordionItems');

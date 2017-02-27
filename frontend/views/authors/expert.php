@@ -165,7 +165,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['language'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">language</a>
                                 <div class="text">
                                     <div class="checkbox-list more-extra-list">
@@ -189,7 +189,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                             </li>
                             <?php endif; ?>
                             <?php if (isset($filter['experience_type'])): ?>
-                            <li class="sidebar-accrodion-item">
+                            <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">media experience</a>
                                 <div class="text">
                                     <div class="checkbox-list">
