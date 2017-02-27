@@ -156,7 +156,7 @@
                 elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
                 elements.overlay.removeClass('js-tab-hidden').addClass('active');
 
-                elements.LMarker.removeClass('opened-ref-tooltip');
+                $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
 
                 this._icon.classList.add("opened-ref-tooltip");
 

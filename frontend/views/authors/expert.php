@@ -27,6 +27,11 @@ $step = intval(Yii::$app->request->get('step')) + 1;
 ?>
 <?php $form = ActiveForm::begin(['options' => ['class' => 'expert-filter-form']]); ?>
 <div class="container find-expert">
+
+    <div class="preloader">
+        <div class="loading-ball"></div>
+    </div>
+
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
