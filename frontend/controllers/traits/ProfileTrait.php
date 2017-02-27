@@ -12,6 +12,7 @@ use common\models\AuthorRoles;
 use common\modules\author\Roles;
 use frontend\components\widget\SidebarWidget;
 use common\models\Category;
+use yii\web\NotFoundHttpException;
 
 trait ProfileTrait {
     
