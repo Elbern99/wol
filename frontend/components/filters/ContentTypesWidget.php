@@ -35,7 +35,7 @@ class ContentTypesWidget extends Widget {
             $selected = $this->param['selected'];
             
             if (!count($selected)) {
-                $content .= Html::input('checkbox', $this->prefix . '[]', $key);
+                $content .= Html::input('checkbox', $this->prefix . '[]', $key, ['checked' => 'checked']);
                 $content .= Html::tag('span', $item, ['class' => "label-text"]);
             } elseif (isset($selected[$model])) {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $key, $this->isChecked($key));

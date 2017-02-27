@@ -7,6 +7,11 @@ class RelevantComparator implements ComparatorInterface {
     
     private $types;
     private $cnt = 0;
+    private $phrase;
+    
+    public function __construct($searchPhrase) {
+        $this->phrase = $searchPhrase;
+    }
     
     public function sort(array $elements) {
         
@@ -15,8 +20,12 @@ class RelevantComparator implements ComparatorInterface {
         }
         
         $this->cnt = count($elements);
-        $this->orderByType($elements);
+
+        if ($this->phrase) {
+            return $this->relivantOrderByPhrase($elements);
+        }
         
+        $this->orderByType($elements);
         return $this->relivantOrder();
     }
     
@@ -25,6 +34,63 @@ class RelevantComparator implements ComparatorInterface {
         foreach ($elements as $el) {
             $this->types[$el['type']][] = $el;
         }
+    }
+    
+    private function relivantOrderByPhrase(array $items) {
+        
+        $top = array();
+        $bottom = array();
+        
+        foreach ($items as $item) {
+            
+            if ($item['type'] == 'article') {
+                
+                if(preg_match("/($this->phrase)/i", $item['params']['title'])) {
+                    $top[] = $item;
+                    continue;
+                }
+                
+                if (is_array($item['params']['authors'])) {
+                    
+                    foreach ($item['params']['authors'] as $author) {
+
+                        $serched = str_replace(' ', '|',  $this->phrase);
+
+                        if (preg_match("/($serched)/i", $author->name)) {
+
+                            $top[] = $item;
+                            break;
+                        }
+                    }
+                }
+                
+                $bottom[] = $item;
+                continue;
+            }
+            
+            if ($item['type'] == 'biography') {
+                
+                if(preg_match("/($this->phrase)/i", $item['params']['name'])) {
+                    $top[] = $item;
+                    continue;
+                }
+                
+                $bottom[] = $item;
+                continue;
+            }
+            
+            if(preg_match("/($this->phrase)/i", $item['params']['title'])) {
+                    $top[] = $item;
+                    continue;
+            }
+                
+            $bottom[] = $item;
+        }
+        
+        $this->orderByType($bottom);
+        $relevant = $this->relivantOrder();
+
+        return array_merge($top, $relevant);
     }
     
     private function relivantOrder() {
