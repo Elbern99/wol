@@ -5232,6 +5232,8 @@ label {
   color: #fff;
   z-index: 10000000;
   -webkit-overflow-scrolling: touch; }
+  .preloader.op-8 {
+    opacity: 0.8; }
 
 .loading-ball {
   background-color: transparent;
