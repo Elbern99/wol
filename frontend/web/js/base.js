@@ -550,7 +550,7 @@
 
 
             $checkboxes.on('click', btnClear, function(e) {
-                if($('.search-site')) {
+                if($('.search-site').length) {
                     $checkboxes.find('.field-advancedsearchform-types').find('.grid-item:not(:first)').find(':checkbox:checked').trigger('click');
                 } else {
                     $checkboxes.find('.grid-line.four').find(':checkbox:checked').trigger('click');
