@@ -105,6 +105,10 @@
 
 //NEWSLETTER-PAGE
 .newsletter-page {
+  .content-inner-text {
+    line-height: initial;
+  }
+
   table {
     width: 100% !important;
     padding: 0;
@@ -116,6 +120,11 @@
     margin: 10px 0px;
     max-width: none;
     height: auto;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      max-width: 100%;
+      width: auto;
+    }
   }
 
   th,

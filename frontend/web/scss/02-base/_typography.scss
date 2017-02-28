@@ -110,7 +110,7 @@ ol {
   }
 }
 
-table {
+.container:not(.newsletter-page) {
   margin: 0 0 10px;
   width: 100%;
   border-collapse: collapse;
