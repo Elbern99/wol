@@ -89,9 +89,9 @@ trait HomeTrait {
         
         $params = [
             'step' => Yii::$app->params['home_event_limit'],
-            'count' => Event::find()->count('id'),
+            'count' => Event::find()->where('date_from >= now()')->count('id'),
         ];
-        
+
         $this->more->addParam($params, 'event_limit');
         $limit = $this->more->getLimit('event_limit');
         
