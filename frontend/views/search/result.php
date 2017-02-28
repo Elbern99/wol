@@ -27,6 +27,10 @@ unset($currentParams);
 
 <div class="container search-results">
 
+    <div class="preloader">
+        <div class="loading-ball"></div>
+    </div>
+
     <div class="article-head">
         <div class="breadcrumbs">
             <?php $this->beginContent('@app/views/components/breadcrumbs.php'); ?><?php $this->endContent(); ?>
