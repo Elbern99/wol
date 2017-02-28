@@ -985,7 +985,7 @@
                 var
                     $bg = $(item);
 
-                $bg.css('height', _window_height * 0.4);
+                $bg.css('height', _window_height *  0.4);
 
                 elements.window.on('orientationchange', function() {
                     setTimeout(function(){
