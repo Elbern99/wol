@@ -115,14 +115,21 @@ table {
   width: 100%;
   border-collapse: collapse;
 
-
-  td,th{
-    padding: 5px;
-    border: 1px solid #00A6C7;
-  }
-
   th {
     font-weight: 800;
+  }
+
+  td,
+  th {
+    padding: 5px;
+  }
+
+  &.blue-border {
+
+    td,
+    th {
+      border: 1px solid #00A6C7 ;
+    }
   }
 }
 

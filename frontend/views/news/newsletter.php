@@ -19,10 +19,12 @@ $this->registerMetaTag([
 ]);
 
 ?>
-<div class="container subscribe-page">
+<div class="container">
     <div class="breadcrumbs">
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
     </div>
-    <?= $model->main ?>
+    <div class="content-inner subscribe-page">
+        <?= $model->main ?>
+    </div>
 </div>
 
