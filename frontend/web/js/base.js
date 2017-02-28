@@ -1026,7 +1026,7 @@
     //EVENTS
     elements.document.ready(function() {
         calcHeight.setheight('.header-background');
-        shareBtns.btnContent('.share-buttons-list li');
+        shareBtns.btnContent('.share-buttons-list li') ;
         headerMenu.detectSubmenu('.header-menu-bottom-list .item');
         dropDown('.header-desktop', '.dropdown-link', '.drop-content');
         dropDown('.custom-select', '.dropdown-link', '.drop-content');
