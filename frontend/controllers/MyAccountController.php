@@ -104,8 +104,11 @@ class MyAccountController extends Controller {
                     ->with(['article' => function($query){
                         return $query->alias('a')
                                 ->with(['articleCategories' => function($query) {
-                                    return $query->alias('ac')->select(['ac.article_id','ac.category_id', 'c.title', 'c.url_key'])
-                                           ->innerJoin(Category::tableName().' AS c', 'c.id = ac.category_id')->asArray();
+                                    return $query->alias('ac')
+                                                ->select(['ac.article_id','ac.category_id', 'c.title', 'c.url_key'])
+                                                ->innerJoin(Category::tableName().' AS c', 'c.id = ac.category_id')
+                                                ->where('c.lvl = 1')
+                                                ->asArray();
                                 }])
                                 ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
                                 ->where(['a.enabled' => 1]);
