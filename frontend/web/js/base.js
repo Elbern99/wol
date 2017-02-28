@@ -996,6 +996,33 @@
         }
     };
 
+    var filter = {
+        clearStorage: function() {
+
+            var
+                $searchResult = $('.search-results'),
+                $findExpert = $('.find-expert'),
+                $searchInput = $('.search-holder :text');
+
+            if ($searchResult.length < 1) {
+                localStorage.removeItem('AccordionItemAdvanced');
+                localStorage.removeItem('AccordionItemsObjAdvanced');
+            };
+
+            if ($findExpert.length < 1) {
+                localStorage.removeItem('AccordionItemExpert');
+                localStorage.removeItem('AccordionItemsObjExpert');
+            };
+
+            $searchInput.keyup(function() {
+                localStorage.removeItem('AccordionItemAdvanced');
+                localStorage.removeItem('AccordionItemsObjAdvanced');
+                localStorage.removeItem('AccordionItemExpert');
+                localStorage.removeItem('AccordionItemsObjExpert');
+            });
+        }
+    };
+
     //EVENTS
     elements.document.ready(function() {
         calcHeight.setheight('.header-background');
@@ -1075,17 +1102,7 @@
         hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         accordion.scrollToHash('.faq-accordion-list');
-
-        if ($('.search-results').length < 1){
-            localStorage.removeItem('AccordionItemAdvanced');
-            localStorage.removeItem('AccordionItemsObjAdvanced');
-        }
-
-
-        if ($('.find-expert').length < 1){
-            localStorage.removeItem('AccordionItemExpert');
-            localStorage.removeItem('AccordionItemsObjExpert');
-        }
+        filter.clearStorage();
     });
 
 })(jQuery);

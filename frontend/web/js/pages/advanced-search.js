@@ -192,7 +192,7 @@
             $cur = $(this),
             curTop = $cur.offset().top;
 
-        localStorage.setItem('AccordionItem', curTop);
+        localStorage.setItem('AccordionItemAdvanced', curTop);
         $('.result-search').submit();
     }
    
