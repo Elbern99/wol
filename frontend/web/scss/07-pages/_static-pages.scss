@@ -110,19 +110,18 @@
     padding: 0;
     margin: 0;
     border-spacing: 0 10px;
-
-    &:first-child {
-      padding: 10px;
-    }
   }
 
   img {
     margin: 10px 0px;
+    max-width: none;
+    height: auto;
   }
 
   th,
   td {
     padding: 0;
+    vertical-align: middle;
   }
 }
 

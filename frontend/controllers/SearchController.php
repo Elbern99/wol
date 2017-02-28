@@ -212,8 +212,9 @@ class SearchController extends Controller
         $resultOrdered = $sortingResult->sort();
         
         $paginate = new Pagination(['totalCount' => count($resultOrdered), 'params' =>  array_merge(Yii::$app->request->get(), ['phrase' => $phrase])]);
-        $paginate->defaultPageSize = Yii::$app->request->get('count') ?? Yii::$app->params['search_result_limit'];
-        
+        $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
+        $paginate->setPageSize(Yii::$app->request->get('count'));
+
         $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
         $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
 

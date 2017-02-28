@@ -104,8 +104,11 @@ class MyAccountController extends Controller {
                     ->with(['article' => function($query){
                         return $query->alias('a')
                                 ->with(['articleCategories' => function($query) {
-                                    return $query->alias('ac')->select(['ac.article_id','ac.category_id', 'c.title', 'c.url_key'])
-                                           ->innerJoin(Category::tableName().' AS c', 'c.id = ac.category_id')->asArray();
+                                    return $query->alias('ac')
+                                                ->select(['ac.article_id','ac.category_id', 'c.title', 'c.url_key'])
+                                                ->innerJoin(Category::tableName().' AS c', 'c.id = ac.category_id')
+                                                ->where('c.lvl = 1')
+                                                ->asArray();
                                 }])
                                 ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
                                 ->where(['a.enabled' => 1]);
@@ -200,7 +203,6 @@ class MyAccountController extends Controller {
 
                 if ($user->saveUserData()) {
                     $messages = array_merge($messages,$user->messages);
-                    $messages[] = 'Your info updated.';
                 }
                 
                 if ($newslatter->load(Yii::$app->request->post())) {
@@ -212,7 +214,7 @@ class MyAccountController extends Controller {
                     $newslatter->email = Yii::$app->user->identity->email;
                     
                     if ($facade->setSubscriber($newslatter->getAttributes())) {
-                        $messages[] = 'You subscribed.';
+                        $messages[] = Yii::t('app/messages','subscribe_account');
                     }
                 }
                 

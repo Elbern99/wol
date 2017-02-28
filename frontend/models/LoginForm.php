@@ -48,7 +48,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect email or password.');
+                $this->addError($attribute, Yii::t('app/messages','wrong_login'));
             }
         }
     }
@@ -63,7 +63,7 @@ class LoginForm extends Model
                 $activated = new UserActivation();
                 $activated->resendConfirmedEmail($user);
                 
-                $this->addError($attribute, 'You did not confirm email, we resend confirmation email');
+                $this->addError($attribute, Yii::t('app/messages','confirm_login'));
             }
         }
     }

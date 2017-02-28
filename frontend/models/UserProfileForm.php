@@ -38,7 +38,7 @@ class UserProfileForm extends Model
         if ($this->user->email != $this->email) {
             $activated = new UserActivation();
             $activated->changeUserEmailVerification($this->user, $this->email);
-            $this->messages[] = 'In your mail sent to a confirmation email.';
+            $this->messages[] = Yii::t('app/messages','change_email');
         }
 
     }
