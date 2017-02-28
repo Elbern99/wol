@@ -100,7 +100,7 @@ class UserActivation extends \yii\db\ActiveRecord
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [
-                'to' => $user->email, 
+                'to' => $newEmail, 
                 'from' => Yii::$app->params['supportEmail'], 
                 'subject' => $this->subject, 
                 'body' => $body
