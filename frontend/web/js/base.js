@@ -36,11 +36,15 @@
                     $cur = $(this),
                     $curLink = $cur.find('a'),
                     curLinkText = $curLink.attr('href'),
+                    curLinkTextLast;
+
+                if(curLinkText) {
                     curLinkTextLast = curLinkText.substr(curLinkText.lastIndexOf("/")+1);
+                };
 
                 if(curLinkTextLast == 'articles' && $cur.parent(".submenu").length > 0) {
                     $cur.addClass('no-submenu');
-                }
+                };
 
                 if ($cur.find(headerMenu.submenu).length > 0) {
                     $cur.addClass('has-drop');
