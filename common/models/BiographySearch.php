@@ -82,7 +82,7 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
 
         if ($attributes['exact_phrase']) {
 
-            $match->andMatch(['value' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
+            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
         }
 
         if ($attributes['all_words']) {
@@ -101,7 +101,7 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(name|value|url_key|url) (' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(name|value|url) (' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         if ($attributes['any_words']) {
@@ -114,13 +114,13 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                 $filter[':' . $key] = $word;
             }
 
-            $match->andMatch('(name|value|url_key|url) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
+            $match->andMatch('(name|value|url) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
         }
 
         $result = self::find()
                         ->select(['id'])
                         ->match($match)
-                        ->addOptions(['field_weights' => ['name' => 50, 'url_key' => 40, 'url' => 20, 'value' => 10]])
+                        ->addOptions(['field_weights' => ['name' => 50, 'url' => 30, 'value' => 10]])
                         ->limit(self::SEARCH_LIMIT)
                         ->asArray()
                         ->all();

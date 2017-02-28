@@ -81,7 +81,7 @@ class VideosSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
 
         if ($attributes['exact_phrase']) {
 
-            $match->andMatch(['value' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
+            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
         }
 
         if ($attributes['all_words']) {

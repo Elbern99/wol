@@ -82,7 +82,7 @@ class NewsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterfac
 
         if ($attributes['exact_phrase']) {
 
-            $match->andMatch(['value' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
+            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
         }
 
         if ($attributes['all_words']) {

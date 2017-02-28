@@ -83,7 +83,7 @@ class OpinionsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInte
 
         if ($attributes['exact_phrase']) {
 
-            $match->andMatch(['value' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
+            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
         }
 
         if ($attributes['all_words']) {
