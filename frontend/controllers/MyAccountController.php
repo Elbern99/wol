@@ -200,7 +200,6 @@ class MyAccountController extends Controller {
 
                 if ($user->saveUserData()) {
                     $messages = array_merge($messages,$user->messages);
-                    $messages[] = 'Your info updated.';
                 }
                 
                 if ($newslatter->load(Yii::$app->request->post())) {
@@ -212,7 +211,7 @@ class MyAccountController extends Controller {
                     $newslatter->email = Yii::$app->user->identity->email;
                     
                     if ($facade->setSubscriber($newslatter->getAttributes())) {
-                        $messages[] = 'You subscribed.';
+                        $messages[] = Yii::t('app/messages','subscribe_account');
                     }
                 }
                 
