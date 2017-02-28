@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use frontend\components\filters\NewsletterArchiveWidget;
 ?>
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
@@ -24,5 +25,6 @@ $this->registerMetaTag([
         <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
     </div>
     <?= $model->main ?>
+    <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
 </div>
 

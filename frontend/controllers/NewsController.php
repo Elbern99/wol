@@ -187,6 +187,8 @@ class NewsController extends Controller {
             throw new NotFoundHttpException();
         }
         
-        return $this->render('newsletter',['model'=>$model]);
+        $newsletterArchive = NewsletterNews::find()->select(['title', 'date', 'url_key'])->orderBy(['date' => SORT_DESC])->all();
+        
+        return $this->render('newsletter',['model'=>$model, 'newsletterArchive' => $newsletterArchive]);
     }
 }
