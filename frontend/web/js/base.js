@@ -1010,7 +1010,7 @@
             };
 
             if ($findExpert.length < 1) {
-                localStorage.removeItem('AccordionItemExpert') ;
+                localStorage.removeItem('AccordionItemExpert');
                 localStorage.removeItem('AccordionItemsObjExpert');
             };
 
