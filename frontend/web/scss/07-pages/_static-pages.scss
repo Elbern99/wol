@@ -110,18 +110,29 @@
     padding: 0;
     margin: 0;
     border-spacing: 0 10px;
+    
+    li {
+      p {
+        display: inline;
+      }
+    }
   }
 
   img {
     margin: 10px 0px;
     max-width: none;
     height: auto;
+
+    @include breakpoint_custom($breakpoint-mobile-large) {
+      max-width: 100%;
+    }
   }
 
   th,
   td {
     padding: 0;
     vertical-align: middle;
+    min-width: 100px;
   }
 }
 
