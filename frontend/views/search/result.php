@@ -175,16 +175,7 @@ unset($currentParams);
                                         <?php endif; ?>
                                     </div>
                                 </li>
-                                <li class="sidebar-accrodion-item is-open sidebar-accordion-item-subject-areas">
-                                    <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
-                                    <div class="text">
-                                        <?php if (isset($filters['types'])): ?>
-                                            <?= ContentTypesWidget::widget(['param' => $filters['types']]); ?>
-                                            <a href="" class="clear-all">Clear all</a>
-                                        <?php endif; ?>
-                                    </div>
-                                </li>
-                                <li class="sidebar-accrodion-item">
+                                <li class="sidebar-accrodion-item sidebar-accordion-item-subject-areas">
                                     <a href="" class="title">subject areas <strong>(<?= array_sum(Result::$articleCategoryIds) ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['category'])): ?>
