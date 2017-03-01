@@ -594,18 +594,44 @@
                 });
 
                 $btn.click(function(e) {
-                    var cur = $(this);
+                    var
+                        $cur = $(this),
+                        $curParent = $cur.parents('li'),
+                        $searchCheckBoxCheckedNotFirst = '.checkbox-list>li:not(:first-child)>label>:checkbox:checked',
+                        $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
+                        $searchCheckBox = '.checkbox-list>li>label>:checkbox:not(:checked)',
+                        $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
+                        $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
 
-                    cur.toggleClass('active');
+                    $cur.toggleClass('active');
 
-                    if(cur.hasClass('active')) {
-                        cur.parents('li').find('div>.item>label>:checkbox:not(:checked)').trigger('click');
-                        cur.parents('li').find('.checkbox-list>li>label>:checkbox:not(:checked)').trigger('click');
-                        cur.text('Clear all');
+                    if($cur.hasClass('active')) {
+                        if (elements.searchResult.length > 0) {
+                            $curParent.find($searchCheckBox).trigger('click');
+                        };
+
+                        if (elements.findExpert.length > 0) {
+                            $curParent.find($expertCheckBox).trigger('click');
+                        };
+
+                        $cur.text('Clear all');
                     } else {
-                        cur.parents('li').find('div>.item>label>:checkbox:checked').trigger('click');
-                        cur.parents('li').find('.checkbox-list>li>label>:checkbox:checked').trigger('click');
-                        cur.text('Select all');
+
+                        if (elements.searchResult.length > 0) {
+                            if($curParent.hasClass('sidebar-accordion-item-types')) {
+                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                            } else if($curParent.hasClass('sidebar-accordion-item-subject-areas')) {
+                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                            } else {
+                                $curParent.find($searchCheckBoxChecked).trigger('click');
+                            }
+                        };
+
+                        if (elements.findExpert.length > 0) {
+                            $cur.parents('li').find($expertCheckBoxChecked).trigger('click');
+                        };
+
+                        $cur.text('Select all');
                     }
 
                     e.preventDefault();
