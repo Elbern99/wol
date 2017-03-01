@@ -142,9 +142,9 @@
                         checkChildrenCheckboxes = $subLevelCheckboxes.length > 0,
                         checkState = $cur.is(':checked');
 
-                    if(checkChildrenCheckboxes && $('.only-check').length > 0) {
+                    if(checkChildrenCheckboxes) {
                         if(checkState) {
-                            if($cur.hasClass('.only-check')) {
+                            if(!$cur.hasClass('only-check')) {
                                 $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
                             }
                         } else {
@@ -161,11 +161,14 @@
                         $cur = $(this),
                         $curParent = $cur.parents('.subcheckbox-list'),
                         $subLevelCheckboxes = $curParent.find(':checkbox:checked'),
-                        checkChildrenCheckboxes = $subLevelCheckboxes.length > 0;
+                        checkChildrenCheckboxes = $subLevelCheckboxes.length == 0,
+                        oneChecked = $subLevelCheckboxes.length == 1;
+
+                    if(oneChecked) {
+                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check').trigger('click');
+                    }
 
                     if(checkChildrenCheckboxes) {
-                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check').trigger('click');
-                    } else {
                         $curParent.prev('.def-checkbox').find(':checkbox:checked').trigger('click');
                     }
                 });
