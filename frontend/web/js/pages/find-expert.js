@@ -123,7 +123,7 @@
             curTop = $cur.offset().top;
 
         localStorage.setItem('AccordionItemExpert', curTop);
-        $('.expert-filter-form').submit();
+        //$('.expert-filter-form').submit();
     }
 
     elements.document.ready(function () {

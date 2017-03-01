@@ -599,10 +599,12 @@
                     cur.toggleClass('active');
 
                     if(cur.hasClass('active')) {
-                        cur.parents('li').find('input:not(:checked)').trigger('click');
+                        cur.parents('li').find('div>.item>label>:checkbox:not(:checked)').trigger('click');
+                        cur.parents('li').find('.checkbox-list>li>label>:checkbox:not(:checked)').trigger('click');
                         cur.text('Clear all');
                     } else {
-                        cur.parents('li').find('input:checked').trigger('click');
+                        cur.parents('li').find('div>.item>label>:checkbox:checked').trigger('click');
+                        cur.parents('li').find('.checkbox-list>li>label>:checkbox:checked').trigger('click');
                         cur.text('Select all');
                     }
 
