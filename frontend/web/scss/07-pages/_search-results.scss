@@ -198,11 +198,10 @@
     margin: 0 auto 13px;
     width: 116px;
     height: 116px;
-    
+
     @include breakpoint('tablet') {
-      &:hover {
-        opacity: 0.9;
-      }
+      @extend .material-state;
+      transition: all 0.2s ease-in-out;
     }
 
     a,img {

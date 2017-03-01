@@ -4,7 +4,9 @@
     var elements = {
         document: $(document),
         window: $(window),
-        htmlBody: $("html, body")
+        htmlBody: $("html, body"),
+        searchResult: $('.search-results'),
+        findExpert: $('.find-expert')
     };
 
 //GLOBAL VARIABLES ---------
@@ -57,16 +59,17 @@
                 $item = $(item),
                 scrollPaneOption = {
                     showArrows: true,
-                    autoReinitialise: true,
+                    autoReinitialise: false,
                     animateScroll: true
-                };
+                },
+                checkMobile = _window_width < _mobile;
 
-            if(_window_width < _mobile) {
+            if(checkMobile) {
                 $item.jScrollPane(scrollPaneOption);
             }
 
-            elements.window.resize(function() {
-                if(_window_width < _mobile) {
+            elements.window.on('resize', function() {
+                if(checkMobile) {
                     $item.jScrollPane(scrollPaneOption);
                 } else {
                     var
@@ -715,26 +718,44 @@
                 }
             });
         },
-        openItem: function(cur) {
-            cur.parent().find('>ul').slideDown(headerMenu.delay);
-            cur.parent().addClass('open');
+        openItem: function(parent) {
+            var
+                $curPrent = parent;
+
+            $curPrent.find('>ul').slideDown(headerMenu.delay);
+            $curPrent.addClass('open');
         },
-        closeItem: function(cur) {
-            cur.parent().find('>ul').slideUp(headerMenu.delay);
-            cur.parent().removeClass('open');
+        closeItem: function(parent) {
+            var
+                $curPrent = parent;
+
+            $curPrent.find('>ul').slideUp(headerMenu.delay);
+            setTimeout(function(){ $curPrent.removeClass('open'); }, headerMenu.delay);
         },
         accordion: function(btn,content,parent) {
-            parent.find('.'+headerMenu.classes).find(content).slideDown(0);
+            var
+                $parent = $(parent);
 
-            parent.find('.'+headerMenu.classes).parents('li').addClass('open');
-            parent.find('.'+headerMenu.classes).parents('.open').find('>ul').slideDown(0);
+            $parent.find('.'+headerMenu.classes).find(content).slideDown(0)
+            $parent.find('.'+headerMenu.classes).parents('li').addClass('open')
+            $parent.find('.'+headerMenu.classes).parents('.open').find('>ul').slideDown(0);
 
-            btn.click(function(e) {
-                var cur = $(this);
-                if(cur.parent().hasClass(headerMenu.classes)){
-                    articlesFilter.closeItem(cur);
+            $(btn).click(function(e) {
+                var
+                    $cur = $(this),
+                    $curParent = $cur.parents('.item'),
+                    curAttr = $cur.attr('href'),
+                    checkClass = $curParent.hasClass(headerMenu.classes),
+                    checkLink = curAttr === '#';
+
+                if (checkLink) {
+                    e.preventDefault();
+                }
+
+                if(checkClass){
+                    articlesFilter.closeItem($curParent);
                 } else {
-                    articlesFilter.openItem(cur);
+                    articlesFilter.openItem($curParent);
                 }
             });
         }
@@ -1004,16 +1025,14 @@
         clearStorage: function() {
 
             var
-                $searchResult = $('.search-results'),
-                $findExpert = $('.find-expert'),
                 $searchInput = $('.search-holder :text');
 
-            if ($searchResult.length < 1) {
+            if (elements.searchResult.length < 1) {
                 localStorage.removeItem('AccordionItemAdvanced');
                 localStorage.removeItem('AccordionItemsObjAdvanced');
             };
 
-            if ($findExpert.length < 1) {
+            if (elements.findExpert.length < 1) {
                 localStorage.removeItem('AccordionItemExpert');
                 localStorage.removeItem('AccordionItemsObjExpert');
             };
@@ -1052,7 +1071,6 @@
             tabsForm.openRegister();
             accordion.toggleItem($('.events-list .title'), '.text',$('.events-list'));
             tabs.switcher('.mobile-filter-list','.mobile-filter-items','.tab-item');
-            headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
             headerMenu.mobile($('.mobile-menu .has-drop >a'), '.submenu',$('.mobile-menu .has-drop >a'));
             tabs.cloneTab('.post-list-clone','.tab-item.empty','.post-list-clone-holder');
             home.cloneTopic('.clone-topics','.articles-list-holder','.clone-topics-widget');
@@ -1075,17 +1093,23 @@
         sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
         sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
+        headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
 
     elements.window.load(function() {
-        $('.preloader').fadeOut();
+
+        if (elements.findExpert.length < 1 || elements.searchResult.length < 1) {
+            $('.preloader').fadeOut();
+        };
+
         articleList.openMoreText('.article-more','.description');
         articleList.pajax('.loader-ajax');
         articleList.pajaxLoader('.loader-ajax');
         articleList.accrodionSingleItem('.mobile-accordion-link', '.drop-content');
         articlesFilter.detectSubmenu('.articles-filter-list .item');
         articlesFilter.sort('.custom-select-title','.custom-select');
-        articlesFilter.accordion($('.articles-filter-list .icon-arrow'), '.submenu', $('.articles-filter-list'));
+        articlesFilter.accordion('.articles-filter-list .icon-arrow', '.submenu', '.articles-filter-list');
+        articlesFilter.accordion('.articles-filter-list strong>a', '.submenu', '.articles-filter-list');
         tooltipWhenAddToFav.openLogin('.fav-login', '.login-registration-list.mobile', '.btn-mobile-login-show');
         tooltipWhenAddToFav.openRegister('.fav-register', '.login-registration-list.mobile', '.btn-mobile-login-show');
         docHeightForElement.changeHeight();

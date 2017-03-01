@@ -62,9 +62,9 @@
         scrollToLastPosition: function(position) {
             setTimeout(function() {
 
-                console.log(position);
-
-                elements.htmlBody.animate({ scrollTop: position }, 0);
+                elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+                    $('.preloader').fadeOut();
+                });
             }, 100);
         },
         openInMobile: function() {
@@ -111,8 +111,6 @@
                             $accordionItem.eq(key).addClass('is-open').find('.text').slideDown(0);
                         }
                     }
-
-                    console.log(_LSAccordionItem,'asd')
 
                     filterLoad.scrollToLastPosition(_LSAccordionItem);
                 };
