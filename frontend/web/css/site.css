@@ -6477,25 +6477,27 @@ iframe[name=advpp_manager] {
       .post-full-item iframe {
         max-height: 490px; } }
 
-.newsletter-page table {
-  width: 100% !important;
-  padding: 0;
-  margin: 0;
-  border-spacing: 0 10px; }
-  .newsletter-page table li p {
-    display: inline; }
-.newsletter-page img {
-  margin: 10px 0px;
-  max-width: none;
-  height: auto; }
-  @media only screen and (max-width: 568px) {
-    .newsletter-page img {
-      max-width: 100%; } }
-.newsletter-page th,
-.newsletter-page td {
-  padding: 0;
-  vertical-align: middle;
-  min-width: 100px; }
+.newsletter-page {
+  line-height: normal; }
+  .newsletter-page table {
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0 10px; }
+    .newsletter-page table li p {
+      display: inline; }
+  .newsletter-page img {
+    margin: 10px 0px;
+    max-width: none;
+    height: auto; }
+    @media only screen and (max-width: 568px) {
+      .newsletter-page img {
+        max-width: 100%; } }
+  .newsletter-page th,
+  .newsletter-page td {
+    padding: 0;
+    vertical-align: middle;
+    min-width: 100px; }
 
 .authors-page .mobile-filter-holder {
   margin-top: -20px; }

@@ -105,12 +105,14 @@
 
 //NEWSLETTER-PAGE
 .newsletter-page {
+  line-height: normal;
+
   table {
     width: 100% !important;
     padding: 0;
     margin: 0;
     border-spacing: 0 10px;
-    
+
     li {
       p {
         display: inline;
