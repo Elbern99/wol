@@ -7648,6 +7648,9 @@ iframe[name=advpp_manager] {
     margin: 0 auto 13px;
     width: 116px;
     height: 116px; }
+    @media only screen and (min-width: 769px) {
+      .search-results-media-item .img-holder:hover {
+        opacity: 0.9; } }
     .search-results-media-item .img-holder a, .search-results-media-item .img-holder img {
       display: block;
       min-height: 100%; }

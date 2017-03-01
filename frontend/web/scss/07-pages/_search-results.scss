@@ -198,6 +198,12 @@
     margin: 0 auto 13px;
     width: 116px;
     height: 116px;
+    
+    @include breakpoint('tablet') {
+      &:hover {
+        opacity: 0.9;
+      }
+    }
 
     a,img {
       display: block;
