@@ -720,9 +720,18 @@
 
             if(itemEl.length) {
                 itemEl.each(function( index ) {
-                    var cur = $(this);
-                    if(cur.find(btn).length == 0) {
-                        cur.find('div >ul').addClass('no-more');
+                    var
+                        $cur = $(this),
+                        $curLink = $cur.find('.more-link'),
+                        curCount = $curLink.data('count'),
+                        curCountHidden = $curLink.data('length-hidden');
+
+                    if(curCount == curCountHidden) {
+                        $curLink.addClass('showed');
+                    }
+
+                    if($cur.find(btn).length == 0) {
+                        $cur.find('div >ul').addClass('no-more');
                     }
                 });
             }
@@ -1125,8 +1134,6 @@
         sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',13);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.former-editor-list','.editor-item',3,3,0);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.associate-editor-list','.editor-item',3,9,0);
-        sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
-        sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
@@ -1166,6 +1173,8 @@
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         accordion.scrollToHash('.faq-accordion-list');
         filter.clearStorage();
+        sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
+        sidebarNews.detectMore('.mobile-filter-items','.more-link');
     });
 
 })(jQuery);
