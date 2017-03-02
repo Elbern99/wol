@@ -278,7 +278,7 @@ class SiteController extends Controller {
             
             $model->delete();
             
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','You successfully unsubscribed!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','You successfully unsubscribed'));
             
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','You cannot unsubscribe now, try later!'));

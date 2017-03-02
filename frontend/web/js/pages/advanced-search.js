@@ -12,7 +12,7 @@
     var _window_height = elements.window.height(),
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
-        _mobile = 769,
+        _mobile = 767,
         _tablet = 1025,
         _LSAccordionItem = localStorage.getItem('AccordionItemAdvanced'),
         _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjAdvanced');

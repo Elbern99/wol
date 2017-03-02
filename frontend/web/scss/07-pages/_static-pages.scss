@@ -177,7 +177,7 @@
     overflow-x: auto;
   }
 
-  @include breakpoint_custom($breakpoint-tablet) {
+  @include breakpoint_custom($breakpoint-desktop) {
     /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
       display: block !important;
@@ -259,7 +259,7 @@
 
     thead {
 
-      @include breakpoint_custom($breakpoint-tablet) {
+      @include breakpoint_custom($breakpoint-desktop) {
         tr {
           &:first-child {
             display: none !important;
@@ -282,7 +282,7 @@
         border-bottom: 1px solid #eee;
 
         &.preloader-table-cell {
-          @include breakpoint_custom($breakpoint-tablet) {
+          @include breakpoint_custom($breakpoint-desktop) {
             padding-left: 6px !important;
             border-bottom: 0 !important;
 
@@ -301,7 +301,7 @@
             font-weight: bold;
           }
 
-          @include breakpoint_custom($breakpoint-tablet) {
+          @include breakpoint_custom($breakpoint-desktop) {
             padding-left: 6px !important;
             margin: 0 0 -1px;
 

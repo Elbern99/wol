@@ -15,7 +15,7 @@
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 769,
+        _mobile = 768,
         _tablet = 1025;
 
     elements.window.resize(function() {
@@ -141,8 +141,8 @@
                     $btn = $(parent).find(btn);
 
                 elements.document.unbind('click.submenu');
-                $('.submenu').removeClass('open');
-                $('.has-drop>a').not(cur).removeClass('active');
+                $('.submenu,.dropdown-widget').removeClass('open');
+                $('.has-drop>a,.dropdown-login>a').not(cur).removeClass('active');
 
                 if ( !cur.hasClass('active') ) {
                     if(curAttr !== '#') {
@@ -259,6 +259,15 @@
                 elements.document.unbind('click.drop-content');
 
                 $btn.not(cur).removeClass('active');
+
+                $('.submenu').removeClass('open');
+                $('.has-drop>a').not(cur).removeClass('active');
+
+                if (elements.searchResult.length > 0) {
+                    localStorage.removeItem('AccordionItemAdvanced');
+                    localStorage.removeItem('AccordionItemsObjAdvanced');
+                };
+
                 if ( !cur.hasClass('active') ) {
                     var yourClick = true,
                         drop = cur.parents('.dropdown').find('>.drop-content');
@@ -422,8 +431,6 @@
             parent.find('.'+accordion.classes).find(content).slideDown(0);
             btn.click(function(e) {
                 var cur = $(this);
-
-                console.log(1);
 
                 if(cur.parent().hasClass(accordion.classes)){
                     accordion.closeItem(cur);

@@ -11,7 +11,7 @@
     //GLOBAL VARIABLE ---------
     var _window_height = elements.window.height(),
         _window_width = elements.window.width(),
-        _mobile = 769,
+        _mobile = 767,
         _tablet = 1025,
         _LSAccordionItem = localStorage.getItem('AccordionItemExpert'),
         _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjExpert');
@@ -107,8 +107,11 @@
                     for(var key in accordionItemObj) {
                         var value = accordionItemObj[key],
                             index = key;
+
                         if(value) {
                             $accordionItem.eq(key).addClass('is-open').find('.text').slideDown(0);
+                        } else {
+                            $accordionItem.eq(key).removeClass('is-open').find('.text').slideUp(0);
                         }
                     }
 
