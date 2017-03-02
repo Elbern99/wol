@@ -170,7 +170,7 @@ class SiteController extends Controller {
                 if ($model->signup()) {
                     
                     if ($model->errorMessage === false) {
-                        Yii::$app->session->setFlash('success', 'You have been successfully registered, Please confirm your email!');
+                        Yii::$app->session->setFlash('success', 'You have been successfully registered. Please confirm your email!');
                     } else {
                         Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
                     }
