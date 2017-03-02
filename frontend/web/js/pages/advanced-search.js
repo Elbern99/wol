@@ -178,11 +178,11 @@
 
     var filterLoad = {
         scrollToLastPosition: function(position) {
-            setTimeout(function() {
-                elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+            elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+                setTimeout(function() {
                     $('.preloader').fadeOut();
-                });
-            }, 100);
+                }, 100);
+            });
         },
         openInMobile: function() {
             var
