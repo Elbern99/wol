@@ -121,13 +121,9 @@
   }
 
   img {
-    margin: 10px 0px;
-    max-width: none;
+    margin: 10px 0;
     height: auto;
-
-    @include breakpoint_custom($breakpoint-mobile-large) {
-      max-width: 100%;
-    }
+    max-width: 100%;
   }
 
   th,

@@ -1962,8 +1962,7 @@ blockquote {
     font-size: 15px;
     line-height: 1.5em;
     margin: 0 0 8px;
-    overflow: hidden;
-    max-height: 66px; }
+    overflow: hidden; }
     @media only screen and (min-width: 767px) {
       .article-item h3,
       .post-item h3 {
@@ -3400,7 +3399,7 @@ blockquote {
     .post-list.news-home-list li:first-child, .news-home-list.favourite-articles-list li:first-child {
       width: 100%;
       padding-bottom: 15px; }
-      @media only screen and (min-width: 767px) {
+      @media only screen and (min-width: 1024px) {
         .post-list.news-home-list li:first-child, .news-home-list.favourite-articles-list li:first-child {
           padding-bottom: 46px; } }
       @media only screen and (max-width: 767px) {
@@ -3528,30 +3527,6 @@ blockquote {
     .post-list.other-commentary-list .post-item .category, .other-commentary-list.favourite-articles-list .post-item .category {
       margin-bottom: 3px; } }
 
-@media only screen and (min-width: 767px) {
-  .home-other-events-list .post-item {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column; } }
-@media only screen and (min-width: 767px) {
-  .home-other-events-list .post-item .img {
-    height: 166px;
-    margin: 0 0 12px; } }
-.home-other-events-list .post-item .location {
-  font-size: 12px;
-  margin-top: auto; }
-  @media only screen and (max-width: 767px) {
-    .home-other-events-list .post-item .location {
-      padding-left: 30%;
-      margin-left: 14px;
-      color: #484848; } }
-@media only screen and (max-width: 767px) {
-  .home-other-events-list .post-item .author {
-    display: none; }
-  .home-other-events-list .post-item h2 {
-    font-size: 13px; } }
-
 .mobile-filter-list {
   position: relative;
   z-index: 1;
@@ -3670,6 +3645,9 @@ blockquote {
         width: 100%; } }
     @media only screen and (min-width: 767px) {
       .commentary-videos-list li {
+        width: 50%; } }
+    @media only screen and (min-width: 1024px) {
+      .commentary-videos-list li {
         width: 25%; } }
 
 .post-list, .favourite-articles-list {
@@ -3717,6 +3695,32 @@ blockquote {
     @media only screen and (min-width: 767px) {
       .post-list.favourite-articles-list > li, .favourite-articles-list > li {
         padding: 10px 55px 10px 30px; } }
+  @media only screen and (min-width: 767px) {
+    .post-list.home-other-events-list, .home-other-events-list.favourite-articles-list {
+      margin-bottom: -30px; } }
+  @media only screen and (min-width: 767px) {
+    .post-list.home-other-events-list .post-item, .home-other-events-list.favourite-articles-list .post-item {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+          flex-direction: column; } }
+  @media only screen and (min-width: 767px) {
+    .post-list.home-other-events-list .post-item .img, .home-other-events-list.favourite-articles-list .post-item .img {
+      height: 166px;
+      margin: 0 0 12px; } }
+  .post-list.home-other-events-list .post-item .location, .home-other-events-list.favourite-articles-list .post-item .location {
+    font-size: 12px;
+    margin-top: auto; }
+    @media only screen and (max-width: 767px) {
+      .post-list.home-other-events-list .post-item .location, .home-other-events-list.favourite-articles-list .post-item .location {
+        padding-left: 30%;
+        margin-left: 14px;
+        color: #484848; } }
+  @media only screen and (max-width: 767px) {
+    .post-list.home-other-events-list .post-item .author, .home-other-events-list.favourite-articles-list .post-item .author {
+      display: none; }
+    .post-list.home-other-events-list .post-item h2, .home-other-events-list.favourite-articles-list .post-item h2 {
+      font-size: 13px; } }
 
 .home-articles-list .post-item .publish:first-letter,
 .topic-articles-list .post-item .publish:first-letter {
@@ -6502,12 +6506,9 @@ iframe[name=advpp_manager] {
     .newsletter-page table li p {
       display: inline; }
   .newsletter-page img {
-    margin: 10px 0px;
-    max-width: none;
-    height: auto; }
-    @media only screen and (max-width: 568px) {
-      .newsletter-page img {
-        max-width: 100%; } }
+    margin: 10px 0;
+    height: auto;
+    max-width: 100%; }
   .newsletter-page th,
   .newsletter-page td {
     padding: 0;
@@ -9184,7 +9185,7 @@ path {
     padding-top: 33px; } }
 .home-page .header-background {
   margin-bottom: 20px; }
-  @media only screen and (min-width: 767px) {
+  @media only screen and (min-width: 1024px) {
     .home-page .header-background {
       margin-bottom: 46px; } }
 .home-page h1 {
