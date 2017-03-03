@@ -247,6 +247,19 @@
           padding: 0 10px 0 !important;
           color: #262626;
           line-height: 38px;
+          position: relative;
+
+          &.active {
+            &:after {
+              height: 2px;
+              background: $light-blue;
+              content: '';
+              left: 10px;
+              right: 10px;
+              bottom: 0;
+              position: absolute;
+            }
+          }
         }
       }
 

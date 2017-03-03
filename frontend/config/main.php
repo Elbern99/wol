@@ -84,6 +84,7 @@ return [
                 'videos/<slug:[0-9a-z-]+>' => 'video/view',
                 'news' => 'news/index',
                 'news/<slug:[0-9a-z-]+>' => 'news/view',
+                'news/wol/<slug:[0-9a-z-]+>' => 'news/view',
                 'news/newsletters/<year:[0-9]+>/<month:[0-9]+>' => 'news/newsletters',
                 'find-a-topic-spokesperson' => 'authors/expert',
                 'authors' => 'authors/index',

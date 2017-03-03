@@ -105,32 +105,32 @@
 
 //NEWSLETTER-PAGE
 .newsletter-page {
-  .content-inner-text {
-    line-height: initial;
-  }
+  line-height: normal;
 
   table {
     width: 100% !important;
     padding: 0;
     margin: 0;
     border-spacing: 0 10px;
+
+    li {
+      p {
+        display: inline;
+      }
+    }
   }
 
   img {
     margin: 10px 0px;
-    max-width: none;
     height: auto;
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      max-width: 100%;
-      width: auto;
-    }
+    max-width: 100%;
   }
 
   th,
   td {
     padding: 0;
     vertical-align: middle;
+    min-width: 100px;
   }
 }
 

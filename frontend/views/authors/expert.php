@@ -77,12 +77,12 @@ $step = intval(Yii::$app->request->get('step')) + 1;
         <?php Pjax::begin(['linkSelector' => '.btn-gray', 'options' => ['class' => 'loader-ajax']]); ?>
         <div class="content-inner-text">
             <ul class="search-results-media-list">
-                
+
                 <?php foreach ($expertCollection as $expert): ?>
                 <li class="search-results-media-item">
-                    <div class="img-holder img-holder-bg">
+                    <a href="<?= $expert['profile'] ?>" class="img-holder img-holder-bg">
                         <div class="img" style="background-image: url(<?= $expert['avatar']; ?>)"></div>
-                    </div>
+                    </a>
                     <div class="name">
                         <a href="<?= $expert['profile'] ?>">
                            <?= $expert['name']->first_name ?> <?= $expert['name']->middle_name ?> <?= $expert['name']->last_name ?>
