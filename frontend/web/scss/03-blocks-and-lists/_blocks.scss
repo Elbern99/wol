@@ -786,6 +786,20 @@
   }
 }
 
+.article-buttons-bottom {
+
+  @media only screen and (min-device-width : 767px) and (max-device-width : 1025px) {
+    .add-fav-alert {
+      left: 0 !important;
+      transform: translateX(0%) !important;
+
+      &:after {
+        left: 17px;
+      }
+    }
+  }
+}
+
 //SIDEBAR-BUTTONS-HOLDER
 .sidebar-buttons-holder {
 

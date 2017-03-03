@@ -6,6 +6,7 @@
 /* @var $exception Exception */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $name;
 ?>
@@ -21,13 +22,16 @@ $this->title = $name;
             </div>
 
             <p>
-                We're sorry the page you have requested does not exist or has moved.
+                We're sorry the page you have requested cannot be found or has moved.
             </p>
             <p>
-                Please return to the <a href="/">Homepage</a>, to continue to browse IZA World of Labor.
+                <!--Please return to the <a href="/">Homepage</a>, to continue to browse IZA World of Labor.-->
+                Please return to the <a href="/">Homepage</a>,
+                use the navigation above or <a href="<?= Url::to('/search/advanced',true); ?>">search</a> to find what you are looking for.
             </p>
             <p>
-                Email us to <ins>report a broken link</ins> <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> and we'll fix it.
+                <!--Email us to <ins>report a broken link</ins> <a href="mailto:wol@iza.org" target="_blank">wol@iza.org</a> and we'll fix it.-->
+                Email us to report a broken link <a href="mailto:wol@iza.org">wol@iza.org</a> and we'll fix it.
             </p>
         </div>
     </div>

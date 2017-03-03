@@ -1666,9 +1666,10 @@ table {
   table td,
   table th {
     padding: 5px; }
-  table.blue-border td,
-  table.blue-border th {
-    border: 1px solid #00A6C7; }
+
+.container:not(.newsletter-page) td,
+.container:not(.newsletter-page) th {
+  border: 1px solid #00A6C7; }
 
 .reset-list, .flex-direction-nav,
 [class$="-list"],
@@ -2330,6 +2331,13 @@ blockquote {
       box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
       background: #f5f5f5;
       z-index: -1; }
+
+@media only screen and (min-device-width: 767px) and (max-device-width: 1025px) {
+  .article-buttons-bottom .add-fav-alert {
+    left: 0 !important;
+    transform: translateX(0%) !important; }
+    .article-buttons-bottom .add-fav-alert:after {
+      left: 17px; } }
 
 @media only screen and (max-width: 767px) {
   .sidebar-buttons-holder {
@@ -4863,6 +4871,8 @@ textarea.form-control {
 
 .def-checkbox {
   line-height: 1em !important; }
+  .def-checkbox .count {
+    padding: 0 0 0 5px; }
   .def-checkbox.light .label-text {
     font-size: 11px;
     padding: 0 0 0 20px; }

@@ -123,13 +123,12 @@ table {
   th {
     padding: 5px;
   }
+}
 
-  &.blue-border {
-
-    td,
-    th {
-      border: 1px solid #00A6C7 ;
-    }
+.container:not(.newsletter-page) {
+  td,
+  th {
+    border: 1px solid #00A6C7;
   }
 }
 
