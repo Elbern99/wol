@@ -125,10 +125,14 @@ table {
   }
 }
 
-.container:not(.newsletter-page) {
-  td,
-  th {
-    border: 1px solid #00A6C7;
+td,
+th {
+  border: 1px solid #00A6C7;
+}
+
+.newsletter-page {
+  td,th {
+    border-color: transparent;
   }
 }
 

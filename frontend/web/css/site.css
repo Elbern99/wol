@@ -1667,9 +1667,12 @@ table {
   table th {
     padding: 5px; }
 
-.container:not(.newsletter-page) td,
-.container:not(.newsletter-page) th {
+td,
+th {
   border: 1px solid #00A6C7; }
+
+.newsletter-page td, .newsletter-page th {
+  border-color: transparent; }
 
 .reset-list, .flex-direction-nav,
 [class$="-list"],
