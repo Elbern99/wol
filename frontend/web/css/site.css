@@ -2700,12 +2700,15 @@ blockquote {
     height: 415px; }
     .opinion-item.has-image {
       height: auto; } }
+@media only screen and (min-device-width: 767px) and (max-device-width: 1025px) {
+  .opinion-item p {
+    max-height: 63px; } }
 .opinion-item h2 {
   max-height: 60px;
   overflow: hidden; }
   @media only screen and (min-width: 767px) {
     .opinion-item h2 {
-      max-height: 72px; } }
+      max-height: 68px; } }
 
 .mobile-filter-holder {
   margin-bottom: 20px; }

@@ -501,6 +501,7 @@
         pajax: function(container) {
             $(container).on('pjax:end', function() {
                 articleList.openMoreText('.article-more','.description');
+                //text.sliceText();
             });
         },
         pajaxLoader: function(container) {
@@ -1090,6 +1091,36 @@
         }
     };
 
+    var text = {
+        sliceText:function() {
+            $('.video-item,.opinion-item').each(function(i){
+                var cur = $(this),
+                    curTitleTag = cur.find('h2'),
+                    curTitleTagLink = curTitleTag.find('a'),
+                    curTitleText  = curTitleTagLink.text();
+
+                function truncate(str, maxlength) {
+                    return (str.length > maxlength) ?
+                    str.slice(0, maxlength - 3) + '...' : str;
+                }
+
+                cur.find('p').each(function(i){
+                    var curParagraphTag = $(this),
+                        curParagraphText;
+
+                    if (curParagraphTag.length > 0) {
+                        curParagraphText = curParagraphTag.text();
+                        curParagraphTag.text(truncate(curParagraphText, 130));
+                        curParagraphTag.css('opacity','1');
+                    }
+                });
+
+                curTitleTagLink.text(truncate(curTitleText, 60));
+                curTitleTag.css('opacity','1');
+            })
+        }
+    };
+
     //EVENTS
     elements.document.ready(function() {
         calcHeight.setheight('.header-background');
@@ -1102,6 +1133,7 @@
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
+        //text.sliceText();
 
         if(_window_width < _tablet ) {
             mobileNavDrop.open('.btn-mobile-menu-show','.mobile-menu');

@@ -1248,12 +1248,19 @@
     }
   }
 
+  p {
+
+    @media only screen and (min-device-width : 767px) and (max-device-width : 1025px) {
+      max-height: 63px;
+    }
+  }
+
   h2 {
     max-height: 60px;
     overflow: hidden;
 
     @include breakpoint('tablet') {
-      max-height: 72px;
+      max-height: 68px;
     }
   }
 }

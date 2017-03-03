@@ -145,7 +145,7 @@
                     if(checkChildrenCheckboxes) {
                         if(checkState) {
                             if(!$cur.hasClass('only-check')) {
-                                $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
+                                //$subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
                             }
                         } else {
                             $subLevelCheckboxes.find(':checkbox:checked').trigger('click');
@@ -165,7 +165,7 @@
                         oneChecked = $subLevelCheckboxes.length == 1;
 
                     if(oneChecked) {
-                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check').trigger('click');
+                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check');
                     }
 
                     if(checkChildrenCheckboxes) {
