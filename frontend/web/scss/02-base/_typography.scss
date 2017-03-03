@@ -110,26 +110,31 @@ ol {
   }
 }
 
-.container:not(.newsletter-page) {
-  margin: 0 0 10px;
-  width: 100%;
-  border-collapse: collapse;
+.newsletter-page {
+  table {
+    margin: 0 0 10px;
+    width: 100%;
+    border-collapse: collapse;
 
-  th {
-    font-weight: 800;
-  }
-
-  td,
-  th {
-    padding: 5px;
-  }
-
-  &.blue-border {
+    th {
+      font-weight: 800;
+    }
 
     td,
     th {
-      border: 1px solid #00A6C7 ;
+      padding: 5px;
     }
+  }
+}
+
+td,
+th {
+  border: 1px solid #00A6C7;
+}
+
+.newsletter-page {
+  td,th {
+    border-color: transparent;
   }
 }
 

@@ -4,10 +4,13 @@
 
   @include breakpoint('tablet') {
     order: 1;
-    flex: 0 0 247px;
-    //margin: -17px 0 0 60px;
-    margin: 0 0 0 60px;
+    margin: 0 0 0 30px;
     width: 247px;
+    flex: 0 0 247px;
+  }
+
+  @include breakpoint('desktop') {
+    margin: 0 0 0 60px;
   }
 
   iframe {

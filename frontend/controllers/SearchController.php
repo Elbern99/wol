@@ -361,7 +361,7 @@ class SearchController extends Controller
         } catch (\yii\db\Exception $e) {
         }
         
-        return ['message' => 'Criteria not saved'];
+        return ['message' => 'Search Saved To Your Account'];
     }
     
 }

@@ -11,7 +11,7 @@
   position: relative;
 
   @include breakpoint('tablet') {
-    width: 149px;
+    width: 120px;
   }
 
   img {
@@ -238,7 +238,6 @@
     line-height: 1.5em;
     margin: 0 0 8px;
     overflow: hidden;
-    max-height: 66px;
 
     @include breakpoint('tablet') {
       font-size: 12px;
@@ -787,6 +786,20 @@
   }
 }
 
+.article-buttons-bottom {
+
+  @media only screen and (min-device-width : 767px) and (max-device-width : 1025px) {
+    .add-fav-alert {
+      left: 0 !important;
+      transform: translateX(0%) !important;
+
+      &:after {
+        left: 17px;
+      }
+    }
+  }
+}
+
 //SIDEBAR-BUTTONS-HOLDER
 .sidebar-buttons-holder {
 
@@ -1235,12 +1248,19 @@
     }
   }
 
+  p {
+
+    @media only screen and (min-device-width : 767px) and (max-device-width : 1025px) {
+      max-height: 63px;
+    }
+  }
+
   h2 {
     max-height: 60px;
     overflow: hidden;
 
     @include breakpoint('tablet') {
-      max-height: 72px;
+      max-height: 68px;
     }
   }
 }

@@ -12,7 +12,7 @@
     var _window_height = elements.window.height(),
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
-        _mobile = 769,
+        _mobile = 767,
         _tablet = 1025,
         _LSAccordionItem = localStorage.getItem('AccordionItemAdvanced'),
         _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjAdvanced');
@@ -142,10 +142,10 @@
                         checkChildrenCheckboxes = $subLevelCheckboxes.length > 0,
                         checkState = $cur.is(':checked');
 
-                    if(checkChildrenCheckboxes && $('.only-check').length > 0) {
+                    if(checkChildrenCheckboxes) {
                         if(checkState) {
-                            if($cur.hasClass('.only-check')) {
-                                $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
+                            if(!$cur.hasClass('only-check')) {
+                                //$subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
                             }
                         } else {
                             $subLevelCheckboxes.find(':checkbox:checked').trigger('click');
@@ -161,11 +161,14 @@
                         $cur = $(this),
                         $curParent = $cur.parents('.subcheckbox-list'),
                         $subLevelCheckboxes = $curParent.find(':checkbox:checked'),
-                        checkChildrenCheckboxes = $subLevelCheckboxes.length > 0;
+                        checkChildrenCheckboxes = $subLevelCheckboxes.length == 0,
+                        oneChecked = $subLevelCheckboxes.length == 1;
+
+                    if(oneChecked) {
+                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check');
+                    }
 
                     if(checkChildrenCheckboxes) {
-                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check').trigger('click');
-                    } else {
                         $curParent.prev('.def-checkbox').find(':checkbox:checked').trigger('click');
                     }
                 });
@@ -175,11 +178,11 @@
 
     var filterLoad = {
         scrollToLastPosition: function(position) {
-            setTimeout(function() {
-                elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+            elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+                setTimeout(function() {
                     $('.preloader').fadeOut();
-                });
-            }, 100);
+                }, 100);
+            });
         },
         openInMobile: function() {
             var

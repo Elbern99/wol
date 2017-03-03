@@ -297,6 +297,10 @@ textarea {
 .def-checkbox {
   line-height: 1em !important;
 
+  .count {
+    padding: 0 0 0 5px;
+  }
+
   &.light {
     .label-text {
       font-size: 11px;

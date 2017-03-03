@@ -5,12 +5,13 @@
         window: $(window),
         mapInfo: $('.map-info'),
         overlay: $('.overlay'),
-        LMarker: $('.leaflet-marker-icon')
+        LMarker: $('.leaflet-marker-icon'),
+        mapMobile: $('.map-mobile')
     };
 
     //GLOBAL VARIABLE ---------
     var _window_width = elements.window.width(),
-        _mobile = 769,
+        _mobile = 767,
         _mobileSmall  = 413,
         _tablet = 1025,
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click');
@@ -153,13 +154,13 @@
                 event.target.closePopup();
                 var
                     popup = event.target.getPopup();
+
                 elements.mapInfo.addClass('map-info-open').find('.map-info-content').html(popup._content);
                 elements.overlay.removeClass('js-tab-hidden').addClass('active');
 
                 $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
 
                 this._icon.classList.add("opened-ref-tooltip");
-
 
                 mapObj.addNumbersForSources('.ref-type-list,.ref-source-list');
 
@@ -195,21 +196,28 @@
             mapObj.zoomControl();
         });
 
-        function activateMap() {
+        function activateMap(){
             var
-                $mapMobile = $('.map-mobile'),
-                checkOverlay = $mapMobile.hasClass('map-active');
+                checkOverlay = elements.mapMobile.hasClass('map-active');
+
+            console.log(1);
 
             if (!checkOverlay) {
-                $mapMobile.addClass('map-active');
+                elements.mapMobile.addClass('map-active');
             }
             else {
-                $mapMobile.removeClass('map-active');
+                elements.mapMobile.removeClass('map-active');
             }
         }
 
-        $('.map-mobile').on('click', activateMap);
+        elements.mapMobile.on('click', activateMap);
         map.on('click', activateMap);
+
+        elements.window.on('orientationchange', function() {
+            if(!$('.map-info-open').length){
+                elements.mapMobile.removeClass('map-active');
+            }
+        });
 
         //----------1 get
         $.getJSON(mapConfig.json_path_country, function(data) {

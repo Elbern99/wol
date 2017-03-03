@@ -28,7 +28,7 @@
   .header-background {
     margin-bottom: 20px;
 
-    @include breakpoint('tablet') {
+    @include breakpoint('desktop') {
       margin-bottom: 46px;
     }
   }

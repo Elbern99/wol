@@ -56,9 +56,10 @@
 
 .two-column-first {
   &:first-child {
+    width: 100%;
+
     @include breakpoint('desktop') {
-      width: 100%;
-      float: none ;
+      float: none;
 
       .opinion-item,
       .news-item,

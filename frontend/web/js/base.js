@@ -15,7 +15,7 @@
         _window_width = elements.window.width(),
         _doc_height = elements.document.height(),
         _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 769,
+        _mobile = 768,
         _tablet = 1025;
 
     elements.window.resize(function() {
@@ -141,8 +141,8 @@
                     $btn = $(parent).find(btn);
 
                 elements.document.unbind('click.submenu');
-                $('.submenu').removeClass('open');
-                $('.has-drop>a').not(cur).removeClass('active');
+                $('.submenu,.dropdown-widget').removeClass('open');
+                $('.has-drop>a,.dropdown-login>a').not(cur).removeClass('active');
 
                 if ( !cur.hasClass('active') ) {
                     if(curAttr !== '#') {
@@ -259,6 +259,15 @@
                 elements.document.unbind('click.drop-content');
 
                 $btn.not(cur).removeClass('active');
+
+                $('.submenu').removeClass('open');
+                $('.has-drop>a').not(cur).removeClass('active');
+
+                if (elements.searchResult.length > 0) {
+                    localStorage.removeItem('AccordionItemAdvanced');
+                    localStorage.removeItem('AccordionItemsObjAdvanced');
+                };
+
                 if ( !cur.hasClass('active') ) {
                     var yourClick = true,
                         drop = cur.parents('.dropdown').find('>.drop-content');
@@ -423,8 +432,6 @@
             btn.click(function(e) {
                 var cur = $(this);
 
-                console.log(1);
-
                 if(cur.parent().hasClass(accordion.classes)){
                     accordion.closeItem(cur);
                 } else {
@@ -494,6 +501,7 @@
         pajax: function(container) {
             $(container).on('pjax:end', function() {
                 articleList.openMoreText('.article-more','.description');
+                //text.sliceText();
             });
         },
         pajaxLoader: function(container) {
@@ -594,16 +602,44 @@
                 });
 
                 $btn.click(function(e) {
-                    var cur = $(this);
+                    var
+                        $cur = $(this),
+                        $curParent = $cur.parents('li'),
+                        $searchCheckBoxCheckedNotFirst = '.checkbox-list>li:not(:first-child)>label>:checkbox:checked',
+                        $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
+                        $searchCheckBox = '.checkbox-list>li>label>:checkbox:not(:checked)',
+                        $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
+                        $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
 
-                    cur.toggleClass('active');
+                    $cur.toggleClass('active');
 
-                    if(cur.hasClass('active')) {
-                        cur.parents('li').find('input:not(:checked)').trigger('click');
-                        cur.text('Clear all');
+                    if($cur.hasClass('active')) {
+                        if (elements.searchResult.length > 0) {
+                            $curParent.find($searchCheckBox).trigger('click');
+                        };
+
+                        if (elements.findExpert.length > 0) {
+                            $curParent.find($expertCheckBox).trigger('click');
+                        };
+
+                        $cur.text('Clear all');
                     } else {
-                        cur.parents('li').find('input:checked').trigger('click');
-                        cur.text('Select all');
+
+                        if (elements.searchResult.length > 0) {
+                            if($curParent.hasClass('sidebar-accordion-item-types')) {
+                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                            } else if($curParent.hasClass('sidebar-accordion-item-subject-areas')) {
+                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                            } else {
+                                $curParent.find($searchCheckBoxChecked).trigger('click');
+                            }
+                        };
+
+                        if (elements.findExpert.length > 0) {
+                            $cur.parents('li').find($expertCheckBoxChecked).trigger('click');
+                        };
+
+                        $cur.text('Select all');
                     }
 
                     e.preventDefault();
@@ -685,9 +721,18 @@
 
             if(itemEl.length) {
                 itemEl.each(function( index ) {
-                    var cur = $(this);
-                    if(cur.find(btn).length == 0) {
-                        cur.find('div >ul').addClass('no-more');
+                    var
+                        $cur = $(this),
+                        $curLink = $cur.find('.more-link'),
+                        curCount = $curLink.data('count'),
+                        curCountHidden = $curLink.data('length-hidden');
+
+                    if(curCount == curCountHidden) {
+                        $curLink.addClass('showed');
+                    }
+
+                    if($cur.find(btn).length == 0) {
+                        $cur.find('div >ul').addClass('no-more');
                     }
                 });
             }
@@ -1046,6 +1091,36 @@
         }
     };
 
+    var text = {
+        sliceText:function() {
+            $('.video-item,.opinion-item').each(function(i){
+                var cur = $(this),
+                    curTitleTag = cur.find('h2'),
+                    curTitleTagLink = curTitleTag.find('a'),
+                    curTitleText  = curTitleTagLink.text();
+
+                function truncate(str, maxlength) {
+                    return (str.length > maxlength) ?
+                    str.slice(0, maxlength - 3) + '...' : str;
+                }
+
+                cur.find('p').each(function(i){
+                    var curParagraphTag = $(this),
+                        curParagraphText;
+
+                    if (curParagraphTag.length > 0) {
+                        curParagraphText = curParagraphTag.text();
+                        curParagraphTag.text(truncate(curParagraphText, 130));
+                        curParagraphTag.css('opacity','1');
+                    }
+                });
+
+                curTitleTagLink.text(truncate(curTitleText, 60));
+                curTitleTag.css('opacity','1');
+            })
+        }
+    };
+
     //EVENTS
     elements.document.ready(function() {
         calcHeight.setheight('.header-background');
@@ -1058,6 +1133,7 @@
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
+        //text.sliceText();
 
         if(_window_width < _tablet ) {
             mobileNavDrop.open('.btn-mobile-menu-show','.mobile-menu');
@@ -1090,8 +1166,6 @@
         sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',13);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.former-editor-list','.editor-item',3,3,0);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.associate-editor-list','.editor-item',3,9,0);
-        sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
-        sidebarNews.detectMore('.mobile-filter-items','.more-link');
         home.closeSubscribe('.icon-close','.sticky-newsletter');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
@@ -1131,6 +1205,8 @@
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         accordion.scrollToHash('.faq-accordion-list');
         filter.clearStorage();
+        sidebarNews.detectMore('.sidebar-accrodion-item','.more-link');
+        sidebarNews.detectMore('.mobile-filter-items','.more-link');
     });
 
 })(jQuery);

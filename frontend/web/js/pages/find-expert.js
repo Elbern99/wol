@@ -11,7 +11,7 @@
     //GLOBAL VARIABLE ---------
     var _window_height = elements.window.height(),
         _window_width = elements.window.width(),
-        _mobile = 769,
+        _mobile = 767,
         _tablet = 1025,
         _LSAccordionItem = localStorage.getItem('AccordionItemExpert'),
         _LSAccordionItemObj  = localStorage.getItem('AccordionItemsObjExpert');
@@ -60,12 +60,11 @@
 
     var filterLoad = {
         scrollToLastPosition: function(position) {
-            setTimeout(function() {
-
-                elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+            elements.htmlBody.animate({ scrollTop: position }, 0, function() {
+                setTimeout(function() {
                     $('.preloader').fadeOut();
-                });
-            }, 100);
+                }, 100);
+            });
         },
         openInMobile: function() {
             var
@@ -81,14 +80,38 @@
         setCheckResult: function(item) {
             var $accordionItem = $(item);
 
-            $accordionItem.bind('click',function(){
+            $accordionItem.on('click','>a,:checkbox',function(){
 
                 var
-                    LSFilter = { 0: true, 1: false, 2: false, 3: false };
+                    LSFilter = {
+                        accordionItem: {
+                            0: true,
+                            1: false,
+                            2: false,
+                            3: false
+                        },
+                        moreButtonParams: {
+                            0: 0
+                        }
+                    };
 
                 $accordionItem.each(function(i) {
-                    var checkIsOpen = $(this).hasClass('is-open');
-                    (checkIsOpen) ? LSFilter[i] = true : LSFilter[i] = false;
+                    var
+                        $cur = $(this),
+                        checkIsOpen = $cur.hasClass('is-open'),
+                        moreButtonCount = parseInt($cur.find('.more-link').attr('data-count'));
+
+                    if(moreButtonCount) {
+                        LSFilter.moreButtonParams[i] = moreButtonCount;
+                    } else {
+                        LSFilter.moreButtonParams[i] = 0;
+                    }
+
+                    if(checkIsOpen) {
+                        LSFilter.accordionItem[i] = true;
+                    } else {
+                        LSFilter[i] = false;
+                    }
                 });
 
                 localStorage.setItem('AccordionItemsObjExpert', JSON.stringify(LSFilter));
@@ -104,11 +127,24 @@
                     var
                         accordionItemObj = JSON.parse(_LSAccordionItemObj);
 
-                    for(var key in accordionItemObj) {
-                        var value = accordionItemObj[key],
+                    for(var key in accordionItemObj.accordionItem) {
+                        var value = accordionItemObj.accordionItem[key],
                             index = key;
+
                         if(value) {
                             $accordionItem.eq(key).addClass('is-open').find('.text').slideDown(0);
+                            var
+                                count = accordionItemObj.moreButtonParams[key],
+                                triggerCount = count-13;
+
+
+                            if(count !== 0) {
+                                $accordionItem.eq(key).find('.more-link').attr("data-count", count);
+                                $accordionItem.eq(key).find('.item:hidden:lt('+triggerCount+')').addClass('hidden').slideDown(0);
+
+                            }
+                        } else {
+                            $accordionItem.eq(key).removeClass('is-open').find('.text').slideUp(0);
                         }
                     }
 

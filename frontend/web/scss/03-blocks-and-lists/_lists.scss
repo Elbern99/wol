@@ -227,7 +227,7 @@
         width: 100%;
         padding-bottom: 15px;
 
-        @include breakpoint('tablet') {
+        @include breakpoint('desktop') {
           padding-bottom: 46px;
         }
 
@@ -426,44 +426,6 @@
 
 }
 
-.home-other-events-list {
-  .post-item {
-
-    @include breakpoint('tablet') {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .img {
-      @include breakpoint('tablet') {
-        height: 166px;
-        margin: 0 0 12px;
-      }
-    }
-
-    .location {
-      font-size: 12px;
-      margin-top: auto;
-
-      @include breakpoint_custom($breakpoint-tablet) {
-        padding-left: 30%;
-        margin-left: 14px;
-        color: #484848;
-      }
-    }
-
-    @include breakpoint_custom($breakpoint-tablet) {
-      .author {
-        display: none;
-      }
-
-      h2 {
-        font-size: 13px;
-      }
-    }
-  }
-}
-
 //MOBILE-FILTER-LIST
 .mobile-filter-list {
   position: relative;
@@ -624,6 +586,10 @@
     }
 
     @include breakpoint('tablet') {
+      width: 50%;
+    }
+
+    @include breakpoint('desktop') {
       width: 25%;
     }
 
@@ -702,6 +668,49 @@
 
       @include breakpoint('tablet') {
         padding: 10px 55px 10px 30px;
+      }
+    }
+  }
+
+  &.home-other-events-list {
+
+    @include breakpoint('tablet') {
+      margin-bottom: -30px;
+    }
+
+    .post-item {
+
+      @include breakpoint('tablet') {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .img {
+        @include breakpoint('tablet') {
+          height: 166px;
+          margin: 0 0 12px;
+        }
+      }
+
+      .location {
+        font-size: 12px;
+        margin-top: auto;
+
+        @include breakpoint_custom($breakpoint-tablet) {
+          padding-left: 30%;
+          margin-left: 14px;
+          color: #484848;
+        }
+      }
+
+      @include breakpoint_custom($breakpoint-tablet) {
+        .author {
+          display: none;
+        }
+
+        h2 {
+          font-size: 13px;
+        }
       }
     }
   }
