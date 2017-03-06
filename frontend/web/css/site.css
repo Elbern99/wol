@@ -6516,11 +6516,10 @@ iframe[name=advpp_manager] {
   line-height: normal; }
   .newsletter-page iframe {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: block; }
-    .newsletter-page iframe table {
-      background: #fff !important; }
+    height: 100vh;
+    display: block;
+    max-width: 617px;
+    margin: 0 auto; }
   .newsletter-page table {
     width: 100% !important;
     padding: 0;
