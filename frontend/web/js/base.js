@@ -607,7 +607,7 @@
                         $curParent = $cur.parents('li'),
                         $searchCheckBoxCheckedNotFirst = '.checkbox-list>li:not(:first-child)>label>:checkbox:checked',
                         $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
-                        $searchCheckBox = '.checkbox-list>li>label>:checkbox:not(:checked)',
+                        $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
                         $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
                         $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
 
@@ -616,6 +616,9 @@
                     if($cur.hasClass('active')) {
                         if (elements.searchResult.length > 0) {
                             $curParent.find($searchCheckBox).trigger('click');
+
+
+                            console.log(1);
                         };
 
                         if (elements.findExpert.length > 0) {
