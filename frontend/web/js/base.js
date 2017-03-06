@@ -1128,28 +1128,35 @@
                             titleLong = 45;
                         }
 
-                        if(checkImg && checkParagraph) {
-                            function truncate(str, maxlength) {
-                                if (str.length > maxlength) {
-                                    str = str.slice(0, maxlength - 3);
+                        if(checkParagraph) {
+                            titleLong = 150;
+                        }
 
-                                    var $strArray = str.split(' ');
+                        if(checkImg) {
+
+                            if(checkParagraph){
+                                function truncate(str, maxlength) {
+                                    if (str.length > maxlength) {
+                                        str = str.slice(0, maxlength - 3);
+
+                                        var $strArray = str.split(' ');
                                         $strArray[$strArray.length - 1] = '...';
                                         str = $strArray.join(' ')
-                                }
-                                return str;
-                            };
+                                    }
+                                    return str;
+                                };
 
-                            cur.find('p').each(function(i){
-                                var curParagraphTag = $(this),
-                                    curParagraphText = curParagraphTag.text();
+                                cur.find('p').each(function(i){
+                                    var curParagraphTag = $(this),
+                                        curParagraphText = curParagraphTag.text();
 
-                                if (curParagraphText.trim().length > 0) {
-                                    curParagraphTag.text(truncate(curParagraphText, textLong));
-                                    curParagraphTag.css('opacity','1');
-                                    return false;
-                                }
-                            });
+                                    if (curParagraphText.trim().length > 0) {
+                                        curParagraphTag.text(truncate(curParagraphText, textLong));
+                                        curParagraphTag.css('opacity','1');
+                                        return false;
+                                    }
+                                });
+                            }
 
                             curTitleTagLink.text(truncate(curTitleText, titleLong));
                         }
