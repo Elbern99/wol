@@ -1154,11 +1154,6 @@
                             curTitleTagLink.text(truncate(curTitleText, titleLong));
                         }
 
-                        if(checkImg && !checkParagraph) {
-                            titleLong = 250;
-                            curTitleTagLink.text(truncate(curTitleText, titleLong));
-                        }
-
                         curTitleTag.css('opacity','1');
                     })
                 }
