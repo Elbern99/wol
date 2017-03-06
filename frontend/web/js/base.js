@@ -1115,7 +1115,8 @@
                             titleLong = 70,
                             $videosPage = $('.videos-page'),
                             $opinionsPage = $('.opinions-page'),
-                            $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0;
+                            $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0,
+                            checkParagraph = cur.find('p').length > 0;
 
                         if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
                             textLong = 255,
@@ -1127,7 +1128,7 @@
                             titleLong = 50;
                         }
 
-                        if(checkImg) {
+                        if(checkImg && checkParagraph) {
                             function truncate(str, maxlength) {
                                 return (str.length > maxlength) ?
                                 str.slice(0, maxlength - 3) + '...' : str;
