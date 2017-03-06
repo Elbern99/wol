@@ -1119,7 +1119,7 @@
                             checkParagraph = cur.find('p').length > 0;
 
                         if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
-                            textLong = 255,
+                            textLong = 360,
                             titleLong = 90;
                         }
 
