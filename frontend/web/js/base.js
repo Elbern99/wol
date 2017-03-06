@@ -1125,13 +1125,19 @@
 
                         if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
                             textLong = 100,
-                            titleLong = 50;
+                            titleLong = 45;
                         }
 
                         if(checkImg && checkParagraph) {
                             function truncate(str, maxlength) {
-                                return (str.length > maxlength) ?
-                                str.slice(0, maxlength - 3) + '...' : str;
+                                if (str.length > maxlength) {
+                                    str = str.slice(0, maxlength - 3);
+
+                                    var $strArray = str.split(' ');
+                                        $strArray[$strArray.length - 1] = '...';
+                                        str = $strArray.join(' ')
+                                }
+                                return str;
                             };
 
                             cur.find('p').each(function(i){
