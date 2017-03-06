@@ -1146,8 +1146,9 @@
                             });
 
                             curTitleTagLink.text(truncate(curTitleText, titleLong));
-                            curTitleTag.css('opacity','1');
                         }
+
+                        curTitleTag.css('opacity','1');
                     })
                 }
 
