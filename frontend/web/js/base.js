@@ -501,7 +501,7 @@
         pajax: function(container) {
             $(container).on('pjax:end', function() {
                 articleList.openMoreText('.article-more','.description');
-                //text.sliceText();
+                text.sliceText();
             });
         },
         pajaxLoader: function(container) {
@@ -1096,31 +1096,68 @@
 
     var text = {
         sliceText:function() {
-            $('.video-item,.opinion-item').each(function(i){
-                var cur = $(this),
-                    curTitleTag = cur.find('h2'),
-                    curTitleTagLink = curTitleTag.find('a'),
-                    curTitleText  = curTitleTagLink.text();
 
-                function truncate(str, maxlength) {
-                    return (str.length > maxlength) ?
-                    str.slice(0, maxlength - 3) + '...' : str;
+            var
+                checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0;
+
+            if (checkOpinionVideoItems) {
+
+                function sliceTextItem(items) {
+                    $(items).each(function(i){
+                        var cur = $(this),
+                            curIndex = cur.parent().index(),
+                            checkImg = cur.hasClass('has-image'),
+                            checkFirst = curIndex === 0,
+                            curTitleTag = cur.find('h2'),
+                            curTitleTagLink = curTitleTag.find('a'),
+                            curTitleText = curTitleTagLink.text(),
+                            textLong = 151,
+                            titleLong = 70,
+                            $videosPage = $('.videos-page'),
+                            $opinionsPage = $('.opinions-page'),
+                            $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0;
+
+                        if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
+                            textLong = 255,
+                            titleLong = 90;
+                        }
+
+                        if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
+                            textLong = 100,
+                            titleLong = 50;
+                        }
+
+                        if(checkImg) {
+                            function truncate(str, maxlength) {
+                                return (str.length > maxlength) ?
+                                str.slice(0, maxlength - 3) + '...' : str;
+                            };
+
+                            cur.find('p').each(function(i){
+                                var curParagraphTag = $(this),
+                                    curParagraphText = curParagraphTag.text();
+
+                                if (curParagraphText.trim().length > 0) {
+                                    curParagraphTag.text(truncate(curParagraphText, textLong));
+                                    curParagraphTag.css('opacity','1');
+                                    return false;
+                                }
+                            });
+
+                            curTitleTagLink.text(truncate(curTitleText, titleLong));
+                            curTitleTag.css('opacity','1');
+                        }
+                    })
                 }
 
-                cur.find('p').each(function(i){
-                    var curParagraphTag = $(this),
-                        curParagraphText;
+                sliceTextItem('.video-item, .opinion-item');
 
-                    if (curParagraphTag.length > 0) {
-                        curParagraphText = curParagraphTag.text();
-                        curParagraphTag.text(truncate(curParagraphText, 130));
-                        curParagraphTag.css('opacity','1');
-                    }
+                elements.window.on('orientationchange', function() {
+                    setTimeout(function(){
+                        sliceTextItem('.video-item, .opinion-item');
+                    }, 10);
                 });
-
-                curTitleTagLink.text(truncate(curTitleText, 60));
-                curTitleTag.css('opacity','1');
-            })
+            }
         }
     };
 
@@ -1136,7 +1173,7 @@
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
-        //text.sliceText();
+        text.sliceText();
 
         if(_window_width < _tablet ) {
             mobileNavDrop.open('.btn-mobile-menu-show','.mobile-menu');

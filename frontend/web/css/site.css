@@ -671,7 +671,9 @@ th {
   -webkit-overflow-scrolling: touch;
   transition: all 0.1s ease; }
 
-.clip, .account-head h1 {
+.clip, .opinion-item.has-image .name,
+.news-item.has-image .name,
+.video-item.has-image .name, .account-head h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
@@ -2644,8 +2646,7 @@ blockquote {
   .video-item .name {
     font-size: 10px;
     display: none;
-    margin: 0 0 9px;
-    display: none; }
+    margin: 0 0 9px; }
     @media only screen and (min-width: 767px) {
       .opinion-item .name,
       .news-item .name,
@@ -2686,11 +2687,9 @@ blockquote {
     display: none; }
 
 .video-item h2 {
-  max-height: 60px;
   overflow: hidden; }
-  @media only screen and (min-width: 767px) {
-    .video-item h2 {
-      max-height: 72px; } }
+.video-item.has-image p, .video-item.has-image h2 {
+  opacity: 0; }
 .video-item .desc {
   max-height: 223px; }
 
@@ -2700,15 +2699,13 @@ blockquote {
     height: 415px; }
     .opinion-item.has-image {
       height: auto; } }
+.opinion-item.has-image p, .opinion-item.has-image h2 {
+  opacity: 0; }
 @media only screen and (min-device-width: 767px) and (max-device-width: 1025px) {
   .opinion-item p {
     max-height: 63px; } }
 .opinion-item h2 {
-  max-height: 60px;
   overflow: hidden; }
-  @media only screen and (min-width: 767px) {
-    .opinion-item h2 {
-      max-height: 68px; } }
 
 .mobile-filter-holder {
   margin-bottom: 20px; }
@@ -3581,7 +3578,8 @@ blockquote {
           flex-flow: row wrap; } }
   .opinions-list li,
   .videos-list li {
-    padding: 0 0 20px; }
+    padding: 0 0 20px;
+    width: 100%; }
     @media only screen and (min-width: 1024px) {
       .opinions-list li,
       .videos-list li {

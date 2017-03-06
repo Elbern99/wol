@@ -476,15 +476,11 @@
 
   li {
     padding: 0 0 20px;
+    width: 100%;
 
     @include breakpoint('desktop') {
       width: 33.3%;
       padding: 5px 4px 30px;
-
-      .opinion-item,
-      .news-item {
-        //max-height: 432px;
-      }
     }
 
     @include breakpoint('desktop-large') {
@@ -530,7 +526,6 @@
         display: flex;
         align-items: stretch;
         max-height: 230px;
-        //height: 100%;
 
         &.has-image {
           height: 230px;
