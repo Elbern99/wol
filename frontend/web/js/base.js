@@ -1128,7 +1128,7 @@
                             titleLong = 45;
                         }
 
-                        if(checkParagraph) {
+                        if(!checkParagraph) {
                             titleLong = 150;
                         }
 
