@@ -1107,19 +1107,21 @@
                         str = str.slice(0, maxlength - 3);
 
                         var $strArray = str.split(' '),
-                            symbols = [',','.','...','-'];
+                            symbols = [',','.','...','-','!','?','–',''];
 
                         $strArray[$strArray.length - 1] = '';
 
                         var
                             preLastWord = $strArray[$strArray.length - 2].split(''),
                             preLastSymbol = preLastWord[preLastWord.length - 1],
-                            checkSymbols = preLastWord.indexOf(preLastSymbol);
+                            checkSymbols = symbols.indexOf(preLastSymbol);
 
                         if(checkSymbols > -1) {
-                            preLastWord[preLastWord.length - 1] = '...';
+                            $strArray[$strArray.length - 2] = '';
+                            $strArray[$strArray.length - 3] = $strArray[$strArray.length - 3] + '...';
+                        } else {
                             preLastWord = preLastWord.join('');
-                            $strArray[$strArray.length - 2] = preLastWord;
+                            $strArray[$strArray.length - 2] = preLastWord + '...';
                         }
 
                         str = $strArray.join(' ');
@@ -1144,32 +1146,32 @@
                             checkParagraph = cur.find('p').length > 0;
 
                         if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
-                            textLong = 500,
+                            textLong = 500;
                             titleLong = 90;
-                        };
+                        }
 
                         if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
-                            textLong = 100,
+                            textLong = 100;
                             titleLong = 45;
-                        };
+                        }
 
-                        if(!checkImg && checkParagraph){
-                            textLong = 320,
+                        if(!checkImg && checkParagraph) {
+                            textLong = 320;
                             titleLong = 150;
 
                             if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
-                                textLong = 170,
+                                textLong = 170;
                                 titleLong = 150;
                             };
-                        };
+                        }
 
-                        if(!checkImg && !checkParagraph){
+                        if(!checkImg && !checkParagraph) {
                             titleLong = 150;
-                        };
+                        }
 
-                        if(checkImg && !checkParagraph){
+                        if(checkImg && !checkParagraph) {
                             titleLong = 100;
-                        };
+                        }
 
                         if(checkParagraph) {
 
