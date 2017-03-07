@@ -99,7 +99,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                 <?php foreach ($relatedOpinions as $item) : ?>
                 <?php $opinion = $item->opinion; ?>
                 <li>
-                    <div class="post-item media-item">
+                    <div class="post-item s-opinion-item media-item">
                         <?php $hasImage = $opinion->image_link ? true : false; ?>
                         <?php if ($hasImage) : ?>
                             <?= Html::beginTag('a', [
@@ -135,7 +135,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             <ul class="post-list media-list">
                 <?php foreach ($relatedVideos as $item) : ?>
                 <?php $video = $item->video; ?>
-                <li class="post-item media-item">
+                <li class="post-item s-opinion-item media-item">
                     <?= Html::beginTag('a', [
                         'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
                         'class' => 'img',

@@ -248,6 +248,7 @@
   .author {
     font-size: 10px;
     text-transform: capitalize;
+    @extend .clip;
   }
 
   .date {

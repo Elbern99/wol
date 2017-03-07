@@ -1098,7 +1098,7 @@
         sliceText:function() {
 
             var
-                checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0;
+                checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
 
             if (checkOpinionVideoItems) {
 

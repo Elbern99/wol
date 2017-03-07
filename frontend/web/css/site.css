@@ -706,7 +706,8 @@ th {
   -webkit-overflow-scrolling: touch;
   transition: all 0.1s ease; }
 
-.clip, .opinion-item.has-image .name,
+.clip, .article-item .author,
+.post-item .author, .opinion-item.has-image .name,
 .news-item.has-image .name,
 .video-item.has-image .name, .account-head h1 {
   white-space: nowrap;

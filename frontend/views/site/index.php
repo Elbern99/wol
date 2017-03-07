@@ -106,7 +106,7 @@ $this->registerMetaTag([
                         <ul class="post-list other-commentary-list">
                             <?php foreach ($commentary as $item) : ?>
                             <li>
-                                <div class="post-item media-item">
+                                <div class="post-item s-opinion-item media-item">
                                     <?php if ($item->type == Opinion::class) : ?>
                                         <?php $opinion = Opinion::find()->where(['id' => $item->object_id])->one(); ?>
                                         <?php if ($opinion) : ?>
