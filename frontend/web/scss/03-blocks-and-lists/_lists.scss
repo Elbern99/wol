@@ -637,9 +637,9 @@
   >li {
     padding: 3px 0 17px 0;
     overflow: visible;
+    width: 100%;
 
     @include breakpoint('tablet') {
-      //width: 50%;
       padding: 3px 31px 25px 0;
     }
 
@@ -1255,6 +1255,7 @@
 
 //TOPIC-OPINION-LIST
 .topic-opinion-list {
+
   .post-item {
     .publish {
       margin: -2px 0 3px;

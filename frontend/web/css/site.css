@@ -3727,7 +3727,8 @@ blockquote {
           width: 8px; } }
   .post-list > li, .favourite-articles-list > li {
     padding: 3px 0 17px 0;
-    overflow: visible; }
+    overflow: visible;
+    width: 100%; }
     @media only screen and (min-width: 767px) {
       .post-list > li, .favourite-articles-list > li {
         padding: 3px 31px 25px 0; } }
