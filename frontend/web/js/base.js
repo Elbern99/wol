@@ -1153,6 +1153,10 @@
                             titleLong = 150;
                         };
 
+                        if(checkImg && !checkParagraph){
+                            titleLong = 100;
+                        };
+
                         if(checkParagraph) {
 
                             cur.find('p').each(function(i){
