@@ -1106,9 +1106,23 @@
                     if (str.length > maxlength) {
                         str = str.slice(0, maxlength - 3);
 
-                        var $strArray = str.split(' ');
-                        $strArray[$strArray.length - 1] = '...';
-                        str = $strArray.join(' ')
+                        var $strArray = str.split(' '),
+                            symbols = [',','.','...','-'];
+
+                        $strArray[$strArray.length - 1] = '';
+
+                        var
+                            preLastWord = $strArray[$strArray.length - 2].split(''),
+                            preLastSymbol = preLastWord[preLastWord.length - 1],
+                            checkSymbols = preLastWord.indexOf(preLastSymbol);
+
+                        if(checkSymbols > -1) {
+                            preLastWord[preLastWord.length - 1] = '...';
+                            preLastWord = preLastWord.join('');
+                            $strArray[$strArray.length - 2] = preLastWord;
+                        }
+
+                        str = $strArray.join(' ');
                     }
                     return str;
                 };
