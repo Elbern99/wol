@@ -86,7 +86,7 @@ $this->registerJsFile('/js/pages/opinions.js', ['depends' => ['yii\web\YiiAsset'
             <ul class="videos-list">
                 <?php foreach ($videos as $video) : ?>
                 <li>
-                    <div class="opinion-item has-image">
+                    <div class="video-item has-image">
                         <?= Html::beginTag('a', [
                             'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
                             'class' => 'img',

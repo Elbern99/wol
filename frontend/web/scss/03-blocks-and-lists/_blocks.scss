@@ -1082,7 +1082,6 @@
 
     .desc {
       padding: 21px 20px 25px;
-      //height: 47%;
     }
 
     h2 {
@@ -1222,7 +1221,6 @@
   h2:empty{
     display: none;
   }
-
 }
 
 //TEXT CROPPING
@@ -1232,7 +1230,7 @@
      overflow: hidden;
 
      @include breakpoint('tablet') {
-       //max-height: 72px;
+       //max-height: 72px ;
      }
    }
 
@@ -1248,8 +1246,8 @@
 .opinion-item {
 
   @include breakpoint('desktop') {
-    max-height: 415px;
-    height: 415px;
+    max-height: 427px;
+    height: 427px;
 
     &.has-image {
       height: auto;
