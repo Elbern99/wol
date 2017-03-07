@@ -1138,7 +1138,7 @@
                             curTitleTag = cur.find('h2'),
                             curTitleTagLink = curTitleTag.find('a'),
                             curTitleText = curTitleTagLink.text(),
-                            textLong = 151,
+                            textLong = 150,
                             titleLong = 70,
                             $videosPage = $('.videos-page'),
                             $opinionsPage = $('.opinions-page'),
@@ -1155,8 +1155,13 @@
                             titleLong = 45;
                         }
 
+                        if( _mobile+1 <= _window_width && _window_width <_tablet ) {
+                            textLong = 100;
+                            titleLong = 45;
+                        }
+
                         if(!checkImg && checkParagraph) {
-                            textLong = 320;
+                            textLong = 250;
                             titleLong = 150;
 
                             if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
