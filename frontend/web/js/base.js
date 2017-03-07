@@ -1143,12 +1143,14 @@
                             textLong = 320,
                             titleLong = 150;
 
-                            console.log(2);
-
                             if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
                                 textLong = 170,
                                 titleLong = 150;
                             };
+                        };
+
+                        if(!checkImg && !checkParagraph){
+                            titleLong = 150;
                         };
 
                         if(checkParagraph) {
