@@ -1099,12 +1099,13 @@
 
             var
                 checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
-            
+
             if (checkOpinionVideoItems) {
 
                 function truncate(str, maxlength) {
                     if (str.length > maxlength) {
                         str = str.slice(0, maxlength - 3);
+                        str = str.trim();
 
                         var $strArray = str.split(' '),
                             symbols = [',','.','...','-','!','?','–',''];
