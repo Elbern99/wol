@@ -1099,7 +1099,7 @@
 
             var
                 checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
-
+            
             if (checkOpinionVideoItems) {
 
                 function truncate(str, maxlength) {
@@ -1207,11 +1207,11 @@
                     })
                 }
 
-                sliceTextItem('.video-item, .opinion-item');
+                sliceTextItem('.video-item, .opinion-item, .s-opinion-item');
 
                 elements.window.on('orientationchange', function() {
                     setTimeout(function(){
-                        sliceTextItem('.video-item, .opinion-item');
+                        sliceTextItem('.video-item, .opinion-item, .s-opinion-item');
                     }, 10);
                 });
             }
