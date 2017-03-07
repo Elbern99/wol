@@ -354,7 +354,7 @@ class SearchController extends Controller
             $model = new SavedSearch();
 
             if ($model->load($searchCriteria, '') && $model->save()) {
-                return ['message' => 'Criteria saved'];
+                return ['message' => 'Search Saved To Your Account'];
             }
             
         } catch (\Exception $e) {
