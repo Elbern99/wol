@@ -1159,6 +1159,9 @@
 
                                 if (curParagraphText.trim().length > 0) {
                                     curParagraphTag.text(truncate(curParagraphText, textLong));
+
+                                    cur.find('p').css('display','none');
+
                                     curParagraphTag.css({
                                         opacity:'1',
                                         display: 'block'
