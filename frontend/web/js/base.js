@@ -1156,7 +1156,7 @@
                         }
 
                         if( _mobile+1 <= _window_width && _window_width <_tablet ) {
-                            textLong = 100;
+                            textLong = 120;
                             titleLong = 45;
                         }
 
