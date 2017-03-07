@@ -1064,9 +1064,13 @@
   }
 
   p {
-    display: none;
+
     overflow: hidden;
     margin: 0;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none !important;
+    }
 
     @include breakpoint('tablet') {
       display: block;
@@ -1082,7 +1086,7 @@
     }
 
     h2 {
-      margin: -3px 0 0;
+      margin: -3px 0 3px;
 
       @include breakpoint('tablet') {
         margin: 0 0 15px;
@@ -1232,10 +1236,8 @@
      }
    }
 
-  &.has-image {
-    p,h2 {
-      opacity: 0;
-    }
+  p,h2 {
+    opacity: 0;
   }
 
   .desc {
@@ -1254,17 +1256,9 @@
     }
   }
 
-  &.has-image {
-    p,h2 {
-      opacity: 0;
-    }
-  }
-
-  p {
-
-    @media only screen and (min-device-width : 767px) and (max-device-width : 1025px) {
-      max-height: 63px;
-    }
+  p,h2 {
+    opacity: 0;
+    display: none;
   }
 
   h2 {

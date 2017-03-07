@@ -674,6 +674,7 @@
     }
 
     .post-item {
+      margin-bottom: 0;
 
       @include breakpoint('tablet') {
         display: flex;
@@ -716,6 +717,8 @@
 .topic-articles-list {
 
   .post-item {
+    margin-bottom: 0;
+
     .publish {
       &:first-letter {
         text-transform: capitalize;

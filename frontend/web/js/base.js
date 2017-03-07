@@ -1102,6 +1102,17 @@
 
             if (checkOpinionVideoItems) {
 
+                function truncate(str, maxlength) {
+                    if (str.length > maxlength) {
+                        str = str.slice(0, maxlength - 3);
+
+                        var $strArray = str.split(' ');
+                        $strArray[$strArray.length - 1] = '...';
+                        str = $strArray.join(' ')
+                    }
+                    return str;
+                };
+
                 function sliceTextItem(items) {
                     $(items).each(function(i){
                         var cur = $(this),
@@ -1121,24 +1132,26 @@
                         if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
                             textLong = 500,
                             titleLong = 90;
-                        }
+                        };
 
                         if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
                             textLong = 100,
                             titleLong = 45;
-                        }
+                        };
 
-                        if(checkImg && checkParagraph) {
-                            function truncate(str, maxlength) {
-                                if (str.length > maxlength) {
-                                    str = str.slice(0, maxlength - 3);
+                        if(!checkImg && checkParagraph){
+                            textLong = 320,
+                            titleLong = 150;
 
-                                    var $strArray = str.split(' ');
-                                        $strArray[$strArray.length - 1] = '...';
-                                        str = $strArray.join(' ')
-                                }
-                                return str;
+                            console.log(2);
+
+                            if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
+                                textLong = 170,
+                                titleLong = 150;
                             };
+                        };
+
+                        if(checkParagraph) {
 
                             cur.find('p').each(function(i){
                                 var curParagraphTag = $(this),
@@ -1146,15 +1159,21 @@
 
                                 if (curParagraphText.trim().length > 0) {
                                     curParagraphTag.text(truncate(curParagraphText, textLong));
-                                    curParagraphTag.css('opacity','1');
+                                    curParagraphTag.css({
+                                        opacity:'1',
+                                        display: 'block'
+                                    });
                                     return false;
                                 }
                             });
+                        };
 
-                            curTitleTagLink.text(truncate(curTitleText, titleLong));
-                        }
+                        curTitleTagLink.text(truncate(curTitleText, titleLong));
 
-                        curTitleTag.css('opacity','1');
+                        curTitleTag.css({
+                            opacity:'1',
+                            display: 'block'
+                        });
                     })
                 }
 
