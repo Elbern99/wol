@@ -174,6 +174,15 @@ if ($category) {
                     </li>
                  </ul>
             </div>
+            <?php if (count($widgets)): ?>
+                <div class="sidebar-widget">
+                    <div class="podcast-list">
+                        <?php foreach ($widgets as $widget): ?>
+                            <?= $widget['text'] ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </aside>
     </div>
 </div>
