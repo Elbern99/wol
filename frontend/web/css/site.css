@@ -3775,12 +3775,12 @@ blockquote {
       .post-list.home-other-events-list .post-item h2, .home-other-events-list.favourite-articles-list .post-item h2 {
         font-size: 13px; } }
 
-.home-articles-list + .btn-gray,
-.topic-articles-list + .btn-gray {
+.home-articles-list + .btn-gray.align-center,
+.topic-articles-list + .btn-gray.align-center {
   margin-bottom: 20px; }
   @media only screen and (min-width: 767px) {
-    .home-articles-list + .btn-gray,
-    .topic-articles-list + .btn-gray {
+    .home-articles-list + .btn-gray.align-center,
+    .topic-articles-list + .btn-gray.align-center {
       margin-bottom: 40px; } }
 .home-articles-list .post-item,
 .topic-articles-list .post-item {
@@ -4121,13 +4121,15 @@ blockquote {
       .other-events-list .country {
         font-size: 12px; } }
 
-.topic-opinion-list .post-item .publish {
-  margin: -2px 0 3px; }
-  .topic-opinion-list .post-item .publish:first-letter {
-    text-transform: capitalize; }
-  @media only screen and (min-width: 767px) {
-    .topic-opinion-list .post-item .publish {
-      margin: 0 0 1px; } }
+.topic-opinion-list .post-item {
+  margin-bottom: 0; }
+  .topic-opinion-list .post-item .publish {
+    margin: -2px 0 3px; }
+    .topic-opinion-list .post-item .publish:first-letter {
+      text-transform: capitalize; }
+    @media only screen and (min-width: 767px) {
+      .topic-opinion-list .post-item .publish {
+        margin: 0 0 1px; } }
 
 .events-list .event-item {
   margin: 0 0 24px; }

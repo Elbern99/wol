@@ -716,7 +716,7 @@
 .home-articles-list,
 .topic-articles-list {
 
-  +.btn-gray {
+  +.btn-gray.align-center {
     margin-bottom: 20px;
 
     @include breakpoint('tablet') {
@@ -1265,6 +1265,8 @@
 .topic-opinion-list {
 
   .post-item {
+    margin-bottom: 0;
+    
     .publish {
       margin: -2px 0 3px;
 
