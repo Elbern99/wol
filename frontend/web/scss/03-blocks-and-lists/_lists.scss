@@ -170,7 +170,7 @@
         .post-item {
           position: relative;
           display: flex;
-          flex-direction: column;
+          flex-flow: row wrap;
           padding-top: 0;
 
           .head-news-holder {
@@ -181,8 +181,8 @@
             width: 100%;
             float: none;
             min-height: 203px;
-            order: 1;
-            margin-bottom: 18px;
+            order: 2;
+            margin: 0 0 18px;
           }
         }
       }

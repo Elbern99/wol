@@ -3410,8 +3410,8 @@ blockquote {
       position: relative;
       display: -ms-flexbox;
       display: flex;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
       padding-top: 0; }
       .news-list li:first-child .post-item .head-news-holder {
         position: relative; }
@@ -3419,9 +3419,9 @@ blockquote {
         width: 100%;
         float: none;
         min-height: 203px;
-        -ms-flex-order: 1;
-            order: 1;
-        margin-bottom: 18px; } }
+        -ms-flex-order: 2;
+            order: 2;
+        margin: 0 0 18px; } }
 
 .post-list.news-home-list, .news-home-list.favourite-articles-list {
   margin-bottom: 15px; }
