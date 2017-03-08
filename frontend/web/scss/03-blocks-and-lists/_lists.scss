@@ -716,6 +716,14 @@
 .home-articles-list,
 .topic-articles-list {
 
+  +.btn-gray {
+    margin-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 40px;
+    }
+  }
+
   .post-item {
     margin-bottom: 0;
 

@@ -3775,6 +3775,13 @@ blockquote {
       .post-list.home-other-events-list .post-item h2, .home-other-events-list.favourite-articles-list .post-item h2 {
         font-size: 13px; } }
 
+.home-articles-list + .btn-gray,
+.topic-articles-list + .btn-gray {
+  margin-bottom: 20px; }
+  @media only screen and (min-width: 767px) {
+    .home-articles-list + .btn-gray,
+    .topic-articles-list + .btn-gray {
+      margin-bottom: 40px; } }
 .home-articles-list .post-item,
 .topic-articles-list .post-item {
   margin-bottom: 0; }
