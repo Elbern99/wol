@@ -136,10 +136,11 @@ class TopicController extends Controller {
             $authors = [];
             
             foreach ($article->articleCategories as $c) {
-
-                if (isset($categoryFormat[$c->category_id])) {
-
-                    $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
+                if (isset($c->category)) {
+                  $rootCategory = $this->_findRootCategory($c->category);
+                  if (!array_key_exists($rootCategory->url_key, $articleCategory)) {
+                    $articleCategory[$rootCategory->url_key] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >' . $rootCategory->title . '</a>';;
+                  }
                 }
             }
 
@@ -186,6 +187,15 @@ class TopicController extends Controller {
             'sort' => $order,
         ]);
 
+    }
+    
+    private function _findRootCategory($category) {
+        if ($category->lvl == 1) {
+            return $category;
+        } else if ($category->lvl > 1) {
+            $parentCategory = $category->parents()->andWhere('id <> root')->one();
+            return $this->_findRootCategory($parentCategory);
+        }
     }
     
     public function actionEvents($topic_id = null)
