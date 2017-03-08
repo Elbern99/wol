@@ -240,7 +240,7 @@ class MyAccountController extends Controller {
             
             $model->delete();
             Yii::$app->user->logout();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Account was delete success!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Account was successfully deleted.'));
             
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Account was not delete!'));
