@@ -197,7 +197,7 @@ class TopicController extends Controller {
             return $this->_findRootCategory($parentCategory);
         }
     }
-    
+     
     public function actionEvents($topic_id = null)
     {
         $topic = Topic::find()->andWhere(['id' => $topic_id])->one();
