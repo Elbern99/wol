@@ -1531,7 +1531,7 @@
     margin: 0 0 15px;
     position: relative;
     font-size: 12px;
-    overflow: hidden;
+    //overflow: hidden;
 
     &:first-letter {
       text-transform: capitalize;
@@ -1845,7 +1845,7 @@
     .icon-exclamatory-circle {
       position: absolute;
       top: 1px;
-      right: 0;
+      right: 1px;
       color: $light-blue;
       cursor: pointer;
       font-size: 14px;

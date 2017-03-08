@@ -4295,8 +4295,7 @@ blockquote {
 .key-references-list li {
   margin: 0 0 15px;
   position: relative;
-  font-size: 12px;
-  overflow: hidden; }
+  font-size: 12px; }
   .key-references-list li:first-letter {
     text-transform: capitalize; }
   @media only screen and (min-width: 767px) {
@@ -4482,7 +4481,7 @@ blockquote {
   .bg-news-list li .icon-exclamatory-circle {
     position: absolute;
     top: 1px;
-    right: 0;
+    right: 1px;
     color: #0094f2;
     cursor: pointer;
     font-size: 14px; }
