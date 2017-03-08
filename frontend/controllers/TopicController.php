@@ -350,10 +350,11 @@ class TopicController extends Controller {
             $articleCategory = [];
             
             foreach ($article->articleCategories as $c) {
-
-                if (isset($categoryFormat[$c->category_id])) {
-
-                    $articleCategory[] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >'.$categoryFormat[$c->category_id]['title'].'</a>';
+                if (isset($c->category)) {
+                  $rootCategory = $this->_findRootCategory($c->category);
+                  if (!array_key_exists($rootCategory->url_key, $articleCategory)) {
+                    $articleCategory[$rootCategory->url_key] = '<a href="'.$categoryFormat[$c->category_id]['url_key'].'" >' . $rootCategory->title . '</a>';;
+                  }
                 }
             }
             
