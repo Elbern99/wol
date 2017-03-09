@@ -1537,7 +1537,9 @@ trait ArticleParseTrait {
                 if (!isset($val['attributes']['TYPE'])) {
                     continue;
                 }
-
+                if ($val['attributes']['TYPE'] == 'externalLink') {
+                    $text .= Html::a($val['value'], $val['attributes']['TARGET'], ['target' => '_blank']);
+                }
                 if ($val['attributes']['TYPE'] == 'figure') {
                     $imgId = str_replace('#', '', $val['attributes']['TARGET']);
                     
