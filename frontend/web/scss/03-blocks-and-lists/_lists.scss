@@ -308,11 +308,11 @@
 
             @include breakpoint('tablet') {
               min-height: 195px;
-              flex-flow: column nowrap;
+              display: block;
             }
 
             @include breakpoint('desktop') {
-              flex-flow: row nowrap;
+              display: flex;
             }
 
             h2 {
