@@ -6,7 +6,8 @@
         mapInfo: $('.map-info'),
         overlay: $('.overlay'),
         LMarker: $('.leaflet-marker-icon'),
-        mapMobile: $('.map-mobile')
+        mapMobile: $('.map-mobile'),
+        mapInfoContent: $('.map-info-content')
     };
 
     //GLOBAL VARIABLE ---------
@@ -104,32 +105,19 @@
             onEachFeature: function(feature, layer) {
                 layer.on({});
             },
+            scrollOverlayIconAction: function() {
+                elements.mapInfo.removeClass('map-info-open');
+                elements.overlay.addClass('js-tab-hidden').removeClass('active');
+                $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
+
+                elements.mapInfoContent.animate({
+                    scrollTop: 0
+                }, 0);
+            },
             hideInfoMap: function(btn,overlay){
-
-                var
-                    $overlay = $(overlay);
-
-                map.on('click', function(e) {
-                    elements.mapInfo.removeClass('map-info-open');
-                    $overlay.addClass('js-tab-hidden').removeClass('active');
-                    $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
-                });
-
-                map.on('movestart', function(e) {
-                    elements.mapInfo.removeClass('map-info-open');
-                    $overlay.addClass('js-tab-hidden').removeClass('active');
-                    $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
-                });
-
-                $(btn).on('click', '.icon-close', function(e) {
-                    elements.mapInfo.removeClass('map-info-open');
-                    $overlay.addClass('js-tab-hidden').removeClass('active');
-                    $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
-
-                    $('.map-info-content').animate({
-                        scrollTop: 0
-                    }, 0);
-                });
+                map.on('click', mapObj.scrollOverlayIconAction);
+                map.on('movestart', mapObj.scrollOverlayIconAction);
+                $(btn).on('click', '.icon-close', mapObj.scrollOverlayIconAction);
             },
             addNumbersForSources: function(list) {
                 if($(list).length) {
@@ -161,6 +149,10 @@
                 $('.leaflet-marker-icon').removeClass('opened-ref-tooltip');
 
                 this._icon.classList.add("opened-ref-tooltip");
+
+                elements.mapInfoContent.animate({
+                    scrollTop: 0
+                }, 0);
 
                 mapObj.addNumbersForSources('.ref-type-list,.ref-source-list');
 
@@ -199,8 +191,6 @@
         function activateMap(){
             var
                 checkOverlay = elements.mapMobile.hasClass('map-active');
-
-            console.log(1);
 
             if (!checkOverlay) {
                 elements.mapMobile.addClass('map-active');
