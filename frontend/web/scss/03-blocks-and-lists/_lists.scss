@@ -308,11 +308,13 @@
 
             @include breakpoint('tablet') {
               min-height: 195px;
+              max-height: none;
               display: block;
             }
 
             @include breakpoint('desktop') {
               display: flex;
+              max-height: 195px ;
             }
 
             h2 {

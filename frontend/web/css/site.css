@@ -3505,11 +3505,13 @@ blockquote {
         @media only screen and (min-width: 767px) {
           .post-list.news-home-list li:first-child .post-item.has-image, .news-home-list.favourite-articles-list li:first-child .post-item.has-image {
             min-height: 195px;
+            max-height: none;
             display: block; } }
         @media only screen and (min-width: 1024px) {
           .post-list.news-home-list li:first-child .post-item.has-image, .news-home-list.favourite-articles-list li:first-child .post-item.has-image {
             display: -ms-flexbox;
-            display: flex; } }
+            display: flex;
+            max-height: 195px; } }
         .post-list.news-home-list li:first-child .post-item.has-image h2, .news-home-list.favourite-articles-list li:first-child .post-item.has-image h2 {
           font-size: 14px; }
           @media only screen and (max-width: 767px) {
