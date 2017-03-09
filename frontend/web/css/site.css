@@ -3361,7 +3361,7 @@ blockquote {
       padding-top: 25px; } }
   .news-home-list li .post-item h2,
   .news-list li .post-item h2 {
-    margin: -3px 0 0;
+    margin: -3px 0 3px;
     font-size: 16px; }
     @media only screen and (min-width: 767px) {
       .news-home-list li .post-item h2,
@@ -8398,6 +8398,9 @@ iframe[name=advpp_manager] {
   @media only screen and (max-width: 767px) {
     .save-search-table {
       display: block; } }
+  .save-search-table th a {
+    pointer-events: none;
+    color: #989898; }
   @media only screen and (max-width: 767px) {
     .save-search-table tbody,
     .save-search-table td,

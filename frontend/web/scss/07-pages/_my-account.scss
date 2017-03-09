@@ -415,6 +415,13 @@
     display: block;
   }
 
+  th {
+    a {
+      pointer-events: none;
+      color: #989898;
+    }
+  }
+
   tbody,
   td,
   th,
