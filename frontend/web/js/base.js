@@ -236,9 +236,9 @@
     var search = {
         autoSelect: function(btn,parent,drop) {
             $(parent).on('click', btn, function(e) {
-                var cur = $(this),
-                    curText = cur.text();
-                cur.parents(parent).find(':text').val(curText);
+                var $cur = $(this),
+                    curText = $cur.text();
+                $cur.parents(parent).find(':text').val(curText);
                 $(drop).fadeOut();
                 e.preventDefault();
             });
@@ -251,29 +251,29 @@
         if ( $(dropWidget).length ) {
             $(parent).on('click', btn, function(e) {
                 var
-                    cur = $(this),
+                    $cur = $(this),
                     $parent = $(parent),
                     $dropWidget = $parent.find(dropWidget),
                     $btn = $parent.find(btn);
 
                 elements.document.unbind('click.drop-content');
 
-                $btn.not(cur).removeClass('active');
+                $btn.not($cur).removeClass('active');
 
                 $('.submenu').removeClass('open');
-                $('.has-drop>a').not(cur).removeClass('active');
+                $('.has-drop>a').not($cur).removeClass('active');
 
                 if (elements.searchResult.length > 0) {
                     localStorage.removeItem('AccordionItemAdvanced');
                     localStorage.removeItem('AccordionItemsObjAdvanced');
                 };
 
-                if ( !cur.hasClass('active') ) {
+                if ( !$cur.hasClass('active') ) {
                     var yourClick = true,
-                        drop = cur.parents('.dropdown').find('>.drop-content');
+                        drop = $cur.parents('.dropdown').find('>.drop-content');
 
                         drop.addClass('open');
-                        cur.addClass('active');
+                        $cur.addClass('active');
 
                     elements.document.bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
@@ -287,9 +287,9 @@
                         }
                     });
                 } else {
-                    cur.parent().find(dropWidget).removeClass('open');
+                    $cur.parent().find(dropWidget).removeClass('open');
 
-                    cur.removeClass('active');
+                    $cur.removeClass('active');
                 }
                 e.preventDefault();
             });
