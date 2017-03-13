@@ -2,13 +2,11 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+$dataProvider->sort = false;
 ?>
 <div class="tab js-tab-hidden" id="tab-3">
-
-    <?php
-        $dataProvider->sort = false;
-    ?>
-
+git 
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
