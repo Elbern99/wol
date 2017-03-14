@@ -2164,3 +2164,180 @@
 .empty-nothing {
   display: none;
 }
+
+//STICKY-NEWSLETTER
+.sticky-newsletter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #535353;
+  padding: 7px 0;
+  z-index: 100;
+  font-size: 12px;
+  display: none;
+
+  @include breakpoint('tablet') {
+    padding: 26px 0;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    font-size: 11px;
+
+
+
+    @include breakpoint('tablet') {
+      font-size: 17px;
+      margin-bottom: 3px;
+      line-height: 1em;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .icon-close {
+    top: 50%;
+    margin-top: -21px;
+    z-index: 101;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-top: -20px;
+
+      &:before,
+      &:after {
+        width: 10px;
+        left: 15px;
+        right: 10px;
+      }
+    }
+  }
+
+  .btn-blue {
+    font-size: 10px;
+    padding: 0 14px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
+    margin-right: 25px;
+    margin-left: 10px;
+    width: 100px;
+
+    @include breakpoint('tablet') {
+      margin: -3px 33px 0 0;
+      height: 40px;
+      line-height: 40px;
+      font-size: 13px;
+      padding: 0 14px;
+      letter-spacing: 0.04em;
+      width: auto;
+    }
+  }
+
+  .desc {
+    padding-right: 3px;
+
+    @include breakpoint('tablet') {
+      padding-right: 6%;
+      padding-left: 35px;
+      margin: 4px 0 0 0;
+    }
+  }
+
+  .link {
+    color: $light-blue;
+
+    @include breakpoint_custom($breakpoint-mobile-large) {
+      display: none ;
+    }
+
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .icon-arrow-square-blue {
+    position: absolute;
+    left: 15px;
+    top: 2px;
+    font-size: 19px;
+    display: none;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .icon-circle-arrow {
+    display: none;
+
+    .icon-arrow {
+      width: 10px;
+    }
+
+    @include breakpoint('tablet') {
+      position: absolute;
+      left: 15px;
+      top: 2px;
+      display: block;
+    }
+  }
+}
+
+//COOKIE-NOTICE
+.cookie-notice {
+  position: relative;
+  border-bottom: 1px solid #535353;
+  padding: 4px 0;
+  display: none;
+
+  @include breakpoint_custom($breakpoint-tablet) {
+    font-size: 11px;
+  }
+
+  .container {
+    position: relative;
+
+    @include breakpoint('tablet') {
+      padding-left: 50px;
+    }
+
+    @include breakpoint_custom($breakpoint-desktop-large) {
+      padding-right: 45px;
+    }
+  }
+
+  .icon-close {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    z-index: 101;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      margin-top: -20px;
+
+      &:before,
+      &:after {
+        width: 10px;
+        left: 15px;
+        right: 10px;
+      }
+    }
+  }
+
+  .icon-arrow-square-blue {
+    position: absolute;
+    top: 4px;
+    left: 15px;
+    font-size: 19px;
+
+    @include breakpoint_custom($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}
