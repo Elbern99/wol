@@ -4,6 +4,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <div class="tab js-tab-hidden" id="tab-3">
+
+    <?php
+        $dataProvider->sort = false;
+    ?>
+
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,

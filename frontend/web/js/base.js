@@ -236,9 +236,9 @@
     var search = {
         autoSelect: function(btn,parent,drop) {
             $(parent).on('click', btn, function(e) {
-                var cur = $(this),
-                    curText = cur.text();
-                cur.parents(parent).find(':text').val(curText);
+                var $cur = $(this),
+                    curText = $cur.text();
+                $cur.parents(parent).find(':text').val(curText);
                 $(drop).fadeOut();
                 e.preventDefault();
             });
@@ -251,29 +251,29 @@
         if ( $(dropWidget).length ) {
             $(parent).on('click', btn, function(e) {
                 var
-                    cur = $(this),
+                    $cur = $(this),
                     $parent = $(parent),
                     $dropWidget = $parent.find(dropWidget),
                     $btn = $parent.find(btn);
 
                 elements.document.unbind('click.drop-content');
 
-                $btn.not(cur).removeClass('active');
+                $btn.not($cur).removeClass('active');
 
                 $('.submenu').removeClass('open');
-                $('.has-drop>a').not(cur).removeClass('active');
+                $('.has-drop>a').not($cur).removeClass('active');
 
                 if (elements.searchResult.length > 0) {
                     localStorage.removeItem('AccordionItemAdvanced');
                     localStorage.removeItem('AccordionItemsObjAdvanced');
                 };
 
-                if ( !cur.hasClass('active') ) {
+                if ( !$cur.hasClass('active') ) {
                     var yourClick = true,
-                        drop = cur.parents('.dropdown').find('>.drop-content');
+                        drop = $cur.parents('.dropdown').find('>.drop-content');
 
                         drop.addClass('open');
-                        cur.addClass('active');
+                        $cur.addClass('active');
 
                     elements.document.bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
@@ -287,9 +287,9 @@
                         }
                     });
                 } else {
-                    cur.parent().find(dropWidget).removeClass('open');
+                    $cur.parent().find(dropWidget).removeClass('open');
 
-                    cur.removeClass('active');
+                    $cur.removeClass('active');
                 }
                 e.preventDefault();
             });
@@ -501,7 +501,7 @@
         pajax: function(container) {
             $(container).on('pjax:end', function() {
                 articleList.openMoreText('.article-more','.description');
-                //text.sliceText();
+                text.sliceText();
             });
         },
         pajaxLoader: function(container) {
@@ -607,7 +607,7 @@
                         $curParent = $cur.parents('li'),
                         $searchCheckBoxCheckedNotFirst = '.checkbox-list>li:not(:first-child)>label>:checkbox:checked',
                         $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
-                        $searchCheckBox = '.checkbox-list>li>label>:checkbox:not(:checked)',
+                        $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
                         $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
                         $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
 
@@ -616,6 +616,9 @@
                     if($cur.hasClass('active')) {
                         if (elements.searchResult.length > 0) {
                             $curParent.find($searchCheckBox).trigger('click');
+
+
+                            console.log(1);
                         };
 
                         if (elements.findExpert.length > 0) {
@@ -1093,31 +1096,126 @@
 
     var text = {
         sliceText:function() {
-            $('.video-item,.opinion-item').each(function(i){
-                var cur = $(this),
-                    curTitleTag = cur.find('h2'),
-                    curTitleTagLink = curTitleTag.find('a'),
-                    curTitleText  = curTitleTagLink.text();
+
+            var
+                checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
+
+            if (checkOpinionVideoItems) {
 
                 function truncate(str, maxlength) {
-                    return (str.length > maxlength) ?
-                    str.slice(0, maxlength - 3) + '...' : str;
+                    if (str.length > maxlength) {
+                        str = str.slice(0, maxlength - 3);
+                        str = str.trim();
+
+                        var $strArray = str.split(' '),
+                            symbols = [',','.','...','-','!','?','–',''];
+
+                        $strArray[$strArray.length - 1] = '';
+
+                        var
+                            preLastWord = $strArray[$strArray.length - 2].split(''),
+                            preLastSymbol = preLastWord[preLastWord.length - 1],
+                            checkSymbols = symbols.indexOf(preLastSymbol);
+
+                        if(checkSymbols > -1) {
+                            $strArray[$strArray.length - 2] = '';
+                            $strArray[$strArray.length - 3] = $strArray[$strArray.length - 3] + '...';
+                        } else {
+                            preLastWord = preLastWord.join('');
+                            $strArray[$strArray.length - 2] = preLastWord + '...';
+                        }
+
+                        str = $strArray.join(' ');
+                    }
+                    return str;
+                };
+
+                function sliceTextItem(items) {
+                    $(items).each(function(i){
+                        var cur = $(this),
+                            curIndex = cur.parent().index(),
+                            checkImg = cur.hasClass('has-image'),
+                            checkFirst = curIndex === 0,
+                            curTitleTag = cur.find('h2'),
+                            curTitleTagLink = curTitleTag.find('a'),
+                            curTitleText = curTitleTagLink.text(),
+                            textLong = 150,
+                            titleLong = 70,
+                            $videosPage = $('.videos-page'),
+                            $opinionsPage = $('.opinions-page'),
+                            $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0,
+                            checkParagraph = cur.find('p').length > 0;
+
+                        if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
+                            textLong = 500;
+                            titleLong = 90;
+                        }
+
+                        if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
+                            textLong = 100;
+                            titleLong = 45;
+                        }
+
+                        if( _mobile+1 <= _window_width && _window_width <_tablet ) {
+                            textLong = 120;
+                            titleLong = 45;
+                        }
+
+                        if(!checkImg && checkParagraph) {
+                            textLong = 250;
+                            titleLong = 150;
+
+                            if( _mobile+1 <= _window_width && _window_width <_tablet && !checkFirst ) {
+                                textLong = 170;
+                                titleLong = 150;
+                            };
+                        }
+
+                        if(!checkImg && !checkParagraph) {
+                            titleLong = 150;
+                        }
+
+                        if(checkImg && !checkParagraph) {
+                            titleLong = 100;
+                        }
+
+                        if(checkParagraph) {
+
+                            cur.find('p').each(function(i){
+                                var curParagraphTag = $(this),
+                                    curParagraphText = curParagraphTag.text();
+
+                                if (curParagraphText.trim().length > 0) {
+                                    curParagraphTag.text(truncate(curParagraphText, textLong));
+
+                                    cur.find('p').css('display','none');
+
+                                    curParagraphTag.css({
+                                        opacity:'1',
+                                        display: 'block'
+                                    });
+                                    return false;
+                                }
+                            });
+                        };
+
+                        curTitleTagLink.text(truncate(curTitleText, titleLong));
+
+                        curTitleTag.css({
+                            opacity:'1',
+                            display: 'block'
+                        });
+                    })
                 }
 
-                cur.find('p').each(function(i){
-                    var curParagraphTag = $(this),
-                        curParagraphText;
+                sliceTextItem('.video-item, .opinion-item, .s-opinion-item');
 
-                    if (curParagraphTag.length > 0) {
-                        curParagraphText = curParagraphTag.text();
-                        curParagraphTag.text(truncate(curParagraphText, 130));
-                        curParagraphTag.css('opacity','1');
-                    }
+                elements.window.on('orientationchange', function() {
+                    setTimeout(function(){
+                        sliceTextItem('.video-item, .opinion-item, .s-opinion-item');
+                    }, 10);
                 });
-
-                curTitleTagLink.text(truncate(curTitleText, 60));
-                curTitleTag.css('opacity','1');
-            })
+            }
         }
     };
 
@@ -1133,7 +1231,7 @@
         closeDropDown($('.sidebar-widget-reference-popup .icon-close'), $('.sidebar-widget-reference-popup .drop-content'), $('.sidebar-widget-reference-popup .dropdown-link '));
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
-        //text.sliceText();
+        text.sliceText();
 
         if(_window_width < _tablet ) {
             mobileNavDrop.open('.btn-mobile-menu-show','.mobile-menu');

@@ -44,20 +44,22 @@ $this->registerMetaTag([
                         <div class="widget-title medium"><a href="/articles">latest articles</a></div>
                         <ul class="post-list home-articles-list">
                             <?php foreach($collection as $article): ?>
-                            <li class="post-item">
-                                <ul class="article-rubrics-list">
-                                    <?php foreach($article['category'] as $link): ?>
-                                        <li><?= $link ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
-                                <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                                <div class="publish">
-                                    <?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
-                                <div class="description">
-                                    <?= $article['abstract']->abstract ?? ''; ?>
+                            <li>
+                                <div class="post-item">
+                                    <ul class="article-rubrics-list">
+                                        <?php foreach($article['category'] as $link): ?>
+                                            <li><?= $link ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
+                                    <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
+                                    <div class="publish">
+                                        <?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
+                                    <div class="description">
+                                        <?= $article['abstract']->abstract ?? ''; ?>
+                                    </div>
+                                    <a href="" class="article-more"><span class="more">More</span><span class="less">Less</span></a>
                                 </div>
-                                <a href="" class="article-more"><span class="more">More</span><span class="less">Less</span></a>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -103,51 +105,53 @@ $this->registerMetaTag([
                         <div class="widget-title medium"><a href="/commentary">commentary</a></div>
                         <ul class="post-list other-commentary-list">
                             <?php foreach ($commentary as $item) : ?>
-                            <li class="post-item media-item">
-                                <?php if ($item->type == Opinion::class) : ?>
-                                    <?php $opinion = Opinion::find()->where(['id' => $item->object_id])->one(); ?>
-                                    <?php if ($opinion) : ?>
-                                    <?php $hasImage = $opinion->image_link ? true : false; ?>
-                                    <?php if ($hasImage) : ?>
-                                    <?= Html::beginTag('a', [
-                                        'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
-                                        'class' => 'img',
-                                        'style' => "background-image: url('/uploads/opinions/".$opinion->image_link."')",
-                                    ]); ?>
-                                    <?= Html::endTag('a'); ?>
-                                    <?php else : ?>
-                                    <?= Html::beginTag('a', [
-                                        'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
-                                        'class' => 'img',
-                                        'style' => "background-image: url('')",
-                                    ]); ?>
-                                    <?= Html::endTag('a'); ?>
+                            <li>
+                                <div class="post-item s-opinion-item media-item">
+                                    <?php if ($item->type == Opinion::class) : ?>
+                                        <?php $opinion = Opinion::find()->where(['id' => $item->object_id])->one(); ?>
+                                        <?php if ($opinion) : ?>
+                                        <?php $hasImage = $opinion->image_link ? true : false; ?>
+                                        <?php if ($hasImage) : ?>
+                                        <?= Html::beginTag('a', [
+                                            'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
+                                            'class' => 'img',
+                                            'style' => "background-image: url('/uploads/opinions/".$opinion->image_link."')",
+                                        ]); ?>
+                                        <?= Html::endTag('a'); ?>
+                                        <?php else : ?>
+                                        <?= Html::beginTag('a', [
+                                            'href' => Url::to(['/opinion/view', 'slug' => $opinion->url_key]),
+                                            'class' => 'img',
+                                            'style' => "background-image: url('')",
+                                        ]); ?>
+                                        <?= Html::endTag('a'); ?>
+                                        <?php endif; ?>
+                                        <div class="category">
+                                            <?= Html::a('opinion', ['/opinion/index']); ?>
+                                        </div>
+                                        <div class="author"><?= $opinion->getAuthorsLink(); ?></div>
+                                        <h2>
+                                            <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
+                                        </h2>
+                                        <?php endif; ?>
                                     <?php endif; ?>
-                                    <div class="category">
-                                        <?= Html::a('opinion', ['/opinion/index']); ?>
-                                    </div>
-                                    <div class="author"><?= $opinion->getAuthorsLink(); ?></div>
-                                    <h2>
-                                        <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
-                                    </h2>
+                                    <?php if ($item->type == Video::class) : ?>
+                                        <?php $video = Video::find()->where(['id' => $item->object_id])->one(); ?>
+                                        <?php if ($video) : ?>
+                                        <?= Html::beginTag('a', [
+                                            'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
+                                            'class' => 'img',
+                                            'style' => "background-image: url('".$video->getVideoImageLink()."')",
+                                        ]); ?>
+                                        <span class="icon-play"></span>
+                                        <?= Html::endTag('a'); ?>
+                                        <div class="category"><?= Html::a('video', ['/video/index']); ?></div>
+                                        <h2>
+                                            <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
+                                        </h2>
+                                        <?php endif; ?>
                                     <?php endif; ?>
-                                <?php endif; ?>
-                                <?php if ($item->type == Video::class) : ?>
-                                    <?php $video = Video::find()->where(['id' => $item->object_id])->one(); ?>
-                                    <?php if ($video) : ?>
-                                    <?= Html::beginTag('a', [
-                                        'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
-                                        'class' => 'img',
-                                        'style' => "background-image: url('".$video->getVideoImageLink()."')",
-                                    ]); ?>
-                                    <span class="icon-play"></span>
-                                    <?= Html::endTag('a'); ?>
-                                    <div class="category"><?= Html::a('video', ['/video/index']); ?></div>
-                                    <h2>
-                                        <?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?>
-                                    </h2>
-                                    <?php endif; ?>
-                                <?php endif; ?>
+                                </div>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -159,18 +163,20 @@ $this->registerMetaTag([
                         <div class="widget-title medium"><a href="/events">events</a></div>
                         <ul class="post-list home-other-events-list media-list">
                             <?php foreach ($events as $event): ?>
-                            <li class="post-item media-item">
-                                <?php if (date('M d, Y', strtotime($event['date_from'])) != date('M d, Y', strtotime($event['date_to']))) : ?>
-                                <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?> - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
-                                <?php else : ?>
-                                <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?></div>
-                                <?php endif; ?>
-                                <h2>
-                                    <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event['url_key']])]) ?>
-                                    <?= $event['title'] ?>
-                                    <?= Html::endTag('a') ?>
-                                </h2>
-                                <p><?= $event['location'] ?></p>
+                            <li>
+                                <div class="post-item media-item">
+                                    <?php if (date('M d, Y', strtotime($event['date_from'])) != date('M d, Y', strtotime($event['date_to']))) : ?>
+                                        <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?> - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
+                                    <?php else : ?>
+                                        <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?></div>
+                                    <?php endif; ?>
+                                    <h2>
+                                        <?= Html::beginTag('a', ['href' => Url::to(['/event/view', 'slug' => $event['url_key']])]) ?>
+                                        <?= $event['title'] ?>
+                                        <?= Html::endTag('a') ?>
+                                    </h2>
+                                    <p><?= $event['location'] ?></p>
+                                </div>
                                 <!--<div class="location">Daniel S. Hamermesh</div>-->
                             </li>
                             <?php endforeach; ?>

@@ -107,11 +107,20 @@
 .newsletter-page {
   line-height: normal;
 
+  iframe {
+    width: 100%;
+    height: 100vh;
+    display: block;
+    max-width: 617px;
+    margin: 0 auto;
+  }
+
   table {
     width: 100% !important;
     padding: 0;
     margin: 0;
     border-spacing: 0 10px;
+    height: auto;
 
     li {
       p {
@@ -131,6 +140,7 @@
     padding: 0;
     vertical-align: middle;
     min-width: 100px;
+    border: 0;
   }
 }
 

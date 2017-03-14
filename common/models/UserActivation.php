@@ -95,12 +95,12 @@ class UserActivation extends \yii\db\ActiveRecord
     
     public function sendConfirmedEmail(User $user, string $token, $newEmail = null) {
         
-        $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token, 'newEmail' => $newEmail]);
+        $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token, 'newEmail' => $newEmail ? $newEmail : $user->email]);
 
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [
-                'to' => $newEmail, 
+                'to' => $newEmail ? $newEmail : $user->email,
                 'from' => Yii::$app->params['supportEmail'], 
                 'subject' => $this->subject, 
                 'body' => $body

@@ -23,21 +23,29 @@
     var account = {
         tabsLocation: function(tabsMenu,tab) {
             if(window.location.hash && $(tabsMenu).length) {
-                var hashArray = window.location.hash.split('-'),
+                var
+                    hashArray = window.location.hash.split('-'),
                     hashIndex = parseInt(hashArray[1]) - 1;
-                $(tabsMenu).eq(hashIndex).addClass('active').siblings().removeClass("active");
-                $(tab).removeClass("active").addClass('js-tab-hidden').eq(hashIndex).removeClass('js-tab-hidden').addClass('active');
+
+                    $(tabsMenu).eq(hashIndex).addClass('active').siblings().removeClass("active");
+                    $(tab).removeClass("active").addClass('js-tab-hidden').eq(hashIndex).removeClass('js-tab-hidden').addClass('active');
             }
         },
         tabs: function(tabsMenu,tab) {
-            $(tabsMenu).click(function(event) {
-                event.preventDefault();
-                $(this).parent().addClass("active");
-                $(this).parent().siblings().removeClass("active");
-                var tabCur = $(this).attr("href");
-                window.location.hash = tabCur;
-                $(tab).not(tabCur).removeClass('active').addClass('js-tab-hidden');
-                $(tabCur).addClass('active').removeClass('js-tab-hidden');
+            $(tabsMenu).click(function(e) {
+                var
+                    $cur = $(this),
+                    $curParent = $cur.parent();
+                    $curParent.addClass("active");
+                    $curParent.siblings().removeClass("active");
+
+                var
+                    tabCur = $cur.attr("href");
+                    window.location.hash = tabCur;
+                    $(tab).not(tabCur).removeClass('active').addClass('js-tab-hidden');
+                    $(tabCur).addClass('active').removeClass('js-tab-hidden');
+
+                e.preventDefault();
             });
         },
         formEdit: function(btn) {

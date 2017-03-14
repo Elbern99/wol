@@ -88,7 +88,7 @@
       }
 
       h2 {
-        margin: -3px 0 0;
+        margin: -3px 0 3px;
         font-size: 16px;
 
         @include breakpoint('tablet') {
@@ -170,7 +170,7 @@
         .post-item {
           position: relative;
           display: flex;
-          flex-direction: column;
+          flex-flow: row wrap;
           padding-top: 0;
 
           .head-news-holder {
@@ -181,8 +181,8 @@
             width: 100%;
             float: none;
             min-height: 203px;
-            order: 1;
-            margin-bottom: 18px;
+            order: 2;
+            margin: 0 0 18px;
           }
         }
       }
@@ -308,6 +308,13 @@
 
             @include breakpoint('tablet') {
               min-height: 195px;
+              max-height: none;
+              display: block;
+            }
+
+            @include breakpoint('desktop') {
+              display: flex;
+              max-height: 195px ;
             }
 
             h2 {
@@ -335,13 +342,28 @@
               }
 
               @include breakpoint('tablet') {
-                margin: 0 30px 0 0;
+                margin: 0 0 15px;
+                width: 100%;
+                height: 183px;
+                min-height: 183px;
+              }
+
+              @include breakpoint('desktop') {
                 width: 31%;
+                margin: 0 30px 0 0;
               }
             }
 
             .desc {
               width: 66%;
+
+              @include breakpoint('tablet') {
+                width: 100%;
+              }
+
+              @include breakpoint('desktop') {
+                width: 66%;
+              }
             }
           }
 
@@ -476,15 +498,11 @@
 
   li {
     padding: 0 0 20px;
+    width: 100%;
 
     @include breakpoint('desktop') {
       width: 33.3%;
       padding: 5px 4px 30px;
-
-      .opinion-item,
-      .news-item {
-        //max-height: 432px;
-      }
     }
 
     @include breakpoint('desktop-large') {
@@ -530,7 +548,6 @@
         display: flex;
         align-items: stretch;
         max-height: 230px;
-        //height: 100%;
 
         &.has-image {
           height: 230px;
@@ -642,9 +659,9 @@
   >li {
     padding: 3px 0 17px 0;
     overflow: visible;
+    width: 100%;
 
     @include breakpoint('tablet') {
-      //width: 50%;
       padding: 3px 31px 25px 0;
     }
 
@@ -679,6 +696,7 @@
     }
 
     .post-item {
+      margin-bottom: 0;
 
       @include breakpoint('tablet') {
         display: flex;
@@ -720,7 +738,17 @@
 .home-articles-list,
 .topic-articles-list {
 
+  +.btn-gray.align-center {
+    margin-bottom: 20px;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 40px;
+    }
+  }
+
   .post-item {
+    margin-bottom: 0;
+
     .publish {
       &:first-letter {
         text-transform: capitalize;
@@ -1257,7 +1285,10 @@
 
 //TOPIC-OPINION-LIST
 .topic-opinion-list {
+
   .post-item {
+    margin-bottom: 0;
+
     .publish {
       margin: -2px 0 3px;
 
@@ -1522,7 +1553,7 @@
     margin: 0 0 15px;
     position: relative;
     font-size: 12px;
-    overflow: hidden;
+    //overflow: hidden;
 
     &:first-letter {
       text-transform: capitalize;
@@ -1836,7 +1867,7 @@
     .icon-exclamatory-circle {
       position: absolute;
       top: 1px;
-      right: 0;
+      right: 1px;
       color: $light-blue;
       cursor: pointer;
       font-size: 14px;

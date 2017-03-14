@@ -274,10 +274,6 @@
                     checkReferenceOpened = $('.'+textReferenceOpened).length,
                     checkedBib = curAttr === 'bib';
 
-                if(checkedBib) {
-                    //return false;
-                }
-
                 if(!checkReferenceOpened) {
                     article.changeContentPopup(keyLink);
                 }

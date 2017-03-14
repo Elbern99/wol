@@ -2,11 +2,7 @@
 
   .select-clear-all {
     float: right;
-    margin: 0 -24px 0 0;
-
-    @include breakpoint('tablet') {
-      margin: 0 -4px 0 0;
-    }
+    margin: 0 -4px 0 0;
 
     span {
       position: relative;
