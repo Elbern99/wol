@@ -6,7 +6,7 @@ use yii\helpers\Url;
 $dataProvider->sort = false;
 ?>
 <div class="tab js-tab-hidden" id="tab-3">
-git 
+
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
