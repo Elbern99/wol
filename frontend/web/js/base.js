@@ -950,7 +950,7 @@
             }
         },
         closeSubscribe: function(btn,parent) {
-            if($(btn).length) {
+            if($(parent).length) {
 
                 var
                     $parent = $(parent);
@@ -958,17 +958,38 @@
                 if(Cookie.Read('close_subscribse') == 'true'){
                     $parent.fadeOut(0);
                 } else {
-                    $parent.fadeIn(300);
+                    $parent.fadeIn(200);
                 }
 
                 $(btn).click(function(e) {
                     var
                         cur = $(this);
 
-                    $parent.fadeOut();
+                    $parent.fadeOut(200);
                     Cookie.Create('close_subscribse', true, 30);
                 });
-            }
+            };
+        },
+        closeCookiesNotice: function(btn,parent) {
+            if($(parent).length) {
+
+                var
+                    $parent = $(parent);
+
+                if(Cookie.Read('close_cookies_notice') == 'true'){
+                    $parent.slideUp(0);
+                } else {
+                    $parent.slideDown(200);
+                }
+
+                $(btn).click(function(e) {
+                    var
+                        cur = $(this);
+
+                    $parent.slideUp(200);
+                    Cookie.Create('close_cookies_notice', true, 30);
+                });
+            };
         }
     };
 
@@ -1264,11 +1285,13 @@
         sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',13);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.former-editor-list','.editor-item',3,3,0);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.associate-editor-list','.editor-item',3,9,0);
-        home.closeSubscribe('.icon-close','.sticky-newsletter');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
 
     elements.window.load(function() {
+
+        home.closeSubscribe('.icon-close','.sticky-newsletter');
+        home.closeCookiesNotice('.icon-close','.cookie-notice');
 
         if (elements.findExpert.length < 1 || elements.searchResult.length < 1) {
             $('.preloader').fadeOut();

@@ -3289,6 +3289,134 @@ blockquote {
 .empty-nothing {
   display: none; }
 
+.sticky-newsletter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #535353;
+  padding: 7px 0;
+  z-index: 100;
+  font-size: 12px;
+  display: none; }
+  @media only screen and (min-width: 767px) {
+    .sticky-newsletter {
+      padding: 26px 0; } }
+  .sticky-newsletter h4 {
+    margin-bottom: 0;
+    font-size: 11px; }
+    @media only screen and (min-width: 767px) {
+      .sticky-newsletter h4 {
+        font-size: 17px;
+        margin-bottom: 3px;
+        line-height: 1em; } }
+  .sticky-newsletter .container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    position: relative; }
+  .sticky-newsletter .icon-close {
+    top: 50%;
+    margin-top: -21px;
+    z-index: 101; }
+    @media only screen and (max-width: 767px) {
+      .sticky-newsletter .icon-close {
+        margin-top: -20px; }
+        .sticky-newsletter .icon-close:before, .sticky-newsletter .icon-close:after {
+          width: 10px;
+          left: 15px;
+          right: 10px; } }
+  .sticky-newsletter .btn-blue {
+    font-size: 10px;
+    padding: 0 14px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
+    margin-right: 25px;
+    margin-left: 10px;
+    width: 100px; }
+    @media only screen and (min-width: 767px) {
+      .sticky-newsletter .btn-blue {
+        margin: -3px 33px 0 0;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+        padding: 0 14px;
+        letter-spacing: 0.04em;
+        width: auto; } }
+  .sticky-newsletter .desc {
+    padding-right: 3px; }
+    @media only screen and (min-width: 767px) {
+      .sticky-newsletter .desc {
+        padding-right: 6%;
+        padding-left: 35px;
+        margin: 4px 0 0 0; } }
+  .sticky-newsletter .link {
+    color: #0094f2; }
+    @media only screen and (max-width: 568px) {
+      .sticky-newsletter .link {
+        display: none; } }
+    .sticky-newsletter .link:hover {
+      color: #0053a0; }
+  .sticky-newsletter .icon-arrow-square-blue {
+    position: absolute;
+    left: 15px;
+    top: 2px;
+    font-size: 19px;
+    display: none; }
+    @media only screen and (max-width: 767px) {
+      .sticky-newsletter .icon-arrow-square-blue {
+        display: none; } }
+  .sticky-newsletter .icon-circle-arrow {
+    display: none; }
+    .sticky-newsletter .icon-circle-arrow .icon-arrow {
+      width: 10px; }
+    @media only screen and (min-width: 767px) {
+      .sticky-newsletter .icon-circle-arrow {
+        position: absolute;
+        left: 15px;
+        top: 2px;
+        display: block; } }
+
+.cookie-notice {
+  position: relative;
+  border-bottom: 1px solid #535353;
+  padding: 4px 0;
+  display: none; }
+  @media only screen and (max-width: 767px) {
+    .cookie-notice {
+      font-size: 11px; } }
+  .cookie-notice .container {
+    position: relative; }
+    @media only screen and (min-width: 767px) {
+      .cookie-notice .container {
+        padding-left: 50px; } }
+    @media only screen and (max-width: 1430px) {
+      .cookie-notice .container {
+        padding-right: 45px; } }
+  .cookie-notice .icon-close {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    z-index: 101; }
+    @media only screen and (max-width: 767px) {
+      .cookie-notice .icon-close {
+        margin-top: -20px; }
+        .cookie-notice .icon-close:before, .cookie-notice .icon-close:after {
+          width: 10px;
+          left: 15px;
+          right: 10px; } }
+  .cookie-notice .icon-arrow-square-blue {
+    position: absolute;
+    top: 4px;
+    left: 15px;
+    font-size: 19px; }
+    @media only screen and (max-width: 767px) {
+      .cookie-notice .icon-arrow-square-blue {
+        display: none; } }
+
 .news-home-list .post-item,
 .news-list .post-item {
   margin: 0; }
@@ -9373,88 +9501,6 @@ path {
 
 .news-home-list + .show-more {
   margin-top: -3px !important; }
-
-.sticky-newsletter {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  border-top: 1px solid #535353;
-  padding: 7px 0;
-  z-index: 100;
-  font-size: 12px;
-  display: none; }
-  @media only screen and (min-width: 767px) {
-    .sticky-newsletter {
-      padding: 26px 0; } }
-  .sticky-newsletter h4 {
-    margin-bottom: 0;
-    font-size: 11px; }
-    @media only screen and (min-width: 767px) {
-      .sticky-newsletter h4 {
-        font-size: 17px;
-        margin-bottom: 3px;
-        line-height: 1em; } }
-  .sticky-newsletter .container {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-        align-items: center;
-    position: relative; }
-  .sticky-newsletter .icon-close {
-    top: 50%;
-    margin-top: -21px;
-    z-index: 101; }
-    @media only screen and (max-width: 767px) {
-      .sticky-newsletter .icon-close {
-        margin-top: -20px; }
-        .sticky-newsletter .icon-close:before, .sticky-newsletter .icon-close:after {
-          width: 10px;
-          left: 15px;
-          right: 10px; } }
-  .sticky-newsletter .btn-blue {
-    font-size: 10px;
-    padding: 0 14px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 2px;
-    margin-right: 25px;
-    margin-left: 10px;
-    width: 100px; }
-    @media only screen and (min-width: 767px) {
-      .sticky-newsletter .btn-blue {
-        margin: -3px 33px 0 0;
-        height: 40px;
-        line-height: 40px;
-        font-size: 13px;
-        padding: 0 14px;
-        letter-spacing: 0.04em;
-        width: auto; } }
-  .sticky-newsletter .desc {
-    padding-right: 3px; }
-    @media only screen and (min-width: 767px) {
-      .sticky-newsletter .desc {
-        padding-right: 6%;
-        padding-left: 35px;
-        margin: 4px 0 0 0; } }
-  .sticky-newsletter .link {
-    color: #0094f2; }
-    @media only screen and (max-width: 568px) {
-      .sticky-newsletter .link {
-        display: none; } }
-    .sticky-newsletter .link:hover {
-      color: #0053a0; }
-  .sticky-newsletter .icon-circle-arrow {
-    display: none; }
-    .sticky-newsletter .icon-circle-arrow .icon-arrow {
-      width: 10px; }
-    @media only screen and (min-width: 767px) {
-      .sticky-newsletter .icon-circle-arrow {
-        position: absolute;
-        left: 15px;
-        top: 2px;
-        display: block; } }
 
 /******* // PAGES *******/
 /******* PAGES *******/
