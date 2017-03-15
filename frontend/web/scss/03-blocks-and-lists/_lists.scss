@@ -825,7 +825,8 @@
         }
       }
 
-      &.all {
+      &.all,
+      &.last {
         &:after {
           content: '';
           position: absolute;

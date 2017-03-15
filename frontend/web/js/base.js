@@ -976,7 +976,7 @@
                 var
                     $parent = $(parent);
 
-                if(Cookie.Read('close_cookies_notice') == 'true'){
+                if(Cookie.Read('close_cookies_notice5') == 'true'){
                     $parent.slideUp(0);
                 } else {
                     $parent.slideDown(200);
@@ -987,7 +987,7 @@
                         cur = $(this);
 
                     $parent.slideUp(200);
-                    Cookie.Create('close_cookies_notice', true, 30);
+                    Cookie.Create('close_cookies_notice5', true, 30);
                 });
             };
         }
@@ -1237,6 +1237,9 @@
                     }, 10);
                 });
             }
+        },
+        hideEmpty: function(text) {
+            $(text).hide(0);
         }
     };
 

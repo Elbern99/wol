@@ -46,7 +46,6 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 <body>
 <?php $this->beginBody() ?>
 
-<!--
 <div class="cookie-notice">
     <div class="icon-close"></div>
     <div class="container">
@@ -57,7 +56,6 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
         You have the right to opt out of web analysis at any time. Find out more about our <a href="/privacy-and-cookie-policy#thirteenth">cookie policy</a> and how to opt out of web analysis.
     </div>
 </div>
--->
 
 <div class="holder">
 

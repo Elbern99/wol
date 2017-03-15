@@ -292,3 +292,8 @@ blockquote {
     content: ',';
   }
 }
+
+p:empty,
+h2:empty{
+  display: none !important;
+}

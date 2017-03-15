@@ -1836,6 +1836,10 @@ blockquote {
 .item-comma:before {
   content: ','; }
 
+p:empty,
+h2:empty {
+  display: none !important; }
+
 /******* // BASE *******/
 /******* BLOCKS *******/
 .logo-main {
@@ -2718,13 +2722,6 @@ blockquote {
         font-size: 18px;
         margin: 0 0 13px;
         line-height: 1.3em; } }
-  .opinion-item p:empty,
-  .opinion-item h2:empty,
-  .news-item p:empty,
-  .news-item h2:empty,
-  .video-item p:empty,
-  .video-item h2:empty {
-    display: none; }
 
 .video-item h2 {
   overflow: hidden; }
@@ -3980,7 +3977,7 @@ blockquote {
             height: 11px; }
         .pagination li.prev a, .pagination li.prev span {
           transform: rotate(180deg); }
-        .pagination li.all:after {
+        .pagination li.all:after, .pagination li.last:after {
           content: '';
           position: absolute;
           top: 5px;
