@@ -110,26 +110,28 @@ ol {
   }
 }
 
-.newsletter-page {
-  table {
-    margin: 0 0 10px;
-    width: 100%;
-    border-collapse: collapse;
+table {
+  margin: 0 0 10px;
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    th {
-      font-weight: 800;
-    }
+table th {
+  font-weight: 800;
+}
 
-    td,
-    th {
-      padding: 5px;
-    }
-  }
+table td,
+table th {
+  padding: 5px;
 }
 
 td,
 th {
   border: 1px solid #00A6C7;
+}
+
+.newsletter-page td, .newsletter-page th {
+  border-color: transparent;
 }
 
 .newsletter-page {

@@ -1695,19 +1695,24 @@ ol li {
     height: auto;
     width: auto; }
 
-.newsletter-page table {
+table {
   margin: 0 0 10px;
   width: 100%;
   border-collapse: collapse; }
-  .newsletter-page table th {
-    font-weight: 800; }
-  .newsletter-page table td,
-  .newsletter-page table th {
-    padding: 5px; }
+
+table th {
+  font-weight: 800; }
+
+table td,
+table th {
+  padding: 5px; }
 
 td,
 th {
   border: 1px solid #00A6C7; }
+
+.newsletter-page td, .newsletter-page th {
+  border-color: transparent; }
 
 .newsletter-page td, .newsletter-page th {
   border-color: transparent; }

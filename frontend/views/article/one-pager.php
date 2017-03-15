@@ -169,7 +169,7 @@ $config = [
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?>
                     <?php /* TODO onclick="return false;" remove for german version work */ ?>
-                    <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" onclick="return false;" class="btn-border-gray-middle color-blue">
+                    <a style="display:none" href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" onclick="return false;" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>

@@ -259,7 +259,7 @@ class MyAccountController extends Controller {
             }
             
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Saved search data deleted success!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Your saved search has been successfully deleted.'));
             
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Saved search data not deleted'));
