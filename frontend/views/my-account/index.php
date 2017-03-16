@@ -9,17 +9,6 @@ $this->registerJsFile('/js/pages/signup.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/my-account.js', ['depends'=>['yii\web\YiiAsset']]);
 ?>
 
-<div class="cookie-notice">
-    <div class="icon-close"></div>
-    <div class="container">
-        <span class="icon-arrow-square-blue">
-            <span class="path1"></span><span class="path2"></span><span class="path3"></span>
-        </span>
-        We use cookies on this website, including web analysis cookies. By using this site, you agree that we may store and access cookies on your device.
-        You have the right to opt out of web analysis at any time. Find out more about our <a href="/privacy-and-cookie-policy#thirteenth">cookie policy</a> and how to opt out of web analysis.
-    </div>
-</div>
-
 <div class="content-inner my-account-page">
     <div class="content-inner-text">
         <div class="account-head-tabs">
