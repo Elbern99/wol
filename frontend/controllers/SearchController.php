@@ -176,7 +176,7 @@ class SearchController extends Controller
 
         switch($order) {
             case 'relevance':
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($phrase);
+                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
                 break;
             case OrderBehavior::DATE_DESC:
                 $comparator = new \frontend\components\search\comparators\DateComparator('desc');
@@ -197,7 +197,7 @@ class SearchController extends Controller
                 $comparator = new \frontend\components\search\comparators\TitleComparator('desc');
                 break;
             default :
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($phrase);
+                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
         }
 
         unset($searchResult);
