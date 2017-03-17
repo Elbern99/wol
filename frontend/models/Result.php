@@ -349,6 +349,7 @@ class Result {
 
             self::$value[] = [
                 'params' => [
+                    'id' => $article->id,
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
                     'authors' => $articleOwner,
@@ -380,6 +381,7 @@ class Result {
         $format = [];
         
         if (count($data) && $data) {
+            
             foreach ($data as $d) {
                 $format[$d['type']][] = $d['id'];
             }

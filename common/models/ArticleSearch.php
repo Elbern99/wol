@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use common\contracts\SearchModelInterface;
 use yii\sphinx\MatchExpression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for index "test1".
@@ -20,7 +21,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
      */
     public static function indexName()
     {
-        return '{{%articlesIndex}}';
+        return 'articlesIndex';
     }
 
     /**
@@ -62,83 +63,32 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             $match->match(Yii::$app->sphinx->escapeMatchValue($searchPhrase));
             
             $data = self::find()
-                            ->select('title')
+                            ->select(['id'])
                             ->match($match)
                             ->asArray()
                             ->all();
             
-            return $data;
+            $ids = ArrayHelper::getColumn($data, 'id');
+            $results = self::filterArticleResult($ids);
+            
+            if (count($results)) {
+                return $results;
+            }
         }
         
         return [];
     }
-    
-    public static function getSearchResult($attributes) {
 
-        $match = new MatchExpression();
-        
-        if ($attributes['search_phrase']) {
-
-            $match->match(Yii::$app->sphinx->escapeMatchValue($attributes['search_phrase']));
-        }
-
-        if ($attributes['exact_phrase']) {
-
-            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
-        }
-
-        if ($attributes['all_words']) {
-
-            $allWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['all_words']));
-            $match->andMatch(['*' => $allWords]);
-        }
-
-        if ($attributes['one_more_words']) {
-
-            $oneMoreWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['one_more_words']));
-
-            $filter = [];
-
-            foreach ($oneMoreWords as $key => $word) {
-                $filter[':' . $key] = $word;
-            }
-
-            $match->andMatch('(title|value|availability|surname|name|url) (' . implode(' | ', array_keys($filter)) . ')', $filter);
-        }
-
-        if ($attributes['any_words']) {
-
-            $anyWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['any_words']));
-
-            $filter = [];
-
-            foreach ($anyWords as $key => $word) {
-                $filter[':' . $key] = $word;
-            }
-
-            $match->andMatch('(title|value|availability|surname|name) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
-        }
-
-        $result =  self::find()
-                        ->select(['id'])
-                        ->match($match)
-                        ->addOptions(['field_weights' => ['title' => 50, 'surname' => 40, 'name' => 30, 'availability' => 20, 'value' => 10]])
-                        ->limit(self::SEARCH_LIMIT)
-                        ->asArray()
-                        ->all();
-        if (count($result)) {
-            return self::filterArticleResult($result);
-        }
-        
-        return [];
+    public static function getIndexWeight() {
+        return ['articlesIndex' => 10];
     }
-    
+
     protected static function filterArticleResult(array $ids): array {
         
         return Article::find()
-                    ->select('id')
+                    ->select(['id', 'title'])
                     ->where(['id' => $ids, 'enabled' => 1])
-                    ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', \yii\helpers\ArrayHelper::getColumn($ids, 'id')) . ')')])
+                    ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$ids) . ')')])
                     ->asArray()
                     ->all();
     }
