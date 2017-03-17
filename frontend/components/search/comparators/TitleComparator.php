@@ -33,6 +33,8 @@ class TitleComparator implements ComparatorInterface {
                 $this->types[$el['type']][] = $el;
             }
         }
+        
+        ksort($this->types);
     }
     
     private function dateOrder() {

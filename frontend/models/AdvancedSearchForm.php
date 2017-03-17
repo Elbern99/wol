@@ -73,10 +73,9 @@ class AdvancedSearchForm extends Model implements SearchInterface
     public function search() {
         
         $types = Yii::$app->params['search'];
-        $froms = [];
-        $fieldsWeight = ['title' => 100, 'name' => 50, 'url' => 40];
+        $searched = [];
+        $fieldsWeight = ['title' => 80, 'name' => 80, 'url' => 40];
         $fields = ['title', 'description', 'body', 'location', 'name', 'editor', 'url', 'value', 'surname', 'availability'];
-        $limit = 0;
 
         foreach($this->types as $type) {
             
@@ -87,46 +86,52 @@ class AdvancedSearchForm extends Model implements SearchInterface
             }
             
             $class = $types[$modelType];
-            $froms = array_merge($froms, $class::getIndexWeight());
 
-            $limit += $class::SEARCH_LIMIT;
-        }
+            $sphinx = new \SphinxClient();
+            $query = new Query;
 
-        $sphinx = new \SphinxClient();
-        $query = new Query;
+            $sphinx->setSelect('id, type');
+            $sphinx->setArrayResult(true);
+            $sphinx->setSortMode(SPH_SORT_RELEVANCE);
+            $sphinx->setFieldWeights($fieldsWeight);
+            $sphinx->setIndexWeights($class::getIndexWeight());
 
-        $sphinx->setSelect('id, type');
-        $sphinx->setSortMode(SPH_SORT_RELEVANCE);
-        $sphinx->setFieldWeights($fieldsWeight);
-        $sphinx->setIndexWeights($froms);
+            $sphinx->setLimits(0, $class::SEARCH_LIMIT);
+            $params = $this->getSearchMatch($this->getAttributes(), $fields);
+            $sql = $query->match($params)->createCommand()->getRawSql();
 
-        $sphinx->setLimits(0, $limit);
-        $params = $this->getSearchMatch($this->getAttributes(), $fields);
-        $sql = $query->match($params)->createCommand()->getRawSql();
-        
-        preg_match('/\(.+\)/',$sql, $m);
-        
-        if (isset($m[0])) {
-            $args = preg_replace('/(\(\'|\'\))/', '', $m[0]);
-        } else {
-            $args = $this->search_phrase;
-        }
+            preg_match('/\(.+\)/',$sql, $m);
 
-        $results = $sphinx->query($args, implode(',', array_keys($froms)));
-        
-        $searched = [];
-        /*echo '<pre>';
-        var_dump($results);
-        echo '</pre>';
-        exit;*/
-        if (isset($results['matches'])) {
-            
-            foreach ($results['matches'] as $match) {
-                $searched[] = $match['attrs'];
+            if (isset($m[0])) {
+                $args = preg_replace('/(\(\'|\'\))/', '', $m[0]);
+            } else {
+                $args = $this->search_phrase;
+            }
+
+            $result = $sphinx->query($args, key($class::getIndexWeight()));
+
+            if (isset($result['matches']) && count($result['matches'])) {
+                $searched = array_merge($searched, $result['matches']);
             }
         }
 
-        return $searched;
+        usort($searched, function ( $a, $b ) {
+            if($a['weight'] == $b['weight']){ return 0 ; } 
+            return ($a['weight'] > $b['weight']) ? -1 : 1;
+        });
+
+        $matches = [];
+        
+        if (count($searched)) {
+            
+            foreach ($searched as $match) {
+
+                
+                $matches[] = $match['attrs'];
+            }
+        }
+
+        return $matches;
     }
     
     public function setSelectedTypes() {
