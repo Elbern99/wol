@@ -24,6 +24,7 @@ use yii\helpers\ArrayHelper;
 class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityModelInterface
 {
     const AUTHOR_PREFIX = 'authors';
+    const EDITOR_PREFIX = 'editors';
     
     /**
      * @inheritdoc
@@ -117,6 +118,10 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     
     public static function getAuthorUrl($url_key) {
         return Url::to([self::AUTHOR_PREFIX.'/'.$url_key]);
+    }
+    
+    public static function getEditorUrl($url_key) {
+        return Url::to([self::EDITOR_PREFIX.'/'.$url_key]);
     }
     
     public function getUrl() {

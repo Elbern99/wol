@@ -155,7 +155,7 @@ class ArticleRepository implements RepositoryInterface {
                 return [
                     'avatar' => Author::getImageUrl($data['avatar']), 
                     'name' => $data['name'],
-                    'profile' => Author::getAuthorUrl($data['url_key'])
+                    'url' =>$data['url_key']
                 ];
             });
 
@@ -176,14 +176,14 @@ class ArticleRepository implements RepositoryInterface {
                 if (in_array($subjectEditor, $roles)) {
                     $editor['subject'][] = [
                         'avatar' => $params['avatar'],
-                        'profile' => $params['profile'],
+                        'profile' => Author::getEditorUrl($params['url']),
                         'name' => $params['name'],
                         'affiliation' => $affiliation
                     ];
                 } elseif (in_array($associateEditor, $roles)) {
                     $editor['associate'][] = [
                         'avatar' => $params['avatar'],
-                        'profile' => $params['profile'],
+                        'profile' => Author::getEditorUrl($params['url']),
                         'name' => $params['name'],
                         'affiliation' => $affiliation
                     ];
