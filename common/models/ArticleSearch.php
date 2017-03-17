@@ -82,6 +82,18 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
     public static function getIndexWeight() {
         return ['articlesIndex' => 10];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'availability',
+            'title',
+            'publisher',
+            'surname',
+            'name',
+            'url',
+            'value'
+        ];
+    }
 
     protected static function filterArticleResult(array $ids): array {
         

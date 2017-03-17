@@ -72,5 +72,12 @@ class TopicsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
     public static function getIndexWeight() {
         return ['topicsIndex' => 8];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'description',
+            'title',
+        ];
+    }
 
 }

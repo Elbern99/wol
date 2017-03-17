@@ -73,4 +73,12 @@ class VideosSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
     public static function getIndexWeight() {
         return ['videosIndex' => 8];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'description',
+            'title',
+        ];
+    }
+    
 }

@@ -75,4 +75,13 @@ class EventsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
     public static function getIndexWeight() {
         return ['eventsIndex' => 8];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'body',
+            'title',
+            'location'
+        ];
+    }
+    
 }

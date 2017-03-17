@@ -75,4 +75,11 @@ class OpinionsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInte
     public static function getIndexWeight() {
         return ['opinionsIndex' => 7];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'description',
+            'title',
+        ];
+    }
 }

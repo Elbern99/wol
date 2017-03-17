@@ -76,7 +76,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
         $searched = [];
         $fieldsWeight = ['title' => 80, 'name' => 80, 'url' => 40];
         $fields = ['title', 'description', 'body', 'location', 'name', 'editor', 'url', 'value', 'surname', 'availability'];
-
+        
         foreach($this->types as $type) {
             
             $modelType = $this->headingModel[$type];
@@ -125,7 +125,6 @@ class AdvancedSearchForm extends Model implements SearchInterface
         if (count($searched)) {
             
             foreach ($searched as $match) {
-
                 
                 $matches[] = $match['attrs'];
             }

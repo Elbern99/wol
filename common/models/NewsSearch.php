@@ -75,4 +75,11 @@ class NewsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterfac
         return ["newsIndex" => 8];
     }
     
+    public static function getIndexedFields() {
+        return [
+            'description',
+            'title',
+            'editor'
+        ];
+    }
 }

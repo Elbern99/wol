@@ -80,6 +80,15 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
     public static function getIndexWeight() {
         return ["biographyIndex" => 9];
     }
+    
+    public static function getIndexedFields() {
+        return [
+            'name',
+            'title',
+            'url',
+            'value'
+        ];
+    }
 
     protected static function filterAuthorResult(array $ids): array {
         
