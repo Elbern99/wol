@@ -20,6 +20,9 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode($this->title)
 ]);
+
+$cnt = count($collection);
+$filterLetter = Yii::$app->request->get('filter');
 ?>
 
 <div class="container authors-page">
@@ -55,13 +58,22 @@ $this->registerMetaTag([
                         <?php $alphas = range('A', 'Z'); ?>
                         <ul class="abs-list">
                             <?php foreach ($alphas as $letter): ?>
-                                <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
+                                <?php
+                                    $class = '';
+                                    if ($filterLetter == $letter && !$cnt) {
+                                        $class = 'active-no-result';
+                                    } elseif ($filterLetter == $letter) {
+                                        $class = 'active';
+                                    }
+                                ?>
+                                <li class="<?=$class?>"><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
             </div>
-
+            
+            <?php if ($cnt): ?>
             <ul class="search-results-media-list">
                 <?php foreach($collection as $author): ?>
                     <li class="search-results-media-item">
@@ -79,6 +91,9 @@ $this->registerMetaTag([
                     </li>
                 <?php endforeach; ?>
             </ul>
+            <?php else: ?>
+            <p>No result</p>
+            <?php endif; ?>
             <?= LinkPager::widget([
                 'pagination' => $paginate,
                 'nextPageLabel' => 'Next',
