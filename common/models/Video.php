@@ -84,7 +84,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     
     public function getVideoImageLink() 
     {
-        return 'http://img.youtube.com/vi/' . $this->getVideoId() . '/hqdefault.jpg';
+        return 'https://img.youtube.com/vi/' . $this->getVideoId() . '/hqdefault.jpg';
     }
     
     public function getRelatedVideos()
