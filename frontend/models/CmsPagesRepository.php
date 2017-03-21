@@ -19,7 +19,8 @@ class CmsPagesRepository {
                 ->select(['module.key', 'page.id',
                     'info.title', 'info.meta_title', 
                     'info.meta_keywords',
-                    'info.meta_description'
+                    'info.meta_description',
+                    'info.breadcrumbs'
                 ])
                 ->asArray()
                 ->one();
