@@ -286,5 +286,25 @@ class SiteController extends Controller {
              
         return $this->goHome();
     }
+    
+    public function actionAddCloseCookie($name) {
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        try {
+            if ($name) {
+
+                Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                    'name' => $name,
+                    'expire' => time() + 86400 * 30,
+                    'value' => true
+                ]));
+                
+                return ['result' => true];
+            }
+        } catch (\yii\db\Exception $e) {
+        }
+        
+        return ['result' => false];
+    }
 
 }

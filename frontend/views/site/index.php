@@ -222,5 +222,3 @@ $this->registerMetaTag([
         </div>
     </div>
 </div>
-
-<?= $page->getWidgetByName('sticky_newsletter') ?>
