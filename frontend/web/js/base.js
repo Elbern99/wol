@@ -1292,8 +1292,8 @@
 
     elements.window.load(function() {
 
-        home.closeSubscribe('.icon-close','.sticky-newsletter');
-        home.closeCookiesNotice('.icon-close','.cookie-notice');
+        home.closeSubscribe('.sticky-newsletter .icon-close','.sticky-newsletter');
+        home.closeCookiesNotice('.cookie-notice .icon-close','.cookie-notice');
 
         if (elements.findExpert.length < 1 || elements.searchResult.length < 1) {
             $('.preloader').fadeOut();
