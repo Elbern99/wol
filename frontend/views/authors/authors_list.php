@@ -23,6 +23,7 @@ $this->registerMetaTag([
 
 $cnt = count($collection);
 $filterLetter = Yii::$app->request->get('filter');
+
 ?>
 
 <div class="container authors-page">
@@ -127,7 +128,15 @@ $filterLetter = Yii::$app->request->get('filter');
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
-                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
+                                    <?php
+                                    $class = '';
+                                    if ($filterLetter == $letter && !$cnt) {
+                                        $class = 'active-no-result';
+                                    } elseif ($filterLetter == $letter) {
+                                        $class = 'active';
+                                    }
+                                    ?>
+                                    <li class="<?=$class?>"><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

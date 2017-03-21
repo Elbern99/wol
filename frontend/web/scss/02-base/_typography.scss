@@ -98,7 +98,7 @@ ol {
 ol {
   li {
     counter-increment: step-counter;
-    margin: 0 0 4px;
+    margin: 0 0 3px 21px;
 
     &:before {
       content: counter(step-counter)'.';
@@ -106,6 +106,7 @@ ol {
       vertical-align: top;
       height: auto;
       width: auto;
+      margin: 0 8px 0 -21px;
     }
   }
 }
@@ -186,7 +187,7 @@ a {
   transition-delay: 0s, 0s, 0s, 0s;
   
   &:hover {
-    color: $light-blue;
+    color: $blue-light;
   }
 }
 
@@ -298,4 +299,16 @@ blockquote {
 p:empty,
 h2:empty{
   display: none !important;
+}
+
+.gray-basalt-light,
+.active-no-result {
+   color: $gray-basalt-light !important;
+ }
+
+.active-no-result {
+  * {
+    color: $gray-basalt-light !important;
+    pointer-events: none;
+  }
 }

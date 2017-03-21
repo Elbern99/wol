@@ -37,8 +37,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
         <div class="content-inner-text">
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="" class="js-widget">subject areas</a></li>
-                    <li><a href="" class="js-widget">authors</a></li>
+                    <li><a href="" class="js-widget">Subject areas</a></li>
+                    <li><a href="" class="js-widget">Authors</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item blue js-tab-hidden expand-more tab-item-subject-areas">

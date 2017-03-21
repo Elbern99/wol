@@ -33,7 +33,12 @@ jQuery(function($){
             success: function(data, textStatus, jqXHR) {
 
                 createResult(data);
-                link.parent().addClass('active').siblings().removeClass('active');
+
+                if(data.length) {
+                    link.parent().addClass('active').siblings().removeClass('active');
+                } else {
+                    link.parent().addClass('active-no-result ').siblings().removeClass('active-no-result ');
+                }
 
             },
             error: function(jqXHR, textStatus, errorThrown) {

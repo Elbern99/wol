@@ -169,7 +169,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: $black-brown;
+    background: $brown-black;
     top: 0;
     transition: all 0.35s ease;
   }
@@ -216,7 +216,7 @@
   &.dark {
     &:after,
     &:before {
-      background: $dark-gray;
+      background: $gray-dark;
     }
   }
 
@@ -264,7 +264,7 @@
 
 .icon-question {
   position: relative;
-  color: $light-blue;
+  color: $blue-light;
   cursor: pointer;
   font-size: 16px;
   margin-top: 1px;

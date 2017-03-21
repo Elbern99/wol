@@ -11,7 +11,7 @@
           .item {
             &.no-submenu {
               a {
-                color: $light-blue;
+                color: $blue-light;
                 
                 &:hover {
                   color: $blue ;
@@ -122,7 +122,7 @@
     }
 
     >a {
-      color: $dark-blue-black;
+      color: $blue-dark-black;
       text-decoration: none;
 
       @include breakpoint('tablet') {
@@ -205,7 +205,7 @@
       }
 
       a {
-        color: $black-brown;
+        color: $brown-black;
         text-decoration: none;
 
         &.active,
@@ -223,7 +223,7 @@
         }
 
         a {
-          &.view-all { color: $light-blue; }
+          &.view-all { color: $blue-light; }
         }
       }
 
@@ -252,7 +252,7 @@
           &.active {
             &:after {
               height: 2px;
-              background: $light-blue;
+              background: $blue-light;
               content: '';
               left: 10px;
               right: 10px;
@@ -317,7 +317,7 @@
 }
 
 .search {
-  color: $black-brown;
+  color: $brown-black;
   width: 225px;
   margin: 20px 0 -9px;
   position: relative;
@@ -547,7 +547,7 @@
     }
 
     &.dropdown-link {
-      color: $dark-blue-black;
+      color: $blue-dark-black;
       position: relative;
 
 
@@ -802,7 +802,7 @@
             @extend .icon-styles;
             font-size: 10px;
             transform: rotate(180deg);
-            color: $light-blue;
+            color: $blue-light;
             transition: color 0.3s ease;
 
             @include breakpoint('tablet') {
@@ -855,7 +855,7 @@
     cursor: pointer;
     
     &:hover {
-      color: $light-blue;
+      color: $blue-light;
     }
   }
 }
