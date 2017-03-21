@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module'],
+    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module', 'blocks_module'],
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'treemanager' => [
@@ -29,6 +29,12 @@ return [
             'components' => [
                 'newsletter_model' => '\common\models\Newsletter',
                 'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ],
+        'blocks_module' => [
+            'class' => '\common\modules\blocks\Module',
+            'components' => [
+                'repository_model' => '\frontend\models\BlocksRepository',
             ]
         ]
     ],

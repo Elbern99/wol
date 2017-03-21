@@ -950,46 +950,41 @@
             }
         },
         closeSubscribe: function(btn,parent) {
-            if($(parent).length) {
-
-                var
-                    $parent = $(parent);
-
-                if(Cookie.Read('close_subscribse') == 'true'){
-                    $parent.fadeOut(0);
-                } else {
-                    $parent.fadeIn(200);
-                }
-
+            var $parent = $(parent);
+            
+            if($parent.length) {
+                var cookieName = 'close_subscribse';
+                var _this = this;
+                
                 $(btn).click(function(e) {
-                    var
-                        cur = $(this);
-
-                    $parent.fadeOut(200);
-                    Cookie.Create('close_subscribse', true, 30);
+                    
+                    e.preventDefault();
+                    _this.addCloseCookie(cookieName,  $parent);
                 });
             };
         },
         closeCookiesNotice: function(btn,parent) {
-            if($(parent).length) {
-
-                var
-                    $parent = $(parent);
-
-                if(Cookie.Read('close_cookies_notice5') == 'true'){
-                    $parent.slideUp(0);
-                } else {
-                    $parent.slideDown(200);
-                }
-
+            var $parent = $(parent);
+            
+            if($parent.length) {
+                var cookieName = 'cookies_notice';
+                var _this = this;
+                
                 $(btn).click(function(e) {
-                    var
-                        cur = $(this);
-
-                    $parent.slideUp(200);
-                    Cookie.Create('close_cookies_notice5', true, 30);
+                    
+                    e.preventDefault();
+                    _this.addCloseCookie(cookieName,  $parent);
                 });
             };
+        },
+        addCloseCookie: function(name, $parent) {
+
+            $.get('/site/add-close-cookie', 'name='+name)
+            .success(function( data ) {
+                if (data.result) {
+                    $parent.fadeOut(200);
+                }
+            });
         }
     };
 
