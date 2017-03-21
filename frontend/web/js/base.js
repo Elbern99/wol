@@ -957,7 +957,9 @@
                 var _this = this;
                 
                 $(btn).click(function(e) {
-                    
+
+                    $parent = $(this).parents(parent);
+
                     e.preventDefault();
                     _this.addCloseCookie(cookieName,  $parent);
                 });
@@ -971,6 +973,8 @@
                 var _this = this;
                 
                 $(btn).click(function(e) {
+
+                    $parent = $(this).parents(parent);
                     
                     e.preventDefault();
                     _this.addCloseCookie(cookieName,  $parent);

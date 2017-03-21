@@ -2171,7 +2171,6 @@
   padding: 7px 0;
   z-index: 100;
   font-size: 12px;
-  display: none;
 
   @include breakpoint('tablet') {
     padding: 26px 0;
@@ -2180,8 +2179,6 @@
   h4 {
     margin-bottom: 0;
     font-size: 11px;
-
-
 
     @include breakpoint('tablet') {
       font-size: 17px;
@@ -2289,7 +2286,6 @@
   position: relative;
   border-bottom: 1px solid #535353;
   padding: 4px 0;
-  display: none;
 
   @include breakpoint_custom($breakpoint-tablet) {
     font-size: 11px;

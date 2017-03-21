@@ -3309,8 +3309,7 @@ h2:empty {
   border-top: 1px solid #535353;
   padding: 7px 0;
   z-index: 100;
-  font-size: 12px;
-  display: none; }
+  font-size: 12px; }
   @media only screen and (min-width: 767px) {
     .sticky-newsletter {
       padding: 26px 0; } }
@@ -3394,8 +3393,7 @@ h2:empty {
 .cookie-notice {
   position: relative;
   border-bottom: 1px solid #535353;
-  padding: 4px 0;
-  display: none; }
+  padding: 4px 0; }
   @media only screen and (max-width: 767px) {
     .cookie-notice {
       font-size: 11px; } }
