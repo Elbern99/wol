@@ -26,6 +26,8 @@ class SiteController extends Controller {
 
     use traits\HomeTrait;
     use traits\SourcesTrait;
+    use traits\RedirectLoginUserTrait;
+    
     /**
      * @inheritdoc
      */
@@ -124,7 +126,7 @@ class SiteController extends Controller {
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/my-account');
+            return $this->redirect($this->getLoginRedirect());
         }
         
         if ($model->getErrors()) {
@@ -260,7 +262,7 @@ class SiteController extends Controller {
             
             Yii::$app->user->login($user);
             
-            return $this->redirect('/my-account');
+            return $this->redirect($this->getLoginRedirect());
         }
 
         return $this->goHome();
