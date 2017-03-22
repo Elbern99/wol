@@ -69,8 +69,57 @@ class TopicsSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterf
         return [];
     }
     
-    public static function getIndexWeight() {
-        return ['topicsIndex' => 8];
-    }
+    public static function getSearchResult($attributes) {
 
+        $match = new MatchExpression();
+        
+        if ($attributes['search_phrase']) {
+
+            $match->match(Yii::$app->sphinx->escapeMatchValue($attributes['search_phrase']));
+        }
+
+        if ($attributes['exact_phrase']) {
+
+            $match->andMatch(['*' => Yii::$app->sphinx->escapeMatchValue($attributes['exact_phrase'])]);
+        }
+
+        if ($attributes['all_words']) {
+
+            $allWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['all_words']));
+            $match->andMatch(['*' => $allWords]);
+        }
+
+        if ($attributes['one_more_words']) {
+
+            $oneMoreWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['one_more_words']));
+
+            $filter = [];
+
+            foreach ($oneMoreWords as $key => $word) {
+                $filter[':' . $key] = $word;
+            }
+
+            $match->andMatch('(title|description) (' . implode(' | ', array_keys($filter)) . ')', $filter);
+        }
+
+        if ($attributes['any_words']) {
+
+            $anyWords = explode(',', Yii::$app->sphinx->escapeMatchValue($attributes['any_words']));
+
+            $filter = [];
+
+            foreach ($anyWords as $key => $word) {
+                $filter[':' . $key] = $word;
+            }
+
+            $match->andMatch('(title|description) -(' . implode(' | ', array_keys($filter)) . ')', $filter);
+        }
+
+        return  self::find()
+                        ->select(['id'])
+                        ->match($match)
+                        ->limit(self::SEARCH_LIMIT)
+                        ->asArray()
+                        ->all();
+    }
 }
