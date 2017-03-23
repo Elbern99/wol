@@ -242,7 +242,7 @@ class ArticleParser implements ParserInterface {
 
         $this->setImages();
         $this->setSources();
-        
+
         try {
             
             foreach ($attributes->eavTypeAttributes as $attrType) {
