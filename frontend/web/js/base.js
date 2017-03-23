@@ -592,12 +592,17 @@
                         $cur = $(this),
                         $curParent = $cur.parent(),
                         accordionItem = $cur.parents('.sidebar-accrodion-item'),
-                        checkChecked = $curParent.find(':checkbox:not(:checked)').length > 0;
+                        checkDisabled = $curParent.find(':checkbox:not(:disabled)'),
+                        checkChecked = true;
+
+                    for(var i = 0; i < checkDisabled.length; i++) {
+                        if(!checkDisabled[i].checked) checkChecked = false;
+                    }
 
                     if(checkChecked) {
-                        $cur.removeClass('active').text('Select all') ;
-                    } else {
                         $cur.addClass('active').text('Clear all');
+                    } else {
+                        $cur.removeClass('active').text('Select all') ;
                     }
                 });
 
@@ -616,9 +621,6 @@
                     if($cur.hasClass('active')) {
                         if (elements.searchResult.length > 0) {
                             $curParent.find($searchCheckBox).trigger('click');
-
-
-                            console.log(1);
                         };
 
                         if (elements.findExpert.length > 0) {

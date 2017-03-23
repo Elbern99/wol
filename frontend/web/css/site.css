@@ -9460,13 +9460,11 @@ path {
       margin: 0 0 3px 0; } }
   .home-page .post-item.large h2 {
     font-size: 16px;
-    margin: 0 0 3px;
-    max-height: 70px; }
+    margin: 0 0 3px; }
     @media only screen and (min-width: 767px) {
       .home-page .post-item.large h2 {
         font-size: 17px;
-        margin: 0 0 2px;
-        max-height: 70px; } }
+        margin: 0 0 2px; } }
   .home-page .post-item.large h3 {
     font-size: 15px;
     margin: 0 0 8px;
