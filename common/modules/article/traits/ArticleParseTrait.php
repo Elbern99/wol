@@ -1535,6 +1535,9 @@ trait ArticleParseTrait {
             } elseif ($val['tag'] == 'REF') {
 
                 if (!isset($val['attributes']['TYPE'])) {
+                    if ($val['type'] == 'close') {
+                        $text .= '</a>';
+                    }
                     continue;
                 }
                 if ($val['attributes']['TYPE'] == 'externalLink') {
@@ -1567,7 +1570,17 @@ trait ArticleParseTrait {
                     
                 } elseif ($val['attributes']['TYPE'] == 'termGroup') {
 
-                    $text .= Html::a($val['value'], $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type' => 'term']);
+                    if ($val['type'] == 'open') {
+                        $text .= '<a href="'.$val['attributes']['TARGET'].'" class="text-reference" data-type="term">';
+                    }
+
+                    if ($val['type'] == 'close') {
+                        $text .= '</a>';
+                    }
+
+                    if ($val['type'] == 'complete') {
+                        $text .= Html::a($val['value'], $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type' => 'term']);
+                    }
                 } 
                 
             } elseif ($val['tag'] == 'HEAD') {
