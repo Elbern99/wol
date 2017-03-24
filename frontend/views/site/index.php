@@ -13,6 +13,7 @@ use common\models\Opinion;
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
+$googleVerification = common\modules\settings\SettingsRepository::get('google_site_verification');
 
 $this->registerMetaTag([
     'name' => 'keywords',
@@ -23,6 +24,13 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode($page->Cms('meta_description'))
 ]);
+
+if ($googleVerification) {
+    $this->registerMetaTag([
+        'name' => 'google-site-verification',
+        'content' => $googleVerification
+    ]);
+}
 ?>
 
 <div class="home-page">
