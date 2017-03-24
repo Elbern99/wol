@@ -28,6 +28,11 @@ $this->registerMetaTag([
         )
     )
 ]);
+                
+$this->registerLinkTag([
+    'rel' => 'canonical',
+    'href' => Url::to('/articles/'.$article->seo . '/long')
+]);
 
 $this->registerMetaTag([
     'name' => 'description',

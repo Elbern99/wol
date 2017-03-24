@@ -33,9 +33,14 @@ $this->registerMetaTag([
     )
 ]);
 
+$this->registerLinkTag([
+    'rel' => 'canonical',
+    'href' => Url::to('/articles/'.$article->seo . '/long')
+]);
+
 $this->registerMetaTag([
-        'name' => 'description',
-        'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
+    'name' => 'description',
+    'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
 ]);
 
 $authorsList = [];

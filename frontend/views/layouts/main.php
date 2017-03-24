@@ -39,7 +39,6 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="canonical" href="<?= Url::to('',true) ?>"/>
     <script type="text/javascript" async defer src="https://apis.google.com/js/platform.js?publisherid=116017394173863766515"></script>
     <?php $this->head() ?>
 </head>
