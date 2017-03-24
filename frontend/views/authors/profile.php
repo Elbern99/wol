@@ -90,7 +90,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <?php if ($author['author']->url): ?>
                     <div class="item">
                         <h2>Website</h2>
-                        <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
+                        <p><a href="<?= $author['author']->url ?>" target="blank"><?= $author['author']->url ?></a></p>
                     </div>
                     <?php endif; ?>
                     <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>
