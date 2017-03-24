@@ -211,7 +211,7 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('enabled', 0);
         $this->article->setAttribute('availability', $availability);
         $this->article->setAttribute('created_at', $time);
-        $this->article->setAttribute('updated_at', $time);
+        $this->article->setAttribute('updated_at', time());
         $this->article->setAttribute('publisher', $publisher);
     }
     
