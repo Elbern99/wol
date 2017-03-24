@@ -66,11 +66,10 @@ class BiographySearch extends \yii\sphinx\ActiveRecord implements SearchModelInt
                             ->asArray()
                             ->all();
             
-            $ids = ArrayHelper::getColumn($data, 'id');
-            $results = self::filterAuthorResult($ids);
+            $ids = ArrayHelper::getColumn($data, 'id'); 
             
-            if (count($results)) {
-                return $results;
+            if (count($ids)) {
+                return self::filterAuthorResult($ids);
             }
         }
         

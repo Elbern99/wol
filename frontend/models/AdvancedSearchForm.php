@@ -7,6 +7,7 @@ use frontend\models\contracts\SearchInterface;
 use frontend\components\search\ResultStrategy;
 use yii\sphinx\Query;
 use yii\sphinx\MatchExpression;
+use common\models\SynonymsSearch;
 
 require_once ('api/sphinxapi.php');
 /**
@@ -22,6 +23,8 @@ class AdvancedSearchForm extends Model implements SearchInterface
     public $all_words;
     public $one_more_words;
     public $any_words;
+    public $synonyms;
+    private $forbidden = ['\\', '/' , '(', ')', '|', '!', '@', '~', '&', '^', '$', '=', '>', '<', "\x00", "\n", "\r", "\x1a", '?'];
 
     /**
      * @inheritdoc
@@ -65,6 +68,26 @@ class AdvancedSearchForm extends Model implements SearchInterface
         return $sortingResult->sort();
     }
     
+    private function removeForbiddenTag($phrase) {
+        return str_replace($this->forbidden, '', $phrase);
+    }
+    
+    protected function checkSynonymInPhrase() {
+        
+        $phrase = $this->removeForbiddenTag($this->search_phrase);
+
+        $words = explode(' ', $phrase);
+        $synonyms = SynonymsSearch::getSynonymsFormatArray($words);
+        $searchedMatch = '('.$phrase.')';
+
+        if (count($synonyms)) {
+            $searchedMatch .= ' | ('.implode(' ', $synonyms).')';
+            $this->synonyms = SynonymsSearch::getSynonymWords();
+        }
+
+        return $searchedMatch;
+    }
+    
     /**
      * Signs user up.
      *
@@ -74,8 +97,10 @@ class AdvancedSearchForm extends Model implements SearchInterface
         
         $types = Yii::$app->params['search'];
         $searched = [];
-        $fieldsWeight = ['title' => 80, 'name' => 80, 'url' => 40];
+        $fieldsWeight = ['title' => 80, 'name' => 80, 'url' => 40, 'value' => 10];
         $fields = ['title', 'description', 'body', 'location', 'name', 'editor', 'url', 'value', 'surname', 'availability'];
+        
+        $searchPhrase = $this->checkSynonymInPhrase();
         
         foreach($this->types as $type) {
             
@@ -90,14 +115,14 @@ class AdvancedSearchForm extends Model implements SearchInterface
             $sphinx = new \SphinxClient();
             $query = new Query;
 
-            $sphinx->setSelect('id, type');
+            $sphinx->setSelect('id, type, title');
             $sphinx->setArrayResult(true);
             $sphinx->setSortMode(SPH_SORT_RELEVANCE);
             $sphinx->setFieldWeights($fieldsWeight);
             $sphinx->setIndexWeights($class::getIndexWeight());
 
             $sphinx->setLimits(0, $class::SEARCH_LIMIT);
-            $params = $this->getSearchMatch($this->getAttributes(), $fields);
+            $params = $this->getSearchMatch($this->getAttributes(), $fields, $searchPhrase);
             $sql = $query->match($params)->createCommand()->getRawSql();
 
             preg_match('/\(.+\)/',$sql, $m);
@@ -105,7 +130,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             if (isset($m[0])) {
                 $args = preg_replace('/(\(\'|\'\))/', '', $m[0]);
             } else {
-                $args = $this->search_phrase;
+                $args = $searchPhrase;
             }
 
             $result = $sphinx->query($args, key($class::getIndexWeight()));
@@ -137,14 +162,14 @@ class AdvancedSearchForm extends Model implements SearchInterface
         $this->types = $this->getTypeIds();
     }
     
-    protected function getSearchMatch($attributes, $fields) {
+    protected function getSearchMatch($attributes, $fields, $phrase) {
         
         $match = new MatchExpression();
         $fields = implode('|', $fields);
 
         if ($attributes['search_phrase']) {
 
-            $match->match(Yii::$app->sphinx->escapeMatchValue($attributes['search_phrase']));
+            $match->match($phrase);
         }
 
         if ($attributes['exact_phrase']) {

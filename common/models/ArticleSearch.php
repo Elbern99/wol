@@ -69,10 +69,9 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
                             ->all();
             
             $ids = ArrayHelper::getColumn($data, 'id');
-            $results = self::filterArticleResult($ids);
             
-            if (count($results)) {
-                return $results;
+            if (count($ids)) {
+                return self::filterArticleResult($ids);
             }
         }
         
