@@ -12,6 +12,7 @@ use backend\models\ArticleSearch;
 use backend\models\AuthorSearch;
 use yii\helpers\Url;
 use common\modules\eav\Collection;
+use common\models\SynonymsSearch;
 
 /*
  * Article Author Class Controller
@@ -24,7 +25,7 @@ class IzaController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['articles', 'authors', 'author-view', 'article-view'],
+                        'actions' => ['articles', 'authors', 'author-view', 'article-view', 'synonyms', 'synonym-view', 'synonym-delete'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -33,7 +34,7 @@ class IzaController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    //'delete' => ['post'],
+                    'delete' => ['synonym-delete'],
                 ],
             ],
         ];
@@ -103,6 +104,53 @@ class IzaController extends Controller {
         $collection->initCollection('article', $article);
         
         return $this->render('collection', ['collection' => $collection, 'backLink' => Url::to('articles')]);
+    }
+    
+    public function actionSynonyms() {
+        
+        $model = SynonymsSearch::find()->orderBy('id');
+        return $this->render('synonyms', ['dataProvider' => new ActiveDataProvider(['query' => $model, 'pagination' => ['pageSize' => 30]])]);
+    }
+    
+    public function actionSynonymView($id = null) {
+
+        if (is_null($id)) {
+            $model = new SynonymsSearch();
+        } else {
+            $model = SynonymsSearch::findOne($id);
+        }
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+            
+            $model->convertToString();
+            
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Synonym added success'), false);
+                return $this->redirect('@web/iza/synonyms');
+            }
+        }
+
+        return $this->render('synonyms-view', ['model' => $model]);
+    }
+
+    public function actionSynonymDelete($id) {
+
+        try {
+            
+            $model = SynonymsSearch::findOne($id);
+            
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
+            }
+
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Synonym was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Synonym did not delete!'));
+        }
+
+        return $this->redirect('@web/iza/synonyms');
     }
 
 }

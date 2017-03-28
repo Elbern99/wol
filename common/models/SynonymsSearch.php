@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "synonyms_search".
  *
@@ -41,6 +41,14 @@ class SynonymsSearch extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'synonyms' => Yii::t('app', 'Synonyms'),
         ];
+    }
+    
+    public function convertToString() {
+        
+        if (is_array($this->synonyms)) {
+            $data = ArrayHelper::getColumn($this->synonyms, 'synonym');
+            $this->synonyms = str_replace(' ', '',implode(',', $data));
+        }
     }
     
     public static function getSynonymWords() {
