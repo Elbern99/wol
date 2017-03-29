@@ -28,6 +28,43 @@
 
     // 1.1 HEADER MENU
 
+    var activeMenu = {
+      getUrl: function(parent) {
+          var pathname = window.location.pathname,
+              pathnameArr =  pathname.split('/'),
+              pathnameArrFirst = pathnameArr[1],
+              $parent = $('.header'),
+              $resultLink = $parent.find('a[href$="'+pathname+'"]'),
+              checkResultLink = $resultLink.length > 0;
+
+          if(pathnameArrFirst === 'spokespeople' || pathnameArrFirst === 'editors') {
+              pathnameArrFirst = 'authors';
+          }
+
+          if(!checkResultLink) {
+              pathname = '/' + pathnameArrFirst;
+          };
+
+          activeMenu.setActive(pathname,'.submenu', parent)
+      },
+      setActive:function(pathname,submenu,parent) {
+          var $parent = $('.header');
+              $parent.find('a[href$="'+pathname+'"]').addClass('active-page');
+
+          if($(submenu).length) {
+              $(submenu).each(function() {
+                  var
+                      $cur = $(this),
+                      checkSubActivePage = $cur.find('.active-page').length > 0;
+
+                  if(checkSubActivePage) {
+                      $cur.parent().find('>a').addClass('active-page');
+                  };
+              });
+          };
+      }
+    };
+
     var headerMenu = {
         classes: 'open',
         submenu: '>.submenu',
@@ -60,12 +97,20 @@
                 scrollPaneOption = {
                     showArrows: true,
                     autoReinitialise: false,
-                    animateScroll: true
+                    animateScroll: true,
+                    stickToleft: true
                 },
                 checkMobile = _window_width < _mobile;
 
             if(checkMobile) {
-                $item.jScrollPane(scrollPaneOption);
+                $item.jScrollPane({showArrows: true});
+
+                elements.window.load(function () {
+                    $item.bind('jsp-initialised', function(event, isScrollable) {
+                            headerMenu.mobileScrollToActive(item);
+
+                    }).jScrollPane(scrollPaneOption);
+                });
             }
 
             elements.window.on('resize', function() {
@@ -78,6 +123,28 @@
                     api.destroy();
                 }
             });
+        },
+        mobileScrollToActive: function(item) {
+            if($(item).length) {
+                var
+                    $item = $(item),
+                    padding = 30,
+                    $activePageInScrollMenu = $item.find('.active-page');
+
+                if($activePageInScrollMenu.length) {
+                    var
+                        widthScrollMenu = $item.width() - padding,
+                        activePageInScrollMenuWidth = $activePageInScrollMenu.width(),
+                        activePageInScrollMenuLeft = $activePageInScrollMenu.position().left,
+                        scrollToLeftPosition = activePageInScrollMenuLeft+activePageInScrollMenuWidth,
+                        scrollToLeft = scrollToLeftPosition - widthScrollMenu;
+
+                    if(scrollToLeftPosition > widthScrollMenu) {
+                        var api = $item.data('jsp');
+                        api.scrollTo(parseInt(scrollToLeft), parseInt(0));
+                    }
+                }
+            }
         },
         mobileOpenItem: function(cur) {
             var
@@ -1289,11 +1356,14 @@
         sidebarNews.moreSidebarNews('.more-link','.articles-filter-list','li,.item',13);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.former-editor-list','.editor-item',3,3,0);
         sidebarNews.moreSidebarNews('.btn-load-more-client-side','.associate-editor-list','.editor-item',3,9,0);
+        hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
+        hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
+        hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
+        activeMenu.getUrl('.parent');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
 
     elements.window.load(function() {
-
         home.closeSubscribe('.sticky-newsletter .icon-close','.sticky-newsletter');
         home.closeCookiesNotice('.cookie-notice .icon-close','.cookie-notice');
 
@@ -1324,9 +1394,6 @@
         forms.selectAll('.clear-all', '.select-all', '.grid');
         forms.close('.close','.alert');
         search.autoSelect('.auto-search-list span','.search', '.header-search-dropdown') ;
-        hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
-        hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
-        hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
         forms.clearAllCheckboxes('.sidebar-widget-filter .clear-all');
         accordion.scrollToHash('.faq-accordion-list');
         filter.clearStorage();

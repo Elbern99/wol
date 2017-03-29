@@ -44,7 +44,7 @@ $this->registerCssFile('/css/leaflet.css');
 $authorsList = [];
 
 foreach ($authors as $author) {
-    
+
     $authorsList[] = [
         'name' => $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name,
         'url' => $author['profile']
@@ -54,7 +54,8 @@ foreach ($authors as $author) {
 $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl'=>Url::to('articles/'.$article->seo)
+    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleDoi' => $article->doi
 ));
 
 $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
@@ -70,7 +71,7 @@ $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json',
-        'share_text_for_email' => $mailArticle
+        'share_text_for_email' => $mailArticleShare
 ];
 
 ?>

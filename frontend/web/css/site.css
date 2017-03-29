@@ -5659,7 +5659,7 @@ label {
     .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow {
       position: absolute;
       top: 0;
-      height: 38px;
+      height: 36px;
       width: 35px;
       background: none; }
       .header-bottom .header-menu-bottom-list.jspScrollable .jspArrow.jspDisabled {
@@ -6069,7 +6069,7 @@ iframe[name=advpp_manager] {
       display: block; }
       .header-desktop .header-menu-bottom-list .item .submenu .item.no-submenu a {
         color: #0094f2; }
-        .header-desktop .header-menu-bottom-list .item .submenu .item.no-submenu a:hover {
+        .header-desktop .header-menu-bottom-list .item .submenu .item.no-submenu a:hover, .header-desktop .header-menu-bottom-list .item .submenu .item.no-submenu a.active-page {
           color: #0053a0; } }
 
 .header-mobile {
@@ -6106,7 +6106,7 @@ iframe[name=advpp_manager] {
     margin-left: -133px; }
     .header-menu-top-list li .submenu a {
       color: #2a2a2a; }
-      .header-menu-top-list li .submenu a:hover {
+      .header-menu-top-list li .submenu a:hover, .header-menu-top-list li .submenu a.active-page {
         color: #0053a0; }
     .header-menu-top-list li .submenu:after {
       left: 50%; } }
@@ -6143,7 +6143,7 @@ iframe[name=advpp_manager] {
         height: 39px; }
         .header-menu-top-list > li > a:hover {
           color: #0053a0; }
-        .header-menu-top-list > li > a:hover, .header-menu-top-list > li > a.active {
+        .header-menu-top-list > li > a:hover, .header-menu-top-list > li > a.active, .header-menu-top-list > li > a.active-page {
           border-color: #008ef1; } }
 
 .header-bottom {
@@ -6198,21 +6198,25 @@ iframe[name=advpp_manager] {
             display: block;
             padding: 5px 0 4px;
             border-bottom: 1px solid transparent; }
-            .header-bottom .header-menu-bottom-list .jspPane > .item > a:hover, .header-bottom .header-menu-bottom-list .jspPane > .item > a.active,
+            .header-bottom .header-menu-bottom-list .jspPane > .item > a:hover, .header-bottom .header-menu-bottom-list .jspPane > .item > a.active, .header-bottom .header-menu-bottom-list .jspPane > .item > a.active-page,
             .header-bottom .header-menu-bottom-list > .item > a:hover,
             .header-bottom .header-menu-bottom-list > .item > a.active,
+            .header-bottom .header-menu-bottom-list > .item > a.active-page,
             .header-bottom .owl-stage-outer .jspPane > .item > a:hover,
             .header-bottom .owl-stage-outer .jspPane > .item > a.active,
+            .header-bottom .owl-stage-outer .jspPane > .item > a.active-page,
             .header-bottom .owl-stage-outer > .item > a:hover,
-            .header-bottom .owl-stage-outer > .item > a.active {
+            .header-bottom .owl-stage-outer > .item > a.active,
+            .header-bottom .owl-stage-outer > .item > a.active-page {
               border-color: #008ef1; }
         .header-bottom .header-menu-bottom-list a,
         .header-bottom .owl-stage-outer a {
           color: #2a2a2a;
           text-decoration: none; }
-          .header-bottom .header-menu-bottom-list a.active, .header-bottom .header-menu-bottom-list a:hover,
+          .header-bottom .header-menu-bottom-list a.active, .header-bottom .header-menu-bottom-list a:hover, .header-bottom .header-menu-bottom-list a.active-page,
           .header-bottom .owl-stage-outer a.active,
-          .header-bottom .owl-stage-outer a:hover {
+          .header-bottom .owl-stage-outer a:hover,
+          .header-bottom .owl-stage-outer a.active-page {
             color: #0053a0; }
         .header-bottom .header-menu-bottom-list .submenu .item,
         .header-bottom .owl-stage-outer .submenu .item {
@@ -6227,7 +6231,7 @@ iframe[name=advpp_manager] {
           color: #0094f2; } }
   @media only screen and (max-width: 767px) {
     .header-bottom {
-      overflow: hidden; }
+      height: 38px; }
       .header-bottom .header-menu-bottom-list {
         padding: 0;
         white-space: nowrap; }
@@ -6239,7 +6243,7 @@ iframe[name=advpp_manager] {
             color: #262626;
             line-height: 38px;
             position: relative; }
-            .header-bottom .header-menu-bottom-list .item a.active:after {
+            .header-bottom .header-menu-bottom-list .item a.active:after, .header-bottom .header-menu-bottom-list .item a.active-page:after {
               height: 2px;
               background: #0094f2;
               content: '';
@@ -6391,7 +6395,7 @@ iframe[name=advpp_manager] {
       transition: transform .3s ease, opacity .3s ease;
       overflow: hidden;
       opacity: 0; }
-      .login-registration-list .dropdown-widget.active {
+      .login-registration-list .dropdown-widget.active, .login-registration-list .dropdown-widget.active-page {
         transform: translateX(0);
         opacity: 1;
         z-index: 100; } }
@@ -6429,17 +6433,19 @@ iframe[name=advpp_manager] {
         -ms-flex-align: center;
             align-items: center;
         height: 39px; }
-        .login-registration-list a:hover, .login-registration-list a.active,
+        .login-registration-list a:hover, .login-registration-list a.active, .login-registration-list a.active-page,
         .login-registration-list .logout-link:hover,
-        .login-registration-list .logout-link.active {
+        .login-registration-list .logout-link.active,
+        .login-registration-list .logout-link.active-page {
           border-bottom-color: #008ef1; } }
     .login-registration-list a.dropdown-link,
     .login-registration-list .logout-link.dropdown-link {
       color: #4b4b4b;
       position: relative; }
       @media only screen and (max-width: 767px) {
-        .login-registration-list a.dropdown-link.active:after,
-        .login-registration-list .logout-link.dropdown-link.active:after {
+        .login-registration-list a.dropdown-link.active:after, .login-registration-list a.dropdown-link.active-page:after,
+        .login-registration-list .logout-link.dropdown-link.active:after,
+        .login-registration-list .logout-link.dropdown-link.active-page:after {
           display: block; } }
       @media only screen and (max-width: 767px) {
         .login-registration-list a.dropdown-link:after,
@@ -6455,9 +6461,10 @@ iframe[name=advpp_manager] {
           background: #fff;
           left: 50%;
           display: none; } }
-    .login-registration-list a.active, .login-registration-list a:hover,
+    .login-registration-list a.active, .login-registration-list a:hover, .login-registration-list a.active-page,
     .login-registration-list .logout-link.active,
-    .login-registration-list .logout-link:hover {
+    .login-registration-list .logout-link:hover,
+    .login-registration-list .logout-link.active-page {
       color: #0053a0; }
   .login-registration-list .logout-link {
     color: #0053a0; }
@@ -6634,7 +6641,7 @@ iframe[name=advpp_manager] {
     .auto-search-list span:hover {
       color: #0094f2; }
 
-.btn-mobile-menu-show.active {
+.btn-mobile-menu-show.active, .btn-mobile-menu-show.active-page {
   z-index: 10000; }
 
 .sidebar-right {

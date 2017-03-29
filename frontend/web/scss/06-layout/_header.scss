@@ -13,8 +13,9 @@
               a {
                 color: $blue-light;
                 
-                &:hover {
-                  color: $blue ;
+                &:hover,
+                &.active-page {
+                  color: $blue;
                 }
               }
             }
@@ -61,7 +62,6 @@
 
 //header-menu-top
 .header-menu-top-list {
-  //margin: 0 0 -1px;
 
   @include breakpoint('tablet') {
     li {
@@ -74,7 +74,8 @@
         a {
           color: #2a2a2a;
 
-          &:hover {
+          &:hover,
+          &.active-page {
             color: $blue;
           }
         }
@@ -136,7 +137,8 @@
         }
 
         &:hover,
-        &.active {
+        &.active,
+        &.active-page {
           border-color: #008ef1;
         }
       }
@@ -200,7 +202,8 @@
           border-bottom: 1px solid transparent;
 
           &:hover,
-          &.active { border-color: #008ef1; }
+          &.active,
+          &.active-page { border-color: #008ef1; }
         }
       }
 
@@ -209,7 +212,8 @@
         text-decoration: none;
 
         &.active,
-        &:hover { color: $blue; }
+        &:hover,
+        &.active-page { color: $blue; }
       }
 
       .submenu {
@@ -233,7 +237,8 @@
 
   //mobile
   @include breakpoint_custom($breakpoint-tablet) {
-    overflow: hidden;
+    //overflow: hidden;
+    height: 38px;
 
     .header-menu-bottom-list {
       padding: 0;
@@ -249,7 +254,8 @@
           line-height: 38px;
           position: relative;
 
-          &.active {
+          &.active,
+          &.active-page{
             &:after {
               height: 2px;
               background: $blue-light;
@@ -488,7 +494,8 @@
       overflow: hidden;
       opacity: 0;
 
-      &.active {
+      &.active,
+      &.active-page {
         transform: translateX(0);
         opacity: 1;
         z-index: 100;
@@ -541,7 +548,8 @@
       height: 39px;
 
       &:hover,
-      &.active {
+      &.active,
+      &.active-page {
         border-bottom-color: #008ef1;
       }
     }
@@ -551,7 +559,8 @@
       position: relative;
 
 
-      &.active {
+      &.active,
+      &.active-page {
         @include breakpoint_custom($breakpoint-tablet) {
           &:after {
             display: block;
@@ -577,7 +586,8 @@
     }
 
     &.active,
-    &:hover {
+    &:hover,
+    &.active-page {
       color: $blue;
     }
   }
@@ -861,7 +871,8 @@
 }
 
 .btn-mobile-menu-show {
-  &.active {
+  &.active,
+  &.active-page {
     z-index: 10000;
   }
 }
