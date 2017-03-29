@@ -9,12 +9,20 @@
 
         .submenu {
           .item {
+
+            &.active-page {
+              >a {
+                color: $blue;
+                cursor: pointer;
+                pointer-events: none;
+              }
+            }
+
             &.no-submenu {
               a {
-                color: $blue-light;
+                color: $blue-light !important;
                 
-                &:hover,
-                &.active-page {
+                &:hover {
                   color: $blue;
                 }
               }
@@ -64,6 +72,7 @@
 .header-menu-top-list {
 
   @include breakpoint('tablet') {
+
     li {
 
       .submenu  {
@@ -71,11 +80,20 @@
         left: 50%;
         margin-left: -133px;
 
+        li {
+          &.active-page {
+            >a {
+              color: $blue !important;
+              pointer-events: none;
+              cursor: default;
+            }
+          }
+        }
+
         a {
           color: #2a2a2a;
 
-          &:hover,
-          &.active-page {
+          &:hover {
             color: $blue;
           }
         }
@@ -112,6 +130,12 @@
     font-size: 10px;
     vertical-align: top;
 
+    &.active-page {
+      >a {
+        border-color: #008ef1;
+      }
+    }
+
     @include breakpoint('tablet') {
       margin: 0 23px 0 0;
     }
@@ -137,8 +161,7 @@
         }
 
         &:hover,
-        &.active,
-        &.active-page {
+        &.active {
           border-color: #008ef1;
         }
       }
@@ -168,8 +191,7 @@
       align-items: center;
     }
 
-    .header-menu-bottom-list,
-    .owl-stage-outer {
+    .header-menu-bottom-list {
       padding: 0 10px 1px;
 
       .item {
@@ -192,6 +214,12 @@
         display: inline-block;
         position: relative;
 
+        &.active-page {
+          >a {
+            border-color: #008ef1;
+          }
+        }
+
         >.submenu {
           margin-top: 27px;
         }
@@ -202,8 +230,7 @@
           border-bottom: 1px solid transparent;
 
           &:hover,
-          &.active,
-          &.active-page { border-color: #008ef1; }
+          &.active { border-color: #008ef1; }
         }
       }
 
@@ -212,8 +239,7 @@
         text-decoration: none;
 
         &.active,
-        &:hover,
-        &.active-page { color: $blue; }
+        &:hover { color: $blue; }
       }
 
       .submenu {
@@ -247,15 +273,8 @@
       .item {
         display: inline-block;
 
-        a {
-          display: block;
-          padding: 0 10px 0 !important;
-          color: #262626;
-          line-height: 38px;
-          position: relative;
-
-          &.active,
-          &.active-page{
+        &.active-page {
+          a {
             &:after {
               height: 2px;
               background: $blue-light;
@@ -266,6 +285,14 @@
               position: absolute;
             }
           }
+        }
+
+        a {
+          display: block;
+          padding: 0 10px 0 !important;
+          color: #262626;
+          line-height: 38px;
+          position: relative;
         }
       }
 
@@ -494,8 +521,7 @@
       overflow: hidden;
       opacity: 0;
 
-      &.active,
-      &.active-page {
+      &.active {
         transform: translateX(0);
         opacity: 1;
         z-index: 100;
@@ -535,6 +561,12 @@
         border-bottom: 1px solid transparent;
       }
     }
+
+    &.active-page {
+      a {
+        border-bottom-color: #008ef1;
+      }
+    }
   }
 
   a,
@@ -548,8 +580,7 @@
       height: 39px;
 
       &:hover,
-      &.active,
-      &.active-page {
+      &.active {
         border-bottom-color: #008ef1;
       }
     }
@@ -559,8 +590,7 @@
       position: relative;
 
 
-      &.active,
-      &.active-page {
+      &.active {
         @include breakpoint_custom($breakpoint-tablet) {
           &:after {
             display: block;
@@ -586,8 +616,7 @@
     }
 
     &.active,
-    &:hover,
-    &.active-page {
+    &:hover {
       color: $blue;
     }
   }
@@ -871,8 +900,7 @@
 }
 
 .btn-mobile-menu-show {
-  &.active,
-  &.active-page {
+  &.active {
     z-index: 10000;
   }
 }

@@ -1614,6 +1614,8 @@
       &.open {
         >a {
           color: $brown-dark !important;
+          cursor: default;
+          pointer-events: none;
         }
       }
     }
@@ -1921,6 +1923,14 @@
     &:nth-child(-n+5 ),
     &.opened{
       display: block;
+    }
+
+    &.open {
+      a {
+        color: $gray-dark;
+        pointer-events: none;
+        cursor: default;
+      }
     }
   }
 }

@@ -29,39 +29,36 @@
     // 1.1 HEADER MENU
 
     var activeMenu = {
-      getUrl: function(parent) {
-          var pathname = window.location.pathname,
-              pathnameArr =  pathname.split('/'),
-              pathnameArrFirst = pathnameArr[1],
-              $parent = $('.header'),
-              $resultLink = $parent.find('a[href$="'+pathname+'"]'),
-              checkResultLink = $resultLink.length > 0;
+      getUrl: function(parent,activeClass) {
+          if($(parent).length) {
+              var pathname = window.location.pathname,
+                  pathnameSearch =  window.location.search,
+                  pathnameArr =  pathname.split('/'),
+                  pathnameArrFirst = pathnameArr[1],
+                  $parent = $(parent),
+                  $resultLink = $parent.find('a[href$="'+pathname+'"]'),
+                  checkResultLink = $resultLink.length > 0;
 
-          if(pathnameArrFirst === 'spokespeople' || pathnameArrFirst === 'editors') {
-              pathnameArrFirst = 'authors';
+              if(pathnameArrFirst === 'spokespeople' || pathnameArrFirst === 'editors') {
+                  pathnameArrFirst = 'authors';
+              };
+
+              if(!checkResultLink) {
+                  pathname = '/' + pathnameArrFirst;
+              };
+
+              if(pathnameSearch !== '') {
+                  activeMenu.setActive(pathnameSearch,'.submenu', parent, activeClass);
+              };
+
+              if(pathname !== '') {
+                  activeMenu.setActive(pathname,'.submenu', parent, activeClass);
+              };
           }
-
-          if(!checkResultLink) {
-              pathname = '/' + pathnameArrFirst;
-          };
-
-          activeMenu.setActive(pathname,'.submenu', parent)
       },
-      setActive:function(pathname,submenu,parent) {
-          var $parent = $('.header');
-              $parent.find('a[href$="'+pathname+'"]').addClass('active-page');
-
-          if($(submenu).length) {
-              $(submenu).each(function() {
-                  var
-                      $cur = $(this),
-                      checkSubActivePage = $cur.find('.active-page').length > 0;
-
-                  if(checkSubActivePage) {
-                      $cur.parent().find('>a').addClass('active-page');
-                  };
-              });
-          };
+      setActive: function(pathname,submenu,parent,activeClass) {
+          var $parent = $(parent);
+              $parent.find('a[href$="'+pathname+'"]').parents('li, .item').addClass(activeClass);
       }
     };
 
@@ -1020,11 +1017,11 @@
         },
         closeSubscribe: function(btn,parent) {
             var $parent = $(parent);
-            
+
             if($parent.length) {
                 var cookieName = 'close_subscribse';
                 var _this = this;
-                
+
                 $(btn).click(function(e) {
 
                     $parent = $(this).parents(parent);
@@ -1036,15 +1033,15 @@
         },
         closeCookiesNotice: function(btn,parent) {
             var $parent = $(parent);
-            
+
             if($parent.length) {
                 var cookieName = 'cookies_notice';
                 var _this = this;
-                
+
                 $(btn).click(function(e) {
 
                     $parent = $(this).parents(parent);
-                    
+
                     e.preventDefault();
                     _this.addCloseCookie(cookieName,  $parent);
                 });
@@ -1359,7 +1356,9 @@
         hardCode.appendCode(hardCode.templates.about, '.header-menu-top-list li:nth-child(3)');
         hardCode.appendCode(hardCode.templates.commentary, '.header-menu-bottom-list >.item:nth-child(6)');
         hardCode.appendCode(hardCode.templates.key, '.header-menu-bottom-list >.item:nth-child(1)');
-        activeMenu.getUrl('.parent');
+        activeMenu.getUrl('.header', 'active-page');
+        activeMenu.getUrl('.articles-filter-list', 'open');
+        activeMenu.getUrl('.sidebar-news-list', 'open');
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
 
