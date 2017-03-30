@@ -211,7 +211,7 @@ $config = [
                     <p>&copy; <?=$article->availability?></p>
                 <?php endif; ?>
                 <div class="article-map-medium">
-                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                    <a href="<?= Url::to('/articles/'.$article['article']->seo.'/map') ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></p>
@@ -398,7 +398,7 @@ $config = [
             <?php endif; ?>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
-                <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                <a href="<?= Url::to('/articles/'.$article['article']->seo . '/map') ?>">
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
@@ -444,7 +444,7 @@ $config = [
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
-                        <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                        <?php $related = $article['article']->getRelatedArticles($attributes['related']->getData()); ?>
                         <?php $count_related = count($related) ?>
 
                         <?php if ($count_related > 0): ?>
