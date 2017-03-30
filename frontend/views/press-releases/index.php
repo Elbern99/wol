@@ -76,7 +76,7 @@ if ($category) {
                 <li>
                     <div class="post-item <?= $hasImageClass; ?>">
                         <?php if ($hasImageClass) : ?>
-                        <a href="/press-releases/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/news/'.$item->image_link; ?>)"></a>
+                        <a href="/press-releases/<?= $item->url_key; ?>" class="img" style="background-image: url(<?= '/uploads/press-releases/'.$item->image_link; ?>)"></a>
                         <?php endif; ?>
                         <div class="desc">
                             <div class="inner">

@@ -118,8 +118,7 @@ class CmsController extends Controller {
             }
 
             if ($page_info->load($post) && $page_info->validate()) {
-
-                if ($page_info->save()) {
+                if ($page_info->save(false)) {
                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Page save success'), false);
                     return $this->redirect(['/cms/static-pages-view', 'id' => $page_info->page_id]);
                 }

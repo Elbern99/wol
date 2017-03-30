@@ -37,8 +37,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
         <div class="content-inner-text">
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li><a href="" class="js-widget">subject areas</a></li>
-                    <li><a href="" class="js-widget">authors</a></li>
+                    <li><a href="" class="js-widget">Subject areas</a></li>
+                    <li><a href="" class="js-widget">Authors</a></li>
                 </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item blue js-tab-hidden expand-more tab-item-subject-areas">
@@ -135,7 +135,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php if ($author['author']->url): ?>
                         <div class="item">
                             <h2>Website</h2>
-                            <p><a href="<?= $author['author']->url ?>"><?= $author['author']->url ?></a></p>
+                            <p><a href="<?= $author['author']->url ?>" target="blank"><?= $author['author']->url ?></a></p>
                         </div>
                         <?php endif; ?>
                         <?php if(isset($author['position']->advisory) && $author['position']->advisory): ?>

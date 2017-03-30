@@ -26,6 +26,8 @@ class SiteController extends Controller {
 
     use traits\HomeTrait;
     use traits\SourcesTrait;
+    use traits\RedirectLoginUserTrait;
+    
     /**
      * @inheritdoc
      */
@@ -124,7 +126,7 @@ class SiteController extends Controller {
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/my-account');
+            return $this->redirect($this->getLoginRedirect());
         }
         
         if ($model->getErrors()) {
@@ -260,7 +262,7 @@ class SiteController extends Controller {
             
             Yii::$app->user->login($user);
             
-            return $this->redirect('/my-account');
+            return $this->redirect($this->getLoginRedirect());
         }
 
         return $this->goHome();
@@ -285,6 +287,26 @@ class SiteController extends Controller {
         }
              
         return $this->goHome();
+    }
+    
+    public function actionAddCloseCookie($name) {
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        try {
+            if ($name) {
+
+                Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                    'name' => $name,
+                    'expire' => time() + 86400 * 30,
+                    'value' => true
+                ]));
+                
+                return ['result' => true];
+            }
+        } catch (\yii\db\Exception $e) {
+        }
+        
+        return ['result' => false];
     }
 
 }

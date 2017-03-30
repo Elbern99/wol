@@ -116,18 +116,18 @@ class ArticleController extends Controller {
     }
 
     public function actionOnePager($slug) {
-
-        return $this->renderArticlePage('one-pager', $slug, true);
+        $model = $this->getArticleSlugModel($slug);
+        return $this->renderArticlePage('one-pager', $model, true);
     }
 
     public function actionFull($slug) {
-
-        return $this->renderArticlePage('full', $slug);
+        $model = $this->getArticleSlugModel($slug);
+        return $this->renderArticlePage('full', $model);
     }
-    
+       
     public function actionLang($slug, $code) {
-
-        return $this->renderArticlePage('one-pager', $slug, true, $code);
+        $model = $this->getArticleSlugModel($slug);
+        return $this->renderArticlePage('one-pager', $model, true, $code);
     }
 
     public function actionMap($slug) {
@@ -215,6 +215,7 @@ class ArticleController extends Controller {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
         if (Yii::$app->user->isGuest || !is_object(Yii::$app->user->identity)) {
+            Yii::$app->session->set('article_redirect', $id);
             return ['message' => 'Please <a href="" class="fav-login">login</a> or <a href="/register" class="fav-register">register</a> to save article'];
         }
         

@@ -83,6 +83,25 @@ trait ArticleTrait {
         return $query->limit($limit)->all();
     }
     
+    protected function getLastArticlesList($limit) {
+
+        return  Article::find()
+                        ->alias('a')
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->where(['a.enabled' => 1])
+                        ->with(['articleCategories' => function($query) {
+                                return $query->alias('ac')
+                                     ->select(['category_id', 'article_id'])
+                                     ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
+                        }])
+                        ->with(['articleAuthors.author' => function($query) {
+                             return $query->select(['id','url_key', 'name'])->asArray();
+                        }])
+                        ->orderBy(['a.updated_at' => SORT_DESC])
+                        ->limit($limit)
+                        ->all();
+    }
+    
     protected function getArticleCount() {
         return Article::find()->where(['enabled' => 1])->count();
     }
@@ -111,11 +130,9 @@ trait ArticleTrait {
                         ->all();
     }
     
-    protected function renderArticlePage($template, $slug, $multiLang = false, $langCode = null) {
-
-        try {
-            
-            $model = Article::find()
+    protected function getArticleSlugModel($slug) {
+        
+        return  $model = Article::find()
                     ->with([
                         'articleAuthors.author' => function($query) {
                             return $query->select(['id', 'avatar', 'url_key'])->where(['enabled' => 1])->asArray();
@@ -126,6 +143,11 @@ trait ArticleTrait {
                     ])
                     ->where(['seo' => $slug, 'enabled' => 1])
                     ->one();
+    }
+
+    protected function renderArticlePage($template, $model, $multiLang = false, $langCode = null) {
+
+        try {
 
             if (!is_object($model)) {
                 throw new NotFoundHttpException('Page Not Found.');
@@ -133,7 +155,7 @@ trait ArticleTrait {
             
             $records = $model->getRelatedRecords();
             $articleCollection = Yii::createObject(Collection::class);
-            $articleCollection->initCollection(Article::tableName(), $model, $multiLang);
+            $articleCollection->initCollection($model::ENTITY_NAME, $model, $multiLang);
 
             $values = $articleCollection->getEntity()->getValues();
             

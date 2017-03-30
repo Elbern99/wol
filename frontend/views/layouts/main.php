@@ -39,23 +39,13 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="canonical" href="<?= Url::to('',true) ?>"/>
     <script type="text/javascript" async defer src="https://apis.google.com/js/platform.js?publisherid=116017394173863766515"></script>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
-<!--<div class="cookie-notice">-->
-<!--    <div class="icon-close"></div>-->
-<!--    <div class="container">-->
-<!--        <span class="icon-arrow-square-blue">-->
-<!--            <span class="path1"></span><span class="path2"></span><span class="path3"></span>-->
-<!--        </span>-->
-<!--        We use cookies on this website, including web analysis cookies. By using this site, you agree that we may store and access cookies on your device.-->
-<!--        You have the right to opt out of web analysis at any time. Find out more about our <a href="/privacy-and-cookie-policy#thirteenth">cookie policy</a> and how to opt out of web analysis.-->
-<!--    </div>-->
-<!--</div>-->
+<?= $this->renderFile('@app/views/components/cookie-notice.php'); ?>
 
 <div class="holder">
 

@@ -432,7 +432,7 @@
         }
 
         a {
-          color: $light-blue;
+          color: $blue-light;
 
           &:hover {
             color: $blue;
@@ -470,7 +470,7 @@
 
       &.active {
         a {
-          border-bottom-color: $light-blue;
+          border-bottom-color: $blue-light;
         }
       }
     }
@@ -981,7 +981,7 @@
   }
 
   a {
-    color: $light-blue;
+    color: $blue-light;
 
     &:hover {
       color: $blue;
@@ -1079,7 +1079,7 @@
   }
 
   a {
-    color: $light-blue;
+    color: $blue-light;
     transition: color 0.3s ease;
     text-decoration: none;
     text-transform: uppercase;
@@ -1266,7 +1266,7 @@
     }
 
     a {
-      color: $light-blue;
+      color: $blue-light;
 
       &:hover {
         color: $blue;
@@ -1402,7 +1402,7 @@
 
     &.active {
       a {
-        border-bottom-color: $light-blue;
+        border-bottom-color: $blue-light;
         color: #323232 !important;
         cursor: default;
       }
@@ -1613,7 +1613,7 @@
     li {
       &.open {
         >a {
-          color: $dark-brown !important;
+          color: $brown-dark !important;
         }
       }
     }
@@ -1628,7 +1628,7 @@
         color: $blue;
 
         &:hover {
-          color: $light-blue;
+          color: $blue-light;
         }
       }
     }
@@ -1756,7 +1756,7 @@
 //ABS-LIST
 .abs-list {
   overflow: hidden;
-  margin: 0 -5px -5px;
+  margin: 0 -5px -4px;
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
@@ -1770,16 +1770,16 @@
 
     &.active {
       a {
-        color: $light-blue;
-        border-color: $light-blue;
+        color: $blue-light;
+        border-color: $blue-light;
       }
     }
 
     @include breakpoint('tablet') {
       &:hover {
         a {
-          color: $light-blue;
-          border-color: $light-blue;
+          color: $blue-light;
+          border-color: $blue-light;
         }
       }
     }
@@ -1861,7 +1861,7 @@
 
     &.opened-reflink {
       a {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
 
@@ -1869,7 +1869,7 @@
       position: absolute;
       top: 1px;
       right: 1px;
-      color: $light-blue;
+      color: $blue-light;
       cursor: pointer;
       font-size: 14px;
 

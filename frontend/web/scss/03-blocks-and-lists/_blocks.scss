@@ -59,7 +59,7 @@
     color: #4e6071;
 
     &:hover {
-      color: $light-blue;
+      color: $blue-light;
     }
   }
 
@@ -378,7 +378,7 @@
 //ARTICLE-MORE
 .article-more {
   font-size: 13px;
-  color: $light-blue;
+  color: $blue-light;
 
   @include breakpoint('tablet') {
     font-size: 10px;
@@ -496,7 +496,7 @@
       padding: 5px 0 0;
 
       &:hover {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
 
@@ -568,7 +568,7 @@
       color: #323232;
       
       &:hover {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
 
@@ -620,7 +620,7 @@
   text-transform: none;
   display: inline-block;
   line-height: 1em;
-  color: $light-blue;
+  color: $blue-light;
   font-family: $lucida-grande;
   display: inline-block;
   margin: 9px 0;
@@ -738,8 +738,8 @@
 
     [class^="btn-"],
     [class*=" btn-"] {
-      background: $light-blue;
-      border-color: $light-blue;
+      background: $blue-light;
+      border-color: $blue-light;
     }
 
     .add-fav-alert,
@@ -1161,7 +1161,7 @@
     }
 
     a:hover {
-      color: $light-blue;
+      color: $blue-light;
     }
 
     .icon-play {
@@ -1402,7 +1402,7 @@
     }
 
     a {
-      color: $light-blue;
+      color: $blue-light;
 
       &:hover {
         color: $blue;
@@ -1594,7 +1594,7 @@
       font-size: 12px;
 
       a {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
   }
@@ -1854,11 +1854,11 @@
 
     &:hover {
       .caption {
-        background: $light-blue ;
+        background: $blue-light ;
       }
 
       .icon-arrow {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
   }
@@ -2029,7 +2029,7 @@
 
   .caption {
     position: absolute;
-    background: $basalt-gray;
+    background: $gray-basalt;
     top: 0;
     bottom: -1px;
     left: 30%;
@@ -2171,7 +2171,6 @@
   padding: 7px 0;
   z-index: 100;
   font-size: 12px;
-  display: none;
 
   @include breakpoint('tablet') {
     padding: 26px 0;
@@ -2180,8 +2179,6 @@
   h4 {
     margin-bottom: 0;
     font-size: 11px;
-
-
 
     @include breakpoint('tablet') {
       font-size: 17px;
@@ -2245,7 +2242,7 @@
   }
 
   .link {
-    color: $light-blue;
+    color: $blue-light;
 
     @include breakpoint_custom($breakpoint-mobile-large) {
       display: none ;
@@ -2289,7 +2286,6 @@
   position: relative;
   border-bottom: 1px solid #535353;
   padding: 4px 0;
-  display: none;
 
   @include breakpoint_custom($breakpoint-tablet) {
     font-size: 11px;

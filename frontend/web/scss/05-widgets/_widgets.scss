@@ -87,7 +87,7 @@
 
       &:before {
         transform: rotate(90deg);
-        color: $light-blue;
+        color: $blue-light;
 
         @include breakpoint('tablet') {
           top: 50%;
@@ -108,7 +108,7 @@
 
       &:hover {
         h3 {
-          color: $light-blue;
+          color: $blue-light;
         }
       }
     }
@@ -330,8 +330,8 @@
             width: 10px;
             height: 10px;
             display: block;
-            border-top: 1px solid $light-blue;
-            border-right: 1px solid $light-blue;
+            border-top: 1px solid $blue-light;
+            border-right: 1px solid $blue-light;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -445,7 +445,7 @@
 
     &:focus,
     &:hover {
-      color: $light-blue;
+      color: $blue-light;
     }
   }
 }
@@ -460,7 +460,7 @@
     box-shadow: 0 0 1px 0 $blue inset;
 
     &:hover {
-      border-color: $light-blue;
+      border-color: $blue-light;
     }
   }
 }

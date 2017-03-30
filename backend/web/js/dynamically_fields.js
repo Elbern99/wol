@@ -5,71 +5,62 @@ var dynamicallyFields = {
 };
 
 
-(function ($) {
-
+(function($){
+    
     var $obj = dynamicallyFields;
     
-    $obj.init = function (config) {
+    $obj.init = function(config) {
         this._config = config;
         this._wrapper = $(this._config.wrapper);
+
         this.start();
     };
-
-
-
-    $obj.start = function () {
+    
+    $obj.start = function() {
         this.generateData();
         this.addButton();
         this.removeInput();
     };
-
-
-
-    $obj.generateData = function () {
+    
+    $obj.generateData = function() {
 
         if ((typeof this._config.data == "object") && Object.keys(this._config.data).length) {
 
-            for (var item in this._config.data) {
-
+            for(var item in this._config.data) {
                 this.generateInputGroup(this.x, this._config.data[item]);
                 this.x++;
             }
-
+            
         } else {
             this.generateInputGroup(this.x);
             this.x++;
         }
 
     };
-
-
-
-    $obj.generateInputGroup = function (index, values = {}) {
-
+ 
+    $obj.generateInputGroup = function(index, values = {}) {
         var input = '';
-
+        
         for (var i in this._config.fields) {
-
             var field = this._config.fields[i];
             var val = '';
-
+            
             if (field.name in values) {
                 val = values[field.name];
             }
-
-            input += '<label>' + field.label + '</label>' +
-                    '<input type="' + field.type +
-                    '" name="' + this._config.model_field_name + '[' + index + ']' + '[' + field.name + ']"';
             
+            input += '<label>'+field.label+'</label>'+ 
+                    '<input type="'+ field.type + 
+                    '" name="' + this._config.model_field_name+'['+index+']'+'['+field.name+']"';
+                    
             if (val) {
-                input += ' value="' + val + '"';
+                input += ' value="'+val+'"';
             }
             
             input += '>';
         }
 
         this.addInput(this.addWrapperInput(input));
-
     };
 
 
@@ -98,22 +89,17 @@ var dynamicallyFields = {
             e.preventDefault();
             
             if ($obj.x < $obj._max_fields) { //max input box allowed
+
                 $obj.generateInputGroup($obj.x);
                 $obj.x++;
             }
         });
-
     };
-
-
-
-    $obj.removeInput = function () {
-
-        this._wrapper.on("click", ".remove_field", function (e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('div').remove();
-            $obj.x--;
+    
+    $obj.removeInput = function() {
+        this._wrapper.on("click", ".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); $obj.x--;
         });
     };
-
+    
 })(jQuery);

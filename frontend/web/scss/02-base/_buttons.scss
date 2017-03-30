@@ -183,7 +183,7 @@
 [class*=" btn-border-light-blue-"],
 .btn-primary {
 
-  background: $light-blue;
+  background: $blue-light;
   color: $white !important;
   height: 32px;
   line-height: 32px;
@@ -191,8 +191,8 @@
 
   &:hover {
     @include breakpoint('tablet') {
-      border-color: $light-blue;
-      color: $light-blue !important;
+      border-color: $blue-light;
+      color: $blue-light !important;
       background: $white;
     }
   }
@@ -211,7 +211,7 @@
     text-transform: capitalize;
     
     &:hover {
-      color:$light-blue;
+      color:$blue-light;
     }
   }
 
@@ -338,9 +338,9 @@
   background: #0094f2;
   
   &:hover {
-    color: $light-blue;
+    color: $blue-light;
     background: $white;
-    border-color: $light-blue;
+    border-color: $blue-light;
   }
 }
 
@@ -366,19 +366,19 @@
 
 //transparent
 .btn-transparent {
-  color: $light-blue;
+  color: $blue-light;
 
   &:hover {
     @include breakpoint('tablet') {
       background: $white;
-      border-color: $light-blue;
+      border-color: $blue-light;
     }
   }
 }
 
 .btn-mobile-icon {
   font-size: 18px;
-  color: $black-brown;
+  color: $brown-black;
   padding: 5px;
   width:  40px;
   height: 40px;

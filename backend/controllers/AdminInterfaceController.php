@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use backend\models\AdminInterfaceUpload;
+use backend\models\AdminInterfaceVersions;
 use backend\modules\parser\ParserFacade;
 
 /*
@@ -23,7 +24,7 @@ class AdminInterfaceController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'upload'],
+                        'actions' => ['index', 'upload', 'versions'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -67,5 +68,34 @@ class AdminInterfaceController extends Controller {
         }
         
         return $this->render('upload', ['model' => $model]);
+    }
+    
+    public function actionVersions() {
+        
+        $model = new AdminInterfaceVersions();
+
+        if (Yii::$app->request->isPost) {
+
+            $model->load(Yii::$app->request->post());
+            $model->initUploadProperty();
+
+            if ($model->upload(true)) {
+                
+                try {
+                    $facade = new ParserFacade($model);
+                    $facade->run();
+                    
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Upload was success'), false);
+                    
+                } catch(\Exception $e) {
+                    Yii::$app->getSession()->setFlash('error', $e->getMessage(), false);
+                }
+            
+            } else {
+                Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Upload was not success'), false);
+            }
+        }
+        
+        return $this->render('versions', ['model' => $model]);
     }
 }

@@ -28,6 +28,11 @@ $this->registerMetaTag([
         )
     )
 ]);
+                
+$this->registerLinkTag([
+    'rel' => 'canonical',
+    'href' => Url::to('/articles/'.$article->seo . '/long')
+]);
 
 $this->registerMetaTag([
     'name' => 'description',
@@ -643,36 +648,7 @@ $config = [
                 </a>
             </div>
 
-            <div class="sidebar-widget sidebar-widget-version">
-                <div class="sidebar-widget-version-item">
-                    <div class="widget-title">Versions</div>
-                    <!--<div class="number">
-                        <div class="icon-question tooltip">
-                            <div class="tooltip-content">
-                                This is a revision
-                            </div>
-                        </div>
-                        <a href="">current version: <strong>2</strong></a>
-                    </div>-->
-                    <div class="date">
-                        <div class="title">date</div>
-                        <?= date('F Y', $article->created_at) ?>
-                    </div>
-                    <div class="doi">
-                        <div class="title">DOI</div>
-                        <a href="http://dx.doi.org/<?= $article->doi ?>" target="_blank"><?= $article->doi ?></a>
-                    </div>
-                    <div class="authors">
-                        <div class="title">authors</div>
-                        <?php if(count($authorsList)): ?>
-                            <?php foreach($authorsList as $authorAttribute): ?>
-                                <?= Html::a($authorAttribute['name'], $authorAttribute['url']) ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                    <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
-                </div>
-            </div>
+            <?= $this->renderFile(__DIR__.'/sidebar/versions.php', ['article' => $article, 'authorsList'=>$authorsList]); ?>
         </aside>
     </div>
 </div>

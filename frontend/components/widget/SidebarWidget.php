@@ -15,7 +15,7 @@ class SidebarWidget implements SidebarWidgetInterface {
         if (isset(Yii::$app->params['page_widget'][$page])) {
             
             $keys = Yii::$app->params['page_widget'][$page];
-            $widgets = Widget::find()->where(['name' => $keys])->asArray()->orderBy(['name' => SORT_DESC])->asArray()->all();
+            $widgets = Widget::find()->where(['name' => $keys])->orderBy(['name' => SORT_DESC])->asArray()->all();
             $this->widgets = ArrayHelper::map($widgets, 'name', 'text');
         }
     }

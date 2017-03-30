@@ -126,7 +126,7 @@
         color: $blue;
         
         &:hover {
-          color: $light-blue;
+          color: $blue-light;
         }
       }
     }
@@ -165,7 +165,7 @@
     a {
       float: right;
       display: inline-block;
-      color: $light-blue;
+      color: $blue-light;
       margin-left: 12px;
       border-bottom: 2px solid transparent;
       margin-bottom: -1px;
@@ -219,7 +219,7 @@
     
     @include breakpoint_custom($breakpoint-tablet) {
       a {
-        color: $light-blue;
+        color: $blue-light;
       }
     }
 

@@ -119,7 +119,7 @@ trait HomeTrait {
             return ['title'=>$data['title'], 'url_key'=>$data['url_key']];
         });
 
-        $articles = $this->getArticlesList($limit, SORT_DESC);
+        $articles = $this->getLastArticlesList($limit);
         
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
         

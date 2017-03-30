@@ -46,7 +46,7 @@
   .edit,
   .account-delete {
     text-transform: uppercase;
-    color: $light-blue;
+    color: $blue-light;
     font-size: 11px;
     display: block;
 
@@ -170,7 +170,7 @@
       &:hover {
 
         .img {
-          background: $light-blue !important;
+          background: $blue-light !important;
         }
 
         .icon-photo {

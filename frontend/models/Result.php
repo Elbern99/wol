@@ -81,7 +81,7 @@ class Result {
         self::$topicsFilter = Topic::find()
                                     ->select(['id', 'title'])
                                     ->where(['id' => $ids])
-                                    ->orderBy(['created_at' => SORT_DESC])
+                                    ->orderBy('title')
                                     ->asArray()
                                     ->all();
         
@@ -217,6 +217,7 @@ class Result {
         self::$biographyFilter = Author::find()
                                         ->select(['id', 'name'])
                                         ->where(['enabled' => 1, 'id' => $ids])
+                                        ->orderBy('surname')
                                         ->asArray()
                                         ->all();
 
@@ -385,7 +386,6 @@ class Result {
         $format = [];
         
         if (count($data) && $data) {
-            
             foreach ($data as $d) {
                 $format[$d['type']][] = $d['id'];
             }

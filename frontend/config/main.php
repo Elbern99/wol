@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module'],
+    'bootstrap' => ['log', 'eav_module', 'menu_module', 'settings_module', 'newsletter_module', 'blocks_module'],
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'treemanager' => [
@@ -29,6 +29,12 @@ return [
             'components' => [
                 'newsletter_model' => '\common\models\Newsletter',
                 'newsletter_facade' => '\common\modules\newsletter\Newsletter'
+            ]
+        ],
+        'blocks_module' => [
+            'class' => '\common\modules\blocks\Module',
+            'components' => [
+                'repository_model' => '\frontend\models\BlocksRepository',
             ]
         ]
     ],
@@ -66,6 +72,8 @@ return [
                 'home' => 'site/index',
                 'page/<id:[0-9]+>' => 'page/index',
                 'articles/' => 'article/index',
+                'articles/<slug:[0-9a-zA-Z-]+\-[1-9].?$>' => 'version/one-pager',
+                'articles/<slug:[0-9a-zA-Z-]+\-[1-9].?>/long' => 'version/full',
                 'articles/<slug:[0-9a-zA-Z-]+>' => 'article/one-pager',
                 'articles/<slug:[0-9a-zA-Z-]+>/long' => 'article/full',
                 'articles/<slug:[0-9a-zA-Z-]+>/map' => 'article/map',

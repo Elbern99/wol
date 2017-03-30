@@ -1687,13 +1687,14 @@ ol {
 
 ol li {
   counter-increment: step-counter;
-  margin: 0 0 4px; }
+  margin: 0 0 3px 21px; }
   ol li:before {
     content: counter(step-counter) ".";
     background: none;
     vertical-align: top;
     height: auto;
-    width: auto; }
+    width: auto;
+    margin: 0 8px 0 -21px; }
 
 table {
   margin: 0 0 10px;
@@ -1844,6 +1845,14 @@ blockquote {
 p:empty,
 h2:empty {
   display: none !important; }
+
+.gray-basalt-light,
+.active-no-result {
+  color: #bcbcbc !important; }
+
+.active-no-result * {
+  color: #bcbcbc !important;
+  pointer-events: none; }
 
 /******* // BASE *******/
 /******* BLOCKS *******/
@@ -3300,8 +3309,7 @@ h2:empty {
   border-top: 1px solid #535353;
   padding: 7px 0;
   z-index: 100;
-  font-size: 12px;
-  display: none; }
+  font-size: 12px; }
   @media only screen and (min-width: 767px) {
     .sticky-newsletter {
       padding: 26px 0; } }
@@ -3385,8 +3393,7 @@ h2:empty {
 .cookie-notice {
   position: relative;
   border-bottom: 1px solid #535353;
-  padding: 4px 0;
-  display: none; }
+  padding: 4px 0; }
   @media only screen and (max-width: 767px) {
     .cookie-notice {
       font-size: 11px; } }
@@ -4552,7 +4559,7 @@ h2:empty {
 
 .abs-list {
   overflow: hidden;
-  margin: 0 -5px -5px;
+  margin: 0 -5px -4px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
