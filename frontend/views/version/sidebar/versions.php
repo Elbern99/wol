@@ -13,12 +13,12 @@ use yii\helpers\Url;
                 $stack->unserialize($article->notices);
                 $cnt = $stack->count();
                 ?>
-                <div class="icon-question tooltip">
-                    <?php while($cnt > 0): ?>
+                <div class="icon-exclamatory-circle tooltip">
                     <div class="tooltip-content">
-                        <?php echo $stack->pop(); $cnt--; ?>
+                        <?php while($cnt > 0): ?>
+                            <?php echo $stack->pop(); $cnt--; ?>
+                        <?php endwhile; ?>
                     </div>
-                    <?php endwhile; ?>
                 </div>
             <?php endif; ?>
             Previous version: <strong><?= $article->version_number ?></strong>

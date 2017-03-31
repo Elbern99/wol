@@ -15,11 +15,11 @@ $versions = $article->getArticleVersions();
                 $cnt = $stack->count();
                 ?>
                 <div class="icon-exclamatory-circle tooltip">
-                    <?php while($cnt > 0): ?>
                     <div class="tooltip-content">
-                        <?php echo $stack->pop(); $cnt--; ?>
+                        <?php while($cnt > 0): ?>
+                            <?php echo $stack->pop(); $cnt--; ?>
+                        <?php endwhile; ?>
                     </div>
-                    <?php endwhile; ?>
                 </div>
             <?php endif; ?>
             current version: <strong><?= count($versions) + 1 ?></strong>
