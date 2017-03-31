@@ -34,8 +34,6 @@ class NewsletterArchiveWidget extends Widget {
 
                     if (count($years)) {
                         $html .= Html::endTag('ul');
-                    } else {
-                        $class = ' open';
                     }
                     
                     $years[] = $year;
