@@ -51,17 +51,16 @@ use yii\helpers\Url;
                 $stack->unserialize($article['article']->notices);
                 $cnt = $stack->count();
                 ?>
-                <div class="icon-question tooltip">
-                    <?php while($cnt > 0): ?>
-                        <div class="tooltip-content">
+                <div class="icon-exclamatory-circle tooltip">
+                    <div class="tooltip-content">
+                        <?php while($cnt > 0): ?>
                             <?php echo $stack->pop(); $cnt--; ?>
-                        </div>
-                    <?php endwhile; ?>
+                        <?php endwhile; ?>
+                    </div>
                 </div>
             <?php endif; ?>
             <a href="<?= Url::to('/articles/'.$article['article']->seo) ?>">Current version</a>
         </div>
-
         <?php $versions = $article->getRelatedVersions(); ?>
         <?php if (count($versions)): ?>
             <?php foreach($versions as $version): ?>
@@ -72,12 +71,12 @@ use yii\helpers\Url;
                         $stack->unserialize($version['notices']);
                         $cnt = $stack->count();
                         ?>
-                        <div class="icon-question tooltip">
-                            <?php while($cnt > 0): ?>
-                                <div class="tooltip-content">
+                        <div class="icon-exclamatory-circle tooltip">
+                            <div class="tooltip-content">
+                                <?php while($cnt > 0): ?>
                                     <?php echo $stack->pop(); $cnt--; ?>
-                                </div>
-                            <?php endwhile; ?>
+                                <?php endwhile; ?>
+                            </div>
                         </div>
                     <?php endif; ?>
                     <a href="<?= Url::to('/articles/'.$version['seo']) ?>">version: <strong><?= $version['version_number'] ?></strong></a>

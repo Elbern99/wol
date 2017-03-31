@@ -56,11 +56,11 @@ $versions = $article->getArticleVersions();
                         $cnt = $stack->count();
                         ?>
                         <div class="icon-exclamatory-circle tooltip">
-                            <?php while($cnt > 0): ?>
-                                <div class="tooltip-content">
+                            <div class="tooltip-content">
+                                <?php while($cnt > 0): ?>
                                     <?php echo $stack->pop(); $cnt--; ?>
-                                </div>
-                            <?php endwhile; ?>
+                                <?php endwhile; ?>
+                            </div>
                         </div>
                     <?php endif; ?>
                     <a href="<?= Url::to('/articles/'.$version['seo']) ?>">version: <strong><?= $version['version_number'] ?></strong></a>
