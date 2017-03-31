@@ -14,7 +14,7 @@ $versions = $article->getArticleVersions();
                 $stack->unserialize($article->notices);
                 $cnt = $stack->count();
                 ?>
-                <div class="icon-question tooltip">
+                <div class="icon-exclamatory-circle tooltip">
                     <?php while($cnt > 0): ?>
                     <div class="tooltip-content">
                         <?php echo $stack->pop(); $cnt--; ?>
@@ -33,8 +33,6 @@ $versions = $article->getArticleVersions();
             <a href="http://dx.doi.org/<?= $article->doi ?>" target="_blank"><?= $article->doi ?></a>
         </div>
         
-        <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
-        
         <div class="authors">
             <div class="title">author(s)</div>
             <?php if(count($authorsList)): ?>
@@ -43,30 +41,31 @@ $versions = $article->getArticleVersions();
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-        
-        <?php if (count($versions)): ?>
-        <div class="previous-versions">
-            <div class="title">Previous version(s)</div>
+
+        <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
+    </div>
+    <?php if (count($versions)): ?>
+        <div class="sidebar-widget-version-item">
+            <div class="number">Previous version(s)</div>
             <?php foreach($versions as $version): ?>
-                 <div class="number">
+                <div class="number">
                     <?php if (isset($version['notices'])): ?>
-                        <?php 
+                        <?php
                         $stack = new SplStack();
                         $stack->unserialize($version['notices']);
                         $cnt = $stack->count();
                         ?>
-                        <div class="icon-question tooltip">
+                        <div class="icon-exclamatory-circle tooltip">
                             <?php while($cnt > 0): ?>
-                            <div class="tooltip-content">
-                                <?php echo $stack->pop(); $cnt--; ?>
-                            </div>
+                                <div class="tooltip-content">
+                                    <?php echo $stack->pop(); $cnt--; ?>
+                                </div>
                             <?php endwhile; ?>
                         </div>
                     <?php endif; ?>
-                     <a href="<?= Url::to('/articles/'.$version['seo']) ?>">version: <strong><?= $version['version_number'] ?></strong></a>
+                    <a href="<?= Url::to('/articles/'.$version['seo']) ?>">version: <strong><?= $version['version_number'] ?></strong></a>
                 </div>
             <?php endforeach; ?>
         </div>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
 </div>
