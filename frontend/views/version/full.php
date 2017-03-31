@@ -59,7 +59,8 @@ foreach ($authors as $author) {
 $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl'=>Url::to('articles/'.$article->seo)
+    'articleUrl'=>Url::to('articles/'.$article->seo),
+    'articleDoi' => $article->doi
 ));
 
 $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
