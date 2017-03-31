@@ -9,12 +9,21 @@
 
         .submenu {
           .item {
+
+            &.active-page {
+              >a {
+                color: $blue;
+                cursor: pointer;
+                pointer-events: none;
+              }
+            }
+
             &.no-submenu {
               a {
-                color: $blue-light;
+                color: $blue-light !important;
                 
                 &:hover {
-                  color: $blue ;
+                  color: $blue;
                 }
               }
             }
@@ -61,15 +70,25 @@
 
 //header-menu-top
 .header-menu-top-list {
-  //margin: 0 0 -1px;
 
   @include breakpoint('tablet') {
+
     li {
 
       .submenu  {
         margin-top: -5px;
         left: 50%;
         margin-left: -133px;
+
+        li {
+          &.active-page {
+            >a {
+              color: $blue !important;
+              pointer-events: none;
+              cursor: default;
+            }
+          }
+        }
 
         a {
           color: #2a2a2a;
@@ -110,6 +129,12 @@
     text-transform: uppercase;
     font-size: 10px;
     vertical-align: top;
+
+    &.active-page {
+      >a {
+        border-color: #008ef1;
+      }
+    }
 
     @include breakpoint('tablet') {
       margin: 0 23px 0 0;
@@ -166,8 +191,7 @@
       align-items: center;
     }
 
-    .header-menu-bottom-list,
-    .owl-stage-outer {
+    .header-menu-bottom-list {
       padding: 0 10px 1px;
 
       .item {
@@ -189,6 +213,12 @@
       >.item {
         display: inline-block;
         position: relative;
+
+        &.active-page {
+          >a {
+            border-color: #008ef1;
+          }
+        }
 
         >.submenu {
           margin-top: 27px;
@@ -233,7 +263,8 @@
 
   //mobile
   @include breakpoint_custom($breakpoint-tablet) {
-    overflow: hidden;
+    //overflow: hidden;
+    height: 38px;
 
     .header-menu-bottom-list {
       padding: 0;
@@ -242,14 +273,8 @@
       .item {
         display: inline-block;
 
-        a {
-          display: block;
-          padding: 0 10px 0 !important;
-          color: #262626;
-          line-height: 38px;
-          position: relative;
-
-          &.active {
+        &.active-page {
+          a {
             &:after {
               height: 2px;
               background: $blue-light;
@@ -260,6 +285,14 @@
               position: absolute;
             }
           }
+        }
+
+        a {
+          display: block;
+          padding: 0 10px 0 !important;
+          color: #262626;
+          line-height: 38px;
+          position: relative;
         }
       }
 
@@ -526,6 +559,12 @@
         border: 0;
         padding: 0;
         border-bottom: 1px solid transparent;
+      }
+    }
+
+    &.active-page {
+      a {
+        border-bottom-color: #008ef1;
       }
     }
   }

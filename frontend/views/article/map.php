@@ -106,13 +106,21 @@ $this->registerCssFile('/css/leaflet.css');
             
         }
 
-    }
-    
+    };
+
+    $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
+        'authorsList' => $authors,
+        'articleTitle' => $attributes['title']->getData('title'),
+        'articleUrl' => Url::to('/articles/'.$article->seo, true),
+        'articleDoi' => $article->doi
+    ));
+
     $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json',
-        'source' => json_encode($source)
+        'source' => json_encode($source),
+        'share_text_for_email' => $mailArticleShare
     ];
     
     $this->registerJs("var mapConfig = ".json_encode($config), 3);

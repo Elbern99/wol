@@ -120,13 +120,17 @@
             }
         }
 
-        var emailTextArticle = mapConfig.share_text_for_email;
+        var textLong = getSelectedText();
 
-        if ($('.article-full').length) {
-            emailTextArticle = mapConfig.share_text_for_email;
+        if($('.article-full').length>0 || $('.article-map').length>0){
+            var emailTextArticle = mapConfig.share_text_for_email;
+
+            if(text !== undefined) {
+                emailTextArticle = emailTextArticle.replace(/textReplace/, textLong.text);
+            }
         } else {
-            emailTextArticle = 'mailto:?subject=Article from IZA World of Labor%0D%0A&body='+PAGE_URL+' + '+text+'';
-        }
+            emailTextArticle = 'mailto:?subject=Article from IZA World of Labor%0D%0A&body='+PAGE_URL+' + '+textLong.text+'';
+        };
 
         var urls = {
             twitter: twitterUrl,
