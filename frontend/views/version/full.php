@@ -96,7 +96,7 @@ $config = [
         <ul class="article-buttons-list">
             <li>
                 <?php if (isset($attributes['full_pdf'])): ?>
-                    <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                         <span class="icon-download"></span>
                     </a>
                 <?php endif; ?>
@@ -110,7 +110,7 @@ $config = [
         <ul class="article-buttons-list">
             <li class="add-fav-holder">
                 <div class="add-fav-alert"></div>
-                <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
                 </a>
             </li>
@@ -257,7 +257,7 @@ $config = [
                             </li>
                             <li>
                                 <?php if (isset($attributes['full_pdf'])): ?>
-                                    <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                         <div class="inner">
                                             <span class="icon-download"></span>
                                             <span class="text">download pdf</span>
@@ -278,7 +278,7 @@ $config = [
                         <ul class="article-buttons-list">
                             <li class="add-fav-holder">
                                 <div class="add-fav-alert"></div>
-                                <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                                <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                                     <span class="icon-heart"></span>
                                 </a>
                             </li>
@@ -300,7 +300,7 @@ $config = [
                 <ul class="article-buttons-list">
                     <li>
                         <?php if (isset($attributes['full_pdf'])): ?>
-                            <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                            <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                 <div class="inner">
                                     <span class="icon-download"></span>
                                     <span class="text">download pdf</span>
@@ -318,7 +318,7 @@ $config = [
                     </li>
                     <li class="add-fav-holder">
                         <div class="add-fav-alert"></div>
-                        <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                        <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                             <span class="icon-heart"></span>
                         </a>
                     </li>
@@ -723,7 +723,7 @@ $cite = [
     'title' => EavAttributeHelper::getAttribute('title')->getData('title'),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
-    'id' => $article->id,
+    'id' => $article['article']->id,
     'doi' => $article->doi,
     'postUrl' => '/article/download-cite'
 ];
