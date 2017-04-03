@@ -32,7 +32,7 @@ $this->registerMetaTag([
             <div class="sidebar-widget">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
-                        <a href="" class="title">news archives</a>
+                        <a href="" class="title">newsletters</a>
                         <div class="text">
                             <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                         </div>
