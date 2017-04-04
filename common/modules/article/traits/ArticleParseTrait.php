@@ -1593,7 +1593,6 @@ trait ArticleParseTrait {
                     if ($val['type'] == 'complete') {
                         $text .= Html::a($val['value'], $val['attributes']['TARGET'], ['class' => 'text-reference', 'data-type' => 'term']);
                     }
-                    
                 } 
                 
             } elseif ($val['tag'] == 'HEAD') {

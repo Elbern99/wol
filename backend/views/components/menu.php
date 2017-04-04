@@ -25,6 +25,7 @@ if (Yii::$app->user->isGuest) {
         'items' => [
             ['label' => Yii::t('app/menu','Articles'), 'url' => ['/iza/articles']],
             ['label' => Yii::t('app/menu','Authors'), 'url' => ['/iza/authors']],
+            ['label' => Yii::t('app/menu','Synonyms'), 'url' => ['/iza/synonyms']],
             ['label' => Yii::t('app/menu','Settings'), 'url' => ['/settings']],
         ],
     ];
@@ -34,6 +35,7 @@ if (Yii::$app->user->isGuest) {
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
         'items' => [
             ['label' => Yii::t('app/menu', 'Upload'), 'url' => ['/admin-interface/upload']],
+            ['label' => Yii::t('app/menu', 'Versions'), 'url' => ['/admin-interface/versions']],
         ],
     ];
 

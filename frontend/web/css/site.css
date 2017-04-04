@@ -3014,9 +3014,48 @@ h2:empty {
   .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item {
     font-family: "LucidaGrande", Helvetica, Arial, Sans-serif;
     position: relative;
-    padding: 0 0 11px; }
+    padding: 0 0 11px;
+    margin: 0 0 23px; }
     .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item:last-child {
       padding-bottom: 0; }
+    .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .tooltip {
+      position: absolute;
+      right: 0;
+      top: 2px;
+      width: 14px;
+      height: 14px;
+      color: #0094f2;
+      cursor: pointer;
+      font-size: 14px; }
+      .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .tooltip:hover .tooltip-content {
+        display: block; }
+      .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .tooltip .tooltip-content {
+        width: 135px;
+        background: #f5f5f5;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        text-align: left;
+        border: 1px solid #d8d8d8;
+        padding: 13px 13px 12px;
+        border-radius: 5px;
+        position: absolute;
+        right: -5px;
+        bottom: 23px;
+        font-size: 12px;
+        color: #262626;
+        font-family: "lucidaSans", Helvetica, Arial, Sans-serif;
+        display: none; }
+        .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .tooltip .tooltip-content:after {
+          position: absolute;
+          bottom: -4px;
+          right: 4px;
+          transform: translateX(-50%) rotate(-45deg);
+          content: '';
+          width: 8px;
+          height: 8px;
+          box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+          background: #f5f5f5;
+          z-index: -1; }
     @media only screen and (max-width: 767px) {
       .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item {
         font-size: 11px; } }
@@ -3057,7 +3096,8 @@ h2:empty {
     .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .title {
       text-transform: uppercase;
       margin: -1px 0 -1px;
-      font-size: 11px; }
+      font-size: 11px;
+      position: relative; }
       @media only screen and (min-width: 767px) {
         .sidebar-widget.sidebar-widget-version .sidebar-widget-version-item .title {
           margin: 0 0 2px; } }

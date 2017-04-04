@@ -29,9 +29,8 @@ class Result {
     public static $topicsFilter = [];
     private static $filters = false;
     private static $model;
+    public static $synonyms;
     
-    
-
     public function setModel(SearchInterface $model) {
         self::$model = $model;
     }
@@ -279,6 +278,11 @@ class Result {
             
             $serched = str_replace(' ', '|',  self::$model->search_phrase);
 
+            if (is_array(self::$synonyms) && count(self::$synonyms)) {
+                $serched .= '|';
+                $serched .= implode('|', self::$synonyms);
+            }
+
             if (preg_match("/($serched)/i", $author['name'])) {
 
                 self::$topValue[] = [
@@ -350,6 +354,7 @@ class Result {
 
             self::$value[] = [
                 'params' => [
+                    'id' => $article->id,
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
                     'authors' => $articleOwner,

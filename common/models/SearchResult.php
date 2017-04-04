@@ -39,7 +39,7 @@ class SearchResult extends \yii\db\ActiveRecord
     {
         return [
             ['result', 'required'],
-            [['result', 'creteria', 'filters'], 'string'],
+            [['result', 'creteria', 'filters', 'synonyms'], 'string'],
             [['created_at'], 'integer'],
         ];
     }
@@ -58,15 +58,16 @@ class SearchResult extends \yii\db\ActiveRecord
         ];
     }
     
-    public static function addNewResult($result = null, $creteria = null, $filters = null) {
+    public static function addNewResult($args = []) {
 
         $model = new static();
         $params = [
-            'result' => ($result) ? serialize($result): $result,
-            'creteria' => ($creteria) ? serialize($creteria): $creteria,
-            'filters' => ($filters) ? serialize($filters) : $filters
+            'result' => ($args['result']) ? serialize($args['result']): null,
+            'creteria' => ($args['creteria']) ? serialize($args['creteria']): null,
+            'filters' => ($args['filters']) ? serialize($args['filters']) : null,
+            'synonyms' => (is_array($args['synonyms'])) ? serialize($args['synonyms']) : null
         ];
-
+        
         if ($model->load($params, '') && $model->save()) {
             Yii::$app->getSession()->set('search_result_id', $model->id);
             return $model->id;
@@ -75,24 +76,28 @@ class SearchResult extends \yii\db\ActiveRecord
         return false;
     }
     
-    public static function refreshResult($id, $result = null, $creteria = null, $filters = null) {
+    public static function refreshResult($id, $args = []) {
         
         $model = self::find()->where(['id' => $id])->one();
 
         if (!$model) {
-            return self::addNewResult($result, $creteria, $filters);
+            return self::addNewResult($args);
         }
         
-        if ($result) {
-            $model->result = serialize($result);
+        if ($args['result']) {
+            $model->result = serialize($args['result']);
         }
         
-        if ($creteria) {
-            $model->creteria = serialize($creteria);
+        if ($args['creteria']) {
+            $model->creteria = serialize($args['creteria']);
         }
         
-        if ($filters) {
-            $model->filters = serialize($filters);
+        if ($args['filters']) {
+            $model->filters = serialize($args['filters']);
+        }
+        
+        if ($args['synonyms']) {
+            $model->synonyms = serialize($args['synonyms']);
         }
 
         if ($model->save()) {

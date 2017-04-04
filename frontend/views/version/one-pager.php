@@ -80,7 +80,7 @@ $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json',
-        'share_text_for_email' => $mailArticleShare
+        'share_text_for_email' => $mailArticle
 ];
 ?>
 
@@ -101,7 +101,7 @@ $config = [
     <ul class="article-buttons-list">
         <li>
             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                     <span class="icon-download"></span>
                 </a>
             <?php endif; ?>
@@ -116,7 +116,7 @@ $config = [
     <ul class="article-buttons-list">
         <li class="add-fav-holder">
             <div class="add-fav-alert"></div>
-            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+            <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                 <span class="icon-heart"></span>
             </a>
         </li>
@@ -264,7 +264,7 @@ $config = [
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                                <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url',$currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                     <div class="inner">
                                         <span class="icon-download"></span>
                                         <span class="text">download pdf</span>
@@ -285,7 +285,7 @@ $config = [
                     <ul class="article-buttons-list">
                         <li class="add-fav-holder">
                             <div class="add-fav-alert"></div>
-                            <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                            <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                                 <span class="icon-heart"></span>
                             </a>
                         </li>
@@ -307,7 +307,7 @@ $config = [
         <div class="article-buttons-sidebar hide-mobile">
             <ul class="article-buttons-list">
                 <li><?php if (isset($attributes['one_pager_pdf'])): ?>
-                    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                    <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
                         <div class="inner">
                             <span class="icon-download"></span>
                             <span class="text">download pdf</span>
@@ -325,7 +325,7 @@ $config = [
                 </li>
                 <li class="add-fav-holder">
                     <div class="add-fav-alert"></div>
-                    <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                    <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                         <span class="icon-heart"></span>
                     </a>
                 </li>
@@ -405,7 +405,7 @@ $config = [
         <?php endif; ?>
 
         <div class="sidebar-widget sidebar-widget-evidence-map">
-            <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+            <a href="<?= Url::to('/articles/'.$article['article']->seo . '/map') ?>">
                 <div id="map-mini"></div>
                 <div class="caption">
                     <div class="title">Evidence map</div>
@@ -420,7 +420,7 @@ $config = [
             <ul class="sidebar-accrodion-list">
 
                 <?php if (isset($attributes['related'])): ?>
-                    <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
+                    <?php $related = $article['article']->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
                     <?php $count_related = count($related) ?>
 
                     <?php if ($count_related > 0): ?>
@@ -711,7 +711,7 @@ $cite = [
     'title' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
-    'id' => $article->id,
+    'id' => $article['article']->id,
     'doi' => $article->doi,
     'postUrl' => '/article/download-cite'
 ];
