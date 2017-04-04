@@ -803,6 +803,18 @@ trait ArticleParseTrait {
                 $fullCitation .= '.';
                 $fullCitation .= ' '.$doi;
                 
+            } elseif ($biblScope_vol && $biblScope_issue && $biblScope_pp && $date) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                $fullCitation .= $dateBracket;
+                $fullCitation .= ' '.$biblScope_pp;
+                $fullCitation .= '.';
+                
             } else {
                 
                 $fullCitation = $authorsText;
