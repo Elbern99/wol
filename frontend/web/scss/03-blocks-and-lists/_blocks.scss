@@ -2169,7 +2169,7 @@
   background: #fff;
   border-top: 1px solid #535353;
   padding: 7px 0;
-  z-index: 100;
+  z-index: 2000;
   font-size: 12px;
 
   @include breakpoint('tablet') {
