@@ -84,8 +84,6 @@
           &.active-page {
             >a {
               color: $blue !important;
-              pointer-events: none;
-              cursor: default;
             }
           }
         }

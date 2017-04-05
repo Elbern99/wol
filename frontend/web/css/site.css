@@ -6115,9 +6115,7 @@ iframe[name=advpp_manager] {
     left: 50%;
     margin-left: -133px; }
     .header-menu-top-list li .submenu li.active-page > a {
-      color: #0053a0 !important;
-      pointer-events: none;
-      cursor: default; }
+      color: #0053a0 !important; }
     .header-menu-top-list li .submenu a {
       color: #2a2a2a; }
       .header-menu-top-list li .submenu a:hover {

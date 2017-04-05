@@ -19,9 +19,6 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
-
-$this->title = $mailTitle;
-
 $this->params['breadcrumbs'][] = ['label' => Html::encode('News'), 'url' => Url::to(['/news/index'])];
 $this->params['breadcrumbs'][] = $model->title;
 
