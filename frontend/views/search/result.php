@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Html::encode('Search Result For ');
 $this->registerJsFile('/js/plugins/mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/jquery.mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\YiiAsset']]);
+$this->registerJs("var synonymWords = ".json_encode($synonyms), 3);
 
 $currentUrl[] = '/search';
 $currentParams = Yii::$app->getRequest()->getQueryParams();

@@ -37,10 +37,13 @@
             }
         },
         searchHightLight: function(input,body){
+            
             var mark = function() {
-                var
-                    keyword = $(input).val();
-
+                var keyword = $(input).val();
+                if (synonymWords.length) {
+                    keyword += ' ';
+                    keyword += synonymWords.join(' ');
+                }
                 $(body).unmark().mark(keyword);
             };
             if($(body).length) {

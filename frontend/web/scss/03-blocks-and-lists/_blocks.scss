@@ -1688,9 +1688,58 @@
       font-family: $lucida-grande;
       position: relative;
       padding: 0 0 11px;
+      margin: 0 0 23px;
 
       &:last-child {
         padding-bottom: 0;
+      }
+
+      .tooltip {
+        position: absolute;
+        right: 0;
+        top: 2px;
+        width: 14px;
+        height: 14px;
+        color: #0094f2;
+        cursor: pointer;
+        font-size: 14px;
+
+        &:hover {
+          .tooltip-content {
+            display: block;
+          }
+        }
+
+        .tooltip-content {
+          width: 135px;
+          background: #f5f5f5;
+          box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+          z-index: 10;
+          text-align: left;
+          border: 1px solid #d8d8d8;
+          padding: 13px 13px 12px;
+          border-radius: 5px;
+          position: absolute;
+          right: -5px;
+          bottom: 23px;
+          font-size: 12px;
+          color: #262626;
+          font-family: $lucida-sans;
+          display: none;
+
+          &:after {
+            position: absolute;
+            bottom: -4px;
+            right: 4px;
+            transform: translateX(-50%) rotate(-45deg);
+            content: '';
+            width: 8px;
+            height: 8px;
+            box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+            background: #f5f5f5;
+            z-index: -1;
+          }
+        }
       }
 
       @include breakpoint_custom($breakpoint-tablet) {
@@ -1753,6 +1802,7 @@
         text-transform: uppercase;
         margin: -1px 0 -1px;
         font-size: 11px;
+        position: relative;
 
         @include breakpoint('tablet') {
           margin: 0 0 2px;

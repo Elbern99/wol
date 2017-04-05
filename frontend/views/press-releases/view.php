@@ -4,18 +4,21 @@ use yii\helpers\Url;
 ?>
 
 <?php
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $newsItemDirectLink = Url::to(['/press-releases/view', 'slug' => $model->url_key], true);
 $mailLink = $newsItemDirectLink;
 $mailTitle = $model->title;
+$this->title = Html::encode($prefixTitle.$model->title);
+
+$this->registerMetaTag([
+    'name' => 'title',
+    'content' => Html::encode($prefixTitle.$model->title)
+]);
 
 if ($category) {
     $this->registerMetaTag([
     'name' => 'keywords',
     'content' => Html::encode($category->meta_keywords)
-    ]);
-    $this->registerMetaTag([
-        'name' => 'title',
-        'content' => Html::encode($category->meta_title)
     ]);
 }
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Press releases'), 'url' => Url::to(['/press-releases/index'])];

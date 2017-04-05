@@ -26,6 +26,8 @@ use common\modules\eav\contracts\EntityModelInterface;
  */
 class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityModelInterface
 {
+    const ENTITY_NAME = 'article';
+    
     /**
      * @inheritdoc
      */
@@ -77,6 +79,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             [['id','sort_key', 'seo', 'doi'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
+            ['notices', 'string'],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
         ];
@@ -170,7 +173,14 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return $related;
     }
     
-    public function getRelatedCategories() {
+    public function getArticleVersions() {
         
+        return VersionsArticle::find()
+                    ->select(['version_number','seo','notices'])
+                    ->where(['article_id' => $this->id])
+                    ->asArray()
+                    ->all();
     }
+
+    public function getRelatedCategories() {}
 }

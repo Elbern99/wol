@@ -130,11 +130,9 @@ trait ArticleTrait {
                         ->all();
     }
     
-    protected function renderArticlePage($template, $slug, $multiLang = false, $langCode = null) {
-
-        try {
-            
-            $model = Article::find()
+    protected function getArticleSlugModel($slug) {
+        
+        return  $model = Article::find()
                     ->with([
                         'articleAuthors.author' => function($query) {
                             return $query->select(['id', 'avatar', 'url_key'])->where(['enabled' => 1])->asArray();
@@ -145,6 +143,11 @@ trait ArticleTrait {
                     ])
                     ->where(['seo' => $slug, 'enabled' => 1])
                     ->one();
+    }
+
+    protected function renderArticlePage($template, $model, $multiLang = false, $langCode = null) {
+
+        try {
 
             if (!is_object($model)) {
                 throw new NotFoundHttpException('Page Not Found.');
@@ -152,7 +155,7 @@ trait ArticleTrait {
             
             $records = $model->getRelatedRecords();
             $articleCollection = Yii::createObject(Collection::class);
-            $articleCollection->initCollection(Article::tableName(), $model, $multiLang);
+            $articleCollection->initCollection($model::ENTITY_NAME, $model, $multiLang);
 
             $values = $articleCollection->getEntity()->getValues();
             

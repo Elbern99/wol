@@ -4,6 +4,7 @@ var dynamicallyFields = {
     _max_fields: 10
 };
 
+
 (function($){
     
     var $obj = dynamicallyFields;
@@ -29,12 +30,14 @@ var dynamicallyFields = {
                 this.generateInputGroup(this.x, this._config.data[item]);
                 this.x++;
             }
+            
         } else {
             this.generateInputGroup(this.x);
             this.x++;
         }
+
     };
-    
+ 
     $obj.generateInputGroup = function(index, values = {}) {
         var input = '';
         
@@ -56,24 +59,37 @@ var dynamicallyFields = {
             
             input += '>';
         }
-        
+
         this.addInput(this.addWrapperInput(input));
     };
-    
-    $obj.addWrapperInput = function(input) {
+
+
+
+    $obj.addWrapperInput = function (input) {
+
         return '<div>' + input + '<a href="#" class="remove_field">Remove</a></div>';
     };
-    
-    $obj.addInput = function(input) {
+
+
+
+    $obj.addInput = function (input) {
+
         this._wrapper.append(input);
     };
-    
-    $obj.addButton = function() {
+
+
+
+    $obj.addButton = function () {
+
         var add_button = $(this._config.add_button);
 
-        $(add_button).click(function(e){ //on add input button click
+
+        $(add_button).click(function (e) { //on add input button click
+
             e.preventDefault();
-            if($obj.x < $obj._max_fields){ //max input box allowed
+            
+            if ($obj.x < $obj._max_fields) { //max input box allowed
+
                 $obj.generateInputGroup($obj.x);
                 $obj.x++;
             }

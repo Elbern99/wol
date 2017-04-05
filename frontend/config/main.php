@@ -72,6 +72,8 @@ return [
                 'home' => 'site/index',
                 'page/<id:[0-9]+>' => 'page/index',
                 'articles/' => 'article/index',
+                'articles/<slug:[0-9a-zA-Z-]+\-[1-9].?$>' => 'version/one-pager',
+                'articles/<slug:[0-9a-zA-Z-]+\-[1-9].?>/long' => 'version/full',
                 'articles/<slug:[0-9a-zA-Z-]+>' => 'article/one-pager',
                 'articles/<slug:[0-9a-zA-Z-]+>/long' => 'article/full',
                 'articles/<slug:[0-9a-zA-Z-]+>/map' => 'article/map',

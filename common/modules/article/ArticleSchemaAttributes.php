@@ -55,7 +55,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'text_class',
-                array_combine($attributeSchema, ['text_class', 'Text Class', 1, 1, 1]), 
+                array_combine($attributeSchema, ['text_class', 'Text Class', 0, 1, 1]), 
                 [['label' => 'Code', 'type' => 'String']]
         );
 
@@ -73,13 +73,13 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'findings_positive', 
-                array_combine($attributeSchema,['findings_positive','Findings Positive',0,1,1]), 
+                array_combine($attributeSchema,['findings_positive','Findings Positive',1,1,1]), 
                 [['label'=>'Item','type'=>'Text']]
         );
         
         $this->attributes[] = new Attribute(
                 'findings_negative', 
-                array_combine($attributeSchema,['findings_negative','Findings Negative',0,1,1]), 
+                array_combine($attributeSchema,['findings_negative','Findings Negative',1,1,1]), 
                 [['label'=>'Item','type'=>'Text']]
         );
 
@@ -92,7 +92,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'main_text', 
-                array_combine($attributeSchema,['main_text','Main Text',0,1,1]), 
+                array_combine($attributeSchema,['main_text','Main Text',1,1,1]), 
                 [['label'=>'Type','type'=>'String'], ['label'=>'Text','type'=>'Text']]
         );
         
@@ -104,7 +104,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'key_references', 
-                array_combine($attributeSchema, ['key_references', 'Key References', 1, 1, 1]),
+                array_combine($attributeSchema, ['key_references', 'Key References', 0, 1, 1]),
                 [
                     ['label' => 'Title', 'type' => 'String'], 
                     ['label' => 'Method', 'type' => 'String'],
@@ -119,7 +119,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'add_references', 
-                array_combine($attributeSchema, ['add_references', 'Add References', 1, 1, 1]),
+                array_combine($attributeSchema, ['add_references', 'Add References', 0, 1, 1]),
                 [
                     ['label' => 'Title', 'type' => 'String'], 
                     ['label' => 'Full Citation', 'type' => 'Text'],
@@ -135,7 +135,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'ga_image', 
-                array_combine($attributeSchema, ['ga_image', 'Ga Image', 1, 1, 1]), 
+                array_combine($attributeSchema, ['ga_image', 'Ga Image', 0, 1, 1]), 
                 [
                     ['label' => 'Title', 'type' => 'String'], 
                     ['label' => 'Path', 'type' => 'String'],
@@ -146,7 +146,7 @@ class ArticleSchemaAttributes {
         
         $this->attributes[] = new Attribute(
                 'images', 
-                array_combine($attributeSchema, ['images', 'Images', 1, 1, 1]), 
+                array_combine($attributeSchema, ['images', 'Images', 0, 1, 1]), 
                 [
                     ['label' => 'Title', 'type' => 'String'],
                     ['label' => 'Path', 'type' => 'String'],

@@ -49,7 +49,7 @@ $this->registerCssFile('/css/leaflet.css');
 $authorsList = [];
 
 foreach ($authors as $author) {
-
+    
     $authorsList[] = [
         'name' => $author['name']->first_name.' '.$author['name']->middle_name.' '.$author['name']->last_name,
         'url' => $author['profile']
@@ -59,7 +59,7 @@ foreach ($authors as $author) {
 $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl'=>Url::to('articles/'.$article->seo),
     'articleDoi' => $article->doi
 ));
 
@@ -76,7 +76,7 @@ $config = [
         'json_path' => '/json/countries.geo.json',
         'json_path_country' => '/json/countrydata.json',
         'json_path_economytypes' => '/json/economytypes.json',
-        'share_text_for_email' => $mailArticleShare
+        'share_text_for_email' => $mailArticle
 ];
 
 ?>
@@ -96,7 +96,7 @@ $config = [
         <ul class="article-buttons-list">
             <li>
                 <?php if (isset($attributes['full_pdf'])): ?>
-                    <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                         <span class="icon-download"></span>
                     </a>
                 <?php endif; ?>
@@ -110,7 +110,7 @@ $config = [
         <ul class="article-buttons-list">
             <li class="add-fav-holder">
                 <div class="add-fav-alert"></div>
-                <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                     <span class="icon-heart"></span>
                 </a>
             </li>
@@ -212,7 +212,7 @@ $config = [
                     <p>&copy; <?=$article->availability?></p>
                 <?php endif; ?>
                 <div class="article-map-medium">
-                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                    <a href="<?= Url::to('/articles/'.$article['article']->seo.'/map') ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></p>
@@ -257,7 +257,7 @@ $config = [
                             </li>
                             <li>
                                 <?php if (isset($attributes['full_pdf'])): ?>
-                                    <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                         <div class="inner">
                                             <span class="icon-download"></span>
                                             <span class="text">download pdf</span>
@@ -278,7 +278,7 @@ $config = [
                         <ul class="article-buttons-list">
                             <li class="add-fav-holder">
                                 <div class="add-fav-alert"></div>
-                                <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                                <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                                     <span class="icon-heart"></span>
                                 </a>
                             </li>
@@ -300,7 +300,7 @@ $config = [
                 <ul class="article-buttons-list">
                     <li>
                         <?php if (isset($attributes['full_pdf'])): ?>
-                            <a href="<?= $attributes['full_pdf']->getData('url') ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                            <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                 <div class="inner">
                                     <span class="icon-download"></span>
                                     <span class="text">download pdf</span>
@@ -318,7 +318,7 @@ $config = [
                     </li>
                     <li class="add-fav-holder">
                         <div class="add-fav-alert"></div>
-                        <a href="<?= Url::to(['/article/like', 'id'=>$article->id]) ?>" class="btn-border-gray-middle btn-like short">
+                        <a href="<?= Url::to(['/article/like', 'id'=>$article['article']->id]) ?>" class="btn-border-gray-middle btn-like short">
                             <span class="icon-heart"></span>
                         </a>
                     </li>
@@ -399,7 +399,7 @@ $config = [
             <?php endif; ?>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
-                <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                <a href="<?= Url::to('/articles/'.$article['article']->seo . '/map') ?>">
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>
@@ -445,7 +445,7 @@ $config = [
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
-                        <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
+                        <?php $related = $article['article']->getRelatedArticles($attributes['related']->getData()); ?>
                         <?php $count_related = count($related) ?>
 
                         <?php if ($count_related > 0): ?>
@@ -723,7 +723,7 @@ $cite = [
     'title' => EavAttributeHelper::getAttribute('title')->getData('title'),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
-    'id' => $article->id,
+    'id' => $article['article']->id,
     'doi' => $article->doi,
     'postUrl' => '/article/download-cite'
 ];

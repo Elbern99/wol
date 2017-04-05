@@ -4,18 +4,19 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 ?>
 <?php
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
+$this->title = $prefixTitle.'Press Releases';
+$this->params['breadcrumbs'][] = 'Press Releases';
 
-$this->title = 'Press Releases';
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerMetaTag([
+    'name' => 'title',
+    'content' => Html::encode($prefixTitle.'Press Releases')
+]);
 
 if ($category) {
     $this->registerMetaTag([
     'name' => 'keywords',
     'content' => Html::encode($category->meta_keywords)
-    ]);
-    $this->registerMetaTag([
-        'name' => 'title',
-        'content' => Html::encode($category->meta_title)
     ]);
 }
 ?>
