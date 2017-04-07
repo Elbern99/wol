@@ -23,10 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'id',
+                    'title',
                     [
                         'attribute' => 'seo',
                         'value' => function($model) {
-                            return AdminFunctionHelper::short($model->seo);
+                            return $model->seo;
                         }
                     ],
                     [
@@ -35,24 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->doi);
                         }
                     ],
-                    'publisher',
-                    'availability',
-                    [
-                        'attribute' => 'sort_key',
-                        'value' => function($model) {
-                            return AdminFunctionHelper::short($model->sort_key);
-                        }
-                    ],
                     [
                         'attribute' => 'created_at',
                         'value' => function($model) {
                             return AdminFunctionHelper::dateFormat($model->created_at);
-                        }
-                    ],
-                    [
-                        'attribute' => 'updated_at',
-                        'value' => function($model) {
-                            return AdminFunctionHelper::dateFormat($model->updated_at);
                         }
                     ],
                     [

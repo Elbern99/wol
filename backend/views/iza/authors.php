@@ -23,10 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'author_key',
+                    'name',
                     'email',
-                    'url',
-                    'phone',
-                    'avatar',
+                    'url_key',
                     [
                         'attribute' => 'enabled',
                         'format' => 'raw',

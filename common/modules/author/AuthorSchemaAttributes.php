@@ -58,7 +58,7 @@ class AuthorSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'position',
                 array_combine($attributeSchema,['position','Position',1,1,1]), 
-                [['label'=>'Current','type'=>'Text'], ['label'=>'Past','type'=>'Text'], ['label'=>'Advisory','type'=>'Text']]
+                [['label'=>'Current','type'=>'Small_Text'], ['label'=>'Past','type'=>'Small_Text'], ['label'=>'Advisory','type'=>'Small_Text']]
         );
         
         $this->attributes[] = new Attribute(
