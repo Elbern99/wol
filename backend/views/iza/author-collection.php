@@ -3,8 +3,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 
-$this->title = Yii::t('app.menu', 'Article');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Articles'), 'url' => Url::to('articles')];
+$this->title = Yii::t('app.menu', 'Author');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Author'), 'url' => Url::to('authors')];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -18,16 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
             TabsX::widget([
                'items' => [
                     [
-                        'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Article'),
-                        'content' => $this->renderFile(__DIR__.'/article/table.php', ['model' => $articleModel])
+                        'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Author'),
+                        'content' => $this->renderFile(__DIR__.'/author/table.php', ['model' => $authorModel])
                     ],
                     [
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Attributes'),
                         'content' => $this->renderFile(__DIR__.'/article/attributes.php', ['collection' => $collection])
-                    ],
-                    [
-                        'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Upload File'),
-                        'content' => $this->renderFile(__DIR__.'/article/file_upload.php', ['mode' => $articleModel])
                     ],
                 ],
                'position' => TabsX::POS_LEFT,

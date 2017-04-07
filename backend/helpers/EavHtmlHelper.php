@@ -42,10 +42,15 @@ class EavHtmlHelper {
     
     protected function getAttributeSection($attribute) {
         
-        $section  = Html::beginTag('div', ['class' => 'attribute']);
-        $section .= Html::tag('h3', 'Attribute - '.$attribute['label']);
-        $section .= $this->getValueInput($attribute);
-        $section .= Html::endTag('div');
+        $value = $this->getValueInput($attribute);
+        $section = '';
+        
+        if ($value) {
+            $section  = Html::beginTag('div', ['class' => 'attribute']);
+            $section .= Html::tag('h3', 'Attribute - '.$attribute['label']);
+            $section .= $value;
+            $section .= Html::endTag('div');
+        }
         
         return $section;
     }
@@ -88,7 +93,7 @@ class EavHtmlHelper {
         
         $value = current($attribute['value']);
         $valId = key($attribute['value']);
-        
+
         if (!is_array($value)) {
             return $this->getValue($value, $attribute, $valId);
         }

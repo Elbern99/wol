@@ -9,11 +9,13 @@ class EavValueManager {
     
     private $model;
     private $oldAttribute;
+    private $triggers;
     
-    public function __construct(ValueInterface $model, array $values) {
+    public function __construct(ValueInterface $model, array $values, $triggers = []) {
         
         $this->model = $model;
         $this->oldAttribute = $values;
+        $this->triggers = $triggers;
     }
     
     public function save() {
@@ -27,10 +29,24 @@ class EavValueManager {
                 $newValue = $this->valueStringFormat($value);
 
                 if (is_string($newValue)) {
-
                     $this->update($newValue, $key);
+                    $this->checkEvent($value);
                 }
             }
+        }
+    }
+    
+    protected function checkEvent($value) {
+        
+        $attribute = key($value);
+        
+        if (isset($this->triggers['attributes'][$attribute])) {
+            $model = $this->triggers['model'];
+            $func = $this->triggers['attributes'][$attribute];
+            $val = $value[$attribute];
+            
+            call_user_func_array($func, [$val, $model]);
+            $model->save();
         }
     }
     
@@ -85,6 +101,42 @@ class EavValueManager {
                 }
 
                 return serialize($newData);
+                
+            } else {
+
+                if (is_array($data)) {
+                    
+                    $mass = [];
+
+                    foreach ($data as $k=>$old) {
+                        
+                        $properties = array_keys(get_object_vars($old));
+                        $newData = new \stdClass();
+
+                        foreach ($properties as $property) {
+                            
+                            if (!isset($v[$k][$property])) {
+                                $newData->$property = $old->$property;
+                                continue;
+                            }
+                            
+                            $newData->$property = $v[$k][$property];
+                        }
+
+                        $mass[$k] = $newData;
+                    }
+                    
+                    return serialize($mass);
+                }
+                
+                $properties = array_keys(get_object_vars($data));
+                $newData = new \stdClass();
+                
+                foreach ($properties as $property) {
+                    $newData->$property = $v[$property];
+                }
+                
+                return serialize($newData);
             }
 
         }
@@ -128,7 +180,30 @@ class EavValueManager {
                 }
                 
             } else {
-                var_dump($data);exit;
+                
+                if (is_array($data)) {
+                    
+                    $result = false;
+                    
+                    foreach ($data as $k=>$old) {
+                        
+                        $properties = get_object_vars($old);
+
+                        if ($this->compareArrayData($v[$k], $properties)) {
+                            $result = true;
+                            break;
+                        }
+                    }
+                    
+
+                    return $result;
+                }
+                
+                $properties = get_object_vars($data);
+
+                if ($this->compareArrayData($v, $properties)) {
+                    return true;
+                }
             }
         }
         
