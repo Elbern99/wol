@@ -13,10 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row content">
         <div class="col-sm-12 sidenav">
-            
             <?=
             TabsX::widget([
-               'items' => [
+                'items' => [
                     [
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Article'),
                         'content' => $this->renderFile(__DIR__.'/article/table.php', ['model' => $articleModel])
