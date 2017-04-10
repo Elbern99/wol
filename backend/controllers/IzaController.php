@@ -221,7 +221,10 @@ class IzaController extends Controller {
                     'model' => $article,
                     'attributes' => [
                         'title' => function($attributes, $model) {
-                            $model->title = $attributes['title'];
+                    
+                            if (!isset($attributes['lang']) || !$attributes['lang']) {
+                                $model->title = $attributes['title'];
+                            }
                         }
                     ]
                 ];
