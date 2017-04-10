@@ -14,4 +14,26 @@ $helper = new EavHtmlHelper($collection);
         <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
+
+    <style>
+
+        .textarea-line,
+        .input-line {
+            margin: 0 0.2% 10px;
+        }
+
+        .btn-group {
+            margin-bottom: 7px;
+        }
+
+        label,
+        h3,
+        h4 {
+            display: block;
+            clear: both;
+            text-align: left;
+        }
+
+    </style>
+
 </div>

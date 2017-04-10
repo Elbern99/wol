@@ -17,14 +17,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             TabsX::widget([
                'items' => [
+                   [
+                   'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Attributes'),
+                   'content' => $this->renderFile(__DIR__.'/article/attributes.php', ['collection' => $collection])
+               ],
                     [
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Article'),
                         'content' => $this->renderFile(__DIR__.'/article/table.php', ['model' => $articleModel])
                     ],
-                    [
-                        'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Attributes'),
-                        'content' => $this->renderFile(__DIR__.'/article/attributes.php', ['collection' => $collection])
-                    ],
+
                 ],
                'position' => TabsX::POS_LEFT,
                'encodeLabels' => false
