@@ -15,7 +15,8 @@ use yii\helpers\Url;
 use common\modules\eav\Collection;
 use common\models\SynonymsSearch;
 use common\modules\eav\StorageEav;
-use common\models\Author;
+use backend\models\Author;
+use backend\models\UploadArticleFiles;
 
 /*
  * Article Author Class Controller
@@ -136,14 +137,26 @@ class IzaController extends Controller {
                 return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
 
             } elseif ($author->load(Yii::$app->request->post())) {
-                
-                if ($author->save()) {
-                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data update success!'));
-                } else {
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data not update success!'));
-                }
 
-                return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
+                $author->initUploadProperty();
+                
+                if ($author->validate()) {
+
+                    
+                    if (!is_object($author->avatar)) {
+                        $author->avatar = $author->getOldAttribute('avatar');
+                    } else {
+                        $author->upload(true);
+                    }
+                    
+                    if ($author->save(false)) {
+                         Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data update success!'));
+                    } else {
+                        Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data not update success!'));
+                    }
+
+                    return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
+                }
             }
         }
 
@@ -187,6 +200,8 @@ class IzaController extends Controller {
         $eavFactory = new StorageEav();
         
         $article = Article::findOne($id);
+        $fileUploadModel = new UploadArticleFiles([], $article);
+        
         $collection = Yii::createObject(Collection::class);
         $attributes = $eavFactory->factory('type')->find()
                                  ->where(['name' => 'article'])
@@ -230,6 +245,19 @@ class IzaController extends Controller {
                 }
                 
                 return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
+                
+            } elseif ($fileUploadModel->load(Yii::$app->request->post())) {
+                
+                $fileUploadModel->initUploadProperty();
+                $fileUploadModel->filename = ($fileUploadModel->filename) ? 
+                        $fileUploadModel->filename.'.'.$fileUploadModel->file->extension : $fileUploadModel->file->name;
+
+                if ($fileUploadModel->validate()) {
+                    
+                    if ($fileUploadModel->upload(true)) {
+                        Yii::$app->getSession()->setFlash('success', 'File uploaded url - '.$article->getSavePath().'/'.$fileUploadModel->type.'/'.$fileUploadModel->filename);
+                    }
+                }
             }
         }
 
@@ -278,7 +306,7 @@ class IzaController extends Controller {
 
         $this->getView()->registerJsFile('@web/js/eav_attributes_fields.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
   
-        return $this->render('article-collection', ['articleModel' => $article, 'collection' => $attributesData]);
+        return $this->render('article-collection', ['articleModel' => $article, 'collection' => $attributesData, 'fileUploadModel' => $fileUploadModel]);
     }
     
     public function actionSynonyms() {
@@ -343,10 +371,10 @@ class IzaController extends Controller {
             $eavTypeModel = $eavFactory->factory('type');
 
             $entity = $eavEntityModel->find()
-                    ->alias('e')
-                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
-                    ->where(['e.model_id' => $id, 't.name' => 'article'])
-                    ->one();
+                                    ->alias('e')
+                                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                                    ->where(['e.model_id' => $id, 't.name' => 'article'])
+                                    ->one();
             
             if ($entity->id) {
                 
@@ -378,10 +406,10 @@ class IzaController extends Controller {
             $eavTypeModel = $eavFactory->factory('type');
 
             $entity = $eavEntityModel->find()
-                    ->alias('e')
-                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
-                    ->where(['e.model_id' => $id, 't.name' => 'author'])
-                    ->one();
+                                    ->alias('e')
+                                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                                    ->where(['e.model_id' => $id, 't.name' => 'author'])
+                                    ->one();
             
             if ($entity->id) {
                 

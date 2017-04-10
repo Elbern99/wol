@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Upload File'),
-                        'content' => $this->renderFile(__DIR__.'/article/file_upload.php', ['mode' => $articleModel])
+                        'content' => $this->renderFile(__DIR__.'/article/file_upload.php', ['model' => $fileUploadModel])
                     ],
                 ],
                'position' => TabsX::POS_LEFT,

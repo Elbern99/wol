@@ -5,16 +5,46 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\helpers\Url;
+use common\modules\article\contracts\ArticleInterface;
 
 class UploadArticleFiles extends Model
 {
+    use \common\helpers\FileUploadTrait;
     
-    const FILE_PDF_OPTION = 'pdf';
-    const FILE_IMAGE_OPTION = 'image';
+    const FILE_PDF_OPTION = 'pdfs';
+    const FILE_IMAGE_OPTION = 'images';
+    
+    private $article;
+    protected $files = [
+        'file'
+    ];
     
     public $file;
     public $filename;
     public $type;
+
+    public function __construct($config = array(), ArticleInterface $article) {
+        $this->article = $article;
+        parent::__construct($config);
+    }
+    
+    public function getFrontendPath() {
+        
+        if ($this->type == self::FILE_PDF_OPTION) {
+            return $this->article->getFrontendPdfsBasePath();
+        } elseif ($this->type == self::FILE_IMAGE_OPTION) {
+            return $this->article->getFrontendImagesBasePath();
+        }
+    }
+    
+    public function getBackendPath() {
+        
+        if ($this->type == self::FILE_PDF_OPTION) {
+            return $this->article->getBackendPdfsBasePath();
+        } elseif ($this->type == self::FILE_IMAGE_OPTION) {
+            return $this->article->getBackendImagesBasePath();
+        }
+    }
     
     /**
      * @inheritdoc
@@ -22,10 +52,10 @@ class UploadArticleFiles extends Model
     public function rules()
     {
         return [
-            [['filename', 'type'], 'required'],
+            [['type'], 'required'],
             [['file'], 'safe'],
             [['filename', 'type'], 'string'],
-            [['file'], 'file', 'extensions' => 'png, jpg, jpeg', 'skipOnEmpty' => true, 'maxFiles' => 5],
+            [['file'], 'file', 'extensions' => 'png, jpg, jpeg', 'skipOnEmpty' => true],
         ];
     }
 
@@ -33,28 +63,27 @@ class UploadArticleFiles extends Model
         return [self::FILE_PDF_OPTION => 'Pdf', self::FILE_IMAGE_OPTION => 'Image'];
     }
 
-    public function upload() {
-        
-        if ($this->validate()) {
-            $result = [];
-            
-            foreach ($this->editor_images as $image) {
-                
-                $imageName = Yii::$app->getSecurity()->generateRandomString(9);
-                $imageName .= '.' . $image->extension;
+    protected function saveFile($file, $path) {
 
-                $filePath = Yii::getAlias('@frontend') . '/web/uploads/' . self::IMAGE_PATH . '/' . $imageName;
+        if ($path) {
 
-                if ($image->saveAs($filePath)) {
+            if (!is_dir($path)) {
 
-                    $result[] = Url::to('uploads/' . self::IMAGE_PATH . '/' . $imageName, true);
+                if (!FileHelper::createDirectory($path, $this->mode, true)) {
+                    return false;
                 }
             }
             
-            return $result;
+            $fileName = $path . '/' . $this->filename;
+            
+            if (file_exists($fileName)) {
+                @unlink($fileName);
+            }
+            
+            $file->saveAs($fileName, false);
+            return true;
         }
         
         return false;
     }
-
 }
