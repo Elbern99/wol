@@ -48,7 +48,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?php $alphas = range('A', 'Z'); ?>
                         <ul class="abs-list">
                             <?php foreach ($alphas as $letter): ?>
-                                <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter/') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
+                                <li><a class="profile-author-letter" href="<?= Url::to(['/authors/letter', 'type' => $type]) ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
                             <?php endforeach; ?>
                         </ul>
                         <div class="author-letter-result"></div>
@@ -228,7 +228,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
-                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors/letter/', 'type' => $type]) ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
+                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors/letter', 'type' => $type]) ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
                                 <?php endforeach; ?>
                             </ul>
                             <div class="author-letter-result"></div>
