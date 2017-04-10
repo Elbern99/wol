@@ -15,8 +15,7 @@ use yii\helpers\Url;
 use common\modules\eav\Collection;
 use common\models\SynonymsSearch;
 use common\modules\eav\StorageEav;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use common\models\Author;
 
 /*
  * Article Author Class Controller
@@ -29,7 +28,11 @@ class IzaController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['articles', 'authors', 'author-view', 'article-view', 'synonyms', 'synonym-view', 'synonym-delete'],
+                        'actions' => [
+                            'articles', 'authors', 'author-view', 
+                            'article-view', 'synonyms', 'synonym-view', 
+                            'synonym-delete', 'article-delete', 'author-delete'
+                        ],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -94,11 +97,89 @@ class IzaController extends Controller {
     
     public function actionAuthorView($id) {
         
-        $author = AuthorSearch::findOne($id);
-        $collection = Yii::createObject(Collection::class);
-        $collection->initCollection('author', $author);
+        $eavFactory = new StorageEav();
         
-        return $this->render('collection', ['collection' => $collection, 'backLink' => Url::to('authors')]);
+        $author = Author::findOne($id);
+        $collection = Yii::createObject(Collection::class);
+        $attributes = $eavFactory->factory('type')->find()
+                                 ->where(['name' => 'author'])
+                                 ->with(['eavTypeAttributes.eavAttribute.eavAttributeOptions'])
+                                 ->asArray()
+                                 ->one();
+        
+        $collection->initCollection('author', $author, true);
+        $values = $collection->getEntity()->getValues();
+        $eavValuesModel = $eavFactory->factory('value');
+        
+        if (Yii::$app->request->isPost) {
+            
+            if ($eavValuesModel->load(Yii::$app->request->post())) {
+                
+                $triggers = [
+                    'model' => $author,
+                    'attributes' => [
+                        'name' => function($attributes, $model) {
+                            $model->name = $attributes['first_name'].' '.$attributes['middle_name'].' '.$attributes['last_name'];
+                            $model->surname = $attributes['last_name'];
+                        }
+                    ]
+                ];
+                
+                $model = new \backend\models\EavValueManager($eavValuesModel, $values, $triggers);
+
+                if ($model->save()) {
+                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author attributes update success!'));
+                } else {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author attributes not update success!'));
+                }
+
+                return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
+
+            } elseif ($author->load(Yii::$app->request->post())) {
+                
+                if ($author->save()) {
+                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data update success!'));
+                } else {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data not update success!'));
+                }
+
+                return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
+            }
+        }
+
+        $attributesData = [
+            'type_id' => $attributes['id'],
+            'model_id' => $id,
+            'attributes' => []
+        ];
+
+        foreach ($attributes['eavTypeAttributes'] as $attribute) {
+
+            if (isset($values[$attribute['eavAttribute']['name']])) {
+                
+                $value = $values[$attribute['eavAttribute']['name']];
+                $originValue = $value->getOriginValue();
+                $v[$originValue->id] = unserialize($originValue->value);
+                
+                $attributesData['attributes'][$attribute['eavAttribute']['id']] = [
+                    'name' => $attribute['eavAttribute']['name'],
+                    'label' => $attribute['eavAttribute']['label'],
+                    'required' => $attribute['eavAttribute']['required'],
+                    'options' => array_map(function($value){
+                        return ['label'=>$value['label'], 'type'=>$value['type']];
+                    }, $attribute['eavAttribute']['eavAttributeOptions']),
+                    'multi_lang_value' => false,
+                    'value' => $v
+                ];
+                
+                unset($v);
+            }
+
+        }
+
+        $this->getView()->registerJsFile('@web/js/eav_attributes_fields.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+  
+        return $this->render('author-collection', ['authorModel' => $author, 'collection' => $attributesData]);
     }
     
     public function actionArticleView($id) {
@@ -117,12 +198,39 @@ class IzaController extends Controller {
         $values = $collection->getEntity()->getValues();
         $eavValuesModel = $eavFactory->factory('value');
         
-        if (Yii::$app->request->isPost && $eavValuesModel->load(Yii::$app->request->post())) {
-            $model = new \backend\models\EavValueManager($eavValuesModel, $values);
-            echo '<pre>';
-            var_dump($model->save());
-            echo '</pre>';
-            //exit;
+        if (Yii::$app->request->isPost) {
+            
+            if ($eavValuesModel->load(Yii::$app->request->post())) {
+                
+                $triggers = [
+                    'model' => $article,
+                    'attributes' => [
+                        'title' => function($attributes, $model) {
+                            $model->title = $attributes['title'];
+                        }
+                    ]
+                ];
+                    
+                $model = new \backend\models\EavValueManager($eavValuesModel, $values, $triggers);
+
+                if ($model->save()) {
+                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article attributes update success!'));
+                } else {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article attributes not update success!'));
+                }
+                
+                return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
+                
+            } elseif ($article->load(Yii::$app->request->post())) {
+                
+                if ($article->save()) {
+                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article data update success!'));
+                } else {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article data not update success!'));
+                }
+                
+                return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
+            }
         }
 
         $attributesData = [
@@ -192,7 +300,7 @@ class IzaController extends Controller {
             $model->convertToString();
             
             if ($model->save()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Synonym added success'), false);
+                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Synonym was add success'), false);
                 return $this->redirect('@web/iza/synonyms');
             }
         }
@@ -214,10 +322,81 @@ class IzaController extends Controller {
             Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Synonym was delete success!'));
             
         } catch (\yii\db\Exception $e) {
-            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Synonym did not delete!'));
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Synonym was not delete!'));
         }
 
         return $this->redirect('@web/iza/synonyms');
+    }
+       
+    public function actionArticleDelete($id) {
+        
+        try {
+            
+            $model = Article::findOne($id);
+            
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $eavFactory = new StorageEav();
+            $eavEntityModel = $eavFactory->factory('entity');
+            $eavTypeModel = $eavFactory->factory('type');
+
+            $entity = $eavEntityModel->find()
+                    ->alias('e')
+                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                    ->where(['e.model_id' => $id, 't.name' => 'article'])
+                    ->one();
+            
+            if ($entity->id) {
+                
+                if ($entity->delete()) {
+                    $model->delete();
+                }
+            }
+
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Article was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Article was not delete!'));
+        }
+             
+        return $this->redirect('@web/iza/articles');
+    }
+    
+    public function actionAuthorDelete($id) {
+        
+        try {
+            
+            $model = Author::findOne($id);
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $eavFactory = new StorageEav();
+            $eavEntityModel = $eavFactory->factory('entity');
+            $eavTypeModel = $eavFactory->factory('type');
+
+            $entity = $eavEntityModel->find()
+                    ->alias('e')
+                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                    ->where(['e.model_id' => $id, 't.name' => 'author'])
+                    ->one();
+            
+            if ($entity->id) {
+                
+                if ($entity->delete()) {
+                    $model->delete();
+                }
+            }
+            
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Author was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Author was not delete!'));
+        }
+             
+        return $this->redirect('@web/iza/authors');
     }
 
 }

@@ -42,14 +42,19 @@ class EavHtmlHelper {
 
     protected function getAttributeSection($attribute) {
 
-        $section  = Html::beginTag('div', ['class' => 'panel-body']);
-        $section .= Html::tag('h3', 'Attribute - '.$attribute['label']);
-        $section .= $this->getValueInput($attribute);
-        $section .= Html::endTag('div');
+        $value = $this->getValueInput($attribute);
+        $section = '';
 
-        $class = 'panel panel-default '.strtolower($attribute['label']);
+        if ($value) {
+            $section .= Html::beginTag('div', ['class' => 'panel panel-default']);
+            $section .= Html::beginTag('div', ['class' => 'panel-body']);
+            $section .= Html::tag('h3', 'Attribute - '.$attribute['label']);
+            $section .= $value;
+            $section .= Html::endTag('div');
+            $section .= Html::endTag('div');
+        }
+        
 
-        $section = Html::tag('div', $section, ['class'=>$class]);
         return $section;
     }
 
