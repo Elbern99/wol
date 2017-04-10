@@ -383,6 +383,7 @@ class IzaController extends Controller {
                 
                 if ($entity->delete()) {
                     $model->delete();
+                    $this->removeOldFolders($model->getSavePath());
                 }
             }
 
@@ -393,6 +394,27 @@ class IzaController extends Controller {
         }
              
         return $this->redirect('@web/iza/articles');
+    }
+    
+    protected function removeOldFolders($path) {
+        
+        $folders = [];
+        $folders['frontend'] = Yii::getAlias('@frontend').'/web'.$path;
+        $folders['backend'] = Yii::getAlias('@backend').'/web'.$path;
+        
+        foreach ($folders as $dir) {
+
+            if (is_dir($dir)) {
+                $it = new \RecursiveDirectoryIterator($dir);
+                $it = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
+                foreach($it as $file) {
+                    if ('.' === $file->getBasename() || '..' ===  $file->getBasename()) continue;
+                    if ($file->isDir()) rmdir($file->getPathname());
+                    @unlink($file->getPathname());
+                }
+                @rmdir($dir);
+            }
+        }
     }
     
     public function actionAuthorDelete($id) {
