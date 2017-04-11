@@ -6,7 +6,6 @@ use kartik\tabs\TabsX;
 $this->title = Yii::t('app.menu', 'Article');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Articles'), 'url' => Url::to('articles')];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 
 <div class="view">
@@ -28,6 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Upload File'),
                         'content' => $this->renderFile(__DIR__.'/article/file_upload.php', ['model' => $fileUploadModel])
                     ],
+                    [
+                        'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Author(s)'),
+                        'content' => $this->renderFile(__DIR__.'/article/authors.php', ['query' => $articleAuthor, 'articleAuthorForm' => $articleAuthorForm])
+                    ]
                 ],
                'position' => TabsX::POS_LEFT,
                'encodeLabels' => false

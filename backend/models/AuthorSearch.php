@@ -19,7 +19,7 @@ class AuthorSearch extends Author
     {
         return [
             [['id'], 'integer'],
-            [['author_key', 'email'], 'safe'],
+            [['author_key', 'email', 'name', 'url_key'], 'safe'],
         ];
     }
 
@@ -63,6 +63,8 @@ class AuthorSearch extends Author
 
         $query->andFilterWhere(['like', 'author_key', $this->author_key]);
         $query->andFilterWhere(['like', 'email', $this->email]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'url_key', $this->url_key]);
         
         return $dataProvider;
     }

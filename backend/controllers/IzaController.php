@@ -17,6 +17,8 @@ use common\models\SynonymsSearch;
 use common\modules\eav\StorageEav;
 use backend\models\Author;
 use backend\models\UploadArticleFiles;
+use common\models\ArticleAuthor;
+use backend\models\ArticleAuthorForm;
 
 /*
  * Article Author Class Controller
@@ -32,7 +34,8 @@ class IzaController extends Controller {
                         'actions' => [
                             'articles', 'authors', 'author-view', 
                             'article-view', 'synonyms', 'synonym-view', 
-                            'synonym-delete', 'article-delete', 'author-delete'
+                            'synonym-delete', 'article-delete', 'author-delete',
+                            'article-author-delete'
                         ],
                         'roles' => ['@'],
                         'allow' => true,
@@ -200,6 +203,11 @@ class IzaController extends Controller {
         $eavFactory = new StorageEav();
         
         $article = Article::findOne($id);
+        $articleAuthor = new ActiveDataProvider([
+            'query' => ArticleAuthor::find()->alias('aa')->where(['article_id' => $id])->with('author'),
+            'pagination' => ['pageSize' => 100]
+        ]);
+        $articleAuthorForm = new ArticleAuthorForm();
         $fileUploadModel = new UploadArticleFiles([], $article);
         
         $collection = Yii::createObject(Collection::class);
@@ -261,7 +269,15 @@ class IzaController extends Controller {
                         Yii::$app->getSession()->setFlash('success', 'File uploaded url - '.$article->getSavePath().'/'.$fileUploadModel->type.'/'.$fileUploadModel->filename);
                     }
                 }
-            }
+                
+            } elseif ($articleAuthorForm->load(Yii::$app->request->post())) {
+                
+                if ($articleAuthorForm->addAuthor($id)) {
+                    Yii::$app->getSession()->setFlash('success', 'Author was add');
+                }
+                
+                return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
+            } 
         }
 
         $attributesData = [
@@ -309,7 +325,13 @@ class IzaController extends Controller {
 
         $this->getView()->registerJsFile('@web/js/eav_attributes_fields.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
   
-        return $this->render('article-collection', ['articleModel' => $article, 'collection' => $attributesData, 'fileUploadModel' => $fileUploadModel]);
+        return $this->render('article-collection', [
+            'articleModel' => $article, 
+            'collection' => $attributesData, 
+            'fileUploadModel' => $fileUploadModel,
+            'articleAuthor' => $articleAuthor,
+            'articleAuthorForm' => $articleAuthorForm
+        ]);
     }
     
     public function actionSynonyms() {
@@ -438,8 +460,15 @@ class IzaController extends Controller {
             
             if ($entity->id) {
                 
+                $avatar = $model->getFrontendImagesBasePath().$model->avatar;
+
                 if ($entity->delete()) {
+                    
                     $model->delete();
+                    
+                    if (file_exists($avatar)) {
+                        @unlink($avatar);
+                    }
                 }
             }
             
@@ -450,6 +479,30 @@ class IzaController extends Controller {
         }
              
         return $this->redirect('@web/iza/authors');
+    }
+    
+    public function actionArticleAuthorDelete($id) {
+        $articleId = null;
+        
+        try {
+            
+            $model = ArticleAuthor::findOne($id);
+            $articleId = $model->article_id;
+            
+            if (!is_object($model)) {
+                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+            }
+            
+            $model->delete();
+
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Article Author relation was delete success!'));
+            
+        } catch (\yii\db\Exception $e) {
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Article Author relation was not delete!'));
+        }
+
+        return $this->redirect(Url::to(['/iza/article-view', 'id' => $articleId]));
+        
     }
 
 }
