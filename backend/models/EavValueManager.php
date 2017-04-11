@@ -10,6 +10,7 @@ class EavValueManager {
     private $model;
     private $oldAttribute;
     private $triggers;
+    public $errors = [];
     
     public function __construct(ValueInterface $model, array $values, $triggers = []) {
         
@@ -29,11 +30,19 @@ class EavValueManager {
                 $newValue = $this->valueStringFormat($value);
 
                 if (is_string($newValue)) {
-                    $this->update($newValue, $key);
-                    $this->checkEvent($value);
+                    
+                    if ($this->update($newValue, $key)) {
+                        $this->checkEvent($value);
+                    }
                 }
             }
         }
+        
+        if (count($this->errors)) {
+            return false;
+        }
+        
+        return true;
     }
     
     protected function checkEvent($value) {
@@ -51,9 +60,15 @@ class EavValueManager {
     }
     
     private function update(string $value, int $id) {
-        return Yii::$app->db->createCommand()
+        
+        try {
+            return Yii::$app->db->createCommand()
                     ->update(EavValue::tableName(), ['value' => $value], ['id' => $id])
                     ->execute();
+        } catch(\yii\db\Exception $e) {
+            $this->errors[] = $e->getMessage();
+            return false;
+        }
     }
     
     private function valueStringFormat($value) {

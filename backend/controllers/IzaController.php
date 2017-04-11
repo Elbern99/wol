@@ -132,9 +132,10 @@ class IzaController extends Controller {
                 $model = new \backend\models\EavValueManager($eavValuesModel, $values, $triggers);
 
                 if ($model->save()) {
-                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author attributes update success!'));
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Attributes have been updated'));
                 } else {
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author attributes not update success!'));
+                    $errors = implode('<br>', $model->errors);
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Attributes have not been updated '.$errors));
                 }
 
                 return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
@@ -145,7 +146,6 @@ class IzaController extends Controller {
                 
                 if ($author->validate()) {
 
-                    
                     if (!is_object($author->avatar)) {
                         $author->avatar = $author->getOldAttribute('avatar');
                     } else {
@@ -153,9 +153,9 @@ class IzaController extends Controller {
                     }
                     
                     if ($author->save(false)) {
-                         Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data update success!'));
+                        Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data have updated'));
                     } else {
-                        Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Author data not update success!'));
+                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Author data have not updated'));
                     }
 
                     return $this->redirect(Url::to(['iza/author-view', 'id' => $id]));
@@ -203,13 +203,13 @@ class IzaController extends Controller {
         $eavFactory = new StorageEav();
         
         $article = Article::findOne($id);
+        $articleAuthorForm = new ArticleAuthorForm();
+        $fileUploadModel = new UploadArticleFiles([], $article);
         $articleAuthor = new ActiveDataProvider([
             'query' => ArticleAuthor::find()->alias('aa')->where(['article_id' => $id])->with('author'),
             'pagination' => ['pageSize' => 100]
         ]);
-        $articleAuthorForm = new ArticleAuthorForm();
-        $fileUploadModel = new UploadArticleFiles([], $article);
-        
+ 
         $collection = Yii::createObject(Collection::class);
         $attributes = $eavFactory->factory('type')->find()
                                  ->where(['name' => 'article'])
@@ -240,9 +240,10 @@ class IzaController extends Controller {
                 $model = new \backend\models\EavValueManager($eavValuesModel, $values, $triggers);
 
                 if ($model->save()) {
-                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article attributes update success!'));
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Attributes have been updated'));
                 } else {
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article attributes not update success!'));
+                    $errors = implode('<br>', $model->errors);
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Attributes have not been updated <br>'.$errors));
                 }
                 
                 return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
@@ -250,9 +251,9 @@ class IzaController extends Controller {
             } elseif ($article->load(Yii::$app->request->post())) {
                 
                 if ($article->save()) {
-                     Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article data update success!'));
+                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article data have updated'));
                 } else {
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Article data not update success!'));
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Article data have not updated'));
                 }
                 
                 return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
@@ -273,7 +274,7 @@ class IzaController extends Controller {
             } elseif ($articleAuthorForm->load(Yii::$app->request->post())) {
                 
                 if ($articleAuthorForm->addAuthor($id)) {
-                    Yii::$app->getSession()->setFlash('success', 'Author was add');
+                    Yii::$app->getSession()->setFlash('success', 'Author have been added');
                 }
                 
                 return $this->redirect(Url::to(['iza/article-view', 'id' => $id]));
