@@ -80,6 +80,7 @@ trait HomeTrait {
         return  Topic::find()
                         ->select(['image_link', 'title', 'url_key'])
                         ->where(['not', ['sticky_at' => null]])
+                        ->andWhere(['=', 'is_hided', 0])
                         ->orderBy(['sticky_at' => SORT_DESC])
                         ->asArray()
                         ->all();

@@ -51,10 +51,12 @@ class TopicController extends Controller {
         ->select('*')
         ->from('topics')
         ->where('sticky_at is null')
+        ->andWhere(['=', 'is_hided', 0])
         ->orderBy('created_at desc');
         
         $topics = Topic::find()
                             ->where('sticky_at is not null')
+                            ->andWhere(['=', 'is_hided', 0])
                             ->orderBy('sticky_at asc')
                             ->all();
         
@@ -75,8 +77,7 @@ class TopicController extends Controller {
 
         }
          
-        $topicsQuery = Topic::find()->orderBy('created_at desc');
-
+        $topicsQuery = Topic::find()->andWhere(['=', 'is_hided', 0])->orderBy('created_at desc');
         return $this->render('index', [
             'category' => $this->_getMainCategory(),
             'topics' => $this->_getTopicsList($limit),
@@ -102,7 +103,8 @@ class TopicController extends Controller {
         
         $keyTopics = Topic::find()->where([
             'is_key_topic' => true,
-        ])->orderBy('id desc')->all();
+        ])->andWhere(['=', 'is_hided', 0])
+        ->orderBy('id desc')->all();
         
         $order = SORT_DESC;
 
