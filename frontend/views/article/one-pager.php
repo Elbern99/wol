@@ -9,9 +9,6 @@ use common\modules\eav\helper\EavAttributeHelper;
 ?>
 
 <?php
-/* TODO need remove for german version work */
-$currentLang = 0;
-
 $attributes = $collection->getEntity()->getValues();
 EavAttributeHelper::initEavAttributes($attributes);
 
@@ -174,8 +171,7 @@ $config = [
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?>
-                    <?php /* TODO onclick="return false;" remove for german version work */ ?>
-                    <a style="display:none" href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" onclick="return false;" class="btn-border-gray-middle color-blue">
+                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
