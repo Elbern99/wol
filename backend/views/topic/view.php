@@ -64,7 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                 <?= $form->field($model, 'is_key_topic')->checkbox() ?>
                 <?= $form->field($model, 'sticky_at')->checkbox() ?>
-            
+                <?= $form->field($model, 'is_hided')->checkbox() ?>
+
                 <?= $form->field($model, 'article_ids')->widget(Select2::classname(), [
                     'data' => $model->articlesList(),
                     'options' => ['placeholder' => 'Select topic articles...', 'multiple' => true],

@@ -58,7 +58,7 @@ class Topic extends \yii\db\ActiveRecord
         return [
             [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at', 'is_key_topic', 'sticky_at', 'article_ids', 'video_ids', 'opinion_ids', 'event_ids', 'category_id'], 'safe'],
+            [['created_at', 'is_key_topic', 'sticky_at', 'article_ids', 'video_ids', 'opinion_ids', 'event_ids', 'category_id', 'is_hided'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -85,6 +85,7 @@ class Topic extends \yii\db\ActiveRecord
             'video_ids' => Yii::t('app', 'Videos'),
             'opinion_ids' => Yii::t('app', 'Opinions'),
             'event_ids' => Yii::t('app', 'Events'),
+            'is_hided' => Yii::t('app', 'Is Hided')
         ];
     }
     
