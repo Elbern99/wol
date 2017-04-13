@@ -125,6 +125,8 @@ class AdminInterfaceController extends Controller {
                     ];
                 }
                 
+                $uploadLog->addSuccessLog($model->archive->name);
+                
                 return [
                     'files' => [
                         ['name' => $model->archive->name],
