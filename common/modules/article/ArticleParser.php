@@ -232,6 +232,11 @@ class ArticleParser implements ParserInterface {
 
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
+        
+        if (!isset($this->xml->teiHeader->fileDesc->publicationStmt->idno)) {
+            $this->log->addLine('Xml file has wrong type');
+            return $this->log;
+        }
 
         $this->addBaseTableValue();
     

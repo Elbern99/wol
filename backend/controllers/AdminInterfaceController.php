@@ -104,9 +104,11 @@ class AdminInterfaceController extends Controller {
                         
                         return [
                             'files' => [
-                                ['name' => $model->archive->name],
+                                ['name' => $model->archive->name]
                             ],
-                            'log' => $uploadLog->id
+                            'error' => Yii::t('app/text', 'Upload was not success'),
+                            'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
+                            
                         ];
                     }
                     
@@ -117,18 +119,17 @@ class AdminInterfaceController extends Controller {
                         
                     return [
                         'files' => [
-                            ['name' => $model->archive->name,],
+                            ['name' => $model->archive->name]
                         ],
-                        'log' => $uploadLog->id
+                        'error' => Yii::t('app/text', 'Upload was not success')
                     ];
                 }
                 
-                $uploadLog->addSuccessLog($model->archive->name);
-                
                 return [
                     'files' => [
-                        ['name' => $model->archive->name,],
+                        ['name' => $model->archive->name],
                     ],
+                    'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
                 ];
 
             } else {
