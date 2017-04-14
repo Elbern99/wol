@@ -5,9 +5,11 @@ use frontend\components\filters\NewsletterArchiveWidget;
 ?>
 
 <?php
+$prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $newsItemDirectLink = Url::to(['/news/view', 'slug' => $model->url_key], true);
 $mailLink = $newsItemDirectLink;
 $mailTitle = $model->title;
+$this->title = Html::encode($prefixTitle.$model->title);
 
 if ($category) {
     $this->registerMetaTag([

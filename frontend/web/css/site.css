@@ -3348,7 +3348,7 @@ h2:empty {
   background: #fff;
   border-top: 1px solid #535353;
   padding: 7px 0;
-  z-index: 100;
+  z-index: 2000;
   font-size: 12px; }
   @media only screen and (min-width: 767px) {
     .sticky-newsletter {
@@ -6129,7 +6129,7 @@ iframe[name=advpp_manager] {
       display: block;
       margin: 0 0 15px; }
       .header-mobile .logo-main {
-        z-index: 1003;
+        z-index: 2003;
         height: 25px;
         overflow: hidden;
         margin: 4px 0; } }
@@ -6155,9 +6155,7 @@ iframe[name=advpp_manager] {
     left: 50%;
     margin-left: -133px; }
     .header-menu-top-list li .submenu li.active-page > a {
-      color: #0053a0 !important;
-      pointer-events: none;
-      cursor: default; }
+      color: #0053a0 !important; }
     .header-menu-top-list li .submenu a {
       color: #2a2a2a; }
       .header-menu-top-list li .submenu a:hover {
@@ -6520,7 +6518,7 @@ iframe[name=advpp_manager] {
     top: 0;
     width: 100%;
     right: 0;
-    z-index: 1001;
+    z-index: 2001;
     background: #fff;
     left: -150%;
     transition: all 0.3s ease;
@@ -6528,13 +6526,13 @@ iframe[name=advpp_manager] {
     bottom: 0; }
     .mobile-search.mobile-login,
     .mobile-login.mobile-login {
-      z-index: 1003; }
+      z-index: 2003; }
     .mobile-search .btn-mobile-icon,
     .mobile-login .btn-mobile-icon {
       position: absolute;
       top: 4px;
       right: 4px;
-      z-index: 1005; }
+      z-index: 2005; }
     .mobile-search.open,
     .mobile-login.open {
       left: 0;
@@ -6565,7 +6563,7 @@ iframe[name=advpp_manager] {
     padding: 45px 35px 57px;
     transition: all 0.3s ease;
     opacity: 0;
-    z-index: 1003;
+    z-index: 2003;
     bottom: 0; }
     .mobile-menu .btn-mobile-icon {
       position: absolute;
