@@ -55,7 +55,7 @@ class UploadArticleFiles extends Model
             [['type'], 'required'],
             [['file'], 'safe'],
             [['filename', 'type'], 'string'],
-            [['file'], 'file', 'extensions' => 'png, jpg, jpeg', 'skipOnEmpty' => true],
+            [['file'], 'file', 'extensions' => 'png, jpg, jpeg, pdf', 'skipOnEmpty' => false],
         ];
     }
 

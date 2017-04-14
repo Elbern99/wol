@@ -10,8 +10,10 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'filename') ?>
 
         <?= $form->field($model, 'file')->fileInput()->widget(FileInput::classname(), [
-            'options' => [
-                'multiple' => false
+            'options' => ['multiple' => false],
+            'pluginOptions' => [
+                'allowedFileExtensions' => ['png', 'jpg', 'pdf', 'jpeg'],
+                'showUpload' => false,
             ],
         ]);
         ?>
