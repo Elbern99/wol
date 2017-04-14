@@ -35,12 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'clientEvents' => [
                     'fileuploaddone' => 'function(e, data) {
-                                            var result = JSON.parse(data.jqXHR.responseText);
-                                            addToLog(result, "success");
+                                            if (data.jqXHR) {
+                                                var result = JSON.parse(data.jqXHR.responseText);
+                                                addToLog(result, "success");
+                                            }
                                         }',
                     'fileuploadfail' => 'function(e, data) {
-                                            var result = JSON.parse(data.jqXHR.responseText);
-                                            addToLog(result, "fail");
+                                            if (data.jqXHR) {
+                                                var result = JSON.parse(data.jqXHR.responseText);
+                                                addToLog(result, "fail");
+                                            }
                                         }',
                 ],
             ]); ?>
