@@ -21,7 +21,8 @@ class DateBehavior extends AttributeBehavior
 
         if (empty($this->attributes)) {
             $this->attributes = [
-                BaseActiveRecord::EVENT_AFTER_FIND => [$this->createdAtAttribute, $this->updatedAtAttribute]
+                BaseActiveRecord::EVENT_AFTER_FIND => [$this->createdAtAttribute, $this->updatedAtAttribute],
+                BaseActiveRecord::EVENT_BEFORE_UPDATE => [$this->createdAtAttribute, $this->updatedAtAttribute],
             ];
         }
     }
@@ -38,7 +39,7 @@ class DateBehavior extends AttributeBehavior
         if (!empty($this->attributes[$event->name])) {
             $attributes = (array) $this->attributes[$event->name];
             $value = $this->getValue($event);
-            
+
             foreach ($attributes as $attribute) {
                 // ignore attribute names which are not string (e.g. when set by TimestampBehavior::updatedAtAttribute)
                 if (is_string($attribute)) {
@@ -56,8 +57,16 @@ class DateBehavior extends AttributeBehavior
      */
     protected function getValue($event)
     {
-
+        
         if ($this->value === null) {
+            
+            if ($event->name == ActiveRecord::EVENT_BEFORE_UPDATE) {
+                
+                return [
+                    'created_at' => strtotime($event->sender->created_at), 
+                    'updated_at' =>strtotime($event->sender->updated_at)
+                ];
+            }
             
             return [
                 'created_at' => date('d-M-Y', $event->sender->created_at), 
@@ -66,5 +75,5 @@ class DateBehavior extends AttributeBehavior
         }
         return parent::getValue($event);
     }
-
+    
 }
