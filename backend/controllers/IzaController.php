@@ -12,6 +12,7 @@ use backend\models\ArticleSearch;
 use backend\models\AuthorSearch;
 use backend\models\Article;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use common\modules\eav\Collection;
 use common\models\SynonymsSearch;
 use common\modules\eav\StorageEav;
@@ -19,6 +20,7 @@ use backend\models\Author;
 use backend\models\UploadArticleFiles;
 use common\models\ArticleAuthor;
 use backend\models\ArticleAuthorForm;
+use common\models\VersionsArticle;
 
 /*
  * Article Author Class Controller
@@ -391,7 +393,7 @@ class IzaController extends Controller {
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
             }
-            
+
             $eavFactory = new StorageEav();
             $eavEntityModel = $eavFactory->factory('entity');
             $eavTypeModel = $eavFactory->factory('type');
@@ -406,6 +408,24 @@ class IzaController extends Controller {
                 
                 if ($entity->delete()) {
                     $model->delete();
+                    
+                    $vesions = VersionsArticle::find()->where(['article_id' => $id])->all();
+                    
+                    if ($vesions) {
+                        
+                        $versionIds = ArrayHelper::getColumn($vesions, 'id');
+                        $eavEntityVersionModel = $eavFactory->factory('entity');
+                        $entity = $eavEntityModel->find()
+                                                ->alias('e')
+                                                ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                                                ->where(['e.model_id' => $versionIds, 't.name' => VersionsArticle::ENTITY_NAME])
+                                                ->all();
+                        
+                        $class = $eavEntityModel::className();
+                        $class::deleteAll(['id' => ArrayHelper::getColumn($entity, 'id')]);
+                        VersionsArticle::deleteAll(['id' => $versionIds]);
+                    }
+                    
                     $this->removeOldFolders($model->getSavePath());
                 }
             }
