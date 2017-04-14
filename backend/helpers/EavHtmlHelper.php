@@ -132,18 +132,8 @@ class EavHtmlHelper {
 
             $inputName = 'get'.$option['type'].'Input';
             $property = str_replace(' ', '_', strtolower($option['label']));
-
-            if (!isset($value->$property)) {
-                var_dump($property);
-                var_dump($value);
-                var_dump($attribute);
-                exit;
-            }
-
             $optionName = $name.'['.$property.']';
-
             $group .= Html::label($option['label']);
-
             $group .= $this->$inputName($value->$property, $optionName);
         }
 
@@ -152,11 +142,13 @@ class EavHtmlHelper {
 
 
     protected function getStringInput($value, $name) {
+        
         $input = Html::input('text', $name, $value, ['class'=>'form-control']);
         return Html::tag('div', $input, ['class'=>'input-line']);
     }
 
     protected function getSmallTextInput($value, $name) {
+        
         $field = '<div class="btn-group">';
         $fieldTag = Html::tag('div', $value, ['class'=>'text-for-form-control']);
         $textarea = Html::textarea($name, $value, ['rows'=>'5', 'cols'=>'65', 'class'=>'form-control']);
@@ -193,12 +185,17 @@ class EavHtmlHelper {
     protected function getArrayInput($value, $name) {
 
         $result = [];
+        
+        if (!$value) {
+            $newName = $name.'[]';
+            return $this->getStringInput(null, $newName);
+        }
 
         foreach ($value as $k=>$item) {
             $newName = $name.'['.$k.']';
             $result[] = $this->getStringInput($item, $newName);
         }
-
+        
         return implode('', $result);
     }
 
