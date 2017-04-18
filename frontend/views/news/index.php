@@ -91,10 +91,10 @@ if ($category) {
                                         <div class="date">
                                             <?= $item->created_at->format('F d, Y'); ?>
                                         </div>
-                                        <div class="publish">
-                                            <a href="#">
+                                        <div class="writers">
+                                            <span class="writer-item">
                                                 <?= $item->editor; ?>
-                                            </a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

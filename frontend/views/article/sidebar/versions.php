@@ -37,7 +37,7 @@ $versions = $article->getArticleVersions();
             <div class="title">author(s)</div>
             <?php if(count($authorsList)): ?>
                 <?php foreach($authorsList as $authorAttribute): ?>
-                    <?= Html::a($authorAttribute['name'], $authorAttribute['url']) ?>
+                    <div class="author-item"><?= Html::a($authorAttribute['name'], $authorAttribute['url']) ?></div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

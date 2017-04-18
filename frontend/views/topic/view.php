@@ -60,7 +60,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </ul>
                     <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                     <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                    <div class="publish"><?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
+                    <div class="writers"><?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
                     <div class="description">
                         <?= $article['abstract']->abstract ?? ''; ?>
                     </div>
@@ -109,7 +109,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                             ]); ?>
                             <?= Html::endTag('a'); ?>
                         <?php endif; ?>
-                        <div class="publish"><?= $opinion->getAuthorsLink(); ?></div>
+                        <div class="writers"><span class="writer-item"><?= $opinion->getAuthorsLink(); ?></span></div>
                         <h2>
                             <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
                         </h2>

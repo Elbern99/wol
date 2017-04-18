@@ -61,8 +61,9 @@ if ($googleVerification) {
                                     </ul>
                                     <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                                     <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                                    <div class="publish">
-                                        <?php foreach($article['authors'] as $author): ?><?= $author ?><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
+                                    <div class="writers">
+                                        <?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?>
+                                    </div>
                                     <div class="description">
                                         <?= $article['abstract']->abstract ?? ''; ?>
                                     </div>
@@ -90,8 +91,8 @@ if ($googleVerification) {
                                         <div class="head-news-holder">
                                             <div class="head-news">
                                                 <div class="date"><?= date('M d, Y', strtotime($newsItem['created_at'])) ?></div>
-                                                <div class="publish">
-                                                    <?= $newsItem['editor'] ?>
+                                                <div class="writers">
+                                                    <span class="writer-item"><?= $newsItem['editor'] ?></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,7 +168,6 @@ if ($googleVerification) {
                     <?php endif; ?>
                     <?php Pjax::begin(['linkSelector' => '#event_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
                     <div class="other-events-list-holder">
-                        
                         <div class="widget-title medium"><a href="/events">events</a></div>
                         <ul class="post-list home-other-events-list media-list">
                             <?php foreach ($events as $event): ?>

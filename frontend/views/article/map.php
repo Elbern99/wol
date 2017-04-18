@@ -233,7 +233,7 @@ $this->registerCssFile('/css/leaflet.css');
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
                 <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title') ?></a>
-                <div class="writer">
+                <div class="writers">
                     <?php if (count($authors)): ?>
                         <?php foreach($authors as $author): ?>
                             <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
