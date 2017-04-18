@@ -160,7 +160,7 @@ if ($category) {
                                     <h3>
                                         <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
                                     </h3>
-                                    <div class="writer"><?= $article->availability; ?></div>
+                                    <div class="writers"><?= $article->availability; ?></div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
