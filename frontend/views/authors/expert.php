@@ -63,7 +63,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
         <?php endif;?>
         <div class="mobile-filter-holder">
             <div class="search-results-top-filter">
-                <strong><?= count($expertCount) ?> were found</strong>
+                <strong><?= $expertCount ?> were found</strong>
                 <a href="" class="filter-mobile-link">Filter</a>
             </div>
             <div class="mobile-filter">
