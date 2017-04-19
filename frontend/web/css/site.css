@@ -1736,27 +1736,31 @@ th {
 .articles-filter-list,
 .all-references-list,
 .pagination,
-.header-menu-top-list {
+.header-menu-top-list,
+.classification-list {
   list-style: none;
   padding: 0; }
   .reset-all-list ul,
   .articles-filter-list ul,
   .all-references-list ul,
   .pagination ul,
-  .header-menu-top-list ul {
+  .header-menu-top-list ul,
+  .classification-list ul {
     padding: 0; }
   .reset-all-list li,
   .articles-filter-list li,
   .all-references-list li,
   .pagination li,
-  .header-menu-top-list li {
+  .header-menu-top-list li,
+  .classification-list li {
     margin: 0;
     padding: 0; }
     .reset-all-list li:before,
     .articles-filter-list li:before,
     .all-references-list li:before,
     .pagination li:before,
-    .header-menu-top-list li:before {
+    .header-menu-top-list li:before,
+    .classification-list li:before {
       display: none; }
 
 a {
@@ -4470,6 +4474,13 @@ h2:empty {
   font-size: 12px; }
   .classification-list li {
     margin: 0 0 10px; }
+    .classification-list li ul {
+      display: inline; }
+      .classification-list li ul li {
+        margin: 0; }
+      .classification-list li ul:before {
+        content: '>';
+        padding: 0 3px 0 0; }
     @media only screen and (max-width: 767px) {
       .classification-list li {
         font-size: 12px; } }
