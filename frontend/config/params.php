@@ -25,6 +25,7 @@ return [
     'video_sidebar_limit' => 5,
     'latest_articles_sidebar_limit' => 5,
     'latest_news_sidebar_limit' => 5,
+    'upcoming_events_sidebar_limit' => 5,
     'expert_limit' => 9,
     'search_result_limit' => 50,
     'authors_limit' => 10,
