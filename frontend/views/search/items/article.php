@@ -8,10 +8,10 @@
     <div class="article-item">
         <h2><a href="<?= $value['url'] ?>"><?= $value['title'] ?></a></h2>
         <h3><?= $value['teaser']->teaser ?? ''; ?></h3>
-        <div class="name">
+        <div class="writers">
             <?php foreach($value['authors'] as $owner): ?>
                 <?php if (is_object($owner)): ?>
-                <a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a>
+                <span class="writer-item"><a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a></span>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

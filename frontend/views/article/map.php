@@ -233,7 +233,7 @@ $this->registerCssFile('/css/leaflet.css');
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
                 <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title') ?></a>
-                <div class="writer">
+                <div class="writers">
                     <?php if (count($authors)): ?>
                         <?php foreach($authors as $author): ?>
                             <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
@@ -288,7 +288,7 @@ $this->registerCssFile('/css/leaflet.css');
                             <?php foreach ($related as $relate): ?>
                                 <li>
                                     <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                    <div class="writer">
+                                    <div class="writers">
                                         <?php foreach($relate['authors'] as $author): ?>
                                             <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
                                         <?php endforeach; ?>

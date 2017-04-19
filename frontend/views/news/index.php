@@ -91,10 +91,10 @@ if ($category) {
                                         <div class="date">
                                             <?= $item->created_at->format('F d, Y'); ?>
                                         </div>
-                                        <div class="publish">
-                                            <a href="#">
+                                        <div class="writers">
+                                            <span class="writer-item">
                                                 <?= $item->editor; ?>
-                                            </a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@ if ($category) {
                                     <h3>
                                         <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
                                     </h3>
-                                    <div class="writer"><?= $article->availability; ?></div>
+                                    <div class="writers"><?= $article->availability; ?></div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

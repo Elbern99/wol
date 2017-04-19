@@ -52,7 +52,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                 <h3>
                                     <?=  Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
                                 </h3>
-                                <div class="writer"><?= $opinion->getAuthorsLink(); ?></div>
+                                <div class="writers"><?= $opinion->getAuthorsLink(); ?></div>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -239,7 +239,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                     <h3>
                                         <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
                                     </h3>
-                                    <div class="writer"><?= $opinion->getAuthorsLink(); ?></div>
+                                    <div class="writers"><?= $opinion->getAuthorsLink(); ?></div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

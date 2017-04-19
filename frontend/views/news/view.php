@@ -51,7 +51,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                             <h3>
                                 <?= Html::a($item->title, ['/news/view', 'slug' => $item->url_key]); ?>
                             </h3>
-                            <div class="writer"><?= $item->editor; ?></div>
+                            <div class="writers"><?= $item->editor; ?></div>
                         </li>
                         <?php endforeach; ?>
                         
@@ -216,7 +216,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                     <h3>
                                         <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
                                     </h3>
-                                    <div class="writer"><?= $article->availability; ?></div>
+                                    <div class="writers"><?= $article->availability; ?></div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

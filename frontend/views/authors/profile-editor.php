@@ -164,8 +164,8 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                             </ul>
                             <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                            <div class="publish">
-                                <?php foreach($article['authors'] as $owner): ?><a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a><?php endforeach; ?>,
+                            <div class="writers">
+                                <?php foreach($article['authors'] as $owner): ?><span class="writer-item"><a href="<?= $owner->getUrl() ?>"><?= $owner->name  ?></a></span><?php endforeach; ?>,
                                 <?= date('F Y', $article['created_at']) ?>
                             </div>
                             <div class="description">

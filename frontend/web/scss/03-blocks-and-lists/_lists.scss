@@ -42,7 +42,7 @@
         }
       }
 
-      .publish {
+      .writers {
         margin: 0 0 5px;
         font-size: 12px;
 
@@ -68,7 +68,7 @@
     }
   }
 
-  .publish {
+  .writers {
     &:first-letter {
       text-transform: capitalize;
     }
@@ -749,7 +749,7 @@
   .post-item {
     margin-bottom: 0;
 
-    .publish {
+    .writers {
       &:first-letter {
         text-transform: capitalize;
       }
@@ -1290,7 +1290,7 @@
   .post-item {
     margin-bottom: 0;
 
-    .publish {
+    .writers {
       margin: -2px 0 3px;
 
       &:first-letter {
@@ -1554,7 +1554,6 @@
     margin: 0 0 15px;
     position: relative;
     font-size: 12px;
-    //overflow: hidden;
 
     &:first-letter {
       text-transform: capitalize;
@@ -1680,7 +1679,6 @@
       text-align: center;
       display: none;
       padding: 0;
-      //margin-top: 5px;
 
       @include breakpoint('tablet') {
         top: 1px;
