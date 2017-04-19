@@ -1415,7 +1415,7 @@ th {
   [class^="btn-border-gray-"].btn-border-gray-small,
   [class*=" btn-border-gray-"].btn-border-gray-small {
     height: 24px;
-    padding: 1px 6px 0;
+    padding: 3px 6px 2px;
     border-radius: 2px;
     font-size: 9px; }
     .btn-border-gray.btn-border-gray-small .icon-message,
@@ -3941,8 +3941,9 @@ h2:empty {
       margin: -6px 0 -15px -30px; } }
   .post-list.favourite-articles-list > li, .favourite-articles-list > li {
     padding: 3px 28px 17px 0; }
-    .post-list.favourite-articles-list > li:last-child, .favourite-articles-list > li:last-child {
-      padding-bottom: 0; }
+    @media only screen and (max-width: 767px) {
+      .post-list.favourite-articles-list > li:last-child, .favourite-articles-list > li:last-child {
+        padding-bottom: 0; } }
     @media only screen and (min-width: 767px) {
       .post-list.favourite-articles-list > li, .favourite-articles-list > li {
         padding: 10px 55px 10px 30px; } }
