@@ -127,16 +127,25 @@ class AuthorsController extends Controller {
             $loadSearch = true;
         }
         
+        $params = [
+            'expertCollection' => $expertCollection,
+            'limit' => $limit,
+            'expertCount' => 0,
+            'search' => $finds,
+            'filter' => $filter,
+            'filterRules' => $filterRules
+        ];
+        
         if ($loadSearch && $finds->validate()) {
 
             $results = $this->getSearchResult($finds);
 
-            if (count($results)) {
-                $experstIds = ArrayHelper::getColumn($results, 'id');
-                $filterRules['filter_params'] = $finds->getFilterAttributes();
-            } else {
-                $loadSearch = false;
+            if (!count($results)) {
+                return $this->render('expert', $params);
             }
+            
+            $experstIds = ArrayHelper::getColumn($results, 'id');
+            $filterRules['filter_params'] = $finds->getFilterAttributes();
         }
 
         if (!$loadSearch) {
@@ -149,15 +158,7 @@ class AuthorsController extends Controller {
                             ->count();
 
         if (!count($countExperts)) {
-
-            return $this->render('expert', [
-                'expertCollection' => $expertCollection,
-                'limit' => $limit,
-                'expertCount' => 0,
-                'search' => $finds,
-                'filter' => $filter,
-                'filterRules' => $filterRules
-            ]);
+            return $this->render('expert', $params);
         }
 
         

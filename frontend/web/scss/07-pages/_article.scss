@@ -256,7 +256,6 @@
     z-index: 1;
     text-transform: uppercase;
     font-size: 12px;
-    //@extend.material-state;
 
     @include breakpoint('tablet') {
       font-size: 11px;
@@ -407,7 +406,6 @@
 }
 
 //article-buttons
-
 .article-buttons-list {
   margin: 0 0 0 -3px;
 
@@ -582,63 +580,6 @@
       }
     }
   }
-
-  //[class^="btn-"],
-  //[class*=" btn-"] {
-  //  //margin: 0 5px 22px 0;
-  //
-  //  @include breakpoint_custom($breakpoint-tablet) {
-  //    //margin: 22px 5px 0 0;
-  //
-  //    &.btn-show-one-pager {
-  //      position: absolute;
-  //      top: -86px;
-  //      left: 50%;
-  //      transform: translateX(-50%);
-  //    }
-  //  }
-  //}
-
-  //&.article-buttons-sidebar {
-  //  display: none;
-  //  padding: 0;
-  //
-  //  @include breakpoint('tablet') {
-  //    border: 0;
-  //    display: block;
-  //
-  //    [class^="btn-"],
-  //    [class*=" btn-"] {
-  //      //margin: 0 3px 22px 0;
-  //    }
-  //  }
-  //}
-
-  //&.article-buttons-mobile {
-  //  margin: 0;
-  //  border: 0;
-  //  padding: 10px 0 20px;
-  //  @extend .clearfix;
-  //
-  //  @include breakpoint_custom($breakpoint-tablet) {
-  //    margin-right: -5px;
-  //  }
-  //
-  //  [class^="btn-"],
-  //  [class*=" btn-"] {
-  //    float: right;
-  //    margin: 0 5px 5px 0;
-  //  }
-  //
-  //  .btn-download,
-  //  .btn-cite {
-  //    float: left;
-  //  }
-  //
-  //  @include breakpoint('tablet') {
-  //    display: none;
-  //  }
-  //}
 }
 
 #article-map-medium,
@@ -970,10 +911,10 @@
 
         /* iphone6 */
         @media only screen
-        and (min-device-width : 375px) // or 213.4375em or 3in or 9cm
-        and (max-device-width : 667px) // or 41.6875em
-        and (width : 667px) // or 41.6875em
-        and (height : 375px) // or 23.4375em
+        and (min-device-width : 375px)
+        and (max-device-width : 667px)
+        and (width : 667px)
+        and (height : 375px)
         and (orientation : landscape)
         and (color : 8)
         and (device-aspect-ratio : 375/667)
@@ -1209,11 +1150,6 @@
       transform: translateY(-50%);
       margin: 0;
       bottom: auto;
-
-      &:hover {
-        //background: $blue;
-        //color: $white;
-      }
 
       &:active {
         box-shadow: 0 2px 2px rgba(0,0,0,0.2) inset;

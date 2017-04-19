@@ -12,7 +12,10 @@
             </ul>
             <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-            <div class="publish"><a href=""><?= $article['availability'] ?></a>, <?= date('F Y', $article['created_at']) ?></div>
+            <div class="writers">
+                <?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>,
+                <?= date('F Y', $article['created_at']) ?>
+            </div>
             <div class="description">
                 <?= $article['abstract']->abstract ?? ''; ?>
             </div>

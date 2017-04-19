@@ -18,6 +18,10 @@ return [
         ]
     ],
     'components' => [
+        'cacheFrontend' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

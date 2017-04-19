@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
 class DataSource extends \yii\db\ActiveRecord
 {
     public $types = [];
-    protected $sourceCode = 'IWOL_COL_40';
+    const SOURCE_CODE = 'IWOL_COL_40';
     
     /**
      * @inheritdoc
@@ -62,11 +62,31 @@ class DataSource extends \yii\db\ActiveRecord
         
         $data = Taxonomy::find()
                           ->select(['value', 'id'])
-                          ->andFilterWhere(['like', 'code', $this->sourceCode])
+                          ->andFilterWhere(['like', 'code', self::SOURCE_CODE])
                           ->asArray()
                           ->all();
         
         return \yii\helpers\ArrayHelper::map($data, 'id', 'value');
+    }
+    
+    public static function removeDataSourcesCache() {
+        
+        $data = Taxonomy::find()
+                          ->select(['id'])
+                          ->andFilterWhere(['like', 'code', self::SOURCE_CODE])
+                          ->asArray()
+                          ->all();
+        
+        $ids = \yii\helpers\ArrayHelper::getColumn($data, 'id');
+        $cache = Yii::$app->cacheFrontend;
+        
+        $key = 'data-source-items-0';
+        $cache->delete($key);
+
+        foreach ($ids as $id) {
+            $key = 'data-source-items-'.$id;
+            $cache->delete($key);
+        }
     }
     
     public static function addSources(array $sources) {
@@ -95,6 +115,7 @@ class DataSource extends \yii\db\ActiveRecord
                                             ->where(['source_id' => $model->id])
                                             ->asArray()
                                             ->all();
+            
             if (isset($source->types['col'])) {
                 $col = $source->types['col'];
             } else {
@@ -120,6 +141,8 @@ class DataSource extends \yii\db\ActiveRecord
                 ], 
                 $bulkInsertSourceTaxonomyArray
             )->execute();
+
+            self::removeDataSourcesCache();
         }
     }
 }

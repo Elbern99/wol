@@ -385,6 +385,7 @@ $config = [
 
         <?php
         $count_categories = count($categories);
+        $previos_lvl = 0;
         ?>
 
         <?php if ($count_categories > 0): ?>
@@ -393,11 +394,20 @@ $config = [
                 <ul class="classification-list">
                     <li>
                     <?php foreach ($categories as $c): ?>
-                        <?php if ($c['lvl'] > 1): ?>
-                            &nbsp;>&nbsp;<a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                        <?php if ($c['lvl'] == 1): ?>
+                            <?php if ($previos_lvl > 1): ?>
+                                <?= str_repeat ('</li></ul>', $previos_lvl-1); ?>
+                                </li><li>
+                            <?php endif; ?>
+                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
                         <?php else: ?>
-                            </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php if ($previos_lvl == $c['lvl']): ?>
+                                </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php else: ?>
+                                <ul><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php endif; ?>
                         <?php endif; ?>
+                        <?php $previos_lvl = $c['lvl']; ?>
                     <?php endforeach; ?>
                     </li>
                 </ul>
@@ -431,7 +441,7 @@ $config = [
                                 <?php foreach ($related as $relate): ?>
                                     <li>
                                         <h3><a href="<?= Url::to('/articles/'.$relate['seo']) ?>"><?= $relate['title'] ?></a></h3>
-                                        <div class="writer">
+                                        <div class="writers">
                                             <?php foreach($relate['authors'] as $author): ?>
                                                 <span class="writer-item"><?= Html::a($author['name'], $author['url']) ?></span>
                                             <?php endforeach; ?>
@@ -439,7 +449,7 @@ $config = [
                                     </li>
                                 <?php endforeach; unset($related); ?>
                             </ul>
-                            <?php if($count_related > 5): ?>
+                            <?php if ($count_related > 5): ?>
                                 <a href="" class="more-link">
                                     <span class="more">More</span>
                                     <span class="less">Less</span>

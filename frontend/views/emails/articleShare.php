@@ -20,7 +20,7 @@ if (count($articleDoi)) {
     $mailDOI = 'DOI: http://dx.doi.org/'.$articleDoi;
 }
 
-$mailText = "I think that you would be interested in the following quote from IZA World of Labor..\r\n\r\n";
+$mailText = "I think that you would be interested in the following quote from IZA World of Labor.\r\n\r\n";
 $mailText .= "textReplace\r\n\r\n";
 $mailText .= "From: $articleTitle - $articleUrl $mailAuthors\r\n\r\n";
 $mailText .= $mailDOI."\r\n\r\n";
