@@ -115,7 +115,7 @@ if ($category) {
                         </ul>
                     </div>
                     <?php if ($isArchive && !empty($upcomingEvents)) : ?>
-                    <div class="tab-item js-tab-hidden">
+                    <div class="tab-item js-tab-hidden expand-more">
                         <ul class="sidebar-news-list">
                             <?php foreach($upcomingEvents as $event) : ?>
                                 <li>
