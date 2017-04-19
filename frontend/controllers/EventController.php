@@ -29,7 +29,9 @@ class EventController extends Controller {
         $widgets = Widget::find()->where([
             'name' => ['event_widget1', 'event_widget2'],
         ])->all();
-        
+
+        $isArchive = false;
+
         $groupsQuery = (new \yii\db\Query())
                 ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
                 ->from('events')
@@ -59,15 +61,17 @@ class EventController extends Controller {
         }
 
         if ($month && $year) {
-           $groupsQuery->andWhere([
+            $isArchive = true;
+            $groupsQuery->andWhere([
                 'MONTH(date_from)' => $month,
                 'YEAR(date_from)' => $year,
             ]);
         }
         else if (!$month && $year) {
+            $isArchive = true;
             $groupsQuery->andWhere([
                 'YEAR(date_from)' => $year,
-            ]);
+            ])->andWhere('date_from < now()');
         }
         
         if (!$month && !$year) {
@@ -93,12 +97,20 @@ class EventController extends Controller {
         
         krsort($eventsTree, SORT_NUMERIC);
         ksort($groups);
+
+        $upcomingEvents = [];
+
+        if ($isArchive) {
+            $upcomingEvents = Event::find()->where('date_from >= now()')->orderBy('date_from asc')->all();
+        }
         
         return $this->render('index', [
             'eventGroups' => $groups,
             'eventsTree' => $eventsTree,
             'category' => $this->_getEventMainCategory(),
             'widgets' => $widgets,
+            'isArchive' => $isArchive,
+            'upcomingEvents' => $upcomingEvents,
         ]);
     }
     
