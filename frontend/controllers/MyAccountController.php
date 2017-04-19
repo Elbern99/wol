@@ -17,6 +17,8 @@ use common\models\Category;
 use frontend\models\SavedSearch;
 use yii\data\ActiveDataProvider;
 use frontend\models\NewsletterForm;
+use common\models\Author;
+
 /**
  * Site controller
  */
@@ -110,6 +112,9 @@ class MyAccountController extends Controller {
                                                 ->where('c.lvl = 1')
                                                 ->asArray();
                                 }])
+                                ->with(['articleAuthors.author' => function($query) {
+                                    return $query->select(['id','url_key', 'name'])->asArray();
+                                }])
                                 ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
                                 ->where(['a.enabled' => 1]);
                     }])
@@ -135,6 +140,14 @@ class MyAccountController extends Controller {
                 
                 $article = $relation->article;
                 $articleCategory = [];
+                $authors = [];
+
+                if (count($article->articleAuthors)) {
+                
+                    foreach ($article->articleAuthors as $author) {
+                        $authors[] = \yii\helpers\Html::a($author->author['name'], Author::getAuthorUrl($author->author['url_key']));
+                    }
+                }
 
                 foreach ($article->articleCategories as $c) {
                     $articleCategory[] = '<a href="' . $c['url_key'] . '" >' . $c['title'] . '</a>';
@@ -148,7 +161,8 @@ class MyAccountController extends Controller {
                     'abstract' => unserialize($values[$article->id]['abstract']),
                     'created_at' => $article->created_at,
                     'category' => $articleCategory,
-                    'fovorit_id' => $relation->id
+                    'fovorit_id' => $relation->id,
+                    'authors' => $authors
                 ];
             }
         }
