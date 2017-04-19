@@ -139,7 +139,7 @@ class AdminInterfaceController extends Controller {
                 Yii::$app->response->setStatusCode(400);
                 
                 return [
-                    'error' => Yii::t('app/text', 'Upload was not success')
+                    'error' => Yii::t('app/text', 'Upload arcive was not success')
                 ];
             }
         }
@@ -153,24 +153,62 @@ class AdminInterfaceController extends Controller {
 
         if (Yii::$app->request->isPost) {
 
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            
             $model->load(Yii::$app->request->post());
             $model->initUploadProperty();
 
             if ($model->upload(true)) {
                 
+                $uploadLog = new ArchiveLog(); 
+                
                 try {
                     $facade = new ParserFacade($model);
-                    $facade->run();
+                    $result = $facade->run();
                     
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Upload was success'), false);
+                    if ($result instanceof \common\contracts\LogInterface) {
+                        
+                        $uploadLog->addErrorLog($model->archive->name, $result->getLog());
+                        Yii::$app->response->setStatusCode(400);
+                        
+                        return [
+                            'files' => [
+                                ['name' => $model->archive->name]
+                            ],
+                            'error' => Yii::t('app/text', 'Update was not success'),
+                            'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
+                        ];
+                    }
                     
                 } catch(\Exception $e) {
-                    Yii::$app->getSession()->setFlash('error', $e->getMessage(), false);
+                    $uploadLog->addErrorLog($model->archive->name, [$e->getMessage()]);
+                    Yii::$app->response->setStatusCode(400);
+                        
+                    return [
+                        'files' => [
+                            ['name' => $model->archive->name]
+                        ],
+                        'error' => Yii::t('app/text', 'Update was not success')
+                    ];
                 }
+                
+                $uploadLog->addSuccessLog($model->archive->name);
+                
+                return [
+                    'files' => [
+                        ['name' => $model->archive->name],
+                    ],
+                    'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
+                ];
             
             } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'Upload was not success'), false);
+                Yii::$app->response->setStatusCode(400);
+                
+                return [
+                    'error' => Yii::t('app/text', 'Upload achive was not success')
+                ];
             }
+            
         }
         
         return $this->render('versions', ['model' => $model]);

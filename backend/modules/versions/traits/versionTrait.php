@@ -33,11 +33,14 @@ trait versionTrait {
         
         try {
             
+            $filesPath = $article->getSavePath();
             $this->notices = $article->notices;
             $article->delete();
             $entity->delete();
+            $this->removeOldFolders($filesPath);
             
             return true;
+            
         } catch (\yii\db\Exception $e) {
             throw new \Exception('Article was not delete '.$e->getMessage());
         }
@@ -75,4 +78,33 @@ trait versionTrait {
             }
         }
     }
+    
+    protected function removeOldFolders($path) {
+
+        $folders = [];
+        $folders['frontend'] = Yii::getAlias('@frontend') . '/web' . $path;
+        $folders['backend'] = Yii::getAlias('@backend') . '/web' . $path;
+
+        foreach ($folders as $dir) {
+
+            if (is_dir($dir)) {
+                $it = new \RecursiveDirectoryIterator($dir);
+                $it = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
+
+                foreach ($it as $file) {
+
+                    if ('.' === $file->getBasename() || '..' === $file->getBasename())
+                        continue;
+
+                    if ($file->isDir())
+                        rmdir($file->getPathname());
+
+                    @unlink($file->getPathname());
+                }
+
+                @rmdir($dir);
+            }
+        }
+    }
+
 }

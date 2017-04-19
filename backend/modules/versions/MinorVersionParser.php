@@ -3,6 +3,7 @@ namespace backend\modules\versions;
 
 use common\contracts\ParserInterface;
 use common\contracts\ReaderInterface;
+use common\contracts\LogInterface;
 use Yii;
 
 class MinorVersionParser implements ParserInterface {
@@ -12,6 +13,11 @@ class MinorVersionParser implements ParserInterface {
     
     protected $articleId;
     protected $xml;
+    protected $log;
+    
+    public function __construct(LogInterface $log) {
+        $this->log = $log;
+    }
     
     protected function getParseImagePath($name) {
         
@@ -23,7 +29,7 @@ class MinorVersionParser implements ParserInterface {
     }
     
     public function parse(ReaderInterface $reader) {
-        
+
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
         
@@ -32,16 +38,21 @@ class MinorVersionParser implements ParserInterface {
         if ($this->removeOldVersion()) {
             
             $articleParser = Yii::createObject('\common\modules\article\ArticleParser');
+            $result = $articleParser->parse($reader);
             
-            if ($articleParser->parse($reader)) {
-                
+            if ($result instanceof \common\contracts\LogInterface) {
+                return $result;
+            }
+            
+            if ($result) {
                 $this->addArticleNotice();
                 $this->updatedArticle();
                 return true;
             }
         }
         
-        return false;
+        $this->log->addLine('Old Article can not be remove');
+        return $this->log;
     }
 }
 

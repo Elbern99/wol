@@ -7,6 +7,7 @@ use Exception;
 use Yii;
 use common\models\Article;
 use common\models\VersionsArticle;
+use common\contracts\LogInterface;
 
 class MajorVersionParser implements ParserInterface {
 
@@ -16,9 +17,14 @@ class MajorVersionParser implements ParserInterface {
     protected $articleId;
     protected $xml;
     protected $version;
+    protected $log;
     
     private $article;
     private $entity;
+    
+    public function __construct(LogInterface $log) {
+        $this->log = $log;
+    }
     
     protected function getParseImagePath($name) {
         return '';
@@ -157,20 +163,26 @@ class MajorVersionParser implements ParserInterface {
         if ($this->createVersionArticle()) {
             //move all files
             $this->moveOldFiles();
-        }
+        
+            //add new article
+            $articleParser = Yii::createObject('\common\modules\article\ArticleParser');
+            $result = $articleParser->parse($reader);
 
-        //add new article
-        $articleParser = Yii::createObject('\common\modules\article\ArticleParser');
-            
-        if ($articleParser->parse($reader)) {
+            if ($result instanceof \common\contracts\LogInterface) {
+                return $result;
+            }
 
-            $this->addArticleNotice();
-            $this->updatedArticle();
-            
-            return true;
+            if ($result) {
+
+                $this->addArticleNotice();
+                $this->updatedArticle();
+
+                return true;
+            }
         }
         
-        return false;
+        $this->log->addLine('Old Article can not be remove');
+        return $this->log;
     }
 }
 
