@@ -54,17 +54,17 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                 <div class="search-holder">
                     <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Enter expertise or author name"])->label('') ?>
                 </div>
-                <?php if ($search->search_phrase): ?>
-                <p>Your search for <b><?= $search->search_phrase ?></b> returned <?= $expertCount ?> results</p>
-                <?php endif;?>
             </div>
         </div>
-        
+        <?php if ($search->search_phrase): ?>
+        <div class="search-results-top-text">
+            <p>Your search for <strong><?= $search->search_phrase ?></strong> returned <strong><?= $expertCount ?></strong> results</p>
+        </div>
+        <?php endif;?>
         <div class="mobile-filter-holder">
             <div class="search-results-top-filter">
                 <strong><?= count($expertCount) ?> were found</strong>
                 <a href="" class="filter-mobile-link">Filter</a>
-                <a href="" class="refine-mobile-link">Refine</a>
             </div>
             <div class="mobile-filter">
                 <div class="mobile-filter-container"></div>

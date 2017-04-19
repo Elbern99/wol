@@ -1,5 +1,9 @@
 .find-expert {
 
+  .search-results-top {
+    min-height: 74px;
+  }
+
   .article-head {
     margin-bottom: 33px;
 
@@ -14,7 +18,7 @@
     margin: 0 auto 28px;
 
     @include breakpoint('tablet') {
-      margin: 0 auto 94px;
+      margin: 0 auto 48px;
     }
   }
 }

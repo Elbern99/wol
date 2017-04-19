@@ -9262,6 +9262,8 @@ path {
   .editorial-board-widget p {
     margin: 0; }
 
+.find-expert .search-results-top {
+  min-height: 74px; }
 .find-expert .article-head {
   margin-bottom: 33px; }
   @media only screen and (min-width: 767px) {
@@ -9273,7 +9275,7 @@ path {
   margin: 0 auto 28px; }
   @media only screen and (min-width: 767px) {
     .find-expert .search {
-      margin: 0 auto 94px; } }
+      margin: 0 auto 48px; } }
 
 @media only screen and (max-width: 767px) {
   .news-list-page .hide-desktop {
