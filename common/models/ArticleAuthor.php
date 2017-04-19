@@ -66,7 +66,12 @@ class ArticleAuthor extends \yii\db\ActiveRecord
     }
     
     public static function getAuthorByCode($codes) {
-        return Author::find()->where(['author_key' => $codes])->select(['id'])->asArray()->all();
+        return Author::find()
+                ->where(['author_key' => $codes])
+                ->select(['id'])
+                ->orderBy([new \yii\db\Expression('FIELD (author_key, "' . implode('","',$codes) . '")')])
+                ->asArray()
+                ->all();
     }
 
     public static function massInsert(array $bulkInsertArray) {

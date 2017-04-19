@@ -358,7 +358,6 @@ class ArticleParser implements ParserInterface {
         $bulkInsertArray = [];
         $class = $this->config['article_author'];
         $codes = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
-
         foreach ($codes as $code) {
             
             $p = xml_parser_create();
@@ -370,7 +369,6 @@ class ArticleParser implements ParserInterface {
         }
 
         $authors = $class::getAuthorByCode($keys);
-
         foreach ($authors as $author) {
 
             $bulkInsertArray[] = [
