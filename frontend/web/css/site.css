@@ -1415,7 +1415,7 @@ th {
   [class^="btn-border-gray-"].btn-border-gray-small,
   [class*=" btn-border-gray-"].btn-border-gray-small {
     height: 24px;
-    padding: 1px 6px 0;
+    padding: 3px 6px 2px;
     border-radius: 2px;
     font-size: 9px; }
     .btn-border-gray.btn-border-gray-small .icon-message,
