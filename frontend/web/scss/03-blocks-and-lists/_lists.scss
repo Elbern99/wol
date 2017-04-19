@@ -680,7 +680,10 @@
       padding: 3px 28px 17px 0;
 
       &:last-child {
-        padding-bottom: 0;
+        
+        @include breakpoint_custom($breakpoint-tablet) {
+          padding-bottom: 0;
+        }
       }
 
       @include breakpoint('tablet') {
