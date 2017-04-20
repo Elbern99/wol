@@ -91,11 +91,13 @@ if ($category) {
                                         <div class="date">
                                             <?= $item->created_at->format('F d, Y'); ?>
                                         </div>
+                                        <?php if ($item->editor) : ?>
                                         <div class="writers">
                                             <span class="writer-item">
                                                 <?= $item->editor; ?>
                                             </span>
                                         </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <h2>
