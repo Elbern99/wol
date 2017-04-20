@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     'name',
                     [
-                        'attribute' => 'created_at',
+                        'attribute' => 'status',
                         'value' => function($model) {
                             if ($model->status == ArchiveLog::STATUS_DONE) {
                                 return 'OK';
