@@ -39,7 +39,7 @@ unset($currentParams);
         <h1>Search the site</h1>
     </div>
 
-    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'search_phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
         <div class="search-results-top">
             <div class="search">
                 <div class="save-search-holder hide-desktop">
@@ -123,10 +123,10 @@ unset($currentParams);
                         <div class="custom-select dropdown">
                             <div class="custom-select-title dropdown-link">10</div>
                             <div class="sort-list drop-content">
-                                <div <?= $requestCount == 10 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 10, 'phrase' => $phrase]) ?>">10</a></div>
-                                <div <?= $requestCount == 25 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 25, 'phrase' => $phrase]) ?>">25</a></div>
-                                <div <?= (!$requestCount || $requestCount == 50) ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 50, 'phrase' => $phrase]) ?>">50</a></div>
-                                <div <?= $requestCount == 100 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 100, 'phrase' => $phrase]) ?>">100</a></div>
+                                <div <?= $requestCount == 10 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 10]) ?>">10</a></div>
+                                <div <?= $requestCount == 25 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 25]) ?>">25</a></div>
+                                <div <?= (!$requestCount || $requestCount == 50) ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 50]) ?>">50</a></div>
+                                <div <?= $requestCount == 100 ? 'data-select="selected"' : '' ?>><a  href="<?=Url::current(['count' => 100]) ?>">100</a></div>
                             </div>
                         </div>
                     </div>

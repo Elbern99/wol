@@ -70,20 +70,29 @@ class SearchResult extends \yii\db\ActiveRecord
         
         if ($model->load($params, '') && $model->save()) {
             Yii::$app->getSession()->set('search_result_id', $model->id);
-            return $model->id;
+            return $model;
         }
         
         return false;
     }
     
-    public static function refreshResult($id, $args = []) {
+    public function mixSearchCreteriaArray($newCreteria) {
         
-        $model = self::find()->where(['id' => $id])->one();
-
+        $oldCreteria = unserialize($this->creteria);
+        
+        if (array_diff($oldCreteria['types'], $newCreteria['types'])) {
+            $oldCreteria['types'] = $newCreteria['types'];
+        }
+        
+        return $oldCreteria;
+    }
+    
+    public static function refreshResult($model, $args = []) {
+        
         if (!$model) {
             return self::addNewResult($args);
         }
-        
+
         if ($args['result']) {
             $model->result = serialize($args['result']);
         }
@@ -102,7 +111,7 @@ class SearchResult extends \yii\db\ActiveRecord
 
         if ($model->save()) {
             Yii::$app->getSession()->set('search_result_id', $model->id);
-            return $model->id;
+            return $model;
         }
         
         return false;
