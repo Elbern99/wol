@@ -7,8 +7,12 @@ use yii\helpers\Url;
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.'Events';
-$this->params['breadcrumbs'][] = 'Events';
-
+if ($isArchive) {
+    $this->params['breadcrumbs'][] = ['label' => Html::encode('Events'), 'url' => Url::to(['/event/index'])];
+    $this->params['breadcrumbs'][] = 'Events Archive';
+} else {
+    $this->params['breadcrumbs'][] = 'Events';
+}
 if ($category) {
     $this->registerMetaTag([
     'name' => 'keywords',
@@ -30,7 +34,11 @@ if ($category) {
             <div class="breadcrumbs">
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
-            <h1>Upcoming Events</h1>
+            <?php if ($isArchive) : ?>
+                <h1>Events archive</h1>
+            <?php else : ?>
+                <h1>Upcoming Events</h1>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -41,8 +49,11 @@ if ($category) {
 
             <div class="mobile-filter-holder custom-tabs-holder">
                 <ul class="mobile-filter-list">
-                    <li class="active"><a href="" class="js-widget">Latest events</a></li>
+                    <li class="active"><a href="" class="js-widget">Events</a></li>
                     <li><a href="" class="js-widget">Events archive</a></li>
+                    <?php if ($isArchive && !empty($upcomingEvents)) : ?>
+                    <li><a href="" class="js-widget">Upcoming events</a></li>
+                    <?php endif; ?>
                 </ul>
                 <h1 class="hide-desktop">Events</h1>
                 <div class="mobile-filter-items custom-tabs">
@@ -103,6 +114,33 @@ if ($category) {
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                    <?php if ($isArchive && !empty($upcomingEvents)) : ?>
+                    <div class="tab-item js-tab-hidden expand-more">
+                        <ul class="sidebar-news-list">
+                            <?php foreach($upcomingEvents as $event) : ?>
+                                <li>
+                                    <h3>
+                                        <?= Html::a($event->title, ['/event/view', 'slug' => $event->url_key]); ?>
+                                    </h3>
+                                    <div class="writer">
+                                        <?php if ($event->date_from->format('F d, Y') != $event->date_to->format('F d, Y')) : ?>
+                                            <?= $event->date_from->format('F d, Y'); ?> -
+                                            <?= $event->date_to->format('F d, Y'); ?>
+                                        <?php else : ?>
+                                            <?= $event->date_from->format('F d, Y'); ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php if (count($upcomingEvents) > Yii::$app->params['upcoming_events_sidebar_limit']): ?>
+                            <a href="" class="more-link">
+                                <span class="more">More</span>
+                                <span class="less">Less</span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -131,6 +169,36 @@ if ($category) {
                             </ul>
                         </div>
                     </li>
+                    <?php if ($isArchive && !empty($upcomingEvents)) : ?>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Upcoming Events</a>
+                        <div class="text">
+                            <ul class="sidebar-news-list">
+                                <?php foreach($upcomingEvents as $event) : ?>
+                                    <li>
+                                        <h3>
+                                            <?= Html::a($event->title, ['/event/view', 'slug' => $event->url_key]); ?>
+                                        </h3>
+                                        <div class="writer">
+                                            <?php if ($event->date_from->format('F d, Y') != $event->date_to->format('F d, Y')) : ?>
+                                                <?= $event->date_from->format('F d, Y'); ?> -
+                                                <?= $event->date_to->format('F d, Y'); ?>
+                                            <?php else : ?>
+                                                <?= $event->date_from->format('F d, Y'); ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if (count($upcomingEvents) > Yii::$app->params['upcoming_events_sidebar_limit']): ?>
+                                <a href="" class="more-link">
+                                    <span class="more">More</span>
+                                    <span class="less">Less</span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <?php if (count($widgets)): ?>
