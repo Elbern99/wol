@@ -96,7 +96,7 @@ $config = [
         <ul class="article-buttons-list">
             <li>
                 <?php if (isset($attributes['full_pdf'])): ?>
-                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                         <span class="icon-download"></span>
                     </a>
                 <?php endif; ?>
@@ -257,7 +257,7 @@ $config = [
                             </li>
                             <li>
                                 <?php if (isset($attributes['full_pdf'])): ?>
-                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                         <div class="inner">
                                             <span class="icon-download"></span>
                                             <span class="text">download pdf</span>
@@ -300,7 +300,7 @@ $config = [
                 <ul class="article-buttons-list">
                     <li>
                         <?php if (isset($attributes['full_pdf'])): ?>
-                            <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                            <a href="<?= Url::to([$attributes['full_pdf']->getData('url'), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                 <div class="inner">
                                     <span class="icon-download"></span>
                                     <span class="text">download pdf</span>

@@ -82,6 +82,8 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json',
         'share_text_for_email' => $mailArticleShare
 ];
+$versions = $article->getArticleVersions();
+$currentVersionNumber = count($versions) + 1;
 ?>
 
 <div class="container article-full one-pager-page">
@@ -101,7 +103,7 @@ $config = [
     <ul class="article-buttons-list">
         <li>
             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                     <span class="icon-download"></span>
                 </a>
             <?php endif; ?>
@@ -264,7 +266,7 @@ $config = [
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                                <a href="<?= $attributes['one_pager_pdf']->getData('url',$currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                     <div class="inner">
                                         <span class="icon-download"></span>
                                         <span class="text">download pdf</span>
@@ -307,7 +309,7 @@ $config = [
         <div class="article-buttons-sidebar hide-mobile">
             <ul class="article-buttons-list">
                 <li><?php if (isset($attributes['one_pager_pdf'])): ?>
-                    <a href="<?= $attributes['one_pager_pdf']->getData('url', $currentLang) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                    <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
                         <div class="inner">
                             <span class="icon-download"></span>
                             <span class="text">download pdf</span>
@@ -644,7 +646,7 @@ $config = [
             </a>
         </div>
         
-        <?= $this->renderFile(__DIR__.'/sidebar/versions.php', ['article' => $article, 'authorsList'=>$authorsList]); ?>
+        <?= $this->renderFile(__DIR__.'/sidebar/versions.php', ['article' => $article, 'authorsList'=>$authorsList, 'versions' => $versions]); ?>
     </aside>
 </div>
 </div>

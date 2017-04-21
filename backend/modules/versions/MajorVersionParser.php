@@ -116,7 +116,8 @@ class MajorVersionParser implements ParserInterface {
         $filePath = Yii::getAlias('@frontend').'/web'.$data->url;
 
         if (file_exists($filePath)) {
-            $newName = preg_replace('/\.pdf/', '-'.$this->version.'.pdf', $data->url);
+            $newName = preg_replace('/[\-1-9]*\.pdf/', '', $data->url);
+            $newName .= '-'.$this->version.'.pdf';
 
             if(rename($filePath, Yii::getAlias('@frontend').'/web'.$newName)) {
                 $data->url = $newName;
@@ -132,7 +133,9 @@ class MajorVersionParser implements ParserInterface {
         $filePath = Yii::getAlias('@frontend').'/web'.$data->path;
 
         if (file_exists($filePath)) {
-            $newName = preg_replace('/ga\./', 'ga-'.$this->version.'.', $data->path);
+
+            $newName = preg_replace('/[\-1-9]*\.png/', '', $data->path);
+            $newName .= '-'.$this->version.'.png';
             
             if(rename($filePath, Yii::getAlias('@frontend').'/web'.$newName)) {
                 $data->path = $newName;
@@ -152,7 +155,7 @@ class MajorVersionParser implements ParserInterface {
         //version number
         $this->setVersionNumber();
         //get current article
-        $this->initCurrentArticle();
+        $this->initCurrentArticle();      
         //create version article
         if ($this->createVersionArticle()) {
             //move all files
