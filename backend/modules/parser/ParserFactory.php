@@ -21,7 +21,7 @@ class ParserFactory {
             return Yii::createObject($class);
         }
         
-        throw new \Exception('Class did not find');
+        throw new \Exception('Class did not found');
     }
 }
 

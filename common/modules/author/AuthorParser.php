@@ -10,6 +10,7 @@ use common\modules\eav\contracts\EntityTypeInterface;
 use common\modules\eav\contracts\ValueInterface;
 use Yii;
 use yii\helpers\FileHelper;
+use common\contracts\LogInterface;
 
 class AuthorParser implements ParserInterface {
 
@@ -21,6 +22,7 @@ class AuthorParser implements ParserInterface {
     private $type = null;
     private $value = null;
     private $config = null;
+    private $log;
     private $replace = [
         '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '',
         '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'Ae',
@@ -73,7 +75,7 @@ class AuthorParser implements ParserInterface {
     protected $person = null;
     
     public function __construct(AuthorInterface $author, EntityInterface $entity, 
-            EntityTypeInterface $type, ValueInterface $value
+            EntityTypeInterface $type, ValueInterface $value, LogInterface $log
     ) {
         
         $this->config = Yii::$app->params['authorModelDetail'];
@@ -81,7 +83,7 @@ class AuthorParser implements ParserInterface {
         $this->entity = $entity;
         $this->type = $type;
         $this->value = $value;
-        
+        $this->log = $log;
     }
 
     protected function addBaseTableValue() {
@@ -146,11 +148,16 @@ class AuthorParser implements ParserInterface {
         } else {
 
             $this->person = $this->xml;
+            
+            if (($valid = $this->preValidationAttribute()) instanceof \common\contracts\LogInterface) {
+                return $valid;
+            }
+
             $author = $this->addBaseTableValue();
             
             if ($author === false) {
-            
-                return false;
+                $this->log->addLine('Author - '.$this->getAuthorKey().' cannot be created');
+                return $this->log;
             }
             
             $this->setAuthorRoles($author);
@@ -160,6 +167,63 @@ class AuthorParser implements ParserInterface {
         
         return true;
 
+    }
+    
+    protected function peopleParse($people) {
+
+        foreach ($people as $person) {
+
+            $this->person = $person;
+            
+            if (($valid = $this->preValidationAttribute()) instanceof \common\contracts\LogInterface) {
+                continue;
+            }
+            
+            $author = $this->addBaseTableValue();
+            
+            if ($author === false) {
+                $this->log->addLine('Author - '.$this->getAuthorKey().' cannot be created');
+                continue;
+            }
+            
+            $this->setAuthorRoles($author);
+            $this->setAuthorCategory($author);
+            $this->personParse($author);
+        }
+        
+        if ($this->log->getCount()) {
+            return $this->log;
+        }
+    }
+    
+    protected function preValidationAttribute() {
+        
+        $attributes = $this->type->find()
+                ->where(['name' => 'author'])
+                ->with('eavTypeAttributes.eavAttribute')
+                ->one();
+
+        foreach ($attributes->eavTypeAttributes as $attrType) {
+
+            $related = $attrType->getRelatedRecords();
+
+            foreach ($related as $attribute) {
+                
+                try {
+                    $attrName = $attribute->getAttribute('name');
+                    $val = $this->$attrName($attribute->getAttribute('required'));
+                } catch(\Exception $e) {
+                    $this->log->addLine('Attribute '.$attribute->getAttribute('name'). ' not validated - '. $e->getMessage());
+                }
+
+            }
+        }
+        
+        if ($this->log->getCount()) {
+            return $this->log;
+        }
+        
+        return true;
     }
     
     protected function saveAuthorImages($images) {
@@ -188,23 +252,6 @@ class AuthorParser implements ParserInterface {
         }
     }
 
-    protected function peopleParse($people) {
-
-        foreach ($people as $person) {
-
-            $this->person = $person;
-            $author = $this->addBaseTableValue();
-            
-            if ($author === false) {
-                continue;
-            }
-            
-            $this->setAuthorRoles($author);
-            $this->setAuthorCategory($author);
-            $this->personParse($author);
-        }
-    }
-    
     public function setAuthorRoles($author) {
 
         $class = $this->config['author_roles'];
@@ -289,11 +336,10 @@ class AuthorParser implements ParserInterface {
         if (is_null($entity)) {
 
             $author->delete();
-            throw new \Exception(Yii::t('app/messages', 'Entity could not be created'));
+            $this->log->addLine(Yii::t('app/messages','Entity could not be created'));
+            return $this->log;
         }
-
-        $result = true;
-
+        
         foreach ($attributes->eavTypeAttributes as $attrType) {
 
             $related = $attrType->getRelatedRecords();
@@ -311,20 +357,12 @@ class AuthorParser implements ParserInterface {
                         'value' => $val
                     ];
 
-                    if (!$this->value->addEavAttribute($args)) {
-                        $result[] = 'Attribute ' . $attrName . ' did not add';
-                    }
-                    
+                    $this->value->addEavAttribute($args);
                 }
             }
         }
         
-        /*
-         * Log functionality
-        if (is_array($result)) {
-            
-        }
-         */
+        return true;
     }
     
     public function __call($name, $arg) {
