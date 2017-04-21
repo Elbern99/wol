@@ -13,6 +13,7 @@ class Value {
     private $attribute;
     private $data = null;
     private $multi;
+    private $value = null;
 
     public function __construct(Attribute $attribute, $multi = false) {
 
@@ -20,14 +21,23 @@ class Value {
         $this->attribute = $attribute;
         $attribute->addValue($this);
     }
+    
+    public function isMulti() {
+        return $this->multi;
+    }
 
     public function addMultiData($value) {
-
+        $this->value[] = $value;
         $this->data[$value->lang_id] = unserialize($value->value);
     }
 
     public function addData($value) {
+        $this->value = $value;
         $this->data = unserialize($value->value);
+    }
+    
+    public function getOriginValue() {
+        return $this->value;
     }
 
     protected function getMultiData($key, $lang_key) {

@@ -40,37 +40,37 @@ class AuthorSchemaAttributes {
         $this->attributes[] = new Attribute(
                 'testimonial', 
                 array_combine($attributeSchema,['testimonial','Testimonial',1,1,1]), 
-                [['label'=>'Testimonial','type'=>'Text']]
+                [['label'=>'Testimonial','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
                 'publications', 
                 array_combine($attributeSchema,['publications','Publications',1,0,1]), 
-                [['label'=>'Publication','type'=>'Text']]
+                [['label'=>'Publication','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
                 'affiliation', 
                 array_combine($attributeSchema,['affiliation','Affiliation',1,1,1]), 
-                [['label'=>'Affiliation','type'=>'Text']]
+                [['label'=>'Affiliation','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
                 'position',
                 array_combine($attributeSchema,['position','Position',1,1,1]), 
-                [['label'=>'Current','type'=>'Text'], ['label'=>'Past','type'=>'Text'], ['label'=>'Advisory','type'=>'Text']]
+                [['label'=>'Current','type'=>'SmallText'], ['label'=>'Past','type'=>'SmallText'], ['label'=>'Advisory','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
                 'degree', 
                 array_combine($attributeSchema,['degree','Degree',1,1,1]), 
-                [['label'=>'Degree','type'=>'Text']]
+                [['label'=>'Degree','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
                 'interests', 
                 array_combine($attributeSchema,['interests','Interests',1,1,1]), 
-                [['label'=>'Interests','type'=>'Text']]
+                [['label'=>'Interests','type'=>'SmallText']]
         );
         
         $this->attributes[] = new Attribute(
