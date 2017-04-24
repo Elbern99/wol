@@ -41,3 +41,6 @@ phpunit.phar
 #frontend
 /.sass-cache
 /node_modules
+
+#bash config
+.env

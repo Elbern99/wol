@@ -11,10 +11,13 @@ use common\modules\eav\contracts\ValueInterface;
 use Yii;
 use yii\helpers\FileHelper;
 use common\contracts\LogInterface;
+use yii\base\Event;
 
 class AuthorParser implements ParserInterface {
 
     use \common\modules\author\traits\AuthorParseTrait;
+    
+    const EVENT_SPHINX_REINDEX = 'sphinxReindex';
     
     private $xml;
     private $author;
@@ -165,6 +168,7 @@ class AuthorParser implements ParserInterface {
             $this->personParse($author);
         }
         
+        Event::trigger(self::class, self::EVENT_SPHINX_REINDEX);
         return true;
 
     }

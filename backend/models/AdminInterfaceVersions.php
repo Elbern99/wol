@@ -23,6 +23,16 @@ class AdminInterfaceVersions extends Model implements UploadInterface {
     const MINOR_TYPE = 1;
     const MAJOR_TYPE = 2;
     
+    public function initEvent() {
+        
+        $class ='\common\modules\article\ArticleParser';
+        
+        Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
+            $index = 'articlesIndex';
+            $this->runIndex($index);
+        });
+    }
+    
     public function getActionType() {
         
         return [

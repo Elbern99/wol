@@ -43,6 +43,8 @@ class ArticleParser implements ParserInterface {
     use traits\ArticleParseTrait;
 
     const EVENT_ARTICLE_CREATE = 'articleAdd';
+    const EVENT_SPHINX_REINDEX = 'sphinxReindex';
+    
     /*
      * property for additional object, files
      */
@@ -363,6 +365,7 @@ class ArticleParser implements ParserInterface {
             $event->pdf = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
 
             Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+            Event::trigger(self::class, self::EVENT_SPHINX_REINDEX);
         }
         
         return $result;

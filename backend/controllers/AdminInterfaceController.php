@@ -79,7 +79,7 @@ class AdminInterfaceController extends Controller {
     public function actionUpload() {
 
         $model = new AdminInterfaceUpload();
-
+        
         if (Yii::$app->request->isPost) {
 
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -156,6 +156,7 @@ class AdminInterfaceController extends Controller {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             
             $model->load(Yii::$app->request->post());
+            $model->initEvent();
             $model->initUploadProperty();
 
             if ($model->upload(true)) {
