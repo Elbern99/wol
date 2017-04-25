@@ -3609,7 +3609,7 @@ h2:empty {
         margin: 0 0 18px; } }
 
 .post-list.news-home-list, .news-home-list.favourite-articles-list {
-  margin-bottom: 15px; }
+  margin-bottom: 0px; }
   @media only screen and (min-width: 767px) {
     .post-list.news-home-list, .news-home-list.favourite-articles-list {
       margin-bottom: 28px; } }
@@ -3953,7 +3953,7 @@ h2:empty {
         padding: 10px 55px 10px 30px; } }
   @media only screen and (min-width: 767px) {
     .post-list.home-other-events-list, .home-other-events-list.favourite-articles-list {
-      margin-bottom: -30px; } }
+      margin-bottom: -40px; } }
   .post-list.home-other-events-list .post-item, .home-other-events-list.favourite-articles-list .post-item {
     margin-bottom: 0; }
     @media only screen and (min-width: 767px) {
@@ -9507,7 +9507,7 @@ path {
   margin: 27px auto 33px !important; }
   @media only screen and (min-width: 767px) {
     .home-page .btn-gray {
-      margin: 27px auto 70px !important; } }
+      margin: 40px auto 60px !important; } }
 .home-page .post-item.large {
   margin: 0 0 41px; }
   .home-page .post-item.large .after {
