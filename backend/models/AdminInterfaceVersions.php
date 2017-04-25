@@ -5,6 +5,7 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 use Yii;
 use backend\modules\parser\contracts\UploadInterface;
+use yii\base\Event;
 
 /*
  * class for upload and parse archive
