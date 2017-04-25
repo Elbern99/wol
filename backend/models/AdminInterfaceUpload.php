@@ -13,7 +13,6 @@ use backend\components\queue\NewsletterArticleSubscribe;
 class AdminInterfaceUpload extends Model implements UploadInterface {
     
     use \common\helpers\FileUploadTrait;
-    use \common\helpers\SphinxReIndexTrait;
     
     public $type;
     public $archive;
@@ -48,19 +47,20 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
         
         Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
             
-            $index = null;
+            $cmd = 'sphinx';
             
             switch ($this->getTypeParse()) {
             
                 case self::ARTICLE_TYPE:
-                    $index = 'articlesIndex';
+                    $cmd .= ' articlesIndex';
                 break;
                 case self::AUTHOR_TYPE:
-                    $index = 'biographyIndex';
+                    $cmd .= ' biographyIndex';
                 break;
             }
 
-            $this->runIndex($index);
+            $command = new \backend\helpers\ConsoleRunner();
+            $command->run($cmd);
         });
     }
     

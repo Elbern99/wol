@@ -3,7 +3,7 @@
 baseDir=$1/../;
 config=$baseDir.env;
 index=$2;
-
+echo "start" >> $log;
 if [ -z "$index" ]; then
     index='--all';
 fi
@@ -20,10 +20,5 @@ if [ ! -f "$SPHINX_PATH" ]; then
     exit;
 fi
 
-if [ -z "$SPHINX_PASSWORD" ]
-then
-    echo sudo -u sphinxsearch /usr/bin/indexer --config $SPHINX_PATH --rotate $index
-else
-    echo $SPHINX_PASSWORD | sudo -S -u sphinxsearch /usr/bin/indexer --config $SPHINX_PATH --rotate $index
-fi
+exec sudo -u sphinxsearch /usr/bin/indexer --config "$SPHINX_PATH" --rotate "$index";
 exit;

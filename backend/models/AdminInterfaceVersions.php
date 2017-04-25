@@ -28,8 +28,8 @@ class AdminInterfaceVersions extends Model implements UploadInterface {
         $class ='\common\modules\article\ArticleParser';
         
         Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
-            $index = 'articlesIndex';
-            $this->runIndex($index);
+            $command = new \backend\helpers\ConsoleRunner();
+            $command->run('sphinx articlesIndex');
         });
     }
     

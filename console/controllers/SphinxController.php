@@ -12,6 +12,6 @@ class SphinxController extends Controller {
     /* php yii sphinx */
     public function actionIndex($index = null) {
 
-        $this->runIndex($index);
+        return $this->runIndex($index);
     }
 }
