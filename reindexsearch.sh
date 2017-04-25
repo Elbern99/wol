@@ -3,7 +3,7 @@
 baseDir=$1/../;
 config=$baseDir.env;
 index=$2;
-echo "start" >> $log;
+
 if [ -z "$index" ]; then
     index='--all';
 fi
