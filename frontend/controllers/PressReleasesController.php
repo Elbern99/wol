@@ -126,7 +126,7 @@ class PressReleasesController extends Controller {
             'name' => ['stay_up_to_date', 'Socials'],
         ])->orderBy('id desc')->all();
         
-        $latestNews = PressReleaseItem::find()->orderBy('id desc')->limit(10)->all();
+        $latestNews = PressReleaseItem::find()->orderBy('id created_at')->limit(10)->all();
         
         $groupsQuery = (new \yii\db\Query())
                 ->select(['MONTH(created_at) as m', 'YEAR(created_at) as y'])
