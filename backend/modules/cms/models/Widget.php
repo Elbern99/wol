@@ -28,6 +28,7 @@ class Widget implements SectionInterface {
         $model = new ModelWidget();
         
         $model->id = ArrayHelper::getColumn($selected, 'widget_id');
+        $model->order = ArrayHelper::map($selected, 'widget_id', 'order');
 
         $result = [
             'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Widget'),

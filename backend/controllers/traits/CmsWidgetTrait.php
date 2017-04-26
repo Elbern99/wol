@@ -15,16 +15,19 @@ trait CmsWidgetTrait {
             
         if (Yii::$app->request->isPost) {
             
-            $current = ArrayHelper::getColumn(CmsPagesWidget::find()->where(['page_id' => $page_id])->all(), 'widget_id');
+            $widgets = CmsPagesWidget::find()->where(['page_id' => $page_id])->all();
+            $current = ArrayHelper::getColumn($widgets, 'widget_id');
+            $order = ArrayHelper::map($widgets, 'widget_id', 'order');
+
             $post = Yii::$app->request->post('Widget');
-            
             $selected = [];
             
             if (isset($post['id'])) {
                 $selected = $post['id'];
             }
-            $diff = $this->getDiff($selected, $current);
             
+            $diff = $this->getDiff($selected, $current);
+
             if (!empty($diff['delete'])) {
                 CmsPagesWidget::deleteAll(['widget_id' => $diff['delete'], 'page_id' => $page_id]);
             }
@@ -37,14 +40,15 @@ trait CmsWidgetTrait {
 
                     $bulkInsertArray[] = [
                         'page_id' => $page_id,
-                        'widget_id' => $wData
+                        'widget_id' => $wData,
+                        'order' => $post['order'][$wData] ?? 0
                     ];
                 }
                 unset($diff);
 
                 $insertCount = Yii::$app->db->createCommand()
                         ->batchInsert(
-                                CmsPagesWidget::tableName(), ['page_id', 'widget_id'], $bulkInsertArray
+                            CmsPagesWidget::tableName(), ['page_id', 'widget_id', 'order'], $bulkInsertArray
                         )
                         ->execute();
 
@@ -52,6 +56,20 @@ trait CmsWidgetTrait {
                     Yii::$app->getSession()->setFlash('success', 'Widget add success', false);
                 }
             }
+            
+            if (!empty($order)) {
+                $postOrder = $post['order'];
+                
+                foreach ($order as $id=>$widgetOrder) {
+
+                    if (isset($postOrder[$id]) && $postOrder[$id] != $widgetOrder) {
+                        $model = CmsPagesWidget::find()->where(['widget_id' => $id, 'page_id' => $page_id])->one();
+                        $model->order = $postOrder[$id];
+                        $model->save();
+                    }
+                }
+            }
+            
             Yii::$app->getSession()->setFlash('section_open', 'widget');
         }
         

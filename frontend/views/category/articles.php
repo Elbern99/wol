@@ -183,29 +183,7 @@ unset($currentParams);
                 </ul>
             </div>
 
-            <div class="sidebar-widget">
-                <div class="widget-title">data & methods</div>
-                <div class="data-method-list">
-                    <a href="/data-sources" class="data-method-item">
-                        <div class="img"><img src="/images/temp/articles/01-img.jpg" alt=""></div>
-                        <div class="caption">
-                            <span class="icon-arrow-square-blue">
-                                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
-                            </span>
-                            <h3>Looking for economic data sets?</h3>
-                        </div>
-                    </a>
-                    <a href="/methods" class="data-method-item">
-                        <div class="img"><img src="/images/temp/articles/02-img.jpg" alt="" width="430" height="326"></div>
-                        <div class="caption">
-                            <span class="icon-arrow-square-blue">
-                                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
-                            </span>
-                            <h3>Want to learn more about empirical methods?</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            <?= $widgets->getPageWidget('data_methods') ?>
         </aside>
     </div>
 </div>

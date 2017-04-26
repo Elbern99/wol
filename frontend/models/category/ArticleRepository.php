@@ -15,6 +15,7 @@ use common\modules\eav\helper\EavValueHelper;
 use common\models\Category;
 use common\modules\author\Roles;
 use frontend\components\articles\OrderBehavior;
+use frontend\components\widget\SidebarWidget;
 
 class ArticleRepository implements RepositoryInterface {
     
@@ -261,7 +262,10 @@ class ArticleRepository implements RepositoryInterface {
             ];
         }
 
+        $widgets = new SidebarWidget('category');
+        
         return [
+            'widgets' => $widgets,
             'parentCategory' => $parent,
             'category' => $this->current, 
             'subjectAreas' => $subjectAreas, 

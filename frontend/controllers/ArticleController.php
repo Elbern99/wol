@@ -15,6 +15,8 @@ use yii\helpers\Html;
 use yii\filters\VerbFilter;
 use frontend\models\Cite;
 use common\modules\eav\helper\EavValueHelper;
+use frontend\components\widget\SidebarWidget;
+
 /**
  * Site controller
  */
@@ -105,8 +107,11 @@ class ArticleController extends Controller {
             ];
             
         }
-
+        
+        $widgets = new SidebarWidget('category');
+        
         return $this->render('index', [
+            'widgets' => $widgets,
             'category' => $category, 
             'subjectAreas' => $subjectAreas, 
             'collection' => $articlesCollection,
