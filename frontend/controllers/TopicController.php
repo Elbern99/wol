@@ -122,7 +122,9 @@ class TopicController extends Controller {
         $articles = [];
         
         foreach ($relatedArticles as $item) {
-            $articles[] = $item->article;
+            if ($item->article) {
+                $articles[] = $item->article;
+            }
         }
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
 

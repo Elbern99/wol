@@ -8,11 +8,11 @@ use yii\web\UploadedFile;
 class Topic extends \yii\db\ActiveRecord
 {
     use \common\helpers\FileUploadTrait;
-    
+
     protected $files = [
         'image_link',
     ];
-    
+
     public $article_ids;
     public $video_ids;
     public $opinion_ids;
@@ -30,18 +30,20 @@ class Topic extends \yii\db\ActiveRecord
         if ($this->image_link) {
             return Yii::getAlias('@frontend') . $this->imagePath . '/' . $this->image_link;
         }
-  
+
         return null;
     }
-    
-    public function getFrontendPath() {
+
+    public function getFrontendPath()
+    {
         return Yii::getAlias('@frontend') . $this->imagePath;
     }
-    
-    public function getBackendPath() {
+
+    public function getBackendPath()
+    {
         return null;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -88,51 +90,54 @@ class Topic extends \yii\db\ActiveRecord
             'is_hided' => Yii::t('app', 'Is Hided')
         ];
     }
-    
+
     public function loadAttributes()
     {
         $relatedArticles = $this->getTopicArticles()->all();
-        
+
         foreach ($relatedArticles as $article) {
             $currentArticle = $article->article;
-            $this->article_ids[] = $currentArticle->id; 
+            if ($currentArticle) {
+                $this->article_ids[] = $currentArticle->id;
+            }
         }
-        
+
         $relatedVideos = $this->getTopicVideos()->all();
-        
+
         foreach ($relatedVideos as $video) {
             $currentVideo = $video->video;
             $this->video_ids[] = $currentVideo->id;
         }
-        
+
         $relatedOpinions = $this->getTopicOpinions()->all();
-        
+
         foreach ($relatedOpinions as $opinion) {
             $currentOpinion = $opinion->opinion;
             $this->opinion_ids[] = $currentOpinion->id;
         }
-        
+
         $relatedEvents = $this->getTopicEvents()->all();
-        
+
         foreach ($relatedEvents as $event) {
             $currentEvent = $event->event;
             $this->event_ids[] = $currentEvent->id;
         }
-        
+
     }
-    
+
     public function afterFind()
     {
         $this->created_at = new \DateTime($this->created_at);
-      
+
         if ($this->sticky_at) {
             $this->sticky_date = $this->sticky_at;
             $this->sticky_at = true;
         }
-        
+
     }
-    
-    public function beforeSave($insert) {
+
+    public function beforeSave($insert)
+    {
         if (parent::beforeSave($insert)) {
             $this->setStickyStatus();
             $this->checkImageLink();
@@ -140,26 +145,26 @@ class Topic extends \yii\db\ActiveRecord
         } else {
             return false;
         }
-        
+
     }
-    
+
     public function deleteImage()
     {
         if ($this->image_link) {
             if (file_exists($this->getImagePath())) {
                 unlink($this->getImagePath());
             }
-            
+
             Yii::$app->db->createCommand()
-            ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
-            ->execute();
+                ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
+                ->execute();
         }
     }
-    
+
     public function checkImageLink()
     {
-        $image =  UploadedFile::getInstance($this, 'image_link');
-        
+        $image = UploadedFile::getInstance($this, 'image_link');
+
         if (!$image) {
             $currentItem = self::find()->where(['id' => $this->id])->one();
             if ($currentItem && $currentItem->image_link) {
@@ -167,78 +172,79 @@ class Topic extends \yii\db\ActiveRecord
             }
         }
     }
+
     public function articlesList()
     {
         $articles = Article::find()->orderBy('id desc')->all();
         $articlesList = [];
         foreach ($articles as $article) {
-            $articlesList[$article->id] = $article->title; 
+            $articlesList[$article->id] = $article->title;
         }
         return $articlesList;
     }
-    
-    
+
+
     public function videosList()
     {
         $videos = Video::find()->orderBy('id desc')->all();
         $videosList = [];
         foreach ($videos as $video) {
-            $videosList[$video->id] = $video->title; 
+            $videosList[$video->id] = $video->title;
         }
         return $videosList;
     }
-    
+
     public function opinionsList()
     {
         $opinions = Opinion::find()->orderBy('id desc')->all();
         $opinionsList = [];
         foreach ($opinions as $opinion) {
-            $opinionsList[$opinion->id] = $opinion->title; 
+            $opinionsList[$opinion->id] = $opinion->title;
         }
         return $opinionsList;
     }
-    
+
     public function eventsList()
     {
         $events = Event::find()->orderBy('id desc')->all();
         $eventsList = [];
         foreach ($events as $event) {
-            $eventsList[$event->id] = $event->title; 
+            $eventsList[$event->id] = $event->title;
         }
         return $eventsList;
     }
-    
+
     public function getTopicArticles()
     {
         return $this->hasMany(TopicArticle::className(), ['topic_id' => 'id']);
     }
-    
+
     public function getTopicVideos()
     {
         return $this->hasMany(TopicVideo::className(), ['topic_id' => 'id']);
     }
-    
+
     public function getTopicOpinions()
     {
         return $this->hasMany(TopicOpinion::className(), ['topic_id' => 'id']);
     }
-    
+
     public function getTopicEvents()
     {
         return $this->hasMany(TopicEvent::className(), ['topic_id' => 'id']);
     }
-    
+
     public function saveFormatted()
     {
         if (!$this->validate())
             return false;
 
         $this->setCreatedAtDate();
-        
+
         $this->initUploadProperty();
-        
+
         $this->upload();
-        
+
         if ($this->save()) {
             $this->saveArticlesList();
             $this->saveVideosList();
@@ -246,17 +252,17 @@ class Topic extends \yii\db\ActiveRecord
             $this->saveEventsList();
             $this->addCategory();
         }
-        
+
         return true;
     }
-    
+
     protected function addCategory()
     {
         $mainCategory = Category::find()->where(['url_key' => 'key-topics'])->one();
         if ($mainCategory) {
 
             if ($this->isNewRecord) {
-                
+
                 if ($this->is_key_topic && !$this->category_id) {
                     $category = new Category();
                     $category->title = $this->title;
@@ -269,9 +275,8 @@ class Topic extends \yii\db\ActiveRecord
                     $this->category_id = $category->id;
                     $this->save();
                 }
-                
-            }
-            else {
+
+            } else {
                 $model = self::find()->where(['id' => $this->id])->one();
                 if ($model) {
                     if ($this->is_key_topic && $model->category_id) {
@@ -287,7 +292,7 @@ class Topic extends \yii\db\ActiveRecord
                         }
                     }
 
-                    if (!$this->is_key_topic && $model->category_id){
+                    if (!$this->is_key_topic && $model->category_id) {
                         $category = Category::find()->where(['id' => $this->category_id])->one();
                         if ($category) {
                             $category->title = $this->title;
@@ -301,26 +306,23 @@ class Topic extends \yii\db\ActiveRecord
                     }
                 }
             }
-           
-            
-            
-            
-            
+
+
         }
     }
+
     protected function setCreatedAtDate()
     {
         $created_at = new \DateTime('now');
         $this->created_at = $created_at->format('Y-m-d');
     }
-    
+
     protected function setStickyStatus()
     {
         if ($this->sticky_at) {
             if ($this->sticky_date) {
                 $this->sticky_at = $this->sticky_date;
-            }
-            else {
+            } else {
                 $sticky_at = new \DateTime('now');
                 $this->sticky_at = $sticky_at->format('Y-m-d');
             }
@@ -328,107 +330,107 @@ class Topic extends \yii\db\ActiveRecord
             $this->sticky_at = null;
         }
     }
-    
+
     protected function saveArticlesList()
     {
         TopicArticle::deleteAll(['=', 'topic_id', $this->id]);
-        
+
         $bulkInsertArray = [];
-        
+
         if (is_array($this->article_ids)) {
-            
+
             foreach ($this->article_ids as $id) {
-                $bulkInsertArray[]=[
+                $bulkInsertArray[] = [
                     'topic_id' => $this->id,
                     'article_id' => $id,
                 ];
             }
 
-            if (count($bulkInsertArray) > 0){
+            if (count($bulkInsertArray) > 0) {
                 $columnNamesArray = ['topic_id', 'article_id'];
                 $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                       TopicArticle::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
-                               ->execute();
+                    ->batchInsert(
+                        TopicArticle::tableName(), $columnNamesArray, $bulkInsertArray
+                    )
+                    ->execute();
             }
         }
     }
-    
+
     protected function saveVideosList()
     {
         TopicVideo::deleteAll(['=', 'topic_id', $this->id]);
-        
+
         $bulkInsertArray = [];
-        
+
         if (is_array($this->video_ids)) {
-            
+
             foreach ($this->video_ids as $id) {
-                $bulkInsertArray[]=[
+                $bulkInsertArray[] = [
                     'topic_id' => $this->id,
                     'video_id' => $id,
                 ];
             }
 
-            if (count($bulkInsertArray) > 0){
+            if (count($bulkInsertArray) > 0) {
                 $columnNamesArray = ['topic_id', 'video_id'];
                 $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                       TopicVideo::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
-                               ->execute();
+                    ->batchInsert(
+                        TopicVideo::tableName(), $columnNamesArray, $bulkInsertArray
+                    )
+                    ->execute();
             }
         }
     }
-    
+
     protected function saveOpinionsList()
     {
         TopicOpinion::deleteAll(['=', 'topic_id', $this->id]);
-        
+
         $bulkInsertArray = [];
-        
+
         if (is_array($this->opinion_ids)) {
-            
+
             foreach ($this->opinion_ids as $id) {
-                $bulkInsertArray[]=[
+                $bulkInsertArray[] = [
                     'topic_id' => $this->id,
                     'opinion_id' => $id,
                 ];
             }
 
-            if (count($bulkInsertArray) > 0){
+            if (count($bulkInsertArray) > 0) {
                 $columnNamesArray = ['topic_id', 'opinion_id'];
                 $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                       TopicOpinion::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
-                               ->execute();
+                    ->batchInsert(
+                        TopicOpinion::tableName(), $columnNamesArray, $bulkInsertArray
+                    )
+                    ->execute();
             }
         }
     }
-    
+
     protected function saveEventsList()
     {
         TopicEvent::deleteAll(['=', 'topic_id', $this->id]);
-        
+
         $bulkInsertArray = [];
-        
+
         if (is_array($this->event_ids)) {
-            
+
             foreach ($this->event_ids as $id) {
-                $bulkInsertArray[]=[
+                $bulkInsertArray[] = [
                     'topic_id' => $this->id,
                     'event_id' => $id,
                 ];
             }
 
-            if (count($bulkInsertArray) > 0){
+            if (count($bulkInsertArray) > 0) {
                 $columnNamesArray = ['topic_id', 'event_id'];
                 $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                       TopicEvent::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
-                               ->execute();
+                    ->batchInsert(
+                        TopicEvent::tableName(), $columnNamesArray, $bulkInsertArray
+                    )
+                    ->execute();
             }
         }
     }
