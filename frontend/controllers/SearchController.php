@@ -164,31 +164,38 @@ class SearchController extends Controller
         
         if (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase)) {
             
-            if ($model->load(Yii::$app->request->get(), '') && $model->validate()) {
+            if ($model->load(Yii::$app->request->get(), '')) {
+                
+                if (is_null($model->types)) {
+                    $model->types = $model->getTypeIds();
+                }
+                
+                if ($model->validate()) {
 
-                try {
-                    $searchResult = $model->search();
+                    try {
+                        $searchResult = $model->search();
 
-                    if (count($searchResult)) {
-                        $search_phrase = $model->search_phrase; 
-                        $synonyms = $model->synonyms;
-                        $creteria = $model->getAttributes();
+                        if (count($searchResult)) {
+                            $search_phrase = $model->search_phrase; 
+                            $synonyms = $model->synonyms;
+                            $creteria = $model->getAttributes();
 
-                        Result::initData($searchResult);
-                        $filterData = $this->getFilterData($model);
-                        $searchResultArgs = [
-                            'result' => $searchResult,
-                            'creteria' => $creteria,
-                            'filters' => $filterData,
-                            'synonyms' => $synonyms
-                        ];
+                            Result::initData($searchResult);
+                            $filterData = $this->getFilterData($model);
+                            $searchResultArgs = [
+                                'result' => $searchResult,
+                                'creteria' => $creteria,
+                                'filters' => $filterData,
+                                'synonyms' => $synonyms
+                            ];
 
-                        $searchResultData = SearchResult::refreshResult($searchResultData, $searchResultArgs);
+                            $searchResultData = SearchResult::refreshResult($searchResultData, $searchResultArgs);
+                        }
+
+                    } catch (\Exception $e) {
+                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
+                        return $this->redirect(Url::to(['/search/advanced']));
                     }
-
-                } catch (\Exception $e) {
-                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
-                    return $this->redirect(Url::to(['/search/advanced']));
                 }
             }
         }
