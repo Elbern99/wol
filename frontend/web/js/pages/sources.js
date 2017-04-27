@@ -147,22 +147,8 @@
             });
         }
     };
-    
-    function search(el) {
-        var _text = $(this).data('source');
-
-        if (_text) {
-            var _form = $('.source-search-form');
-            
-            _form.find('input:text').prop('value', _text);
-            _form.submit();
-        }
-        
-        return false;
-    }
 
     $(document).ready(function() {
-        $('.search-source-article').on('click', search);
         sources.scrollToAnchor('.profile-author-letter', '.source-table-holder');
         sources.scrollToSelf('.td-letter a');
         sources.stikySidebar('.stiky');
