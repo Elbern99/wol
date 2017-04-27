@@ -79,8 +79,8 @@ class SearchResult extends \yii\db\ActiveRecord
     public function mixSearchCreteriaArray($newCreteria) {
         
         $oldCreteria = unserialize($this->creteria);
-        
-        if (array_diff($oldCreteria['types'], $newCreteria['types'])) {
+
+        if (is_null($oldCreteria['types']) || array_diff($oldCreteria['types'], $newCreteria['types'])) {
             $oldCreteria['types'] = $newCreteria['types'];
         }
         
