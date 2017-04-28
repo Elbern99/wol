@@ -31,7 +31,7 @@ class CmsPagesWidget extends \yii\db\ActiveRecord
     {
         return [
             [['page_id', 'widget_id'], 'required'],
-            [['page_id', 'widget_id'], 'integer'],
+            [['page_id', 'widget_id', 'order'], 'integer'],
             [['page_id'], 'exist', 'skipOnError' => true, 'targetClass' => CmsPages::className(), 'targetAttribute' => ['page_id' => 'id']],
             [['widget_id'], 'exist', 'skipOnError' => true, 'targetClass' => Widget::className(), 'targetAttribute' => ['widget_id' => 'id']],
         ];
@@ -71,6 +71,7 @@ class CmsPagesWidget extends \yii\db\ActiveRecord
                     ->where(['wp.page_id'=>$id])
                     ->innerJoin(['widget' => Widget::tableName()], 'wp.widget_id = widget.id')
                     ->select(['widget.text', 'widget.name'])
+                    ->orderBy('wp.order')
                     ->asArray()
                     ->all();
     }

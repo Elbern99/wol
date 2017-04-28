@@ -19,7 +19,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id'], 'integer'],
-            [['doi','publisher','seo'], 'safe'],
+            [['doi','title','seo'], 'safe'],
         ];
     }
 
@@ -62,7 +62,7 @@ class ArticleSearch extends Article
         ]);
 
         $query->andFilterWhere(['like', 'doi', $this->doi]);
-        $query->andFilterWhere(['like', 'publisher', $this->publisher]);
+        $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'seo', $this->seo]);
 
         return $dataProvider;

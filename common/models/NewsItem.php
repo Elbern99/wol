@@ -48,9 +48,9 @@ class NewsItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url_key', 'title', 'editor'], 'required'],
+            [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at', 'article_ids'], 'safe'],
+            [['created_at', 'article_ids', 'editor'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],

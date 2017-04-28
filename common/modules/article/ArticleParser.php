@@ -4,6 +4,7 @@ namespace common\modules\article;
 
 use common\contracts\ParserInterface;
 use common\contracts\ReaderInterface;
+use common\contracts\LogInterface;
 use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityInterface;
 use common\modules\eav\contracts\EntityTypeInterface;
@@ -42,6 +43,8 @@ class ArticleParser implements ParserInterface {
     use traits\ArticleParseTrait;
 
     const EVENT_ARTICLE_CREATE = 'articleAdd';
+    const EVENT_SPHINX_REINDEX = 'sphinxReindex';
+    
     /*
      * property for additional object, files
      */
@@ -54,10 +57,12 @@ class ArticleParser implements ParserInterface {
     private $fullPdf = '';
     private $onePagerPdf = null;
     private $taxonomy = null;
-    protected $categoryIds = [];
+    private $log;
+    
     /*
      * property for save parsed information
      */
+    protected $categoryIds = [];
     protected $images = [];
     protected $gaImage = null;
     protected $sources = [];
@@ -74,7 +79,8 @@ class ArticleParser implements ParserInterface {
             EntityInterface $entity, 
             EntityTypeInterface $type, 
             ValueInterface $value,
-            TaxonomyInterface $taxonomy
+            TaxonomyInterface $taxonomy,
+            LogInterface $log
     ) {
         
         $this->config = Yii::$app->params['articleModelDetail'];
@@ -83,7 +89,8 @@ class ArticleParser implements ParserInterface {
         $this->type = $type;
         $this->value = $value;
         $this->taxonomy = $taxonomy;
-        
+        $this->log = $log;
+
         $this->setLangData();
         $this->setTaxonomyData();
     }
@@ -227,6 +234,11 @@ class ArticleParser implements ParserInterface {
 
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
+        
+        if (!isset($this->xml->teiHeader->fileDesc->publicationStmt->idno)) {
+            $this->log->addLine('Xml file has wrong type');
+            return $this->log;
+        }
 
         $this->addBaseTableValue();
     
@@ -242,35 +254,37 @@ class ArticleParser implements ParserInterface {
 
         $this->setImages();
         $this->setSources();
+ 
+        foreach ($attributes->eavTypeAttributes as $attrType) {
 
-        try {
-            
-            foreach ($attributes->eavTypeAttributes as $attrType) {
+            $related = $attrType->getRelatedRecords();
 
-                $related = $attrType->getRelatedRecords();
-
-                foreach ($related as $attribute) {
-
+            foreach ($related as $attribute) {
+                
+                try {
+                    
                     $attrName = $attribute->getAttribute('name');
                     $this->$attrName($attribute->getAttribute('required'));
+
+                } catch(\Exception $e) {
+                    $this->log->addLine('Attribute '.$attribute->getAttribute('name'). ' not validated - '. $e->getMessage());
                 }
             }
-
-        } catch(\Exception $e) {
-            throw new \Exception('Can not add article error - '.$e->getMessage());
         }
         
+        if ($this->log->getCount()) {
+            return $this->log;
+        }
+
         $this->clearParseData();
 
         if (!$this->article->save()) {
-            
-            $errors = [];
-            
+
             foreach ($this->article->getErrors() as $error) {
-                $errors[] = current($error);
+                $this->log->addLine(current($error));
             }
             
-            throw new \Exception(Yii::t('app/messages',"Article did not save").'  \n'. implode("\n", $errors));
+            return $this->log;
         }
         
         $articleId = $this->article->id;
@@ -286,7 +300,8 @@ class ArticleParser implements ParserInterface {
         if (is_null($entity)) {
             
             $this->article->delete();
-            throw new \Exception(Yii::t('app/messages','Entity could not be created'));
+            $this->log->addLine(Yii::t('app/messages','Entity could not be created'));
+            return $this->log;
         }
 
         $result = true;
@@ -318,7 +333,7 @@ class ArticleParser implements ParserInterface {
                             ];
 
                             if (!$this->value->addEavAttribute($args)) {
-                                $result[] = 'Attribute '. $attrName . ' did not add';
+                                $result = false;
                             }
                         }
                         
@@ -331,7 +346,7 @@ class ArticleParser implements ParserInterface {
                         ];
                         
                         if (!$this->value->addEavAttribute($args)) {
-                            $result[] = 'Attribute '. $attrName . ' did not add';
+                            $result = false;
                         }
                     }
                 }
@@ -339,15 +354,19 @@ class ArticleParser implements ParserInterface {
             }
         }
         
-        $event = new ArticleEvent;
-        $event->id = $this->article->id;
-        $event->title = $this->article->title;
-        $event->url = 'articles/'.$this->article->seo;
-        $event->categoryIds = $this->categoryIds;
-        $event->availability = $this->article->availability;
-        $event->pdf = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
-        
-        Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+        if ($result) {
+            
+            $event = new ArticleEvent;
+            $event->id = $this->article->id;
+            $event->title = $this->article->title;
+            $event->url = 'articles/'.$this->article->seo;
+            $event->categoryIds = $this->categoryIds;
+            $event->availability = $this->article->availability;
+            $event->pdf = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
+
+            Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+            Event::trigger(self::class, self::EVENT_SPHINX_REINDEX);
+        }
         
         return $result;
     }

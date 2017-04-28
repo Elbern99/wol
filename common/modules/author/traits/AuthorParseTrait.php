@@ -83,6 +83,10 @@ trait AuthorParseTrait {
         
         $obj->honorific = (string)$this->person->names->honorific;
         
+        if (!isset($this->person->names->name)) {
+            throw new \Exception('Field `name` not found');
+        }
+        
         foreach ($this->person->names->name as $name) {
             $type = (string)$name->attributes();
             $names[$type] = (string)$name;

@@ -97,7 +97,7 @@ trait ArticleTrait {
                         ->with(['articleAuthors.author' => function($query) {
                              return $query->select(['id','url_key', 'name'])->asArray();
                         }])
-                        ->orderBy(['a.updated_at' => SORT_DESC])
+                        ->orderBy(['a.created_at' => SORT_DESC])
                         ->limit($limit)
                         ->all();
     }

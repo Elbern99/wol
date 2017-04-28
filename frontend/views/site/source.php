@@ -26,7 +26,7 @@ $items[0] = 'Show All';
 
 $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']]);
 ?>
-
+<?php $model = new AdvancedSearchForm(); ?>
 <?php $alphas = range('A', 'Z'); ?>
 
 <div class="container without-breadcrumbs sources-page">
@@ -72,15 +72,9 @@ $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']
                             'attribute' => 'source',
                             'value' => function($model) {
                                 $text = "<br>";
-                                $text .= '<a href="#" data-source="'.$model->source.'" class="search-source-article">View articles referencing this data source</a>';
-                                return $model->source.$text;
-                            },
-                        ],
-                        [
-                            'format' => 'raw',
-                            'attribute' => 'website',
-                            'value' => function($model) {
-                                return Html::a($model->website, $model->website, ['target'=>'_blank']);
+                                
+                                $text .= '<a href="'.Url::to(['/search', 'search_phrase'=>$model->source]).'" target="blank" class="search-source-article">View articles referencing this data source</a>';
+                                return Html::a($model->source.$text, $model->website, ['target'=>'_blank']);
                             },
                         ],
                         [
@@ -117,10 +111,7 @@ $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']
                 ?>
             </div>
         </div>
-        <?php $model = new AdvancedSearchForm(); ?>
-        <?php $form = ActiveForm::begin(['action'=>'/search', 'options' => ['class' => 'source-search-form', 'style' => 'display:none']]); ?>
-            <?= $form->field($model, 'search_phrase') ?>
-        <?php ActiveForm::end(); ?>
+
         <aside class="sidebar-right stiky">
             <div class="sidebar-widget">
                 <div class="widget-title">Filter</div>

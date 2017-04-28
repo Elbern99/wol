@@ -7,6 +7,7 @@ use Exception;
 use Yii;
 use common\models\Article;
 use common\models\VersionsArticle;
+use common\contracts\LogInterface;
 
 class MajorVersionParser implements ParserInterface {
 
@@ -16,9 +17,14 @@ class MajorVersionParser implements ParserInterface {
     protected $articleId;
     protected $xml;
     protected $version;
+    protected $log;
     
     private $article;
     private $entity;
+    
+    public function __construct(LogInterface $log) {
+        $this->log = $log;
+    }
     
     protected function getParseImagePath($name) {
         return '';
@@ -116,7 +122,8 @@ class MajorVersionParser implements ParserInterface {
         $filePath = Yii::getAlias('@frontend').'/web'.$data->url;
 
         if (file_exists($filePath)) {
-            $newName = preg_replace('/\.pdf/', '-'.$this->version.'.pdf', $data->url);
+            $newName = preg_replace('/[\-1-9]*\.pdf/', '', $data->url);
+            $newName .= '-'.$this->version.'.pdf';
 
             if(rename($filePath, Yii::getAlias('@frontend').'/web'.$newName)) {
                 $data->url = $newName;
@@ -132,7 +139,9 @@ class MajorVersionParser implements ParserInterface {
         $filePath = Yii::getAlias('@frontend').'/web'.$data->path;
 
         if (file_exists($filePath)) {
-            $newName = preg_replace('/ga\./', 'ga-'.$this->version.'.', $data->path);
+
+            $newName = preg_replace('/[\-1-9]*\.png/', '', $data->path);
+            $newName .= '-'.$this->version.'.png';
             
             if(rename($filePath, Yii::getAlias('@frontend').'/web'.$newName)) {
                 $data->path = $newName;
@@ -152,25 +161,31 @@ class MajorVersionParser implements ParserInterface {
         //version number
         $this->setVersionNumber();
         //get current article
-        $this->initCurrentArticle();
+        $this->initCurrentArticle();      
         //create version article
         if ($this->createVersionArticle()) {
             //move all files
             $this->moveOldFiles();
-        }
+        
+            //add new article
+            $articleParser = Yii::createObject('\common\modules\article\ArticleParser');
+            $result = $articleParser->parse($reader);
 
-        //add new article
-        $articleParser = Yii::createObject('\common\modules\article\ArticleParser');
-            
-        if ($articleParser->parse($reader)) {
+            if ($result instanceof \common\contracts\LogInterface) {
+                return $result;
+            }
 
-            $this->addArticleNotice();
-            $this->updatedArticle();
-            
-            return true;
+            if ($result) {
+
+                $this->addArticleNotice();
+                $this->updatedArticle();
+
+                return true;
+            }
         }
         
-        return false;
+        $this->log->addLine('Old Article can not be remove');
+        return $this->log;
     }
 }
 

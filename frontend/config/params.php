@@ -45,6 +45,7 @@ return [
             'stay_up_to_date', 'iza_journals',
             'former_editor_thanks'
         ],
-        'profile' => ['ask_the_expert']
+        'profile' => ['ask_the_expert'],
+        'category' => ['data_methods']
     ]
 ];

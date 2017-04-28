@@ -13,7 +13,7 @@ use backend\components\queue\NewsletterArticleSubscribe;
 class AdminInterfaceUpload extends Model implements UploadInterface {
     
     use \common\helpers\FileUploadTrait;
-     
+    
     public $type;
     public $archive;
     
@@ -36,13 +36,32 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
     
     public function initEvent() {
         
+        $class = $this->getActionClass();
+        
         if ($this->getTypeParse() == self::ARTICLE_TYPE) {
-            
-            $class = $this->getActionClass();
+
             Event::on($class, $class::EVENT_ARTICLE_CREATE,  function ($event) {
                 NewsletterArticleSubscribe::addQueue($event);
             });
         }
+        
+        Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
+            
+            $cmd = 'sphinx';
+            
+            switch ($this->getTypeParse()) {
+            
+                case self::ARTICLE_TYPE:
+                    $cmd .= ' articlesIndex';
+                break;
+                case self::AUTHOR_TYPE:
+                    $cmd .= ' biographyIndex';
+                break;
+            }
+
+            $command = new \backend\helpers\ConsoleRunner();
+            $command->run($cmd);
+        });
     }
     
     public function getTypeParse() {

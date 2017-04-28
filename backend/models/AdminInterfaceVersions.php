@@ -5,6 +5,7 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 use Yii;
 use backend\modules\parser\contracts\UploadInterface;
+use yii\base\Event;
 
 /*
  * class for upload and parse archive
@@ -22,6 +23,16 @@ class AdminInterfaceVersions extends Model implements UploadInterface {
     
     const MINOR_TYPE = 1;
     const MAJOR_TYPE = 2;
+    
+    public function initEvent() {
+        
+        $class ='\common\modules\article\ArticleParser';
+        
+        Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
+            $command = new \backend\helpers\ConsoleRunner();
+            $command->run('sphinx articlesIndex');
+        });
+    }
     
     public function getActionType() {
         

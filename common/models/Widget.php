@@ -13,6 +13,7 @@ use Yii;
  */
 class Widget extends \yii\db\ActiveRecord
 {
+    public $order;
     /**
      * @inheritdoc
      */

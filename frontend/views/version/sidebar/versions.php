@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+$versions = $article->getRelatedVersions();
 ?>
 <div class="sidebar-widget sidebar-widget-version">
     <div class="sidebar-widget-version-item">
@@ -61,7 +62,7 @@ use yii\helpers\Url;
             <?php endif; ?>
             <a href="<?= Url::to('/articles/'.$article['article']->seo) ?>">Current version</a>
         </div>
-        <?php $versions = $article->getRelatedVersions(); ?>
+        
         <?php if (count($versions)): ?>
             <?php foreach($versions as $version): ?>
                 <div class="number">

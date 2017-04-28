@@ -36,6 +36,7 @@ trait HomeTrait {
         $subjectAreas = $this->getSubjectAreas();
         $this->more = new ShowMore();
         $articles = $this->getLastArticles($subjectAreas);
+        
         return [
             'page' => $homePage, 
             'subjectAreas' => $subjectAreas,

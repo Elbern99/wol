@@ -1,8 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-$versions = $article->getArticleVersions();
 ?>
 <div class="sidebar-widget sidebar-widget-version">
     <div class="sidebar-widget-version-item">

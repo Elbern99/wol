@@ -101,7 +101,7 @@ $config = [
     <ul class="article-buttons-list">
         <li>
             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                     <span class="icon-download"></span>
                 </a>
             <?php endif; ?>
@@ -264,7 +264,7 @@ $config = [
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url',$currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url',$currentLang), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                     <div class="inner">
                                         <span class="icon-download"></span>
                                         <span class="text">download pdf</span>
@@ -307,7 +307,7 @@ $config = [
         <div class="article-buttons-sidebar hide-mobile">
             <ul class="article-buttons-list">
                 <li><?php if (isset($attributes['one_pager_pdf'])): ?>
-                    <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->id]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
+                    <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$article->version_number]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon">
                         <div class="inner">
                             <span class="icon-download"></span>
                             <span class="text">download pdf</span>
