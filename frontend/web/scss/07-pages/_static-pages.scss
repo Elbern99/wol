@@ -184,19 +184,9 @@
   }
 
   @include breakpoint_custom($breakpoint-tablet) {
-    /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
       display: block !important;
       width: 100% !important;
-    }
-
-    .filters {
-      td {
-        &:nth-child(1),
-        &:nth-child(2) {
-          display: none !important;
-        }
-      }
     }
 
     tbody {
@@ -223,7 +213,6 @@
 
       &:nth-of-type(1):before { content: "Data Source"; }
       &:nth-of-type(2):before { content: "Website"; }
-      &:nth-of-type(3):before { content: "Type"; }
     }
   }
 
@@ -247,16 +236,8 @@
     }
 
     th,td {
-      width: 30%;
       padding: 13px 12px;
-
-      &:last-child {
-        width: 35%;
-      }
-
-      &:first-child {
-        width: 35%;
-      }
+      width: 35%;
 
       &:nth-child(2){
         word-break: break-all;
@@ -287,13 +268,20 @@
         vertical-align: middle;
         border-bottom: 1px solid #eee;
 
-        &.preloader-table-cell {
-          @include breakpoint_custom($breakpoint-tablet) {
-            padding-left: 6px !important;
-            border-bottom: 0 !important;
+        &:first-child {
+          a {
+            color: $blue;
 
-            &:before {
-              display: none;
+            &:hover {
+              color: #046ebc;
+            }
+
+            &:first-child {
+              color: $blue-light;
+              
+              &:hover {
+                color: #19a9f9;
+              }
             }
           }
         }
@@ -352,8 +340,6 @@
 }
 
 .stiky {
-  //transition: all 0.3s ease;
-
   @include breakpoint_custom($breakpoint-tablet) {
     position: fixed;
     bottom: 0;
