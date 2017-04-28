@@ -177,7 +177,7 @@ unset($currentParams);
                                     </div>
                                 </li>
                                 <li class="sidebar-accrodion-item sidebar-accordion-item-subject-areas">
-                                    <a href="" class="title">subject areas <strong>(<?= array_sum(Result::$articleCategoryIds) ?>)</strong></a>
+                                    <a href="" class="title">subject areas <strong>(<?= array_sum($filters['category']['selected']) ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['category'])): ?>
                                             <?= SubjectAreasWidget::widget(['param' => $filters['category']]); ?>

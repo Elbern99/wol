@@ -13,14 +13,11 @@ use yii\helpers\Url;
 use frontend\models\SavedSearch;
 use common\models\SearchResult;
 use frontend\components\search\ResultStrategy;
-use frontend\components\articles\OrderBehavior;
 /**
  * Search controller
  */
 class SearchController extends Controller
 {
-
-    use \frontend\components\articles\SubjectTrait;
     use \frontend\components\search\traits\SearchTrait;
     
     public function behaviors()
@@ -55,7 +52,6 @@ class SearchController extends Controller
     public function actionIndex($search_phrase = null) {
 
         $model = new AdvancedSearchForm();
-        Result::setModel($model);
         $searchFiltersData = null;
         $searchResult = null;
         
@@ -75,7 +71,9 @@ class SearchController extends Controller
             }
 
             if ($model->load(Yii::$app->request->post())) {
-
+                
+                Result::setSearchParams($model->getAttributes());
+                
                 if (($search_phrase != $model->search_phrase) && $model->validate()) {
                     return $this->postResearchData($model, $searchResultId, $searchResultData);
                 }
@@ -90,7 +88,7 @@ class SearchController extends Controller
         $searchCreteria = unserialize($searchResultData->creteria);
         $model->load($searchCreteria, '');
         
-        if (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase)) {
+        /*if (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase)) {
             
             if ($model->load(Yii::$app->request->get(), '') && $model->validate()) {
                 
@@ -111,81 +109,48 @@ class SearchController extends Controller
                     return $this->redirect(Url::to(['/search/advanced']));
                 }
             }
-        }
-
-        $searchFiltersData = $searchResultData->filters;
-
-        if ($searchFiltersData) {
-
-            $searchFiltersData = unserialize($searchFiltersData);
-            if ($searchFiltersData['types']['filtered']) {
-                Result::setFilter('types', $searchFiltersData['types']['filtered']);
-            }
-            Result::setFilter('subject', $searchFiltersData['category']['filtered']);
-            Result::setFilter('biography', $searchFiltersData['biography']['filtered']);
-            Result::setFilter('topics', $searchFiltersData['topics']['filtered']);
-        }
+        }*/
 
         $searchResult = unserialize($searchResultData->result);
-        Result::$synonyms = unserialize($searchResultData->synonyms);
-
-        $results = is_array($searchResult) ? $searchResult : [];
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-
-        switch($order) {
-            case 'relevance':
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
-                break;
-            case OrderBehavior::DATE_DESC:
-                $comparator = new \frontend\components\search\comparators\DateComparator('desc');
-                break;
-            case OrderBehavior::DATE_ASC:
-                $comparator = new \frontend\components\search\comparators\DateComparator('asc');
-                break;
-            case OrderBehavior::AUTHOR_ASC:
-                $comparator = new \frontend\components\search\comparators\AuthorComparator('asc');
-                break;
-            case OrderBehavior::AUTHOR_DESC:
-                $comparator = new \frontend\components\search\comparators\AuthorComparator('desc');
-                break;
-            case OrderBehavior::TITLE_ASC:
-                $comparator = new \frontend\components\search\comparators\TitleComparator('asc');
-                break;
-            case OrderBehavior::TITLE_DESC:
-                $comparator = new \frontend\components\search\comparators\TitleComparator('desc');
-                break;
-            default :
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
-        }
-
-        unset($searchResult);
-        $resultCount = count($results);
-
-        if ($resultCount) {
-            Result::initData($results);
-        }
-
-        $sortingResult = new ResultStrategy(Result::getSearchValue());
-        $sortingResult->setComparator($comparator);
-        $resultOrdered = $sortingResult->sort();
+        $searchFiltersData = $searchResultData->filters;
         
+        if ($searchFiltersData) {
+            $searchFiltersData = unserialize($searchFiltersData);
+        } else {
+            $searchFiltersData = $this->getFilterData($model, $searchResult['format'] ?? []);
+        }
+        
+        $mainresultCount = count($searchResult['main']);
+        $resultOrdered = [];
+        
+        if ($mainresultCount) {
+            $filter = new \frontend\components\search\filters\MainSearchFilters($searchFiltersData, $searchResult['main']);
+            $resultOrdered = $filter->getData();
+            
+            if (count($resultOrdered)) {
+                $sortingResult = new ResultStrategy($resultOrdered);
+                $sortingResult->setComparator($this->getOrderComparator($searchResult['origin']));
+                $resultOrdered = $sortingResult->sort();
+            }
+        }
+
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
         $paginate->setPageSize(Yii::$app->request->get('count'));
 
         $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
-        $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
-
+        $filter = new \frontend\components\search\filters\TopSearchFilters($searchFiltersData, $searchResult['top']);
+        
         return $this->render('result', [
             'phrase' => $search_phrase,
             'search' => $model,
             'paginate' => $paginate, 
             'resultData' => $resultData,
-            'topData' => Result::getSearchTopValue(),
-            'resultCount' => $resultCount, 
+            'topData' => $filter->getData(),
+            'resultCount' => $mainresultCount, 
             'filters' => $searchFiltersData,
-            'synonyms' => Result::$synonyms,
-            'currentCountResult' => count($resultOrdered) + count(Result::getSearchTopValue())
+            'synonyms' => unserialize($searchResultData->synonyms),
+            'currentCountResult' => $mainresultCount + ((isset($searchResult['format']['key_topics'])) ? count($searchResult['format']['key_topics']) : 0)
         ]);
     }
     

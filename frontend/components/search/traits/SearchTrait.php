@@ -8,35 +8,39 @@ use yii\helpers\Url;
 use common\models\SearchResult;
 use frontend\components\search\ResultStrategy;
 use frontend\models\AdvancedSearchForm;
+use frontend\models\SearchFilters;
 
 trait SearchTrait {
     
-    protected function getFilterData($model) {
+    use \frontend\components\articles\SubjectTrait;
+    
+    protected function getFilterData($model, $formatData) {
         
         $searchResultId = Yii::$app->getSession()->get('search_result_id');
+        SearchFilters::initFilterData($formatData);
         
         $filters['types'] = [
             'data' => AdvancedSearchForm::class,
-            'selected' => Result::$formatData,
-            'filtered' => Result::getFilter('types')
+            'selected' => $formatData,
+            'filtered' => SearchFilters::getFilter('types')
         ];
         
         $filters['category'] = [
             'data' => $this->getSubjectAreas(),
-            'selected' => Result::$articleCategoryIds,
-            'filtered' => Result::getFilter('subject')
+            'selected' => SearchFilters::$articleCategoryIds,
+            'filtered' => SearchFilters::getFilter('subject')
         ];
 
         $filters['biography'] = [
-            'data' => Result::$biographyFilter,
-            'selected' => count(Result::getFilter('biography')) ? true : false,
-            'filtered' => Result::getFilter('biography'),
+            'data' => SearchFilters::$biographyFilter,
+            'selected' => count(SearchFilters::getFilter('biography')) ? true : false,
+            'filtered' => SearchFilters::getFilter('biography'),
         ];
 
         $filters['topics'] = [
-            'data' => Result::$topicsFilter,
-            'selected' => count(Result::getFilter('topics')) ? true : false,
-            'filtered' => Result::getFilter('topics'),
+            'data' => SearchFilters::$topicsFilter,
+            'selected' => count(SearchFilters::getFilter('topics')) ? true : false,
+            'filtered' => SearchFilters::getFilter('topics'),
         ];
 
         return $filters;
@@ -66,11 +70,20 @@ trait SearchTrait {
         $synonyms = $model->synonyms;
         $creteria = $model->getAttributes();
         
+        Result::$synonyms = $synonyms;
         Result::initData($searchResult);
-        $filterData = $this->getFilterData($model);
+        
+        $result = [
+            'top'  =>  Result::getSearchTopValue(),
+            'main' =>  Result::getSearchValue(),
+            'format' => Result::$formatData,
+            'origin' => Result::getOriginData()
+        ];
+
+        $filterData = $this->getFilterData($model, Result::$formatData);
 
         $searchResultArgs = [
-            'result' => $searchResult,
+            'result' => $result,
             'creteria' => $creteria,
             'filters' => $filterData,
             'synonyms' => $synonyms
@@ -83,15 +96,15 @@ trait SearchTrait {
     protected function postFilteredData($model, $searchResultData) {
         
         $searchResult = unserialize($searchResultData->result);
-        $synonyms = null;
+        $synonyms = false;
         $creteria = $searchResultData->mixSearchCreteriaArray($model->getAttributes());
 
-        Result::setFilter('types', Yii::$app->request->post('filter_content_type'));
-        Result::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
-        Result::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
-        Result::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
+        SearchFilters::setFilter('types', Yii::$app->request->post('filter_content_type'));
+        SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
+        SearchFilters::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
+        SearchFilters::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
         
-        $filterData = $this->getFilterData($model);
+        $filterData = $this->getFilterData($model, $searchResult['format'] ?? []);
 
         $searchResultArgs = [
             'result' => $searchResult,
@@ -121,5 +134,29 @@ trait SearchTrait {
         ];
 
         return SearchResult::refreshResult($searchResultData, $searchResultArgs);
+    }
+    
+    protected function getOrderComparator($results) {
+        
+        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
+
+        switch($order) {
+            case 'relevance':
+                return new \frontend\components\search\comparators\RelevantComparator($results);
+            case OrderBehavior::DATE_DESC:
+                return new \frontend\components\search\comparators\DateComparator('desc');
+            case OrderBehavior::DATE_ASC:
+                return new \frontend\components\search\comparators\DateComparator('asc');
+            case OrderBehavior::AUTHOR_ASC:
+                return new \frontend\components\search\comparators\AuthorComparator('asc');
+            case OrderBehavior::AUTHOR_DESC:
+                return new \frontend\components\search\comparators\AuthorComparator('desc');
+            case OrderBehavior::TITLE_ASC:
+                return new \frontend\components\search\comparators\TitleComparator('asc');
+            case OrderBehavior::TITLE_DESC:
+                return new \frontend\components\search\comparators\TitleComparator('desc');
+            default :
+                return new \frontend\components\search\comparators\RelevantComparator($results);
+        }
     }
 }
