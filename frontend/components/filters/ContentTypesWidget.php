@@ -34,7 +34,10 @@ class ContentTypesWidget extends Widget {
             $content .= Html::beginTag('label', ['class' => "def-checkbox light item-filter-box"]);
             $selected = $this->param['selected'];
             
-            if (!count($selected)) {
+            if (!is_array($this->param['filtered'])) {
+                $content .= Html::input('checkbox', $this->prefix . '[]', $key);
+                $content .= Html::tag('span', $item, ['class' => "label-text"]);
+            } elseif (!count($selected)) {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $key, ['checked' => 'checked']);
                 $content .= Html::tag('span', $item, ['class' => "label-text"]);
             } elseif (isset($selected[$model])) {

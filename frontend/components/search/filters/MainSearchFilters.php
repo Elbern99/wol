@@ -11,7 +11,7 @@ class MainSearchFilters extends AbstractSearchFilters implements SearchInterface
         
         $filter = $this->filters['types']['filtered'];
         
-        if (is_null($filter)) {
+        if (!$filter) {
             return [];
         }
         
