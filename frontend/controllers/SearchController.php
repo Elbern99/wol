@@ -87,21 +87,36 @@ class SearchController extends Controller
         
         $searchCreteria = unserialize($searchResultData->creteria);
         $model->load($searchCreteria, '');
+        $previosRequestResult = (is_null(Yii::$app->getSession()->getFlash('previos_result')));
         
-        if (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase)) {
-            
-            if ($model->load(Yii::$app->request->get(), '') && $model->validate()) {
-                
-                $search_phrase = $model->search_phrase; 
-                try {
-                    $result = $this->getResearchData($model, $searchResultId, $searchResultData);
+        if ($previosRequestResult && (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase))) {
 
-                    if (!$result) {
-                        throw new \Exception();
-                    }
+            if ($model->load(Yii::$app->request->get(), '')) {
+                
+                if (is_null($model->types)) {
+                    $model->types = $model->getTypeIds();
+                }
+            
+                $search_phrase = $model->search_phrase;
+                
+                try {
                     
-                    $searchResultData = $result;
-                    unset($result);
+                    if ($model->validate()) {
+
+                        Result::setSearchParams($model->getAttributes());
+                        $result = $this->getResearchData($model, $searchResultId, $searchResultData);
+
+                        if ($result instanceof yii\web\Response) {
+                            return $result;
+                        }
+                        
+                        if (!$result) {
+                            throw new \Exception();
+                        }
+
+                        $searchResultData = $result;
+                        unset($result);
+                    }
                     
                 } catch (\Exception $e) {
                     Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Search by those criteria return empty result"));
@@ -248,7 +263,6 @@ class SearchController extends Controller
     }
     
     public function actionRefine() {
-
         return $this->redirect(Url::to(['/search/advanced', 'refine' => true]));
     }
     

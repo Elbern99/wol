@@ -59,7 +59,7 @@ trait SearchTrait {
                     $searchResultData->delete();
                     Yii::$app->getSession()->remove('search_result_id');
                 }
-
+                Yii::$app->getSession()->setFlash('previos_result', 'empty');
                 return $this->redirect(array_merge(['/search'], $model->getAttributes()));
             }
 
