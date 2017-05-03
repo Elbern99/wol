@@ -44,6 +44,10 @@ class TopSearchFilters extends AbstractSearchFilters implements SearchInterface 
         
         $filter = $this->filters['topics']['filtered'];
         
+        if (is_null($filter)) {
+            return true;
+        }
+        
         if (is_array($filter) && !in_array($topic['params']['id'], $filter)) {
             return true;
         }
@@ -55,6 +59,10 @@ class TopSearchFilters extends AbstractSearchFilters implements SearchInterface 
         
         $filter = $this->filters['biography']['filtered'];
 
+        if (is_null($filter)) {
+            return true;
+        }
+        
         if (is_array($filter) && !in_array($author['params']['id'], $filter)) {
             return true;
         }

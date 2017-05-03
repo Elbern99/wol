@@ -9,6 +9,8 @@ use common\models\SearchResult;
 use frontend\components\search\ResultStrategy;
 use frontend\models\AdvancedSearchForm;
 use frontend\models\SearchFilters;
+use frontend\components\articles\OrderBehavior;
+use common\models\ArticleCategory;
 
 trait SearchTrait {
     
@@ -46,8 +48,7 @@ trait SearchTrait {
         return $filters;
     }
     
-    protected function postResearchData($model, $searchResultId, $searchResultData) {
-        
+    protected function updateSearchData($model, $searchResultId, $searchResultData) {
         try {
             
             $searchResult = $model->search();
@@ -80,8 +81,19 @@ trait SearchTrait {
             'origin' => Result::getOriginData()
         ];
 
-        $filterData = $this->getFilterData($model, Result::$formatData);
+        SearchFilters::setFilter('types', $model->types);
+        if (isset($result['format']['biography'])) {
+            SearchFilters::setFilter('biography', $result['format']['biography']);
+        }
+        if (isset($result['format']['key_topics'])) {
+            SearchFilters::setFilter('topics', $result['format']['key_topics']);
+        }
+        if (isset($result['format']['article'])) {
+            SearchFilters::setFilter('subject', $this->getCategoriesInArticles($result['format']['article']));
+        }
 
+        $filterData = $this->getFilterData($model, Result::$formatData);
+        
         $searchResultArgs = [
             'result' => $result,
             'creteria' => $creteria,
@@ -89,8 +101,13 @@ trait SearchTrait {
             'synonyms' => $synonyms
         ];
 
-        SearchResult::refreshResult($searchResultData, $searchResultArgs);
-        return $this->redirect(array_merge(['/search'], $creteria));
+        return SearchResult::refreshResult($searchResultData, $searchResultArgs);
+    }
+    
+    protected function postResearchData($model, $searchResultId, $searchResultData) {
+        
+        $this->updateSearchData($model, $searchResultId, $searchResultData);
+        return $this->redirect(array_merge(['/search'], $model->getAttributes()));
     }
     
     protected function postFilteredData($model, $searchResultData) {
@@ -118,22 +135,65 @@ trait SearchTrait {
         
     }
     
-    protected function getResearchData($model, $searchResultId, $searchResultData) {
+    protected function getCategoriesInArticles($articleIds) {
         
-        $searchResult = $model->search();
+        $categories = ArticleCategory::find()
+                            ->select(['category_id'])
+                            ->where(['article_id' => $articleIds])
+                            ->groupBy('category_id')
+                            ->asArray()
+                            ->all();
+        
+        return ArrayHelper::getColumn($categories, 'category_id');
+    }
+    
+    protected function postSearchData($model, $searchResult) {
+
         $synonyms = $model->synonyms;
         $creteria = $model->getAttributes();
+        
+        Result::$synonyms = $synonyms;
         Result::initData($searchResult);
-        $filterData = $this->getFilterData($model);
+   
+        $result = [
+            'top'  =>  Result::getSearchTopValue(),
+            'main' =>  Result::getSearchValue(),
+            'format' => Result::$formatData,
+            'origin' => Result::getOriginData()
+        ];
 
+        SearchFilters::setFilter('types', $model->types);
+        if (isset($result['format']['biography'])) {
+            SearchFilters::setFilter('biography', $result['format']['biography']);
+        }
+        if (isset($result['format']['key_topics'])) {
+            SearchFilters::setFilter('topics', $result['format']['key_topics']);
+        }
+        if (isset($result['format']['article'])) {
+            SearchFilters::setFilter('subject', $this->getCategoriesInArticles($result['format']['article']));
+        }
+
+        $filterData = $this->getFilterData($model, Result::$formatData);
+        
         $searchResultArgs = [
-            'result' => $searchResult,
+            'result' => $result,
             'creteria' => $creteria,
             'filters' => $filterData,
             'synonyms' => $synonyms
         ];
 
-        return SearchResult::refreshResult($searchResultData, $searchResultArgs);
+        $currentResult = SearchResult::addNewResult($searchResultArgs);
+
+        if ($currentResult) {
+            return $this->redirect(Url::to(array_merge(['/search'], Yii::$app->request->post('AdvancedSearchForm'))));
+        }
+        
+        return $this->redirect(Url::to(['/search/advanced']));
+    }
+    
+    protected function getResearchData($model, $searchResultId, $searchResultData) {
+        
+        return $this->updateSearchData($model, $searchResultId, $searchResultData);
     }
     
     protected function getOrderComparator($results) {

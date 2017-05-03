@@ -43,6 +43,10 @@ class MainSearchFilters extends AbstractSearchFilters implements SearchInterface
         
         $filter = $this->filters['category']['filtered'];
         
+        if (is_null($filter)) {
+            return true;
+        }
+        
         if (is_array($filter)) {
             
             $categories = $article['params']['categories'];
@@ -66,6 +70,10 @@ class MainSearchFilters extends AbstractSearchFilters implements SearchInterface
         
         $filter = $this->filters['biography']['filtered'];
 
+        if (is_null($filter)) {
+            return true;
+        }
+        
         if (is_array($filter) && !in_array($author['params']['id'], $filter)) {
             return true;
         }
