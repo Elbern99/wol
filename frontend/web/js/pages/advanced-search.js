@@ -146,15 +146,15 @@
                         checkChildrenCheckboxes = $subLevelCheckboxes.length > 0,
                         checkState = $cur.is(':checked');
 
-                    if(checkChildrenCheckboxes) {
-                        if(checkState) {
-                            if(!$curParentLi.hasClass('now-click-trigger')) {
-                                $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
+                        setTimeout(function() {
+                            if(checkChildrenCheckboxes && !$curParentLi.hasClass('now-click-trigger')) {
+                                if(checkState) {
+                                    $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
+                                } else {
+                                    $subLevelCheckboxes.find(':checkbox:checked').trigger('click');
+                                }
                             }
-                        } else {
-                            $subLevelCheckboxes.find(':checkbox:checked').trigger('click');
-                        }
-                    }
+                        }, 0);
                 });
             }
         },
@@ -169,7 +169,7 @@
                         oneChecked = $subLevelCheckboxes.length == 1;
 
                     if(oneChecked) {
-                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)').addClass('only-check');
+                        $curParent.prev('.def-checkbox').find(':checkbox:not(:checked)');
                     }
 
                     if(checkChildrenCheckboxes) {
