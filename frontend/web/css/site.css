@@ -6859,8 +6859,6 @@ iframe[name=advpp_manager] {
   .source-table-holder .table th, .source-table-holder .table td {
     padding: 13px 12px;
     width: 35%; }
-    .source-table-holder .table th:nth-child(2), .source-table-holder .table td:nth-child(2) {
-      word-break: break-all; }
   @media only screen and (max-width: 767px) {
     .source-table-holder .table thead tr:first-child {
       display: none !important; } }

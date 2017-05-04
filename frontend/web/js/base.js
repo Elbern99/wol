@@ -674,7 +674,7 @@
                     var
                         $cur = $(this),
                         $curParent = $cur.parents('li'),
-                        $searchCheckBoxCheckedNotFirst = '.checkbox-list>li:not(:first-child)>label>:checkbox:checked',
+                        $searchCheckBoxCheckedFirst = '.checkbox-list>li>label>:checkbox:checked',
                         $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
                         $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
                         $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
@@ -692,16 +692,17 @@
                         };
 
                         $cur.text('Clear all');
+                        $curParent.addClass('now-click-trigger');
                     } else {
 
                         if (elements.searchResult.length > 0) {
                             if($curParent.hasClass('sidebar-accordion-item-types')) {
-                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                                $curParent.find($searchCheckBoxCheckedFirst).trigger('click');
                             } else if($curParent.hasClass('sidebar-accordion-item-subject-areas')) {
-                                $curParent.find($searchCheckBoxCheckedNotFirst).trigger('click');
+                                $curParent.find($searchCheckBoxCheckedFirst).trigger('click');
                             } else {
                                 $curParent.find($searchCheckBoxChecked).trigger('click');
-                            }
+                            };
                         };
 
                         if (elements.findExpert.length > 0) {
@@ -709,7 +710,8 @@
                         };
 
                         $cur.text('Select all');
-                    }
+                        $curParent.addClass('now-click-trigger');
+                    };
 
                     e.preventDefault();
                 });
