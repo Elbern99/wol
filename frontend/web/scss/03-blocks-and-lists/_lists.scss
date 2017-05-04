@@ -192,7 +192,7 @@
 
 .post-list {
   &.news-home-list {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
 
     @include breakpoint('tablet') {
       margin-bottom: 28px;
@@ -695,7 +695,7 @@
   &.home-other-events-list {
 
     @include breakpoint('tablet') {
-      margin-bottom: -30px;
+      margin-bottom: -40px;
     }
 
     .post-item {

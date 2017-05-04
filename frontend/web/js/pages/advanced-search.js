@@ -141,14 +141,15 @@
                     var
                         $cur = $(this),
                         $curParent = $cur.parent(),
+                        $curParentLi = $cur.parents('.sidebar-accordion-item-subject-areas'),
                         $subLevelCheckboxes = $curParent.next('ul'),
                         checkChildrenCheckboxes = $subLevelCheckboxes.length > 0,
                         checkState = $cur.is(':checked');
 
                     if(checkChildrenCheckboxes) {
                         if(checkState) {
-                            if(!$cur.hasClass('only-check')) {
-                                //$subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
+                            if(!$curParentLi.hasClass('now-click-trigger')) {
+                                $subLevelCheckboxes.find(':checkbox:not(:checked)').trigger('click');
                             }
                         } else {
                             $subLevelCheckboxes.find(':checkbox:checked').trigger('click');
@@ -172,12 +173,12 @@
                     }
 
                     if(checkChildrenCheckboxes) {
-                        $curParent.prev('.def-checkbox').find(':checkbox:checked').trigger('click');
+                        //$curParent.prev('.def-checkbox').find(':checkbox:checked').trigger('click');
                     }
                 });
             }
         }
-    }
+    };
 
     var filterLoad = {
         scrollToLastPosition: function(position) {
