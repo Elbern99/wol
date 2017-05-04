@@ -674,7 +674,7 @@
                     var
                         $cur = $(this),
                         $curParent = $cur.parents('li'),
-                        $searchCheckBoxCheckedFirst = '.checkbox-list>li>label>:checkbox:checked',
+                        $searchCheckBoxCheckedFirst = ':checkbox:checked',
                         $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
                         $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
                         $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
@@ -696,13 +696,7 @@
                     } else {
 
                         if (elements.searchResult.length > 0) {
-                            if($curParent.hasClass('sidebar-accordion-item-types')) {
-                                $curParent.find($searchCheckBoxCheckedFirst).trigger('click');
-                            } else if($curParent.hasClass('sidebar-accordion-item-subject-areas')) {
-                                $curParent.find($searchCheckBoxCheckedFirst).trigger('click');
-                            } else {
-                                $curParent.find($searchCheckBoxChecked).trigger('click');
-                            };
+                            $cur.parents('li').find($searchCheckBoxCheckedFirst).trigger('click');
                         };
 
                         if (elements.findExpert.length > 0) {
