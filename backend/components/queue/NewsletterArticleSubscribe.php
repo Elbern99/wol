@@ -13,7 +13,7 @@ class NewsletterArticleSubscribe {
             return false;
         }
         
-        $subscribers = Newsletter::find()->select(['first_name', 'email', 'last_name'])->andWhere(['interest' => 1]);
+        $subscribers = Newsletter::find()->select(['first_name', 'email', 'last_name', 'code'])->andWhere(['interest' => 1]);
         $categories = Category::find()->select([
                                'id', 'root', 
                                'lvl', 'lft', 'rgt'])

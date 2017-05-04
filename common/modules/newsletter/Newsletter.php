@@ -33,5 +33,12 @@ class Newsletter {
         return $this->model->getAttribute($name) ?? null;
     }
     
+    public function setAttribute($name, $value) {
+        $this->model->setAttribute($name, $value);
+    }
+    
+    public function updateAttribute() {
+        return $this->model->save();
+    }
 }
 

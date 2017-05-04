@@ -4,7 +4,7 @@ use yii\helpers\Url;
 ?>
 
 <?php
-$params = (!is_null($newEmail)) ? ['/site/confirm/','token' => $token, 'email' => $newEmail] : ['/site/confirm/','token' => $token];
+$params = ['/site/confirm/','token' => $token];
 ?>
 <?php $this->beginContent(__DIR__.'/layout.php'); ?>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear <?= $user->first_name ?> <?= $user->last_name ?>,</span></p>

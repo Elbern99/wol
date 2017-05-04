@@ -35,7 +35,7 @@ class UserActivation extends \yii\db\ActiveRecord
         return [
             [['user_id', 'token', 'created_at'], 'required'],
             [['user_id', 'created_at'], 'integer'],
-            [['token'], 'string', 'max' => 255],
+            [['token', 'new_email'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -93,14 +93,14 @@ class UserActivation extends \yii\db\ActiveRecord
         return false;
     }
     
-    public function sendConfirmedEmail(User $user, string $token, $newEmail = null) {
+    public function sendConfirmedEmail(User $user, string $token) {
         
-        $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token, 'newEmail' => $newEmail ? $newEmail : $user->email]);
+        $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token]);
 
         $job = new \UrbanIndo\Yii2\Queue\Job([
             'route' => 'mail/send', 
             'data' => [
-                'to' => $newEmail ? $newEmail : $user->email,
+                'to' => $this->new_email ? $this->new_email : $user->email,
                 'from' => Yii::$app->params['supportEmail'], 
                 'subject' => $this->subject, 
                 'body' => $body
@@ -117,46 +117,52 @@ class UserActivation extends \yii\db\ActiveRecord
         $this->token = self::getToken();
         $this->user_id = $user->id;
         $this->created_at = time();
+        $this->new_email = $newEmail;
         
         if ($this->save()) {
-            return $this->sendConfirmedEmail($user, $this->token, $newEmail);
+            return $this->sendConfirmedEmail($user, $this->token);
         }
 
         return false;
     }
     
-    public static function verifyToken($token, $email = null) {
+    public function verifyToken($token) {
 
-        $model = self::find()->where(['token' => $token])->one();
-
-        if (!$model) {
-            return false;
-        }
-        
-        $user = User::findOne($model->user_id);
-        $dateVerificate = strtotime(self::$duration, $model->created_at);
-
-        if ($dateVerificate < time()) {
+        try {
             
-            $model->created_at = time();
-            $model->token = self::getToken();
-            $model->save();
+            $user = User::findOne($this->user_id);
+            $dateVerificate = strtotime(self::$duration, $this->created_at);
 
-            $model->sendConfirmedEmail($user, $model->token);
-            Yii::$app->session->setFlash('error', 'Token has expired you have been sent a new message');
+            if ($dateVerificate < time()) {
+
+                $this->created_at = time();
+                $this->token = self::getToken();
+                $this->save();
+
+                $this->sendConfirmedEmail($user, $this->token);
+                Yii::$app->session->setFlash('error', 'Token has expired you have been sent a new message');
+                return false;
+            }
+
+            $user->activated = 1;
+
+            if ($this->new_email) {
+                $newslatter = Yii::$container->get('newsletter');
+                $newslatter->getSubscriber($user->email);
+                $newslatter->setAttribute('email', $this->new_email);
+                $newslatter->updateAttribute();
+                
+                $user->email = $this->new_email;
+            }
+
+            $user->save();
+            $this->delete();
+
+            return $user;
+            
+        } catch (\yii\db\Exception $e) {
             return false;
         }
-        
-        $user->activated = 1;
-        
-        if ($email) {
-            $user->email = $email;
-        }
-        
-        $user->save();
-        $model->delete();
-        
-        return $user;
     }
     
     private static function getToken() {
