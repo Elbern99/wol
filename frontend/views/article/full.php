@@ -31,7 +31,7 @@ $this->registerMetaTag([
                 
 $this->registerLinkTag([
     'rel' => 'canonical',
-    'href' => Url::to('/articles/'.$article->seo . '/long')
+    'href' => Url::to('/articles/'.$article->seo . '/long', true)
 ]);
 
 $this->registerMetaTag([
