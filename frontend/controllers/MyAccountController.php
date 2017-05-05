@@ -227,7 +227,7 @@ class MyAccountController extends Controller {
                     $newslatter->last_name = Yii::$app->user->identity->last_name;
                     $newslatter->email = Yii::$app->user->identity->email;
 
-                    if ($facade->setSubscriber($newslatter->getAttributes())) {
+                    if ($facade->setSubscriber($newslatter->getAttributes()) && !count($messages)) {
                         $messages[] = Yii::t('app/messages','subscribe_account');
                     }
                 }
