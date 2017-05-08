@@ -271,7 +271,7 @@ class ArticleParser implements ParserInterface {
                 }
             }
         }
-        
+
         if ($this->log->getCount()) {
             return $this->log;
         }
