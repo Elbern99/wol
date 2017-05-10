@@ -499,9 +499,13 @@ trait ArticleParseTrait {
             $biblScope_vol = '';
             $biblScope_volume = '';
             $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
-            $monogrTitleAttribute = $monogr->title->attributes();
-            $referencesType = $monogrTitleAttribute['type'];
-                    
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
+            
             if (isset($monogr->imprint->biblScope)) {
 
                 $bibl = array();
@@ -631,7 +635,9 @@ trait ArticleParseTrait {
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
-                $fullCitation .= ' '.$titleItalics;
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
                 if ($date) {
                     $fullCitation .= ', '.$date;
                 }
@@ -835,8 +841,12 @@ trait ArticleParseTrait {
             $biblScope_vol = '';
             $biblScope_volume = '';
             $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
-            $monogrTitleAttribute = $monogr->title->attributes();
-            $referencesType = $monogrTitleAttribute['type'];
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
             
             if (isset($monogr->imprint->biblScope)) {
 
@@ -966,7 +976,9 @@ trait ArticleParseTrait {
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
-                $fullCitation .= ' '.$titleItalics;
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
                 if ($date) {
                     $fullCitation .= ', '.$date;
                 }
@@ -1151,8 +1163,13 @@ trait ArticleParseTrait {
             $biblScope_issue = '';
             $biblScope_vol = '';
             $biblScope_volume = '';
-            $monogrTitleAttribute = $monogr->title->attributes();
-            $referencesType = $monogrTitleAttribute['type'];
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
+            
 
             if (isset($monogr->imprint->biblScope)) {
 
@@ -1263,7 +1280,11 @@ trait ArticleParseTrait {
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
-                $fullCitation .= ' '.$titleItalics;
+                
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
+                
                 if ($date) {
                     $fullCitation .= ', '.$date;
                 }
