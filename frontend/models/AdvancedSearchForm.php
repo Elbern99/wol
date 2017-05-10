@@ -101,7 +101,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
         $fields = ['title', 'description', 'body', 'location', 'name', 'editor', 'url', 'value', 'surname', 'availability'];
         
         $searchPhrase = $this->checkSynonymInPhrase();
-        
+
         foreach($this->types as $type) {
             
             $modelType = $this->headingModel[$type];

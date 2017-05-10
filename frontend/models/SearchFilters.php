@@ -53,6 +53,10 @@ class SearchFilters {
 
     protected static function getEvents($ids) { }
 
+    protected static function getPapers($ids) { }
+    
+    protected static function getPolicypapers($ids) { }
+    
     protected static function getVideos($ids) { }
 
     protected static function getKeyTopics($ids) {
