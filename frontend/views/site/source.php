@@ -67,7 +67,7 @@ $this->registerJsFile('/js/pages/sources.js', ['depends' => ['yii\web\YiiAsset']
                     },
                     'columns' => [
                         [
-                            'label' => 'Data Source',
+                            'label' => 'Data source',
                             'format' => 'raw',
                             'attribute' => 'source',
                             'value' => function($model) {
