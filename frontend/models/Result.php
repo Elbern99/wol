@@ -15,6 +15,7 @@ use common\models\Video;
 use common\models\Event;
 use common\models\Opinion;
 use common\models\Topic;
+use frontend\models\SearchXmlData;
 
 /**
  * Signup form
@@ -223,6 +224,22 @@ class Result {
                 'type' => $k
             ];
         }
+    }
+    
+    protected static function getPapers($ids, $k) {
+        
+        $model = new SearchXmlData($k);
+        $result = $model->getDataByIds($ids);
+
+        self::addDataToValue($result, $k);
+    }
+    
+    protected static function getPolicypapers($ids, $k) {
+
+        $model = new SearchXmlData($k);
+        $result = $model->getDataByIds($ids);
+        
+        self::addDataToValue($result, $k);
     }
 
     public function getSearchValue() {

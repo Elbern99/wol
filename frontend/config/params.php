@@ -15,6 +15,8 @@ return [
         'opinions' => '\common\models\OpinionsSearch',
         'events' => '\common\models\EventsSearch',
         'videos' => '\common\models\VideosSearch',
+        'papers' => '\common\models\PapersSearch',
+        'policypapers' => '\common\models\PolicypapersSearch'
     ],
     'article_limit' => 10,
     'opinion_limit' => 4,

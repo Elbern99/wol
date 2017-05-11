@@ -11,6 +11,8 @@ trait SearchTrait {
         self::OPINIONS_SEARCH_TYPE => 'opinions',
         self::EVENTS_SEARCH_TYPE => 'events',
         self::VIDEOS_SEARCH_TYPE => 'videos',
+        self::PAPERS_SEARCH_TYPE => 'papers',
+        self::POLICYPAPERS_SEARCH_TYPE => 'policypapers'
     ];
     
     protected $headingLabel = [
@@ -21,6 +23,8 @@ trait SearchTrait {
         self::OPINIONS_SEARCH_TYPE => 'Opinions',
         self::EVENTS_SEARCH_TYPE => 'Events',
         self::VIDEOS_SEARCH_TYPE => 'Videos',
+        self::PAPERS_SEARCH_TYPE => 'IZA discussion paper',
+        self::POLICYPAPERS_SEARCH_TYPE => 'IZA policy paper',
     ];
     
     public function getHeadingFilter() {
@@ -55,6 +59,8 @@ trait SearchTrait {
             self::KEYTOPICS_SEARCH_TYPE,
             self::EVENTS_SEARCH_TYPE,
             self::VIDEOS_SEARCH_TYPE,
+            self::PAPERS_SEARCH_TYPE,
+            self::POLICYPAPERS_SEARCH_TYPE
         ];
     }
 }

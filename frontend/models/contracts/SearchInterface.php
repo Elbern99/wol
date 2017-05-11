@@ -10,6 +10,8 @@ interface SearchInterface {
     const OPINIONS_SEARCH_TYPE = 5;
     const EVENTS_SEARCH_TYPE = 6;
     const VIDEOS_SEARCH_TYPE = 7;
+    const PAPERS_SEARCH_TYPE = 8;
+    const POLICYPAPERS_SEARCH_TYPE = 9;
 
     public function getHeadingFilter();
     public function getheadingModelFilter($id = null);
