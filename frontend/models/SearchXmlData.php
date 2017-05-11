@@ -18,12 +18,14 @@ class SearchXmlData implements SearchXmlInterface
     
     public function getDataByIds($ids) {
 
+        $basePath = Yii::$app->basePath.'/../';
+        
         switch ($this->type) {
             case 'papers':
-                $filename = self::SPHINX_FOLDER.self::PAPERS_FILE_NAME;
+                $filename = $basePath.self::SPHINX_FOLDER.self::PAPERS_FILE_NAME;
                 break;
             case 'policypapers':
-                $filename = self::SPHINX_FOLDER.self::POLICYPAPER_FILE_NAME;
+                $filename = $basePath.self::SPHINX_FOLDER.self::POLICYPAPER_FILE_NAME;
                 break;
             default:
                 return false;

@@ -27,9 +27,9 @@ class SearchXmlController extends Controller implements SearchXmlInterface {
             }
         }
         
-        if (!is_dir(self::SPHINX_FOLDER)) {
+        if (!is_dir($basePath.self::SPHINX_FOLDER)) {
             
-            if (!FileHelper::createDirectory(self::SPHINX_FOLDER, $this->mode, true)) {
+            if (!FileHelper::createDirectory($basePath.self::SPHINX_FOLDER, $this->mode, true)) {
                 return 0;
             }
         }
@@ -44,7 +44,7 @@ class SearchXmlController extends Controller implements SearchXmlInterface {
             fwrite($handle, $izaWebPolicy);
             fclose($handle);
 
-            $handle = fopen(self::SPHINX_FOLDER.self::POLICYPAPER_FILE_NAME, "w");
+            $handle = fopen($basePath.self::SPHINX_FOLDER.self::POLICYPAPER_FILE_NAME, "w");
             fwrite($handle, $this->convertToShphinxXml($izaWebPolicy, 'policypapers'));
             fclose($handle);
             unset($izaWebPolicy);
@@ -55,7 +55,7 @@ class SearchXmlController extends Controller implements SearchXmlInterface {
             fwrite($handle, $izaWebDiscussion);
             fclose($handle);
             
-            $handle = fopen(self::SPHINX_FOLDER.self::PAPERS_FILE_NAME, "w");
+            $handle = fopen($basePath.self::SPHINX_FOLDER.self::PAPERS_FILE_NAME, "w");
             fwrite($handle, $this->convertToShphinxXml($izaWebDiscussion, 'papers'));
             fclose($handle);
             unset($izaWebDiscussion);
