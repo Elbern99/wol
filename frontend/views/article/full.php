@@ -39,6 +39,37 @@ $this->registerMetaTag([
     'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser'))
 ]);
 
+$this->registerMetaTag([
+    'name' => 'citation_journal_title',
+    'content' => Html::encode('IZA World of Labor')
+]);
+$this->registerMetaTag([
+    'name' => 'citation_doi',
+    'content' => Html::encode($article->doi)
+]);
+$this->registerMetaTag([
+    'name' => 'citation_title',
+    'content' => Html::encode(EavAttributeHelper::getAttribute('title')->getData('title'))
+]);
+$this->registerMetaTag([
+    'name' => 'citation_publication_date',
+    'content' => Html::encode(date('Y-m-d', $article->created_at))
+]);
+$this->registerMetaTag([
+    'name' => 'citation_author',
+    'content' => implode(' ', 
+        array_map(
+            function($author) {
+                return $author['name']->last_name.', '.$author['name']->first_name.' '.$author['name']->middle_name;
+            }, $authors
+        )
+    )
+]);          
+$this->registerMetaTag([
+    'name' => 'citation_pdf_url',
+    'content' => Url::to(EavAttributeHelper::getAttribute('full_pdf')->getData('url'), true)
+]);
+
 $this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
 $this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
