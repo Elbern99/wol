@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use backend\models\DataSourceSearch;
 
 /*
  * Data Source Manager Class Controller
@@ -39,48 +40,47 @@ class SourceController extends Controller
     }
     
     public function actionIndex() {
-        $source = DataSource::find()->orderBy('id');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $source, 'pagination' => ['pageSize' => 30]])]);
+        $searchModel = new DataSourceSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
     
-    public function actionView($id = null) {
-        
-        if (is_null($id)) {
-            $sourceModel = new DataSource();
-            
-        } else {
-            $sourceModel = DataSource::findOne($id);
-            $adjacentSelected = $sourceModel->getSourceTaxonomies()->asArray()->all();
-            $sourceModel->types = ArrayHelper::getColumn($adjacentSelected, 'taxonomy_id');
-        }
+    public function actionView($id) {
+
+        $sourceModel = DataSource::findOne($id);
+        $adjacentSelected = $sourceModel->getSourceTaxonomies()->asArray()->all();
+        $sourceModel->types = $adjacentSelected;
         
         if (Yii::$app->request->isPost) {
             
             $sourceTaxonomy = Yii::$app->request->post('SourceTaxonomy');
-            
+
             if ($sourceModel->load(Yii::$app->request->post()) && $sourceModel->validate()) {
 
                 if ($sourceModel->save()) {
-                    
-                    SourceTaxonomy::deleteAll(['source_id' => $sourceModel->id]);
+                    /*SourceTaxonomy::deleteAll(['source_id' => $sourceModel->id]);
                     $bulkInsertArray = [];
 
                     foreach ($sourceModel->types as $type) {
-
-                        $bulkInsertArray[] = ['source_id' => $sourceModel->id, 'taxonomy_id' => $type];
+                        $bulkInsertArray[] = array_merge(['source_id' => $sourceModel->id], $type);
                     }
                     
-                    Yii::$app->db->createCommand()
+                    $result = Yii::$app->db->createCommand()
                     ->batchInsert(
                         SourceTaxonomy::tableName(), 
-                        ['source_id', 'taxonomy_id'], 
+                        ['source_id', 'taxonomy_id', 'additional_taxonomy_id'], 
                         $bulkInsertArray
                     )
-                    ->execute();
-                
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Source added success'), false);
-                    return $this->redirect('@web/source');
+                    ->execute();*/
+                    DataSource::removeDataSourcesCache();
                 }
+                
+                Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Source have been changed'), false);
+                return $this->redirect('@web/source/view?id='.$id);
             }
         }
         
@@ -96,6 +96,7 @@ class SourceController extends Controller
             }
             
             $model->delete();
+            DataSource::removeDataSourcesCache();
             Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Source was delete success!'));
             
         } catch (\yii\db\Exception $e) {

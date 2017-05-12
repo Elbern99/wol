@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('view')?>"><?= Yii::t('app/menu', 'Add Source') ?></a></p>
+    <!--<p><a class="btn btn-default" role="button" href="<?= Url::toRoute('view')?>"><?= Yii::t('app/menu', 'Add Source') ?></a></p>-->
     
     <div class="row content">
         <div class="col-sm-12 sidenav">
@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             GridView::widget([
                 'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     [
@@ -28,7 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->source);
                         }
                     ],
-                    'website',
+                    [
+                        'attribute' => 'website',
+                        'value' => function($model) {
+                            return AdminFunctionHelper::short($model->website);
+                        }
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{view}{delete}',
