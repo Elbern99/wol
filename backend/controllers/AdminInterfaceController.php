@@ -83,63 +83,59 @@ class AdminInterfaceController extends Controller {
         if (Yii::$app->request->isPost) {
 
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $uploadLog = new ArchiveLog();
             
-            $model->load(Yii::$app->request->post());
-            $model->initEvent();
-            $model->initUploadProperty();
-            
-            if ($model->upload(true)) {
-                
-                $uploadLog = new ArchiveLog(); 
-                        
-                try {
+            try {
+                $model->load(Yii::$app->request->post());
+                $model->initEvent();
+                $model->initUploadProperty();
+
+                if ($model->upload(true)) {
                     
                     $facade = new ParserFacade($model);
                     $result = $facade->run();
-                    
+
                     if ($result instanceof \common\contracts\LogInterface) {
-                        
+
                         $uploadLog->addErrorLog($model->archive->name, $result->getLog());
                         Yii::$app->response->setStatusCode(400);
-                        
+
                         return [
                             'files' => [
                                 ['name' => $model->archive->name]
                             ],
                             'error' => Yii::t('app/text', 'Upload was not success'),
                             'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
-                            
+
                         ];
                     }
-                    
-                } catch(\Exception $e) {
-                    
-                    $uploadLog->addErrorLog($model->archive->name, [$e->getMessage()]);
-                    Yii::$app->response->setStatusCode(400);
-                        
+
+                    $uploadLog->addSuccessLog($model->archive->name);
+
                     return [
                         'files' => [
-                            ['name' => $model->archive->name]
+                            ['name' => $model->archive->name],
                         ],
-                        'error' => Yii::t('app/text', 'Upload was not success')
+                        'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
                     ];
+
+                } else {
+                    throw new \Exception(Yii::t('app/text', 'Upload arcive was not success'));
                 }
                 
-                $uploadLog->addSuccessLog($model->archive->name);
-                
+            } catch(\Exception $e) {
+                    
+                $message = $e->getMessage();
+                $message .= '<br>'.$e->getTraceAsString();
+                $uploadLog->addErrorLog($model->archive->name, [$message]);
+                Yii::$app->response->setStatusCode(400);
+
                 return [
                     'files' => [
-                        ['name' => $model->archive->name],
+                        ['name' => $model->archive->name]
                     ],
+                    'error' => Yii::t('app/text', 'Upload was not success'),
                     'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
-                ];
-
-            } else {
-                
-                Yii::$app->response->setStatusCode(400);
-                
-                return [
-                    'error' => Yii::t('app/text', 'Upload arcive was not success')
                 ];
             }
         }
@@ -154,24 +150,23 @@ class AdminInterfaceController extends Controller {
         if (Yii::$app->request->isPost) {
 
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $uploadLog = new ArchiveLog();
             
-            $model->load(Yii::$app->request->post());
-            $model->initEvent();
-            $model->initUploadProperty();
+            try {
+                $model->load(Yii::$app->request->post());
+                $model->initEvent();
+                $model->initUploadProperty();
 
-            if ($model->upload(true)) {
-                
-                $uploadLog = new ArchiveLog(); 
-                
-                try {
+                if ($model->upload(true)) {
+
                     $facade = new ParserFacade($model);
                     $result = $facade->run();
-                    
+
                     if ($result instanceof \common\contracts\LogInterface) {
-                        
+
                         $uploadLog->addErrorLog($model->archive->name, $result->getLog());
                         Yii::$app->response->setStatusCode(400);
-                        
+
                         return [
                             'files' => [
                                 ['name' => $model->archive->name]
@@ -180,33 +175,33 @@ class AdminInterfaceController extends Controller {
                             'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
                         ];
                     }
-                    
-                } catch(\Exception $e) {
-                    $uploadLog->addErrorLog($model->archive->name, [$e->getMessage()]);
-                    Yii::$app->response->setStatusCode(400);
-                        
+
+                    $uploadLog->addSuccessLog($model->archive->name);
+
                     return [
                         'files' => [
-                            ['name' => $model->archive->name]
+                            ['name' => $model->archive->name],
                         ],
-                        'error' => Yii::t('app/text', 'Update was not success')
+                        'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
                     ];
+
+                } else {
+                    throw new \Exception(Yii::t('app/text', 'Upload arcive was not success'));
                 }
                 
-                $uploadLog->addSuccessLog($model->archive->name);
+            } catch(\Exception $e) {
                 
+                $message = $e->getMessage();
+                $message .= '<br>'.$e->getTraceAsString();
+                $uploadLog->addErrorLog($model->archive->name, [$message]);
+                Yii::$app->response->setStatusCode(400);
+
                 return [
                     'files' => [
-                        ['name' => $model->archive->name],
+                        ['name' => $model->archive->name]
                     ],
+                    'error' => Yii::t('app/text', 'Upload was not success'),
                     'log' => Url::to(['upload-log-view', 'id' => $uploadLog->id])
-                ];
-            
-            } else {
-                Yii::$app->response->setStatusCode(400);
-                
-                return [
-                    'error' => Yii::t('app/text', 'Upload achive was not success')
                 ];
             }
             
