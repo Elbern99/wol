@@ -12,6 +12,7 @@ use common\helpers\Country;
  */
 trait ArticleParseTrait {
 
+    protected $doiLink = 'http://dx.doi.org/';
     abstract public function parse(ReaderInterface $reader);
     abstract protected function getParseImagePath($name);
     abstract protected function setTaxonomyData();
@@ -644,7 +645,9 @@ trait ArticleParseTrait {
                 $fullCitation .= '.';
             }
      
-            if ($idno['url']) {
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
@@ -985,7 +988,9 @@ trait ArticleParseTrait {
                 $fullCitation .= '.';
             }
      
-            if ($idno['url']) {
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
@@ -1291,7 +1296,9 @@ trait ArticleParseTrait {
                 $fullCitation .= '.';
             }
             
-            if ($idno['url']) {
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
