@@ -35,8 +35,9 @@ class EavAttributeOption extends \yii\db\ActiveRecord implements \common\modules
     {
         return [
             [['attribute_id', 'label', 'type'], 'required'],
-            [['attribute_id', 'type'], 'integer'],
+            [['attribute_id'], 'integer'],
             [['label'], 'string', 'max' => 255],
+            [['type'], 'string', 'max' => 20],
             [['attribute_id'], 'exist', 'skipOnError' => true, 'targetClass' => EavAttribute::className(), 'targetAttribute' => ['attribute_id' => 'id']],
         ];
     }

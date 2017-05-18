@@ -74,7 +74,7 @@ class EavController extends Controller {
             }
         }
         
-        $this->stdout("Attribute Option can not added success", Console::BG_RED);
+        $this->stdout("Attribute Type can not added success", Console::BG_RED);
         echo "\n";
 
         return 0;
