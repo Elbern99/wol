@@ -182,6 +182,14 @@ class ArticleSchemaAttributes {
                 ['label' => 'types', 'type' => 'Array']
             ]
         );
+        
+        $this->attributes[] = new Attribute(
+            'affiliation_article',
+            array_combine($attributeSchema, ['affiliation_article', 'Affiliation', 0, 0, 1]),
+            [
+                ['label' => 'Affiliation', 'type' => 'Array']
+            ]
+        );
     }
 
     /*public function addAttribute($name, $params, $options) {

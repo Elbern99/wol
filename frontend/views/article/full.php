@@ -111,6 +111,7 @@ $config = [
 ];
 $versions = $article->getArticleVersions();
 $currentVersionNumber = count($versions) + 1;
+$affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->getData('affiliation');
 ?>
 
 <div class="container article-full full-page">
@@ -183,7 +184,7 @@ $currentVersionNumber = count($versions) + 1;
                             );
                             ?>
                         </div>
-                        <p><?= $author['affiliation'] ?></p>
+                        <p><?= $affiliationArticle[$author['author_key']] ?? $author['affiliation'] ?></p>
                     </div>
 
                 </div>

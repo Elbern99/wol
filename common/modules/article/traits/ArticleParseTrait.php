@@ -79,6 +79,37 @@ trait ArticleParseTrait {
         
         return null;
     }
+    
+    protected function getAffiliationArticle() {
+        
+        $authors = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
+        $affiliations = [];
+        
+        foreach ($authors as $author) {
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $author->asXML(), $vals);
+            xml_parser_free($p);
+            
+            $key = (string) $vals[0]['attributes']['XML:ID'];
+            $val = (string) $author->affiliation;
+            
+            if (mb_strlen($key) && mb_strlen(str_replace(' ', '', $val))) {
+                $affiliations[$key] = $val;
+            }
+            
+            unset($vals);
+        }
+
+        if (count($affiliations)) {
+            $obj = new stdClass;
+            $obj->affiliation = $affiliations;
+            
+            return serialize($obj);
+        }
+        
+        return null;
+    }
 
     protected function getTitle() {
         

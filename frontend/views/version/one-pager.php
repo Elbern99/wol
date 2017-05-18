@@ -113,6 +113,7 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json',
         'share_text_for_email' => $mailArticle
 ];
+$affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->getData('affiliation');
 ?>
 
 <div class="container article-full one-pager-page">
@@ -188,7 +189,7 @@ $config = [
                         );
                         ?>
                     </div>
-                    <p><?= $author['affiliation'] ?></p>
+                    <p><?= $affiliationArticle[$author['author_key']] ?? $author['affiliation'] ?></p>
                 </div>
 
             </div>
