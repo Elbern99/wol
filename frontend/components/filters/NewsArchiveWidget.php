@@ -25,7 +25,8 @@ class NewsArchiveWidget extends Widget {
             $years = [];
             
             foreach ($this->data as $data) {
-                $dateStamp = $data['created_at']->getTimestamp();
+                
+                $dateStamp = strtotime($data);
                 $year = date('Y', $dateStamp);
 
                 if (array_search($year, $years) === false) {

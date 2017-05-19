@@ -12,11 +12,20 @@ trait NewsTrait {
 
     protected function getNewsArchive() {
         
-        return NewsItem::find()
-                        ->select(['created_at'])
-                        ->groupBy(['EXTRACT(YEAR_MONTH FROM created_at)'])
+        $data = NewsItem::find()
+                        ->select(['DISTINCT (EXTRACT(YEAR_MONTH FROM created_at)) as created_at'])
                         ->orderBy(['created_at' => SORT_DESC])
+                        ->asArray()
                         ->all();
+        
+        $dates = [];
+        
+        foreach ($data as $date) {
+            $year = substr($date['created_at'], 0, 4);
+            $dates[] = $year.'-'.substr($date['created_at'], 4);
+        }
+        
+        return $dates;
     }
     
     protected function getNewsletterArchive() {
