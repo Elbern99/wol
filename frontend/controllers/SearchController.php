@@ -13,14 +13,12 @@ use yii\helpers\Url;
 use frontend\models\SavedSearch;
 use common\models\SearchResult;
 use frontend\components\search\ResultStrategy;
-use frontend\components\articles\OrderBehavior;
 /**
  * Search controller
  */
 class SearchController extends Controller
 {
-
-    use \frontend\components\articles\SubjectTrait;
+    use \frontend\components\search\traits\SearchTrait;
     
     public function behaviors()
     {
@@ -46,37 +44,6 @@ class SearchController extends Controller
         ];
     }
     
-    protected function getFilterData($model) {
-        
-        $searchResultId = Yii::$app->getSession()->get('search_result_id');
-        
-        $filters['types'] = [
-            'data' => AdvancedSearchForm::class,
-            'selected' => Result::$formatData,
-            'filtered' => Result::getFilter('types')
-        ];
-        
-        $filters['category'] = [
-            'data' => $this->getSubjectAreas(),
-            'selected' => Result::$articleCategoryIds,
-            'filtered' => Result::getFilter('subject')
-        ];
-
-        $filters['biography'] = [
-            'data' => Result::$biographyFilter,
-            'selected' => count(Result::getFilter('biography')) ? true : false,
-            'filtered' => Result::getFilter('biography'),
-        ];
-
-        $filters['topics'] = [
-            'data' => Result::$topicsFilter,
-            'selected' => count(Result::getFilter('topics')) ? true : false,
-            'filtered' => Result::getFilter('topics'),
-        ];
-
-        return $filters;
-    }
-
     /**
      * Displays Page.
      *
@@ -85,7 +52,6 @@ class SearchController extends Controller
     public function actionIndex($search_phrase = null) {
 
         $model = new AdvancedSearchForm();
-        Result::setModel($model);
         $searchFiltersData = null;
         $searchResult = null;
         
@@ -104,55 +70,15 @@ class SearchController extends Controller
                 $model->types = $model->getTypeIds();
             }
 
-            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-                if ($search_phrase != $model->search_phrase) {
-
-                    try {
-                        $searchResult = $model->search();
-                        
-                        if (!count($searchResult)) {
-                            
-                            if ($searchResultId) {
-                                $searchResultData->delete();
-                                Yii::$app->getSession()->remove('search_result_id');
-                            }
-                            
-                            return $this->redirect(array_merge(['/search'], $model->getAttributes()));
-                        }
-                        
-                    } catch (\Exception $e) {
-                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
-                        return $this->redirect(array_merge(['/search'], $model->getAttributes()));
-                    }
-
-                    $search_phrase = $model->search_phrase; 
-                    $synonyms = $model->synonyms;
-                    $creteria = $model->getAttributes();
-                            
-                } else {
-                    
-                    $searchResult = unserialize($searchResultData->result);
-                    $synonyms = null;
-                    $creteria = $searchResultData->mixSearchCreteriaArray($model->getAttributes());
-                    
-                    Result::setFilter('types', Yii::$app->request->post('filter_content_type'));
-                    Result::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
-                    Result::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
-                    Result::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
+            if ($model->load(Yii::$app->request->post())) {
+                
+                Result::setSearchParams($model->getAttributes());
+                
+                if (($search_phrase != $model->search_phrase) && $model->validate()) {
+                    return $this->postResearchData($model, $searchResultId, $searchResultData);
                 }
                 
-                Result::initData($searchResult);
-                $filterData = $this->getFilterData($model);
-                $searchResultArgs = [
-                    'result' => $searchResult,
-                    'creteria' => $creteria,
-                    'filters' => $filterData,
-                    'synonyms' => $synonyms
-                ];
-                
-                SearchResult::refreshResult($searchResultData, $searchResultArgs);
-                return $this->redirect(array_merge(['/search'], $creteria));
+                return $this->postFilteredData($model, $searchResultData);
             }
             
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text',"Your search parameters are incorrect,<br>Content types/Search phrase can not be empty"));
@@ -161,118 +87,84 @@ class SearchController extends Controller
         
         $searchCreteria = unserialize($searchResultData->creteria);
         $model->load($searchCreteria, '');
+        $previosRequestResult = (is_null(Yii::$app->getSession()->getFlash('previos_result')));
         
-        if (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase)) {
-            
+        if ($previosRequestResult && (!$searchResultData->id || ($searchCreteria['search_phrase'] != $search_phrase))) {
+
             if ($model->load(Yii::$app->request->get(), '')) {
                 
                 if (is_null($model->types)) {
                     $model->types = $model->getTypeIds();
                 }
+            
+                $search_phrase = $model->search_phrase;
                 
-                if ($model->validate()) {
+                try {
+                    
+                    if ($model->validate()) {
 
-                    try {
-                        $searchResult = $model->search();
+                        Result::setSearchParams($model->getAttributes());
+                        $result = $this->getResearchData($model, $searchResultId, $searchResultData);
 
-                        if (count($searchResult)) {
-                            $search_phrase = $model->search_phrase; 
-                            $synonyms = $model->synonyms;
-                            $creteria = $model->getAttributes();
-
-                            Result::initData($searchResult);
-                            $filterData = $this->getFilterData($model);
-                            $searchResultArgs = [
-                                'result' => $searchResult,
-                                'creteria' => $creteria,
-                                'filters' => $filterData,
-                                'synonyms' => $synonyms
-                            ];
-
-                            $searchResultData = SearchResult::refreshResult($searchResultData, $searchResultArgs);
+                        if ($result instanceof yii\web\Response) {
+                            return $result;
+                        }
+                        
+                        if (!$result) {
+                            throw new \Exception();
                         }
 
-                    } catch (\Exception $e) {
-                        Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Have problems in search request"));
-                        return $this->redirect(Url::to(['/search/advanced']));
+                        $searchResultData = $result;
+                        unset($result);
                     }
+                    
+                } catch (\Exception $e) {
+                    Yii::$app->getSession()->setFlash('error', Yii::t('app/text', "Search by those criteria return empty result"));
+                    return $this->redirect(Url::to(['/search/advanced']));
                 }
             }
         }
 
+        $searchResult = unserialize($searchResultData->result);
         $searchFiltersData = $searchResultData->filters;
 
         if ($searchFiltersData) {
-
             $searchFiltersData = unserialize($searchFiltersData);
-            if ($searchFiltersData['types']['filtered']) {
-                Result::setFilter('types', $searchFiltersData['types']['filtered']);
-            }
-            Result::setFilter('subject', $searchFiltersData['category']['filtered']);
-            Result::setFilter('biography', $searchFiltersData['biography']['filtered']);
-            Result::setFilter('topics', $searchFiltersData['topics']['filtered']);
+        } else {
+            $searchFiltersData = $this->getFilterData($model, $searchResult['format'] ?? []);
         }
-
-        $searchResult = unserialize($searchResultData->result);
-        Result::$synonyms = unserialize($searchResultData->synonyms);
-
-        $results = is_array($searchResult) ? $searchResult : [];
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-
-        switch($order) {
-            case 'relevance':
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
-                break;
-            case OrderBehavior::DATE_DESC:
-                $comparator = new \frontend\components\search\comparators\DateComparator('desc');
-                break;
-            case OrderBehavior::DATE_ASC:
-                $comparator = new \frontend\components\search\comparators\DateComparator('asc');
-                break;
-            case OrderBehavior::AUTHOR_ASC:
-                $comparator = new \frontend\components\search\comparators\AuthorComparator('asc');
-                break;
-            case OrderBehavior::AUTHOR_DESC:
-                $comparator = new \frontend\components\search\comparators\AuthorComparator('desc');
-                break;
-            case OrderBehavior::TITLE_ASC:
-                $comparator = new \frontend\components\search\comparators\TitleComparator('asc');
-                break;
-            case OrderBehavior::TITLE_DESC:
-                $comparator = new \frontend\components\search\comparators\TitleComparator('desc');
-                break;
-            default :
-                $comparator = new \frontend\components\search\comparators\RelevantComparator($results);
-        }
-
-        unset($searchResult);
-        $resultCount = count($results);
-
-        if ($resultCount) {
-            Result::initData($results);
-        }
-
-        $sortingResult = new ResultStrategy(Result::getSearchValue());
-        $sortingResult->setComparator($comparator);
-        $resultOrdered = $sortingResult->sort();
         
+        $mainresultCount = count($searchResult['main']);
+        $resultOrdered = [];
+        
+        if ($mainresultCount) {
+            $filter = new \frontend\components\search\filters\MainSearchFilters($searchFiltersData, $searchResult['main']);
+            $resultOrdered = $filter->getData();
+
+            if (count($resultOrdered)) {
+                $sortingResult = new ResultStrategy($resultOrdered);
+                $sortingResult->setComparator($this->getOrderComparator($searchResult['origin']));
+                $resultOrdered = $sortingResult->sort();
+            }
+        }
+
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
         $paginate->setPageSize(Yii::$app->request->get('count'));
 
         $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
-        $searchFiltersData = $searchFiltersData ??  $this->getFilterData($model);
+        $filter = new \frontend\components\search\filters\TopSearchFilters($searchFiltersData, $searchResult['top']);
 
         return $this->render('result', [
             'phrase' => $search_phrase,
             'search' => $model,
-            'paginate' => $paginate, 
+            'paginate' => $paginate,
             'resultData' => $resultData,
-            'topData' => Result::getSearchTopValue(),
-            'resultCount' => $resultCount, 
+            'topData' => $filter->getData(),
+            'resultCount' => $mainresultCount,
             'filters' => $searchFiltersData,
-            'synonyms' => Result::$synonyms,
-            'currentCountResult' => count($resultOrdered) + count(Result::getSearchTopValue())
+            'synonyms' => unserialize($searchResultData->synonyms),
+            'currentCountResult' => $mainresultCount + ((isset($searchResult['format']['key_topics'])) ? count($searchResult['format']['key_topics']) : 0)
         ]);
     }
     
@@ -335,7 +227,7 @@ class SearchController extends Controller
 
             } elseif (Yii::$app->request->get('phrase')) {
                 $model->search_phrase = Yii::$app->request->get('phrase');
-            } 
+            }
         }
         
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -345,7 +237,7 @@ class SearchController extends Controller
                 $result = $model->search();
                 
                 if (count($result)) {
-
+                    
                     $previosResult = Yii::$app->getSession()->get('search_result_id');
                     $searchResultData = SearchResult::findOne($previosResult);
 
@@ -354,20 +246,11 @@ class SearchController extends Controller
                         Yii::$app->getSession()->remove('search_result_id');
                     }
                     
-                    $searchResultArgs = [
-                        'result' => $result,
-                        'creteria' => Yii::$app->request->post('AdvancedSearchForm'),
-                        'filters' => null,
-                        'synonyms' => $model->synonyms
-                    ];
-
-                    $currentResult = SearchResult::addNewResult($searchResultArgs);
-
-                    if ($currentResult) {
-                        return $this->redirect(Url::to(array_merge(['/search'], Yii::$app->request->post('AdvancedSearchForm'))));
-                    }
+                    Result::setSearchParams($model->getAttributes());
+                    
+                    return $this->postSearchData($model, $result);
                 }
-                
+
                 Yii::$app->getSession()->setFlash('error', Yii::t('app/text','According to the entered criteria are no results'));
                 
             } catch (\Exception $e) {
@@ -380,7 +263,6 @@ class SearchController extends Controller
     }
     
     public function actionRefine() {
-
         return $this->redirect(Url::to(['/search/advanced', 'refine' => true]));
     }
     

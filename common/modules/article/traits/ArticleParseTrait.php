@@ -12,6 +12,7 @@ use common\helpers\Country;
  */
 trait ArticleParseTrait {
 
+    protected $doiLink = 'http://dx.doi.org/';
     abstract public function parse(ReaderInterface $reader);
     abstract protected function getParseImagePath($name);
     abstract protected function setTaxonomyData();
@@ -74,6 +75,37 @@ trait ArticleParseTrait {
                 }
             }
 
+        }
+        
+        return null;
+    }
+    
+    protected function getAffiliationArticle() {
+        
+        $authors = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
+        $affiliations = [];
+        
+        foreach ($authors as $author) {
+            
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $author->asXML(), $vals);
+            xml_parser_free($p);
+            
+            $key = (string) $vals[0]['attributes']['XML:ID'];
+            $val = (string) $author->affiliation;
+            
+            if (mb_strlen($key) && mb_strlen(str_replace(' ', '', $val))) {
+                $affiliations[$key] = $val;
+            }
+            
+            unset($vals);
+        }
+
+        if (count($affiliations)) {
+            $obj = new stdClass;
+            $obj->affiliation = $affiliations;
+            
+            return serialize($obj);
         }
         
         return null;
@@ -390,64 +422,77 @@ trait ArticleParseTrait {
     
     protected function initFurtherReading($readStruct) {
         
-        foreach ($readStruct as $read) {
+        foreach ($readStruct as $ref) {
             
-            $authors = [];
-            $authorsTitle = [];
-            $monogr = $read->monogr;
-            $analitics = $read->analytic;
-            
-            if (isset($monogr->author)) {
+            $p = xml_parser_create();
+            $refAttribute = $ref->attributes();
+            xml_parse_into_struct($p, $ref->asXML(), $vals);
+            xml_parser_free($p);
 
-                foreach ($monogr->author as $author) {
-                    $name = '';
+            $id = $vals[0]['attributes']["XML:ID"];
+            unset($vals);
+
+            $authors = [];
+            $editors = [];
+            $authorsTitle = [];
+            
+            $analitics = $ref->analytic;
+            $monogr = $ref->monogr;
+
+            if (isset($analitics->author)) {
+
+                foreach ($analitics->author as $author) {
                     
-                    if ($author->persName->surname) {
-                        
-                        $name = (string) $author->persName->surname;
-                        $authorsTitle[] = $name;
-                        
+                    $name = false;
+ 
+                    if (isset($author->persName->surname)) {  
+                        $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
+                        $forenameArray = [];
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
-                                $name .= " " . $forename . ". ";
+                                $forenameArray[] = $forename . ".";
                             }
                         }
-                    
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                         $authorsTitle[] = $name;
                     }
                     
-                    if ($name) {
+                    if ($name || trim($name)) {
                         $authors[] = $name;
                     }
                 }
             }
             
-            if (isset($analitics->author)) {
+            if (isset($monogr->author)) {
 
-                foreach ($analitics->author as $author) {
-                    $name = '';
+                foreach ($monogr->author as $author) {
                     
-                    if ($author->persName->surname) {
-                        
-                        $name = (string) $author->persName->surname;
-                        $authorsTitle[] = $name;
-                        
+                    $name = false;
+
+                    if (isset($author->persName->surname)) {  
+                        $name = (string) $author->persName->surname.', ';
+                        $authorsTitle[] = (string) $author->persName->surname;
+                        $forenameArray = [];
+
                         if (isset($author->persName->forename)) {
                             foreach ($author->persName->forename as $forename) {
-                                $name .= " " . $forename . ". ";
+                                $forenameArray[] = $forename . ".";
                             }
                         }
-                    
+                        $name .= implode(' ', $forenameArray);
                     } elseif (isset($author->orgName)) {
                         $name = (string) $author->orgName;
                         $authorsTitle[] = $name;
                     }
-                    
-                    if ($name) {
+
+                    if ($name || trim($name)) {
                         $authors[] = $name;
                     }
+                    
                 }
             }
             
@@ -460,8 +505,8 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
+                        $authorsTitle[] = (string) $editor->persName->surname;
                         $forenameArray = [];
-                        $authorsTitle[] = (string)$editor->persName->surname;
                         
                         if (isset($editor->persName->forename)) {
                             foreach ($editor->persName->forename as $forename) {
@@ -472,16 +517,27 @@ trait ArticleParseTrait {
                     }
                     
                     if ($name || trim($name)) {
-                        $authors[] = $name;
+                        $editors[] = $name;
                     }
                     
                 }
             }
+
+            $obj = new stdClass;
+            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
             
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
-
+            $biblScope_volume = '';
+            $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
+            
             if (isset($monogr->imprint->biblScope)) {
 
                 $bibl = array();
@@ -496,10 +552,6 @@ trait ArticleParseTrait {
                 extract($bibl);
             }
             
-            $idno = $this->getIdnoReferencesAttribute($monogr, $analitics);
-
-            $publisher = (string) $monogr->imprint->publisher;
-            $pubPlace = (string) $monogr->imprint->pubPlace;
             $date = false;
             if ($monogr->imprint->date) {
                 $date = (string) $monogr->imprint->date->attributes();
@@ -507,27 +559,126 @@ trait ArticleParseTrait {
                     $date = (string) $monogr->imprint->date;
                 }
             }
-            $mTitle = (string) $monogr->title;
-            $aTitle = (string) $analitics->title;
-
-            $obj = new stdClass;
             
-            $fullCitation = '';
-
-            $fullCitation .= (string) implode(', ', $authors);
-            $fullCitation .= ($date) ? ' ('.$date.') ': ' ';
-            $fullCitation .= $aTitle . ' ';
-            $fullCitation .= Html::tag('em', $mTitle) . ' ';
-            $fullCitation .= ($biblScope_vol) ? $biblScope_vol . ': ' : '';
-            $fullCitation .= ($biblScope_issue) ? $biblScope_issue . ' ' : '';
-            $fullCitation .= ($biblScope_pp) ? $biblScope_pp . ' ' : '';
-            $fullCitation .= $pubPlace . ' ';
-            $fullCitation .= $publisher . ' ';
-            if ($idno['doi']) {
-                $fullCitation .= ' DOI: '.$idno['doi'];
+            if (count($authors)) {
+                $authorsText = (string) implode(', ', $authors);
+            } else {
+                $authorsText = (string) implode(', ', $editors);
+                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
             }
             
-            if ($idno['url']) {
+            $dateBracket = ($date) ? ' ('.$date.')': '';
+            $titleQuotes = '"'.$analitics->title.'"';
+            $titleItalics = '<i>'.$monogr->title.'</i>';
+            $publisher = (string) $monogr->imprint->publisher;
+            $pubPlace  = (string) $monogr->imprint->pubPlace;
+
+            if ($publisher && $pubPlace) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors) && count($authors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                }
+                
+                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= $pubPlace.': ';
+                $fullCitation .= $publisher;
+
+                if ($date) {
+                    $fullCitation .= ', '. $date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif (isset($ref->series)) {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                $fullCitation .= ' '. (string)$ref->series->title;
+                if ($ref->series->idno) {
+                    $fullCitation .= ', '.(string)$ref->series->idno;
+                }
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
+                
+            } elseif ($idno['doi']) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                $fullCitation .= ' '.$titleItalics;
+                
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
+                $fullCitation .= '.';
+                $fullCitation .= ' '.$doi;
+                
+            } elseif ($referencesType == 'j' && $date) {
+                 
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                $fullCitation .= ' '.$titleItalics;
+                
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
+                $fullCitation .= '.';
+                
+            } else {
+                
+                $fullCitation = $authorsText;
+                
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
+                if ($date) {
+                    $fullCitation .= ', '.$date;
+                }
+                $fullCitation .= '.';
+            }
+     
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
@@ -543,7 +694,7 @@ trait ArticleParseTrait {
             } elseif ($cnt > 2) {
                 $title = current($authorsTitle) .' et al.';
             }
-
+            
             $title .= ($date) ? ' ('.$date.') ': '';
             $obj->title = trim($title);
             $this->furtherReading[] = $obj;
@@ -692,7 +843,6 @@ trait ArticleParseTrait {
                     }
                     
                     if ($name || trim($name)) {
-                        $authors[] = $name;
                         $editors[] = $name;
                     }
                     
@@ -723,7 +873,14 @@ trait ArticleParseTrait {
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
+            $biblScope_volume = '';
             $doi = ($idno['doi']) ? 'DOI: '.$idno['doi'] : '';
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
             
             if (isset($monogr->imprint->biblScope)) {
 
@@ -746,8 +903,15 @@ trait ArticleParseTrait {
                     $date = (string) $monogr->imprint->date;
                 }
             }
-            $authorsText = (string) implode(', ', $authors);
-            $dateBracket = ($date) ? ' ('.$date.'):': '';
+            
+            if (count($authors)) {
+                $authorsText = (string) implode(', ', $authors);
+            } else {
+                $authorsText = (string) implode(', ', $editors);
+                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
+            }
+            
+            $dateBracket = ($date) ? ' ('.$date.')': '';
             $titleQuotes = '"'.$analitics->title.'"';
             $titleItalics = '<i>'.$monogr->title.'</i>';
             $publisher = (string) $monogr->imprint->publisher;
@@ -760,7 +924,7 @@ trait ArticleParseTrait {
                     $fullCitation .= ' '.$titleQuotes;
                 }
                 
-                if (count($editors)) {
+                if (count($editors) && count($authors)) {
                     $fullCitation .= ' In: '. (string)implode(', ', $editors);
                 }
                 
@@ -797,22 +961,46 @@ trait ArticleParseTrait {
                     $fullCitation .= ' '.$titleQuotes;
                 }
                 $fullCitation .= ' '.$titleItalics;
-                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
-                $fullCitation .= $dateBracket;
-                $fullCitation .= ' '.$biblScope_pp;
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
                 $fullCitation .= '.';
                 $fullCitation .= ' '.$doi;
                 
-            } elseif ($biblScope_vol && $biblScope_issue && $biblScope_pp && $date) {
-                
+            } elseif ($referencesType == 'j' && $date) {
+                 
                 $fullCitation = $authorsText;
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
+                
                 $fullCitation .= ' '.$titleItalics;
-                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
-                $fullCitation .= $dateBracket;
-                $fullCitation .= ' '.$biblScope_pp;
+                
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
                 $fullCitation .= '.';
                 
             } else {
@@ -822,14 +1010,18 @@ trait ArticleParseTrait {
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
-                $fullCitation .= ' '.$titleItalics;
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
                 if ($date) {
                     $fullCitation .= ', '.$date;
                 }
                 $fullCitation .= '.';
             }
      
-            if ($idno['url']) {
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));
@@ -976,7 +1168,6 @@ trait ArticleParseTrait {
                     }
                     
                     if ($name || trim($name)) {
-                        $authors[] = $name;
                         $editors[] = $name;
                     }
                     
@@ -992,8 +1183,13 @@ trait ArticleParseTrait {
                     $date = (string) $monogr->imprint->date;
                 }
             }
-            $authorsText = (string) implode(', ', $authors);
-            $dateBracket = ($date) ? ' ('.$date.'):': '';
+            if (count($authors)) {
+                $authorsText = (string) implode(', ', $authors);
+            } else {
+                $authorsText = (string) implode(', ', $editors);
+                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
+            }
+            $dateBracket = ($date) ? ' ('.$date.')': '';
             $titleQuotes = '"'.$analitics->title.'"';
             $titleItalics = '<i>'.$monogr->title.'</i>';
             $publisher = (string) $monogr->imprint->publisher;
@@ -1002,6 +1198,14 @@ trait ArticleParseTrait {
             $biblScope_pp = '';
             $biblScope_issue = '';
             $biblScope_vol = '';
+            $biblScope_volume = '';
+            $referencesType = '';
+            
+            if ($monogr->title) {
+                $monogrTitleAttribute = $monogr->title->attributes();
+                $referencesType = (string)$monogrTitleAttribute->level;
+            }
+            
 
             if (isset($monogr->imprint->biblScope)) {
 
@@ -1017,8 +1221,6 @@ trait ArticleParseTrait {
                 extract($bibl);
             }
             
-            
-            
             $obj = new stdClass;
             
             if ($publisher && $pubPlace) {
@@ -1028,7 +1230,7 @@ trait ArticleParseTrait {
                     $fullCitation .= ' '.$titleQuotes;
                 }
                 
-                if (count($editors)) {
+                if (count($editors) && count($authors)) {
                     $fullCitation .= ' In: '. (string)implode(', ', $editors);
                 }
                 
@@ -1064,11 +1266,48 @@ trait ArticleParseTrait {
                     $fullCitation .= ' '.$titleQuotes;
                 }
                 $fullCitation .= ' '.$titleItalics;
-                $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
-                $fullCitation .= $dateBracket;
-                $fullCitation .= ' '.$biblScope_pp;
+                
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
                 $fullCitation .= '.';
                 $fullCitation .= ' '.$doi;
+                
+            } elseif ($referencesType == 'j' && $date) {
+                 
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                $fullCitation .= ' '.$titleItalics;
+                
+                if ($biblScope_volume) {
+                    $fullCitation .= ' '.$biblScope_volume;
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ' :'.$biblScope_pp;
+                } elseif($biblScope_vol && $biblScope_issue) {
+                    $fullCitation .= ' '.$biblScope_vol.':'.$biblScope_issue;
+                    $fullCitation .= $dateBracket;
+                    if ($biblScope_pp) {
+                        $fullCitation .= ': '.$biblScope_pp;
+                    }
+                } else {
+                    $fullCitation .= ' '.$dateBracket;
+                }
+                
+                $fullCitation .= '.';
                 
             } else {
                 
@@ -1077,14 +1316,20 @@ trait ArticleParseTrait {
                 if ($analitics->title) {
                     $fullCitation .= ' '.$titleQuotes;
                 }
-                $fullCitation .= ' '.$titleItalics;
+                
+                if ($monogr->title) {
+                    $fullCitation .= ' '.$titleItalics;
+                }
+                
                 if ($date) {
                     $fullCitation .= ', '.$date;
                 }
                 $fullCitation .= '.';
             }
             
-            if ($idno['url']) {
+            if ($idno['doi']) {
+                $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $this->doiLink.$idno['doi'], ['target' => '_blank']);
+            } elseif ($idno['url']) {
                 $obj->full_citation = Html::a(str_replace('  ',' ',trim($fullCitation)), $idno['url'], ['target' => '_blank']);
             } else {
                 $obj->full_citation = str_replace('  ',' ',trim($fullCitation));

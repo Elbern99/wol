@@ -226,13 +226,16 @@ class MyAccountController extends Controller {
                     $newslatter->first_name = Yii::$app->user->identity->first_name;
                     $newslatter->last_name = Yii::$app->user->identity->last_name;
                     $newslatter->email = Yii::$app->user->identity->email;
-                    
-                    if ($facade->setSubscriber($newslatter->getAttributes())) {
+
+                    if ($facade->setSubscriber($newslatter->getAttributes()) && !count($messages)) {
                         $messages[] = Yii::t('app/messages','subscribe_account');
                     }
                 }
                 
-                Yii::$app->getSession()->setFlash('success', implode('<br>', $messages));
+                if (count($messages)) {
+                    Yii::$app->getSession()->setFlash('success', implode('<br>', $messages));
+                }
+                
                 return $this->redirect('/my-account');
             }
             

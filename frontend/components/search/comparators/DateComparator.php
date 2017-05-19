@@ -52,6 +52,7 @@ class DateComparator implements ComparatorInterface {
         $date = [];
         
         foreach ($this->types as $type => $params) {
+            krsort($this->types[$type]);
             $date = array_merge($date, $this->types[$type]);
         }
 

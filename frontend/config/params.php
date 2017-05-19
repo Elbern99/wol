@@ -15,6 +15,8 @@ return [
         'opinions' => '\common\models\OpinionsSearch',
         'events' => '\common\models\EventsSearch',
         'videos' => '\common\models\VideosSearch',
+        'papers' => '\common\models\PapersSearch',
+        'policypapers' => '\common\models\PolicypapersSearch'
     ],
     'article_limit' => 10,
     'opinion_limit' => 4,
@@ -46,6 +48,7 @@ return [
             'former_editor_thanks'
         ],
         'profile' => ['ask_the_expert'],
-        'category' => ['data_methods']
+        'category' => ['data_methods'],
+        'news' => ['stay_up_to_date', 'Socials']
     ]
 ];

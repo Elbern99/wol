@@ -54,11 +54,13 @@ class SubjectAreasWidget extends Widget {
 
                 $css .= '';
                 $css = trim($css);
-
                 $labelContent = '';
 
-
-                if (isset($selected[$node['id']])) {
+                if (is_null($this->param['filtered'])) {
+                    $labelContent .= Html::input('checkbox', $this->prefix . '[]', $node['id']);
+                    $spanContent = $nodeTitle;
+                    $labelContent .= Html::tag('span', $spanContent, ['class' => "label-text"]);
+                } elseif (isset($selected[$node['id']])) {
                     $labelContent .= Html::input('checkbox', $this->prefix . '[]', $node['id'], $this->isChecked($node['id']));
                     $spanContent = $nodeTitle;
                     $spanContent .= Html::tag('strong', '(' . $selected[$node['id']] . ')', ['class' => "count"]);

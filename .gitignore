@@ -44,3 +44,6 @@ phpunit.phar
 
 #bash config
 .env
+
+#sphinx xml index file
+/sphinxdoc/*.xml

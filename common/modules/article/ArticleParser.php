@@ -267,11 +267,11 @@ class ArticleParser implements ParserInterface {
                     $this->$attrName($attribute->getAttribute('required'));
 
                 } catch(\Exception $e) {
-                    $this->log->addLine('Attribute '.$attribute->getAttribute('name'). ' not validated - '. $e->getMessage());
+                    $this->log->addLine('Attribute '.$attribute->getAttribute('name'). ' not validated - '. $e->getMessage(). $e->getTraceAsString());
                 }
             }
         }
-        
+
         if ($this->log->getCount()) {
             return $this->log;
         }

@@ -93,9 +93,12 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
     public function setSubscriber(array $data) {
 
         if ($this->load($data, '') && $this->validate()) {
-            
-            $this->setAttribute('code', Yii::$app->security->generateRandomString());
-            $this->sendSuccessEmail();
+
+            if ($this->iza || $this->iza_world || $this->interest) {
+               
+                $this->setAttribute('code', Yii::$app->security->generateRandomString());
+                $this->sendSuccessEmail();
+            }
             
             return $this->save(false);
         }

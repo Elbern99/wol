@@ -135,7 +135,7 @@ trait ArticleTrait {
         return  $model = Article::find()
                     ->with([
                         'articleAuthors.author' => function($query) {
-                            return $query->select(['id', 'avatar', 'url_key'])->where(['enabled' => 1])->asArray();
+                            return $query->select(['id', 'avatar', 'url_key', 'author_key'])->where(['enabled' => 1])->asArray();
                         }, 
                         'articleCategories' => function($query) {
                             return $query->select(['category_id', 'article_id'])->asArray();
@@ -192,6 +192,7 @@ trait ArticleTrait {
                     }, 'string');
                     
                     $authors[] = [
+                        'author_key' => $author->author['author_key'],
                         'name' => $name,
                         'affiliation' => $affiliation,
                         'avatar' => Author::getImageUrl($author->author['avatar']),

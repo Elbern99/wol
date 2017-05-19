@@ -4,6 +4,8 @@ namespace console\controllers;
 use yii\console\Controller;
 use common\models\eav\EavAttribute;
 use common\models\eav\EavAttributeOption;
+use common\models\eav\EavTypeAttributes;
+use common\models\eav\EavType;
 use yii\helpers\Console;
 
 class EavController extends Controller {
@@ -39,7 +41,7 @@ class EavController extends Controller {
             $params = [
                 'attribute_id' => $attribute->id,
                 'label' => $label,
-                'type' => $model->getTypeByName($type)
+                'type' => $type
             ];
 
             if ($this->modelSave($model, $params, 'Attribute Option')) {
@@ -48,6 +50,31 @@ class EavController extends Controller {
         }
         
         $this->stdout("Attribute Option can not added success", Console::BG_RED);
+        echo "\n";
+
+        return 0;
+    }
+    
+    public function actionAddAttributeType($attrubteName, $type) {
+        
+        $attribute = EavAttribute::find()->where(['name' => $attrubteName])->one();
+        $type = EavType::find()->where(['name' => $type])->one();
+        
+        if (is_object($attribute) && is_object($type)) {
+            
+            $model = new EavTypeAttributes();
+
+            $params = [
+                'attribute_id' => $attribute->id,
+                'type_id' => $type->id,
+            ];
+
+            if ($this->modelSave($model, $params, 'Attribute Type')) {
+                return 1;
+            }
+        }
+        
+        $this->stdout("Attribute Type can not added success", Console::BG_RED);
         echo "\n";
 
         return 0;

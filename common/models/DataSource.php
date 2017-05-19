@@ -32,7 +32,7 @@ class DataSource extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source', 'website', 'types'], 'required'],
+            [['source', 'website'], 'required'],
             [['source', 'website'], 'string', 'max' => 255],
             ['types', 'safe']
         ];
@@ -63,6 +63,7 @@ class DataSource extends \yii\db\ActiveRecord
         $data = Taxonomy::find()
                           ->select(['value', 'id'])
                           ->andFilterWhere(['like', 'code', self::SOURCE_CODE])
+                          ->orFilterWhere(['like', 'code', 'IWOL_DIM'])
                           ->asArray()
                           ->all();
         
@@ -141,8 +142,8 @@ class DataSource extends \yii\db\ActiveRecord
                 ], 
                 $bulkInsertSourceTaxonomyArray
             )->execute();
-
-            self::removeDataSourcesCache();
         }
+        
+        self::removeDataSourcesCache();
     }
 }

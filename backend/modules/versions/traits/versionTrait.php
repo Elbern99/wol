@@ -34,7 +34,6 @@ trait versionTrait {
         try {
             
             $filesPath = $article->getSavePath();
-            $this->notices = $article->notices;
             $article->delete();
             $entity->delete();
             $this->removeOldFolders($filesPath);
@@ -61,10 +60,6 @@ trait versionTrait {
         if (isset($this->xml->teiHeader->revisionDesc)) {
             
             $stack = new \SplStack();
-            
-            if (!is_null($this->notices)) {
-                $stack->unserialize($this->notices);
-            }
 
             if (isset($this->xml->teiHeader->revisionDesc->change->p)) {
                 

@@ -15,6 +15,7 @@ use common\models\Video;
 use common\models\Event;
 use common\models\Opinion;
 use common\models\Topic;
+use frontend\models\SearchXmlData;
 
 /**
  * Signup form
@@ -24,96 +25,35 @@ class Result {
     protected static $value = [];
     protected static $topValue = [];
     public static $formatData = [];
-    public static $articleCategoryIds = [];
-    public static $biographyFilter = [];
-    public static $topicsFilter = [];
-    private static $filters = false;
-    private static $model;
+    private static $searchAttributes;
+    private static $originResult;
     public static $synonyms;
     
-    public function setModel(SearchInterface $model) {
-        self::$model = $model;
+    public function setSearchParams(array $attributes) {
+        self::$searchAttributes = $attributes;
     }
 
     public static function initData($resultData) {
-        self::$formatData = self::formatData($resultData);
+        self::$originResult = $resultData;
+        self::$formatData = self::formatData();
         self::setValue(self::$formatData);
-    }
-
-    public static function getFilter($key = null) {
-
-        if (is_array(self::$filters) && !is_null($key)) {
-            return self::$filters[$key] ?? null;
-        }
-
-        return self::$filters;
-    }
-
-    public static function setFilter($key, $filter) {
-        self::$filters[$key] = $filter;
     }
 
     protected static function setValue($formatData) {
 
-        $filtered = false;
-
-        if (is_array(self::$filters) && array_key_exists('types', self::$filters)) {
-            $filtered = true;
-        }
-
         foreach ($formatData as $k => $v) {
-
-            if ($filtered) {
-
-                $id = self::$model->getHeadingModelKey($k);
-                if (is_null(self::$filters['types']) || (isset($id) && (array_search($id, self::$filters['types']) === false))) {
-                    continue;
-                }
-            }
-
             $func = 'get' . str_replace('_', '', ucwords($k));
             forward_static_call(array(self::class, $func), $v, $k);
         }
     }
 
     protected static function getKeyTopics($ids, $k) {
-        
-        self::$topicsFilter = Topic::find()
-                                    ->select(['id', 'title'])
-                                    ->where(['id' => $ids])
-                                    ->orderBy('title')
-                                    ->asArray()
-                                    ->all();
-        
+
         $query = Topic::find()
                         ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'image_link'])
-                        ->where(['id' => $ids]);
+                        ->where(['id' => $ids])
+                        ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
-        $filtered = false;
-
-        if (is_array(self::$filters) && array_key_exists('topics', self::$filters)) {
-
-            if (self::$filters['topics']) {
-                $filtered = true;
-            } elseif (count(self::$topicsFilter) && is_null(self::$filters['topics'])) {
-                return false;
-            }
-        } 
-
-        if ($filtered) {
-            $query->andWhere(['id' => self::$filters['topics']]);
-        } else {
-            $query->andWhere(['id' => $ids]);
-        }
-        
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['created_at' => SORT_DESC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
-
         $items = $query->asArray()->all();
 
         foreach ($items as $item) {
@@ -129,15 +69,8 @@ class Result {
 
         $query = Opinion::find()
                 ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
-                ->where(['id' => $ids]);
-        
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['created_at' => SORT_DESC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
+                ->where(['id' => $ids])
+                ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
 
@@ -148,16 +81,9 @@ class Result {
 
         $query = Event::find()
                 ->select(['id', 'title', 'url_key', 'location', 'date_to', 'date_from'])
-                ->where(['id' => $ids]);
+                ->where(['id' => $ids])
+                ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['date_to' => SORT_DESC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
-
         $result = $query->asArray()->all();
 
         self::addDataToValue($result, $k);
@@ -167,15 +93,8 @@ class Result {
 
         $query = Video::find()
                         ->select(['id', 'title', 'url_key'])
-                        ->where(['id' => $ids]);
-        
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['order' => SORT_ASC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
+                        ->where(['id' => $ids])
+                        ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
         
@@ -186,15 +105,8 @@ class Result {
 
         $query = NewsItem::find()
                 ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'editor'])
-                ->where(['id' => $ids]);
-
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['created_at' => SORT_DESC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
+                ->where(['id' => $ids])
+                ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
         
@@ -213,43 +125,13 @@ class Result {
     }
 
     protected static function getBiography($ids, $k) {
-           
-        self::$biographyFilter = Author::find()
-                                        ->select(['id', 'name'])
-                                        ->where(['enabled' => 1, 'id' => $ids])
-                                        ->orderBy('surname')
-                                        ->asArray()
-                                        ->all();
 
         $query = Author::find()
                     ->select(['id', 'url_key', 'name', 'avatar'])
-                    ->where(['enabled' => 1]);
-                
-        $filtered = false;
+                    ->where(['enabled' => 1])
+                    ->andWhere(['id' => $ids])
+                    ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
-        if (is_array(self::$filters) && array_key_exists('biography', self::$filters)) {
-
-            if (self::$filters['biography']) {
-                $filtered = true;
-            } elseif (count(self::$biographyFilter) && is_null(self::$filters['biography'])) {
-                return false;
-            }
-        }
-        
-        if ($filtered) {
-            $query->andWhere(['id' => self::$filters['biography']]);
-        } else {
-            $query->andWhere(['id' => $ids]);
-        }
-        
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $query->orderBy(['surname' => SORT_ASC]);
-        } else {
-            $query->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
-        }
-        
         $authors = $query->asArray()->all();
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
@@ -276,7 +158,7 @@ class Result {
                 'type' => $k
             ];
             
-            $serched = str_replace(' ', '|',  self::$model->search_phrase);
+            $serched = str_replace(' ', '|',  self::$searchAttributes['search_phrase']);
 
             if (is_array(self::$synonyms) && count(self::$synonyms)) {
                 $serched .= '|';
@@ -295,45 +177,17 @@ class Result {
 
     protected static function getArticle($ids, $k) {
 
-        $categories = ArticleCategory::find()
-                ->select(['category_id', 'COUNT(article_id) AS cnt'])
-                ->where(['article_id' => $ids])
-                ->groupBy('category_id')
-                ->asArray()
-                ->all();
-
-        self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
-
-        $filtered = false;
-
-        if (is_array(self::$filters) && array_key_exists('subject', self::$filters)) {
-
-            if (self::$filters['subject']) {
-                $filtered = true;
-            }
-
-        }
-
         $articles = Article::find()
                 ->alias('a')
                 ->select(['a.id as id', 'a.title', 'a.seo', 'a.created_at'])
                 ->with(['articleAuthors.author' => function($query) {
                     return $query->alias('au')->where(['au.enabled' => 1]);
                 }])
-                ->where(['a.enabled' => 1, 'a.id' => $ids]);
-
-        if ($filtered) {
-            $articles->innerJoin(ArticleCategory::tableName() . ' AS ac', 'ac.article_id = a.id');
-            $articles->andWhere(['ac.category_id' => self::$filters['subject']]);
-        }
-        
-        $order = (is_null(Yii::$app->request->get('sort'))) ? 'relevance' : Yii::$app->request->get('sort');
-        
-        if ($order != 'relevance') {
-            $articles->orderBy(['a.created_at' => SORT_DESC]);
-        } else {
-            $articles->orderBy([new \yii\db\Expression('FIELD (`a`.`id`, ' . implode(',', $ids) . ')')]);
-        }
+                ->with(['articleCategories' => function($query) {
+                    return $query->select(['category_id', 'article_id']);
+                }])
+                ->where(['a.enabled' => 1, 'a.id' => $ids])
+                ->orderBy([new \yii\db\Expression('FIELD (`a`.`id`, ' . implode(',', $ids) . ')')]);
 
         $articles = $articles->all();
 
@@ -344,7 +198,7 @@ class Result {
         
         
         foreach ($articles as $article) {
-            
+
             $eavValue = $values[$article->id] ?? [];
             $articleOwner = [];
             
@@ -355,6 +209,7 @@ class Result {
             self::$value[] = [
                 'params' => [
                     'id' => $article->id,
+                    'categories' => ArrayHelper::getColumn($article->articleCategories, 'category_id'),
                     'title' => $article->title,
                     'url' => '/articles/' . $article->seo,
                     'authors' => $articleOwner,
@@ -370,6 +225,22 @@ class Result {
             ];
         }
     }
+    
+    protected static function getPapers($ids, $k) {
+        
+        $model = new SearchXmlData($k);
+        $result = $model->getDataByIds($ids);
+
+        self::addDataToValue($result, $k);
+    }
+    
+    protected static function getPolicypapers($ids, $k) {
+
+        $model = new SearchXmlData($k);
+        $result = $model->getDataByIds($ids);
+        
+        self::addDataToValue($result, $k);
+    }
 
     public function getSearchValue() {
 
@@ -380,13 +251,17 @@ class Result {
         
         return self::$topValue;
     }
+    
+    public function getOriginData() {
+        return self::$originResult;
+    }
 
-    protected static function formatData($data) {
+    protected static function formatData() {
 
         $format = [];
         
-        if (count($data) && $data) {
-            foreach ($data as $d) {
+        if (count(self::$originResult) && self::$originResult) {
+            foreach (self::$originResult as $d) {
                 $format[$d['type']][] = $d['id'];
             }
         }

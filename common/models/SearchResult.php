@@ -80,7 +80,9 @@ class SearchResult extends \yii\db\ActiveRecord
         
         $oldCreteria = unserialize($this->creteria);
 
-        if (is_null($oldCreteria['types']) || array_diff($oldCreteria['types'], $newCreteria['types'])) {
+        if (is_null($oldCreteria['types']) || is_null($newCreteria['types'])) {
+            $oldCreteria['types'] = $newCreteria['types'];
+        } elseif (array_diff($oldCreteria['types'], $newCreteria['types'])) {
             $oldCreteria['types'] = $newCreteria['types'];
         }
         

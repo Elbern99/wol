@@ -2,7 +2,10 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use frontend\components\filters\NewsletterArchiveWidget;
+use frontend\components\filters\NewsletterLatestArticlesWidget;
+use frontend\components\filters\NewsArchiveWidget
 ?>
+
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$model->title;
@@ -32,13 +35,34 @@ $this->registerMetaTag([
             <div class="sidebar-widget">
                 <ul class="sidebar-accrodion-list">
                     <li class="sidebar-accrodion-item is-open">
-                        <a href="" class="title">newsletter archives</a>
+                        <a href="" class="title">news archives</a>
+                        <div class="text">
+                            <?= NewsArchiveWidget::widget(['data' => $newsArchive]); ?>
+                        </div>
+                    </li>
+                    <li class="sidebar-accrodion-item is-open">
+                        <a href="" class="title">newsletters</a>
                         <div class="text">
                             <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
                         </div>
                     </li>
+                    <li class="sidebar-accrodion-item">
+                        <a href="" class="title">Latest Articles</a>
+                        <div class="text">
+                            <?= NewsletterLatestArticlesWidget::widget(['data' => $latestArticles]); ?>
+                        </div>
+                    </li>
                 </ul>
             </div>
+            <?php if (count($widgets)): ?>
+                <div class="sidebar-widget">
+                    <div class="podcast-list">
+                        <?php foreach ($widgets->getPageWidgets() as $widget): ?>
+                            <?= $widget ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </aside>
     </div>
 </div>

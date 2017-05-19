@@ -35,12 +35,43 @@ $this->registerMetaTag([
 
 $this->registerLinkTag([
     'rel' => 'canonical',
-    'href' => Url::to('/articles/'.$article->seo . '/long')
+    'href' => Url::to('/articles/'.$article->seo . '/long', true)
 ]);
 
 $this->registerMetaTag([
     'name' => 'description',
     'content' => Html::encode(EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang))
+]);
+
+$this->registerMetaTag([
+    'name' => 'citation_journal_title',
+    'content' => Html::encode('IZA World of Labor')
+]);
+$this->registerMetaTag([
+    'name' => 'citation_doi',
+    'content' => Html::encode($article->doi)
+]);
+$this->registerMetaTag([
+    'name' => 'citation_title',
+    'content' => Html::encode(EavAttributeHelper::getAttribute('title')->getData('title', $currentLang))
+]);
+$this->registerMetaTag([
+    'name' => 'citation_publication_date',
+    'content' => Html::encode(date('Y-m-d', $article->created_at))
+]);
+$this->registerMetaTag([
+    'name' => 'citation_author',
+    'content' => implode(' ', 
+        array_map(
+            function($author) {
+                return $author['name']->last_name.', '.$author['name']->first_name.' '.$author['name']->middle_name;
+            }, $authors
+        )
+    )
+]);          
+$this->registerMetaTag([
+    'name' => 'citation_pdf_url',
+    'content' => Url::to(EavAttributeHelper::getAttribute('full_pdf')->getData('url', $currentLang), true)
 ]);
 
 $authorsList = [];
@@ -82,6 +113,7 @@ $config = [
         'json_path_economytypes' => '/json/economytypes.json',
         'share_text_for_email' => $mailArticle
 ];
+$affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->getData('affiliation');
 ?>
 
 <div class="container article-full one-pager-page">
@@ -157,7 +189,7 @@ $config = [
                         );
                         ?>
                     </div>
-                    <p><?= $author['affiliation'] ?></p>
+                    <p><?= $affiliationArticle[$author['author_key']] ?? $author['affiliation'] ?></p>
                 </div>
 
             </div>

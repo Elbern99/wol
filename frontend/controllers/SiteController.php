@@ -249,9 +249,15 @@ class SiteController extends Controller {
         ]);
     }
     
-    public function actionConfirm($token, $email = null) {
+    public function actionConfirm($token) {
         
-        if($user = UserActivation::verifyToken($token, $email)) {
+        $model = UserActivation::find()->where(['token' => $token])->one();
+
+        if (!$model) {
+            return $this->goHome();
+        }
+
+        if($user = $model->verifyToken($token)) {
 
             $register = new SignupForm();
             $register->email = $user->email;
