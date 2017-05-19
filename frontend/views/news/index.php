@@ -34,7 +34,13 @@ $newsArchiveWidget = NewsArchiveWidget::widget(['data' => $newsArchive]);
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
-                <?= $latestArticlesWidget ?>
+                <ul class="mobile-filter-list">
+                    <li class="active">
+                        <a href="/news" data-linked="1">Latest news</a>
+                    </li>
+                    <li><a href="" class="js-widget">News archives</a></li>
+                    <li><a href="" class="js-widget">Newsletters</a></li>
+                </ul>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active empty-nothing"></div>
                     <div class="tab-item blue js-tab-hidden expand-more">
