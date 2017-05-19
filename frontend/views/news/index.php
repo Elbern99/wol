@@ -3,7 +3,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use frontend\components\filters\NewsletterArchiveWidget;
+use frontend\components\filters\NewsletterLatestArticlesWidget;
+use frontend\components\filters\NewsArchiveWidget;
 ?>
+
 <?php
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.'News';
@@ -19,6 +22,10 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
+
+$newsletterArchiveWidget = NewsletterArchiveWidget::widget(['data' => $newsletterArchive]);
+$latestArticlesWidget = NewsletterLatestArticlesWidget::widget(['data' => $latestArticles]);
+$newsArchiveWidget = NewsArchiveWidget::widget(['data' => $newsArchive]);
 ?>
 <div class="container news-list-page">
     <div class="article-head-holder">
@@ -27,39 +34,14 @@ if ($category) {
                 <?= $this->renderFile('@app/views/components/breadcrumbs.php'); ?>
             </div>
             <div class="mobile-filter-holder custom-tabs-holder">
-                <ul class="mobile-filter-list">
-                    <?php if ($isInArchive): ?>
-                    <li>
-                    <?php else : ?>
-                    <li class="active">
-                    <?php endif; ?>
-                        <a href="/news"  data-linked="1">Latest news</a>
-                    </li>
-                    <li><a href="" class="js-widget">News archives</a></li>
-                    <li><a href="" class="js-widget">Newsletters</a></li>
-                </ul>
+                <?= $latestArticlesWidget ?>
                 <div class="mobile-filter-items custom-tabs">
                     <div class="tab-item active empty-nothing"></div>
                     <div class="tab-item blue js-tab-hidden expand-more">
-                        <ul class="articles-filter-list date-list blue-list">
-                            <?php foreach ($newsTree as $key => $value) : ?>
-                            <li class="item">
-                                <div class="icon-arrow"></div>
-                                <?= Html::a($key, ['news/index', 'year' => $key]) ?>
-                                <ul class="submenu">
-                                    <?php foreach ($value['months'] as $month): ?>
-                                    <li class="item">
-                                        <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                        <?= Html::a($monthYear, ['news/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                    </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <?= $newsArchiveWidget ?>
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
-                        <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
+                        <?= $newsletterArchiveWidget; ?>
                     </div>
                 </div>
             </div>
@@ -128,50 +110,19 @@ if ($category) {
                     <li class="sidebar-accrodion-item hide-mobile is-open">
                         <a href="" class="title">news archives</a>
                         <div class="text">
-                            <ul class="articles-filter-list date-list ">
-                                <?php foreach ($newsTree as $key => $value) : ?>
-                                <li class="item has-drop <?php if($value['isActive']) echo 'open'; ?>">
-                                    <div class="icon-arrow"></div>
-                                    <strong><?= Html::a($key, ['news/index', 'year' => $key]) ?></strong>
-                                    <ul class="submenu">
-                                        
-                                        <?php foreach ($value['months'] as $month): ?>
-                                            <li class="item <?php if($month['isActive']) echo 'open'; ?>">
-                                                <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                                <?= Html::a($monthYear, ['news/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?= $newsArchiveWidget; ?>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item hide-mobile">
                         <a href="" class="title">newsletters</a>
                         <div class="text">
-                           <?= NewsletterArchiveWidget::widget(['data' => $newsletterArchive]); ?>
+                           <?= $newsletterArchiveWidget; ?>
                         </div>
                     </li>
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Latest Articles</a>
                         <div class="text">
-                            <ul class="sidebar-news-list">
-                                <?php foreach($articlesSidebar as $article) : ?>
-                                <li>
-                                    <h3>
-                                        <?= Html::a($article->title, ['/article/one-pager', 'slug' => $article->seo]); ?>
-                                    </h3>
-                                    <div class="writers"><?= $article->availability; ?></div>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <?php if (count($articlesSidebar) > Yii::$app->params['latest_articles_sidebar_limit']): ?>
-                            <a href="" class="more-link">
-                                <span class="more">More</span>
-                                <span class="less">Less</span>
-                            </a>
-                            <?php endif; ?>
+                            <?= $latestArticlesWidget; ?>
                         </div>
                     </li>
                  </ul>
@@ -179,8 +130,8 @@ if ($category) {
             <?php if (count($widgets)): ?>
                 <div class="sidebar-widget">
                     <div class="podcast-list">
-                        <?php foreach ($widgets as $widget): ?>
-                            <?= $widget['text'] ?>
+                        <?php foreach ($widgets->getPageWidgets() as $widget): ?>
+                            <?= $widget ?>
                         <?php endforeach; ?>
                     </div>
                 </div>

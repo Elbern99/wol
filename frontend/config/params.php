@@ -48,6 +48,7 @@ return [
             'former_editor_thanks'
         ],
         'profile' => ['ask_the_expert'],
-        'category' => ['data_methods']
+        'category' => ['data_methods'],
+        'news' => ['stay_up_to_date', 'Socials']
     ]
 ];
