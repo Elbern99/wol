@@ -1057,6 +1057,22 @@
     //3.6 INNER PAGES
 
     var innerPages = {
+        countChildren: function(list) {
+            if($(list).length) {
+                $list = $(list);
+
+                $list.find('>li').each( function( i, v ) {
+                    var $item = $(this),
+                      length = $item.find('>ul')[0].childElementCount,
+                      className = 'one';
+
+                    if(length>1) {
+                        className = 'many';
+                    }
+                    $item.addClass(className);
+                });
+            }
+        },
         subjectAreaMobile: function(item) {
 
             if($(item).length) {
@@ -1317,6 +1333,7 @@
         closeDropDown($('.tooltip-dropdown .icon-close'), $('.tooltip-dropdown .drop-content'), $('.tooltip-dropdown .icon-question'));
         innerPages.backToTop('.back-to-top');
         text.sliceText();
+        innerPages.countChildren('.classification-list');
 
         if(_window_width < _tablet ) {
             mobileNavDrop.open('.btn-mobile-menu-show','.mobile-menu');

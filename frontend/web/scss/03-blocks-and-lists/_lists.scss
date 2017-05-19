@@ -822,6 +822,10 @@
         }
       }
 
+      &.last {
+        display: inline-block;
+      }
+
       &.prev {
         a,span {
           transform: rotate(180deg);
@@ -1512,16 +1516,42 @@
   li {
     margin: 0 0 10px;
 
+    &.one {
+      ul {
+        display: inline;
+
+        li {
+          margin: 0;
+        }
+
+        &:before {
+          content: '>';
+          padding: 0 3px 0 0;
+        }
+      }
+    }
+
+    &.many {
+      ul {
+        li {
+          &:before {
+            content: '>';
+            padding: 0 3px 0 0;
+            margin: 0;
+            width: auto;
+            height: auto;
+            background: none;
+            display: inline-block !important;
+          }
+        }
+      }
+    }
+
     ul {
       display: inline;
 
       li {
         margin: 0;
-      }
-
-      &:before {
-        content: '>';
-        padding: 0 3px 0 0;
       }
     }
 

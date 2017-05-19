@@ -4036,6 +4036,8 @@ h2:empty {
             font-size: 12px;
             color: #0053a0;
             height: 11px; }
+        .pagination li.last {
+          display: inline-block; }
         .pagination li.prev a, .pagination li.prev span {
           transform: rotate(180deg); }
         .pagination li.all:after, .pagination li.last:after {
@@ -4474,13 +4476,25 @@ h2:empty {
   font-size: 12px; }
   .classification-list li {
     margin: 0 0 10px; }
+    .classification-list li.one ul {
+      display: inline; }
+      .classification-list li.one ul li {
+        margin: 0; }
+      .classification-list li.one ul:before {
+        content: '>';
+        padding: 0 3px 0 0; }
+    .classification-list li.many ul li:before {
+      content: '>';
+      padding: 0 3px 0 0;
+      margin: 0;
+      width: auto;
+      height: auto;
+      background: none;
+      display: inline-block !important; }
     .classification-list li ul {
       display: inline; }
       .classification-list li ul li {
         margin: 0; }
-      .classification-list li ul:before {
-        content: '>';
-        padding: 0 3px 0 0; }
     @media only screen and (max-width: 767px) {
       .classification-list li {
         font-size: 12px; } }
