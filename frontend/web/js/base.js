@@ -1063,13 +1063,18 @@
 
                 $list.find('>li').each( function( i, v ) {
                     var $item = $(this),
-                      length = $item.find('>ul')[0].childElementCount,
-                      className = 'one';
+                        children = $item.find('>ul'),
+                        length = 0,
+                        className = 'one';
+                        
+                        if(children.length>0) {
+                            length = children[0].childElementCount;
+                        };
 
-                    if(length>1) {
-                        className = 'many';
-                    }
-                    $item.addClass(className);
+                        if(length>1) {
+                            className = 'many';
+                        }
+                        $item.addClass(className);
                 });
             }
         },

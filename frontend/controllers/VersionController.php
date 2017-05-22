@@ -32,7 +32,7 @@ class VersionController extends Controller {
                             return $query->select(['id', 'seo', 'notices']);
                         },
                         'articleAuthors.author' => function($query) {
-                            return $query->select(['id', 'avatar', 'url_key'])->where(['enabled' => 1])->asArray();
+                            return $query->select(['id', 'avatar', 'url_key', 'author_key'])->where(['enabled' => 1])->asArray();
                         }, 
                         'articleCategories' => function($query) {
                             return $query->select(['category_id', 'article_id'])->asArray();
