@@ -257,8 +257,9 @@ $this->registerCssFile('/css/leaflet.css');
                 <?php ActiveForm::end(); ?>
             </div>
 
-            <?php
-            $count_categories = count($categories);
+             <?php
+                $count_categories = count($categories);
+                $previos_lvl = 0;
             ?>
 
             <?php if ($count_categories > 0): ?>
@@ -267,11 +268,20 @@ $this->registerCssFile('/css/leaflet.css');
                     <ul class="classification-list">
                         <li>
                         <?php foreach ($categories as $c): ?>
-                            <?php if ($c['lvl'] > 1): ?>
-                                &nbsp;>&nbsp;<a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                            <?php if ($c['lvl'] == 1): ?>
+                                <?php if ($previos_lvl > 1): ?>
+                                    <?= str_repeat ('</li></ul>', $previos_lvl-1); ?>
+                                    </li><li>
+                                <?php endif; ?>
+                                <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
                             <?php else: ?>
-                                </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                                <?php if ($previos_lvl == $c['lvl']): ?>
+                                    </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                                <?php else: ?>
+                                    <ul><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
+                                <?php endif; ?>
                             <?php endif; ?>
+                            <?php $previos_lvl = $c['lvl']; ?>
                         <?php endforeach; ?>
                         </li>
                     </ul>
