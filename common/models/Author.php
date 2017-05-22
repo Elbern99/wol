@@ -153,6 +153,11 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         });
     }
     
+    public function getAuthorRolesRelation()
+    {
+        return $this->hasMany(AuthorRoles::className(), ['author_id' => 'id']);
+    }
+    
     public function getAuthorUrlByRoleType($type) {
  
         switch($type) {
@@ -165,6 +170,21 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
             default:
                 return Html::a($this->name, Url::to('/authors/'.$this->url_key));
         }
+    }
+    
+    public function getAuthorUrlByRoleId($authorRoles) {
+ 
+        $roles = new \common\modules\author\Roles();
+        
+        if (count(array_intersect($roles->getAuthorGroup(), $authorRoles))) {
+            return Url::to('/authors/'.$this->url_key);
+        } elseif(count(array_intersect($roles->getEditorGroup(), $authorRoles))) {
+            return Url::to('/editors/'.$this->url_key);
+        } elseif(count(array_intersect($roles->getExpertGroup(), $authorRoles))) {
+            return Url::to('/spokespeople/'.$this->url_key);
+        }
+
+        return Url::to('/authors/'.$this->url_key);
     }
     
     public function getAuthorCategoriesArray() {

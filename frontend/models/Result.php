@@ -130,9 +130,10 @@ class Result {
                     ->select(['id', 'url_key', 'name', 'avatar'])
                     ->where(['enabled' => 1])
                     ->andWhere(['id' => $ids])
+                    ->with('authorRolesRelation')
                     ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
-        $authors = $query->asArray()->all();
+        $authors = $query->all();
 
         $authorCollection = Yii::createObject(CategoryCollection::class);
         $authorCollection->setAttributeFilter(['affiliation']);
@@ -141,15 +142,17 @@ class Result {
 
         foreach ($authors as $author) {
 
-            $affiliation = EavValueHelper::getValue($authorValues[$author['id']], 'affiliation', function($data) {
+            $affiliation = EavValueHelper::getValue($authorValues[$author->id], 'affiliation', function($data) {
                 return $data->affiliation;
             }, 'string');
             
+            $roles = ArrayHelper::getColumn($author->authorRolesRelation, 'role_id');
+
             $params = [
                 'id' => $author['id'],
-                'url' => Author::getAuthorUrl($author['url_key']),
-                'avatar' => Author::getImageUrl($author['avatar']),
-                'name' => $author['name'],
+                'url' => $author->getAuthorUrlByRoleId($roles),
+                'avatar' => $author->getAvatarBaseUrl(),
+                'name' => $author->name,
                 'affiliation' => $affiliation,
             ];
             
@@ -165,7 +168,7 @@ class Result {
                 $serched .= implode('|', self::$synonyms);
             }
 
-            if (preg_match("/($serched)/i", $author['name'])) {
+            if (preg_match("/($serched)/i", $author->name)) {
 
                 self::$topValue[] = [
                     'params' => $params,
