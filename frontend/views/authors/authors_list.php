@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\LinkPager;
+use frontend\components\search\LinkPager;
 use common\models\Author;
 use yii\widgets\ActiveForm;
 ?>
@@ -97,10 +97,12 @@ $filterLetter = Yii::$app->request->get('filter');
             <?php endif; ?>
             <?= LinkPager::widget([
                 'pagination' => $paginate,
+                'options' => ['class' => 'pagination'],
                 'nextPageLabel' => 'Next',
                 'prevPageLabel' => 'Prev',
-                'firstPageLabel' => 'First',
-                'lastPageLabel' => 'Last'
+                'lastPageLabel' => true,
+                'maxButtonCount' => 9,
+                'firstPageLabel' => 'First'
             ]); ?>
         </div>
         <aside class="sidebar-right">
