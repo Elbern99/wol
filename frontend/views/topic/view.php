@@ -109,7 +109,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                             ]); ?>
                             <?= Html::endTag('a'); ?>
                         <?php endif; ?>
-                        <div class="writers"><span class="writer-item"><?= $opinion->getAuthorsLink(); ?></span></div>
+                        <div class="writers"><span class="writer-item"></span></div>
                         <h2>
                             <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
                         </h2>
