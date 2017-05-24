@@ -103,7 +103,19 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                         <?= $model->created_at->format('F d, Y'); ?>
                     </div>
                     <div class="publish">
-                        <?= $model->getAuthorsLink(); ?>
+                        <?= implode(', ', 
+                            array_map(
+                                function($item) {
+                                    $author = $item['author_name'];
+
+                                    if ($item['author_url']) {
+                                        return Html::a($item['author_name'], $item['author_url']);
+                                    } 
+
+                                    return $author;
+                                }, $model['opinionAuthors']
+                            )
+                        ) ?>
                     </div>
                 </div>
             </div>

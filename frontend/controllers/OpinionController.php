@@ -53,7 +53,10 @@ class OpinionController extends Controller {
     public function actionView($slug)
     {
 
-        $opinion = Opinion::find()->andWhere(['url_key' => $slug])->one();
+        $opinion = Opinion::find()->andWhere(['url_key' => $slug])
+                    ->with(['opinionAuthors' => function($query) {
+                            return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
+                   }])->one();
         
         if (!$opinion) {
             throw new NotFoundHttpException();
