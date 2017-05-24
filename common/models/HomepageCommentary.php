@@ -32,7 +32,7 @@ class HomepageCommentary extends \yii\db\ActiveRecord
     public function loadAttributes()
     {
         $objects = HomepageCommentary::find()->all();
-        
+
         foreach ($objects as $object) {
             if ($object->type == Video::class) {
                 $this->video_ids[] = $object->object_id;
@@ -101,8 +101,8 @@ class HomepageCommentary extends \yii\db\ActiveRecord
                 $columnNamesArray = ['object_id', 'type'];
                 $insertCount = Yii::$app->db->createCommand()
                                ->batchInsert(
-                                       HomepageCommentary::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
+                                    HomepageCommentary::tableName(), $columnNamesArray, $bulkInsertArray
+                                )
                                ->execute();
             }
         }

@@ -53,7 +53,21 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                 <h3>
                                    <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
                                 </h3>
-                                <div class="writers"><?= $opinion->getAuthorsLink(); ?></div>
+                                <div class="writers">
+                                    <?= implode(', ', 
+                                        array_map(
+                                            function($item) {
+                                                $author = $item['author_name'];
+
+                                                if ($item['author_url']) {
+                                                    return Html::a($item['author_name'], $item['author_url']);
+                                                } 
+
+                                                return $author;
+                                            }, $opinion['opinionAuthors']
+                                        )
+                                    ) ?>
+                                </div>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -161,7 +175,21 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                                     <h3>
                                         <?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?>
                                     </h3>
-                                    <div class="writers"><?= $opinion->getAuthorsLink(); ?></div>
+                                    <div class="writers">
+                                        <?= implode(', ', 
+                                            array_map(
+                                                function($item) {
+                                                    $author = $item['author_name'];
+
+                                                    if ($item['author_url']) {
+                                                        return Html::a($item['author_name'], $item['author_url']);
+                                                    } 
+
+                                                    return $author;
+                                                }, $opinion['opinionAuthors']
+                                            )
+                                        ) ?>
+                                    </div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

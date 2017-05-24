@@ -21,10 +21,10 @@ class OpinionAuthor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['opinion_id', 'author_id'], 'required'],
-            [['opinion_id', 'author_id'], 'integer'],
+            [['opinion_id'], 'required'],
+            [['opinion_id'], 'integer'],
+            [['author_name', 'author_url'], 'string'],
             [['opinion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Opinion::className(), 'targetAttribute' => ['opinion_id' => 'id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -46,33 +46,6 @@ class OpinionAuthor extends \yii\db\ActiveRecord
     public function getOpinion()
     {
         return $this->hasOne(Opinion::className(), ['id' => 'opinion_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthor()
-    {
-        return $this->hasOne(Author::className(), ['id' => 'author_id']);
-    }
-    
-
-    public static function massInsert(array $bulkInsertArray) {
-
-        if (count($bulkInsertArray)) {
-
-            $insertCount = Yii::$app->db->createCommand()
-                    ->batchInsert(
-                        self::tableName(), ['opinion_id', 'author_id'], $bulkInsertArray
-                    )
-                    ->execute();
-
-            if ($insertCount) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 }

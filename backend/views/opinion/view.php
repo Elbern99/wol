@@ -15,6 +15,23 @@ $this->title = Yii::t('app.menu', 'View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'Opinions'), 'url' => Url::toRoute('/opinion')];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+$this->registerJsFile(Url::to(['/js/dynamically_fields.js']), ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$config = [
+    'wrapper' => '.input_fields_wrap',
+    'add_button' => '.add_field_button',
+    'model_field_name' => Html::getInputName($model, 'author_ids'),
+    'fields' => [
+        ['name' => 'author_name', 'type' => 'text', 'label' => 'Name'],
+        ['name' => 'author_url', 'type' => 'text', 'label' => 'Url'],
+        ['name' => 'author_order', 'type' => 'text', 'label' => 'Order']
+    ],
+    'data' => $model->author_ids
+];
+
+$this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
+?>
 <div class="view">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row content">
@@ -45,16 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'shiftEnterMode'=>1
                     ]
                 ]) ?>
-                <?= $form->field($model, 'author_ids')->widget(Select2::classname(), [
-                    'data' => $model->authorsList(),
-                    'options' => ['placeholder' => 'Select opinion authors', 'multiple' => true],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'tokenSeparators' => [',', ' '],
-                        'maximumInputLength' => 10
-                    ],
-                ])->label($model->getAttributeLabel('author_ids')); ?>
-            
+
                 <?=
                 $form->field($model, 'image_link')->fileInput()->widget(FileInput::classname(), [
                     'options' => ['multiple' => false],
@@ -74,6 +82,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <a href="#" id="remove-link">Remove image</a>
                 <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
                 <?php endif; ?>
+                
+                <div class="form-group input_fields_wrap">
+                    <div>
+                        <h3>Authors</h3>
+                        <p><button class="add_field_button">Add More Author</button></p>
+                    </div>
+                </div>
              
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>

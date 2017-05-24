@@ -16,7 +16,23 @@ use yii\widgets\Pjax;
             <div class="desc">
                 <div class="inner">
                     <div class="date"><?= $opinion->created_at->format('F d, Y'); ?></div>
-                    <div class="name"><?= $opinion->getAuthorsLink(); ?></div>
+                    <?php if (count($opinion['opinionAuthors'])): ?>
+                        <div class="author">
+                            <?= implode(', ', 
+                                array_map(
+                                    function($item) {
+                                        $author = $item['author_name'];
+
+                                        if ($item['author_url']) {
+                                            return Html::a($item['author_name'], $item['author_url']);
+                                        } 
+
+                                        return $author;
+                                    }, $opinion['opinionAuthors']
+                                )
+                            ) ?>
+                        </div>
+                    <?php endif; ?>
                     <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
                     <?php if ($opinion->short_description) : ?>
                         <p>

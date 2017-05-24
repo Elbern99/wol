@@ -35,7 +35,6 @@ $this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
 
             <div class="form-group input_fields_wrap">
                 <div>
-                    <h3>Breadcrumbs</h3>
                     <p><button class="add_field_button">Add More Synonym</button></p>
                 </div>
             </div>

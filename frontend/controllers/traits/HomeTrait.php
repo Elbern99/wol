@@ -16,6 +16,8 @@ use common\models\Event;
 use common\models\Topic;
 use common\models\NewsItem;
 use common\models\HomepageCommentary;
+use common\models\Video;
+use common\models\Opinion;
 
 trait HomeTrait {
     
@@ -50,11 +52,41 @@ trait HomeTrait {
     }
     
     protected function getCommentary() {
-        $commentary = HomepageCommentary::find()
-                        ->orderBy('id asc')
-                        ->limit(3)
-                        ->all();
-        return $commentary;
+        
+        $commentary = HomepageCommentary::find()->all();
+        $videoList = [];
+        $opinionList = [];
+        
+        foreach ($commentary as $object) {
+
+            if ($object->type == Video::class) {
+                $videoList[] = $object->object_id;
+            } else if ($object->type == Opinion::class) {
+                $opinionList[] = $object->object_id;
+            }
+        }
+        
+        $videos = Video::find()
+                            ->select(['url_key', 'title', 'video'])
+                            ->where(['id' => $videoList])
+                            ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$videoList) . ')')])
+                            ->all();
+        
+        $opinions = Opinion::find()
+                            ->select(['id', 'url_key', 'image_link', 'title'])
+                            ->with(['opinionAuthors' => function($query) {
+                                return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
+                            }])
+                            ->where(['id' => $opinionList])
+                            ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$opinionList) . ')')])
+                            ->all();
+                            
+        $collection = [
+            'video' => $videos ?? [],
+            'opinion' => $opinions ?? [],
+        ];
+
+        return $collection ;
     }
     
     protected function getNews() {

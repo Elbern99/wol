@@ -68,9 +68,9 @@ class Result {
     protected static function getOpinions($ids, $k) {
 
         $query = Opinion::find()
-                ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
-                ->where(['id' => $ids])
-                ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
+                        ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
+                        ->where(['id' => $ids])
+                        ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
 

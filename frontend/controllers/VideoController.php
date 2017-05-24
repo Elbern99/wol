@@ -5,38 +5,27 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 
-use common\models\Opinion;
 use common\models\Video;
-use common\models\Category;
 use common\models\Widget;
-use common\helpers\VideoHelper;
 
 /**
  * Site controller
  */
 class VideoController extends Controller {
     
-    protected function _getMainCategory() 
-    {
-        $category = Category::find()->where([
-            'url_key' => 'videos',
-        ])->one();
-        return $category;
-    }
+    use \frontend\controllers\traits\CommentaryTrait;
     
+    private $mainCategory = 'videos';
     
-    public function _getVideosList($limit = null)
+    protected function getVideosList($limit = null)
     {
         return Video::find()
                         ->orderBy('id desc')
                         ->limit($limit)
                         ->all();
     }
-    
-    
+
     public function actionIndex()
     {   
         $limit = Yii::$app->params['video_limit'];
@@ -49,47 +38,42 @@ class VideoController extends Controller {
             }
 
         }
-        
-        $opinionsQuery = Opinion::find()->orderBy('id desc');
+
         $videosQuery = Video::find()->orderBy('id desc');
         $widgets = Widget::find()->where([
             'name' => ['stay_up_to_date'],
         ])->all();
 
-        
         return $this->render('index', [
-            'videos' => $this->_getVideosList($limit),
-            'category' => $this->_getMainCategory(),
+            'videos' => $this->getVideosList($limit),
+            'category' => $this->getMainCategory($this->mainCategory),
             'videosCount' => $videosQuery->count(),
-            'opinionsSidebar' => $opinionsQuery->all(),
+            'opinionsSidebar' => $this->getOpinionsList(),
             'videosSidebar' => $videosQuery->all(),
             'widgets' => $widgets,
             'limit' => $limit,
         ]);
     }
     
-    public function actionView($slug = null)
+    public function actionView($slug)
     {
-        if (!$slug)
-            return $this->goHome();
-        
         $video = Video::find()->andWhere(['url_key' => $slug])->one();
         
-        if (!$video)
-            return $this->redirect(Url::to(['/video/index']));
+        if (!$video) {
+            throw new NotFoundHttpException();
+        }
         
         $widgets = Widget::find()->where([
             'name' => ['event_widget1', 'event_widget2'],
         ])->all();
         
         $videosSidebar = Video::find()->orderBy('id desc')->all();
-        $opinionsSidebar = Opinion::find()->orderBy('id desc')->all();
         
         return $this->render('view', [
             'model' => $video,
-            'category' => $this->_getMainCategory(),
+            'category' => $this->getMainCategory($this->mainCategory),
             'widgets' => $widgets,
-            'opinionsSidebar' => $opinionsSidebar,
+            'opinionsSidebar' => $this->getOpinionsList(),
             'videosSidebar' => $videosSidebar,
         ]);
     }

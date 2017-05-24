@@ -81,12 +81,10 @@ class Opinion extends \yii\db\ActiveRecord
     
     public function loadAttributes()
     {
-        $relatedAuthors = $this->getOpinionAuthors()->all();
-        
-        foreach ($relatedAuthors as $author) {
-            $currentAuthor = $author->author;
-            $this->author_ids[] = $currentAuthor->id; 
-        }
+        $this->author_ids = $this->getOpinionAuthors()
+                                ->select(['author_name', 'author_url', 'author_order'])
+                                ->asArray()
+                                ->all();
     }
     
     public function getOpinionAuthors()
@@ -100,6 +98,7 @@ class Opinion extends \yii\db\ActiveRecord
     }
     
     public function beforeSave($insert) {
+        
         if (parent::beforeSave($insert)) {
             $this->checkImageLink();
             return true;
@@ -115,6 +114,7 @@ class Opinion extends \yii\db\ActiveRecord
         
         if (!$image) {
             $currentItem = self::find()->where(['id' => $this->id])->one();
+            
             if ($currentItem && $currentItem->image_link) {
                 $this->image_link = $currentItem->image_link;
             }
@@ -124,6 +124,7 @@ class Opinion extends \yii\db\ActiveRecord
     public function deleteImage()
     {
         if ($this->image_link) {
+            
             if (file_exists($this->getImagePath())) {
                 unlink($this->getImagePath());
             }
@@ -136,8 +137,9 @@ class Opinion extends \yii\db\ActiveRecord
     
     public function saveFormatted()
     {
-        if (!$this->validate())
+        if (!$this->validate()) {
             return false;
+        }
         
         $this->setCreatedAtDate();
         $this->initUploadProperty();
@@ -159,6 +161,7 @@ class Opinion extends \yii\db\ActiveRecord
         } catch (\Exception $e) {
             $created_at = new \DateTime('now');
         }
+        
         $this->created_at = $created_at->format('Y-m-d');
     }
     
@@ -166,9 +169,11 @@ class Opinion extends \yii\db\ActiveRecord
     {
         $authors = Author::find()->orderBy('id desc')->all();
         $authorsList = [];
+        
         foreach ($authors as $author) {
             $authorsList[$author->id] = $author->name; 
         }
+        
         return $authorsList;
     }
     
@@ -179,19 +184,29 @@ class Opinion extends \yii\db\ActiveRecord
         $bulkInsertArray = [];
         
         if (is_array($this->author_ids)) {
-            foreach ($this->author_ids as $id) {
-                $bulkInsertArray[]=[
-                    'opinion_id' => $this->id,
-                    'author_id' => $id,
-                ];
-            }
             
-            if (count($bulkInsertArray) > 0){
-                $columnNamesArray = ['opinion_id', 'author_id'];
+            $columnNamesArray = ['opinion_id', 'author_name', 'author_url', 'author_order'];
+            
+            foreach ($this->author_ids as $author) {
+                
+                if (!$author['author_name']) {
+                    continue;
+                }
+                
+                $params['opinion_id'] = $this->id;
+                $params['author_name'] = $author['author_name'];
+                $params['author_url'] = ($author['author_url']) ? $author['author_url'] : null;
+                $params['author_order'] = ($author['author_order']) ? $author['author_order'] : 0;
+                
+                $bulkInsertArray[] = $params;
+            }
+
+            if (count($bulkInsertArray) > 0) {
+                
                 $insertCount = Yii::$app->db->createCommand()
                                ->batchInsert(
-                                       OpinionAuthor::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
+                                   OpinionAuthor::tableName(), $columnNamesArray, $bulkInsertArray
+                               )
                                ->execute();
             }
         }

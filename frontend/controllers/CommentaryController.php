@@ -18,22 +18,9 @@ use common\models\CommentaryVideo;
  */
 class CommentaryController extends Controller {
     
-    protected function _getMainCategory() 
-    {
-        $category = Category::find()->where([
-            'url_key' => 'commentary',
-        ])->one();
-        return $category;
-    }
+    use \frontend\controllers\traits\CommentaryTrait;
     
-    
-    public function _getOpinionsList($limit = null)
-    {
-        return Opinion::find()
-                        ->orderBy('id desc')
-                        ->limit($limit)
-                        ->all();
-    }
+    private $mainCategory = 'commentary';
     
     public function _getVideosList($limit = null)
     {
@@ -53,7 +40,6 @@ class CommentaryController extends Controller {
         }
         
     }
-    
     
     public function actionIndex()
     {   
@@ -78,9 +64,9 @@ class CommentaryController extends Controller {
            
         }
         
-        $opinionsQuery = Opinion::find()->orderBy('id desc');
+        $opinions = $this->getOpinionsList();
         $ids = CommentaryVideo::videosListIds();
-        
+
         $hasVideo = false;
         
         if ($ids) {
@@ -92,12 +78,12 @@ class CommentaryController extends Controller {
         }
         
         return $this->render('index', [
-            'opinions' => $this->_getOpinionsList($opinionLimit),
+            'opinions' => $this->getOpinionsList($opinionLimit),
             'videos' => $this->_getVideosList($videoLimit),
-            'category' => $this->_getMainCategory(),
-            'opinionsCount' => $opinionsQuery->count(),
+            'category' => $this->getMainCategory($this->mainCategory),
+            'opinionsCount' => count($opinions),
             'videosCount' => $videosQuery->count(),
-            'opinionsSidebar' => $opinionsQuery->all(),
+            'opinionsSidebar' => $opinions,
             'videosSidebar' => $videosQuery->all(),
             'opinionLimit' => $opinionLimit,
             'videoLimit' => $videoLimit,
@@ -148,17 +134,16 @@ class CommentaryController extends Controller {
                 }
             }
            
-        }
-        else {
+        } else {
             return $this->redirect(['/commentary']);
         }
         
-        $opinionsQuery = Opinion::find()->orderBy('id desc');
+        $opinions = $this->getOpinionsList();
         
         return $this->renderAjax('_opinions', [
-            'opinions' => $this->_getOpinionsList($opinionLimit),
+            'opinions' => $this->getOpinionsList($opinionLimit),
             'opinionLimit' => $opinionLimit,
-            'opinionsCount' => $opinionsQuery->count()
+            'opinionsCount' => count($opinions)
         ]);
          
     } 

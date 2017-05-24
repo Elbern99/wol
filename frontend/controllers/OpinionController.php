@@ -8,32 +8,17 @@ use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-use common\models\Opinion;
 use common\models\Video;
-use common\models\Category;
 use common\models\Widget;
+use common\models\Opinion;
 /**
  * Site controller
  */
 class OpinionController extends Controller {
+
+    use \frontend\controllers\traits\CommentaryTrait;
     
-    protected function _getMainCategory() 
-    {
-        $category = Category::find()->where([
-            'url_key' => 'opinions',
-        ])->one();
-        return $category;
-    }
-    
-    
-    public function _getOpinionsList($limit = null)
-    {
-        return Opinion::find()
-                        ->orderBy('id desc')
-                        ->limit($limit)
-                        ->all();
-    }
-    
+    private $mainCategory = 'opinions';
     
     public function actionIndex()
     {   
@@ -45,48 +30,46 @@ class OpinionController extends Controller {
             if (isset($limitPrev) && intval($limitPrev)) {
                 $limit += (int)$limitPrev - 1;
             }
-
         }
         
-        $opinionsQuery = Opinion::find()->orderBy('id desc');
+        $opinions = $this->getOpinionsList();
+                    
         $videosQuery = Video::find()->orderBy('id desc');
         $widgets = Widget::find()->where([
             'name' => ['stay_up_to_date'],
         ])->all();
-        
+
         return $this->render('index', [
-            'opinions' => $this->_getOpinionsList($limit),
-            'category' => $this->_getMainCategory(),
-            'opinionsCount' => $opinionsQuery->count(),
-            'opinionsSidebar' => $opinionsQuery->all(),
+            'opinions' => $this->getOpinionsList($limit),
+            'category' => $this->getMainCategory($this->mainCategory),
+            'opinionsCount' => count($opinions),
+            'opinionsSidebar' => $opinions,
             'videosSidebar' => $videosQuery->all(),
             'widgets' => $widgets,
             'limit' => $limit,
         ]);
     }
     
-    public function actionView($slug = null)
+    public function actionView($slug)
     {
-        if (!$slug)
-            return $this->goHome();
-        
+
         $opinion = Opinion::find()->andWhere(['url_key' => $slug])->one();
         
-        if (!$opinion)
-            return $this->redirect(Url::to(['/opinion/index']));
+        if (!$opinion) {
+            throw new NotFoundHttpException();
+        }
         
         $widgets = Widget::find()->where([
             'name' => ['event_widget1', 'event_widget2'],
         ])->all();
         
         $videosSidebar = Video::find()->orderBy('id desc')->all();
-        $opinionsSidebar = Opinion::find()->orderBy('id desc')->all();
         
         return $this->render('view', [
             'model' => $opinion,
-            'category' => $this->_getMainCategory(),
+            'category' => $this->getMainCategory($this->mainCategory),
             'widgets' => $widgets,
-            'opinionsSidebar' => $opinionsSidebar,
+            'opinionsSidebar' => $this->getOpinionsList(),
             'videosSidebar' => $videosSidebar,
         ]);
     }
