@@ -31,7 +31,7 @@ if ($category) {
             <li><?= Html::a('Opinions', ['/opinion/index']); ?></li>
             <?php endif; ?>
             <?php if ($hasVideo) : ?>
-            <li><?= Html::a('Videos', ['/videos/index']); ?></li>
+            <li><?= Html::a('Videos', ['/videos']); ?></li>
             <?php endif; ?>
         </ul>
         <div class="mobile-filter-items custom-tabs">
