@@ -109,10 +109,22 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                             ]); ?>
                             <?= Html::endTag('a'); ?>
                         <?php endif; ?>
-                        <div class="writers"><span class="writer-item"></span></div>
-                        <h2>
-                            <?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?>
-                        </h2>
+                        <div class="writers">
+                            <?= implode(', ', 
+                                array_map(
+                                    function($item) {
+                                        $author = $item['author_name'];
+
+                                        if ($item['author_url']) {
+                                            return Html::tag('span', Html::a($item['author_name'], $item['author_url']), ['class'=>'writer-item']);
+                                        } 
+
+                                        return $author;
+                                    }, $opinion['opinionAuthors']
+                                )
+                            ) ?>
+                        </div>
+                        <h2><?= Html::a($opinion->title, ['opinion/view', 'slug' => $opinion->url_key]); ?></h2>
                     </div>
                 </li>
                 <?php endforeach; ?>

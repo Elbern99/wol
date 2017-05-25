@@ -17,6 +17,7 @@ use common\models\Article;
 use common\models\Author;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavValueHelper;
+use common\models\TopicOpinion;
 /**
  * Site controller
  */
@@ -86,21 +87,26 @@ class TopicController extends Controller {
         ]);
     }
     
-    public function actionView($slug = null)
+    public function actionView($slug)
     {
-        if (!$slug)
-            return $this->goHome();
-        
         $topic = Topic::find()->andWhere(['url_key' => $slug])->one();
         
-        if (!$topic)
-            return $this->redirect(Url::to(['/topic/index']));     
-        
+        if (!$topic) {
+            throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+        }
+
         $relatedVideos = $topic->getTopicVideos()->limit(Yii::$app->params['topic_videos_limit'])->all();
-        $relatedOpinions = $topic->getTopicOpinions()->limit(Yii::$app->params['topic_opinions_limit'])->all();
+        $relatedOpinions = TopicOpinion::find()
+                                        ->with(['opinion' => function($query) {
+                                            return $query->select(['id', 'image_link', 'url_key', 'title'])->with('opinionAuthors');
+                                        }])
+                                        ->where(['topic_id' => $topic->id])
+                                        ->limit(Yii::$app->params['topic_opinions_limit'])
+                                        ->all();
+        
         $relatedArticles = $topic->getTopicArticles()->limit(Yii::$app->params['topic_articles_limit'])->all();
         $relatedEvents = $topic->getTopicEvents()->limit(Yii::$app->params['topic_events_limit'])->all();
-        
+
         $keyTopics = Topic::find()->where([
             'is_key_topic' => true,
         ])->andWhere(['=', 'is_hided', 0])
@@ -288,8 +294,16 @@ class TopicController extends Controller {
             return $this->redirect(['/topic/index']);
         }
         
+        $opinions = TopicOpinion::find()
+                                ->with(['opinion' => function($query) {
+                                    return $query->select(['id', 'image_link', 'url_key', 'title'])->with('opinionAuthors');
+                                }])
+                                ->where(['topic_id' => $topic->id])
+                                ->limit($opinionLimit)
+                                ->all();
+                                
         return $this->renderAjax('_opinions', [
-            'opinions' => $topic->getTopicOpinions()->limit($opinionLimit)->all(),
+            'opinions' => $opinions,
             'opinionLimit' => $opinionLimit,
             'opinionsCount' => $topic->getTopicOpinions()->count(),
             'topicId' => $topic_id,
