@@ -27,8 +27,15 @@ $dataProvider->sort = false;
                 'header' => '',
                 'buttons' => [
                     'search' => function ($url, $model) {
-                        return Html::a('Search', Url::to(['/search/advanced', 'id'=>$model->id]), [
-                            'title' => Yii::t('app', 'Search'), 'class'=>'btn-blue'
+                        $params = [
+                            'search_phrase' => $model->search_phrase,
+                            'types' => explode(',', $model->types),
+                            'all_words' => $model->all_words,
+                            'any_words' => $model->any_words,
+                        ];
+
+                        return Html::a('Search', Url::to(array_merge(['/search'],$params)), [
+                            'title' => Yii::t('app', 'Search'), 'class'=>'btn-blue', 'target'=>'blank'
                         ]);
                     },
                     'search-delete' => function ($url, $model) {
