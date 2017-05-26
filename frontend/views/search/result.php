@@ -64,7 +64,7 @@ unset($currentParams);
                 </div>
             </div>
             <div class="search-results-top-text">
-                Your search for <strong><?=$phrase?></strong> returned <strong><?= $currentCountResult ?></strong> results <a href="<?= Url::to(['/search/refine']) ?>" class="refine-link">Refine</a>
+                Your search for <strong><?=Html::encode($phrase)?></strong> returned <strong><?= $currentCountResult ?></strong> results <a href="<?= Url::to(['/search/refine']) ?>" class="refine-link">Refine</a>
             </div>
             <div class="mobile-filter-holder">
                 <div class="search-results-top-filter">
