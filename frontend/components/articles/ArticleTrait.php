@@ -30,35 +30,35 @@ trait ArticleTrait {
                             ->one();
     }
     
-    private function addOrderQuery(&$query, $order) {
+    private function addOrderQuery($query, $order) {
         
         switch ($order) {
             case OrderBehavior::DATE_DESC:
-                $query->orderBy(['a.created_at' => SORT_DESC]);
+                $query->orderBy(['a.created_at' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::DATE_ASC:
-                $query->orderBy(['a.created_at' => SORT_ASC]);
+                $query->orderBy(['a.created_at' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::AUTHOR_ASC:
                 $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
                       ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
             
-                $query->orderBy(['au.surname' => SORT_ASC]);
+                $query->orderBy(['au.surname' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::AUTHOR_DESC:
                 $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
                       ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
             
-                $query->orderBy(['au.surname' => SORT_DESC]);
+                $query->orderBy(['au.surname' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::TITLE_ASC:
-                $query->orderBy(['a.title' => SORT_ASC]);
+                $query->orderBy(['a.title' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::TITLE_DESC:
-                $query->orderBy(['a.title' => SORT_DESC]);
+                $query->orderBy(['a.title' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             default:
-                $query->orderBy(['a.created_at' => SORT_DESC]);
+                $query->orderBy(['a.created_at' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
         }
     }

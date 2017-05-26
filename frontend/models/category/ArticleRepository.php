@@ -27,35 +27,35 @@ class ArticleRepository implements RepositoryInterface {
         $this->current = $currentCategory;
     }
     
-    private function addOrderQuery(&$query, $order) {
+    private function addOrderQuery($query, $order) {
         
         switch ($order) {
             case OrderBehavior::DATE_DESC:
-                $query->orderBy(['a.created_at' => SORT_DESC]);
+                $query->orderBy(['a.created_at' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::DATE_ASC:
-                $query->orderBy(['a.created_at' => SORT_ASC]);
+                $query->orderBy(['a.created_at' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::AUTHOR_ASC:
                 $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
                       ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
             
-                $query->orderBy(['au.surname' => SORT_ASC]);
+                $query->orderBy(['au.surname' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::AUTHOR_DESC:
                 $query->leftJoin(ArticleAuthor::tableName().' as aa', 'aa.article_id = a.id')
                       ->leftJoin(Author::tableName().' as au', 'aa.author_id = au.id');
             
-                $query->orderBy(['au.surname' => SORT_DESC]);
+                $query->orderBy(['au.surname' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::TITLE_ASC:
-                $query->orderBy(['a.title' => SORT_ASC]);
+                $query->orderBy(['a.title' => SORT_ASC, 'a.id' => SORT_ASC]);
                 break;
             case OrderBehavior::TITLE_DESC:
-                $query->orderBy(['a.title' => SORT_DESC]);
+                $query->orderBy(['a.title' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
             default:
-                $query->orderBy(['a.created_at' => SORT_DESC]);
+                $query->orderBy(['a.created_at' => SORT_DESC, 'a.id' => SORT_ASC]);
                 break;
         }
     }
@@ -69,26 +69,28 @@ class ArticleRepository implements RepositoryInterface {
                                 ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1]);
         
         $this->addOrderQuery($query, $order);
-        
+
         return $query->asArray()->limit($limit)->all();
     }
     
     private function getArticlesModel($categoryIds, $order) {
         
+        $articlesIds = ArrayHelper::getColumn($categoryIds, 'article_id');
+        
         $query =  Article::find()
                         ->alias('a')
                         ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
-                        ->where(['a.enabled' => 1, 'a.id' => ArrayHelper::getColumn($categoryIds, 'article_id')])
+                        ->where(['a.enabled' => 1, 'a.id' => $articlesIds])
                         ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
                         ->with(['articleAuthors.author' => function($query) {
-                             return $query->select(['id','url_key', 'name'])->asArray();
-                         }]);
+                            return $query->select(['id','url_key', 'name'])->asArray();
+                        }])
+                        ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$articlesIds) . ')')]);
                          
-        $this->addOrderQuery($query, $order);
         return $query->all();
     }
     
@@ -132,7 +134,7 @@ class ArticleRepository implements RepositoryInterface {
         $categoryFormat = ArrayHelper::map($subjectAreas, 'id', function($data) {
             return ['title' => $data['title'], 'url_key' => $data['url_key']];
         });
-        
+
         $categoryIds = $this->getArticleIds($limit, $order);
 
         $roles = [];
