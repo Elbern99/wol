@@ -58,7 +58,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
         </div>
         <?php if ($search->search_phrase): ?>
         <div class="search-results-top-text">
-            <p>Your search for <strong><?= $search->search_phrase ?></strong> returned <strong><?= $expertCount ?></strong> results</p>
+            <p>Your search for <strong><?= Html::encode($search->search_phrase) ?></strong> returned <strong><?= $expertCount ?></strong> results</p>
         </div>
         <?php endif;?>
         <div class="mobile-filter-holder">
