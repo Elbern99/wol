@@ -10,7 +10,7 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 
 use common\models\NewsItem;
-
+use backend\models\NewsSearch;
 
 /*
  * Opinion Manager Class Controller
@@ -39,8 +39,14 @@ class NewsController extends Controller
     }
     
     public function actionIndex() {
-        $opinionsQuery = NewsItem::find()->orderBy('id desc');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $opinionsQuery, 'pagination' => ['pageSize' => 30]])]);
+        
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
     
     public function actionView($id = null) {

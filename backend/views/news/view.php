@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use dosamigos\ckeditor\CKEditor;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UrlRewrite */
@@ -14,6 +15,22 @@ use kartik\select2\Select2;
 $this->title = Yii::t('app.menu', 'View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app.menu', 'News'), 'url' => Url::toRoute('/news')];
 $this->params['breadcrumbs'][] = $this->title;
+?>
+<?php
+$this->registerJsFile(Url::to(['/js/dynamically_fields.js']), ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$config = [
+    'wrapper' => '.input_fields_wrap',
+    'add_button' => '.add_field_button',
+    'model_field_name' => Html::getInputName($model, 'sources'),
+    'fields' => [
+        ['name' => 'source', 'type' => 'text', 'label' => 'Source'],
+        ['name' => 'link', 'type' => 'text', 'label' => 'Link'],
+    ],
+    'data' => ($model->sources) ? unserialize($model->sources) : []
+];
+
+$this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
 ?>
 <div class="view">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -23,17 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'url_key') ?>
                 <?= $form->field($model, 'title') ?>
-            
-                <?= $form->field($model, 'editor')->widget(CKEditor::className(), [
-                    'options' => ['rows' => 8],
-                    'preset' => 'standard',
-                    'clientOptions'=>[
-                        'enterMode' => 2,
-                        'forceEnterMode'=>false,
-                        'shiftEnterMode'=>1
-                    ]
-                ]) ?>
-                <?= $form->field($model, 'created_at') ?>
+                <?= $form->field($model, 'created_at')->widget(
+                    DatePicker::className(), [
+                        'inline' => true,
+                        'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'dd-mm-yyyy'
+                        ]
+                ]);?>
             
                 <?= $form->field($model, 'description')->widget(CKEditor::className(), [
                     'options' => ['rows' => 8],
@@ -70,6 +85,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
+            
+                <div class="form-group input_fields_wrap">
+                    <div>
+                        <h3>Sources</h3>
+                        <p><button class="add_field_button">Add Source</button></p>
+                    </div>
+                </div>
                 <?php if ($model->image_link) : ?>
                 <a href="#" id="remove-link">Remove image</a>
                 <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>
