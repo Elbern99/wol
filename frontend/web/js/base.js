@@ -78,6 +78,10 @@
                     curLinkTextLast = curLinkText.substr(curLinkText.lastIndexOf("/")+1);
                 };
 
+                if(curLinkTextLast == 'key-topics' && $cur.parent(".submenu").length > 0) {
+                    $cur.addClass('no-submenu');
+                };
+
                 if(curLinkTextLast == 'articles' && $cur.parent(".submenu").length > 0) {
                     $cur.addClass('no-submenu');
                 };
