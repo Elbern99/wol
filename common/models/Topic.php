@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use yii\web\UploadedFile;
+use yii\web\UploadedFile; 
 
 class Topic extends \yii\db\ActiveRecord
 {
@@ -18,12 +18,8 @@ class Topic extends \yii\db\ActiveRecord
     public $opinion_ids;
     public $event_ids;
 
-
     protected $sticky_date = null;
-
-
     protected $imagePath = '/web/uploads/topics';
-
 
     public function getImagePath()
     {
@@ -145,7 +141,55 @@ class Topic extends \yii\db\ActiveRecord
         } else {
             return false;
         }
+    }
+    
+    public function afterSave($insert, $changedAttributes){
+        parent::afterSave($insert, $changedAttributes);
 
+        if (array_key_exists('sticky_at', $changedAttributes)) {
+
+            if (is_null($this->sticky_at) && $changedAttributes['sticky_at']) {
+                $category = Category::find()->where(['id' => $this->category_id])->one();
+
+                if($category) {
+                    
+                    if ($category->delete()) {
+                        $this->category_id = null;
+                        $this->save();
+                    }
+                }
+                
+            } elseif ($this->sticky_at && is_null($changedAttributes['sticky_at'])) {
+
+                $category = Category::find()->where(['url_key'=>'key-topics', 'lvl' => 0])->one();
+
+                $newCategory = new Category([
+                    'title' => $this->title,
+                    'meta_title' => $this->title,
+                    'url_key' => '/key-topics/'.$this->url_key,
+                    'system' => 0,
+                    'active' => 1,
+                    'visible_in_menu' => 0,
+                    'taxonomy_code' => null,
+                    'type' => $category->type
+                ]);
+
+                if ($newCategory->prependTo($category)) {
+                    $this->category_id = $newCategory->id;
+                    $this->save();
+                }
+            }
+            
+        } else {
+            
+            if ($this->category_id) {
+                    
+                $category = Category::findOne(['id' => $this->category_id]);
+                $category->title = $this->title;
+                $category->url_key = '/key-topics/'.$this->url_key;
+                $category->save();
+            }
+        }
     }
 
     public function deleteImage()
