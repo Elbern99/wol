@@ -273,19 +273,7 @@
             '<li><a href="/editorial-board">Editorial board</a></li> ' +
             '<li><a href="/about/iza">About IZA</a></li>' +
             '<li><a href="/about/partners">About our partners</a></li>' +
-            '</ul>',
-            /*commentary:'<div class="submenu">' +
-            '<div class="item"><a href="/opinions">Opinions</a></div>' +
-            '<div class="item"><a href="/videos">Videos</a></div>' +
-            '</div>',*/
-            /*key:'<div class="submenu">' +
-            '<div class="item"><a href="/key-topics/innovation-and-the-future-of-work">Innovation and the future of work</a></div>' +
-            '<div class="item"><a href="/key-topics/economic-inequality">What is economic inequality?</a></div>' +
-            '<div class="item"><a href="/key-topics/the-trump-administration-and-the-labor-market">What issues face the Trump administration?</a></div>' +
-            '<div class="item"><a href="/key-topics/what-role-does-happiness-play-in-labor-market-policy">What role does happiness play in labor market policy?</a></div>' +
-            '<div class="item"><a href="/key-topics/youth-unemployment">Youth unemployment</a></div>' +
-            '<div class="item no-submenu"><a href="/key-topics">View all</a></div>' +
-            '</div>'*/
+            '</ul>'
         },
         appendCode: function(templte,item) {
 
