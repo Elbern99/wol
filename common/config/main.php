@@ -49,6 +49,12 @@ return [
             'tableName' => 'queue',
             'module' => 'task',
         ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
+        ],
     ],
     'controllerMap' => [
         'queue' => [
