@@ -20,6 +20,10 @@ class Newsletter {
         }
     }
     
+    public function isSubscibed():bool {
+        return ($this->model->id) ? true : false;
+    }
+
     public function setSubscriber(array $data) {
         return $this->model->setSubscriber($data);
     }

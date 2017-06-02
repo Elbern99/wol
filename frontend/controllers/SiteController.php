@@ -100,11 +100,15 @@ class SiteController extends Controller {
             
             $newslatter = Yii::$container->get('newsletter');
             $newslatter->getSubscriber($model->email);
-
-            if ($newslatter->setSubscriber($model->getAttributes())) {
-                Yii::$app->getSession()->setFlash('success', 'You subscribed.');
+            
+            if ($newslatter->isSubscibed()) {
+                Yii::$app->getSession()->setFlash('error', 'You have subscribed already');
             } else {
-                Yii::$app->getSession()->setFlash('error', 'You not subscribed.');
+                if ($newslatter->setSubscriber($model->getAttributes())) {
+                    Yii::$app->getSession()->setFlash('success', 'You subscribed.');
+                } else {
+                    Yii::$app->getSession()->setFlash('error', 'You not subscribed.');
+                }
             }
                 
         }
