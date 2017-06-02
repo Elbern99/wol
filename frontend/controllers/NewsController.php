@@ -68,14 +68,14 @@ class NewsController extends Controller {
 
         $latestNews = NewsItem::find()->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $articles = $newsItem->getNewsArticles()->orderBy(['id' => SORT_DESC])->limit(10)->all();
-        
+
         return $this->render('view', [
             'model' => $newsItem,
             'category' => $this->getMainCategory(),
             'newsSidebar' => $latestNews,
             'newsletterArchive' => $this->getNewsletterArchive(),
             'newsArchive' => $this->getNewsArchive(),
-            'widgets' => $this->getNewsWidgets(),
+            'widgets' => $this->getNewsWidgetsList($newsItem->id),
             'articlesSidebar' => $articles,
         ]);
     }

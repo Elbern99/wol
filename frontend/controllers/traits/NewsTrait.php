@@ -7,6 +7,7 @@ use common\models\NewsletterNews;
 use common\models\NewsItem;
 use common\models\Category;
 use frontend\components\widget\SidebarWidget;
+use common\models\NewsWidget;
 
 trait NewsTrait {
 
@@ -78,6 +79,10 @@ trait NewsTrait {
     
     protected function getNewsWidgets() {
         return new SidebarWidget('news');
+    }
+    
+    protected function getNewsWidgetsList($news_id): array {
+        return NewsWidget::getPageWidgets($news_id);
     }
 }
 
