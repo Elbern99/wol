@@ -44,10 +44,8 @@ return [
             ],
         ],
         'queue' => [
-            'class' => 'UrbanIndo\Yii2\Queue\Queues\DbQueue',
-            'db' => 'db',
-            'tableName' => 'queue',
-            'module' => 'task',
+            'class' => '\UrbanIndo\Yii2\Queue\Queues\RedisQueue',
+            'key' => 'queue',
         ],
         'redis' => [
             'class' => 'yii\redis\Connection',
