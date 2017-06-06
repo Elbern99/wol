@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\components\filters\PressReleasesArchiveWidget;
 ?>
 
 <?php
@@ -30,6 +31,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
     'typeContent' => 'press release'
 ]);
 
+$pressReleasesArchiveWidget = PressReleasesArchiveWidget::widget(['data' => $pressReleasesArchive]);
 ?>
 
 <div class="container about-page">
@@ -62,22 +64,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     <?php endif; ?>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more">
-                    <ul class="articles-filter-list date-list blue-list">
-                        <?php foreach ($newsTree as $key => $value) : ?>
-                        <li class="item">
-                            <div class="icon-arrow"></div>
-                            <?= Html::a($key, ['press-releases/index', 'year' => $key]) ?>
-                            <ul class="submenu">
-                                <?php foreach ($value['months'] as $month): ?>
-                                <li class="item">
-                                    <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                    <?= Html::a($monthYear, ['press-releases/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <?= $pressReleasesArchiveWidget ?>   
                 </div>
             </div>
         </div>
@@ -175,23 +162,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     <li class="sidebar-accrodion-item hide-mobile">
                         <a href="" class="title">press releases archives</a>
                         <div class="text">
-                            <ul class="articles-filter-list date-list">
-                                <?php foreach ($newsTree as $key => $value) : ?>
-                                <li class="item has-drop <?php if($value['isActive']) echo 'open'; ?>">
-                                    <div class="icon-arrow"></div>
-                                    <strong><?= Html::a($key, ['press-releases/index', 'year' => $key]) ?></strong>
-                                    <ul class="submenu">
-                                        
-                                        <?php foreach ($value['months'] as $month): ?>
-                                            <li class="item <?php if($month['isActive']) echo 'open'; ?>">
-                                                <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                                <?= Html::a($monthYear, ['press-releases/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?= $pressReleasesArchiveWidget ?>
                         </div>
                     </li>
                 </ul>

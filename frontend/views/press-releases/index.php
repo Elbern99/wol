@@ -2,23 +2,30 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use frontend\components\filters\PressReleasesArchiveWidget;
 ?>
 <?php
+$breadcrumbs = unserialize($page->Cms('breadcrumbs'));
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle.'Press Releases';
-$this->params['breadcrumbs'][] = 'Press Releases';
+$this->title = $prefixTitle.$page->Cms('meta_title');
+
+if (is_array($breadcrumbs) && count($breadcrumbs)) {
+    $this->params['breadcrumbs'] = $breadcrumbs;
+}
+
+$this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 
 $this->registerMetaTag([
-    'name' => 'title',
-    'content' => Html::encode($prefixTitle.'Press Releases')
+    'name' => 'keywords',
+    'content' => Html::encode($page->Cms('meta_keywords'))
 ]);
 
-if ($category) {
-    $this->registerMetaTag([
-    'name' => 'keywords',
-    'content' => Html::encode($category->meta_keywords)
-    ]);
-}
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($page->Cms('meta_description'))
+]);
+
+$pressReleasesArchiveWidget = PressReleasesArchiveWidget::widget(['data' => $pressReleasesArchive]);
 ?>
 <div class="container news-list-page">
     <div class="article-head-holder">
@@ -35,41 +42,18 @@ if ($category) {
                     <div class="tab-item active empty-nothing">
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
-                        <ul class="articles-filter-list date-list blue-list">
-                            <?php foreach ($newsTree as $key => $value) : ?>
-                            <li class="item">
-                                <div class="icon-arrow"></div>
-                                <?= Html::a($key, ['press-releases/index', 'year' => $key]) ?>
-                                <ul class="submenu">
-                                    <?php foreach ($value['months'] as $month): ?>
-                                    <li class="item">
-                                        <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                        <?= Html::a($monthYear, ['press-releases/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                    </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <?= $pressReleasesArchiveWidget ?>   
                     </div>
                 </div>
             </div>
-            <h1 class="hide-mobile">Press releases</h1>
+            <h1 class="hide-mobile"><?= Html::encode($page->Cms('title')) ?></h1>
         </div>
     </div>
 
     <div class="content-inner">
         <div class="content-inner-text content-inner-animate active" data-linked="1">
-            <h1 class="clone-title hide-desktop">Press releases</h1>
-            <p>
-                IZA World of Labor is a global, freely available online resource that provides policymakers, academics, journalists, and researchers, with clear, concise and evidence-based knowledge on labor economics issues worldwide. The site offers relevant and succinctly information on topics including diversity, migration, minimum wage, youth unemployment, employment protection, development, education, gender balance, labor mobility and flexibility among others - for information by topic see our <a href="/key-topics">Key Topics</a> pages. The concise article format with easy-to-find recommendations provides journalists with the information they need for quick research.
-            </p>
-            <p>
-                IZA World of Labor authors are happy to speak to the press about their research. If you have an enquiry about a labor market issue, please search our <a href="/find-a-topic-spokesperson">spokesperson database</a> to find and directly contact a relevant spokesperson.
-            </p>
-            <p>
-                We issue frequent press releases for newly published articles and commentaries. To sign up to receive press releases, journalists should email <a target="_blank" href="mailto:francesca.geach@bloomsbury.com">Francesca.Geach@bloomsbury.com</a>.
-            </p>
+            <h1 class="clone-title hide-desktop"><?= Html::encode($page->Cms('title')) ?></h1>
+            <?= $page->Page('text'); ?>
             <?php Pjax::begin(['linkSelector' => '.btn-gray', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>
             <ul class="post-list news-list">
                 <?php foreach ($news as $item) : ?>
@@ -116,33 +100,17 @@ if ($category) {
                     <li class="sidebar-accrodion-item hide-mobile is-open">
                         <a href="" class="title">press releases archives</a>
                         <div class="text">
-                            <ul class="articles-filter-list date-list ">
-                                <?php foreach ($newsTree as $key => $value) : ?>
-                                <li class="item has-drop <?php if($value['isActive']) echo 'open'; ?>">
-                                    <div class="icon-arrow"></div>
-                                    <strong><?= Html::a($key, ['press-releases/index', 'year' => $key]) ?></strong>
-                                    <ul class="submenu">
-                                        
-                                        <?php foreach ($value['months'] as $month): ?>
-                                            <li class="item <?php if($month['isActive']) echo 'open'; ?>">
-                                                <?php $monthYear = date("F", mktime(0, 0, 0, $month['num'], 10)) . ' ' . $key; ?>
-                                                <?= Html::a($monthYear, ['press-releases/index', 'year' => $key, 'month' => $month['num']]) ?>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?= $pressReleasesArchiveWidget ?>   
                         </div>
                     </li>
                  </ul>
             </div>
-            <?php if (count($widgets)): ?>
-            <div class="sidebar-widget">
-                <?php foreach ($widgets as $widget): ?>
+            <?php if (count($page->getWidgets())): ?>
+            <aside class="sidebar-widget">
+                <?php foreach ($page->getWidgets() as $widget): ?>
                     <?= $widget['text'] ?>
                 <?php endforeach; ?>
-            </div>
+            </aside>
             <?php endif; ?>
         </aside>
     </div>
