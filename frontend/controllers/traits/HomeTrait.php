@@ -101,7 +101,7 @@ trait HomeTrait {
         $limit = $this->more->getLimit('news_limit');
         
         return NewsItem::find()
-                ->select(['title', 'url_key', 'created_at', 'image_link', 'short_description', 'editor'])
+                ->select(['title', 'url_key', 'created_at', 'image_link', 'short_description', 'sources'])
                 ->limit($limit)
                 ->orderBy(['created_at' => SORT_DESC])
                 ->asArray()

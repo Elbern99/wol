@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\helpers\AdminFunctionHelper;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,15 +21,35 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             GridView::widget([
                 'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
+                    'id',
                     'title',
                     'url_key',
                     [
-                        'format' => 'raw',
+                        'format' => 'datetime',
+                        'filter' =>  'From:'.DatePicker::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'created_at_from',
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'endDate'=>date('Y-m-d')
+                            ]
+                        ]).
+                        'To:'.DatePicker::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'created_at_to',
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'endDate'=>date('Y-m-d')
+                            ]
+                        ]),
                         'label' => 'Created At',
                         'value' => function ($model) {
-                            return $model->created_at->format('d F Y');
+                            return date('Y-M-d', $model->created_at->getTimestamp());
                         }
                     ],
                     [

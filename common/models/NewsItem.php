@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\web\UploadedFile;
+use yii\helpers\Html;
 
 class NewsItem extends \yii\db\ActiveRecord
 {
@@ -15,6 +16,7 @@ class NewsItem extends \yii\db\ActiveRecord
     
     protected $imagePath = '/web/uploads/news';
     public $article_ids;
+    public $editor;
 
     public function getImagePath()
     {
@@ -50,7 +52,7 @@ class NewsItem extends \yii\db\ActiveRecord
         return [
             [['url_key', 'title'], 'required'],
             [['description', 'short_description'], 'string'],
-            [['created_at', 'article_ids', 'editor'], 'safe'],
+            [['created_at', 'article_ids', 'sources'], 'safe'],
             [['url_key'], 'match', 'pattern' => '/^[a-z0-9_\/-]+$/'],
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
@@ -67,7 +69,7 @@ class NewsItem extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'url_key' => Yii::t('app', 'Url Key'),
             'title' => Yii::t('app', 'Title'),
-            'editor' => Yii::t('app', 'Sources'),
+            'sources' => Yii::t('app', 'Sources'),
             'description' => Yii::t('app', 'Description'),
             'short_decription' => Yii::t('app', 'Short Description'),
             'image_link' => Yii::t('app', 'Image'),
@@ -89,15 +91,57 @@ class NewsItem extends \yii\db\ActiveRecord
     public function afterFind()
     {
         $this->created_at = new \DateTime($this->created_at);
+        $this->editor = self::getSourcesLink($this->sources);
+    }
+    
+    public static function getSourcesLink($sources) {
+ 
+        $str = '';
+
+        if ($sources) {
+            
+            $sources = unserialize($sources);
+            
+            foreach ($sources as $source) {
+                
+                if ($source['link']) {
+                    $str .= Html::a($source['source'], urldecode($source['link']), ['target' => 'blank']);
+                } else {
+                    $str .= $source['source'];
+                }
+            }
+        }
+
+        return $str;
     }
     
     public function beforeSave($insert) {
+        
         if (parent::beforeSave($insert)) {
+
+            if (is_array($this->sources) && count($this->sources)) {
+                $sources = [];
+                
+                foreach ($this->sources as $source) {
+                    if (!$source['source']) {
+                        continue;
+                    }
+                    
+                    $sources[] = [
+                        'source' => $source['source'],
+                        'link' => ($source['link']) ? urlencode(urldecode($source['link'])): null
+                    ];
+                }
+                
+                $this->sources = serialize($sources);
+            }
+            
             $this->checkImageLink();
             return true;
-        } else {
-            return false;
-        }   
+            
+        }
+        
+        return false;   
     }
     
     public function deleteImage()
@@ -168,7 +212,7 @@ class NewsItem extends \yii\db\ActiveRecord
         $this->created_at = $created_at->format('Y-m-d');
     }
     
-     protected function saveArticlesList()
+    protected function saveArticlesList()
     {
         NewsArticle::deleteAll(['=', 'news_id', $this->id]);
         

@@ -104,7 +104,7 @@ class Result {
     protected static function getNews($ids, $k) {
 
         $query = NewsItem::find()
-                ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'editor'])
+                ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'sources'])
                 ->where(['id' => $ids])
                 ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 

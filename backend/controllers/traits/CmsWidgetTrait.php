@@ -11,6 +11,8 @@ use yii\helpers\ArrayHelper;
  */
 trait CmsWidgetTrait {
     
+    use HelpTrait;
+    
     public function actionWidget($page_id) {
             
         if (Yii::$app->request->isPost) {
@@ -74,36 +76,6 @@ trait CmsWidgetTrait {
         }
         
         return $this->redirect(['/cms/static-pages-view', 'id' => $page_id]);
-    }
-    
-    protected function getDiff($selected, $current) {
-
-        if (empty($selected) && !empty($current)) {     
-            
-            $diff['delete'] = $current;
-            $diff['add'] = [];
-        } elseif (empty($current) && !empty($selected)) {   
-            
-            $diff['delete'] = [];
-            $diff['add'] = $selected;
-        } elseif (!empty($selected) && !empty($current)) {
-            
-            $diff['delete'] = [];
-            
-            foreach ($current as $id) {
-                if (array_search($id, $selected) === false) {
-                    $diff['delete'][] = $id;
-                }
-            }
-
-            $diff['add'] = array_diff(array_merge($diff['delete'], $selected), $current);
-        } else {
-            
-            $diff['delete'] = [];
-            $diff['add'] = [];
-        }
-
-        return $diff;
     }
 }
     

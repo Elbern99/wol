@@ -7,8 +7,7 @@ use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 
-use common\models\Video;
-use common\models\Opinion;
+use common\models\NewsItem;
 
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.$page->Cms('meta_title');
@@ -92,7 +91,7 @@ if ($googleVerification) {
                                             <div class="head-news">
                                                 <div class="date"><?= date('M d, Y', strtotime($newsItem['created_at'])) ?></div>
                                                 <div class="writers">
-                                                    <span class="writer-item"><?= $newsItem['editor'] ?></span>
+                                                    <span class="writer-item"><?= NewsItem::getSourcesLink($newsItem['sources']) ?></span>
                                                 </div>
                                             </div>
                                         </div>

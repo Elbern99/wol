@@ -7,11 +7,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\data\ActiveDataProvider;
 
 use common\models\NewsItem;
-
-
+use backend\models\NewsSearch;
 /*
  * Opinion Manager Class Controller
  */
@@ -23,7 +21,7 @@ class NewsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete', 'delete-image'],
+                        'actions' => ['index', 'view', 'delete', 'delete-image', 'news-widget'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -33,14 +31,23 @@ class NewsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'news-widget' => ['post'],
                 ],
             ],
         ];
     }
     
+    use traits\NewsWidgetTrait;
+    
     public function actionIndex() {
-        $opinionsQuery = NewsItem::find()->orderBy('id desc');
-        return $this->render('index', ['dataProvider' => new ActiveDataProvider(['query' => $opinionsQuery, 'pagination' => ['pageSize' => 30]])]);
+        
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
     
     public function actionView($id = null) {
@@ -71,9 +78,14 @@ class NewsController extends Controller
             }
        }
         
-        return $this->render('view', ['model'=> $model]);
+        return $this->render('view', ['model'=> $model, 'widgets' => $this->getNewsWidget($model->id)]);
     }
     
+    public function actionNewsWidget($id) {
+        $this->changeWidget($id);
+        return $this->redirect('@web/news/view?id='.$id);
+    }
+
     public function actionDelete($id) {
         
         try {
