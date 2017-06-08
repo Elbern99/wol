@@ -57,6 +57,7 @@ class NewsItem extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 255],
             [['url_key'], 'unique'],
             [['image_link'], 'file', 'extensions' => 'jpg, gif, png, bmp, jpeg, jepg', 'skipOnEmpty' => true],
+            [['enabled'], 'integer']
         ];
     }
 

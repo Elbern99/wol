@@ -53,7 +53,7 @@ class OpinionController extends Controller {
     public function actionView($slug)
     {
 
-        $opinion = Opinion::find()->andWhere(['url_key' => $slug])
+        $opinion = Opinion::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])
                     ->with(['opinionAuthors' => function($query) {
                             return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
                    }])->one();

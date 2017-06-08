@@ -78,6 +78,7 @@ trait HomeTrait {
                                 return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
                             }])
                             ->where(['id' => $opinionList])
+                            ->andWhere(['enabled' => 1])
                             ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$opinionList) . ')')])
                             ->all();
                             
@@ -104,6 +105,7 @@ trait HomeTrait {
                 ->select(['title', 'url_key', 'created_at', 'image_link', 'short_description', 'sources'])
                 ->limit($limit)
                 ->orderBy(['created_at' => SORT_DESC])
+                ->andWhere(['enabled' => 1])
                 ->asArray()
                 ->all();
     }
@@ -115,6 +117,7 @@ trait HomeTrait {
                         ->where(['not', ['sticky_at' => null]])
                         ->andWhere(['=', 'is_hided', 0])
                         ->orderBy(['sticky_at' => SORT_DESC])
+                        ->andWhere(['enabled' => 1])
                         ->asArray()
                         ->all();
     }
@@ -132,6 +135,7 @@ trait HomeTrait {
         return Event::find()
                 ->select(['title', 'url_key', 'date_from', 'date_to', 'location'])
                 ->andWhere('date_from >= now()')
+                ->andWhere(['enabled' => 1])
                 ->limit($limit)
                 ->orderBy(['date_from' => SORT_ASC])
                 ->asArray()

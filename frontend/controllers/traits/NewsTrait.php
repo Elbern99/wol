@@ -17,6 +17,7 @@ trait NewsTrait {
                         ->select(['DISTINCT (EXTRACT(YEAR_MONTH FROM created_at)) as created_at'])
                         ->orderBy(['created_at' => SORT_DESC])
                         ->asArray()
+                        ->andWhere(['enabled' => 1])
                         ->all();
         
         $dates = [];
@@ -73,7 +74,7 @@ trait NewsTrait {
             ]);
         }
         
-        return $newsQuery->limit($limit)
+        return $newsQuery->andWhere(['enabled' => 1])->limit($limit)
                          ->all();
     }
     

@@ -36,13 +36,15 @@ class EventController extends Controller {
                 ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
                 ->from('events')
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc')
+                ->andWhere(['enabled' => 1]);
         
         $treeQuery = (new \yii\db\Query())
                 ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
                 ->from('events')
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc')
+                ->andWhere(['enabled' => 1]);
         
         $eventsTree = [];
         
@@ -90,7 +92,7 @@ class EventController extends Controller {
             }
             
             $yearMonth = $groupYear . '-' . $groupMonth;
-            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->orderBy('date_from asc')->all();
+            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->andWhere(['enabled' => 1])->orderBy('date_from asc')->all();
             
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
         }
@@ -101,7 +103,7 @@ class EventController extends Controller {
         $upcomingEvents = [];
 
         if ($isArchive) {
-            $upcomingEvents = Event::find()->where('date_from >= now()')->orderBy('date_from asc')->all();
+            $upcomingEvents = Event::find()->where('date_from >= now()')->andWhere(['enabled' => 1])->orderBy('date_from asc')->all();
         }
         
         return $this->render('index', [
@@ -119,7 +121,7 @@ class EventController extends Controller {
         if (!$slug)
             return $this->goHome();
      
-        $event = Event::find()->andWhere(['url_key' => $slug])->one();
+        $event = Event::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])->one();
         
         if (!$event) 
             return $this->redirect(Url::to(['/event/index']));
@@ -127,6 +129,7 @@ class EventController extends Controller {
         $yearMonth = $event->date_from->format('Y-m-d');
         $otherEvents = Event::find()->andWhere("date_from >= now()")
                                     ->andWhere("id <> $event->id")
+                                    ->andWhere(['enabled' => 1])
                                     ->orderBy('date_from asc')
                                     ->limit(3)
                                     ->all();
@@ -135,13 +138,15 @@ class EventController extends Controller {
                 ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
                 ->from('events')
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc')
+                ->andWhere(['enabled' => 1]);
         
         $treeQuery = (new \yii\db\Query())
                 ->select(['MONTH(date_from) as m', 'YEAR(date_from) as y'])
                 ->from('events')
                 ->groupBy(['MONTH(date_from)', 'YEAR(date_from)'])
-                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc');
+                ->orderBy('MONTH(date_from) desc, YEAR(date_from) desc')
+                ->andWhere(['enabled' => 1]);
         
         $eventsTree = [];
         $groups = [];
@@ -168,7 +173,7 @@ class EventController extends Controller {
             }
             
             $yearMonth = $groupYear . '-' . $groupMonth;
-            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->orderBy('date_from asc')->all();
+            $groups[$yearMonth]['events'] = Event::find()->andWhere("date_from like '$yearMonth%'")->andWhere(['enabled' => 1])->orderBy('date_from asc')->all();
             $groups[$yearMonth]['heading'] = date("F", mktime(0, 0, 0, $groupMonth, 10)) . ' ' . $groupYear;
         }
         

@@ -21,6 +21,7 @@ trait CommentaryTrait {
                         ->with(['opinionAuthors' => function($query) {
                             return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
                         }])
+                        ->andWhere(['enabled' => 1])
                         ->orderBy('id desc');
         
         if ($limit) {

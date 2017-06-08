@@ -55,7 +55,7 @@ class PressReleasesController extends Controller {
     
     public function actionView($slug)
     {
-        $newsItem = PressReleaseItem::find()->andWhere(['url_key' => $slug])->one();
+        $newsItem = PressReleaseItem::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])->one();
         
         if (!$newsItem) {
             throw new NotFoundHttpException();

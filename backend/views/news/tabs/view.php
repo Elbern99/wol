@@ -81,6 +81,8 @@ $this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
             ],
         ]);
         ?>
+    
+        <?= $form->field($model, 'enabled')->checkbox() ?>
 
         <div class="form-group input_fields_wrap">
             <div>

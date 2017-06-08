@@ -30,7 +30,7 @@ class NewsController extends Controller {
         }
         
         $isInArchive = false;
-        $newsQuery = NewsItem::find()->orderBy('created_at desc');
+        $newsQuery = NewsItem::find()->andWhere(['enabled' => 1])->orderBy('created_at desc');
         
         if ($month && $year) {
            $isInArchive = true;
@@ -60,13 +60,13 @@ class NewsController extends Controller {
     
     public function actionView($slug)
     {
-        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->one();
+        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])->one();
         
         if (!$newsItem) {
             throw new NotFoundHttpException();
         }
 
-        $latestNews = NewsItem::find()->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $latestNews = NewsItem::find()->andWhere(['enabled' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $articles = $newsItem->getNewsArticles()->orderBy(['id' => SORT_DESC])->limit(10)->all();
 
         return $this->render('view', [

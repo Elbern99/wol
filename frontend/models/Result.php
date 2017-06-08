@@ -52,6 +52,7 @@ class Result {
         $query = Topic::find()
                         ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'image_link'])
                         ->where(['id' => $ids])
+                        ->andWhere(['enabled' => 1])
                         ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
         $items = $query->asArray()->all();
@@ -70,6 +71,7 @@ class Result {
         $query = Opinion::find()
                         ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
                         ->where(['id' => $ids])
+                        ->andWhere(['enabled' => 1])
                         ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
@@ -82,6 +84,7 @@ class Result {
         $query = Event::find()
                 ->select(['id', 'title', 'url_key', 'location', 'date_to', 'date_from'])
                 ->where(['id' => $ids])
+                ->andWhere(['enabled' => 1])
                 ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
         $result = $query->asArray()->all();
@@ -106,6 +109,7 @@ class Result {
         $query = NewsItem::find()
                 ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'sources'])
                 ->where(['id' => $ids])
+                ->andWhere(['enabled' => 1])
                 ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
