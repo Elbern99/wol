@@ -74,8 +74,10 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                 <?php $params = ['/topic/articles', 'article_limit' => Yii::$app->params['topic_articles_limit'], 'topic_id' => $model->id]; ?>
                 <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
             <?php else: ?>
-                <?php $params = ['/topic/articles', 'topic_id' => $model->id]; ?>
-                <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
+                <?php if (Yii::$app->request->get('article_limit')): ?>
+                    <?php $params = ['/topic/articles', 'topic_id' => $model->id]; ?>
+                    <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
+                <?php endif; ?>
             <?php endif; ?>
             <?php Pjax::end(); ?>
             <?php endif; ?>
