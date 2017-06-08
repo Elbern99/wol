@@ -98,8 +98,8 @@ class ArticleRepository implements RepositoryInterface {
     private function getAuthorIds(array $roles) {
         
         return AuthorCategory::find()->alias('ac')->select(['ac.author_id'])
-                               ->leftJoin(Author::tableName().' as a', 'a.id = ac.author_id')
-                               ->where(['category_id' => $this->current->id])
+                               ->innerJoin(Author::tableName().' as a', 'a.id = ac.author_id')
+                               ->where(['category_id' => $this->current->id, 'a.enabled' => 1])
                                ->innerJoinWith(['authorRoles' => function($query) use ($roles) {
                                    return $query->where(['role_id' => $roles]);
                                }])
