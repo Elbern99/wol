@@ -169,7 +169,7 @@ class Topic extends \yii\db\ActiveRecord
                     'url_key' => '/key-topics/'.$this->url_key,
                     'system' => 0,
                     'active' => 1,
-                    'visible_in_menu' => 0,
+                    'visible_in_menu' => 1,
                     'taxonomy_code' => null,
                     'type' => $category->type
                 ]);
@@ -280,13 +280,12 @@ class Topic extends \yii\db\ActiveRecord
 
     public function saveFormatted()
     {
-        if (!$this->validate())
+        if (!$this->validate()) {
             return false;
+        }
 
         $this->setCreatedAtDate();
-
         $this->initUploadProperty();
-
         $this->upload();
 
         if ($this->save()) {
@@ -294,65 +293,9 @@ class Topic extends \yii\db\ActiveRecord
             $this->saveVideosList();
             $this->saveOpinionsList();
             $this->saveEventsList();
-            $this->addCategory();
         }
 
         return true;
-    }
-
-    protected function addCategory()
-    {
-        $mainCategory = Category::find()->where(['url_key' => 'key-topics'])->one();
-        if ($mainCategory) {
-
-            if ($this->isNewRecord) {
-
-                if ($this->is_key_topic && !$this->category_id) {
-                    $category = new Category();
-                    $category->title = $this->title;
-                    $category->meta_title = $this->title;
-                    $category->root = $mainCategory->id;
-                    $category->url_key = '/key-topics/' . $this->url_key;
-                    $category->active = true;
-                    $category->visible_in_menu = true;
-                    $category->appendTo($mainCategory);
-                    $this->category_id = $category->id;
-                    $this->save();
-                }
-
-            } else {
-                $model = self::find()->where(['id' => $this->id])->one();
-                if ($model) {
-                    if ($this->is_key_topic && $model->category_id) {
-                        $category = Category::find()->where(['id' => $this->category_id])->one();
-                        if ($category) {
-                            $category->title = $this->title;
-                            $category->meta_title = $this->title;
-                            $category->root = $mainCategory->id;
-                            $category->url_key = '/key-topics/' . $this->url_key;
-                            $category->active = true;
-                            $category->visible_in_menu = true;
-                            $category->save();
-                        }
-                    }
-
-                    if (!$this->is_key_topic && $model->category_id) {
-                        $category = Category::find()->where(['id' => $this->category_id])->one();
-                        if ($category) {
-                            $category->title = $this->title;
-                            $category->meta_title = $this->title;
-                            $category->root = $mainCategory->id;
-                            $category->url_key = '/key-topics/' . $this->url_key;
-                            $category->active = false;
-                            $category->visible_in_menu = false;
-                            $category->save();
-                        }
-                    }
-                }
-            }
-
-
-        }
     }
 
     protected function setCreatedAtDate()
