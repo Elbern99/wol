@@ -177,7 +177,7 @@ class NewsItem extends \yii\db\ActiveRecord
     
     public function articlesList()
     {
-        $articles = Article::find()->orderBy('id desc')->all();
+        $articles = Article::find()->where(['enabled' => 1])->orderBy('id desc')->all();
         $articlesList = [];
         foreach ($articles as $article) {
             $articlesList[$article->id] = $article->title; 
@@ -232,8 +232,8 @@ class NewsItem extends \yii\db\ActiveRecord
                 $columnNamesArray = ['news_id', 'article_id'];
                 $insertCount = Yii::$app->db->createCommand()
                                ->batchInsert(
-                                       NewsArticle::tableName(), $columnNamesArray, $bulkInsertArray
-                                 )
+                                    NewsArticle::tableName(), $columnNamesArray, $bulkInsertArray
+                                )
                                ->execute();
             }
         }

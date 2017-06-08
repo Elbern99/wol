@@ -220,7 +220,7 @@ class Topic extends \yii\db\ActiveRecord
 
     public function articlesList()
     {
-        $articles = Article::find()->orderBy('id desc')->all();
+        $articles = Article::find()->where(['enabled' => 1])->orderBy('id desc')->all();
         $articlesList = [];
         foreach ($articles as $article) {
             $articlesList[$article->id] = $article->title;
@@ -241,7 +241,7 @@ class Topic extends \yii\db\ActiveRecord
 
     public function opinionsList()
     {
-        $opinions = Opinion::find()->orderBy('id desc')->all();
+        $opinions = Opinion::find()->where(['enabled' => 1])->orderBy('id desc')->all();
         $opinionsList = [];
         foreach ($opinions as $opinion) {
             $opinionsList[$opinion->id] = $opinion->title;
@@ -251,7 +251,7 @@ class Topic extends \yii\db\ActiveRecord
 
     public function eventsList()
     {
-        $events = Event::find()->orderBy('id desc')->all();
+        $events = Event::find()->where(['enabled' => 1])->orderBy('id desc')->all();
         $eventsList = [];
         foreach ($events as $event) {
             $eventsList[$event->id] = $event->title;

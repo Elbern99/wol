@@ -14,7 +14,7 @@ if ($category) {
         'content' => Html::encode($category->meta_title)
     ]);
 }
- $this->title = $model->title;
+$this->title = $model->title;
 
 $this->params['breadcrumbs'][] = ['label' => Html::encode('Key Topics'), 'url' => Url::to(['/topic/index'])];
 $this->params['breadcrumbs'][] = $model->title;
@@ -60,7 +60,9 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                     </ul>
                     <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
                     <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
-                    <div class="writers"><?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?></div>
+                    <div class="writers">
+                        <?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?>
+                    </div>
                     <div class="description">
                         <?= $article['abstract']->abstract ?? ''; ?>
                     </div>
@@ -69,25 +71,11 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
                 <?php endforeach; ?>
             </ul>
             <?php if ($relatedArticlesCount > Yii::$app->params['topic_articles_limit']): ?>
-                    <?php
-                    if ($sort == 3) {
-                        $params = ['/topic/articles', 'article_limit' => Yii::$app->params['topic_articles_limit'], 'topic_id' => $model->id];
-                    } else {
-                        $params = ['/topic/articles', 'article_limit' => Yii::$app->params['topic_articles_limit'], 'sort' => 1, 'topic_id' => $model->id];
-                    }
-                    ?>
-                    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
+                <?php $params = ['/topic/articles', 'article_limit' => Yii::$app->params['topic_articles_limit'], 'topic_id' => $model->id]; ?>
+                <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
             <?php else: ?>
-                <?php if (Yii::$app->request->get('article_limit')): ?>
-                    <?php
-                    if ($sort == 3) {
-                        $params = ['/topic/articles', 'topic_id' => $model->id];
-                    } else {
-                        $params = ['/topic/articles', 'sort' => 1, 'topic_id' => $model->id];
-                    }
-                    ?>
-                    <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
-                <?php endif; ?>
+                <?php $params = ['/topic/articles', 'topic_id' => $model->id]; ?>
+                <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
             <?php endif; ?>
             <?php Pjax::end(); ?>
             <?php endif; ?>
@@ -173,6 +161,7 @@ $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
             <?php endif; ?>
             <?php Pjax::end(); ?>
             <?php endif; ?>
+            
             <?php if ($relatedEvents) : ?>
             <div class="widget-title medium"><?= Html::a('events', ['event/index']); ?></div>
             <?php Pjax::begin(['linkSelector' => '#load-events', 'enableReplaceState' => false, 'enablePushState' => false, 'options' => ['class' => 'loader-ajax']]); ?>

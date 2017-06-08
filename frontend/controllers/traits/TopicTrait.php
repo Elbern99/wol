@@ -7,6 +7,7 @@ use common\models\Category;
 use common\models\Topic;
 use common\models\Opinion;
 use common\models\Article;
+use common\models\Event;
 use common\modules\eav\CategoryCollection;
 use common\models\Author;
 use common\modules\eav\helper\EavValueHelper;
@@ -58,12 +59,12 @@ trait TopicTrait {
         
         return $topic->getTopicEvents()
                         ->alias('te')
-                        ->innerJoin(['e' => Opinion::tableName()], 'e.id = te.event_id')
+                        ->innerJoin(['e' => Event::tableName()], 'e.id = te.event_id')
                         ->where(['e.enabled' => 1])
                         ->count(); 
     }
     
-    protected function getArticlesModel($articlesIds) {
+    protected function getArticlesModel($articlesIds, $limit) {
 
         return  Article::find()
                         ->alias('a')
@@ -78,14 +79,15 @@ trait TopicTrait {
                             return $query->select(['id','url_key', 'name'])->asArray();
                         }])
                         ->orderBy(['a.created_at' => SORT_DESC, 'a.id' => SORT_ASC])
+                        ->limit($limit)
                         ->all();
     }
     
-    protected function getTopicArticles(Topic $topic): array {
+    protected function getTopicArticles(Topic $topic, $limit): array {
         
         $topicArticles = $this->getTopicArticlesQuery($topic)->asArray()->all();
         $articlesIds = ArrayHelper::getColumn($topicArticles, 'article_id');
-        $articles = $this->getArticlesModel($articlesIds);
+        $articles = $this->getArticlesModel($articlesIds, $limit);
         
         $categoryFormat = ArrayHelper::map($this->getSubjectAreas(), 'id', function($data) {
             return ['title' => $data['title'], 'url_key' => $data['url_key']];

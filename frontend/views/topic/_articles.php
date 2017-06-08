@@ -1,8 +1,6 @@
 <?php
-
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 ?>
 <ul class="post-list">
     <?php foreach($collection as $article): ?>
@@ -15,7 +13,7 @@ use yii\widgets\Pjax;
         <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
         <div class="writers">
-            <span class="writer-item"><a href=""><?= $article['availability']  ?></a></span>, <?= date('F Y', $article['created_at']) ?>
+            <?php foreach($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?>
         </div>
         <div class="description">
             <?= $article['abstract']->abstract ?? ''; ?>
@@ -24,3 +22,11 @@ use yii\widgets\Pjax;
     </li>
     <?php endforeach; ?>
 </ul>
+
+<?php if ($articlesCount > $articleLimit): ?>
+    <?php $params = ['/topic/articles', 'article_limit' => $articleLimit, 'topic_id' => $topicId]; ?>
+    <?= Html::a("show more", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
+<?php else: ?>
+    <?php $params = ['/topic/articles', 'topic_id' => $topicId]; ?>
+    <?= Html::a("clear", Url::to($params), ['class' => 'btn-gray align-center', 'id' => 'load-articles']) ?>
+<?php endif; ?>
