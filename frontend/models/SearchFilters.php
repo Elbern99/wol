@@ -63,7 +63,7 @@ class SearchFilters {
         
         self::$topicsFilter = Topic::find()
                                     ->select(['id', 'title'])
-                                    ->where(['id' => $ids])
+                                    ->where(['id' => $ids, 'enabled' => 1])
                                     ->orderBy('title')
                                     ->asArray()
                                     ->all();
