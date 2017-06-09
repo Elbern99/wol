@@ -53,7 +53,7 @@ trait NewsTrait {
     protected function getMainCategory() 
     {
         return Category::find()->where([
-            'url_key' => 'news',
+            'url_key' => $this->key,
         ])
         ->one();
     }
