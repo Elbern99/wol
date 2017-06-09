@@ -268,9 +268,25 @@ class Result {
         $format = [];
         
         if (count(self::$originResult) && self::$originResult) {
-            foreach (self::$originResult as $d) {
-                $format[$d['type']][] = $d['id'];
+            foreach (self::$originResult as $item) {
+                $format[$item['type']][] = $item['id'];
             }
+        }
+
+        return $format;
+    }
+    
+    public static function formatFilterTypeArray() {
+        
+        $format = [];
+        
+        if (count(self::$value) || count(self::$topValue)) {
+            $items = array_merge(self::$value, self::$topValue);
+            foreach ($items as $item) {
+                $format[$item['type']][] = $item['params']['id'];
+            }
+            
+            unset($format['authors']);
         }
 
         return $format;

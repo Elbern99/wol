@@ -50,7 +50,7 @@ class MainSearchFilters extends AbstractSearchFilters implements SearchInterface
         if (is_array($filter)) {
             
             $categories = $article['params']['categories'];
-            
+
             foreach($categories as $id) {
                 
                 if (in_array($id, $filter)) {

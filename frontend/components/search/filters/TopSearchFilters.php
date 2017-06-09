@@ -41,9 +41,9 @@ class TopSearchFilters extends AbstractSearchFilters implements SearchInterface 
     }
     
     protected function filterByTopic($topic) {
-        
+
         $filter = $this->filters['topics']['filtered'];
-        
+
         if (is_null($filter)) {
             return true;
         }

@@ -133,10 +133,10 @@ class SearchController extends Controller
         } else {
             $searchFiltersData = $this->getFilterData($model, $searchResult['format'] ?? []);
         }
-        
+
         $mainresultCount = count($searchResult['main']);
         $resultOrdered = [];
-        
+
         if ($mainresultCount) {
             $filter = new \frontend\components\search\filters\MainSearchFilters($searchFiltersData, $searchResult['main']);
             $resultOrdered = $filter->getData();
@@ -147,7 +147,9 @@ class SearchController extends Controller
                 $resultOrdered = $sortingResult->sort();
             }
         }
-
+        
+        $mainresultCount = count($resultOrdered);
+        
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
         $paginate->setPageSize(Yii::$app->request->get('count'));
@@ -164,7 +166,6 @@ class SearchController extends Controller
             'resultCount' => $mainresultCount,
             'filters' => $searchFiltersData,
             'synonyms' => unserialize($searchResultData->synonyms),
-            'currentCountResult' => $mainresultCount + ((isset($searchResult['format']['key_topics'])) ? count($searchResult['format']['key_topics']) : 0)
         ]);
     }
     

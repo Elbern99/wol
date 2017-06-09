@@ -78,15 +78,15 @@ class SearchFilters {
                                         ->orderBy('surname')
                                         ->asArray()
                                         ->all();
-
-        
     }
 
     protected static function getArticle($ids) {
 
         $categories = ArticleCategory::find()
-                ->select(['category_id', 'COUNT(article_id) AS cnt'])
-                ->where(['article_id' => $ids])
+                ->alias('ac')
+                ->select(['category_id', 'COUNT(a.id) AS cnt'])
+                ->innerJoin(['a' => Article::tableName()], 'a.id = ac.article_id')
+                ->where(['article_id' => $ids, 'a.enabled' => 1])
                 ->groupBy('category_id')
                 ->asArray()
                 ->all();
