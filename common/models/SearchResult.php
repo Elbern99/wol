@@ -41,6 +41,7 @@ class SearchResult extends \yii\db\ActiveRecord
             ['result', 'required'],
             [['result', 'creteria', 'filters', 'synonyms'], 'string'],
             [['created_at'], 'integer'],
+            [['ip'], 'string', 'max' => 15],
         ];
     }
 
@@ -65,7 +66,8 @@ class SearchResult extends \yii\db\ActiveRecord
             'result' => ($args['result']) ? serialize($args['result']): null,
             'creteria' => ($args['creteria']) ? serialize($args['creteria']): null,
             'filters' => ($args['filters']) ? serialize($args['filters']) : null,
-            'synonyms' => (is_array($args['synonyms'])) ? serialize($args['synonyms']) : null
+            'synonyms' => (is_array($args['synonyms'])) ? serialize($args['synonyms']) : null,
+            'ip' => Yii::$app->request->getUserIP()
         ];
         
         if ($model->load($params, '') && $model->save()) {
@@ -90,8 +92,8 @@ class SearchResult extends \yii\db\ActiveRecord
     }
     
     public static function refreshResult($model, $args = []) {
-        
-        if (!$model) {
+
+        if (!is_object($model) || !$model->id) {
             return self::addNewResult($args);
         }
 

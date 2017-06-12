@@ -48,8 +48,18 @@ trait SearchTrait {
         return $filters;
     }
     
+    protected function clearSearchResultByUserIP() {
+        
+        $ip = Yii::$app->request->getUserIP();
+        
+        if ($ip) {
+            SearchResult::deleteAll(['ip' => $ip]);
+        }
+    }
+    
     protected function updateSearchData($model, $searchResultId, $searchResultData) {
         try {
+            $this->clearSearchResultByUserIP();
             
             $searchResult = $model->search();
 
