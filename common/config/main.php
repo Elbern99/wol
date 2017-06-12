@@ -44,10 +44,15 @@ return [
             ],
         ],
         'queue' => [
-            'class' => 'UrbanIndo\Yii2\Queue\Queues\DbQueue',
-            'db' => 'db',
-            'tableName' => 'queue',
+            'class' => '\UrbanIndo\Yii2\Queue\Queues\RedisQueue',
+            'key' => 'queue',
             'module' => 'task',
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
         ],
     ],
     'controllerMap' => [
