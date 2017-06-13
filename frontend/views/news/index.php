@@ -8,9 +8,20 @@ use frontend\components\filters\NewsArchiveWidget;
 ?>
 
 <?php
+$breadcrumbs = unserialize($page->Cms('breadcrumbs'));
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle.'News';
-$this->params['breadcrumbs'][] = 'News';
+$this->title = $prefixTitle.$page->Cms('meta_title');
+
+if (is_array($breadcrumbs) && count($breadcrumbs)) {
+    $this->params['breadcrumbs'] = $breadcrumbs;
+}
+
+$this->params['breadcrumbs'][] = Html::encode('News');
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => Html::encode($page->Cms('meta_description'))
+]);
 
 if ($category) {
     $this->registerMetaTag([
@@ -20,6 +31,11 @@ if ($category) {
     $this->registerMetaTag([
         'name' => 'title',
         'content' => Html::encode($category->meta_title)
+    ]);
+} else {
+    $this->registerMetaTag([
+        'name' => 'keywords',
+        'content' => Html::encode($page->Cms('meta_keywords'))
     ]);
 }
 
@@ -51,8 +67,8 @@ $newsArchiveWidget = NewsArchiveWidget::widget(['data' => $newsArchive]);
                     </div>
                 </div>
             </div>
-            <h1 class="hide-mobile">News from IZA World of Labor</h1>
-            <p class="hide-mobile">We draw on a range of global sources to bring you news related to IZA World of Labor articles.</p>
+            <h1 class="hide-mobile"><?= Html::encode($page->Cms('title')) ?></h1>
+            <p class="hide-mobile"><?= $page->Page('text'); ?></p>
         </div>
     </div>
 
@@ -133,14 +149,12 @@ $newsArchiveWidget = NewsArchiveWidget::widget(['data' => $newsArchive]);
                     </li>
                  </ul>
             </div>
-            <?php if (count($widgets)): ?>
-                <div class="sidebar-widget">
-                    <div class="podcast-list">
-                        <?php foreach ($widgets->getPageWidgets() as $widget): ?>
-                            <?= $widget ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
+            <?php if (count($page->getWidgets())): ?>
+            <aside class="sidebar-widget">
+                <?php foreach ($page->getWidgets() as $widget): ?>
+                    <?= $widget['text'] ?>
+                <?php endforeach; ?>
+            </aside>
             <?php endif; ?>
         </aside>
     </div>

@@ -211,8 +211,8 @@ $newsArchiveWidget = NewsArchiveWidget::widget(['data' => $newsArchive]);
             </div>
 
             <?php if (count($widgets)): ?>
-                <?php foreach ($widgets->getPageWidgets() as $widget): ?>
-                    <?= $widget ?>
+                <?php foreach ($widgets as $widget): ?>
+                    <?= $widget['text'] ?>
                 <?php endforeach; ?>
             <?php endif; ?>
             

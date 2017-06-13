@@ -7,6 +7,7 @@ use common\models\NewsletterNews;
 use common\models\NewsItem;
 use common\models\Category;
 use frontend\components\widget\SidebarWidget;
+use common\models\NewsWidget;
 
 trait NewsTrait {
 
@@ -16,6 +17,7 @@ trait NewsTrait {
                         ->select(['DISTINCT (EXTRACT(YEAR_MONTH FROM created_at)) as created_at'])
                         ->orderBy(['created_at' => SORT_DESC])
                         ->asArray()
+                        ->andWhere(['enabled' => 1])
                         ->all();
         
         $dates = [];
@@ -51,7 +53,7 @@ trait NewsTrait {
     protected function getMainCategory() 
     {
         return Category::find()->where([
-            'url_key' => 'news',
+            'url_key' => $this->key,
         ])
         ->one();
     }
@@ -72,12 +74,16 @@ trait NewsTrait {
             ]);
         }
         
-        return $newsQuery->limit($limit)
+        return $newsQuery->andWhere(['enabled' => 1])->limit($limit)
                          ->all();
     }
     
     protected function getNewsWidgets() {
         return new SidebarWidget('news');
+    }
+    
+    protected function getNewsWidgetsList($news_id): array {
+        return NewsWidget::getPageWidgets($news_id);
     }
 }
 

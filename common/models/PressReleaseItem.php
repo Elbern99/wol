@@ -65,6 +65,7 @@ class PressReleaseItem extends \yii\db\ActiveRecord
             [['url_key'], 'unique'],
             [['image_link'], 'file', 'extensions' => 'jpg, gif, png, bmp, jpeg, jepg', 'skipOnEmpty' => true],
             [['pdf_link'], 'file', 'extensions' => 'pdf', 'skipOnEmpty' => true],
+            [['enabled'], 'integer']
         ];
     }
 

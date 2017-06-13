@@ -32,7 +32,7 @@ trait PressReleasesTrait {
             ]);
         }
         
-        return $newsQuery;
+        return $newsQuery->andWhere(['enabled' => 1]);
     }
     
     protected function getPressReleasesList($limit = 10, $year = null, $month = null) {
@@ -51,6 +51,7 @@ trait PressReleasesTrait {
                         ->select(['DISTINCT (EXTRACT(YEAR_MONTH FROM created_at)) as created_at'])
                         ->orderBy(['created_at' => SORT_DESC])
                         ->asArray()
+                        ->andWhere(['enabled' => 1])
                         ->all();
         
         $dates = [];

@@ -20,7 +20,7 @@ trait SearchTrait {
         
         $searchResultId = Yii::$app->getSession()->get('search_result_id');
         SearchFilters::initFilterData($formatData);
-        
+
         $filters['types'] = [
             'data' => AdvancedSearchForm::class,
             'selected' => $formatData,
@@ -87,7 +87,7 @@ trait SearchTrait {
         $result = [
             'top'  =>  Result::getSearchTopValue(),
             'main' =>  Result::getSearchValue(),
-            'format' => Result::$formatData,
+            'format' => Result::formatFilterTypeArray(),
             'origin' => Result::getOriginData()
         ];
 
@@ -102,7 +102,7 @@ trait SearchTrait {
             SearchFilters::setFilter('subject', $this->getCategoriesInArticles($result['format']['article']));
         }
 
-        $filterData = $this->getFilterData($model, Result::$formatData);
+        $filterData = $this->getFilterData($model, $result['format']);
         
         $searchResultArgs = [
             'result' => $result,
@@ -130,7 +130,7 @@ trait SearchTrait {
         SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
         SearchFilters::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
         SearchFilters::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
-        
+
         $filterData = $this->getFilterData($model, $searchResult['format'] ?? []);
 
         $searchResultArgs = [
@@ -164,11 +164,11 @@ trait SearchTrait {
         
         Result::$synonyms = $synonyms;
         Result::initData($searchResult);
-   
+
         $result = [
             'top'  =>  Result::getSearchTopValue(),
             'main' =>  Result::getSearchValue(),
-            'format' => Result::$formatData,
+            'format' => Result::formatFilterTypeArray(),
             'origin' => Result::getOriginData()
         ];
 
@@ -183,7 +183,7 @@ trait SearchTrait {
             SearchFilters::setFilter('subject', $this->getCategoriesInArticles($result['format']['article']));
         }
 
-        $filterData = $this->getFilterData($model, Result::$formatData);
+        $filterData = $this->getFilterData($model, $result['format']);
         
         $searchResultArgs = [
             'result' => $result,

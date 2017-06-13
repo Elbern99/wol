@@ -74,6 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
+            
+                <?= $form->field($model, 'enabled')->checkbox() ?>
                 <?php if ($model->image_link) : ?>
                 <a href="#" id="remove-link">Remove image</a>
                 <?= $form->field($model, 'delete_file')->hiddenInput(['value'=> 0, 'id' => 'delete-image'])->label(false); ?>

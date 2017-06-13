@@ -54,7 +54,7 @@ class HomepageCommentary extends \yii\db\ActiveRecord
     
     public static function opinionsList()
     {
-        $opinions = Opinion::find()->all();
+        $opinions = Opinion::find()->where(['enabled' => 1])->all();
         $opinionsList = [];
         foreach ($opinions as $opinion) {
             $opinionsList[$opinion->id] = $opinion->title; 

@@ -8,6 +8,8 @@ use yii\web\Controller;
 
 use common\models\NewsItem;;
 use common\models\NewsletterNews;
+use common\models\CmsPages;
+use frontend\models\CmsPagesRepository as Page;
 
 /**
  * Site controller
@@ -15,9 +17,19 @@ use common\models\NewsletterNews;
 class NewsController extends Controller {
     
     use \frontend\controllers\traits\NewsTrait;
+    
+    protected $key = 'news';
 
     public function actionIndex($month = null, $year = null)
     {
+        $page = CmsPages::find()->select('id')->where(['url' => $this->key, 'enabled' => 1])->one();
+        
+        if (!is_object($page)) {
+            throw new NotFoundHttpException();
+        }
+        
+        $page = Page::getPageById($page->id);
+        
         $limit = Yii::$app->params['news_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
@@ -30,7 +42,7 @@ class NewsController extends Controller {
         }
         
         $isInArchive = false;
-        $newsQuery = NewsItem::find()->orderBy('created_at desc');
+        $newsQuery = NewsItem::find()->andWhere(['enabled' => 1])->orderBy('created_at desc');
         
         if ($month && $year) {
            $isInArchive = true;
@@ -49,7 +61,7 @@ class NewsController extends Controller {
             'news' => $this->getNewsList($limit, $year, $month),
             'newsCount' => $newsQuery->count(),
             'category' => $this->getMainCategory(),
-            'widgets' => $this->getNewsWidgets(),
+            'page' => $page,
             'limit' => $limit,
             'isInArchive' => $isInArchive,
             'newsletterArchive' => $this->getNewsletterArchive(), 
@@ -60,22 +72,22 @@ class NewsController extends Controller {
     
     public function actionView($slug)
     {
-        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->one();
+        $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])->one();
         
         if (!$newsItem) {
             throw new NotFoundHttpException();
         }
 
-        $latestNews = NewsItem::find()->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $latestNews = NewsItem::find()->andWhere(['enabled' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $articles = $newsItem->getNewsArticles()->orderBy(['id' => SORT_DESC])->limit(10)->all();
-        
+
         return $this->render('view', [
             'model' => $newsItem,
             'category' => $this->getMainCategory(),
             'newsSidebar' => $latestNews,
             'newsletterArchive' => $this->getNewsletterArchive(),
             'newsArchive' => $this->getNewsArchive(),
-            'widgets' => $this->getNewsWidgets(),
+            'widgets' => $this->getNewsWidgetsList($newsItem->id),
             'articlesSidebar' => $articles,
         ]);
     }

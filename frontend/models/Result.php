@@ -52,6 +52,7 @@ class Result {
         $query = Topic::find()
                         ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'image_link'])
                         ->where(['id' => $ids])
+                        ->andWhere(['enabled' => 1])
                         ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
         $items = $query->asArray()->all();
@@ -70,6 +71,7 @@ class Result {
         $query = Opinion::find()
                         ->select(['id', 'title', 'url_key', 'short_description', 'created_at'])
                         ->where(['id' => $ids])
+                        ->andWhere(['enabled' => 1])
                         ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
@@ -82,6 +84,7 @@ class Result {
         $query = Event::find()
                 ->select(['id', 'title', 'url_key', 'location', 'date_to', 'date_from'])
                 ->where(['id' => $ids])
+                ->andWhere(['enabled' => 1])
                 ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
         
         $result = $query->asArray()->all();
@@ -104,8 +107,9 @@ class Result {
     protected static function getNews($ids, $k) {
 
         $query = NewsItem::find()
-                ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'editor'])
+                ->select(['id', 'title', 'url_key', 'short_description', 'created_at', 'sources'])
                 ->where(['id' => $ids])
+                ->andWhere(['enabled' => 1])
                 ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')]);
 
         $result = $query->asArray()->all();
@@ -264,9 +268,25 @@ class Result {
         $format = [];
         
         if (count(self::$originResult) && self::$originResult) {
-            foreach (self::$originResult as $d) {
-                $format[$d['type']][] = $d['id'];
+            foreach (self::$originResult as $item) {
+                $format[$item['type']][] = $item['id'];
             }
+        }
+
+        return $format;
+    }
+    
+    public static function formatFilterTypeArray() {
+        
+        $format = [];
+        
+        if (count(self::$value) || count(self::$topValue)) {
+            $items = array_merge(self::$value, self::$topValue);
+            foreach ($items as $item) {
+                $format[$item['type']][] = $item['params']['id'];
+            }
+            
+            unset($format['authors']);
         }
 
         return $format;
