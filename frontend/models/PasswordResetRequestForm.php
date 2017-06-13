@@ -41,6 +41,7 @@ class PasswordResetRequestForm extends Model
         $user = User::findOne([
             'status' => User::STATUS_ACTIVE,
             'email' => $this->email,
+            'is_admin' => 0
         ]);
 
         if (!$user) {
