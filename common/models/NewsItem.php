@@ -97,7 +97,7 @@ class NewsItem extends \yii\db\ActiveRecord
     
     public static function getSourcesLink($sources) {
  
-        $str = '';
+        $str = [];
 
         if ($sources) {
             
@@ -106,14 +106,14 @@ class NewsItem extends \yii\db\ActiveRecord
             foreach ($sources as $source) {
                 
                 if ($source['link']) {
-                    $str .= Html::a($source['source'], urldecode($source['link']), ['target' => 'blank']);
+                    $str[] = Html::a($source['source'], urldecode($source['link']), ['target' => 'blank']);
                 } else {
-                    $str .= $source['source'];
+                    $str[] = $source['source'];
                 }
             }
         }
 
-        return $str;
+        return implode(', ', $str);
     }
     
     public function beforeSave($insert) {
