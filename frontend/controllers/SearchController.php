@@ -149,13 +149,20 @@ class SearchController extends Controller
         }
         
         $mainresultCount = count($resultOrdered);
-        
+        //var_dump($mainresultCount);exit;
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
         $paginate->setPageSize(Yii::$app->request->get('count'));
 
         $resultData = array_slice($resultOrdered, $paginate->offset, $paginate->limit);
         $filter = new \frontend\components\search\filters\TopSearchFilters($searchFiltersData, $searchResult['top']);
+        $topicsCount = 0;
+        
+        foreach ($filter->getData() as $top) {
+            if ($top['type'] == 'key_topics') {
+                $topicsCount += 1;
+            }
+        }
 
         return $this->render('result', [
             'phrase' => $search_phrase,
@@ -163,7 +170,7 @@ class SearchController extends Controller
             'paginate' => $paginate,
             'resultData' => $resultData,
             'topData' => $filter->getData(),
-            'resultCount' => $mainresultCount,
+            'resultCount' => $mainresultCount + $topicsCount,
             'filters' => $searchFiltersData,
             'synonyms' => unserialize($searchResultData->synonyms),
         ]);
