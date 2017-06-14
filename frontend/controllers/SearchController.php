@@ -149,7 +149,7 @@ class SearchController extends Controller
         }
         
         $mainresultCount = count($resultOrdered);
-        //var_dump($mainresultCount);exit;
+
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
         $paginate->setPageSize(Yii::$app->request->get('count'));
