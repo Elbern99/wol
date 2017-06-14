@@ -9,6 +9,7 @@ namespace backend\components\editor;
 use yii\helpers\Json;
 use dosamigos\ckeditor\CKEditor as CKEditorOriginal;
 use dosamigos\ckeditor\CKEditorWidgetAsset;
+use yii\helpers\Url;
 /**
  * CKEditor renders a CKEditor js plugin for classic editing.
  * @see http://docs.ckeditor.com/
@@ -36,7 +37,8 @@ class CKEditor extends CKEditorOriginal
         $options = $this->clientOptions !== false && !empty($this->clientOptions)
             ? Json::encode($this->clientOptions)
             : '{}';
-
+        
+        $basePath = Url::base();
         $js[] = "CKEDITOR.replace('$id', $options);";
         $js[] = "dosamigos.ckEditorWidget.registerOnChangeHandler('$id');";
         $js[] = "
@@ -75,7 +77,7 @@ class CKEditor extends CKEditorOriginal
                         label: 'Insert H1',
                         command: 'h1_b',
                         toolbar: 'basicstyles',
-                        icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16',
+                        icon: '{$basePath}/images/icons/h1.png',
                     });
                 }
             }); 
@@ -95,7 +97,7 @@ class CKEditor extends CKEditorOriginal
                         label: 'Insert Abbreviation',
                         command: 'h2_b',
                         toolbar: 'basicstyles',
-                        icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16',
+                        icon: '{$basePath}/images/icons/h2.png',
                     });
                 }
             }); 
@@ -115,7 +117,7 @@ class CKEditor extends CKEditorOriginal
                         label: 'Insert Abbreviation',
                         command: 'h3_b',
                         toolbar: 'basicstyles',
-                        icon: 'https://avatars1.githubusercontent.com/u/5500999?v=2&s=16',
+                        icon: '{$basePath}/images/icons/h3.png',
                     });
                 }
             }); 
