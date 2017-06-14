@@ -94,7 +94,7 @@ class CKEditor extends CKEditorOriginal
                     });
     
                     editor.ui.addButton( 'h2_b', {
-                        label: 'Insert Abbreviation',
+                        label: 'Insert H2',
                         command: 'h2_b',
                         toolbar: 'basicstyles',
                         icon: '{$basePath}/images/icons/h2.png',
@@ -114,7 +114,7 @@ class CKEditor extends CKEditorOriginal
                     });
     
                     editor.ui.addButton( 'h3_b', {
-                        label: 'Insert Abbreviation',
+                        label: 'Insert H3',
                         command: 'h3_b',
                         toolbar: 'basicstyles',
                         icon: '{$basePath}/images/icons/h3.png',
