@@ -77,7 +77,7 @@ class SearchController extends Controller
                 if (($search_phrase != $model->search_phrase) && $model->validate()) {
                     return $this->postResearchData($model, $searchResultId, $searchResultData);
                 }
-                
+
                 return $this->postFilteredData($model, $searchResultData);
             }
             
@@ -148,7 +148,7 @@ class SearchController extends Controller
             }
         }
         
-        $mainresultCount = count($resultOrdered);
+        $mainresultCountWithFilter = count($resultOrdered);
 
         $paginate = new Pagination(['totalCount' => count($resultOrdered)]);
         $paginate->defaultPageSize = Yii::$app->params['search_result_limit'];
@@ -170,7 +170,8 @@ class SearchController extends Controller
             'paginate' => $paginate,
             'resultData' => $resultData,
             'topData' => $filter->getData(),
-            'resultCount' => $mainresultCount + $topicsCount,
+            'resultCount' => $mainresultCountWithFilter + $topicsCount,
+            'resultCountWithoutFilter' => $mainresultCount + ((isset($searchResult['format']['key_topics'])) ? count($searchResult['format']['key_topics']) : 0),
             'filters' => $searchFiltersData,
             'synonyms' => unserialize($searchResultData->synonyms),
         ]);

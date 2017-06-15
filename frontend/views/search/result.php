@@ -2,7 +2,6 @@
 use frontend\components\search\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use frontend\models\Result;
 use frontend\components\filters\ContentTypesWidget;
 use frontend\components\filters\SubjectAreasWidget;
 use frontend\components\filters\BiographyWidget;
@@ -168,7 +167,7 @@ unset($currentParams);
                             <h3>Filter results by</h3>
                             <ul class="sidebar-accrodion-list">
                                 <li class="sidebar-accrodion-item is-open sidebar-accordion-item-types">
-                                    <a href="" class="title">content types <strong>(<?= $resultCount ?>)</strong></a>
+                                    <a href="" class="title">content types <strong>(<?= $resultCountWithoutFilter ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['types'])): ?>
                                             <?= ContentTypesWidget::widget(['param' => $filters['types']]); ?>
@@ -180,8 +179,7 @@ unset($currentParams);
                                     <a href="" class="title">subject areas <strong>(<?php echo (isset($filters['types']['selected']['article'])) ? count($filters['types']['selected']['article']) : '0' ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['category'])): ?>
-                                            <?= SubjectAreasWidget::widget(['param' => $filters['category']]); ?>
-                                            <a href="" class="clear-all">Clear all</a>
+                                            <?= SubjectAreasWidget::widget(['param' => $filters]); ?>
                                         <?php endif; ?>
                                     </div>
                                 </li>
@@ -189,8 +187,7 @@ unset($currentParams);
                                     <a href="" class="title">Authors <strong>(<?= count($filters['biography']['data']) ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['biography'])): ?>
-                                            <?= BiographyWidget::widget(['param' => $filters['biography']]); ?>
-                                            <a href="" class="clear-all">Clear all</a>
+                                            <?= BiographyWidget::widget(['param' => $filters]); ?>
                                         <?php endif; ?>
                                     </div>
                                 </li>
@@ -198,8 +195,7 @@ unset($currentParams);
                                     <a href="" class="title">Topics <strong>(<?= count($filters['topics']['data']) ?>)</strong></a>
                                     <div class="text">
                                         <?php if (isset($filters['topics'])): ?>
-                                            <?= TopicsWidget::widget(['param' => $filters['topics']]); ?>
-                                            <a href="" class="clear-all">Clear all</a>
+                                            <?= TopicsWidget::widget(['param' => $filters]); ?>
                                         <?php endif; ?>
                                     </div>
                                 </li>

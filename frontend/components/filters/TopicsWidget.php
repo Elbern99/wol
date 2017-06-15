@@ -10,9 +10,17 @@ class TopicsWidget extends Widget {
 
     public $param;
     protected $prefix = 'filter_topics_type';
+    private $enabled = false;
 
     public function init() {
         parent::init();
+        
+        if (isset($this->param['types']['filtered'])) {
+            $typeObject = Yii::createObject($this->param['types']['data']);
+            $this->enabled = in_array($typeObject->getHeadingModelKey('key_topics'), $this->param['types']['filtered']) ? true : false;
+        }
+        
+        $this->param = $this->param['topics'];
     }
 
     private function getContent() {
@@ -29,7 +37,7 @@ class TopicsWidget extends Widget {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $item['id'], $this->isChecked($item['id']));
                 $content .= Html::tag('span', $item['title'], ['class' => "label-text"]);
             } else {
-                $content .= Html::input('checkbox', $this->prefix . '[]', $item['id']);
+                $content .= Html::input('checkbox', $this->prefix . '[]', $item['id'], $this->isDisabled());
                 $content .= Html::tag('span', $item['title'], ['class' => "label-text"]);
             }
 
@@ -40,20 +48,37 @@ class TopicsWidget extends Widget {
             return '';
         }
 
-        return Html::tag('ul', $content, ['class' => "checkbox-list"]);
+        $content = Html::tag('ul', $content, ['class' => "checkbox-list"]);
+        
+        if ($this->enabled) {
+            $content .= '<a href="" class="clear-all">Clear all</a>';
+        }
+        
+        return $content;;
     }
-
+    
+    protected function isDisabled() {
+        
+        $options = [];
+        
+        if (!$this->enabled) {
+            $options['disabled'] = 'disabled';
+        }
+        
+        return $options;
+    }
+    
     protected function isChecked($id) {
 
         $filtered = $this->param['filtered'];
-
-        if (is_null($filtered)) {
-            return [];
-        } elseif (is_array($filtered) && (array_search($id, $filtered) === false)) {
-            return [];
+        $options = $this->isDisabled();
+        
+        if (is_array($filtered) && (array_search($id, $filtered) === false)) {
+            return $options;
         }
 
-        return ['checked' => 'checked'];
+        $options['checked'] = 'checked';
+        return $options;
     }
 
     public function run() {

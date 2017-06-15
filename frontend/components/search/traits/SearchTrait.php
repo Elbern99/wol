@@ -120,16 +120,63 @@ trait SearchTrait {
         return $this->redirect(array_merge(['/search'], $model->getAttributes()));
     }
     
+    protected function subjectFilterDataArray($model, $oldFilterCreteria, $searchResult) {
+        
+        $articleTypeId = $model->getHeadingModelKey('article');
+
+        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
+            !Yii::$app->request->post('filter_subject_type')) {
+            SearchFilters::setFilter('subject', $this->getCategoriesInArticles($searchResult['format']['article']));
+            return;
+        }
+        
+        SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
+        return;
+    }
+    
+    protected function biographyFilterDataArray($model, $oldFilterCreteria, $searchResult) {
+        
+        $articleTypeId = $model->getHeadingModelKey('biography');
+
+        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
+            !Yii::$app->request->post('filter_biography_type')) {
+            SearchFilters::setFilter('biography', $searchResult['format']['biography']);
+            return;
+        }
+        
+        SearchFilters::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
+        return;
+    }
+    
+    protected function topicsFilterDataArray($model, $oldFilterCreteria, $searchResult) {
+        
+        $articleTypeId = $model->getHeadingModelKey('key_topics');
+
+        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
+            !Yii::$app->request->post('filter_topics_type')) {
+            SearchFilters::setFilter('topics', $searchResult['format']['key_topics']);
+            return;
+        }
+        
+        SearchFilters::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
+        return;
+    }
+    
     protected function postFilteredData($model, $searchResultData) {
         
         $searchResult = unserialize($searchResultData->result);
         $synonyms = false;
         $creteria = $searchResultData->mixSearchCreteriaArray($model->getAttributes());
-
+        $oldFilterCreteria = unserialize($searchResultData->filters);
+        
+   
         SearchFilters::setFilter('types', Yii::$app->request->post('filter_content_type'));
-        SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
-        SearchFilters::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
-        SearchFilters::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
+        $this->subjectFilterDataArray($model, $oldFilterCreteria, $searchResult);
+        $this->biographyFilterDataArray($model, $oldFilterCreteria, $searchResult);
+        $this->topicsFilterDataArray($model, $oldFilterCreteria, $searchResult);
 
         $filterData = $this->getFilterData($model, $searchResult['format'] ?? []);
 

@@ -4,24 +4,31 @@ namespace frontend\components\filters;
 
 use yii\base\Widget;
 use yii\helpers\Html;
+use Yii;
 
 class SubjectAreasWidget extends Widget {
 
     public $param;
     private $prefix = 'filter_subject_type';
+    private $enabled = false;
 
     public function init() {
         parent::init();
+        
+        if (isset($this->param['types']['filtered'])) {
+            $typeObject = Yii::createObject($this->param['types']['data']);
+            $this->enabled = in_array($typeObject->getHeadingModelKey('article'), $this->param['types']['filtered']) ? true : false;
+        }
     }
 
     protected function getFilter() {
 
         $content = '';
-        $categories = $this->param['data'];
-
+        $categories = $this->param['category']['data'];
+        
         if (is_array($categories) && count($categories)) {
 
-            $selected = $this->param['selected'];
+            $selected = $this->param['category']['selected'];
             $nodeDepth = $currDepth = $counter = 1;
             $content .= Html::beginTag('ul', ['class' => 'checkbox-list']);
 
@@ -56,8 +63,8 @@ class SubjectAreasWidget extends Widget {
                 $css = trim($css);
                 $labelContent = '';
 
-                if (is_null($this->param['filtered'])) {
-                    $labelContent .= Html::input('checkbox', $this->prefix . '[]', $node['id']);
+                if (is_null($this->param['category']['filtered'])) {
+                    $labelContent .= Html::input('checkbox', $this->prefix . '[]', $node['id'], $this->isDisabled());
                     $spanContent = $nodeTitle;
                     $labelContent .= Html::tag('span', $spanContent, ['class' => "label-text"]);
                 } elseif (isset($selected[$node['id']])) {
@@ -79,21 +86,41 @@ class SubjectAreasWidget extends Widget {
             $content .= str_repeat("</li></ul>", $nodeDepth - 1) . "</li>";
             $content .= "</ul>";
         }
+        
+        if ($this->enabled) {
+            $content .= '<a href="" class="clear-all">Clear all</a>';
+        }
 
         return $content;
+    }
+    
+    protected function isDisabled() {
+        
+        $options = [];
+        
+        if (!$this->enabled) {
+            $options['disabled'] = 'disabled';
+        }
+        
+        return $options;
     }
 
     protected function isChecked($id) {
 
-        $filtered = $this->param['filtered'];
-
-        if (is_null($filtered)) {
-            return ['checked' => 'checked'];
-        } elseif (is_array($filtered) && (array_search($id, $filtered) === false)) {
-            return [];
+        $filtered = $this->param['category']['filtered'];
+        $options = $this->isDisabled();
+        
+        if (!$this->enabled) {
+            $options['disabled'] = 'disabled';
+        }
+        
+        if (is_array($filtered) && (array_search($id, $filtered) === false)) {
+            return $options;
         }
 
-        return ['checked' => 'checked'];
+        $options['checked'] = 'checked';
+        
+        return $options;
     }
 
     public function run() {
