@@ -15,7 +15,7 @@ class BiographyWidget extends Widget {
     public function init() {
         parent::init();
         
-        if (isset($this->param['types']['filtered'])) {
+        if (is_array($this->param['types']['filtered'])) {
             $typeObject = Yii::createObject($this->param['types']['data']);
             $this->enabled = in_array($typeObject->getHeadingModelKey('biography'), $this->param['types']['filtered']) ? true : false;
         }

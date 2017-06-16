@@ -26,7 +26,7 @@ trait SearchTrait {
             'selected' => $formatData,
             'amount' => [
                 'biography' => SearchFilters::getBiographyCountWithFilters(),
-                'article' => SearchFilters::getArticleCountWithFilters($formatData['article']),
+                'article' => SearchFilters::getArticleCountWithFilters($formatData['article'] ?? []),
                 'key_topics' => SearchFilters::getTopicsCountWithFilters()
             ],
             'filtered' => SearchFilters::getFilter('types')
