@@ -24,9 +24,14 @@ trait SearchTrait {
         $filters['types'] = [
             'data' => AdvancedSearchForm::class,
             'selected' => $formatData,
+            'amount' => [
+                'biography' => SearchFilters::getBiographyCountWithFilters(),
+                'article' => SearchFilters::getArticleCountWithFilters($formatData['article']),
+                'key_topics' => SearchFilters::getTopicsCountWithFilters()
+            ],
             'filtered' => SearchFilters::getFilter('types')
         ];
-        
+
         $filters['category'] = [
             'data' => $this->getSubjectAreas(),
             'selected' => SearchFilters::$articleCategoryIds,
@@ -124,13 +129,14 @@ trait SearchTrait {
         
         $articleTypeId = $model->getHeadingModelKey('article');
 
-        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+        if (is_null($oldFilterCreteria['types']['filtered']) || (
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
             in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_subject_type')) {
+            !Yii::$app->request->post('filter_subject_type'))) {
             SearchFilters::setFilter('subject', $this->getCategoriesInArticles($searchResult['format']['article']));
             return;
         }
-        
+
         SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
         return;
     }
@@ -139,9 +145,10 @@ trait SearchTrait {
         
         $articleTypeId = $model->getHeadingModelKey('biography');
 
-        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+        if (is_null($oldFilterCreteria['types']['filtered']) || (
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
             in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_biography_type')) {
+            !Yii::$app->request->post('filter_biography_type'))) {
             SearchFilters::setFilter('biography', $searchResult['format']['biography']);
             return;
         }
@@ -154,9 +161,10 @@ trait SearchTrait {
         
         $articleTypeId = $model->getHeadingModelKey('key_topics');
 
-        if (!in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
+        if (is_null($oldFilterCreteria['types']['filtered']) || (
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
             in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_topics_type')) {
+            !Yii::$app->request->post('filter_topics_type'))) {
             SearchFilters::setFilter('topics', $searchResult['format']['key_topics']);
             return;
         }

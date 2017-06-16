@@ -93,6 +93,28 @@ class SearchFilters {
 
         self::$articleCategoryIds = ArrayHelper::map($categories, 'category_id', 'cnt');
     }
+    
+    public static function getArticleCountWithFilters($ids) {
+        
+        return ArticleCategory::find()->alias('ac')
+                    ->select('ac.article_id')
+                    ->where(['ac.category_id' => self::getFilter('subject'), 'ac.article_id' => $ids])
+                    ->groupBy('ac.article_id')
+                    ->count();
+    }
 
+    public static function getTopicsCountWithFilters() {
+        
+        return Topic::find()
+                        ->where(['id' => self::getFilter('topics'), 'enabled' => 1])
+                        ->count();
+    }
+    
+    public static function getBiographyCountWithFilters() {
+        
+        return Author::find()
+                        ->where(['id' => self::getFilter('biography'), 'enabled' => 1])
+                        ->count();
+    }
 
 }
