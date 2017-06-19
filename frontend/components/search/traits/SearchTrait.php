@@ -128,48 +128,55 @@ trait SearchTrait {
     protected function subjectFilterDataArray($model, $oldFilterCreteria, $searchResult) {
         
         $articleTypeId = $model->getHeadingModelKey('article');
-
+        $filter = Yii::$app->request->post('filter_subject_type');
+        $types = (is_array(Yii::$app->request->post('filter_content_type'))) ? Yii::$app->request->post('filter_content_type') : [];
+  
         if (is_null($oldFilterCreteria['types']['filtered']) || (
-            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
-            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_subject_type'))) {
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
+            !$filter &&
+            in_array($articleTypeId, $types))) {
             SearchFilters::setFilter('subject', $this->getCategoriesInArticles($searchResult['format']['article']));
             return;
         }
-
-        SearchFilters::setFilter('subject', Yii::$app->request->post('filter_subject_type'));
+        
+        SearchFilters::setFilter('subject', $filter);
         return;
     }
     
     protected function biographyFilterDataArray($model, $oldFilterCreteria, $searchResult) {
         
         $articleTypeId = $model->getHeadingModelKey('biography');
+        $filter = Yii::$app->request->post('filter_biography_type');
+        $types = (is_array(Yii::$app->request->post('filter_content_type'))) ? Yii::$app->request->post('filter_content_type') : [];
 
         if (is_null($oldFilterCreteria['types']['filtered']) || (
-            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
-            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_biography_type'))) {
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
+            !$filter &&
+            in_array($articleTypeId, $types))) {
             SearchFilters::setFilter('biography', $searchResult['format']['biography']);
             return;
         }
-        
-        SearchFilters::setFilter('biography', Yii::$app->request->post('filter_biography_type'));
+
+        SearchFilters::setFilter('biography', $filter);
         return;
     }
     
     protected function topicsFilterDataArray($model, $oldFilterCreteria, $searchResult) {
         
         $articleTypeId = $model->getHeadingModelKey('key_topics');
-
+        $filter = Yii::$app->request->post('filter_topics_type');
+        $types = (is_array(Yii::$app->request->post('filter_content_type'))) ? Yii::$app->request->post('filter_content_type') : [];
+        
         if (is_null($oldFilterCreteria['types']['filtered']) || (
-            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) && 
-            in_array($articleTypeId, Yii::$app->request->post('filter_content_type')) &&
-            !Yii::$app->request->post('filter_topics_type'))) {
+            !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
+            !$filter &&
+            in_array($articleTypeId, $types))) {
             SearchFilters::setFilter('topics', $searchResult['format']['key_topics']);
             return;
         }
         
-        SearchFilters::setFilter('topics', Yii::$app->request->post('filter_topics_type'));
+        
+        SearchFilters::setFilter('topics', $filter);
         return;
     }
     
@@ -178,9 +185,13 @@ trait SearchTrait {
         $searchResult = unserialize($searchResultData->result);
         $synonyms = false;
         $creteria = $searchResultData->mixSearchCreteriaArray($model->getAttributes());
-        $oldFilterCreteria = unserialize($searchResultData->filters);
+        $searchFiltersData = $searchResultData->filters;
+        $oldFilterCreteria = null;
         
-   
+        if ($searchFiltersData) {
+            $oldFilterCreteria = unserialize($searchFiltersData);
+        }
+
         SearchFilters::setFilter('types', Yii::$app->request->post('filter_content_type'));
         $this->subjectFilterDataArray($model, $oldFilterCreteria, $searchResult);
         $this->biographyFilterDataArray($model, $oldFilterCreteria, $searchResult);
