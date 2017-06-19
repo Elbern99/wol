@@ -139,7 +139,7 @@ trait SearchTrait {
             return;
         }
         
-        SearchFilters::setFilter('subject', $filter);
+        SearchFilters::setFilter('subject', (in_array($articleTypeId, $types)) ? $filter : []);
         return;
     }
     
@@ -157,7 +157,7 @@ trait SearchTrait {
             return;
         }
 
-        SearchFilters::setFilter('biography', $filter);
+        SearchFilters::setFilter('biography', (in_array($articleTypeId, $types)) ? $filter : []);
         return;
     }
     
@@ -176,7 +176,7 @@ trait SearchTrait {
         }
         
         
-        SearchFilters::setFilter('topics', $filter);
+        SearchFilters::setFilter('topics', (in_array($articleTypeId, $types)) ? $filter : []);
         return;
     }
     
