@@ -25,9 +25,9 @@ trait SearchTrait {
             'data' => AdvancedSearchForm::class,
             'selected' => $formatData,
             'amount' => [
-                'biography' => SearchFilters::getBiographyCountWithFilters(),
-                'article' => SearchFilters::getArticleCountWithFilters($formatData['article'] ?? []),
-                'key_topics' => SearchFilters::getTopicsCountWithFilters()
+                'biography' => null,
+                'article' => null,
+                'key_topics' => null
             ],
             'filtered' => SearchFilters::getFilter('types')
         ];
