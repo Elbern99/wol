@@ -190,7 +190,7 @@ class Result {
                 ->with(['articleAuthors.author' => function($query) {
                     return $query->alias('au')->where(['au.enabled' => 1]);
                 }])
-                ->with(['articleCategories' => function($query) {
+                ->innerJoinWith(['articleCategories' => function($query) {
                     return $query->select(['category_id', 'article_id']);
                 }])
                 ->where(['a.enabled' => 1, 'a.id' => $ids])

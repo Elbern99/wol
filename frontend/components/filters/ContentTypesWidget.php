@@ -21,6 +21,7 @@ class ContentTypesWidget extends Widget {
     private function getContent() {
 
         $content = '';
+        $amount = $this->param['amount'];
 
         foreach ($this->data->getHeadingFilter() as $key => $item) {
 
@@ -43,7 +44,8 @@ class ContentTypesWidget extends Widget {
             } elseif (isset($selected[$model])) {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $key, $this->isChecked($key));
                 $spanContent = $item;
-                $spanContent .= Html::tag('strong', '(' . count($selected[$model]) . ')', ['class' => "count"]);
+                $cnt  = isset($amount[$model]) ? $amount[$model] : count($selected[$model]);
+                $spanContent .= Html::tag('strong', '(' .$cnt. ')', ['class' => "count"]);
                 $content .= Html::tag('span', $spanContent, ['class' => "label-text"]);
             } else {
                 $content .= Html::input('checkbox', $this->prefix . '[]', $key, ['disabled' => 'disabled']);
