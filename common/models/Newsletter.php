@@ -41,7 +41,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
     public function rules() {
         return [
             [['email', 'first_name', 'last_name'], 'required'],
-            [['interest', 'iza_world', 'iza', 'created_at'], 'integer'],
+            [['interest', 'iza_world', 'iza', 'created_at', 'user_id'], 'integer'],
             [['email', 'first_name', 'last_name', 'areas_interest', 'code'], 'string', 'max' => 255],
             [['email'], 'unique'],
         ];
@@ -89,11 +89,23 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
         return $model;
     }
+    
+    protected function getUserByEmail() {
+        $user = User::find()->select('id')->where(['email' => $this->email])->one();
+        
+        if (is_object($user)) {
+            return $user->id;
+        }
+        
+        return null;
+    }
 
     public function setSubscriber(array $data) {
 
         if ($this->load($data, '') && $this->validate()) {
-
+            
+            $this->user_id = $this->getUserByEmail();
+            
             if ($this->iza || $this->iza_world || $this->interest) {
                
                 $this->setAttribute('code', Yii::$app->security->generateRandomString());

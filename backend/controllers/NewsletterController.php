@@ -12,6 +12,7 @@ use yii\data\ActiveDataProvider;
 use common\models\Newsletter;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 
 /*
  * Newslletter Manager Class Controller
@@ -114,6 +115,76 @@ class NewsletterController extends Controller
         }
              
         return $this->redirect('@web/newsletter/subscribers');
+    }
+    
+    public function actionSubscribersExport() {
+        
+        $folderPath = Yii::$app->basePath.'/runtime/temporary_folder/export';
+        
+        if (!FileHelper::createDirectory($folderPath, 0775, true)) {
+            throw new NotFoundHttpException(Yii::t('app/text','Folder can not be create.'));
+        }
+        
+        $filePath = $folderPath.'/'.'subscribers.csv';
+
+        $parent = Category::find()
+                             ->where(['url_key' => 'articles'])
+                             ->select(['root', 'lvl', 'lft', 'rgt'])
+                             ->one();
+
+        $categories =  $parent->children()
+                            ->select(['id', 'taxonomy_code'])
+                            ->asArray()
+                            ->all();
+        
+        $categories = ArrayHelper::map($categories, 'id', 'taxonomy_code');
+        $subscribers = Newsletter::find()->alias('n')
+                                         ->select([
+                                            'email', 'first_name', 'last_name', 
+                                            'areas_interest', 'interest', 'iza_world', 
+                                            'iza', 'user_id as registered'
+                                         ])
+                                         ->asArray()
+                                         ->all();
+        
+        if (count($subscribers)) {
+            
+            $fp = fopen($filePath, 'w+');
+            fputcsv($fp, ['email', 'first_name', 'last_name', 
+                                            'areas_interest', 'interest', 'iza_world', 
+                                            'iza', 'registered']);
+
+            foreach ($subscribers as $fields) {
+                
+                $areas_interest = explode(',', $fields['areas_interest']);
+                $areas_interest_taxonomy = [];
+                
+                foreach ($areas_interest as $ai) {
+                    if (isset($categories[$ai])) {
+                        $areas_interest_taxonomy[] = $categories[$ai];
+                    }
+
+                }
+                
+                $fields['areas_interest'] = implode(',', $areas_interest_taxonomy);
+                
+                if (is_null($fields['registered'])) {
+                    $fields['registered'] = 0;
+                } else {
+                    $fields['registered'] = 1;
+                }
+                
+                fputcsv($fp, $fields);
+            }
+            
+            fclose($fp);
+        }
+
+        if (file_exists($filePath)) {
+            return Yii::$app->getResponse()->sendContentAsFile(file_get_contents($filePath), 'subscribers.csv');
+        }
+        
+        throw new NotFoundHttpException(Yii::t('app/text','File not exist.'));
     }
     
 }

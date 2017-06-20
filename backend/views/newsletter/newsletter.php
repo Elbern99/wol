@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <!--<p><a class="btn btn-default" role="button" href="<?= Url::toRoute('/newsletter/subscribers-export')?>"><?= Yii::t('app/menu', 'Export (xls)') ?></a></p>-->
+    <p><a class="btn btn-default" role="button" href="<?= Url::toRoute('/newsletter/subscribers-export')?>"><?= Yii::t('app/menu', 'Export') ?></a></p>
     
     <div class="row content">
         <div class="col-sm-12 sidenav">
