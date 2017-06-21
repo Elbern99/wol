@@ -604,7 +604,7 @@ trait ArticleParseTrait {
                 $fullCitation .= ' '.$titleItalics;
                 $fullCitation .= ' '. (string)$ref->series->title;
                 if ($ref->series->idno) {
-                    $fullCitation .= ', '.(string)$ref->series->idno;
+                    $fullCitation .= ', No.'.(string)$ref->series->idno;
                 }
                 if ($date) {
                     $fullCitation .= ', '.$date;
@@ -949,7 +949,7 @@ trait ArticleParseTrait {
                 $fullCitation .= ' '.$titleItalics;
                 $fullCitation .= ' '. (string)$ref->series->title;
                 if ($ref->series->idno) {
-                    $fullCitation .= ', '.(string)$ref->series->idno;
+                    $fullCitation .= ', No.'.(string)$ref->series->idno;
                 }
                 if ($date) {
                     $fullCitation .= ', '.$date;
@@ -1255,7 +1255,7 @@ trait ArticleParseTrait {
                 $fullCitation .= ' '.$titleItalics;
                 $fullCitation .= ' '. (string)$read->series->title;
                 if ($read->series->idno) {
-                    $fullCitation .= ', '.(string)$read->series->idno;
+                    $fullCitation .= ', No.'.(string)$read->series->idno;
                 }
                 if ($date) {
                     $fullCitation .= ', '.$date;
