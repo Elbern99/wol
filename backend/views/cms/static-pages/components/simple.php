@@ -53,3 +53,4 @@ use kartik\file\FileInput;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php $this->registerJs("CKEDITOR.config.extraPlugins = 'h1_b,h2_b,h3_b';",5); ?>
