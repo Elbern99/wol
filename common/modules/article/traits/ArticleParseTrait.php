@@ -564,7 +564,7 @@ trait ArticleParseTrait {
                 $authorsText = (string) implode(', ', $authors);
             } else {
                 $authorsText = (string) implode(', ', $editors);
-                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
+                $authorsText .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
             }
             
             $dateBracket = ($date) ? ' ('.$date.')': '';
@@ -582,6 +582,7 @@ trait ArticleParseTrait {
                 
                 if (count($editors) && count($authors)) {
                     $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
                 $fullCitation .= ' '.$titleItalics.', ';
@@ -908,7 +909,7 @@ trait ArticleParseTrait {
                 $authorsText = (string) implode(', ', $authors);
             } else {
                 $authorsText = (string) implode(', ', $editors);
-                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
+                $authorsText .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
             }
             
             $dateBracket = ($date) ? ' ('.$date.')': '';
@@ -926,6 +927,7 @@ trait ArticleParseTrait {
                 
                 if (count($editors) && count($authors)) {
                     $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
                 $fullCitation .= ' '.$titleItalics.', ';
@@ -1187,7 +1189,7 @@ trait ArticleParseTrait {
                 $authorsText = (string) implode(', ', $authors);
             } else {
                 $authorsText = (string) implode(', ', $editors);
-                $authorsText .= (count($editors) > 1) ? ' eds.' : ' ed.';
+                $authorsText .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
             }
             $dateBracket = ($date) ? ' ('.$date.')': '';
             $titleQuotes = '"'.$analitics->title.'"';
@@ -1232,6 +1234,7 @@ trait ArticleParseTrait {
                 
                 if (count($editors) && count($authors)) {
                     $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
                 $fullCitation .= ' '.$titleItalics.', ';
