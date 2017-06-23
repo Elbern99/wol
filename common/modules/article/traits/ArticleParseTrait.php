@@ -496,6 +496,8 @@ trait ArticleParseTrait {
                 }
             }
             
+            $includeEditor = (count($authorsTitle)) ? false : true;
+            
             if (isset($monogr->editor)) {
 
                 foreach ($monogr->editor as $editor) {
@@ -505,7 +507,9 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
-                        $authorsTitle[] = (string) $editor->persName->surname;
+                        if ($includeEditor) {
+                            $authorsTitle[] = (string) $editor->persName->surname;
+                        }
                         $forenameArray = [];
                         
                         if (isset($editor->persName->forename)) {
@@ -585,7 +589,7 @@ trait ArticleParseTrait {
                     $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
-                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= ' '.$titleItalics.'. ';
                 $fullCitation .= $pubPlace.': ';
                 $fullCitation .= $publisher;
 
@@ -629,12 +633,15 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
                 
                 $fullCitation .= '.';
-                $fullCitation .= ' '.$doi;
                 
             } elseif ($referencesType == 'j' && $date) {
                  
@@ -655,6 +662,10 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
@@ -823,6 +834,8 @@ trait ArticleParseTrait {
                 }
             }
             
+            $includeEditor = (count($authorsTitle)) ? false : true;
+            
             if (isset($monogr->editor)) {
 
                 foreach ($monogr->editor as $editor) {
@@ -832,7 +845,11 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
-                        $authorsTitle[] = (string) $editor->persName->surname;
+                        
+                        if ($includeEditor) {
+                            $authorsTitle[] = (string) $editor->persName->surname;
+                        }
+                        
                         $forenameArray = [];
                         
                         if (isset($editor->persName->forename)) {
@@ -930,7 +947,7 @@ trait ArticleParseTrait {
                     $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
-                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= ' '.$titleItalics.'. ';
                 $fullCitation .= $pubPlace.': ';
                 $fullCitation .= $publisher;
 
@@ -973,12 +990,16 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                    
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
                 
                 $fullCitation .= '.';
-                $fullCitation .= ' '.$doi;
                 
             } elseif ($referencesType == 'j' && $date) {
                  
@@ -999,6 +1020,10 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
@@ -1148,6 +1173,8 @@ trait ArticleParseTrait {
                 }
             }
             
+            $includeEditor = (count($authorsTitle)) ? false : true;
+            
             if (isset($monogr->editor)) {
 
                 foreach ($monogr->editor as $editor) {
@@ -1157,8 +1184,9 @@ trait ArticleParseTrait {
                     if (isset($editor->persName)) {
                         
                         $name = (string) $editor->persName->surname.', ';
-                        $authorsTitle[] = (string) $editor->persName->surname;
-                        
+                        if ($includeEditor) {
+                            $authorsTitle[] = (string) $editor->persName->surname;
+                        }
                         $forenameArray = [];
                         
                         if (isset($editor->persName->forename)) {
@@ -1237,7 +1265,7 @@ trait ArticleParseTrait {
                     $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
                 }
                 
-                $fullCitation .= ' '.$titleItalics.', ';
+                $fullCitation .= ' '.$titleItalics.'. ';
                 $fullCitation .= $pubPlace.': ';
                 $fullCitation .= $publisher;
                 if ($date) {
@@ -1280,12 +1308,15 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
                 
                 $fullCitation .= '.';
-                $fullCitation .= ' '.$doi;
                 
             } elseif ($referencesType == 'j' && $date) {
                  
@@ -1306,6 +1337,10 @@ trait ArticleParseTrait {
                     if ($biblScope_pp) {
                         $fullCitation .= ': '.$biblScope_pp;
                     }
+                } elseif ($biblScope_vol && $biblScope_pp) {
+                    $fullCitation .= ' '.$biblScope_vol.' ';
+                    $fullCitation .= $dateBracket;
+                    $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
                 }
