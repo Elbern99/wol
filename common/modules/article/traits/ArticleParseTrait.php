@@ -672,6 +672,33 @@ trait ArticleParseTrait {
                 
                 $fullCitation .= '.';
                 
+            } elseif ($referencesType == 'a' && $publisher) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors) && count($authors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
+                }
+                
+                $fullCitation .= ' "'.$monogr->title.'". ';
+                $note = (string)$monogr->note;
+                
+                if ($note) {
+                    $fullCitation .= $note.', ';
+                }
+                
+                $fullCitation .= $publisher;
+
+                if ($date) {
+                    $fullCitation .= ', '. $date;
+                }
+                
+                $fullCitation .= '.';
+                
             } else {
                 
                 $fullCitation = $authorsText;
@@ -1030,6 +1057,33 @@ trait ArticleParseTrait {
                 
                 $fullCitation .= '.';
                 
+            } elseif ($referencesType == 'a' && $publisher) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors) && count($authors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
+                }
+                
+                $fullCitation .= ' "'.$monogr->title.'". ';
+                $note = (string)$monogr->note;
+                
+                if ($note) {
+                    $fullCitation .= $note.', ';
+                }
+                
+                $fullCitation .= $publisher;
+
+                if ($date) {
+                    $fullCitation .= ', '. $date;
+                }
+                
+                $fullCitation .= '.';
+                
             } else {
                 
                 $fullCitation = $authorsText;
@@ -1343,6 +1397,33 @@ trait ArticleParseTrait {
                     $fullCitation .= ': '.$biblScope_pp;
                 } else {
                     $fullCitation .= ' '.$dateBracket;
+                }
+                
+                $fullCitation .= '.';
+                
+            } elseif ($referencesType == 'a' && $publisher) {
+                
+                $fullCitation = $authorsText;
+                if ($analitics->title) {
+                    $fullCitation .= ' '.$titleQuotes;
+                }
+                
+                if (count($editors) && count($authors)) {
+                    $fullCitation .= ' In: '. (string)implode(', ', $editors);
+                    $fullCitation .= (count($editors) > 1) ? ' (eds).' : ' (ed).';
+                }
+                
+                $fullCitation .= ' "'.$monogr->title.'". ';
+                $note = (string)$monogr->note;
+                
+                if ($note) {
+                    $fullCitation .= $note.', ';
+                }
+                
+                $fullCitation .= $publisher;
+
+                if ($date) {
+                    $fullCitation .= ', '. $date;
                 }
                 
                 $fullCitation .= '.';
