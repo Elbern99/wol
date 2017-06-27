@@ -72,8 +72,12 @@ class SearchController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 
-                Result::setSearchParams($model->getAttributes());
+                if (($search_phrase != $model->search_phrase) && is_null($model->types)) {
+                    $model->types = $model->getTypeIds();
+                }
                 
+                Result::setSearchParams($model->getAttributes());
+
                 if (($search_phrase != $model->search_phrase) && $model->validate()) {
                     return $this->postResearchData($model, $searchResultId, $searchResultData);
                 }

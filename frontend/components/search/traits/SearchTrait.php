@@ -135,7 +135,7 @@ trait SearchTrait {
             !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
             !$filter &&
             in_array($articleTypeId, $types))) {
-            SearchFilters::setFilter('subject', $this->getCategoriesInArticles($searchResult['format']['article']));
+            SearchFilters::setFilter('subject', $this->getCategoriesInArticles($searchResult['format']['article'] ?? []));
             return;
         }
         
@@ -144,7 +144,7 @@ trait SearchTrait {
     }
     
     protected function biographyFilterDataArray($model, $oldFilterCreteria, $searchResult) {
-        
+
         $articleTypeId = $model->getHeadingModelKey('biography');
         $filter = Yii::$app->request->post('filter_biography_type');
         $types = (is_array(Yii::$app->request->post('filter_content_type'))) ? Yii::$app->request->post('filter_content_type') : [];
@@ -153,7 +153,7 @@ trait SearchTrait {
             !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
             !$filter &&
             in_array($articleTypeId, $types))) {
-            SearchFilters::setFilter('biography', $searchResult['format']['biography']);
+            SearchFilters::setFilter('biography', $searchResult['format']['biography'] ?? []);
             return;
         }
 
@@ -171,7 +171,7 @@ trait SearchTrait {
             !in_array($articleTypeId, $oldFilterCreteria['types']['filtered']) &&
             !$filter &&
             in_array($articleTypeId, $types))) {
-            SearchFilters::setFilter('topics', $searchResult['format']['key_topics']);
+            SearchFilters::setFilter('topics', $searchResult['format']['key_topics'] ?? []);
             return;
         }
         
