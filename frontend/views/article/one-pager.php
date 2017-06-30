@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use frontend\models\AdvancedSearchForm;
 use common\modules\eav\helper\EavAttributeHelper;
+use frontend\assets\ArticleAsset;
 ?>
 
 <?php
@@ -100,12 +101,7 @@ array(
         'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
 ));
 
-$this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/leaflet.js');
-$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerCssFile('/css/leaflet.css');
+ArticleAsset::register($this);
     
 $config = [
         'json_path' => '/json/countries.geo.json',

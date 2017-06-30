@@ -7,6 +7,7 @@ use frontend\components\filters\SubjectAreasWidget;
 use frontend\components\filters\BiographyWidget;
 use frontend\components\filters\TopicsWidget;
 use yii\widgets\ActiveForm;
+use frontend\assets\ResultSearchAsset;
 ?>
 
 <?php
@@ -14,9 +15,7 @@ $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
 $this->title = $prefixTitle.'Search Result For ';
 $this->params['breadcrumbs'][] = Html::encode('Search Result For ');
 
-$this->registerJsFile('/js/plugins/mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/jquery.mark.min.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\YiiAsset']]);
+ResultSearchAsset::register($this);
 $this->registerJs("var synonymWords = ".json_encode($synonyms), 3);
 
 $currentUrl[] = '/search';

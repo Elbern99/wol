@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use frontend\assets\AdvancedSearchAsset;
 ?>
 
 <?php
@@ -19,11 +20,7 @@ $this->registerMetaTag([
     'content' => Html::encode($this->title)
 ]);
 
-$this->registerJsFile('/js/plugins/jqueryui.min.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/tag-it.min.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/advanced-search.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerCssFile('/css/plugins/jquery.tagit.css');
-$this->registerCssFile('/css/plugins/tagit.ui-zendesk.css');
+AdvancedSearchAsset::register($this);
 ?>
 
 <div class="container content-inner search-site">

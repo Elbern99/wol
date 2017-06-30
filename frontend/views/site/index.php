@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use frontend\components\articles\SubjectAreas;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
-
+use frontend\assets\TwitterAsset;
 use common\models\NewsItem;
 
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
@@ -30,6 +30,8 @@ if ($googleVerification) {
         'content' => $googleVerification
     ]);
 }
+
+TwitterAsset::register($this);
 ?>
 
 <div class="home-page">
@@ -225,7 +227,6 @@ if ($googleVerification) {
                         <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>">
                             Tweets by IZAWorldofLabor
                         </a>
-                        <?= $this->registerJsFile('/js/plugins/twitter.js', ['async' => 'async', 'charset' => 'utf-8']) ?>
                         <a href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @IZAWorldofLabor</a>
                     </div>
                 </aside>

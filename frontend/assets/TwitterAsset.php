@@ -7,17 +7,17 @@ use yii\web\AssetBundle;
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class TwitterAsset extends AssetBundle
 {
+    public $jsOptions = ['position' => \yii\web\View::POS_END, 'async' => 'async', 'charset' => 'utf-8'];
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
     ];
     public $js = [
-    	'js/base.js',
+    	'js/plugins/twitter.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset'
+        'yii\web\YiiAsset',
     ];
 }

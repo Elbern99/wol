@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use frontend\models\AdvancedSearchForm;
+use frontend\assets\MapAsset;
 ?>
 
 <?php
@@ -37,12 +38,7 @@ $this->registerMetaTag([
     'content' => Html::encode($attributes['teaser']->getData('teaser'))
 ]);
 
-$this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/leaflet.js');
-$this->registerJsFile('/js/plugins/icon.label.js');
-$this->registerJsFile('/js/pages/map.js', ['depends' => ['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerCssFile('/css/leaflet.css');
+MapAsset::register($this);
 ?>
 
 <?php
@@ -123,7 +119,7 @@ $this->registerCssFile('/css/leaflet.css');
         'share_text_for_email' => $mailArticleShare
     ];
     
-    $this->registerJs("var mapConfig = ".json_encode($config), 3);
+    $this->registerJs("var mapConfig = ".json_encode($config), 2);
 
     $mailMap = Yii::$app->view->renderFile('@app/views/emails/defMailto.php', [
         'articleTitle' => $attributes['title']->getData('title'),

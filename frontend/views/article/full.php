@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use frontend\models\AdvancedSearchForm;
 use common\modules\eav\helper\EavAttributeHelper;
+use frontend\assets\ArticleAsset;
 ?>
 
 <?php
@@ -70,12 +71,7 @@ $this->registerMetaTag([
     'content' => Url::to(EavAttributeHelper::getAttribute('full_pdf')->getData('url'), true)
 ]);
 
-$this->registerJsFile('/js/plugins/scrollend.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/share-text.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/article.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/pages/keywords-search.js', ['depends'=>['yii\web\YiiAsset']]);
-$this->registerJsFile('/js/plugins/leaflet.js');
-$this->registerCssFile('/css/leaflet.css');
+ArticleAsset::register($this);
 
 $authorsList = [];
 
