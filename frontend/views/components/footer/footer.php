@@ -1,8 +1,13 @@
+<?php
+
+?>
 <?= $this->renderFile('@app/views/components/footer/sticky_newsletter.php'); ?>
 <div class="footer-left">
     <a href="/" class="logo-main">
-        <img src="<?= common\modules\settings\SettingsRepository::get('logo') ?>" alt="IZA World of Labor" title="IZA World of Labor" />
+        <?= common\modules\settings\SettingsRepository::get('logo') ?>
     </a>
+    <br>
+    <?= common\modules\settings\SettingsRepository::get('second_logo') ?>
 </div>
 
 <div class="footer-middle">

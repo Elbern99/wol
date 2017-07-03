@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "settings".
@@ -56,8 +57,16 @@ class Settings extends \yii\db\ActiveRecord
 
     public function upload($file, $type) {
 
+        $upload = UploadedFile::getInstanceByName('image');
+        $validator = new \yii\validators\ImageValidator();
+        
+        if (!$validator->validate($upload)) {
+            return false;
+        }
+        
         $fileName = basename($file['name']);
         $targetFile = Yii::getAlias('@frontend').'/web'.$this->getBaseFolder().$type;
+        
 
         if (!is_dir($targetFile)) {
 
@@ -71,5 +80,20 @@ class Settings extends \yii\db\ActiveRecord
         }
         
         return false;
+    }
+    
+    public function validatePost(array $items) {
+        
+        $validated = [];
+        $validator = new \yii\validators\StringValidator();
+        
+        foreach ($items as $key => $item) {
+            
+            if ($validator->validate($item)) {
+                $validated[$key] = $item;
+            }
+        }
+        
+        return $validated;
     }
 }
