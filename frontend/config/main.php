@@ -44,6 +44,11 @@ return [
             'csrfParam' => '_csrf-frontend',
             'web'=> '/frontend/web'
         ],
+        'imageCache' => [
+            'class' => 'frontend\components\image\ImageCache',
+            'baseFolder' => '/uploads/',
+            'cacheFolder' => '/uploads/cache',
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

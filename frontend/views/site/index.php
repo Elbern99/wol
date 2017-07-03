@@ -210,7 +210,7 @@ TwitterAsset::register($this);
                             <div class="data-method-list">
                                 <?php foreach ($topics as $topic): ?>
                                 <a href="<?= Url::to(['/topic/view', 'slug' => $topic['url_key']]) ?>" class="data-method-item gray">
-                                    <div class="img"><img src="<?= Url::to('/uploads/topics/' . $topic['image_link']) ?>" alt=""></div>
+                                    <div class="img"><img src="<?= Yii::$app->imageCache->getImgSrc('/uploads/topics/'.$topic['image_link'],'297','231') ?>" alt=""></div>
                                     <div class="caption">
                                         <span class="icon-arrow-square-blue">
                                             <span class="path1"></span><span class="path2"></span><span class="path3"></span>
