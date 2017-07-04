@@ -23,7 +23,7 @@ class SecondLogoWidget extends Widget {
         }
         
         if (isset($this->param['url']) && $content) {
-            $content = Html::a($content, Url::to($this->param['url']), ['target' => 'blank']);
+            $content = Html::a($content, Url::to($this->param['url']), ['target' => '_blank', 'class' => 'logo-second']);
         }
         
         return $content;
