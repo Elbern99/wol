@@ -60,21 +60,22 @@ trait NewsTrait {
     
     protected function getNewsList($limit = 10, $year = null, $month = null)
     {
-        $newsQuery = NewsItem::find()->orderBy('created_at desc');
+        $newsQuery = NewsItem::find()->select(['url_key', 'image_link', 'created_at', 'title', 'short_description', 'sources']);
         
         if ($month && $year) {
-           $newsQuery->andWhere([
+            $newsQuery->andWhere([
                 'MONTH(created_at)' => $month,
                 'YEAR(created_at)' => $year,
             ]);
-        }
-        else if (!$month && $year) {
+        } else if (!$month && $year) {
             $newsQuery->andWhere([
                 'YEAR(created_at)' => $year,
             ]);
         }
         
-        return $newsQuery->andWhere(['enabled' => 1])->limit($limit)
+        return $newsQuery->andWhere(['enabled' => 1])
+                         ->limit($limit)
+                         ->orderBy('created_at desc')
                          ->all();
     }
     

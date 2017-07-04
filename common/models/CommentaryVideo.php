@@ -3,7 +3,7 @@
 namespace common\models;
 
 use common\models\Video;
-
+use yii\helpers\ArrayHelper;
 use Yii;
 
 class CommentaryVideo extends \yii\db\ActiveRecord
@@ -49,13 +49,8 @@ class CommentaryVideo extends \yii\db\ActiveRecord
     
     public static function videosListIds()
     {
-        $commentaryVideos = CommentaryVideo::find()->select('video_id')->all();
-        $videos = [];
-        foreach ($commentaryVideos as $video) {
-            $currentVideo = Video::find()->where(['=', 'id', $video->video_id])->one();
-            $videos[] = $currentVideo->id; 
-        }
-        return implode(',', $videos);
+        $commentaryVideos = CommentaryVideo::find()->select('video_id')->asArray()->all();
+        return ArrayHelper::getColumn($commentaryVideos, 'video_id');
     }
     /**
      * @inheritdoc

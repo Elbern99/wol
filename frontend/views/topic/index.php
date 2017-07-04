@@ -35,7 +35,7 @@ if ($category) {
                     <?= Html::beginTag('a', [
                         'href' => Url::to(['/topic/view', 'slug' => $topic['url_key']]),
                         'class' => 'key-topics-item has-image',
-                        'style' => 'background-image: url(/uploads/topics/' . $topic['image_link']  .')',
+                        'style' => 'background-image: url(' .Yii::$app->imageCache->getImgSrc('/uploads/topics/'.$topic['image_link'],'297','239').')',
                     ]) ?>
                     <?php else : ?>
                         <?=

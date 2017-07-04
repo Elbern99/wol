@@ -18,6 +18,7 @@ trait CommentaryTrait {
     protected function getOpinionsList($limit = null)
     {
         $query = Opinion::find()
+                        ->select(['id','title', 'url_key', 'image_link', 'created_at', 'short_description'])
                         ->with(['opinionAuthors' => function($query) {
                             return $query->select(['opinion_id','author_name', 'author_url'])->orderBy('author_order')->asArray();
                         }])

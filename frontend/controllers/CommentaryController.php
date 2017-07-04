@@ -22,22 +22,18 @@ class CommentaryController extends Controller {
     
     private $mainCategory = 'commentary';
     
-    public function _getVideosList($limit = null)
+    protected function getVideosList($limit = null)
     {
         $ids = CommentaryVideo::videosListIds();
+        $video = Video::find();
+        
         if ($ids) {
-           return Video::find()
-                        ->orderBy('id desc')
-                        ->where('id IN('.$ids.')')
-                        ->limit($limit)
-                        ->all(); 
+            $video->where(['id' => $ids]);
         }
-        else {
-            return Video::find()
-                        ->orderBy('id desc')
-                        ->limit($limit)
-                        ->all(); 
-        }
+        
+        return  $video->limit($limit)
+                    ->orderBy(['id' => SORT_DESC])
+                    ->all();
         
     }
     
@@ -70,16 +66,15 @@ class CommentaryController extends Controller {
         $hasVideo = false;
         
         if ($ids) {
-            $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
+            $videosQuery = Video::find()->where(['id' => $ids])->orderBy('id desc');
             $hasVideo = true;
-        }
-        else {
+        } else {
             $videosQuery = Video::find()->orderBy('id desc');
         }
         
         return $this->render('index', [
             'opinions' => $this->getOpinionsList($opinionLimit),
-            'videos' => $this->_getVideosList($videoLimit),
+            'videos' => $this->getVideosList($videoLimit),
             'category' => $this->getMainCategory($this->mainCategory),
             'opinionsCount' => count($opinions),
             'videosCount' => $videosQuery->count(),
@@ -111,10 +106,10 @@ class CommentaryController extends Controller {
         }
         
         $ids = CommentaryVideo::videosListIds();
-        $videosQuery = Video::find()->orderBy('id desc')->where('id IN('.$ids.')');
+        $videosQuery = Video::find()->where(['id' => $ids])->orderBy('id desc');
         
         return $this->renderAjax('_videos', [
-            'videos' => $this->_getVideosList($videoLimit),
+            'videos' => $this->getVideosList($videoLimit),
             'videoLimit' => $videoLimit,
             'videosCount' => $videosQuery->count()
         ]);
