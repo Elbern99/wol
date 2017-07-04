@@ -33,7 +33,7 @@
 
   .logo-main {
     @include breakpoint_custom($breakpoint-tablet) {
-      margin-bottom: 17px;
+      margin-bottom: 12px;
       width: 135px;
       height: 41px;
       overflow: hidden;

@@ -24,6 +24,39 @@
   }
 }
 
+.logo-second {
+  display: inline-block;
+  width: 135px;
+  position: relative;
+
+  @include breakpoint('tablet') {
+    width: 120px;
+  }
+
+  img {
+    height: 64px;
+    width: 100%;
+
+    @include breakpoint('tablet') {
+      height: 64px;
+    }
+  }
+}
+
+.footer-logos-list {
+  margin-bottom: 15px;
+
+  @include breakpoint('tablet') {
+    margin-bottom: -46px;
+  }
+
+  .item {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 //HEADER-BACKGROUND
 .header-background {
   height: calc(40vh);

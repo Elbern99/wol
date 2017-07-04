@@ -3,11 +3,29 @@
 ?>
 <?= $this->renderFile('@app/views/components/footer/sticky_newsletter.php'); ?>
 <div class="footer-left">
-    <a href="/" class="logo-main">
-        <?= common\modules\settings\SettingsRepository::get('logo') ?>
-    </a>
-    <br>
-    <?= common\modules\settings\SettingsRepository::get('second_logo') ?>
+    <div class="footer-logos-list">
+        <div class="item">
+            <a href="/" class="logo-main">
+                <img src="/uploads/settings/logo/logo-main.svg" alt="">
+            </a>
+        </div>
+        <div class="item">
+            <a href="" class="logo-second">
+                <img src="/frontend/web/images/temp/IZA_Institute_of_Labor_Economics.svg" alt="">
+            </a>
+        </div>
+    </div>
+
+<!--    <div class="footer-logos-list">-->
+<!--        <div class="item">-->
+<!--            <a href="/" class="logo-main">-->
+<!--                --><?// common\modules\settings\SettingsRepository::get('logo') ?>
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--            --><?// common\modules\settings\SettingsRepository::get('second_logo') ?>
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <div class="footer-middle">
