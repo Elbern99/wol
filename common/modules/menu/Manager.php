@@ -7,20 +7,26 @@ use common\models\MenuLinks;
 use common\modules\menu\contracts\MenuManagerInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use Yii;
 
 class Manager implements MenuManagerInterface {
 
     private $category;
     private $links;
+    private $data;
+    static $cache_key = 'site_menu';
 
     public function __construct(Category $category, MenuLinks $links) {
-
-        $this->setCategoryTree($category);
-        $this->setGroupLinks($links);
+        $this->init($category, $links);
+    }
+    
+    public function getData() {
+        
+        return $this->data;
     }
 
     private function setCategoryTree($category) {
-
+        
         $this->category = $category->find()->select([
                     'id', 'title', 'url_key',
                     'root', 'lvl', 'lft', 'rgt'
@@ -47,8 +53,31 @@ class Manager implements MenuManagerInterface {
             $this->links[$data['type']][] = $data;
         }
     }
+    
+    private function init($category, $links) {
+        
+        $cache = Yii::$app->cache;
+        $data = $cache->get(self::$cache_key);
+        
+        if (!$data) {
+            
+            $this->setCategoryTree($category);
+            $this->setGroupLinks($links);
+            
+            $this->data = [
+                'top' => $this->getTopMenu(),
+                'bottom' => $this->getBottomMenu(),
+                'main' => $this->getMainMenu()
+            ];
 
-    public function getTopMenu() {
+            $cache->set(self::$cache_key, $this->data, 86400);
+            return;
+        }
+        
+        $this->data = $data;
+    }
+
+    protected function getTopMenu() {
 
         $content = '';
         
@@ -79,7 +108,7 @@ class Manager implements MenuManagerInterface {
         return $content;
     }
 
-    public function getMainMenu() {
+    protected function getMainMenu() {
 
         $content = '';
 
@@ -133,7 +162,7 @@ class Manager implements MenuManagerInterface {
         return $content;
     }
 
-    public function getBottomMenu() {
+    protected function getBottomMenu() {
 
         $content = '';
 

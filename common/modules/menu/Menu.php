@@ -10,10 +10,12 @@ class Menu {
     static $bottom = null;
     
     public static function instance(MenuManagerInterface $manager) {
+
+        $data = $manager->getData();
         
-        self::$top = $manager->getTopMenu();
-        self::$bottom = $manager->getBottomMenu();
-        self::$main =  $manager->getMainMenu();
+        self::$top = $data['top'];
+        self::$bottom = $data['bottom'];
+        self::$main =  $data['main'];
     } 
 }
 
