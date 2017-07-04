@@ -58,12 +58,12 @@ class Settings extends \yii\db\ActiveRecord
     public function upload($file, $type) {
 
         $upload = UploadedFile::getInstanceByName('image');
-        /*$validator = new \yii\validators\ImageValidator();
+        $validator = new \yii\validators\FileValidator();
         $validator->extensions = ['jpg', 'gif', 'png', 'bmp', 'jpeg', 'jepg', 'svg'];
 
         if (!$validator->validate($upload)) {
             return false;
-        }*/
+        }
         
         $fileName = basename($file['name']);
         $targetFile = Yii::getAlias('@frontend').'/web'.$this->getBaseFolder().$type;
