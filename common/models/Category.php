@@ -5,6 +5,7 @@ namespace common\models;
 use kartik\tree\TreeView;
 use Yii;
 use yii\helpers\Html;
+use common\models\cache\ClearCategoryCache;
 
 class Category extends \kartik\tree\models\Tree {
 
@@ -28,17 +29,22 @@ class Category extends \kartik\tree\models\Tree {
         
         parent::afterSave($insert, $changedAttributes);
 
+        $cache = new ClearCategoryCache();
+        
         if (!$this->system) {
             
             $rewrite_path = '/category/' . $this->id;
             $params = ['current_path'=>$this->getCategoryPath(), 'rewrite_path'=>$rewrite_path];
             \Yii::$container->get('Rewrite')->autoCreateRewrite($params);
         }
+        
+        $cache->clear();
     }
     
     public function beforeDelete() {
         
         $cildrens = $this->children()->all();
+        $cache = new ClearCategoryCache();
         
         if (count($cildrens)) {
             
@@ -50,7 +56,9 @@ class Category extends \kartik\tree\models\Tree {
             $rewrite_paths = '/category/' .$this->id;
         }
 
+        $cache->clear();
         \Yii::$container->get('Rewrite')->autoRemoveRewrite($rewrite_paths);
+        
         return parent::beforeDelete();
     }
     
@@ -81,6 +89,9 @@ class Category extends \kartik\tree\models\Tree {
          * @var Tree $this
          * @var Tree $child
          */
+        $cache = new ClearCategoryCache();
+        $cache->clear();
+        
         if ($softDelete == true) {
             $this->nodeRemovalErrors = [];
             $module = TreeView::module();

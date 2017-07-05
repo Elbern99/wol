@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use common\models\cache\ClearSettingsCache;
 
 /*
  * Video Manager Class Controller
@@ -97,6 +98,8 @@ class SettingsController extends Controller
             
             $model->value = serialize($serialiseData);
             $model->save();
+            $cache = new ClearSettingsCache();
+            $cache->clear();
         }
         
         Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'Setting save success'), false);

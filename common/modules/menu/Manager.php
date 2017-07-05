@@ -8,13 +8,13 @@ use common\modules\menu\contracts\MenuManagerInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use Yii;
+use common\contracts\cache\MenuCache;
 
 class Manager implements MenuManagerInterface {
 
     private $category;
     private $links;
     private $data;
-    static $cache_key = 'site_menu';
 
     public function __construct(Category $category, MenuLinks $links) {
         $this->init($category, $links);
@@ -57,7 +57,7 @@ class Manager implements MenuManagerInterface {
     private function init($category, $links) {
         
         $cache = Yii::$app->cache;
-        $data = $cache->get(self::$cache_key);
+        $data = $cache->get(MenuCache::cache_key);
         
         if (!$data) {
             
@@ -70,7 +70,7 @@ class Manager implements MenuManagerInterface {
                 'main' => $this->getMainMenu()
             ];
 
-            $cache->set(self::$cache_key, $this->data, 86400);
+            $cache->set(MenuCache::cache_key, $this->data, 86400);
             return;
         }
         
