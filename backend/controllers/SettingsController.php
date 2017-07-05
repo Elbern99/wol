@@ -86,16 +86,21 @@ class SettingsController extends Controller
         if (isset($_FILES['image'])) {
             
             $filename = $model->upload($_FILES['image'], $model->name);
-            
+
             if ($filename) {
                 $serialiseData['image'] = $filename;
+            } else {
+                $value = ($model->value) ? unserialize($model->value) : [];
+                
+                if (isset($value['image'])) {
+                    $serialiseData['image'] = $value['image'];
+                }
             }
         }
         
-        $serialiseData = array_merge($serialiseData, $postData);
-        
+        $serialiseData = array_merge($serialiseData, $model->validatePost($postData));
+
         if (!empty($serialiseData)) {
-            
             $model->value = serialize($serialiseData);
             $model->save();
             $cache = new ClearSettingsCache();
