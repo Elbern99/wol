@@ -28,29 +28,37 @@
   display: inline-block;
   width: 135px;
   position: relative;
+  height: 58px;
 
   @include breakpoint('tablet') {
+    height: 53px;
     width: 120px;
   }
 
   img {
-    height: 64px;
+    height: 58px;
     width: 100%;
 
     @include breakpoint('tablet') {
-      height: 64px;
+      height: 53px;
     }
   }
 }
 
 .footer-logos-list {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 
   @include breakpoint('tablet') {
     margin-bottom: -46px;
   }
 
   .item {
+    margin-bottom: 0;
+
+    @include breakpoint('tablet') {
+      margin-bottom: 24px;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
