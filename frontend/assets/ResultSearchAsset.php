@@ -15,7 +15,6 @@ class ResultSearchAsset extends AssetBundle
     public $css = [
     ];
     public $js = [
-    	'js/plugins/mark.min.js',
         'js/plugins/jquery.mark.min.js',
         'js/pages/advanced-search.js',
     ];
