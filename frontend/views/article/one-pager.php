@@ -227,7 +227,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 </div>
             </div>
 
-            <h2>Elevator pitch</h2>
+            <h2><?= Yii::t('app/article', 'Elevator pitch') ?></h2>
             <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
             <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
             <figure>
@@ -240,16 +240,16 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <?php endif; ?>
             </figure>
 
-            <h2>Key findings</h2>
+            <h2><?= Yii::t('app/article', 'Key findings') ?></h2>
             <div class="article-columns">
                 <div class="clumn">
-                    <h3>Pros</h3>
+                    <h3><?= Yii::t('app/article', 'Pros') ?></h3>
                     <?php foreach (EavAttributeHelper::getAttribute('findings_positive')->getData(null, $currentLang) as $finding): ?>
                         <p><?= $finding->item ?></p>
                     <?php endforeach; ?>
                 </div>
                 <div class="clumn">
-                    <h3>Cons</h3>
+                    <h3><?= Yii::t('app/article', 'Cons') ?></h3>
                     <?php foreach (EavAttributeHelper::getAttribute('findings_negative')->getData(null, $currentLang) as $finding): ?>
                         <p><?= $finding->item ?></p>
                     <?php endforeach; ?>
@@ -257,7 +257,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             </div>
 
             <div class="authors-main-message">
-                <h2>Author's main message</h2>
+                <h2><?= Yii::t('app/article', 'Author\'s main message') ?></h2>
                 <?= EavAttributeHelper::getAttribute('main_message')->getData('text', $currentLang) ?>
             </div>
 

@@ -39,6 +39,7 @@ return [
                         'app/text' => 'text.php',
                         'app/menu' => 'menu.php',
                         'app/messages' => 'messages.php',
+                        'app/article' => 'article.php'
                     ],
                 ],
             ],

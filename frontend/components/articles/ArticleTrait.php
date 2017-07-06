@@ -30,6 +30,10 @@ trait ArticleTrait {
                             ->one();
     }
     
+    protected function setArticleLang($code) {
+        Yii::$app->language = $code;
+    }
+    
     private function addOrderQuery($query, $order) {
         
         switch ($order) {

@@ -54,6 +54,7 @@ class VersionController extends Controller {
     
     public function actionLang($slug, $code) {
         $model = $this->getVersionSlugModel($slug);
+        $this->setArticleLang($code);
         return $this->renderArticlePage('one-pager', $model, true, $code);
     }
 

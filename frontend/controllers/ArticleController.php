@@ -132,6 +132,7 @@ class ArticleController extends Controller {
        
     public function actionLang($slug, $code) {
         $model = $this->getArticleSlugModel($slug);
+        $this->setArticleLang($code);
         return $this->renderArticlePage('one-pager', $model, true, $code);
     }
 
