@@ -21,14 +21,16 @@ class TopicController extends Controller {
     public function actionIndex()
     {
         $limit = Yii::$app->params['topic_limit'];
-
-        if (Yii::$app->request->getIsPjax()) {
-            $limitPrev = Yii::$app->request->get('limit');
+        $limitPrev = Yii::$app->request->get('limit');
+        
+        if (isset($limitPrev) && intval($limitPrev)) {
             
-            if (isset($limitPrev) && intval($limitPrev)) {
+            if (Yii::$app->request->getIsPjax()) {
                 $limit += (int)$limitPrev;
+            } else {
+                $limit = $limitPrev;
             }
-
+            
         }
 
         return $this->render('index', [
