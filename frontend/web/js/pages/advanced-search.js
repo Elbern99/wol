@@ -25,8 +25,8 @@
         customTagList: function(list,holder) {
             if($(list).length){
                 $(holder).each(function( index ) {
-                    var cur = $(this),
-                        curInput = $(this).find('.my-single-field');
+                    var cur = $(this);
+                    var curInput = $(this).find('.my-single-field');
 
                     cur.find(list).tagit({
                         singleField: true,
@@ -249,7 +249,6 @@
    
     $(document).ready(function() {
         $('.item-filter-box').children('input:checkbox').bind('change', dynamicFilter);
-        advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .article-item');
         advancedSearch.saveSearch('.btn-save-search');
         advancedSearch.focusCustom('.my-tags-list');
@@ -262,6 +261,7 @@
     });
 
     elements.window.load(function() {
+        advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         filterLoad.setCheckResult('.sidebar-accrodion-item');
         filterLoad.showCheckedAccordion('.sidebar-accrodion-item');
     });
