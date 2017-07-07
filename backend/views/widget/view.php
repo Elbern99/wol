@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use dosamigos\ckeditor\CKEditor;
+use backend\components\editor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Widget */
@@ -37,3 +37,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php $this->registerJs("CKEDITOR.config.extraPlugins = 'h1_b,h2_b,h3_b';",5); ?>

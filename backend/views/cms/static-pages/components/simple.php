@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+use backend\components\editor\CKEditor;
 use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
@@ -53,3 +53,4 @@ use kartik\file\FileInput;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php $this->registerJs("CKEDITOR.config.extraPlugins = 'h1_b,h2_b,h3_b';",5); ?>
