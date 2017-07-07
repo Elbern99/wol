@@ -29,7 +29,7 @@ class Result {
     private static $originResult;
     public static $synonyms;
     
-    public function setSearchParams(array $attributes) {
+    public static function setSearchParams(array $attributes) {
         self::$searchAttributes = $attributes;
     }
 
@@ -117,7 +117,7 @@ class Result {
         self::addDataToValue($result, $k);
     }
 
-    protected function addDataToValue($items, $k) {
+    protected static function addDataToValue($items, $k) {
 
         foreach ($items as $item) {
 
@@ -249,17 +249,17 @@ class Result {
         self::addDataToValue($result, $k);
     }
 
-    public function getSearchValue() {
+    public static function getSearchValue() {
 
         return self::$value;
     }
     
-    public function getSearchTopValue() {
+    public static function getSearchTopValue() {
         
         return self::$topValue;
     }
     
-    public function getOriginData() {
+    public static function getOriginData() {
         return self::$originResult;
     }
 
