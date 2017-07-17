@@ -165,9 +165,9 @@ class Topic extends \yii\db\ActiveRecord
                 $category = Category::find()->where(['url_key'=>'key-topics', 'lvl' => 0])->one();
 
                 $newCategory = new Category([
-                    'title' => $this->title,
-                    'meta_title' => $this->title,
-                    'url_key' => '/key-topics/'.$this->url_key,
+                    'title' => $this->getAttribute('title'),
+                    'meta_title' => $this->getAttribute('title'),
+                    'url_key' => ($this->getAttribute('url_key')) ? '/key-topics/'.$this->getAttribute('url_key') : null,
                     'system' => 0,
                     'active' => 1,
                     'visible_in_menu' => 1,
@@ -175,7 +175,7 @@ class Topic extends \yii\db\ActiveRecord
                     'type' => $category->type
                 ]);
 
-                if ($newCategory->prependTo($category)) {
+                if ($newCategory->validate() && $newCategory->prependTo($category)) {
                     $this->category_id = $newCategory->id;
                     $this->save();
                 }
@@ -183,12 +183,17 @@ class Topic extends \yii\db\ActiveRecord
             
         } else {
             
-            if ($this->category_id) {
+            if ($this->category_id && !array_key_exists('category_id', $changedAttributes)) {
                     
                 $category = Category::findOne(['id' => $this->category_id]);
-                $category->title = $this->title;
-                $category->url_key = '/key-topics/'.$this->url_key;
-                $category->save();
+
+                if (is_object($category)) {
+                    $category->title = $this->getAttribute('title');
+                    if ($this->getAttribute('url_key')) {
+                        $category->url_key = '/key-topics/' . $this->getAttribute('url_key');
+                    }
+                    $category->save();
+                }
             }
         }
     }
