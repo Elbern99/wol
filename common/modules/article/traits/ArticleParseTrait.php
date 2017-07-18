@@ -1960,11 +1960,25 @@ trait ArticleParseTrait {
                 } 
                 
             } elseif ($val['tag'] == 'HEAD') {
-                
-                if (isset($val['attributes']['TYPE'])) {
-                    $text .= Html::tag('h4', $val['value']);
+                if ($val['type'] == 'complete') {
+                    if (isset($val['attributes']['TYPE'])) {
+                        $text .= Html::tag('h4', $val['value']);
+                    } else {
+                        $text .= Html::tag('h3', $val['value']);
+                    }
                 } else {
-                    $text .= Html::tag('h3', $val['value']);
+
+                    if ($val['type'] == 'open') {
+                        $text .= Html::beginTag('h3');
+                    }
+
+                    if (isset($val['value']) && str_replace(' ', '', $val['value'])) {
+                        $text .= $val['value'];
+                    }
+
+                    if ($val['type'] == 'close') {
+                        $text .= Html::endTag('h3');
+                    }
                 }
             } elseif ($val['tag'] == 'LIST') {
                 if ($val['type'] == 'open') {
