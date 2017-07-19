@@ -1991,6 +1991,8 @@
     }
 
     .icon-arrow-square-blue {
+      display: flex;
+
       .path1 {
         &:before {
           color: #262626;
@@ -2089,7 +2091,7 @@
 
   @include breakpoint('tablet') {
     display: block;
-    width: 100%;
+    width: 247px;
     margin: 0 0 7px;
     height: 210px;
   }
