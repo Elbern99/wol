@@ -45,23 +45,25 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
             });
         }
         
-        Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
-            
-            $cmd = 'sphinx';
-            
-            switch ($this->getTypeParse()) {
-            
-                case self::ARTICLE_TYPE:
-                    $cmd .= ' articlesIndex';
-                break;
-                case self::AUTHOR_TYPE:
-                    $cmd .= ' biographyIndex';
-                break;
-            }
+        if ($this->getTypeParse() != self::TAXONOMY_TYPE) {
+            Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
 
-            $command = new \backend\helpers\ConsoleRunner();
-            $command->run($cmd);
-        });
+                $cmd = 'sphinx';
+
+                switch ($this->getTypeParse()) {
+
+                    case self::ARTICLE_TYPE:
+                        $cmd .= ' articlesIndex';
+                    break;
+                    case self::AUTHOR_TYPE:
+                        $cmd .= ' biographyIndex';
+                    break;
+                }
+
+                $command = new \backend\helpers\ConsoleRunner();
+                $command->run($cmd);
+            });
+        }
     }
     
     public function getTypeParse() {
