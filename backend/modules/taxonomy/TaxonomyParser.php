@@ -58,6 +58,7 @@ class TaxonomyParser implements ParserInterface {
         
         try
         {
+            $sections['subjects'] = $this->getBehaviourSection('subjects');
             $sections['collection'] = $this->getBehaviourSection('iwol-data-source-collection');
             $sections['dimension'] = $this->getBehaviourSection('iwol-data-source-dimension');
             $sections['perspective'] = $this->getBehaviourSection('iwol-method-perspective');
@@ -76,7 +77,7 @@ class TaxonomyParser implements ParserInterface {
                         $key = key($facet);
                         $bulkInsertArray[] = [
                             'code' => $key,
-                            'value' => $facet[$key],
+                            'value' => is_array($facet[$key]) ? $facet[$key][0] : $facet[$key],
                             'created_at' => $currentDate
                         ];
                     }
@@ -84,14 +85,17 @@ class TaxonomyParser implements ParserInterface {
                     foreach ($bulkInsertArray as $insert) {
                         $taxonomy = Taxonomy::findOne(['code' => $insert['code']]);
                         
+                        
                         if (!$taxonomy) {
                             $taxonomy = new Taxonomy();
                             $taxonomy->setAttributes($insert, false);
                         } else {
                             $taxonomy->value = $insert['value'];
                         }
-                        
-                        $taxonomy->save();
+                        if (!$taxonomy->save()) {
+                            print_r($taxonomy->errors);
+                            throw new \yii\base\Exception(print_r($taxonomy->errors, true));
+                        }
                     }
                 }
             }
