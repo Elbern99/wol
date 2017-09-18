@@ -15,7 +15,8 @@ class m170918_193320_staging_cleanup extends Migration
 
 
     public function safeUp()
-    {
+    {/*
+     * COMMENT IT TO PREVENT USING - IT WAS RUN-ONCE fix
         for ($i = 0; $i < count($this->aliases); $i++) {
             $urlkey = $this->aliases[$i];
             $cmd = Yii::$app->db->createCommand('SELECT * FROM category WHERE url_key="' . $urlkey . '"');
@@ -30,6 +31,8 @@ class m170918_193320_staging_cleanup extends Migration
                 Yii::$app->db->createCommand('UPDATE category SET lft = IF(lft > ' . $left . ', lft - (' . $right . ' - ' . $left . ' + 1), lft), rgt = rgt - (' . $right . ' - ' . $left . ' + 1) WHERE rgt > ' . $right)->execute();
             }
         }
+     * 
+     */
     }
 
 
