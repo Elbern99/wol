@@ -16,6 +16,7 @@ class m170918_193320_staging_cleanup extends Migration
 
     public function safeUp()
     {
+        /*
         for ($i = 0; $i < count($this->aliases); $i++) {
             $urlkey = $this->aliases[$i];
             $cmd = Yii::$app->db->createCommand('SELECT * FROM category WHERE url_key="' . $urlkey . '"');
@@ -35,6 +36,8 @@ class m170918_193320_staging_cleanup extends Migration
                 }
             }
         }
+         * 
+         */
     }
 
 
