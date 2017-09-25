@@ -70,9 +70,14 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                                 }
                             }
                          ?></strong>
+                        <?php $arealinks = []; ?>
                         <?php foreach($areas as $area): ?>
-                        <span><?= Html::a($area['title'], $area['url_key']) ?></span>
+                            <?php $this->beginBlock('arealink'); ?>
+                                <span><?= Html::a($area['title'], $area['url_key']) ?></span>
+                            <?php $this->endBlock(); ?>
+                            <?php $arealinks[] = $this->blocks['arealink']; ?>
                         <?php endforeach; ?>
+                        <?= implode(', ', $arealinks); ?>
                     </div>
                     <?php endif; ?>
                     <p class="short-desc"><?= $author['affiliation'] ?></p>
