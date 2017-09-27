@@ -39,7 +39,7 @@ class Taxonomy extends \yii\db\ActiveRecord implements TaxonomyInterface
     {
         return [
             [['code', 'value', 'created_at'], 'required'],
-            [['parent_id', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['value'], 'string'],
             [['code'], 'string', 'max' => 255],
             [['code'], 'unique'],

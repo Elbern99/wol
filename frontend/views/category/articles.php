@@ -183,7 +183,7 @@ unset($currentParams);
                 </ul>
             </div>
 
-            <?= $widgets->getPageWidget('data_methods') ?>
+            <?= (!empty($widgets)) ? $widgets->getPageWidget('data_methods') : ''; ?>
         </aside>
     </div>
 </div>

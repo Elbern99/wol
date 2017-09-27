@@ -58,6 +58,7 @@ class TaxonomyParser implements ParserInterface {
         
         try
         {
+            $sections['subjects'] = $this->getBehaviourSection('subjects');
             $sections['collection'] = $this->getBehaviourSection('iwol-data-source-collection');
             $sections['dimension'] = $this->getBehaviourSection('iwol-data-source-dimension');
             $sections['perspective'] = $this->getBehaviourSection('iwol-method-perspective');
@@ -76,20 +77,27 @@ class TaxonomyParser implements ParserInterface {
                         $key = key($facet);
                         $bulkInsertArray[] = [
                             'code' => $key,
-                            'value' => $facet[$key],
+                            'value' => is_array($facet[$key]) ? $facet[$key][0] : $facet[$key],
                             'created_at' => $currentDate
                         ];
                     }
 
-                    Yii::$app->db->createCommand()
-                            ->batchInsert(
-                                Taxonomy::tableName(),
-                                ['code', 'value', 'created_at'],
-                                $bulkInsertArray
-                            )->execute();
-
+                    foreach ($bulkInsertArray as $insert) {
+                        $taxonomy = Taxonomy::findOne(['code' => $insert['code']]);
+                        
+                        
+                        if (!$taxonomy) {
+                            $taxonomy = new Taxonomy();
+                            $taxonomy->setAttributes($insert, false);
+                        } else {
+                            $taxonomy->value = $insert['value'];
+                        }
+                        if (!$taxonomy->save()) {
+                            print_r($taxonomy->errors);
+                            throw new \yii\base\Exception(print_r($taxonomy->errors, true));
+                        }
+                    }
                 }
-
             }
         
         } catch (\yii\db\Exception $e) {
@@ -151,8 +159,18 @@ class TaxonomyParser implements ParserInterface {
         $url_key =  $base_url.'/'.preg_replace('/[^a-z]+/', '-', urlencode(strtolower($title)));
 
         if ($title && $meta_title && $url_key && is_object($parent)) {
+            
+            if ($taxonomy_code) {
+                $category = Category::find()->where(['taxonomy_code' => $taxonomy_code])->one();
+            } else {
+                $category = Category::find()->where(['url_key' => $url_key])->one();
+            }
 
-            $category = new Category([
+            if (!$category) {
+                $category = new Category();
+            }
+            
+            $category->setAttributes([
                 'title' => $title,
                 'meta_title' => $meta_title,
                 'url_key' => $url_key,
@@ -161,10 +179,16 @@ class TaxonomyParser implements ParserInterface {
                 'visible_in_menu' => 1,
                 'taxonomy_code' => $taxonomy_code,
                 'type' => $this->type
-            ]);
+            ], false);
 
-            if ($category->appendTo($parent)) {
-                return $category;
+            if ($category->isNewRecord) {
+                if ($category->appendTo($parent)) {
+                    return $category;
+                }
+            } else {
+                if ($category->save()) {
+                    return $category;
+                }
             }
         }
 
