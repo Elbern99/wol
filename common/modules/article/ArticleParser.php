@@ -277,7 +277,8 @@ class ArticleParser implements ParserInterface {
         }
 
         $this->clearParseData();
-
+        // $this->article->enabled = 1; 
+        
         if (!$this->article->save()) {
 
             foreach ($this->article->getErrors() as $error) {
