@@ -33,15 +33,15 @@ class m170928_220418_author_379_fix_eav extends Migration
                 'model_id' => $author->id
             ])
             ->one();
+        
         if (!$entity) {
             $entity = new EavEntity();
             $entity->setAttributes(['model_id' => $author->id, 'type_id' => $type->id, 'name' => $type->name . '_' . $author->id], false);
             $entity->save();
 //            $this->insert(EavEntity::tableName(), ['model_id' => $author->id, 'type_id' => $type->id, 'name' => $type->name . '_' . $author->id]);
+            $query = str_replace('{:id}', $entity->id, $this->values);
+            $this->execute($query);
         }
-      
-        $query = str_replace('{:id}', $entity->id, $this->values);
-        $this->execute($query);
     }
 
 
@@ -51,8 +51,7 @@ class m170928_220418_author_379_fix_eav extends Migration
 
         return false;
     }
-    
-    
+
     private $values = " 
 INSERT INTO `eav_value` (`entity_id`, `attribute_id`, `lang_id`, `value`) VALUES
 ({:id}, 34, 0, 0x4f3a383a22737464436c617373223a343a7b733a393a22686f6e6f7269666963223b733a303a22223b733a31303a2266697273745f6e616d65223b733a333a22556c66223b733a31313a226d6964646c655f6e616d65223b733a303a22223b733a393a226c6173745f6e616d65223b733a353a2252696e6e65223b7d),
@@ -63,5 +62,5 @@ INSERT INTO `eav_value` (`entity_id`, `attribute_id`, `lang_id`, `value`) VALUES
 ({:id}, 39, 0, 0x4f3a383a22737464436c617373223a313a7b733a363a22646567726565223b733a34363a225068442045636f6e6f6d6963732c204672656520556e6976657273697479206f66204265726c696e2c2032303039223b7d),
 ({:id}, 40, 0, 0x4f3a383a22737464436c617373223a313a7b733a393a22696e74657265737473223b733a38323a224576616c756174696f6e206f66206c61626f72206d61726b657420706f6c69636965732c206d6967726174696f6e2c20656475636174696f6e2c0a2020202020202020206469736372696d696e6174696f6e223b7d);
     ";
-    
+
 }
