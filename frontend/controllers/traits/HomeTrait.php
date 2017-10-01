@@ -133,7 +133,7 @@ trait HomeTrait {
         $limit = $this->more->getLimit('event_limit');
         
         return Event::find()
-                ->select(['title', 'url_key', 'date_from', 'date_to', 'location'])
+                ->select(['title', 'url_key', 'date_from', 'date_to', 'location', 'short_description', 'image_link'])
                 ->andWhere('date_from >= now()')
                 ->andWhere(['enabled' => 1])
                 ->limit($limit)

@@ -189,6 +189,9 @@ TwitterAsset::register($this);
                                         <?= Html::endTag('a') ?>
                                     </h2>
                                     <p><?= $event['location'] ?></p>
+                                    <?php if (!trim($event['image_link'])) : ?>
+                                        <small><?= $event['short_description']; ?></small>
+                                    <?php endif; ?>
                                 </div>
                                 <!--<div class="location">Daniel S. Hamermesh</div>-->
                             </li>

@@ -116,7 +116,8 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                     <div class="sidebar-widget sidebar-widget-filter">
                         <h3>Filter by</h3>
                         <ul class="sidebar-accrodion-list">
-                            <?php if (isset($filter['expertise'])): ?>
+                            <?php // if-false - means safe removing of filter by client request. ?>
+                            <?php if (false && isset($filter['expertise'])): ?>
                             <?php asort($filter['expertise']); ?>
                                 <li class="sidebar-accrodion-item is-open">
                                     <a href="" class="title">expertise</a>
@@ -142,6 +143,7 @@ $step = intval(Yii::$app->request->get('step')) + 1;
                                     </div>
                                 </li>
                             <?php endif; ?>
+                                
                             <?php if (isset($filter['author_country'])): ?>
                             <li class="sidebar-accrodion-item is-open">
                                 <a href="" class="title">country</a>
