@@ -44,12 +44,7 @@ unset($currentParams);
                     <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                 </div>
                 <div class="tab-item blue js-tab-hidden expand-more tab-item-subject-areas">
-                    <?php $alphas = range('A', 'Z'); ?>
-                    <ul class="abs-list">
-                        <?php foreach ($alphas as $letter): ?>
-                            <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <?= \frontend\components\widget\AuthorLetterWidget::widget([]); ?>
                 </div>
             </div>
         </div>
@@ -116,12 +111,7 @@ unset($currentParams);
                     <li class="sidebar-accrodion-item">
                         <a href="" class="title">Authors</a>
                         <div class="text is-open">
-                            <?php $alphas = range('A', 'Z'); ?>
-                            <ul class="abs-list">
-                                <?php foreach ($alphas as $letter): ?>
-                                    <li><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="letter"><?= $letter ?></span></a></li>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?= \frontend\components\widget\AuthorLetterWidget::widget([]); ?>
                         </div>
                     </li>
                 </ul>
