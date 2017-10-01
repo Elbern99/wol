@@ -17,7 +17,7 @@ class m170928_220418_author_379_fix_eav extends Migration
     {
         $author = Author::findOne(['id' => self::LIVE_AUTHOR_ID]);
 
-        if (!$author) {
+        if (!$author || ($author->name != 'Ulf  Rinne')) {
             return true;
         }
 
