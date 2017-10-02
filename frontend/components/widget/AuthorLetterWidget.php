@@ -16,10 +16,10 @@ class AuthorLetterWidget extends Widget
 
     public $filterLetter = null;
 
-    private static $_letters = null;
+    private static $_letters = [];
 
     public $mode = 'basic';
-    
+
     public $type = null;
 
 
@@ -29,6 +29,7 @@ class AuthorLetterWidget extends Widget
             'letters' => $this->getLetters(),
             'filterLetter' => $this->filterLetter,
             'type' => $this->type,
+            'relation' => $this->getRelationName($this->type),
         ];
 
         return $this->render('author_letter_' . $this->mode, $params);
@@ -37,10 +38,32 @@ class AuthorLetterWidget extends Widget
 
     private function getLetters()
     {
-        if (null === self::$_letters) {
-            self::$_letters = AuthorLetter::find()->ordered()->joinWith(['stats'])->all();
+        $key = $this->type ? $this->type : 'null';
+
+        if (!isset(self::$_letters[$key])) {
+            $relation = $this->getRelationName($this->type);
+
+            self::$_letters[$key] = AuthorLetter::find()->ordered()->joinWith([$relation])->all();
         }
 
-        return self::$_letters;
+        return self::$_letters[$key];
+    }
+
+
+    private function getRelationName($type)
+    {
+        switch ($this->type) {
+            case 'expert':
+                $relation = 'statsExpert';
+                break;
+            case 'editor':
+                $relation = 'statsEditor';
+                break;
+            default:
+                $relation = 'stats';
+                break;
+        }
+
+        return $relation;
     }
 }

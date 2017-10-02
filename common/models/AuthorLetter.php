@@ -59,6 +59,24 @@ class AuthorLetter extends \yii\db\ActiveRecord
 
 
     /**
+     * @return ActiveQuery
+     */
+    public function getStatsEditor()
+    {
+        return $this->hasOne(AuthorLetterStatsEditor::className(), ['id' => 'id']);
+    }
+
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStatsExpert()
+    {
+        return $this->hasOne(AuthorLetterStatsExpert::className(), ['id' => 'id']);
+    }
+
+
+    /**
      * @inheritdoc
      * @return AuthorLetterQuery the active query used by this AR class.
      */

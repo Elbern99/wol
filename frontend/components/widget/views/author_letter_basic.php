@@ -7,7 +7,7 @@ use yii\helpers\Url;
         <?php
         $class = [];
 
-        if (!$model->stats->author_count) {
+        if (!$model->$relation->author_count) {
             $class[] = 'no-result';
         }
 
@@ -19,9 +19,9 @@ use yii\helpers\Url;
         ?>
 
 
-        <?php if ($model->stats->author_count) : ?>
+        <?php if ($model->$relation->author_count) : ?>
             <li class="<?= $class ?>">
-                <a class="profile-author-letter" href="<?= Url::to(['authors/index', 'filter' => $model->letter]) ?>" title="<?= $model->stats->author_count; ?>">
+                <a class="profile-author-letter" href="<?= Url::to(['authors/index', 'filter' => $model->letter]) ?>" title="<?= $model->$relation->author_count; ?>">
                     <span class="text"><?= $model->letter; ?></span>
                 </a>
             </li>
