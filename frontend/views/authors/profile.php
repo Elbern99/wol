@@ -43,13 +43,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                         <?= SubjectAreas::widget(['category' => $subjectAreas]) ?>
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
-                        <?php $alphas = range('A', 'Z'); ?>
-                        <ul class="abs-list">
-                            <?php foreach ($alphas as $letter): ?>
-                                <li><a class="profile-author-letter" href="<?= Url::to('/authors/letter') ?>" data-letter="<?=$letter?>"><span class="text"><?= $letter ?></span></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <div class="author-letter-result"></div>
+                        <?= \frontend\components\widget\AuthorLetterWidget::widget(['mode' => 'profile']); ?>
                     </div>
                 </div>
             </div>
@@ -178,6 +172,7 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                     <li class="sidebar-accrodion-item  is-open">
                         <a href="" class="title">Authors</a>
                         <div class="text">
+                            <?php /* Keep original for a while, then delete
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
@@ -185,6 +180,9 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                                 <?php endforeach; ?>
                             </ul>
                             <div class="author-letter-result"></div>
+                             * 
+                             */?>
+                            <?= \frontend\components\widget\AuthorLetterWidget::widget(['mode' => 'profile']); ?>
                         </div>
                     </li>
                 </ul>

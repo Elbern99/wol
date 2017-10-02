@@ -56,6 +56,7 @@ $filterLetter = Yii::$app->request->get('filter');
                         </div>
                     </div>
                     <div class="tab-item blue js-tab-hidden expand-more">
+                        <?php /* Keep  oriinal for a while, then delete commented text
                         <?php $alphas = range('A', 'Z'); ?>
                         <ul class="abs-list">
                             <?php foreach ($alphas as $letter): ?>
@@ -70,6 +71,9 @@ $filterLetter = Yii::$app->request->get('filter');
                                 <li class="<?=$class?>"><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
                             <?php endforeach; ?>
                         </ul>
+                         * 
+                         */?>
+                            <?= \frontend\components\widget\AuthorLetterWidget::widget(['filterLetter' => $filterLetter]); ?>
                     </div>
                 </div>
             </div>
@@ -127,6 +131,7 @@ $filterLetter = Yii::$app->request->get('filter');
                     <li class="sidebar-accrodion-item is-open">
                         <a href="" class="title">Authors</a>
                         <div class="text">
+                            <?php /* Keep original for a while
                             <?php $alphas = range('A', 'Z'); ?>
                             <ul class="abs-list">
                                 <?php foreach ($alphas as $letter): ?>
@@ -141,6 +146,8 @@ $filterLetter = Yii::$app->request->get('filter');
                                     <li class="<?=$class?>"><a class="profile-author-letter" href="<?= Url::to(['/authors', 'filter' => $letter]) ?>"><span class="text"><?= $letter ?></span></a></li>
                                 <?php endforeach; ?>
                             </ul>
+                            */?>
+                            <?= \frontend\components\widget\AuthorLetterWidget::widget(['filterLetter' => $filterLetter]); ?>
                         </div>
                     </li>
                 </ul>
