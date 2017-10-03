@@ -1057,7 +1057,7 @@
                     var $item = $(this),
                         children = $item.find('>ul'),
                         length = 0,
-                        className = 'one';
+                        className = 'many';
                         
                         if(children.length>0) {
                             length = children[0].childElementCount;
