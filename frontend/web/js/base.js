@@ -12,11 +12,11 @@
 //GLOBAL VARIABLES ---------
 
     var _window_height = elements.window.height(),
-        _window_width = elements.window.width(),
-        _doc_height = elements.document.height(),
-        _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
-        _mobile = 768,
-        _tablet = 1025;
+      _window_width = elements.window.width(),
+      _doc_height = elements.document.height(),
+      _click_touch = ('ontouchstart' in window) ? 'touchstart' : ((window.DocumentTouch && document instanceof DocumentTouch) ? 'tap' : 'click'),
+      _mobile = 768,
+      _tablet = 1025;
 
     elements.window.resize(function() {
         _window_height = elements.window.height();
@@ -29,9 +29,9 @@
     // 1.1 HEADER MENU
 
     var activeMenu = {
-      getUrl: function(parent,activeClass) {
-          if($(parent).length) {
-              var pathname = window.location.pathname,
+        getUrl: function(parent,activeClass) {
+            if($(parent).length) {
+                var pathname = window.location.pathname,
                   pathnameSearch =  window.location.search,
                   pathnameArr =  pathname.split('/'),
                   pathnameArrFirst = pathnameArr[1],
@@ -39,27 +39,27 @@
                   $resultLink = $parent.find('a[href$="'+pathname+'"]'),
                   checkResultLink = $resultLink.length > 0;
 
-              if(pathnameArrFirst === 'spokespeople' || pathnameArrFirst === 'editors') {
-                  pathnameArrFirst = 'authors';
-              };
+                if(pathnameArrFirst === 'spokespeople' || pathnameArrFirst === 'editors') {
+                    pathnameArrFirst = 'authors';
+                };
 
-              if(!checkResultLink) {
-                  pathname = '/' + pathnameArrFirst;
-              };
+                if(!checkResultLink) {
+                    pathname = '/' + pathnameArrFirst;
+                };
 
-              if(pathnameSearch !== '') {
-                  activeMenu.setActive(pathnameSearch,'.submenu', parent, activeClass);
-              };
+                if(pathnameSearch !== '') {
+                    activeMenu.setActive(pathnameSearch,'.submenu', parent, activeClass);
+                };
 
-              if(pathname !== '') {
-                  activeMenu.setActive(pathname,'.submenu', parent, activeClass);
-              };
-          }
-      },
-      setActive: function(pathname,submenu,parent,activeClass) {
-          var $parent = $(parent);
-              $parent.find('a[href$="'+pathname+'"]').parents('li, .item').addClass(activeClass);
-      }
+                if(pathname !== '') {
+                    activeMenu.setActive(pathname,'.submenu', parent, activeClass);
+                };
+            }
+        },
+        setActive: function(pathname,submenu,parent,activeClass) {
+            var $parent = $(parent);
+            $parent.find('a[href$="'+pathname+'"]').parents('li, .item').addClass(activeClass);
+        }
     };
 
     var headerMenu = {
@@ -69,10 +69,10 @@
         detectSubmenu: function(item) {
             $(item).each(function( index ) {
                 var
-                    $cur = $(this),
-                    $curLink = $cur.find('a'),
-                    curLinkText = $curLink.attr('href'),
-                    curLinkTextLast;
+                  $cur = $(this),
+                  $curLink = $cur.find('a'),
+                  curLinkText = $curLink.attr('href'),
+                  curLinkTextLast;
 
                 if(curLinkText) {
                     curLinkTextLast = curLinkText.substr(curLinkText.lastIndexOf("/")+1);
@@ -94,21 +94,21 @@
         mobileScroll: function(item){
 
             var
-                $item = $(item),
-                scrollPaneOption = {
-                    showArrows: true,
-                    autoReinitialise: false,
-                    animateScroll: true,
-                    stickToleft: true
-                },
-                checkMobile = _window_width < _mobile;
+              $item = $(item),
+              scrollPaneOption = {
+                  showArrows: true,
+                  autoReinitialise: false,
+                  animateScroll: true,
+                  stickToleft: true
+              },
+              checkMobile = _window_width < _mobile;
 
             if(checkMobile) {
                 $item.jScrollPane({showArrows: true});
 
                 elements.window.load(function () {
                     $item.bind('jsp-initialised', function(event, isScrollable) {
-                            headerMenu.mobileScrollToActive(item);
+                        headerMenu.mobileScrollToActive(item);
 
                     }).jScrollPane(scrollPaneOption);
                 });
@@ -119,8 +119,8 @@
                     $item.jScrollPane(scrollPaneOption);
                 } else {
                     var
-                        element = $item.jScrollPane({}),
-                        api = element.data('jsp');
+                      element = $item.jScrollPane({}),
+                      api = element.data('jsp');
                     api.destroy();
                 }
             });
@@ -128,17 +128,17 @@
         mobileScrollToActive: function(item) {
             if($(item).length) {
                 var
-                    $item = $(item),
-                    padding = 30,
-                    $activePageInScrollMenu = $item.find('.active-page');
+                  $item = $(item),
+                  padding = 30,
+                  $activePageInScrollMenu = $item.find('.active-page');
 
                 if($activePageInScrollMenu.length) {
                     var
-                        widthScrollMenu = $item.width() - padding,
-                        activePageInScrollMenuWidth = $activePageInScrollMenu.width(),
-                        activePageInScrollMenuLeft = $activePageInScrollMenu.position().left,
-                        scrollToLeftPosition = activePageInScrollMenuLeft+activePageInScrollMenuWidth,
-                        scrollToLeft = scrollToLeftPosition - widthScrollMenu;
+                      widthScrollMenu = $item.width() - padding,
+                      activePageInScrollMenuWidth = $activePageInScrollMenu.width(),
+                      activePageInScrollMenuLeft = $activePageInScrollMenu.position().left,
+                      scrollToLeftPosition = activePageInScrollMenuLeft+activePageInScrollMenuWidth,
+                      scrollToLeft = scrollToLeftPosition - widthScrollMenu;
 
                     if(scrollToLeftPosition > widthScrollMenu) {
                         var api = $item.data('jsp');
@@ -149,16 +149,16 @@
         },
         mobileOpenItem: function(cur) {
             var
-                $cur = cur,
-                $curParent = $cur.parent();
+              $cur = cur,
+              $curParent = $cur.parent();
 
             $curParent.find(headerMenu.submenu).slideDown(headerMenu.delay);
             $curParent.addClass('open');
         },
         mobileCloseItem: function(cur) {
             var
-                $cur = cur,
-                $curParent = $cur.parent();
+              $cur = cur,
+              $curParent = $cur.parent();
 
             $curParent.find(headerMenu.submenu).slideUp(headerMenu.delay);
             $curParent.removeClass('open');
@@ -167,12 +167,12 @@
             parent.find('.'+headerMenu.classes).find(content).slideDown(0);
             $('.mobile-menu').on('click', '.has-drop >a', function(e) {
                 var
-                    $cur = $(this),
-                    $curParent = $cur.parent(),
-                    $curParentIndex = $curParent.index(),
-                    checkReturn = true,
-                    checkLast = $curParent.hasClass('no-submenu'),
-                    checkHash = $cur.attr('href') == '#';
+                  $cur = $(this),
+                  $curParent = $cur.parent(),
+                  $curParentIndex = $curParent.index(),
+                  checkReturn = true,
+                  checkLast = $curParent.hasClass('no-submenu'),
+                  checkHash = $cur.attr('href') == '#';
 
                 if (checkHash) {
                     e.preventDefault();
@@ -192,8 +192,8 @@
 
                     if (checkHash) {
                         $curParent.siblings().removeClass(headerMenu.classes)
-                            .find(content).slideUp(headerMenu.delay)
-                            .find('.item').removeClass('open');
+                          .find(content).slideUp(headerMenu.delay)
+                          .find('.item').removeClass('open');
                     };
 
                     headerMenu.mobileOpenItem($cur);
@@ -203,10 +203,10 @@
         desktop: function(parent, btn, dropWidget) {
             $(parent).on('click', btn, function(e) {
                 var
-                    cur = $(this),
-                    curAttr = cur.attr('href'),
-                    $dropWidget = $(parent).find(dropWidget),
-                    $btn = $(parent).find(btn);
+                  cur = $(this),
+                  curAttr = cur.attr('href'),
+                  $dropWidget = $(parent).find(dropWidget),
+                  $btn = $(parent).find(btn);
 
                 elements.document.unbind('click.submenu');
                 $('.submenu,.dropdown-widget').removeClass('open');
@@ -247,8 +247,8 @@
         open: function(btn,drop) {
             $(btn).click(function(){
                 var
-                    $cur = $(this),
-                    $drop = $(drop);
+                  $cur = $(this),
+                  $drop = $(drop);
 
                 $drop.toggleClass('open');
                 $cur.toggleClass('active');
@@ -257,8 +257,8 @@
         close: function(btn,drop) {
             $(btn).click(function(){
                 var
-                    $cur = $(this),
-                    $drop = $(drop);
+                  $cur = $(this),
+                  $drop = $(drop);
 
                 $drop.toggleClass('open');
                 $cur.toggleClass('active');
@@ -279,7 +279,7 @@
 
             if($(item).length) {
                 var
-                    $item = $(item);
+                  $item = $(item);
 
                 $item.addClass('item has-drop');
                 $item.append(templte);
@@ -293,7 +293,7 @@
         autoSelect: function(btn,parent,drop) {
             $(parent).on('click', btn, function(e) {
                 var $cur = $(this),
-                    curText = $cur.text();
+                  curText = $cur.text();
                 $cur.parents(parent).find(':text').val(curText);
                 $(drop).fadeOut();
                 e.preventDefault();
@@ -307,10 +307,10 @@
         if ( $(dropWidget).length ) {
             $(parent).on('click', btn, function(e) {
                 var
-                    $cur = $(this),
-                    $parent = $(parent),
-                    $dropWidget = $parent.find(dropWidget),
-                    $btn = $parent.find(btn);
+                  $cur = $(this),
+                  $parent = $(parent),
+                  $dropWidget = $parent.find(dropWidget),
+                  $btn = $parent.find(btn);
 
                 elements.document.unbind('click.drop-content');
 
@@ -326,10 +326,10 @@
 
                 if ( !$cur.hasClass('active') ) {
                     var yourClick = true,
-                        drop = $cur.parents('.dropdown').find('>.drop-content');
+                      drop = $cur.parents('.dropdown').find('>.drop-content');
 
-                        drop.addClass('open');
-                        $cur.addClass('active');
+                    drop.addClass('open');
+                    $cur.addClass('active');
 
                     elements.document.bind('click.drop-content', function (e) {
                         if(_window_width > _mobile ) {
@@ -368,14 +368,14 @@
         init: function(list, content) {
 
             var
-                $list = list;
+              $list = list;
 
             $list.find('li').eq(0).find('a').addClass('active');
             $list.find('li').eq(0).find(content).addClass('active');
 
             $list.find('>li>a').on('click', function(e) {
                 var  cur = $(this),
-                    curParent = cur.parents('li');
+                  curParent = cur.parents('li');
 
                 $list.find('a').removeClass('active');
                 $list.find(content).removeClass('active').addClass('js-tab-hidden');
@@ -414,9 +414,9 @@
         switcher: function(list,tabs,item) {
             $(list).on('click', '.js-widget', function(e) {
                 var cur = $(this),
-                    curParent = cur.parent(),
-                    curParentIndex = curParent.index(),
-                    curDataLinked = cur.data('linked');
+                  curParent = cur.parent(),
+                  curParentIndex = curParent.index(),
+                  curDataLinked = cur.data('linked');
 
                 curParent.addClass('active').siblings().removeClass('active');
                 $('div[data-linked="1"]').addClass('js-tab-hidden');
@@ -502,7 +502,7 @@
 
                 if(hashItem !== '') {
                     var $item = $('a[href$="'+hashItem+'"]').parent(),
-                        itemTop = $item.offset().top;
+                      itemTop = $item.offset().top;
 
                     elements.htmlBody.animate({ scrollTop: itemTop }, 300);
                     $item.addClass('is-open').find('.text').slideDown(0);
@@ -517,7 +517,7 @@
         elements: [],
         changeHeight: function() {
             var elementsAll = $(docHeightForElement.elements.toString()),
-                elHeight = elements.document.height();
+              elHeight = elements.document.height();
 
             elementsAll.css('height', '100vh');
             elementsAll.css('height', elHeight);
@@ -545,8 +545,8 @@
         openMoreText: function(btn,text) {
             $(btn).click(function(e) {
                 var
-                    cur = $(this),
-                    curParent = cur.parent();
+                  cur = $(this),
+                  curParent = cur.parent();
 
                 cur.toggleClass('opened');
                 curParent.toggleClass('opened-article');
@@ -565,12 +565,12 @@
 
             container.on('pjax:end', function() {
                 var curButtton = $(this).find('.btn-gray');
-                    curButtton.removeClass("loaded-timer");
+                curButtton.removeClass("loaded-timer");
             });
 
             container.on('pjax:click', function() {
                 var curButtton = $(this).find('.btn-gray');
-                    curButtton.addClass("loaded-timer");
+                curButtton.addClass("loaded-timer");
             });
 
             elements.document.on('click','.loaded-timer',function() {
@@ -613,7 +613,7 @@
     var forms = {
         clearAll: function(btnClear,btnSelect,checkboxes) {
             var
-                $checkboxes = $(checkboxes);
+              $checkboxes = $(checkboxes);
 
 
             $checkboxes.on('click', btnClear, function(e) {
@@ -627,7 +627,7 @@
         },
         selectAll: function(btnClear,btnSelect,checkboxes) {
             var
-                $checkboxes = $(checkboxes);
+              $checkboxes = $(checkboxes);
 
             $checkboxes.on('click', btnSelect, function(e) {
                 $checkboxes.find('.grid-line.four, .field-advancedsearchform-types').find(':checkbox:not(:checked)').trigger('click');
@@ -641,15 +641,15 @@
         clearAllCheckboxes: function(btn) {
             if($(btn).length) {
                 var
-                    $btn =  $(btn);
+                  $btn =  $(btn);
 
                 $btn.each(function( index ) {
                     var
-                        $cur = $(this),
-                        $curParent = $cur.parent(),
-                        accordionItem = $cur.parents('.sidebar-accrodion-item'),
-                        checkDisabled = $curParent.find(':checkbox:not(:disabled)'),
-                        checkChecked = true;
+                      $cur = $(this),
+                      $curParent = $cur.parent(),
+                      accordionItem = $cur.parents('.sidebar-accrodion-item'),
+                      checkDisabled = $curParent.find(':checkbox:not(:disabled)'),
+                      checkChecked = true;
 
                     for(var i = 0; i < checkDisabled.length; i++) {
                         if(!checkDisabled[i].checked) checkChecked = false;
@@ -664,13 +664,13 @@
 
                 $btn.click(function(e) {
                     var
-                        $cur = $(this),
-                        $curParent = $cur.parents('li'),
-                        $searchCheckBoxCheckedFirst = ':checkbox:checked',
-                        $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
-                        $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
-                        $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
-                        $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
+                      $cur = $(this),
+                      $curParent = $cur.parents('li'),
+                      $searchCheckBoxCheckedFirst = ':checkbox:checked',
+                      $searchCheckBoxChecked = '.checkbox-list>li>label>:checkbox:checked',
+                      $searchCheckBox = '.checkbox-list :checkbox:not(:checked)',
+                      $expertCheckBoxChecked = 'div>.item>label>:checkbox:checked',
+                      $expertCheckBox = 'div>.item>label>:checkbox:not(:checked)';
 
                     $cur.toggleClass('active');
 
@@ -714,9 +714,9 @@
 
             $(parent).next(btnMore).each(function() {
                 var
-                    cur = $(this),
-                    curParent =  cur.parents('li,.expand-more'),
-                    curHiddenEl = curParent.find(item).length;
+                  cur = $(this),
+                  curParent =  cur.parents('li,.expand-more'),
+                  curHiddenEl = curParent.find(item).length;
 
                 if(itemDisplay !== undefined) {
                     curHiddenEl = curHiddenEl - (itemDisplay-step);
@@ -728,9 +728,9 @@
 
             $(parent).next(btnMore).on('click',function(e) {
                 var cur = $(this),
-                    curNode = this,
-                    curParent =  cur.parents('li,.expand-more'),
-                    delay = 200;
+                  curNode = this,
+                  curParent =  cur.parents('li,.expand-more'),
+                  delay = 200;
 
                 if (animateDelay !== undefined)  {
                     delay = animateDelay;
@@ -746,10 +746,10 @@
                     };
 
                     var
-                        allHiddenCount = curNode.getAttribute('data-length-hidden'),
-                        curCount = parseInt(curNode.getAttribute('data-count')),
-                        nextCount = curCount +(curParent.find(arrayItems.join()).addClass('hidden')).length,
-                        nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden');
+                      allHiddenCount = curNode.getAttribute('data-length-hidden'),
+                      curCount = parseInt(curNode.getAttribute('data-count')),
+                      nextCount = curCount +(curParent.find(arrayItems.join()).addClass('hidden')).length,
+                      nextAllHiddenElements = curParent.find(arrayItems.join()).addClass('hidden');
 
                     if(curCount < allHiddenCount) {
                         nextAllHiddenElements.addClass('hidden').slideDown(delay);
@@ -779,10 +779,10 @@
             if(itemEl.length) {
                 itemEl.each(function( index ) {
                     var
-                        $cur = $(this),
-                        $curLink = $cur.find('.more-link'),
-                        curCount = $curLink.data('count'),
-                        curCountHidden = $curLink.data('length-hidden');
+                      $cur = $(this),
+                      $curLink = $cur.find('.more-link'),
+                      curCount = $curLink.data('count'),
+                      curCountHidden = $curLink.data('length-hidden');
 
                     if(curCount == curCountHidden) {
                         $curLink.addClass('showed');
@@ -814,7 +814,7 @@
                 var itemCur = $(this);
 
                 var selectItem = itemCur.find('[data-select=selected]'),
-                    selectText = selectItem.find('a').text();
+                  selectText = selectItem.find('a').text();
                 if(selectText.length > 0) {
                     itemCur.find(btn).text(selectText);
                 }
@@ -822,21 +822,21 @@
         },
         openItem: function(parent) {
             var
-                $curPrent = parent;
+              $curPrent = parent;
 
             $curPrent.find('>ul').slideDown(headerMenu.delay);
             $curPrent.addClass('open');
         },
         closeItem: function(parent) {
             var
-                $curPrent = parent;
+              $curPrent = parent;
 
             $curPrent.find('>ul').slideUp(headerMenu.delay);
             setTimeout(function(){ $curPrent.removeClass('open'); }, headerMenu.delay);
         },
         accordion: function(btn,content,parent) {
             var
-                $parent = $(parent);
+              $parent = $(parent);
 
             $parent.find('.'+headerMenu.classes).find(content).slideDown(0)
             $parent.find('.'+headerMenu.classes).parents('li').addClass('open')
@@ -844,11 +844,11 @@
 
             $(btn).click(function(e) {
                 var
-                    $cur = $(this),
-                    $curParent = $cur.parents('.item'),
-                    curAttr = $cur.attr('href'),
-                    checkClass = $curParent.hasClass(headerMenu.classes),
-                    checkLink = curAttr === '#';
+                  $cur = $(this),
+                  $curParent = $cur.parents('.item'),
+                  curAttr = $cur.attr('href'),
+                  checkClass = $curParent.hasClass(headerMenu.classes),
+                  checkLink = curAttr === '#';
 
                 if (checkLink) {
                     e.preventDefault();
@@ -899,14 +899,14 @@
 
                 //get
                 var metaTitle = $('#title-document').text(),
-                    desc = $('meta[name="description"]').attr("content"),
-                    titleClear,
-                    descClear,
-                    descText = $('.content-inner-text p').text(),
-                    title = $('.content h1').text(),
-                    url = document.URL,
-                    urlArray = url.split("//"),
-                    urlText = urlArray[1];
+                  desc = $('meta[name="description"]').attr("content"),
+                  titleClear,
+                  descClear,
+                  descText = $('.content-inner-text p').text(),
+                  title = $('.content h1').text(),
+                  url = document.URL,
+                  urlArray = url.split("//"),
+                  urlText = urlArray[1];
 
                 if(desc === undefined) {
                     descClear = descText;
@@ -923,21 +923,21 @@
 
                 function sliceText(text,symbols) {
                     var slicedText = text.slice(0,symbols);
-                        if (slicedText.length < text.length) {
-                            slicedText += '...';
-                        }
+                    if (slicedText.length < text.length) {
+                        slicedText += '...';
+                    }
 
                     return slicedText;
                 }
 
                 var
-                    slicedDesc = sliceText(descClear,240),
-                    slicedTitle = sliceText(titleClear,140);
+                  slicedDesc = sliceText(descClear,240),
+                  slicedTitle = sliceText(titleClear,140);
 
                 //set
                 var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
-                    twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
-                    facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
+                  twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
+                  facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
 
                 $(item).each(function() {
                     var cur = $(this);
@@ -982,9 +982,9 @@
                 function appendElements(el,elToMobile,elToDesktop) {
                     if($(elToMobile).length) {
                         var
-                            $elHtml = $(el),
-                            $elToMobile = $(elToMobile),
-                            $elToDesktop = $(elToDesktop);
+                          $elHtml = $(el),
+                          $elToMobile = $(elToMobile),
+                          $elToDesktop = $(elToDesktop);
 
                         if (_window_width < _mobile) {
                             $elToMobile.append($elHtml);
@@ -1038,11 +1038,11 @@
         addCloseCookie: function(name, $parent) {
 
             $.get('/site/add-close-cookie', 'name='+name)
-            .success(function( data ) {
-                if (data.result) {
-                    $parent.fadeOut(200);
-                }
-            });
+              .success(function( data ) {
+                  if (data.result) {
+                      $parent.fadeOut(200);
+                  }
+              });
         }
     };
 
@@ -1055,18 +1055,18 @@
 
                 $list.find('>li').each( function( i, v ) {
                     var $item = $(this),
-                        children = $item.find('>ul'),
-                        length = 0,
-                        className = 'many';
-                        
-                        if(children.length>0) {
-                            length = children[0].childElementCount;
-                        };
+                      children = $item.find('>ul'),
+                      length = 0,
+                      className = 'many';
 
-                        if(length>1) {
-                            className = 'many';
-                        }
-                        $item.addClass(className);
+                    if(children.length>0) {
+                        length = children[0].childElementCount;
+                    };
+
+                    if(length>1) {
+                        className = 'many';
+                    }
+                    $item.addClass(className);
                 });
             }
         },
@@ -1074,11 +1074,11 @@
 
             if($(item).length) {
                 var
-                    $item = $(item),
-                    pathName = document.location.pathname,
-                    $link = $item.find('a[href$="'+pathName+'"]'),
-                    $linkPrent = $link.parent(),
-                    $articleHead = $('.article-head');
+                  $item = $(item),
+                  pathName = document.location.pathname,
+                  $link = $item.find('a[href$="'+pathName+'"]'),
+                  $linkPrent = $link.parent(),
+                  $articleHead = $('.article-head');
 
                 $linkPrent.addClass('open');
                 $linkPrent.parent().addClass('open');
@@ -1086,11 +1086,11 @@
         },
         backToTop: function(btn) {
             var
-                delay = 200;
+              delay = 200;
 
             $(window).scroll(function(){
                 var
-                    $btn = $(btn);
+                  $btn = $(btn);
 
                 if ($(this).scrollTop() > 100) {
                     $btn.fadeIn();
@@ -1109,16 +1109,16 @@
 
                 if($('.sidebar-right').length) {
                     var
-                        $sidebarRight = $('.sidebar-right'),
-                        $stiky = $('.stiky'),
-                        stikyLeft = $sidebarRight.offset().left,
-                        stikyWidth = $sidebarRight.width(),
-                        stikyHeight = $sidebarRight.height(),
-                        btnWidth = 30,
-                        $btn = $(btn),
-                        left = stikyLeft+stikyWidth-btnWidth,
-                        bottom = '35px',
-                        bottomCount = bottom;
+                      $sidebarRight = $('.sidebar-right'),
+                      $stiky = $('.stiky'),
+                      stikyLeft = $sidebarRight.offset().left,
+                      stikyWidth = $sidebarRight.width(),
+                      stikyHeight = $sidebarRight.height(),
+                      btnWidth = 30,
+                      $btn = $(btn),
+                      left = stikyLeft+stikyWidth-btnWidth,
+                      bottom = '35px',
+                      bottomCount = bottom;
 
                     if($stiky.length) {
                         bottomCount = stikyHeight;
@@ -1151,7 +1151,7 @@
         setheight: function(item) {
             if($(item).length && _window_width < _tablet) {
                 var
-                    $bg = $(item);
+                  $bg = $(item);
 
                 $bg.css('height', _window_height *  0.4);
 
@@ -1168,7 +1168,7 @@
         clearStorage: function() {
 
             var
-                $searchInput = $('.search-holder :text');
+              $searchInput = $('.search-holder :text');
 
             if (elements.searchResult.length < 1) {
                 localStorage.removeItem('AccordionItemAdvanced');
@@ -1193,7 +1193,7 @@
         sliceText:function() {
 
             var
-                checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
+              checkOpinionVideoItems = $('.video-item').length>0 || $('.opinion-item').length>0 || $('.s-opinion-item').length>0;
 
             if (checkOpinionVideoItems) {
 
@@ -1203,14 +1203,14 @@
                         str = str.trim();
 
                         var $strArray = str.split(' '),
-                            symbols = [',','.','...','-','!','?','–',''];
+                          symbols = [',','.','...','-','!','?','–',''];
 
                         $strArray[$strArray.length - 1] = '';
 
                         var
-                            preLastWord = $strArray[$strArray.length - 2].split(''),
-                            preLastSymbol = preLastWord[preLastWord.length - 1],
-                            checkSymbols = symbols.indexOf(preLastSymbol);
+                          preLastWord = $strArray[$strArray.length - 2].split(''),
+                          preLastSymbol = preLastWord[preLastWord.length - 1],
+                          checkSymbols = symbols.indexOf(preLastSymbol);
 
                         if(checkSymbols > -1) {
                             $strArray[$strArray.length - 2] = '';
@@ -1228,18 +1228,18 @@
                 function sliceTextItem(items) {
                     $(items).each(function(i){
                         var cur = $(this),
-                            curIndex = cur.parent().index(),
-                            checkImg = cur.hasClass('has-image'),
-                            checkFirst = curIndex === 0,
-                            curTitleTag = cur.find('h2'),
-                            curTitleTagLink = curTitleTag.find('a'),
-                            curTitleText = curTitleTagLink.text(),
-                            textLong = 150,
-                            titleLong = 70,
-                            $videosPage = $('.videos-page'),
-                            $opinionsPage = $('.opinions-page'),
-                            $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0,
-                            checkParagraph = cur.find('p').length > 0;
+                          curIndex = cur.parent().index(),
+                          checkImg = cur.hasClass('has-image'),
+                          checkFirst = curIndex === 0,
+                          curTitleTag = cur.find('h2'),
+                          curTitleTagLink = curTitleTag.find('a'),
+                          curTitleText = curTitleTagLink.text(),
+                          textLong = 150,
+                          titleLong = 70,
+                          $videosPage = $('.videos-page'),
+                          $opinionsPage = $('.opinions-page'),
+                          $checkOpionionsOrVideosPage = $videosPage.length>0 || $opinionsPage.length>0,
+                          checkParagraph = cur.find('p').length > 0;
 
                         if((checkFirst && $checkOpionionsOrVideosPage) && _mobile+1 <_window_width ) {
                             textLong = 500;
@@ -1278,7 +1278,7 @@
 
                             cur.find('p').each(function(i){
                                 var curParagraphTag = $(this),
-                                    curParagraphText = curParagraphTag.text();
+                                  curParagraphText = curParagraphTag.text();
 
                                 if (curParagraphText.trim().length > 0) {
                                     curParagraphTag.text(truncate(curParagraphText, textLong));

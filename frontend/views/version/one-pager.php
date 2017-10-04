@@ -423,11 +423,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                                 <?= str_repeat ('</li></ul>', $previos_lvl-1); ?>
                                 </li><li>
                             <?php endif; ?>
-                            <?php if ($previos_lvl == 1): ?>
-                                <li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a></li>
-                            <?php else: ?>
-                                <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
-                            <?php endif; ?>
+                            <a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>
                         <?php else: ?>
                             <?php if ($previos_lvl == $c['lvl']): ?>
                                 </li><li><a href="<?= Url::to([$c['url_key']]) ?>"><?= $c['title'] ?></a>

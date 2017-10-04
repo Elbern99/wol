@@ -9,7 +9,7 @@ use frontend\assets\TwitterAsset;
 use common\models\NewsItem;
 
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle . $page->Cms('meta_title');
+$this->title = $prefixTitle.$page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 $googleVerification = common\modules\settings\SettingsRepository::get('google_site_verification');
 
@@ -195,7 +195,9 @@ TwitterAsset::register($this);
                                             <?= Html::endTag('a') ?>
                                         </h2>
                                         <p><?= $event['location'] ?></p>
-                                        <small><?= $event['short_description']; ?></small>
+                                        <div class="hide-mobile">
+                                            <p><?= $event['short_description']; ?></p>
+                                        </div>
                                     </div>
                                     <!--<div class="location">Daniel S. Hamermesh</div>-->
                                 </li>
