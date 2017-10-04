@@ -5,6 +5,18 @@
 
 //NEWS-LISTS
 .news-home-list,
+.news-list,
+.home-other-events-list {
+  .post-item {
+    .hide-mobile,
+    .hide-desktop {
+      font-size: 11px;
+      line-height: 1.5em;
+    }
+  }
+}
+
+.news-home-list,
 .news-list {
   .post-item {
     margin: 0;
@@ -17,12 +29,6 @@
       font-size: 18px;
       margin: 0 0 12px;
       line-height: 1.3em;
-    }
-
-    .hide-mobile,
-    .hide-desktop {
-      font-size: 11px;
-      line-height: 1.5em;
     }
 
     .head-news-holder  {
