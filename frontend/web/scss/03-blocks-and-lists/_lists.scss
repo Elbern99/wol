@@ -1520,6 +1520,12 @@
   font-size: 12px;
 
   li {
+
+  }
+}
+
+.classification-list-item{
+  &.level-1{
     margin: 0 0 10px;
 
     &.one {
@@ -1555,19 +1561,19 @@
       margin: 0 0 13px;
     }
   }
-}
-
-.classification-list-item.level-2{
-  &:before {
-    content: '>';
-    padding: 0 3px 0 0;
-    margin: 0;
-    width: auto;
-    height: auto;
-    background: none;
-    display: inline-block !important;
+  &.level-2{
+    &:before {
+      content: '>';
+      padding: 0 3px 0 0;
+      margin: 0;
+      width: auto;
+      height: auto;
+      background: none;
+      display: inline-block !important;
+    }
   }
 }
+
 
 //FURTHER-READING-LIST
 .further-reading-list {
