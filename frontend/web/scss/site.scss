@@ -1,59 +1,58 @@
 /******* NORMALIZE *******/
-@import '00-normalize/_reset',
-        '00-normalize/_normalize';
+@import '00-normalize/_reset';
+@import '00-normalize/_normalize';
 /******* // NORMALIZE *******/
 
 /******* UTILITIES *******/
-@import '01-utilities/_fonts',
-        '01-utilities/_variables',
-        '01-utilities/_mixins',
-        '01-utilities/_helpers';
+@import '01-utilities/_fonts';
+@import '01-utilities/_variables';
+@import '01-utilities/_mixins';
+@import '01-utilities/_helpers';
 /******* // UTILITIES *******/
 
 /******* BASE *******/
-@import '02-base/_icons',
-        '02-base/_buttons',
-        '02-base/_typography ';
+@import '02-base/_icons';
+@import  '02-base/_buttons';
+@import  '02-base/_typography';
 /******* // BASE *******/
 
 /******* BLOCKS *******/
-@import
-        '03-blocks-and-lists/_blocks',
-        '03-blocks-and-lists/_lists';
+@import  '03-blocks-and-lists/_blocks';
+@import  '03-blocks-and-lists/_lists';
 /******* // BLOCKS *******/
 
 /******* FORMS *******/
-@import '04-forms/_form-controls',
-        '04-forms/_form-elements',
-        '04-forms/_forms';
+@import '04-forms/_form-controls';
+@import   '04-forms/_form-elements';
+@import   '04-forms/_forms';
 /******* // FORMS *******/
 
 /******* WIDJETS *******/
-@import '05-widgets/_map',
-        '05-widgets/_widgets';
+@import '05-widgets/_map';
+@import  '05-widgets/_widgets';
 /******* // WIDJETS *******/
 
 /******* LAYOUT *******/
-@import '06-layout/_content',
-        '06-layout/_footer',
-        '06-layout/_header',
-        '06-layout/_sidebar';
+@import '06-layout/_content';
+@import '06-layout/_footer';
+@import  '06-layout/_header';
+@import  '06-layout/_sidebar';
 /******* // LAYOUT *******/
 
 /******* PAGES *******/
-@import '07-pages/_static-pages',
-        '07-pages/_article',
-        '07-pages/_subscribe-to-newsletter',
-        '07-pages/_search-results',
-        '07-pages/_search-site',
-        '07-pages/_my-account',
-        '07-pages/_article-map',
-        '07-pages/_event',
-        '07-pages/_authors-board',
-        '07-pages/_search-expert',
-        '07-pages/_lists-pages',
-        '07-pages/_authors-profile',
-        '07-pages/_home';
+@import '07-pages/_static-pages';
+@import  '07-pages/_article';
+@import  '07-pages/_subscribe-to-newsletter';
+@import   '07-pages/_search-results';
+@import    '07-pages/_search-site';
+@import    '07-pages/_my-account';
+@import    '07-pages/_article-map';
+@import    '07-pages/_event';
+@import   '07-pages/_authors-board';
+@import   '07-pages/_search-expert';
+@import  '07-pages/_lists-pages';
+@import  '07-pages/_authors-profile';
+@import  '07-pages/_home';
 /******* // PAGES *******/
 
 /******* PAGES *******/

@@ -1537,21 +1537,7 @@
       }
     }
 
-    &.many {
-      ul {
-        li {
-          &:before {
-            content: '>';
-            padding: 0 3px 0 0;
-            margin: 0;
-            width: auto;
-            height: auto;
-            background: none;
-            display: inline-block !important;
-          }
-        }
-      }
-    }
+
 
     ul {
       display: inline;
@@ -1568,6 +1554,18 @@
     @include breakpoint('tablet') {
       margin: 0 0 13px;
     }
+  }
+}
+
+.classification-list-item.level-2{
+  &:before {
+    content: '>';
+    padding: 0 3px 0 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    background: none;
+    display: inline-block !important;
   }
 }
 
