@@ -417,6 +417,8 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
         <?php if ($count_categories > 0): ?>
             <div class="sidebar-widget">
                 <div class="widget-title">Classification</div>
+                    <?= \frontend\components\widget\CategoryListWidget::widget(['categories' => $categories, 'mainCssClass' => 'classification-list']); ?>
+                <?php /*
                 <ul class="classification-list">
                     <li>
                     <?php foreach ($categories as $c): ?>
@@ -437,6 +439,8 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                     <?php endforeach; ?>
                     </li>
                 </ul>
+                 * 
+                 */?>
             </div>
         <?php endif; ?>
 
