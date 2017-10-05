@@ -22,12 +22,12 @@ use yii\helpers\Url;
         <?php if ($model->$relation->author_count) : ?>
             <li class="<?= $class ?>">
                 <a class="profile-author-letter" href="<?= Url::to(['authors/index', 'filter' => $model->letter]) ?>" title="<?= $model->$relation->author_count; ?>">
-                    <span class="text"><?= $model->letter; ?></span>
+                    <span class="letter"><?= $model->letter; ?></span>
                 </a>
             </li>
         <?php else : ?>
             <li class="<?= $class ?>">
-                <span style="color: #999999;"><?= $model->letter; ?></span>
+                <span class="letter" style="color: #999999;"><?= $model->letter; ?></span>
             </li>
         <?php endif; ?>
     <?php endforeach; ?>
