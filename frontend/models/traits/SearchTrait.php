@@ -1,7 +1,11 @@
 <?php
+
 namespace frontend\models\traits;
 
-trait SearchTrait {
+
+trait SearchTrait
+{
+
 
     protected $headingModel = [
         self::ARTICLE_SEARCH_TYPE => 'article',
@@ -14,10 +18,10 @@ trait SearchTrait {
         self::PAPERS_SEARCH_TYPE => 'papers',
         self::POLICYPAPERS_SEARCH_TYPE => 'policypapers'
     ];
-    
+
     protected $headingLabel = [
         self::ARTICLE_SEARCH_TYPE => 'Article',
-        self::BIOGRAPHY_SEARCH_TYPE => 'Biography',
+        self::BIOGRAPHY_SEARCH_TYPE => 'People',
         self::KEYTOPICS_SEARCH_TYPE => 'Key Topics',
         self::NEWS_SEARCH_TYPE => 'News',
         self::OPINIONS_SEARCH_TYPE => 'Opinions',
@@ -26,31 +30,39 @@ trait SearchTrait {
         self::PAPERS_SEARCH_TYPE => 'IZA discussion paper',
         self::POLICYPAPERS_SEARCH_TYPE => 'IZA policy paper',
     ];
-    
-    public function getHeadingFilter() {
+
+
+    public function getHeadingFilter()
+    {
         return $this->headingLabel;
     }
-    
-    public function getheadingModelFilter($id = null) {
-        
+
+
+    public function getheadingModelFilter($id = null)
+    {
+
         if ($id) {
             return $this->headingModel[$id] ?? null;
         }
-        
+
         return $this->headingModel;
     }
-    
-    public function getHeadingModelKey($value = null) {
-        
+
+
+    public function getHeadingModelKey($value = null)
+    {
+
         if ($key = array_search($value, $this->headingModel)) {
             return $key;
         }
-        
+
         return false;
     }
-    
-    public function getTypeIds(): array {
-        
+
+
+    public function getTypeIds(): array
+    {
+
         return [
             self::ARTICLE_SEARCH_TYPE,
             self::BIOGRAPHY_SEARCH_TYPE,
