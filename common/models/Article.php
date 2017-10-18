@@ -2,9 +2,11 @@
 
 namespace common\models;
 
+
 use Yii;
 use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityModelInterface;
+
 
 /**
  * This is the model class for table "article".
@@ -26,8 +28,11 @@ use common\modules\eav\contracts\EntityModelInterface;
  */
 class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityModelInterface
 {
+
+
     const ENTITY_NAME = 'article';
-    
+
+
     /**
      * @inheritdoc
      */
@@ -35,39 +40,55 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     {
         return 'article';
     }
-    
+
+
     public static function primaryKey()
     {
-        return [0=>'id'];
+        return [0 => 'id'];
     }
-    
-    public function getId() {
+
+
+    public function getId()
+    {
         return $this->id;
     }
-    
-    public static function getBaseFolder() {
+
+
+    public static function getBaseFolder()
+    {
         return 'articles';
     }
-    
-    public function getSavePath() {
-        return '/uploads/'. self::getBaseFolder() .'/'.$this->id;
+
+
+    public function getSavePath()
+    {
+        return '/uploads/' . self::getBaseFolder() . '/' . $this->id;
     }
-    
-    public function getFrontendImagesBasePath() {
-        return Yii::getAlias('@frontend').'/web/uploads/'. self::getBaseFolder() .'/'.$this->id.'/images/';
+
+
+    public function getFrontendImagesBasePath()
+    {
+        return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/images/';
     }
-    
-    public function getBackendImagesBasePath() {
-        return Yii::getAlias('@backend').'/web/uploads/'. self::getBaseFolder() .'/'.$this->id.'/images/';
+
+
+    public function getBackendImagesBasePath()
+    {
+        return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/images/';
     }
-    
-    public function getFrontendPdfsBasePath() {
+
+
+    public function getFrontendPdfsBasePath()
+    {
         return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/pdfs/';
     }
-    
-    public function getBackendPdfsBasePath() {
+
+
+    public function getBackendPdfsBasePath()
+    {
         return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/' . $this->id . '/pdfs/';
     }
+
 
     /**
      * @inheritdoc
@@ -75,8 +96,8 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     public function rules()
     {
         return [
-            [['id','enabled'], 'integer'],
-            [['id','sort_key', 'seo', 'doi'], 'required'],
+            [['id', 'enabled'], 'integer'],
+            [['id', 'sort_key', 'seo', 'doi'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
             ['notices', 'string'],
@@ -84,6 +105,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             [['id'], 'unique'],
         ];
     }
+
 
     /**
      * @inheritdoc
@@ -104,6 +126,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         ];
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -111,6 +134,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     {
         return $this->hasMany(ArticleAuthor::className(), ['article_id' => 'id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -120,38 +144,39 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return $this->hasMany(ArticleCategory::className(), ['article_id' => 'id']);
     }
 
+
     public function getRelatedArticles(array $articles)
     {
         $ids = [];
         $related = [];
-        
+
         foreach ($articles as $article) {
             $ids[] = $article->id;
         }
-        
+
         if (count($ids)) {
             $related = $this
-                    ->find()
-                    ->where(['id' => $ids, 'enabled' => 1])
-                    ->with(['articleAuthors.author' => function($query) {
+                ->find()
+                ->where(['id' => $ids, 'enabled' => 1])
+                ->with(['articleAuthors.author' => function($query) {
                         return $query->select(['id', 'name', 'url_key']);
                     }])
-                    ->select(['id', 'seo', 'title'])
-                    ->all();
-                    
+                ->select(['id', 'seo', 'title'])
+                ->all();
+
             unset($ids);
         }
-        
+
         if (count($related)) {
-            
+
             $formatRelated = [];
-            
+
             foreach ($related as $article) {
-                
+
                 $authors = [];
-                
+
                 foreach ($article->articleAuthors as $author) {
-                    
+
                     if (isset($author->author)) {
                         $authors[] = [
                             'name' => $author->author->name,
@@ -159,7 +184,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
                         ];
                     }
                 }
-                
+
                 $formatRelated[] = [
                     'seo' => $article->seo,
                     'title' => $article->title,
@@ -169,18 +194,24 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
             return $formatRelated;
         }
-        
+
         return $related;
     }
-    
-    public function getArticleVersions() {
-        
+
+
+    public function getArticleVersions()
+    {
+
         return VersionsArticle::find()
-                    ->select(['version_number','seo','notices'])
-                    ->where(['article_id' => $this->id])
-                    ->asArray()
-                    ->all();
+                ->select(['version_number', 'seo', 'notices'])
+                ->where(['article_id' => $this->id])
+                ->asArray()
+                ->all();
     }
 
-    public function getRelatedCategories() {}
+
+    public function getRelatedCategories()
+    {
+        
+    }
 }

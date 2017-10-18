@@ -2,40 +2,63 @@
 
 namespace common\models;
 
+
 use Yii;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
 
+
 class NewsItem extends \yii\db\ActiveRecord
 {
+
     use \common\helpers\FileUploadTrait;
-    
+
     protected $files = [
         'image_link',
     ];
-    
+
     protected $imagePath = '/web/uploads/news';
+
     public $article_ids;
+
     public $editor;
+
 
     public function getImagePath()
     {
         if ($this->image_link) {
             return Yii::getAlias('@frontend') . $this->imagePath . '/' . $this->image_link;
         }
-  
+
         return null;
     }
-    
-    public function getFrontendPath() {
+
+
+    public function getImageUrl($absolute = false)
+    {
+        $url = $this->image_link ? '/uploads/news/' . $this->image_link : false;
+
+        if ($absolute && $url) {
+            $url = Yii::$app->urlManager->createAbsoluteUrl($url);
+        }
+
+        return $url;
+    }
+
+
+    public function getFrontendPath()
+    {
         // return Yii::getAlias('@frontend').'/web/uploads/news';
         return Yii::getAlias('@frontend') . $this->imagePath;
     }
-    
-    public function getBackendPath() {
+
+
+    public function getBackendPath()
+    {
         return null;
     }
-    
+
+
     /**
      * @inheritdoc
      */
@@ -43,6 +66,27 @@ class NewsItem extends \yii\db\ActiveRecord
     {
         return 'news';
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \common\components\TwitterBehavior::className(),
+                'twitterCard' => 'summary',
+                'twitterSite' => '@izaworldoflabor',
+                'twitterTitle' => 'title',
+                'twitterDescription' => 'short_description',
+                'twitterImage' => function ($model) {
+                    return $model->getImageUrl(true);
+                },
+            ]
+        ];
+    }
+
 
     /**
      * @inheritdoc
@@ -61,6 +105,7 @@ class NewsItem extends \yii\db\ActiveRecord
         ];
     }
 
+
     /**
      * @inheritdoc
      */
@@ -78,33 +123,37 @@ class NewsItem extends \yii\db\ActiveRecord
             'article_ids' => Yii::t('app', 'Related Articles'),
         ];
     }
-    
+
+
     public function loadAttributes()
     {
         $relatedArticles = $this->getNewsArticles()->all();
-        
+
         foreach ($relatedArticles as $article) {
             $currentArticle = $article->article;
-            $this->article_ids[] = $currentArticle->id; 
+            $this->article_ids[] = $currentArticle->id;
         }
     }
-    
+
+
     public function afterFind()
     {
         $this->created_at = new \DateTime($this->created_at);
         $this->editor = self::getSourcesLink($this->sources);
     }
-    
-    public static function getSourcesLink($sources) {
- 
+
+
+    public static function getSourcesLink($sources)
+    {
+
         $str = [];
 
         if ($sources) {
-            
+
             $sources = unserialize($sources);
-            
+
             foreach ($sources as $source) {
-                
+
                 if ($source['link']) {
                     $str[] = Html::a($source['source'], urldecode($source['link']), ['target' => 'blank']);
                 } else {
@@ -115,53 +164,56 @@ class NewsItem extends \yii\db\ActiveRecord
 
         return implode(', ', $str);
     }
-    
-    public function beforeSave($insert) {
-        
+
+
+    public function beforeSave($insert)
+    {
+
         if (parent::beforeSave($insert)) {
 
             if (is_array($this->sources) && count($this->sources)) {
                 $sources = [];
-                
+
                 foreach ($this->sources as $source) {
                     if (!$source['source']) {
                         continue;
                     }
-                    
+
                     $sources[] = [
                         'source' => $source['source'],
-                        'link' => ($source['link']) ? urlencode(urldecode($source['link'])): null
+                        'link' => ($source['link']) ? urlencode(urldecode($source['link'])) : null
                     ];
                 }
-                
+
                 $this->sources = serialize($sources);
             }
-            
+
             $this->checkImageLink();
             return true;
-            
         }
-        
-        return false;   
+
+        return false;
     }
-    
+
+
     public function deleteImage()
     {
         if ($this->image_link) {
             if (file_exists($this->getImagePath())) {
                 unlink($this->getImagePath());
             }
-            
+
             Yii::$app->db->createCommand()
-            ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
-            ->execute();
+                ->update(self::tableName(), ['image_link' => ''], 'id = ' . $this->id)
+                ->execute();
         }
     }
-    
+
+
     public function checkImageLink()
     {
-        $image =  UploadedFile::getInstance($this, 'image_link');
-        
+        $image = UploadedFile::getInstance($this, 'image_link');
+
         if (!$image) {
             $currentItem = self::find()->where(['id' => $this->id])->one();
             if ($currentItem && $currentItem->image_link) {
@@ -169,22 +221,25 @@ class NewsItem extends \yii\db\ActiveRecord
             }
         }
     }
-    
+
+
     public function getNewsArticles()
     {
         return $this->hasMany(NewsArticle::className(), ['news_id' => 'id']);
     }
-    
+
+
     public function articlesList()
     {
         $articles = Article::find()->where(['enabled' => 1])->orderBy('id desc')->all();
         $articlesList = [];
         foreach ($articles as $article) {
-            $articlesList[$article->id] = $article->title; 
+            $articlesList[$article->id] = $article->title;
         }
         return $articlesList;
     }
-    
+
+
     public function saveFormatted()
     {
         if (!$this->validate())
@@ -193,18 +248,19 @@ class NewsItem extends \yii\db\ActiveRecord
         $this->setCreatedAtDate();
         $this->initUploadProperty();
         $this->upload();
-        
+
         if ($this->save()) {
             $this->saveArticlesList();
         }
-        
+
         return true;
     }
-    
+
+
     protected function setCreatedAtDate()
     {
         $date = $this->created_at ? $this->created_at : 'now';
-        
+
         try {
             $created_at = new \DateTime($date);
         } catch (\Exception $e) {
@@ -212,31 +268,31 @@ class NewsItem extends \yii\db\ActiveRecord
         }
         $this->created_at = $created_at->format('Y-m-d');
     }
-    
+
+
     protected function saveArticlesList()
     {
         NewsArticle::deleteAll(['=', 'news_id', $this->id]);
-        
+
         $bulkInsertArray = [];
-        
+
         if (is_array($this->article_ids)) {
-            
+
             foreach ($this->article_ids as $id) {
-                $bulkInsertArray[]=[
+                $bulkInsertArray[] = [
                     'news_id' => $this->id,
                     'article_id' => $id,
                 ];
             }
 
-            if (count($bulkInsertArray) > 0){
+            if (count($bulkInsertArray) > 0) {
                 $columnNamesArray = ['news_id', 'article_id'];
                 $insertCount = Yii::$app->db->createCommand()
-                               ->batchInsert(
-                                    NewsArticle::tableName(), $columnNamesArray, $bulkInsertArray
-                                )
-                               ->execute();
+                    ->batchInsert(
+                        NewsArticle::tableName(), $columnNamesArray, $bulkInsertArray
+                    )
+                    ->execute();
             }
         }
     }
-
 }
