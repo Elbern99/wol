@@ -72,7 +72,7 @@ class SitemapController extends Controller
                 }
             }
         } else {
-            $textModel->xml = Sitemap::getContent();
+            $textModel->xml = $exists ? Sitemap::getContent() : '';
         }
 
         return $this->render('index', ['exists' => $exists, 'writable' => $writable, 'textModel' => $textModel, 'fileModel' => $fileModel, 'activeTab' => $activeTab]);
