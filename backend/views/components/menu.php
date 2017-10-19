@@ -37,6 +37,7 @@ if (Yii::$app->user->isGuest) {
             ['label' => Yii::t('app/menu', 'Upload'), 'url' => ['/admin-interface/upload']],
             ['label' => Yii::t('app/menu', 'Versions'), 'url' => ['/admin-interface/versions']],
             ['label' => Yii::t('app/menu', 'Log'), 'url' => ['/admin-interface/upload-log']],
+            ['label' => Yii::t('app/menu', 'XML Sitemap'), 'url' => ['/sitemap']],
         ],
     ];
 
