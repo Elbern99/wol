@@ -74,7 +74,7 @@ AdvancedSearchAsset::register($this);
                     </div>
                     <div class="form-control-holder">
                     <ul class="my-tags-list all-words-tags-list"></ul>
-                    <?= Html::activeInput('text', $search, 'all_words', ['class'=>"form-control my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'all_words', ['class'=>"form-control my-single-field", 'placeholder' => 'Enter words separated with spaces']) ?>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@ AdvancedSearchAsset::register($this);
                     </div>
                     <div class="form-control-holder">
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('text', $search, 'one_more_words', ['class'=>"form-control my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'one_more_words', ['class'=>"form-control my-single-field", 'placeholder' => 'Enter words separated with spaces']) ?>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@ AdvancedSearchAsset::register($this);
                     </div>
                     <div class="form-control-holder">
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('text', $search, 'any_words', ['class'=>"my-single-field form-control"]) ?>
+                    <?= Html::activeInput('text', $search, 'any_words', ['class'=>"my-single-field form-control", 'placeholder' => 'Enter words separated with spaces']) ?>
                     </div>
                 </div>
             </div>
