@@ -101,7 +101,7 @@ AdvancedSearchAsset::register($this);
                         <div class="label-text label-text-custom">any of these words</div>
                     </div>
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'any_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'any_words', ['class'=>"my-single-field"]) ?>
                 </div>
             </div>
             <button class="btn-blue-large" type="submit">search</button>
