@@ -73,7 +73,7 @@ AdvancedSearchAsset::register($this);
                         <div class="label-text label-text-custom">all of these words</div>
                     </div>
                     <ul class="my-tags-list all-words-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'all_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'all_words', ['class'=>"my-single-field"]) ?>
                 </div>
 
                 <div class="form-line">
@@ -90,7 +90,7 @@ AdvancedSearchAsset::register($this);
                         <div class="label-text label-text-custom">one or more of these words</div>
                     </div>
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'one_more_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'one_more_words', ['class'=>"my-single-field"]) ?>
                 </div>
             </div>
 
