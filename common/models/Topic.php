@@ -317,7 +317,7 @@ class Topic extends \yii\db\ActiveRecord
                 $this->sticky_at = $this->sticky_date;
             } else {
                 $sticky_at = new \DateTime('now');
-                $this->sticky_at = $sticky_at->format('Y-m-d');
+                $this->sticky_at = $sticky_at->format('Y-m-d H:i:s');
             }
         } else {
             $this->sticky_at = null;
