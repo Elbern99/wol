@@ -59,7 +59,6 @@ class SearchController extends Controller
      */
     public function actionIndex($search_phrase = null)
     {
-
         $model = new AdvancedSearchForm();
         $searchFiltersData = null;
         $searchResult = null;
@@ -175,6 +174,9 @@ class SearchController extends Controller
                 $topicsCount += 1;
             }
         }
+        
+        $synonyms = unserialize($searchResultData->synonyms);
+        $synonyms[] = $model->exact_phrase;
 
         return $this->render('result', [
                 'phrase' => $search_phrase,
@@ -185,7 +187,7 @@ class SearchController extends Controller
                 'resultCount' => $mainresultCountWithFilter + $topicsCount,
                 'resultCountWithoutFilter' => $mainresultCount + ((isset($searchResult['format']['key_topics'])) ? count($searchResult['format']['key_topics']) : 0),
                 'filters' => $searchFiltersData,
-                'synonyms' => unserialize($searchResultData->synonyms),
+                'synonyms' => $synonyms,
         ]);
     }
 
