@@ -2,6 +2,7 @@
 
 namespace common\modules\article;
 
+
 use common\contracts\ParserInterface;
 use common\contracts\ReaderInterface;
 use common\contracts\LogInterface;
@@ -16,6 +17,7 @@ use Yii;
 use yii\base\Event;
 
 /* Parse Methods */
+
 
 //addBaseTableValue
 //getTitle
@@ -38,51 +40,71 @@ use yii\base\Event;
 /*
  * class parse article
  */
-class ArticleParser implements ParserInterface {
+class ArticleParser implements ParserInterface
+{
 
     use traits\ArticleParseTrait;
 
     const EVENT_ARTICLE_CREATE = 'articleAdd';
+
     const EVENT_SPHINX_REINDEX = 'sphinxReindex';
-    
+
     /*
      * property for additional object, files
      */
+
     private $article = null;
+
     private $entity = null;
+
     private $type = null;
+
     private $value = null;
+
     private $xml = null;
+
     private $langs = [];
+
     private $fullPdf = '';
+
     private $onePagerPdf = null;
+
     private $taxonomy = null;
+
     private $log;
-    
+
     /*
      * property for save parsed information
      */
+
     protected $categoryIds = [];
+
     protected $images = [];
+
     protected $gaImage = null;
+
     protected $sources = [];
+
     protected $furtherReading = null;
+
     protected $keyReferences = null;
+
     protected $addReferences = null;
+
     protected $config = null;
+
     protected $taxonomyCodeId = [];
+
     protected $sourceAttribute = [];
+
     protected $usedImages = [];
-    
-    public function __construct (
-            ArticleInterface $article,
-            EntityInterface $entity, 
-            EntityTypeInterface $type, 
-            ValueInterface $value,
-            TaxonomyInterface $taxonomy,
-            LogInterface $log
-    ) {
-        
+
+
+    public function __construct(
+    ArticleInterface $article, EntityInterface $entity, EntityTypeInterface $type, ValueInterface $value, TaxonomyInterface $taxonomy, LogInterface $log
+    )
+    {
+
         $this->config = Yii::$app->params['articleModelDetail'];
         $this->article = $article;
         $this->entity = $entity;
@@ -94,111 +116,139 @@ class ArticleParser implements ParserInterface {
         $this->setLangData();
         $this->setTaxonomyData();
     }
-    
-    protected function getParseImagePath($name) {
-        
-        return $this->article->getSavePath().'/images/'.$name;
+
+
+    protected function getParseImagePath($name)
+    {
+
+        return $this->article->getSavePath() . '/images/' . $name;
     }
-    
-    protected function setTaxonomyData() {
-        
-        $data = $this->taxonomy->find()->select(['id','code', 'value'])->asArray()->all();
+
+
+    protected function setTaxonomyData()
+    {
+
+        $data = $this->taxonomy->find()->select(['id', 'code', 'value'])->asArray()->all();
         $this->taxonomy = ArrayHelper::map($data, 'code', 'value');
         $this->taxonomyCodeId = ArrayHelper::map($data, 'id', 'code');
     }
-    
-    protected function setLangData() {
+
+
+    protected function setLangData()
+    {
         $langClass = $this->config['language'];
         $this->langs = ArrayHelper::map($langClass::find()->select(['id', 'code'])->asArray()->all(), 'code', 'id');
     }
-    
-    public function getLangByCode($code) {
-        
+
+
+    public function getLangByCode($code)
+    {
+
         if (isset($this->langs[$code])) {
-            
+
             return $this->langs[$code];
         }
-        
+
         return 0;
     }
 
-    protected function getFullPdf() {
-        
+
+    protected function getFullPdf()
+    {
+
         if ($this->fullPdf) {
-            
+
             $obj = new \stdClass();
-            $obj->url = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
+            $obj->url = $this->article->getSavePath() . '/pdfs/' . $this->fullPdf;
             return serialize($obj);
         }
-        
+
         return null;
     }
-    
-    protected function getOnePagerPdf() {
-        
+
+
+    protected function getOnePagerPdf()
+    {
+
         if (is_null($this->onePagerPdf)) {
             return null;
         }
-        
+
         return $this->onePagerPdf;
     }
 
-    protected function getFurtherReading() {
-        
+
+    protected function getFurtherReading()
+    {
+
         if (is_null($this->furtherReading)) {
             return null;
         }
-        
+
         return serialize($this->furtherReading);
     }
 
-    protected function getKeyReferences() {
-        
+
+    protected function getKeyReferences()
+    {
+
         if (is_null($this->keyReferences)) {
             return null;
         }
-        
+
         return serialize($this->keyReferences);
     }
 
-    protected function getAddReferences() {
-        
+
+    protected function getAddReferences()
+    {
+
         if (is_null($this->addReferences)) {
             return null;
         }
-        
+
         return serialize($this->addReferences);
     }
 
-    protected function getGaImage() {
-        
+
+    protected function getGaImage()
+    {
+
         if (is_null($this->gaImage)) {
             return null;
         }
-        
+
         return $this->gaImage;
     }
 
-    protected function getImages() {
-        
+
+    protected function getImages()
+    {
+
         if (count($this->images)) {
             return null;
         }
-        
+
         return serialize($this->images);
     }
-    
-    protected function getSources() {
+
+
+    protected function getSources()
+    {
         return serialize($this->sourceAttribute);
     }
-    
-    protected function addDataSources() {
+
+
+    protected function addDataSources()
+    {
 
         $sourceClass = $this->config['source'];
         $sourceClass::addSources($this->sourceAttribute);
     }
 
-    protected function addBaseTableValue() {
+
+    protected function addBaseTableValue()
+    {
 
         $articleId = $this->getIdNoByType('articleNumber');
         $doi = $this->getIdNoByType('doi');
@@ -208,12 +258,12 @@ class ArticleParser implements ParserInterface {
         $created_at = $this->xml->teiHeader->fileDesc->publicationStmt->date->attributes();
         $time = strtotime((string) $created_at['when-iso']);
         $publisher = (string) $this->xml->teiHeader->fileDesc->publicationStmt->publisher;
-        $title = (string)$this->xml->teiHeader->fileDesc->titleStmt->title;
+        $title = (string) $this->xml->teiHeader->fileDesc->titleStmt->title;
 
         $this->article->setAttribute('id', $articleId);
         $this->article->setAttribute('title', $title);
         $this->article->setAttribute('sort_key', $sortKey);
-        $this->article->setAttribute('seo', str_replace(' ','-',strtolower(trim($seo))));
+        $this->article->setAttribute('seo', str_replace(' ', '-', strtolower(trim($seo))));
         $this->article->setAttribute('doi', $doi);
         $this->article->setAttribute('enabled', 0);
         $this->article->setAttribute('availability', $availability);
@@ -221,53 +271,56 @@ class ArticleParser implements ParserInterface {
         $this->article->setAttribute('updated_at', time());
         $this->article->setAttribute('publisher', $publisher);
     }
-    
-    public function clearParseData() {
-        
+
+
+    public function clearParseData()
+    {
+
         $this->usedImages = [];
         $this->furtherReading = null;
         $this->keyReferences = null;
         $this->addReferences = null;
     }
 
-    public function parse(ReaderInterface $reader) {
+
+    public function parse(ReaderInterface $reader)
+    {
 
         $xml = $reader->getXml();
         $this->xml = new \SimpleXMLElement(file_get_contents($xml));
-        
+
         if (!isset($this->xml->teiHeader->fileDesc->publicationStmt->idno)) {
             $this->log->addLine('Xml file has wrong type');
             return $this->log;
         }
 
         $this->addBaseTableValue();
-    
+
         $this->saveArticleImages($reader->getImages());
         $this->saveArticlePdfs($reader->getPdfs());
         $reader->removeTemporaryFolder();
         unset($reader);
-        
+
         $attributes = $this->type->find()
-                            ->where(['name' => 'article'])
-                            ->with('eavTypeAttributes.eavAttribute')
-                            ->one();
+            ->where(['name' => 'article'])
+            ->with('eavTypeAttributes.eavAttribute')
+            ->one();
 
         $this->setImages();
         $this->setSources();
- 
+
         foreach ($attributes->eavTypeAttributes as $attrType) {
 
             $related = $attrType->getRelatedRecords();
 
             foreach ($related as $attribute) {
-                
+
                 try {
-                    
+
                     $attrName = $attribute->getAttribute('name');
                     $this->$attrName($attribute->getAttribute('required'));
-
-                } catch(\Exception $e) {
-                    $this->log->addLine('Attribute '.$attribute->getAttribute('name'). ' not validated - '. $e->getMessage(). $e->getTraceAsString());
+                } catch (\Exception $e) {
+                    $this->log->addLine('Attribute ' . $attribute->getAttribute('name') . ' not validated - ' . $e->getMessage() . $e->getTraceAsString());
                 }
             }
         }
@@ -278,37 +331,37 @@ class ArticleParser implements ParserInterface {
 
         $this->clearParseData();
         // $this->article->enabled = 1; 
-        
+
         if (!$this->article->save()) {
 
             foreach ($this->article->getErrors() as $error) {
                 $this->log->addLine(current($error));
             }
-            
+
             return $this->log;
         }
-        
+
         $articleId = $this->article->id;
-        
+
         $this->addArticleCategory($articleId);
         $this->addArticleAuthor($articleId);
         $this->addDataSources();
-        
+
         $typeId = $attributes->id;
-        
+
         $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
 
         if (is_null($entity)) {
-            
+
             $this->article->delete();
-            $this->log->addLine(Yii::t('app/messages','Entity could not be created'));
+            $this->log->addLine(Yii::t('app/messages', 'Entity could not be created'));
             return $this->log;
         }
 
         $result = true;
-        
+
         foreach ($attributes->eavTypeAttributes as $attrType) {
-            
+
             $related = $attrType->getRelatedRecords();
 
             foreach ($related as $attribute) {
@@ -337,53 +390,62 @@ class ArticleParser implements ParserInterface {
                                 $result = false;
                             }
                         }
-                        
                     } else {
-                        
+
                         $args = [
                             'entity_id' => $entity->id,
                             'attribute_id' => $attribute->getAttribute('id'),
                             'value' => $val
                         ];
-                        
+
                         if (!$this->value->addEavAttribute($args)) {
                             $result = false;
                         }
                     }
                 }
-
             }
         }
-        
+
         if ($result) {
-            
+
             $event = new ArticleEvent;
             $event->id = $this->article->id;
             $event->title = $this->article->title;
-            $event->url = 'articles/'.$this->article->seo;
+            $event->url = 'articles/' . $this->article->seo;
             $event->categoryIds = $this->categoryIds;
             $event->availability = $this->article->availability;
-            $event->pdf = $this->article->getSavePath().'/pdfs/'.$this->fullPdf;
+            $event->pdf = $this->article->getSavePath() . '/pdfs/' . $this->fullPdf;
 
-            Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+            if ($this->article instanceof \common\models\Article) {
+                $deleteTest = $this->article->getDeleted()->one();
+            } else {
+                $deleteTest = null;
+            }
+
+            if (!$deleteTest) {
+                Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
+            }
+
             Event::trigger(self::class, self::EVENT_SPHINX_REINDEX);
         }
-        
+
         return $result;
     }
-    
-    protected function addArticleAuthor($articleId) {
+
+
+    protected function addArticleAuthor($articleId)
+    {
 
         $keys = [];
         $bulkInsertArray = [];
         $class = $this->config['article_author'];
         $codes = $this->xml->teiHeader->fileDesc->titleStmt->respStmt->persName;
         foreach ($codes as $code) {
-            
+
             $p = xml_parser_create();
             xml_parse_into_struct($p, $code->asXML(), $vals);
             xml_parser_free($p);
-            
+
             $keys[] = (string) $vals[0]['attributes']['XML:ID'];
             unset($vals);
         }
@@ -399,35 +461,38 @@ class ArticleParser implements ParserInterface {
 
         $class::massInsert($bulkInsertArray);
     }
-    
-    protected function addArticleCategory($articleId) {
-        
+
+
+    protected function addArticleCategory($articleId)
+    {
+
         $categories = [];
         $bulkInsertArray = [];
         $codes = $this->xml->teiHeader->profileDesc->textClass->classCode;
         $class = $this->config['article_category'];
-        
+
         foreach ($codes as $code) {
-            $categories[] = (string)$code['scheme'];
+            $categories[] = (string) $code['scheme'];
         }
-        
+
         $categories = $class::getCategoryByCode($categories);
 
         foreach ($categories as $category) {
 
             $this->categoryIds[] = $category;
-            
+
             $bulkInsertArray[] = [
                 'article_id' => $articleId,
                 'category_id' => $category,
             ];
         }
-        
-        $class::massInsert($bulkInsertArray);
 
+        $class::massInsert($bulkInsertArray);
     }
 
-    protected function saveArticlePdfs($pdfs) {
+
+    protected function saveArticlePdfs($pdfs)
+    {
 
         $baseBackendPath = $this->article->getBackendPdfsBasePath();
         $baseFrontendPath = $this->article->getFrontendPdfsBasePath();
@@ -435,58 +500,56 @@ class ArticleParser implements ParserInterface {
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
+                throw new \Exception(Yii::t('app/messages', 'Pdf article  folder could not be created'));
             }
         }
 
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception(Yii::t('app/messages','Pdf article  folder could not be created'));
+                throw new \Exception(Yii::t('app/messages', 'Pdf article  folder could not be created'));
             }
         }
-        
+
         $langs = array_keys($this->langs);
-        
+
         foreach ($pdfs as $name => $path) {
-                       
+
             if (preg_match("/(full)/i", $name)) {
-                
-                $name = $this->article->seo.'.pdf';
+
+                $name = $this->article->seo . '.pdf';
                 $this->fullPdf = $name;
-                
+
                 $this->copyFile($path, $baseBackendPath . $name);
                 $this->copyFile($path, $baseFrontendPath . $name);
-                
-            } elseif(preg_match("/(one-pager)/i", $name)) {
-                
-                $name = $this->article->seo.'.one-pager.pdf';
+            } elseif (preg_match("/(one-pager)/i", $name)) {
+
+                $name = $this->article->seo . '.one-pager.pdf';
                 $obj = new \stdClass();
-                $obj->url = $this->article->getSavePath().'/pdfs/'.$name;
-                
+                $obj->url = $this->article->getSavePath() . '/pdfs/' . $name;
+
                 $this->onePagerPdf[] = [
                     'value' => serialize($obj),
                     'lang_id' => 0
                 ];
-                
+
                 $this->copyFile($path, $baseBackendPath . $name);
                 $this->copyFile($path, $baseFrontendPath . $name);
-                        
             } else {
-                
+
                 foreach ($langs as $lang) {
-                    
+
                     if (preg_match("/($lang)/i", $name)) {
-                        
-                        $name = $this->article->seo.'.one-pager.'.$lang.'.pdf';
+
+                        $name = $this->article->seo . '.one-pager.' . $lang . '.pdf';
                         $obj = new \stdClass();
-                        $obj->url = $this->article->getSavePath().'/pdfs/'.$name;
-                        
+                        $obj->url = $this->article->getSavePath() . '/pdfs/' . $name;
+
                         $this->onePagerPdf[] = [
                             'value' => serialize($obj),
                             'lang_id' => $lang
                         ];
-                        
+
                         $this->copyFile($path, $baseBackendPath . $name);
                         $this->copyFile($path, $baseFrontendPath . $name);
                     }
@@ -494,39 +557,45 @@ class ArticleParser implements ParserInterface {
             }
         }
     }
-    
-    protected function copyFile($from, $to) {
+
+
+    protected function copyFile($from, $to)
+    {
         @copy($from, $to);
     }
 
-    protected function saveArticleImages($images) {
-        
+
+    protected function saveArticleImages($images)
+    {
+
         $baseBackendPath = $this->article->getBackendImagesBasePath();
         $baseFrontendPath = $this->article->getFrontendImagesBasePath();
-        
+
         if (!is_dir($baseBackendPath)) {
 
             if (!FileHelper::createDirectory($baseBackendPath, 0775, true)) {
-                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
+                throw new \Exception(Yii::t('app/messages', 'Images article  folder could not be created'));
             }
         }
-        
+
         if (!is_dir($baseFrontendPath)) {
 
             if (!FileHelper::createDirectory($baseFrontendPath, 0775, true)) {
-                throw new \Exception(Yii::t('app/messages','Images article  folder could not be created'));
+                throw new \Exception(Yii::t('app/messages', 'Images article  folder could not be created'));
             }
         }
-        
+
         foreach ($images as $name => $path) {
-            
-            $this->copyFile($path, $baseBackendPath.$name);
-            $this->copyFile($path, $baseFrontendPath.$name);
+
+            $this->copyFile($path, $baseBackendPath . $name);
+            $this->copyFile($path, $baseFrontendPath . $name);
         }
     }
 
-    public function __call($name, $arg) {
-        
+
+    public function __call($name, $arg)
+    {
+
         $fName = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $name)));
 
         if (method_exists($this, $fName)) {
@@ -539,5 +608,4 @@ class ArticleParser implements ParserInterface {
 
         return null;
     }
-
 }
