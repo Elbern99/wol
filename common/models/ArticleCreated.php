@@ -7,12 +7,12 @@ use Yii;
 
 
 /**
- * This is the model class for table "article_deleted".
+ * This is the model class for table "article_created".
  *
  * @property integer $id
  * @property integer $article_id
  */
-class ArticleDeleted extends \yii\db\ActiveRecord
+class ArticleCreated extends \yii\db\ActiveRecord
 {
 
 
@@ -21,7 +21,7 @@ class ArticleDeleted extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'article_deleted';
+        return 'article_created';
     }
 
 
@@ -47,15 +47,5 @@ class ArticleDeleted extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'article_id' => Yii::t('app', 'Article ID'),
         ];
-    }
-
-
-    /**
-     * @inheritdoc
-     * @return ArticleDeletedQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new ArticleDeletedQuery(get_called_class());
     }
 }
