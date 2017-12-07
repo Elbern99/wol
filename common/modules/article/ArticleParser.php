@@ -417,12 +417,16 @@ class ArticleParser implements ParserInterface
             $event->pdf = $this->article->getSavePath() . '/pdfs/' . $this->fullPdf;
 
             if ($this->article instanceof \common\models\Article) {
-                $deleteTest = $this->article->getDeleted()->one();
+                $createTest = $this->article->getCreated()->one();
+
+                if (!$createTest) {
+                    $this->article->insertOrUpdateCreateRecord();
+                }
             } else {
-                $deleteTest = null;
+                $createTest = null;
             }
 
-            if (!$deleteTest) {
+            if (!$createTest) {
                 Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
             }
 

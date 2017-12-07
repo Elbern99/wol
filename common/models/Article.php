@@ -25,7 +25,7 @@ use common\modules\eav\contracts\EntityModelInterface;
  * @property ArticleCategory[] $articleCategories
  * @property ArticleRelation[] $articleRelations
  * @property ArticleRelation[] $articleRelations0
- * @property ArticleDeleted $deleted
+ * @property ArticleCreated $created
  */
 class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityModelInterface
 {
@@ -149,9 +149,9 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDeleted()
+    public function getCreated()
     {
-        return $this->hasOne(ArticleDeleted::className(), ['article_id' => 'id']);
+        return $this->hasOne(ArticleCreated::className(), ['article_id' => 'id']);
     }
 
 
@@ -220,13 +220,6 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     }
 
 
-    public function beforeDelete()
-    {
-        $this->insertOrUpdateDeleteRecord();
-        return parent::beforeDelete();
-    }
-
-
     public function getRelatedCategories()
     {
         
@@ -234,17 +227,17 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
 
     /**
-     * @return \common\models\ArticleDeleted
+     * @return \common\models\ArticleCreated
      */
-    protected function insertOrUpdateDeleteRecord()
+    public function insertOrUpdateCreateRecord()
     {
         $model = null;
 
         if ($this->id) {
-            $model = ArticleDeleted::findOne(['article_id' => $this->id]);
+            $model = ArticleCreated::findOne(['article_id' => $this->id]);
 
             if (!$model) {
-                $model = new ArticleDeleted();
+                $model = new ArticleCreated();
                 $model->article_id = $this->id;
                 $model->save();
             }
