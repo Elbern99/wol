@@ -11,6 +11,8 @@ use Yii;
  *
  * @property integer $id
  * @property integer $article_id
+ * 
+ * @property-read Article $article
  */
 class ArticleCreated extends \yii\db\ActiveRecord
 {
@@ -35,6 +37,15 @@ class ArticleCreated extends \yii\db\ActiveRecord
             [['article_id'], 'integer'],
             [['article_id'], 'unique'],
         ];
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuerys
+     */
+    public function getArticle()
+    {
+        return $this->hasOne(Article::className(), ['id' => 'article_id']);
     }
 
 

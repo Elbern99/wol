@@ -426,7 +426,13 @@ class ArticleParser implements ParserInterface
                 $createTest = null;
             }
 
-            if (!$createTest) {
+            if (!$createTest || ($this->article->doi != $createTest->doi_control)) {
+                
+                if ($createTest) {
+                    $createTest->doi_control = $this->article->doi;
+                    $createTest->save(false, ['doi_control']);
+                }
+                
                 Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
             }
 
