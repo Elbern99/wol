@@ -239,6 +239,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             if (!$model) {
                 $model = new ArticleCreated();
                 $model->article_id = $this->id;
+                $model->doi_control = $this->doi;
                 $model->save();
             }
         }
