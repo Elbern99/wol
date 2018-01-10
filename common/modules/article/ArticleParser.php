@@ -416,6 +416,9 @@ class ArticleParser implements ParserInterface
             $event->availability = $this->article->availability;
             $event->pdf = $this->article->getSavePath() . '/pdfs/' . $this->fullPdf;
 
+            /*
+             * MOVED TO: backend/controllers/IzaController::changeEnabledAjax
+             * 
             if ($this->article instanceof \common\models\Article) {
                 $createTest = $this->article->getCreated()->one();
 
@@ -435,6 +438,8 @@ class ArticleParser implements ParserInterface
                 
                 Event::trigger(self::class, self::EVENT_ARTICLE_CREATE, $event);
             }
+             * 
+             */
 
             Event::trigger(self::class, self::EVENT_SPHINX_REINDEX);
         }
