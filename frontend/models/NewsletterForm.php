@@ -25,7 +25,9 @@ class NewsletterForm extends Model
             [['email', 'first_name', 'last_name'], 'required'],
             [['interest', 'iza_world', 'iza'], 'integer'],
             [['email', 'first_name', 'last_name'], 'string', 'max' => 255],
-            ['areas_interest', 'safe']
+            ['areas_interest', 'safe'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email', ],
         ];
     }
 
