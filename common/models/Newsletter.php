@@ -44,6 +44,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
             [['interest', 'iza_world', 'iza', 'created_at', 'user_id'], 'integer'],
             [['email', 'first_name', 'last_name', 'areas_interest', 'code'], 'string', 'max' => 255],
             [['email'], 'unique'],
+            [['email'], 'email'],
         ];
     }
 
