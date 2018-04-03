@@ -62,7 +62,7 @@ unset($currentParams);
                 </div>
             </div>
             <div class="search-results-top-text">
-                Your search for <strong><?=Html::encode($phrase)?></strong> returned <strong><?= $resultCount ?></strong> results <a href="<?= Url::to(['/search/refine']) ?>" class="refine-link">Refine</a>
+                Your search for <strong><?=Html::encode($phrase)?></strong><?php if ($search->exact_phrase) : ?> refined by <strong><?= $search->exact_phrase; ?></strong><?php endif; ?> returned <strong><?= $resultCount ?></strong> results <a href="<?= Url::to(['/search/refine']) ?>" class="refine-link">Refine</a>
             </div>
             <div class="mobile-filter-holder">
                 <div class="search-results-top-filter">

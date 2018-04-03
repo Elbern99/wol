@@ -233,13 +233,15 @@ TwitterAsset::register($this);
                     </div>
                     <div class="sidebar-widget sidebar-widget-twitter">
                         <div class="widget-title">iza world of labor on twitter</div>
-                        <a class="twitter-timeline" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>">Tweets by IZAWorldofLabor</a>
+                        <a data-lang="en" data-tweet-limit="5" class="twitter-timeline custom-tr" data-chrome="noheader transparent nofooter" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>" data-link-color="#0053a0">Tweets by IZAWorldofLabor</a>
                         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                        <?php/*
+                        <?php
+                        /*
                         <a class="twitter-timeline custom-tr" data-lang="en" data-dnt="true" data-chrome="noheader transparent nofooter" data-tweet-limit="5" data-cards="hidden" data-theme="light" data-link-color="#0053a0" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>">
                             Tweets by IZAWorldofLabor
                         </a>
-                            */?>
+                            */
+                        ?>
                         <a href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @IZAWorldofLabor</a>
                     </div>
                 </aside>
