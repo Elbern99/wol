@@ -70,10 +70,12 @@ AdvancedSearchAsset::register($this);
 
                 <div class="my-tags-holder">
                     <div class="label-holder">
-                        <div class="label-text label-text-custom">all of these words</div>
+                        <label class="label-text label-text-custom">all of these words</label>
                     </div>
+                    <div class="form-control-holder">
                     <ul class="my-tags-list all-words-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'all_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'all_words', ['class'=>"form-control my-single-field", 'placeholder' => 'Enter words separated with spaces']) ?>
+                    </div>
                 </div>
 
                 <div class="form-line">
@@ -87,10 +89,12 @@ AdvancedSearchAsset::register($this);
 
                 <div class="my-tags-holder">
                     <div class="label-holder">
-                        <div class="label-text label-text-custom">one or more of these words</div>
+                        <label class="label-text label-text-custom">one or more of these words</label>
                     </div>
+                    <div class="form-control-holder">
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'one_more_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'one_more_words', ['class'=>"form-control my-single-field", 'placeholder' => 'Enter words separated with spaces']) ?>
+                    </div>
                 </div>
             </div>
 
@@ -98,10 +102,12 @@ AdvancedSearchAsset::register($this);
                 <h3>excluding results that have</h3>
                 <div class="my-tags-holder">
                     <div class="label-holder">
-                        <div class="label-text label-text-custom">any of these words</div>
+                        <label class="label-text label-text-custom">any of these words</label>
                     </div>
+                    <div class="form-control-holder">
                     <ul class="my-tags-list one-or-more-my-tags-list"></ul>
-                    <?= Html::activeInput('hidden', $search, 'any_words', ['class'=>"my-single-field"]) ?>
+                    <?= Html::activeInput('text', $search, 'any_words', ['class'=>"my-single-field form-control", 'placeholder' => 'Enter words separated with spaces']) ?>
+                    </div>
                 </div>
             </div>
             <button class="btn-blue-large" type="submit">search</button>

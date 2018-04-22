@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 use frontend\components\filters\NewsletterArchiveWidget;
 
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle.'Subscribe to newsletter';
+$this->title = $prefixTitle . 'Subscribe to newsletter';
 $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
 ?>
 <div class="container subscribe-to-newsletter">
@@ -20,22 +20,27 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
 
     <div class="content-inner">
         <div class="content-inner-text">
-            <?php $form = ActiveForm::begin(); ?>
+            <?php
+            $form = ActiveForm::begin([
+                    'enableAjaxValidation' => false,
+                    'enableClientValidation' => false,
+            ]);
+            ?>
             <div class="grid">
                 <div class="grid-line two">
                     <div class="grid-item">
-                        <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-item']]) ?>
+                        <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-item']])->textInput(); ?>
                     </div>
                 </div>
                 <div class="grid-line two">
                     <div class="grid-item">
-                        <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-item']]) ?>
+                        <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-item']])->textInput(); ?>
                     </div>
                 </div>
                 <div class="grid-line two">
                     <div class="grid-item">
                         <div class="form-item">
-                            <?= $form->field($model, 'email', ['options' => ['class' => 'form-item']]) ?>
+                            <?= $form->field($model, 'email', ['options' => ['class' => 'form-item']])->textInput(); ?>
                         </div>
                     </div>
                 </div>
@@ -69,12 +74,13 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                         </div>
 
                         <div class="grid-line four">
-                            <?= $form->field($model, 'areas_interest')->checkboxList($model->getSubjectItems(),[
-                                'item'=> function($index, $label, $name, $checked, $value) {
-                                    return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">'.
-                                    Html::checkbox($name, $checked, [
-                                        'value' => $value,
-                                    ]).'<span class="label-text">'.$label.'</span></label></div></div>';
+                            <?=
+                            $form->field($model, 'areas_interest')->checkboxList($model->getSubjectItems(), [
+                                'item' => function($index, $label, $name, $checked, $value) {
+                                    return '<div class="grid-item"><div class="form-item"><label class="custom-checkbox">' .
+                                        Html::checkbox($name, $checked, [
+                                            'value' => $value,
+                                        ]) . '<span class="label-text">' . $label . '</span></label></div></div>';
                                 }
                             ])->label('');
                             ?>
@@ -83,29 +89,32 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                 </div>
 
                 <div class="form-line">
-                    <?= Html::activeCheckbox($model, 'iza_world',
-                        ['labelOptions' => ['class'=>'def-checkbox'],
-                            'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
-                    ) ?>
+                    <?=
+                    Html::activeCheckbox($model, 'iza_world', ['labelOptions' => ['class' => 'def-checkbox'],
+                        'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
+                    )
+                    ?>
                 </div>
 
                 <div class="form-line">
-                    <?= Html::activeCheckbox($model, 'interest',
-                        ['labelOptions' => ['class'=>'def-checkbox'],
-                            'label' => '<span class="label-text">I would like to receive new article alerts in my areas of interest</span>']
-                    ) ?>
+                    <?=
+                    Html::activeCheckbox($model, 'interest', ['labelOptions' => ['class' => 'def-checkbox'],
+                        'label' => '<span class="label-text">I would like to receive new article alerts in my areas of interest</span>']
+                    )
+                    ?>
                 </div>
 
                 <div class="form-line">
-                    <?= Html::activeCheckbox($model, 'iza',
-                        ['labelOptions' => ['class'=>'def-checkbox'],
-                            'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
-                    ) ?>
+                    <?=
+                    Html::activeCheckbox($model, 'iza', ['labelOptions' => ['class' => 'def-checkbox'],
+                        'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
+                    )
+                    ?>
                 </div>
             </div>
-            
-             <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
-             <?php ActiveForm::end(); ?>
+
+            <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
+            <?php ActiveForm::end(); ?>
         </div>
 
 

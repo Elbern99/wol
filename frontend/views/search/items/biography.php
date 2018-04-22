@@ -2,7 +2,7 @@
     <div class="publication-date">
     </div>
     <div class="type">
-        Biography
+        People
     </div>
     <div class="article-item">
         <h2><a href="<?= $value['url'] ?>"><?= $value['name'] ?></a></h2>

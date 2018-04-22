@@ -25,6 +25,7 @@ use common\modules\eav\contracts\EntityModelInterface;
  * @property ArticleCategory[] $articleCategories
  * @property ArticleRelation[] $articleRelations
  * @property ArticleRelation[] $articleRelations0
+ * @property ArticleCreated $created
  */
 class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityModelInterface
 {
@@ -145,6 +146,15 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     }
 
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreated()
+    {
+        return $this->hasOne(ArticleCreated::className(), ['article_id' => 'id']);
+    }
+
+
     public function getRelatedArticles(array $articles)
     {
         $ids = [];
@@ -213,5 +223,27 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     public function getRelatedCategories()
     {
         
+    }
+
+
+    /**
+     * @return \common\models\ArticleCreated
+     */
+    public function insertOrUpdateCreateRecord()
+    {
+        $model = null;
+
+        if ($this->id) {
+            $model = ArticleCreated::findOne(['article_id' => $this->id]);
+
+            if (!$model) {
+                $model = new ArticleCreated();
+                $model->article_id = $this->id;
+                $model->doi_control = $this->doi;
+                $model->save();
+            }
+        }
+
+        return $model;
     }
 }

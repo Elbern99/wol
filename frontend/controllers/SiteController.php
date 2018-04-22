@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -19,20 +20,24 @@ use yii\helpers\Html;
 use common\models\UserActivation;
 use common\models\Newsletter;
 
+
 /**
  * Site controller
  */
-class SiteController extends Controller {
+class SiteController extends Controller
+{
 
     use traits\HomeTrait;
     use traits\SourcesTrait;
     use traits\RedirectLoginUserTrait;
-    
+
+
     /**
      * @inheritdoc
      */
-    public function behaviors() {
-        
+    public function behaviors()
+    {
+
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -60,11 +65,13 @@ class SiteController extends Controller {
         ];
     }
 
+
     /**
      * @inheritdoc
      */
-    public function actions() {
-        
+    public function actions()
+    {
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -76,53 +83,55 @@ class SiteController extends Controller {
         ];
     }
 
+
     /**
      * Displays homepage.
      *
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
 
         return $this->render('index', $this->getHomeParams());
     }
-    
-    public function actionSources() {
-        
+
+
+    public function actionSources()
+    {
+
         return $this->render('source', $this->getSourcePageData());
     }
-    
-    public function actionSubscribe() {
-        
+
+
+    public function actionSubscribe()
+    {
+
         $model = new NewsletterForm();
         $newsletterArchive = NewsletterNews::find()->select(['title', 'date', 'url_key'])->orderBy(['date' => SORT_DESC])->all();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            
+
+        if ($model->load(Yii::$app->request->post())) {
             $newslatter = Yii::$container->get('newsletter');
-            $newslatter->getSubscriber($model->email);
-            
-            if ($newslatter->isSubscibed()) {
-                Yii::$app->getSession()->setFlash('error', 'You have subscribed already');
+
+            if ($model->validate() && $newslatter->setSubscriber($model->getAttributes())) {
+                Yii::$app->session->setFlash('success', 'You are subscribed.');
+                return $this->redirect(\yii\helpers\Url::toRoute(['subscribe']));
             } else {
-                if ($newslatter->setSubscriber($model->getAttributes())) {
-                    Yii::$app->getSession()->setFlash('success', 'You subscribed.');
-                } else {
-                    Yii::$app->getSession()->setFlash('error', 'You not subscribed.');
-                }
+                Yii::$app->session->setFlash('error', 'You are not subscribed.');
             }
-                
         }
-        
+
         return $this->render('subscribe', ['model' => $model, 'newsletterArchive' => $newsletterArchive]);
     }
+
 
     /**
      * Logs in a user.
      *
      * @return mixed
      */
-    public function actionLogin() {
-        
+    public function actionLogin()
+    {
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -132,15 +141,15 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect($this->getLoginRedirect());
         }
-        
+
         if ($model->getErrors()) {
-            
+
             $text = '';
-            
+
             foreach ($model->getErrors() as $error) {
                 $text .= Html::tag('p', current($error));
             }
-            
+
             Yii::$app->getSession()->setFlash('error', $text);
         } else {
             Yii::$app->getSession()->setFlash('error', 'Incorrect email or password.');
@@ -148,83 +157,87 @@ class SiteController extends Controller {
         return $this->goBack();
     }
 
+
     /**
      * Logs out the current user.
      *
      * @return mixed
      */
-    public function actionLogout() {
-        
+    public function actionLogout()
+    {
+
         Yii::$app->user->logout();
         return $this->goHome();
     }
+
 
     /**
      * Signs user up.
      *
      * @return mixed
      */
-    public function actionSignup() {
-        
+    public function actionSignup()
+    {
+
         $model = new SignupForm();
         $modelPopup = new SignupPopupForm();
 
         if (Yii::$app->request->isPost) {
 
             if ($model->load(Yii::$app->request->post())) {
-                
+
                 if ($model->signup()) {
-                    
+
                     if ($model->errorMessage === false) {
                         Yii::$app->session->setFlash('success', 'You have been successfully registered. Please confirm your email!');
                     } else {
                         Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
                     }
-                    
+
                     return $this->goHome();
                 }
-                
             } elseif ($modelPopup->load(Yii::$app->request->post())) {
-                
+
                 if ($modelPopup->signup()) {
                     Yii::$app->session->setFlash('success', 'You have been successfully registered');
                     return $this->goHome();
                 }
             }
-           
         }
 
         return $this->render('signup', [
-            'model' => $model,
+                'model' => $model,
         ]);
     }
+
 
     /**
      * Requests password reset.
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset() {
-        
+    public function actionRequestPasswordReset()
+    {
+
         $model = new PasswordResetRequestForm();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            
+
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
                 return $this->goHome();
-                
             } else {
-                
+
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
         }
 
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+                'model' => $model,
         ]);
     }
+
 
     /**
      * Resets password.
@@ -233,35 +246,37 @@ class SiteController extends Controller {
      * @return mixed
      * @throws BadRequestHttpException
      */
-    public function actionResetPassword($token) {
+    public function actionResetPassword($token)
+    {
         try {
-            
+
             $model = new ResetPasswordForm($token);
-            
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            
+
             Yii::$app->session->setFlash('success', 'New password was saved.');
             return $this->goHome();
         }
 
         return $this->render('resetPassword', [
-            'model' => $model,
+                'model' => $model,
         ]);
     }
-    
-    public function actionConfirm($token) {
-        
+
+
+    public function actionConfirm($token)
+    {
+
         $model = UserActivation::find()->where(['token' => $token])->one();
 
         if (!$model) {
             return $this->goHome();
         }
 
-        if($user = $model->verifyToken($token)) {
+        if ($user = $model->verifyToken($token)) {
 
             $register = new SignupForm();
             $register->email = $user->email;
@@ -269,38 +284,41 @@ class SiteController extends Controller {
             $obj->getSubscriber($user->email);
             $subscriberId = $obj->getAttribute('code');
             $register->sendRegisteredEmail($subscriberId, $user);
-            
+
             Yii::$app->user->login($user);
-            
+
             return $this->redirect($this->getLoginRedirect());
         }
 
         return $this->goHome();
     }
-    
-    public function actionUnsubscribe($number) {
-        
+
+
+    public function actionUnsubscribe($number)
+    {
+
         try {
-            
+
             $model = Newsletter::find()->where(['code' => $number])->one();
-            
+
             if (!is_object($model)) {
-                throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
+                throw new NotFoundHttpException(Yii::t('app/text', 'The requested page does not exist.'));
             }
-            
+
             $model->delete();
-            
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','You successfully unsubscribed'));
-            
+
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text', 'You successfully unsubscribed'));
         } catch (\yii\db\Exception $e) {
-            Yii::$app->getSession()->setFlash('error', Yii::t('app/text','You cannot unsubscribe now, try later!'));
+            Yii::$app->getSession()->setFlash('error', Yii::t('app/text', 'You cannot unsubscribe now, try later!'));
         }
-             
+
         return $this->goHome();
     }
-    
-    public function actionAddCloseCookie($name) {
-        
+
+
+    public function actionAddCloseCookie($name)
+    {
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         try {
             if ($name) {
@@ -310,13 +328,13 @@ class SiteController extends Controller {
                     'expire' => time() + 86400 * 30,
                     'value' => true
                 ]));
-                
+
                 return ['result' => true];
             }
         } catch (\yii\db\Exception $e) {
+            
         }
-        
+
         return ['result' => false];
     }
-
 }
