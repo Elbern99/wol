@@ -13,4 +13,5 @@ class SimpleRequest extends \yii\web\Request
 {
     public $web;
     public $adminUrl;
+
 }

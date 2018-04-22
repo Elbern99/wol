@@ -68,6 +68,7 @@ class VideoController extends Controller {
         ])->all();
         
         $videosSidebar = Video::find()->orderBy('id desc')->all();
+        $video->renderTwitterTags();
         
         return $this->render('view', [
             'model' => $video,

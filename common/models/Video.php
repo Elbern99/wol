@@ -2,16 +2,22 @@
 
 namespace common\models;
 
+
 use Yii;
 use common\contracts\VideoInterface;
 use common\helpers\VideoHelper;
 use common\models\Video;
 
+
 class Video extends \yii\db\ActiveRecord implements VideoInterface
 {
+
+
     public $video_ids;
+
     //public $category_id;
-    
+
+
     /**
      * @inheritdoc
      */
@@ -19,6 +25,25 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     {
         return 'video';
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \common\components\TwitterBehavior::className(),
+                'twitterCard' => 'summary',
+                'twitterSite' => '@izaworldoflabor',
+                'twitterTitle' => 'title',
+                'twitterDescription' => 'description',
+                'twitterImage' => 'videoImageLink',
+            ]
+        ];
+    }
+
 
     /**
      * @inheritdoc
@@ -38,6 +63,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
         ];
     }
 
+
     /**
      * @inheritdoc
      */
@@ -55,44 +81,51 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
             'category_id' => Yii::t('app', 'Category'),
         ];
     }
-    
+
+
     public function loadAttributes()
     {
         $childVideos = RelatedVideo::find()->select('children_id')->where(['=', 'parent_id', $this->id])->all();
         foreach ($childVideos as $video) {
             $currentVideo = Video::find()->where(['=', 'id', $video->children_id])->one();
-            $this->video_ids[] = $currentVideo->id; 
+            $this->video_ids[] = $currentVideo->id;
         }
     }
-    
-    public function getVideo() {
+
+
+    public function getVideo()
+    {
         return $this->getAttribute('video');
     }
-    
-    public function getImageLink() {
+
+
+    public function getImageLink()
+    {
         VideoHelper::load($this);
         return VideoHelper::getImage();
     }
-        
-    private function getVideoId() 
+
+
+    private function getVideoId()
     {
         $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=|/watch\?.+&v=))([\w-]{11})(?:.+)?$#x';
         preg_match($pattern, $this->video, $matches);
         return (isset($matches[1])) ? $matches[1] : false;
     }
-    
-    
-    public function getVideoImageLink() 
+
+
+    public function getVideoImageLink()
     {
         return 'https://img.youtube.com/vi/' . $this->getVideoId() . '/hqdefault.jpg';
     }
-    
+
+
     public function getRelatedVideos()
     {
         return $this->hasMany(RelatedVideo::className(), ['parent_id' => 'id']);
     }
-    
-    
+
+
     public function videosList()
     {
         if ($this->id) {
@@ -102,59 +135,62 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
         }
         $videosList = [];
         foreach ($videos as $video) {
-            $videosList[$video->id] = $video->title; 
+            $videosList[$video->id] = $video->title;
         }
         return $videosList;
     }
-    
-    public function categoriesList() 
+
+
+    public function categoriesList()
     {
         $categoriesList = [];
         $articleCategory = Category::find()->where(['url_key' => 'articles'])->one();
-        
+
         if ($articleCategory) {
             $categories = Category::find()->where([
-               'root' => $articleCategory->id,
-               'lvl' => 1,
-            ])->all();
-            
+                    'root' => $articleCategory->id,
+                    'lvl' => 1,
+                ])->all();
+
             foreach ($categories as $category) {
-                $categoriesList[$category->id] = $category->meta_title; 
+                $categoriesList[$category->id] = $category->meta_title;
             }
         }
-        
+
         return $categoriesList;
     }
-    
+
+
     public function saveData()
     {
         RelatedVideo::deleteAll(['=', 'parent_id', $this->id]);
-        
+
         if ($this->save()) {
             $bulkInsertArray = [];
 
             if (is_array($this->video_ids)) {
 
                 foreach ($this->video_ids as $id) {
-                    $bulkInsertArray[]=[
+                    $bulkInsertArray[] = [
                         'parent_id' => $this->id,
                         'children_id' => $id,
                     ];
                 }
 
-                if (count($bulkInsertArray)>0){
+                if (count($bulkInsertArray) > 0) {
                     $columnNamesArray = ['parent_id', 'children_id'];
                     $insertCount = Yii::$app->db->createCommand()
-                                   ->batchInsert(
-                                        RelatedVideo::tableName(), $columnNamesArray, $bulkInsertArray
-                                     )
-                                   ->execute();
+                        ->batchInsert(
+                            RelatedVideo::tableName(), $columnNamesArray, $bulkInsertArray
+                        )
+                        ->execute();
                 }
             }
         }
         return true;
     }
-    
+
+
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);

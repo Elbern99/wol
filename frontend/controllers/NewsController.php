@@ -2,51 +2,55 @@
 
 namespace frontend\controllers;
 
+
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
+use common\models\NewsItem;
+;
 
-use common\models\NewsItem;;
 use common\models\NewsletterNews;
 use common\models\CmsPages;
 use frontend\models\CmsPagesRepository as Page;
 
+
 /**
  * Site controller
  */
-class NewsController extends Controller {
-    
+class NewsController extends Controller
+{
+
     use \frontend\controllers\traits\NewsTrait;
-    
+
     protected $key = 'news';
+
 
     public function actionIndex($month = null, $year = null)
     {
         $page = CmsPages::find()->select('id')->where(['url' => $this->key, 'enabled' => 1])->one();
-        
+
         if (!is_object($page)) {
             throw new NotFoundHttpException();
         }
-        
+
         $page = Page::getPageById($page->id);
-        
+
         $limit = Yii::$app->params['news_limit'];
 
         if (Yii::$app->request->getIsPjax()) {
             $limitPrev = Yii::$app->request->get('limit');
-            
-            if (isset($limitPrev) && intval($limitPrev)) {
-                $limit += (int)$limitPrev - 1;
-            }
 
+            if (isset($limitPrev) && intval($limitPrev)) {
+                $limit += (int) $limitPrev - 1;
+            }
         }
-        
+
         $isInArchive = false;
         $newsQuery = NewsItem::find()->andWhere(['enabled' => 1])->orderBy('created_at desc');
-        
+
         if ($month && $year) {
-           $isInArchive = true;
-           $newsQuery->andWhere([
+            $isInArchive = true;
+            $newsQuery->andWhere([
                 'MONTH(created_at)' => $month,
                 'YEAR(created_at)' => $year,
             ]);
@@ -58,55 +62,59 @@ class NewsController extends Controller {
         }
 
         return $this->render('index', [
-            'news' => $this->getNewsList($limit, $year, $month),
-            'newsCount' => $newsQuery->count(),
-            'category' => $this->getMainCategory(),
-            'page' => $page,
-            'limit' => $limit,
-            'isInArchive' => $isInArchive,
-            'newsletterArchive' => $this->getNewsletterArchive(), 
-            'latestArticles' => $this->getLastArticlesArchive(10),
-            'newsArchive' => $this->getNewsArchive()
+                'news' => $this->getNewsList($limit, $year, $month),
+                'newsCount' => $newsQuery->count(),
+                'category' => $this->getMainCategory(),
+                'page' => $page,
+                'limit' => $limit,
+                'isInArchive' => $isInArchive,
+                'newsletterArchive' => $this->getNewsletterArchive(),
+                'latestArticles' => $this->getLastArticlesArchive(10),
+                'newsArchive' => $this->getNewsArchive()
         ]);
     }
-    
+
+
     public function actionView($slug)
     {
         $newsItem = NewsItem::find()->andWhere(['url_key' => $slug])->andWhere(['enabled' => 1])->one();
-        
+
         if (!$newsItem) {
             throw new NotFoundHttpException();
         }
 
         $latestNews = NewsItem::find()->andWhere(['enabled' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $articles = $newsItem->getNewsArticles()->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $newsItem->renderTwitterTags();
 
         return $this->render('view', [
-            'model' => $newsItem,
-            'category' => $this->getMainCategory(),
-            'newsSidebar' => $latestNews,
-            'newsletterArchive' => $this->getNewsletterArchive(),
-            'newsArchive' => $this->getNewsArchive(),
-            'widgets' => $this->getNewsWidgetsList($newsItem->id),
-            'articlesSidebar' => $articles,
+                'model' => $newsItem,
+                'category' => $this->getMainCategory(),
+                'newsSidebar' => $latestNews,
+                'newsletterArchive' => $this->getNewsletterArchive(),
+                'newsArchive' => $this->getNewsArchive(),
+                'widgets' => $this->getNewsWidgetsList($newsItem->id),
+                'articlesSidebar' => $articles,
         ]);
     }
-    
-    public function actionNewsletters($year, $month) {
-        
-        $urlKey = $year.'/'.$month;
+
+
+    public function actionNewsletters($year, $month)
+    {
+
+        $urlKey = $year . '/' . $month;
         $model = NewsletterNews::find()->where(['url_key' => $urlKey])->one();
-        
+
         if (!is_object($model)) {
             throw new NotFoundHttpException();
         }
 
-        return $this->render('newsletter',[
-            'model' => $model, 
-            'newsletterArchive' => $this->getNewsletterArchive(), 
-            'latestArticles' => $this->getLastArticlesArchive(10),
-            'newsArchive' => $this->getNewsArchive(),
-            'widgets' => $this->getNewsWidgets()
+        return $this->render('newsletter', [
+                'model' => $model,
+                'newsletterArchive' => $this->getNewsletterArchive(),
+                'latestArticles' => $this->getLastArticlesArchive(10),
+                'newsArchive' => $this->getNewsArchive(),
+                'widgets' => $this->getNewsWidgets()
         ]);
     }
 }

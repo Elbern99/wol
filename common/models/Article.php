@@ -6,6 +6,8 @@ namespace common\models;
 use Yii;
 use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityModelInterface;
+use common\modules\eav\Collection;
+use common\modules\eav\helper\EavAttributeHelper;
 
 
 /**
@@ -32,6 +34,10 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
 
     const ENTITY_NAME = 'article';
+
+    protected $_collection = null;
+
+    protected $_lang = null;
 
 
     /**
@@ -104,6 +110,26 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             ['notices', 'string'],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
+        ];
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \common\components\TwitterBehavior::className(),
+                'twitterCard' => 'summary',
+                'twitterSite' => '@izaworldoflabor',
+                'twitterTitle' => 'title',
+                'twitterDescription' => 'elevatorPitch',
+                'twitterImage' => function ($model) {
+                    return \yii\helpers\Url::to($model->getElevatorImageUrl(), true);
+                },
+            ]
         ];
     }
 
@@ -245,5 +271,65 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         }
 
         return $model;
+    }
+
+
+    public function getCurrentLang()
+    {
+        return $this->_lang;
+    }
+
+
+    public function setCurrentLang($value)
+    {
+        $this->_lang = $value;
+    }
+
+
+    public function getElevatorPitch()
+    {
+        if (!$this->_collection) {
+            throw new \yii\base\Exception('Attribute collection not initialized.');
+        }
+
+        $collection = $this->getCollection();
+        $attributes = $collection->getEntity()->getValues();
+        EavAttributeHelper::initEavAttributes($attributes);
+        $result = EavAttributeHelper::getAttribute('abstract')->getData('abstract', $this->getCurrentLang());
+        return $result;
+    }
+
+
+    public function getElevatorImageUrl()
+    {
+        if (!$this->_collection) {
+            throw new \yii\base\Exception('Attribute collection not initialized.');
+        }
+
+        $collection = $this->getCollection();
+        $attributes = $collection->getEntity()->getValues();
+        EavAttributeHelper::initEavAttributes($attributes);
+        $gaImage = EavAttributeHelper::getAttribute('ga_image');
+        return $gaImage->getData('path', $this->getCurrentLang());
+    }
+
+
+    /**
+     * Incapsulation crutch
+     * 
+     * @param boolean $multilang
+     * @param boolean $forceInit
+     * @return Collection
+     */
+    public function getCollection($multiLang = false, $forceInit = false)
+    {
+        if (null === $this->_collection || $forceInit) {
+            $articleCollection = Yii::createObject(Collection::class);
+
+            $articleCollection->initCollection(self::ENTITY_NAME, $this, $multiLang);
+            $this->_collection = $articleCollection;
+        }
+
+        return $this->_collection;
     }
 }
