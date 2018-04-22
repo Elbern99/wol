@@ -158,9 +158,14 @@ trait ArticleTrait {
             }
             
             $records = $model->getRelatedRecords();
-            $articleCollection = Yii::createObject(Collection::class);
-            $articleCollection->initCollection($model::ENTITY_NAME, $model, $multiLang);
-
+             
+            if ($model instanceof Article) {
+                $articleCollection = $model->getCollection($multiLang);
+            } else {
+                $articleCollection = Yii::createObject(Collection::class);
+                $articleCollection->initCollection($model::ENTITY_NAME, $model, $multiLang);
+            }
+          
             $values = $articleCollection->getEntity()->getValues();
             
             if (empty($values)) {
@@ -229,7 +234,10 @@ trait ArticleTrait {
                 }
             }
 
+            $model->setCurrentLang($currentLang);
+            $model->renderTwitterTags();
         } catch (\Exception $e) {
+            throw $e;
             throw new NotFoundHttpException('Page Not Found.');
         } catch (\yii\db\Exception $e) {
             throw new NotFoundHttpException('Page Not Found.');
