@@ -125,7 +125,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
                 'twitterCard' => 'summary',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
-                'twitterDescription' => 'elevatorPitch',
+                'twitterDescription' => 'teaser',
                 'twitterImage' => function ($model) {
                     return \yii\helpers\Url::to($model->getElevatorImageUrl(), true);
                 },
@@ -296,6 +296,20 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         $attributes = $collection->getEntity()->getValues();
         EavAttributeHelper::initEavAttributes($attributes);
         $result = EavAttributeHelper::getAttribute('abstract')->getData('abstract', $this->getCurrentLang());
+        return $result;
+    }
+
+
+    public function getTeaser()
+    {
+        if (!$this->_collection) {
+            throw new \yii\base\Exception('Attribute collection not initialized.');
+        }
+
+        $collection = $this->getCollection();
+        $attributes = $collection->getEntity()->getValues();
+        EavAttributeHelper::initEavAttributes($attributes);
+        $result = EavAttributeHelper::getAttribute('teaser')->getData('teaser', $this->getCurrentLang());
         return $result;
     }
 
