@@ -73,7 +73,7 @@ class Opinion extends \yii\db\ActiveRecord
         return [
             [
                 'class' => \common\components\TwitterBehavior::className(),
-                'twitterCard' => 'summary',
+                'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
                 'twitterDescription' => 'short_description',

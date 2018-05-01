@@ -35,7 +35,7 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
         return [
             [
                 'class' => \common\components\TwitterBehavior::className(),
-                'twitterCard' => 'summary',
+                'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
                 'twitterDescription' => 'description',
