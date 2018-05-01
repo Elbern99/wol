@@ -122,7 +122,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return [
             [
                 'class' => \common\components\TwitterBehavior::className(),
-                'twitterCard' => 'summary',
+                'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
                 'twitterDescription' => 'teaser',
