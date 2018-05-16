@@ -25,6 +25,6 @@ $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 't
     </span>
 </p>
 <?php //var_dump(Yii::getAlias('@common')); die('huj');?>
-<?= $this->render('@frontend/views/emails/shared/footer-html.php', ['user' => $user]); ?>
+<?= $this->render('@frontend/views/emails/shared/footer-html.php', ['user' => $user, 'skipOptedIn' => true]); ?>
 
 <?php $this->endContent(); ?>
