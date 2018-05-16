@@ -6,10 +6,25 @@ use yii\helpers\Html;
 
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
 ?>
-<div class="password-reset">
-    <p>Hello <?= Html::encode($user->username) ?>,</p>
+<?php $this->beginContent('@frontend/views/emails/layout.php'); ?>
+<p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear <?= Html::encode($user->fullName); ?>,</span></p>
 
-    <p>Follow the link below to reset your password:</p>
+<p>
+    <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Thank you for requesting this link to reset the password to your IZA World of Labor account.</span>
+</p>
 
-    <p><?= Html::a(Html::encode($resetLink), $resetLink) ?></p>
-</div>
+<p>
+    <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">
+        Please click <a href="<?= $resetLink; ?>" target="_blank">here</a> to reset your password.
+    </span>
+</p>
+
+<p>
+    <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">
+        If you did not make this request then please let us know at <a href="mailto:wol.iza.org" target="_blank">wol@iza.org</a>.
+    </span>
+</p>
+<?php //var_dump(Yii::getAlias('@common')); die('huj');?>
+<?= $this->render('@frontend/views/emails/shared/footer-html.php', ['user' => $user]); ?>
+
+<?php $this->endContent(); ?>
