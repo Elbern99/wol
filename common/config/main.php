@@ -1,5 +1,6 @@
 <?php
 return [
+    'name' => 'IZA World of Labor',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'modules' => [
         'eav_module' => [
