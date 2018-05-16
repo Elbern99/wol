@@ -7,7 +7,7 @@ use yii\helpers\Url;
 $params = ['/site/confirm/','token' => $token];
 ?>
 <?php $this->beginContent(__DIR__.'/layout.php'); ?>
-<p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear <?= $user->first_name ?> <?= $user->last_name ?>,</span></p>
+<p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear <?= Html::encode($user->fullName); ?>,</span></p>
 
 <p>
     <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You have received this email because you signed up to IZA World of Labor.  To confirm your email address, <?= Html::a('<span style="color:black">please click here</span>', Url::to($params, true)); ?>.</span>

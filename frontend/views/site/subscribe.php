@@ -61,8 +61,8 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                                             <div class="icon-close"></div>
                                             <p>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</p>
                                             <ul>
-                                                <li>To enable you to receive alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below)</li>
-                                                <li>To better understand our audience</li>
+                                                <li>To send you email alerts when articles are published for the areas of interest you indicate (if you select the ‘new articles’ alert box below).</li>
+                                                <li>To inform editorial decisions.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                 <div class="form-line">
                     <?=
                     Html::activeCheckbox($model, 'iza_world', ['labelOptions' => ['class' => 'def-checkbox'],
-                        'label' => '<span class="label-text">I would like to receive updates from IZA World of Labor</span>']
+                        'label' => '<span class="label-text">I would like to register to receive the IZA World of Labor newsletter</span>']
                     )
                     ?>
                 </div>
@@ -110,6 +110,14 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                         'label' => '<span class="label-text">I would like to receive updates from IZA</span>']
                     )
                     ?>
+                </div>
+                
+                <div class="form-line">
+                    <p>
+                        You can unsubscribe from our newsletter or new article alerts at any time by clicking 
+                        the unsubscribe link in any newsletter or article alerts email. Please read our 
+                        <a href="/privacy-and-cookie-policy">privacy policy</a> for information on how we process your data.                        
+                    </p>
                 </div>
             </div>
 

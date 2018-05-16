@@ -67,7 +67,11 @@ $this->params['breadcrumbs'][] = 'Register';
                                         <div class="icon-question tooltip"></div>
                                         <div class="tooltip-content drop-content">
                                             <div class="icon-close"></div>
-                                            <p>Selecting your areas of interest helps us to better understand our audience.</p>
+                                            <p>Selecting your areas of interest will enable us to send you relevant information. We use your areas of interest in the following ways:</p>
+                                            <ul>
+                                                <li>To enable you to receive email alerts when articles in your areas of interest are published (if you select the ‘new articles alert’ box below). We will only send you alerts for your selected fields.</li>
+                                                <li>To inform editorial decisions.</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -99,6 +103,17 @@ $this->params['breadcrumbs'][] = 'Register';
                 <div class="form-line">
                     <?= $form->field($model, 'agree')->checkbox(['id' => 'agree_desktop'])->label('<span class="label-text">I agree to the <a href="/terms-and-conditions">terms and conditions</a> and <a href="/privacy-and-cookie-policy">data usage policy</a></span>', ['class'=>'def-checkbox']) ?>
                 </div>
+                
+                <div class="form-line">
+                    <p>
+                        You can unsubscribe from our newsletter or new article alerts at any time by clicking 
+                        the unsubscribe link in any newsletter or article alerts email. Please read our 
+                        <a href="/privacy-and-cookie-policy">privacy policy</a> for information on how we process your data.                        
+                    </p>
+                    <p>
+                        We collect your first and last name so that you have a more personalised look and feel to your IZA World of Labor account. 
+                    </p>
+                </div>                
             </div>
 
             <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
