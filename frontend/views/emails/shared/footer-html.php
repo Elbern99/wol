@@ -14,7 +14,7 @@ if (!isset($subscriber)) {
 
 <p>
     <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif;color:#1f497d">T</span><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">he IZA World of Labor team <span style="color:#1f497d"><br>
-    <a href="mailto:wol.iza.org" target="_blank" style="color:black">wol.iza.org</a></span> – supporting evidence-based policy making </span>
+    <a href="https://wol.iza.org" target="_blank" style="color:black">https://wol.iza.org</a></span> – supporting evidence-based policy making </span>
 </p>
 <p>
     <span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif;">
@@ -38,7 +38,7 @@ if (!isset($subscriber)) {
 <?php endif; ?>
 <p>
     <span style="font-size:8.0pt;font-family:'Lucida Sans',sans-serif">
-    Contact us: <a href="mailto:wol.iza.org" target="_blank" style="color:black">wol.iza.org</a> – IZA World of Labor, Forschunginstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany. 
+    Contact us: <a href="https://wol.iza.org/contact" target="_blank" style="color:black">https://wol.iza.org</a> – IZA World of Labor, Forschunginstitut zur Zukunft der Arbeit GmbH (IZA), Schaumburg-Lippe-Strasse 5-9, 53113 Bonn, Germany. 
     </span>
 </p>
 <p>
