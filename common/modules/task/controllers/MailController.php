@@ -10,7 +10,7 @@ class MailController extends \UrbanIndo\Yii2\Queue\Worker\Controller
 {
 
 
-    public function actionSend($to, $from, $subject, $body, $article_id = null)
+    public function actionSend($to, $from = null, $subject, $body, $article_id = null)
     {
         if (!$from) {
             $from = $this->getDefaultFrom();
