@@ -2,6 +2,8 @@
 return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'wol@iza.org',
+    'fromAddress' => 'no-reply-wol@iza.org',
+    'fromName' => 'IZA World of Labor',
     'user.passwordResetTokenExpire' => 3600,
     'articleModelDetail' => [
         'language' => '\common\models\Lang',

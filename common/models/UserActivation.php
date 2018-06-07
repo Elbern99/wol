@@ -101,7 +101,7 @@ class UserActivation extends \yii\db\ActiveRecord
             'route' => 'mail/send', 
             'data' => [
                 'to' => $this->new_email ? $this->new_email : $user->email,
-                'from' => Yii::$app->params['supportEmail'], 
+                'from' => null, 
                 'subject' => $this->subject, 
                 'body' => $body
             ]
