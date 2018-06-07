@@ -191,7 +191,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
             'route' => 'mail/send',
             'data' => [
                 'to' => $this->email,
-                'from' => Yii::$app->params['supportEmail'],
+                'from' => null,
                 'subject' => $subject,
                 'body' => $body
             ]

@@ -127,7 +127,7 @@ class SignupForm extends Model
             'route' => 'mail/send', 
             'data' => [
                 'to' => $this->email, 
-                'from' => Yii::$app->params['supportEmail'], 
+                'from' => null, //Null means default "from"
                 'subject' => 'Welcome to IZA World of Labor', 
                 'body' => $body
             ]
