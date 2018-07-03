@@ -22,6 +22,8 @@ use common\modules\eav\helper\EavAttributeHelper;
  * @property string $created_at
  * @property string $updated_at
  * @property string $publisher
+ * @property int $version 
+ * @property boolean $is_current
  *
  * @property ArticleAuthor[] $articleAuthors
  * @property ArticleCategory[] $articleCategories
