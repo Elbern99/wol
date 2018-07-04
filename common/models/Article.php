@@ -8,6 +8,7 @@ use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityModelInterface;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
+use yii\helpers\Url;
 
 
 /**
@@ -36,6 +37,8 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
 
     const ENTITY_NAME = 'article';
+
+    const VERSION_PARAM = 'v';
 
     protected $_collection = null;
 
@@ -347,5 +350,54 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         }
 
         return $this->_collection;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlOnePager()
+    {
+        return Url::to($this->prepareRoute(['article/one-pager', 'slug' => $this->seo]));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlFull()
+    {
+        return Url::to($this->prepareRoute(['article/full', 'slug' => $this->seo]));
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlMap()
+    {
+        return Url::to($this->prepareRoute(['article/map', 'slug' => $this->seo]));
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlLang($lang)
+    {
+        return Url::to($this->prepareRoute(['article/lang', 'slug' => $this->seo, 'code' => $lang]));
+    }
+    
+    /**
+     * Add version to route if article is not current
+     * 
+     * @param array $route
+     * @return array
+     */
+    protected function prepareRoute(array $route)
+    {
+        if (!$this->is_current) {
+            $route[self::VERSION_PARAM] = $this->version;
+        }
+
+        return $route;
     }
 }

@@ -241,7 +241,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                     <p>&copy; <?=$article->availability?></p>
                 <?php endif; ?>
                 <div class="article-map-medium">
-                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                    <a href="<?= $article->urlMap; ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></p>
@@ -446,7 +446,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             <?php endif; ?>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
-                <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                <a href="<?= $article->urlMap; ?>">
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>

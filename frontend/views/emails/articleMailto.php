@@ -17,11 +17,11 @@ if (count($authorsList)) {
     $mailAuthors = 'by '.$authors;
 }
 
-if (count($articleDoi)) {
+if ($articleDoi) {
     $mailDOI = 'DOI: http://dx.doi.org/'.$articleDoi;
 }
 
-if (count($articleElevatorPitch)) {
+if ($articleElevatorPitch) {
     $mailElevatorPitch = 'Elevator Pitch: '.$articleElevatorPitch;
 }
 

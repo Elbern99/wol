@@ -201,14 +201,14 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?>
-                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle color-blue">
+                        <a href="<?= $article->getUrlLang($lang['code']); ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle color-blue">
+                        <a href="<?= $article->urlOnePager; ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
@@ -219,7 +219,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 
                 <div class="article-pagers">
                     <a href="javascript:void(0)" class="active">one-pager</a>
-                    <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" >full article</a>
+                    <a href="<?= $article->urlFull; ?>" >full article</a>
                 </div>
             </div>
 
@@ -449,7 +449,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
         <?php endif; ?>
 
         <div class="sidebar-widget sidebar-widget-evidence-map">
-            <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+            <a href="<?= $article->urlMap; ?>">
                 <div id="map-mini"></div>
                 <div class="caption">
                     <div class="title">Evidence map</div>
