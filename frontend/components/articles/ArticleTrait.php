@@ -170,6 +170,8 @@ trait ArticleTrait
 
         if (null !== $v) {
             $query->andWhere(['version' => $v]);
+        } else {
+            $query->orderBy(['version' => SORT_DESC]);
         }
 
         return $query->one();

@@ -42,7 +42,7 @@ $versions = $article->getRelatedVersions();
             <?php endif; ?>
         </div>
 
-        <div class="article-number">Article number: <strong><?= $article['article']->id ?></strong></div>
+        <div class="article-number">Article number: <strong><?= $article['article']->article_number ?></strong></div>
     </div>
     <div class="sidebar-widget-version-item">
         <div class="number">

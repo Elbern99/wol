@@ -286,7 +286,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <div class="extra-buttons">
                     <ul class="article-buttons-list">
                         <li class="show-one-pager-holder">
-                            <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-light-blue-middle btn-show-one-pager">show full article</a>
+                            <a href="<?= $article->getUrlFull(); ?>" class="btn-border-light-blue-middle btn-show-one-pager">show full article</a>
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>

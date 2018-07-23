@@ -20,7 +20,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
             <?php endif; ?>
-            current version: <strong><?= count($versions) + 1 ?></strong>
+            current version: <strong><?= $article->version; ?></strong>
         </div>
         <div class="date">
             <div class="title">date</div>
@@ -40,7 +40,7 @@ use yii\helpers\Url;
             <?php endif; ?>
         </div>
 
-        <div class="article-number">Article number: <strong><?= $article->id ?></strong></div>
+        <div class="article-number">Article number: <strong><?= $article->article_number ?></strong></div>
     </div>
     <?php if (count($versions)): ?>
         <div class="sidebar-widget-version-item">

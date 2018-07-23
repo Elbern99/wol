@@ -139,7 +139,7 @@ class ArticleController extends Controller
 
     public function actionFull($slug, $v = null)
     {
-        $model = $this->getArticleSlugModel($slug);
+        $model = $this->getArticleSlugModel($slug, $v);
 
         if ($v && $model->is_current) {
             return $this->redirect($model->urlFull);
