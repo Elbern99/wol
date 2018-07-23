@@ -246,12 +246,26 @@ class ArticleParser implements ParserInterface
         $sourceClass::addSources($this->sourceAttribute);
     }
 
+    
+    protected function fetchVersionFromDoi($doi)
+    {
+        $matches = [];
+        preg_match("/\.v\d+$/", $doi, $matches);
+        
+        if (count($matches) == 1) {
+            return intval(str_replace('.v', '', $matches[0]));
+        } else {
+            return 1;
+        }
+    }
 
     protected function addBaseTableValue()
     {
 
         $articleId = $this->getIdNoByType('articleNumber');
         $doi = $this->getIdNoByType('doi');
+        $version = $this->fetchVersionFromDoi($doi);
+        $doi = str_replace('.v'.$version, '', $doi);
         $sortKey = $this->getTitleByType('sortKey');
         $seo = $this->getTitleByType('seo');
         $availability = (string) $this->xml->teiHeader->fileDesc->publicationStmt->availability->p;
@@ -260,16 +274,30 @@ class ArticleParser implements ParserInterface
         $publisher = (string) $this->xml->teiHeader->fileDesc->publicationStmt->publisher;
         $title = (string) $this->xml->teiHeader->fileDesc->titleStmt->title;
 
-        $this->article->setAttribute('id', $articleId);
+        $model = \common\models\Article::find()
+            ->where(['article_number' => $articleId])->andWhere(['version' => $version])
+            ->one();
+            
+            
+            //findOne(['version' => $version, 'article_number' => $articleId]);
+        
+        if (!$model) {
+            $model = new \common\models\Article();
+        }
+        
+        $this->article = $model;
+        //$this->article->setAttribute('id', $articleId);
         $this->article->setAttribute('title', $title);
         $this->article->setAttribute('sort_key', $sortKey);
         $this->article->setAttribute('seo', str_replace(' ', '-', strtolower(trim($seo))));
         $this->article->setAttribute('doi', $doi);
+        $this->article->setAttribute('version', $version);
         $this->article->setAttribute('enabled', 0);
         $this->article->setAttribute('availability', $availability);
         $this->article->setAttribute('created_at', $time);
         $this->article->setAttribute('updated_at', time());
         $this->article->setAttribute('publisher', $publisher);
+        $this->article->setAttribute('article_number', $articleId);
     }
 
 
@@ -341,6 +369,7 @@ class ArticleParser implements ParserInterface
             return $this->log;
         }
 
+        \common\helpers\ArticleHelper::setupCurrent($this->article->article_number);
         $articleId = $this->article->id;
 
         $this->addArticleCategory($articleId);

@@ -108,8 +108,8 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     public function rules()
     {
         return [
-            [['id', 'enabled'], 'integer'],
-            [['id', 'sort_key', 'seo', 'doi'], 'required'],
+            [['enabled', 'version', 'article_number'], 'integer'],
+            [['sort_key', 'seo', 'doi', 'article_number',  'version'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
             ['notices', 'string'],
