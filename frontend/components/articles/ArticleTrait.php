@@ -78,7 +78,7 @@ trait ArticleTrait
     }
 
 
-    protected function getArticlesList($limit)
+    protected function getArticlesList($limit, $currentOnly = false)
     {
         $order = OrderBehavior::getArticleOrder();
         $query = Article::find()
@@ -93,6 +93,10 @@ trait ArticleTrait
             ->with(['articleAuthors.author' => function($query) {
                 return $query->select(['id', 'url_key', 'name'])->asArray();
             }]);
+            
+        if ($currentOnly) {
+            $query->andWhere(['a.is_current' => 1]);
+        }
 
         $this->addOrderQuery($query, $order);
         return $query->limit($limit)->all();

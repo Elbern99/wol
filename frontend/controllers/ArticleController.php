@@ -63,7 +63,7 @@ class ArticleController extends Controller
                 return ['title' => $data['title'], 'url_key' => $data['url_key']];
             });
 
-        $articles = $this->getArticlesList($limit);
+        $articles = $this->getArticlesList($limit, true);
 
         $articlesIds = ArrayHelper::getColumn($articles, 'id');
 
@@ -85,16 +85,8 @@ class ArticleController extends Controller
                     $articleCategory[] = '<a href="' . $categoryFormat[$c->category_id]['url_key'] . '" >' . $categoryFormat[$c->category_id]['title'] . '</a>';
                 }
             }
-
-            if (count($article->articleAuthors)) {
-
-                foreach ($article->articleAuthors as $author) {
-                    $authors[] = Html::a($author->author['name'], Author::getAuthorUrl($author->author['url_key']));
-                }
-            } else {
-                $authors[] = $article->availability;
-            }
-
+            
+            $authors = $article->authorList;
             $eavValue = $values[$article->id] ?? [];
 
             $articlesCollection[$article->id] = [

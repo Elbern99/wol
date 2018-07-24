@@ -193,7 +193,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             <article>
                 <div class="article-pagers-holder">
                     <div class="article-pagers">
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>">one-pager</a>
+                        <a href="<?= $article->urlOnePager; ?>">one-pager</a>
                         <a href="javascript:void(0)" class="active" >full article</a>
                     </div>
                 </div>
