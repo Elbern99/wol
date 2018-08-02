@@ -213,7 +213,7 @@ class SearchController extends Controller
 
             return [];
         } catch (\Exception $e) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException($e->getMessage());
         }
     }
 

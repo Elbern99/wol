@@ -2,10 +2,12 @@
 
 namespace common\models;
 
+
 use Yii;
 use common\contracts\SearchModelInterface;
 use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for index "test1".
@@ -15,7 +17,11 @@ use yii\helpers\ArrayHelper;
  */
 class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInterface
 {
+
+
     const SEARCH_LIMIT = 500;
+
+
     /**
      * @inheritdoc
      */
@@ -23,6 +29,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
     {
         return 'articlesIndex';
     }
+
 
     /**
      * @inheritdoc
@@ -43,6 +50,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
         ];
     }
 
+
     /**
      * @inheritdoc
      */
@@ -53,36 +61,43 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             'seo' => 'Seo',
         ];
     }
-    
-    public static function getSearchAjaxResult($searchPhrase) {
-        
+
+
+    public static function getSearchAjaxResult($searchPhrase)
+    {
+
         $match = new MatchExpression();
-        
+
         if ($searchPhrase) {
 
             $match->match(Yii::$app->sphinx->escapeMatchValue($searchPhrase));
-            
+
             $data = self::find()
-                            ->select(['id'])
-                            ->match($match)
-                            ->asArray()
-                            ->all();
-            
+                ->select(['id', 'max_version', 'version','w' => new \yii\db\Expression('max_version-version'),])
+                ->match($match)
+                ->orderBy(['w' => SORT_ASC, 'WEIGHT()' => SORT_DESC])
+                ->asArray()
+                ->all();
+
             $ids = ArrayHelper::getColumn($data, 'id');
-            
+
             if (count($ids)) {
                 return self::filterArticleResult($ids);
             }
         }
-        
+
         return [];
     }
 
-    public static function getIndexWeight() {
+
+    public static function getIndexWeight()
+    {
         return ['articlesIndex' => 10];
     }
-    
-    public static function getIndexedFields() {
+
+
+    public static function getIndexedFields()
+    {
         return [
             'availability',
             'title',
@@ -94,13 +109,15 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
         ];
     }
 
-    protected static function filterArticleResult(array $ids): array {
-        
+
+    protected static function filterArticleResult(array $ids): array
+    {
+
         return Article::find()
-                    ->select(['id', 'title'])
-                    ->where(['id' => $ids, 'enabled' => 1])
-                    ->orderBy([new \yii\db\Expression('FIELD (id, ' . implode(',',$ids) . ')')])
-                    ->asArray()
-                    ->all();
+                ->select(['id', 'title'])
+                ->where(['id' => $ids, 'enabled' => 1])
+                ->orderBy([ new \yii\db\Expression('FIELD (id, ' . implode(',', $ids) . ')')])
+                ->asArray()
+                ->all();
     }
 }

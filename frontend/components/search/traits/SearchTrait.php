@@ -40,13 +40,13 @@ trait SearchTrait {
 
         $filters['biography'] = [
             'data' => SearchFilters::$biographyFilter,
-            'selected' => count(SearchFilters::getFilter('biography')) ? true : false,
+            'selected' => SearchFilters::getFilter('biography') ? true : false,
             'filtered' => SearchFilters::getFilter('biography'),
         ];
 
         $filters['topics'] = [
             'data' => SearchFilters::$topicsFilter,
-            'selected' => count(SearchFilters::getFilter('topics')) ? true : false,
+            'selected' => SearchFilters::getFilter('topics') ? true : false,
             'filtered' => SearchFilters::getFilter('topics'),
         ];
 
@@ -65,7 +65,7 @@ trait SearchTrait {
     protected function updateSearchData($model, $searchResultId, $searchResultData) {
         try {
             $this->clearSearchResultByUserIP();
-            
+            //var_dump(get_class($model)); die();
             $searchResult = $model->search();
 
             if (!count($searchResult)) {

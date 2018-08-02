@@ -298,6 +298,10 @@ class ArticleParser implements ParserInterface
         $this->article->setAttribute('updated_at', time());
         $this->article->setAttribute('publisher', $publisher);
         $this->article->setAttribute('article_number', $articleId);
+        
+        if ($this->article->isNewRecord) {
+            $this->article->save();
+        }
     }
 
 

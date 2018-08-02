@@ -128,7 +128,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
     <ul class="article-buttons-list">
         <li>
             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                     <span class="icon-download"></span>
                 </a>
             <?php endif; ?>
@@ -290,7 +290,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                     <div class="inner">
                                         <span class="icon-download"></span>
                                         <span class="text">download pdf</span>
