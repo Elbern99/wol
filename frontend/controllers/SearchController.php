@@ -117,7 +117,7 @@ class SearchController extends Controller
 
                         Result::setSearchParams($model->getAttributes());
                         $result = $this->getResearchData($model, $searchResultId, $searchResultData);
-
+;
                         if ($result instanceof yii\web\Response) {
                             return $result;
                         }
@@ -145,7 +145,7 @@ class SearchController extends Controller
             $searchFiltersData = $this->getFilterData($model, $searchResult['format'] ?? []);
         }
 
-        $mainresultCount = count($searchResult['main']);
+        $mainresultCount = is_array($searchResult['main']) ? count($searchResult['main']) : 0;
         $resultOrdered = [];
 
         if ($mainresultCount) {

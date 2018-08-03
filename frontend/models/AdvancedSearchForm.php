@@ -115,7 +115,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             $sphinx = new \SphinxClient();
             $query = new Query;
 
-            $sphinx->setSelect('id, type, title, max_version, version, (max_version-version) as w');
+            $sphinx->setSelect('id, type, title');
             $sphinx->setArrayResult(true);
 
             $sphinx->setSortMode(SPH_SORT_RELEVANCE);
@@ -136,8 +136,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             }
 
             $result = $sphinx->query($args, key($class::getIndexWeight()));
-            //var_dump($result);
-//die('huj5');
+
             if (isset($result['matches']) && count($result['matches'])) {
                 $searched = array_merge($searched, $result['matches']);
             }

@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 ?>
 <div class="sidebar-widget sidebar-widget-version">
     <div class="sidebar-widget-version-item">
@@ -25,7 +24,15 @@ use yii\helpers\Url;
                     </div>
                 </div>
             <?php endif; ?>
-            current version: <strong><?= $article->version; ?></strong>
+            current version: <strong><?= $article->version; ?></strong> 
+
+            <?php if ($article->revision_description) : ?>
+                <div class="icon-exclamatory-circle tooltip">
+                    <div class="tooltip-content">
+                        <?= $article->revision_description; ?>
+                    </div>
+                </div>
+            <?php endif ?>
         </div>
         <div class="date">
             <div class="title">date</div>
@@ -54,6 +61,14 @@ use yii\helpers\Url;
                 <?php foreach ($article->versions as $version): ?>
                     <div class="number">
                         <a href="<?= $version->urlFull ?>">version: <strong><?= $version->version ?></strong></a>
+
+                        <?php if ($version->revision_description) : ?>
+                            <div class="icon-exclamatory-circle tooltip">
+                                <div class="tooltip-content">
+                                    <?= $version->revision_description; ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     </div>
                 <?php endforeach; ?>
             </div>

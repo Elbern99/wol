@@ -273,6 +273,7 @@ class ArticleParser implements ParserInterface
         $time = strtotime((string) $created_at['when-iso']);
         $publisher = (string) $this->xml->teiHeader->fileDesc->publicationStmt->publisher;
         $title = (string) $this->xml->teiHeader->fileDesc->titleStmt->title;
+        $revisionDescription = isset($this->xml->teiHeader->revisionDesc) ? (string) $this->xml->teiHeader->revisionDesc->change->p : null;
 
         $model = \common\models\Article::find()
             ->where(['article_number' => $articleId])->andWhere(['version' => $version])
@@ -298,6 +299,7 @@ class ArticleParser implements ParserInterface
         $this->article->setAttribute('updated_at', time());
         $this->article->setAttribute('publisher', $publisher);
         $this->article->setAttribute('article_number', $articleId);
+        $this->article->setAttribute('revision_description', $revisionDescription);
         
         if ($this->article->isNewRecord) {
             $this->article->save();

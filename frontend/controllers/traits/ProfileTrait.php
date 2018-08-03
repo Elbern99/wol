@@ -23,10 +23,11 @@ trait ProfileTrait {
     protected function getAuthorArticles(int $authorId): array {
         
         $articlesCollection = [];
+        Yii::$app->db->createCommand("SET sql_mode = '';")->execute();
         
         $articles = Article::find()
                         ->alias('a')
-                        ->select(['a.id', 'a.title', 'a.seo', 'a.created_at'])
+                        ->select(['a.*', 'diff' => new \yii\db\Expression('a.max_version-a.version')])
                         ->innerJoinWith(['articleAuthors.author' => function($query) {
                             return $query->alias('au')->where(['au.enabled' => 1]);
                         }])
@@ -36,7 +37,8 @@ trait ProfileTrait {
                                      ->select(['category_id', 'article_id'])
                                      ->innerJoin(Category::tableName().' as c', 'ac.category_id = c.id AND c.lvl = 1');
                         }])
-                        ->orderBy(['created_at' => SORT_DESC])
+                        ->orderBy(['created_at' => SORT_DESC, 'diff' => SORT_ASC])
+                        ->groupBy('a.article_number')
                         ->all();
         
         $this->subjectAreas = $this->getSubjectAreas();
@@ -76,7 +78,7 @@ trait ProfileTrait {
             
             $articlesCollection[$article->id] = [
                 'title' => $article->title,
-                'url' => '/articles/' . $article->seo,
+                'url' => $article->urlOnePager,
                 'authors' => $authors,
                 'teaser' => EavValueHelper::getValue($eavValue, 'teaser', function($data) {
                     return $data;
