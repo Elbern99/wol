@@ -283,7 +283,8 @@ trait ArticleTrait
                 'authors' => $authors,
                 'categories' => $categories,
                 'currentLang' => $currentLang,
-                'langs' => $langs
+                'langs' => $langs,
+                'model' => $model,
         ]);
     }
 }

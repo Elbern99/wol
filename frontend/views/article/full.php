@@ -86,7 +86,7 @@ foreach ($authors as $author) {
 $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl' => Url::to($model->urlOnePager, true),
     'articleDoi' => $article->doi
 ));
 
@@ -94,9 +94,9 @@ $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php'
 array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl' => Url::to($model->urlOnePager, true),
     'articleDoi' => $article->doi,
-    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract')
+    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
 ));
 
 $config = [
