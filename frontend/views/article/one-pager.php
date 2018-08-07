@@ -85,7 +85,7 @@ foreach ($authors as $author) {
 $mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.php', [
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl' => Url::to($model->urlOnePager, true),
     'articleDoi' => $article->doi
 ]);
 
@@ -93,7 +93,7 @@ $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php'
 array(
         'authorsList' => $authorsList,
         'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
-        'articleUrl' => Url::to('/articles/'.$article->seo, true),
+        'articleUrl' => Url::to($model->urlOnePager, true),
         'articleDoi' => $article->doi,
         'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
 ));
@@ -128,7 +128,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
     <ul class="article-buttons-list">
         <li>
             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                     <span class="icon-download"></span>
                 </a>
             <?php endif; ?>
@@ -201,14 +201,14 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <div class="language-pagers">
                     <?php if (!$currentLang): ?>
                         <?php foreach($langs as $lang): ?>
-                        <a href="<?= Url::toRoute('/articles/'.$article->seo.'/lang/'.$lang['code']) ?>" class="btn-border-gray-middle color-blue">
+                        <a href="<?= $article->getUrlLang($lang['code']); ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
                             </div>
                         </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>" class="btn-border-gray-middle color-blue">
+                        <a href="<?= $article->urlOnePager; ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
@@ -219,7 +219,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 
                 <div class="article-pagers">
                     <a href="javascript:void(0)" class="active">one-pager</a>
-                    <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" >full article</a>
+                    <a href="<?= $article->urlFull; ?>" >full article</a>
                 </div>
             </div>
 
@@ -286,11 +286,11 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <div class="extra-buttons">
                     <ul class="article-buttons-list">
                         <li class="show-one-pager-holder">
-                            <a href="<?= Url::to('/articles/'.$article->seo . '/long') ?>" class="btn-border-light-blue-middle btn-show-one-pager">show full article</a>
+                            <a href="<?= $article->getUrlFull(); ?>" class="btn-border-light-blue-middle btn-show-one-pager">show full article</a>
                         </li>
                         <li>
                             <?php if (isset($attributes['one_pager_pdf'])): ?>
-                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                <a href="<?= Url::to([$attributes['one_pager_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                     <div class="inner">
                                         <span class="icon-download"></span>
                                         <span class="text">download pdf</span>
@@ -449,7 +449,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
         <?php endif; ?>
 
         <div class="sidebar-widget sidebar-widget-evidence-map">
-            <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+            <a href="<?= $article->urlMap; ?>">
                 <div id="map-mini"></div>
                 <div class="caption">
                     <div class="title">Evidence map</div>

@@ -2,12 +2,15 @@
 
 namespace common\models;
 
+
 use Yii;
 use common\modules\author\contracts\AuthorInterface;
 use common\modules\eav\contracts\EntityModelInterface;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+
+
 /**
  * This is the model class for table "author".
  *
@@ -23,9 +26,13 @@ use yii\helpers\ArrayHelper;
  */
 class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityModelInterface
 {
+
+
     const AUTHOR_PREFIX = 'authors';
+
     const EDITOR_PREFIX = 'editors';
-    
+
+
     /**
      * @inheritdoc
      */
@@ -33,26 +40,37 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     {
         return 'author';
     }
-    
-    public static function getBaseFolder() {
+
+
+    public static function getBaseFolder()
+    {
         return 'authors';
     }
-    
-    public function getAvatarBaseUrl() {
-        return '/uploads/' . self::getBaseFolder() . '/images/avatar/'.$this->avatar;
-    }
-    
-    public static function getImageUrl($image) {
-        return '/uploads/' . self::getBaseFolder() . '/images/avatar/'.$image;
+
+
+    public function getAvatarBaseUrl()
+    {
+        return '/uploads/' . self::getBaseFolder() . '/images/avatar/' . $this->avatar;
     }
 
-    public function getFrontendImagesBasePath() {
+
+    public static function getImageUrl($image)
+    {
+        return '/uploads/' . self::getBaseFolder() . '/images/avatar/' . $image;
+    }
+
+
+    public function getFrontendImagesBasePath()
+    {
         return Yii::getAlias('@frontend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
     }
 
-    public function getBackendImagesBasePath() {
+
+    public function getBackendImagesBasePath()
+    {
         return Yii::getAlias('@backend') . '/web/uploads/' . self::getBaseFolder() . '/images/avatar/';
     }
+
 
     /**
      * @inheritdoc
@@ -70,6 +88,7 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
         ];
     }
 
+
     /**
      * @inheritdoc
      */
@@ -85,10 +104,13 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
             'avatar' => Yii::t('app', 'Avatar'),
         ];
     }
-    
-    public function getId() {
+
+
+    public function getId()
+    {
         return $this->id;
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -97,104 +119,120 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
     {
         return $this->hasMany(ArticleAuthor::className(), ['author_id' => 'id']);
     }
-    
-    public function addNewAuthor($args) {
-        
+
+
+    public function addNewAuthor($args)
+    {
+
         try {
-            
+
             $obj = Yii::createObject(self::class);
             $obj->load($args, '');
 
             if ($obj->save()) {
                 return $obj;
             }
-            
         } catch (\yii\db\Exception $e) {
             return false;
         }
 
         return false;
     }
-    
-    public static function getAuthorUrl($url_key) {
-        return Url::to([self::AUTHOR_PREFIX.'/'.$url_key]);
+
+
+    public static function getAuthorUrl($url_key)
+    {
+        return Url::toRoute(['authors/profile', 'url_key' => $url_key]);
     }
-    
-    public static function getEditorUrl($url_key) {
-        return Url::to([self::EDITOR_PREFIX.'/'.$url_key]);
+
+
+    public static function getEditorUrl($url_key)
+    {
+        return Url::to([self::EDITOR_PREFIX . '/' . $url_key]);
     }
-    
-    public function getUrl() {
-        return Url::to([self::AUTHOR_PREFIX.'/'.$this->url_key]);
+
+
+    public function getUrl()
+    {
+        return self::getAuthorUrl($this->url_key);
     }
-    
-    public function getAuthorRoles($type) {
-        
+
+
+    public function getAuthorRoles($type)
+    {
+
         $ids = AuthorRoles::find()->where(['author_id' => $this->id])->all();
         $roles = new \common\modules\author\Roles();
-        
+
         return ArrayHelper::getColumn($ids, function($data) use ($roles, $type) {
-            if (array_search($data['role_id'], $roles->getAuthorGroup()) !== false) {
-                if (is_null($type)) {
-                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                if (array_search($data['role_id'], $roles->getAuthorGroup()) !== false) {
+                    if (is_null($type)) {
+                        return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                    }
+                    return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/authors/' . $this->url_key));
+                } elseif (array_search($data['role_id'], $roles->getEditorGroup()) !== false) {
+                    if ($type == 'editor') {
+                        return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                    }
+                    return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/editors/' . $this->url_key));
+                } elseif (array_search($data['role_id'], $roles->getExpertGroup()) !== false) {
+                    if ($type == 'expert') {
+                        return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
+                    }
+                    return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/spokespeople/' . $this->url_key));
                 }
-                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/authors/'.$this->url_key));
-            } elseif(array_search($data['role_id'], $roles->getEditorGroup()) !== false) {
-                if ($type == 'editor') {
-                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
-                }
-                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/editors/'.$this->url_key));
-            } elseif(array_search($data['role_id'], $roles->getExpertGroup()) !== false) {
-                if ($type == 'expert') {
-                    return Yii::t('app/text', $roles->getTypeByKey($data['role_id']));
-                }
-                return Html::a(Yii::t('app/text', $roles->getTypeByKey($data['role_id'])), Url::to('/spokespeople/'.$this->url_key));
-            }
-        });
+            });
     }
-    
+
+
     public function getAuthorRolesRelation()
     {
         return $this->hasMany(AuthorRoles::className(), ['author_id' => 'id']);
     }
-    
-    public function getAuthorUrlByRoleType($type) {
- 
-        switch($type) {
+
+
+    public function getAuthorUrlByRoleType($type)
+    {
+
+        switch ($type) {
             case 'expert':
-                return Html::a($this->name, Url::to('/spokespeople/'.$this->url_key));
+                return Html::a($this->name, Url::to('/spokespeople/' . $this->url_key));
                 break;
             case 'editor':
-                return Html::a($this->name, Url::to('/editors/'.$this->url_key));
+                return Html::a($this->name, Url::to('/editors/' . $this->url_key));
                 break;
             default:
-                return Html::a($this->name, Url::to('/authors/'.$this->url_key));
+                return Html::a($this->name, Url::to('/authors/' . $this->url_key));
         }
     }
-    
-    public function getAuthorUrlByRoleId($authorRoles) {
- 
+
+
+    public function getAuthorUrlByRoleId($authorRoles)
+    {
+
         $roles = new \common\modules\author\Roles();
-        
+
         if (count(array_intersect($roles->getAuthorGroup(), $authorRoles))) {
-            return Url::to('/authors/'.$this->url_key);
-        } elseif(count(array_intersect($roles->getEditorGroup(), $authorRoles))) {
-            return Url::to('/editors/'.$this->url_key);
-        } elseif(count(array_intersect($roles->getExpertGroup(), $authorRoles))) {
-            return Url::to('/spokespeople/'.$this->url_key);
+            return Url::to('/authors/' . $this->url_key);
+        } elseif (count(array_intersect($roles->getEditorGroup(), $authorRoles))) {
+            return Url::to('/editors/' . $this->url_key);
+        } elseif (count(array_intersect($roles->getExpertGroup(), $authorRoles))) {
+            return Url::to('/spokespeople/' . $this->url_key);
         }
 
-        return Url::to('/authors/'.$this->url_key);
+        return Url::to('/authors/' . $this->url_key);
     }
-    
-    public function getAuthorCategoriesArray() {
-        
-        return  AuthorCategory::find()
-                    ->select(['c.url_key', 'c.title'])
-                    ->alias('ac')
-                    ->innerJoin(Category::tableName().' as c', 'c.id = ac.category_id')
-                    ->where(['author_id' => $this->id, 'c.active' => 1])
-                    ->asArray()
-                    ->all();
+
+
+    public function getAuthorCategoriesArray()
+    {
+
+        return AuthorCategory::find()
+                ->select(['c.url_key', 'c.title'])
+                ->alias('ac')
+                ->innerJoin(Category::tableName() . ' as c', 'c.id = ac.category_id')
+                ->where(['author_id' => $this->id, 'c.active' => 1])
+                ->asArray()
+                ->all();
     }
 }

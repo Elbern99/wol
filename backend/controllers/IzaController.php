@@ -98,6 +98,7 @@ class IzaController extends Controller
                             $createTest->doi_control = $this->article->doi;
                             $createTest->save(false, ['doi_control']);
                         }
+                        
                         $articleCollection = Yii::createObject(Collection::class);
                         $articleCollection->initCollection($model::ENTITY_NAME, $model, false);
                         $attributes = $articleCollection->getEntity()->getValues();
@@ -112,10 +113,11 @@ class IzaController extends Controller
                         $event = new \common\modules\article\ArticleEvent();
                         $event->id = $model->id;
                         $event->title = $model->title;
-                        $event->url = 'articles/' . $model->seo;
+                        $event->url = $model->urlOnePager;
                         $event->categoryIds = array_values(ArrayHelper::map($model->articleCategories, 'id', 'id'));
                         $event->availability = $model->availability;
                         $event->pdf = $pdfUrl;
+                        $event->version = $model->version;
                         \backend\components\queue\NewsletterArticleSubscribe::addQueue($event);
                         
                         //\yii\base\Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_ARTICLE_CREATE, $event);

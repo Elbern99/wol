@@ -117,6 +117,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
 
             $sphinx->setSelect('id, type, title');
             $sphinx->setArrayResult(true);
+
             $sphinx->setSortMode(SPH_SORT_RELEVANCE);
             $sphinx->setFieldWeights($fieldsWeight);
             $sphinx->setIndexWeights($class::getIndexWeight());
@@ -124,6 +125,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             $sphinx->setLimits(0, $class::SEARCH_LIMIT);
             $params = $this->getSearchMatch($this->getAttributes(), $fields, $searchPhrase);
             $sql = $query->match($params)->createCommand()->getRawSql();
+
 
             preg_match('/\(.+\)/',$sql, $m);
 

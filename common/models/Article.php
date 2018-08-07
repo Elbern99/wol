@@ -8,6 +8,7 @@ use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityModelInterface;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
+use yii\helpers\Url;
 
 
 /**
@@ -22,6 +23,8 @@ use common\modules\eav\helper\EavAttributeHelper;
  * @property string $created_at
  * @property string $updated_at
  * @property string $publisher
+ * @property int $version 
+ * @property boolean $is_current
  *
  * @property ArticleAuthor[] $articleAuthors
  * @property ArticleCategory[] $articleCategories
@@ -35,9 +38,13 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
     const ENTITY_NAME = 'article';
 
+    const VERSION_PARAM = 'v';
+
     protected $_collection = null;
 
     protected $_lang = null;
+
+    protected $_maxVersion = null;
 
 
     /**
@@ -103,10 +110,10 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     public function rules()
     {
         return [
-            [['id', 'enabled'], 'integer'],
-            [['id', 'sort_key', 'seo', 'doi'], 'required'],
+            [['enabled', 'version', 'article_number'], 'integer'],
+            [['sort_key', 'seo', 'doi', 'article_number', 'version'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['sort_key', 'seo', 'title'], 'string', 'max' => 255],
+            [['sort_key', 'seo', 'title', 'revision_description'], 'string', 'max' => 255],
             ['notices', 'string'],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
@@ -160,6 +167,12 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     public function getArticleAuthors()
     {
         return $this->hasMany(ArticleAuthor::className(), ['article_id' => 'id']);
+    }
+
+
+    public function getAuthors()
+    {
+        return $this->hasMany(Author::className(), ['id' => 'author_id'])->viaTable(ArticleAuthor::tableName(), ['article_id' => 'id']);
     }
 
 
@@ -243,6 +256,17 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
                 ->where(['article_id' => $this->id])
                 ->asArray()
                 ->all();
+    }
+
+
+    public function getVersions()
+    {
+        return $this
+                ->hasMany(Article::className(), ['article_number' => 'article_number'])
+                ->andOnCondition('version.id <> :self', [':self' => $this->id])
+                ->andOnCondition('version.enabled=1')
+                ->from(['version' => Article::tableName()])
+                ->orderBy('version DESC');
     }
 
 
@@ -345,5 +369,96 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         }
 
         return $this->_collection;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlOnePager()
+    {
+        return Url::to($this->prepareRoute(['article/one-pager', 'slug' => $this->seo]));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlFull()
+    {
+        return Url::to($this->prepareRoute(['article/full', 'slug' => $this->seo]));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlMap()
+    {
+        return Url::to($this->prepareRoute(['article/map', 'slug' => $this->seo]));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUrlLang($lang)
+    {
+        return Url::to($this->prepareRoute(['article/lang', 'slug' => $this->seo, 'code' => $lang]));
+    }
+
+
+    public function getFullDoi()
+    {
+        return $this->version > 1 ? $this->doi . '.v' . $this->version : $this->doi;
+    }
+
+
+    public function getMaxVersion()
+    {
+        if ($this->isNewRecord || !$this->id || !$this->article_number) {
+            throw new \yii\base\Exception('The article is not saved yet.');
+        }
+
+        if (null === $this->_maxVersion) {
+            $this->_maxVersion = Article::find()
+                ->where(['article_number' => $this->article_number])
+                ->andWhere(['enabled' => 1])
+                ->max('version');
+        }
+
+        return $this->_maxVersion;
+    }
+
+
+    public function getAuthorList()
+    {
+         $authors = [];
+         
+        if (count($this->authors)) {
+            foreach ($this->authors as $author) {
+                $authors[] = \yii\helpers\Html::a($author->name, $author->url);
+            }
+        } else {
+            $authors[] = $this->availability;
+        }
+        
+        return $authors;
+    }
+
+
+    /**
+     * Add version to route if article is not current
+     * 
+     * @param array $route
+     * @return array
+     */
+    protected function prepareRoute(array $route)
+    {
+        if (!$this->is_current) {
+            $route[self::VERSION_PARAM] = $this->version;
+        }
+
+        return $route;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    
+
     <div class="row content">
         <div class="col-sm-12 sidenav">
             <?php \yii\widgets\Pjax::begin(); ?>
@@ -36,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return AdminFunctionHelper::short($model->doi);
                         }
                     ],
+                    'version',
                     [
                         'attribute' => 'created_at',
                         'value' => function($model) {
@@ -46,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'enabled',
                         'format' => 'raw',
                         'value' => function($model) {
-                            return Html::activeCheckbox($model, 'enabled', ['class'=>'enabled_field', 'data-item'=>$model->id]);
+                            return Html::activeCheckbox($model, 'enabled', ['class' => 'enabled_field', 'data-item' => $model->id]);
                         }
                     ],
                     [
@@ -56,14 +58,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'buttons' => [
                             'article-view' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                                    'title' => Yii::t('app', 'View'),
+                                        'title' => Yii::t('app', 'View'),
                                 ]);
                             },
                             'article-delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                    'title' => Yii::t('app', 'Delete'),
-                                    'data-confirm' => Yii::t('yii', 'Are you sure to delete this item?'),
-                                    'data-method' => 'post',
+                                        'title' => Yii::t('app', 'Delete'),
+                                        'data-confirm' => Yii::t('yii', 'Are you sure to delete this item?'),
+                                        'data-method' => 'post',
                                 ]);
                             },
                         ]
@@ -71,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
-            <?php \yii\widgets\Pjax::end(); ?>
+<?php \yii\widgets\Pjax::end(); ?>
         </div>
     </div>
 </div>

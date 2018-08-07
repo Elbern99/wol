@@ -86,7 +86,7 @@ foreach ($authors as $author) {
 $mailArticleShare = \Yii::$app->view->renderFile('@app/views/emails/articleShare.php',array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl' => Url::to($model->urlOnePager, true),
     'articleDoi' => $article->doi
 ));
 
@@ -94,9 +94,9 @@ $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php'
 array(
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title'),
-    'articleUrl' => Url::to('/articles/'.$article->seo, true),
+    'articleUrl' => Url::to($model->urlOnePager, true),
     'articleDoi' => $article->doi,
-    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract')
+    'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
 ));
 
 $config = [
@@ -125,7 +125,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
         <ul class="article-buttons-list">
             <li>
                 <?php if (isset($attributes['full_pdf'])): ?>
-                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                         <span class="icon-download"></span>
                     </a>
                 <?php endif; ?>
@@ -193,7 +193,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             <article>
                 <div class="article-pagers-holder">
                     <div class="article-pagers">
-                        <a href="<?= Url::to('/articles/'.$article->seo) ?>">one-pager</a>
+                        <a href="<?= $article->urlOnePager; ?>">one-pager</a>
                         <a href="javascript:void(0)" class="active" >full article</a>
                     </div>
                 </div>
@@ -241,7 +241,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                     <p>&copy; <?=$article->availability?></p>
                 <?php endif; ?>
                 <div class="article-map-medium">
-                    <a href="<?= Url::to('/articles/'.$article->seo.'/map') ?>">
+                    <a href="<?= $article->urlMap; ?>">
                         <div class="article-map-medium-text">
                             <h4>evidence map</h4>
                             <p><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></p>
@@ -286,7 +286,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                             </li>
                             <li>
                                 <?php if (isset($attributes['full_pdf'])): ?>
-                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url', $currentLang), 'v'=>$currentVersionNumber]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
+                                    <a href="<?= Url::to([$attributes['full_pdf']->getData('url', $currentLang)]) ?>" target="_blank" class="btn-border-blue-middle btn-download with-icon-r">
                                         <div class="inner">
                                             <span class="icon-download"></span>
                                             <span class="text">download pdf</span>
@@ -446,7 +446,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             <?php endif; ?>
 
             <div class="sidebar-widget sidebar-widget-evidence-map">
-                <a href="<?= Url::to('/articles/'.$article->seo . '/map') ?>">
+                <a href="<?= $article->urlMap; ?>">
                     <div id="map-mini"></div>
                     <div class="caption">
                         <div class="title">Evidence map</div>

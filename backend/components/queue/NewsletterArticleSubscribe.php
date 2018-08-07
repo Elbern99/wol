@@ -66,19 +66,21 @@ class NewsletterArticleSubscribe
                 $filered[] = $category->id;
             }
         }
-
-        $subscribers = $subscribers->all();
+        
+        $subscribers = $subscribers->each(200);
 
         foreach ($subscribers as $subscriber) {
-
-            $body = Yii::$app->view->renderFile('@backend/views/emails/article_newsletter.php', ['subscriber' => $subscriber, 'article' => $event]);
+            $template = $event->version > 1 ? 'article_newsletter_version.php' : 'article_newsletter.php';
+            $subject = $event->version > 1 ? 'A new version of an article published' : 'Article from IZA World of Labor';
+            
+            $body = Yii::$app->view->renderFile('@backend/views/emails/'.$template, ['subscriber' => $subscriber, 'article' => $event]);
 
             $job = new \UrbanIndo\Yii2\Queue\Job([
                 'route' => 'mail/send',
                 'data' => [
                     'to' => $subscriber->email,
                     'from' => null,
-                    'subject' => 'Article from IZA World of Labor',
+                    'subject' => $subject,
                     'body' => $body,
                     'article_id' => $event->id
                 ]
