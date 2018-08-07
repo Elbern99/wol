@@ -73,7 +73,7 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             $match->match(Yii::$app->sphinx->escapeMatchValue($searchPhrase));
 
             $data = self::find()
-                ->select(['id', 'max_version', 'version','w' => new \yii\db\Expression('max_version-version'),])
+                ->select(['id', 'max_version', 'version', new \yii\db\Expression('max_version-version as w')])
                 ->match($match)
                 ->orderBy(['w' => SORT_ASC, 'WEIGHT()' => SORT_DESC])
                 ->asArray()
