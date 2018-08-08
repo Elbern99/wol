@@ -80,7 +80,7 @@ class ArticleRepository implements RepositoryInterface {
         $query =  Article::find()
                         ->alias('a')
                         ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
-                        ->where(['a.enabled' => 1, 'a.id' => $articlesIds])
+                        ->where(['a.enabled' => 1, 'a.id' => $articlesIds, 'a.version' => new \yii\db\Expression('max_version')])
                         ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
                                      ->select(['category_id', 'article_id'])
@@ -283,7 +283,7 @@ class ArticleRepository implements RepositoryInterface {
 
         return ArticleCategory::find()
                 ->alias('ac')
-                ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id')
+                ->innerJoin(Article::tableName().' as a', 'a.id = ac.article_id AND a.version=a.max_version')
                 ->where(['ac.category_id' => $this->current->id, 'a.enabled' => 1])
                 ->count('a.id');
     }
