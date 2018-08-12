@@ -125,7 +125,7 @@ class ArticleController extends Controller
             return $this->redirect($model->urlOnePager);
         }
 
-        return $this->renderArticlePage('one-pager', $model);
+        return $this->renderArticlePage('one-pager', $model, true);
     }
 
 
