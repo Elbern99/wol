@@ -109,6 +109,12 @@ $config = [
 $versions = $article->getArticleVersions();
 $currentVersionNumber = count($versions) + 1;
 $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->getData('affiliation');
+
+//the structure with multilang is differs, so it is crutch
+if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
+    $affiliationArticle = $affiliationArticle[0]->affiliation;
+}
+
 ?>
 
 <div class="container article-full one-pager-page">
