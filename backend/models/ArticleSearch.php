@@ -19,7 +19,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id'], 'integer'],
-            [['doi','title','seo'], 'safe'],
+            [['doi','title','seo', 'article_number'], 'safe'],
         ];
     }
 
@@ -59,6 +59,10 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id
+        ]);
+
+        $query->andFilterWhere([
+            'article_number' => $this->article_number
         ]);
 
         $query->andFilterWhere(['like', 'doi', $this->doi]);
