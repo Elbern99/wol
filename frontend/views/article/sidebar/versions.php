@@ -24,7 +24,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
             <?php endif; ?>
-            current version: <strong><?= $article->version; ?></strong> 
+            <?php if ($article->is_current) : ?>Current <?php endif?>Version: <strong><?= $article->version; ?></strong> 
 
             <?php if ($article->revision_description) : ?>
                 <div class="icon-exclamatory-circle tooltip">
@@ -60,7 +60,7 @@ use yii\helpers\Url;
                 <div class="number">Previous version<?= count($article->versions) > 1 ? 's' : ''; ?></div>
                 <?php foreach ($article->versions as $version): ?>
                     <div class="number">
-                        <a href="<?= $version->urlFull ?>">version: <strong><?= $version->version ?></strong></a>
+                        <a href="<?= $version->urlOnePager ?>">version: <strong><?= $version->version ?></strong></a>
 
                         <?php if ($version->revision_description) : ?>
                             <div class="icon-exclamatory-circle tooltip">
@@ -76,7 +76,7 @@ use yii\helpers\Url;
             <div class="sidebar-widget-version-item">
                 <?php foreach ($article->versions as $version): ?>
                     <div class="number">
-                        <a href="<?= $version->urlFull ?>">
+                        <a href="<?= $version->urlOnePager ?>">
                             <?php if ($version->is_current) : ?>
                                 Current version: 
                             <?php else : ?>
