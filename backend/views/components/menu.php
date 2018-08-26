@@ -35,7 +35,7 @@ if (Yii::$app->user->isGuest) {
         'template' => '<a href="{url}" >{label}<i class="fa fa-angle-left pull-right"></i></a>',
         'items' => [
             ['label' => Yii::t('app/menu', 'Upload'), 'url' => ['/admin-interface/upload']],
-            ['label' => Yii::t('app/menu', 'Versions'), 'url' => ['/admin-interface/versions']],
+            //['label' => Yii::t('app/menu', 'Versions'), 'url' => ['/admin-interface/versions']],
             ['label' => Yii::t('app/menu', 'Log'), 'url' => ['/admin-interface/upload-log']],
             ['label' => Yii::t('app/menu', 'XML Sitemap'), 'url' => ['/sitemap']],
         ],
