@@ -24,7 +24,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
             <?php endif; ?>
-            <?php if ($article->is_current) : ?>Current <?php endif?>Version: <strong><?= $article->version; ?></strong> 
+            <?php if ($article->is_current) : ?>Current <?php endif ?>Version: <strong><?= $article->version; ?></strong> 
 
             <?php if ($article->revision_description) : ?>
                 <div class="icon-exclamatory-circle tooltip">
@@ -44,10 +44,10 @@ use yii\helpers\Url;
         </div>
 
         <div class="authors">
-            <div class="title">author<?= count($article->authorList) > 1 ? 's' : ''; ?></div>
-            <?php if (count($article->authorList)): ?>
-                <?php foreach ($article->authorList as $author): ?>
-                    <div class="author-item"><?= $author; ?></div>
+            <div class="title">Author<?= count($article->authorList) > 1 ? 's' : ''; ?></div>
+            <?php if (count($authorsList)): ?>
+                <?php foreach ($authorsList as $author): ?>
+                <div class="author-item"><a href="<?= $author['url']?>"><?= $author['name']; ?></a></div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -81,7 +81,15 @@ use yii\helpers\Url;
                                 Current version: 
                             <?php else : ?>
                                 Version:<?php endif; ?>
-                            <strong><?= $version->version ?></strong></a>
+                            <strong><?= $version->version ?></strong>
+                        </a>
+                        <?php if ($version->revision_description) : ?>
+                            <div class="icon-exclamatory-circle tooltip">
+                                <div class="tooltip-content">
+                                    <?= $version->revision_description; ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     </div>
                 <?php endforeach; ?>
             </div>
