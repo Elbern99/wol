@@ -375,7 +375,7 @@ class ArticleParser implements ParserInterface
             return $this->log;
         }
 
-        \common\helpers\ArticleHelper::setupCurrent($this->article->article_number);
+        //\common\helpers\ArticleHelper::setupCurrent($this->article->article_number);
         $articleId = $this->article->id;
 
         $this->addArticleCategory($articleId);

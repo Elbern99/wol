@@ -9,6 +9,7 @@ use common\modules\eav\contracts\EntityModelInterface;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
 use yii\helpers\Url;
+use common\modules\eav\StorageEav;
 
 
 /**
@@ -40,11 +41,15 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
     const VERSION_PARAM = 'v';
 
+    public $simpleDelete = false;
+
     protected $_collection = null;
 
     protected $_lang = null;
 
     protected $_maxVersion = null;
+
+    protected $_anotherVersions = null;
 
 
     /**
@@ -250,7 +255,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
     public function getArticleVersions()
     {
-
+        // DO NOT USE, not implemented, deprecated
         return VersionsArticle::find()
                 ->select(['version_number', 'seo', 'notices'])
                 ->where(['article_id' => $this->id])
@@ -261,6 +266,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
     public function getVersions()
     {
+        // DO NOT USE, not implemented, deprecated
         return $this
                 ->hasMany(Article::className(), ['article_number' => 'article_number'])
                 ->andOnCondition('version.id <> :self', [':self' => $this->id])
@@ -431,10 +437,31 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     }
 
 
+    public function getAnotherVersions($enabled = false)
+    {
+        if ($this->isNewRecord || !$this->id || !$this->article_number) {
+            throw new \yii\base\Exception('The article is not saved yet.');
+        }
+
+        if (null == $this->_anotherVersions) {
+            $query = Article::find()->where(['article_number' => $this->article_number])
+                ->andWhere(['NOT', ['id' => $this->id]]);
+
+            if ($enabled) {
+                $query->andWhere(['enabled' => 1]);
+            }
+
+            $this->_anotherVersions = $query->all();
+        }
+
+        return $this->_anotherVersions;
+    }
+
+
     public function getAuthorList()
     {
-         $authors = [];
-         
+        $authors = [];
+
         if (count($this->authors)) {
             foreach ($this->authors as $author) {
                 $authors[] = \yii\helpers\Html::a($author->name, $author->url);
@@ -442,8 +469,43 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         } else {
             $authors[] = $this->availability;
         }
-        
+
         return $authors;
+    }
+
+
+    public function delete()
+    {
+        $version = $this->version;
+        $articleNulber = $this->article_number;
+        $anotherVersions = $this->getAnotherVersions();
+
+        parent::delete();
+
+        if ($version == 1) {
+            foreach ($anotherVersions as $av) {
+                $av->simpleDelete = true;
+
+                $eavFactory = new StorageEav();
+                $eavEntityModel = $eavFactory->factory('entity');
+                $eavTypeModel = $eavFactory->factory('type');
+
+                $entity = $eavEntityModel->find()
+                    ->alias('e')
+                    ->innerJoin(['t' => $eavTypeModel::tableName()], 'e.type_id = t.id')
+                    ->where(['e.model_id' => $av->id, 't.name' => 'article'])
+                    ->one();
+
+                if (!empty($entity->id)) {
+                    $entity->delete();
+                }
+
+                $av->delete();
+            }
+        } elseif (!$this->simpleDelete) {
+            \common\helpers\ArticleHelper::setupCurrent($articleNulber);
+            \yii\base\Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_SPHINX_REINDEX);
+        }
     }
 
 

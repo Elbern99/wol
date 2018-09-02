@@ -23,7 +23,7 @@ use common\models\ArticleAuthor;
 use backend\models\ArticleAuthorForm;
 use common\models\VersionsArticle;
 use common\modules\eav\helper\EavAttributeHelper;
-
+use yii\base\Event;
 
 /**
  * Article Author Class Controller
@@ -89,41 +89,46 @@ class IzaController extends Controller
 
             if ($model->save()) {
 
-                if ($model instanceof \common\models\Article && $model->enabled) {
-                    $createTest = $model->getCreated()->one();
+                if ($model instanceof \common\models\Article) {
+                    if ($model->enabled) {
+                        $createTest = $model->getCreated()->one();
 
-                    if (!$createTest || ($model->doi != $createTest->doi_control)) {
+                        if (!$createTest || ($model->doi != $createTest->doi_control)) {
 
-                        if ($createTest) {
-                            $createTest->doi_control = $this->article->doi;
-                            $createTest->save(false, ['doi_control']);
+                            if ($createTest) {
+                                $createTest->doi_control = $this->article->doi;
+                                $createTest->save(false, ['doi_control']);
+                            }
+
+                            $articleCollection = Yii::createObject(Collection::class);
+                            $articleCollection->initCollection($model::ENTITY_NAME, $model, false);
+                            $attributes = $articleCollection->getEntity()->getValues();
+                            EavAttributeHelper::initEavAttributes($attributes);
+
+                            if (isset($attributes['full_pdf'])) {
+                                $pdfUrl = Url::to([$attributes['full_pdf']->getData('url'), 'v' => count($model->getArticleVersions()) + 1]);
+                            } else {
+                                $pdfUrl = null;
+                            }
+
+                            $event = new \common\modules\article\ArticleEvent();
+                            $event->id = $model->id;
+                            $event->title = $model->title;
+                            $event->url = $model->urlOnePager;
+                            $event->categoryIds = array_values(ArrayHelper::map($model->articleCategories, 'id', 'id'));
+                            $event->availability = $model->availability;
+                            $event->pdf = $pdfUrl;
+                            $event->version = $model->version;
+                            \backend\components\queue\NewsletterArticleSubscribe::addQueue($event);
+
+                            //\yii\base\Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_ARTICLE_CREATE, $event);
                         }
-                        
-                        $articleCollection = Yii::createObject(Collection::class);
-                        $articleCollection->initCollection($model::ENTITY_NAME, $model, false);
-                        $attributes = $articleCollection->getEntity()->getValues();
-                        EavAttributeHelper::initEavAttributes($attributes);
-                        
-                        if (isset($attributes['full_pdf'])) {
-                            $pdfUrl = Url::to([$attributes['full_pdf']->getData('url'), 'v' => count($model->getArticleVersions()) + 1]);
-                        } else {
-                            $pdfUrl = null;
-                        }
-                        
-                        $event = new \common\modules\article\ArticleEvent();
-                        $event->id = $model->id;
-                        $event->title = $model->title;
-                        $event->url = $model->urlOnePager;
-                        $event->categoryIds = array_values(ArrayHelper::map($model->articleCategories, 'id', 'id'));
-                        $event->availability = $model->availability;
-                        $event->pdf = $pdfUrl;
-                        $event->version = $model->version;
-                        \backend\components\queue\NewsletterArticleSubscribe::addQueue($event);
-                        
-                        //\yii\base\Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_ARTICLE_CREATE, $event);
+
+                        $model->insertOrUpdateCreateRecord();
                     }
-
-                    $model->insertOrUpdateCreateRecord();
+                    
+                    \common\helpers\ArticleHelper::setupCurrent($model->article_number);
+                    Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_SPHINX_REINDEX);
                 }
 
                 return true;
