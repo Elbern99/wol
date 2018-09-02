@@ -10,19 +10,21 @@ class ArticleHelper
 {
 
 
-    public static function setupCurrent($articleNumber)
+    public static function setupCurrent($articleNumber, $enabledOnly = true)
     {
-        Article::updateAll(['is_current' => null], ['article_number' => $articleNumber]);
+        $condition = $enabledOnly ? ['article_number' => $articleNumber, 'enabled' => 1] : ['article_number' => $articleNumber];
+        
+        Article::updateAll(['is_current' => null], $condition);
 
         $maxVersionArticle = Article::find()
-            ->where(['article_number' => $articleNumber])
+            ->where($condition)
             ->orderBy(['version' => SORT_DESC])
             ->one();
 
         if ($maxVersionArticle) {
             $maxVersionArticle->is_current = 1;
             $maxVersionArticle->update(false, ['is_current']);
-            Article::updateAll(['max_version' => $maxVersionArticle->version], ['article_number' => $articleNumber]);
+            Article::updateAll(['max_version' => $maxVersionArticle->version], $condition);
         } else {
             throw new \Exception('Article number "' . $articleNumber . '" not found.');
         }

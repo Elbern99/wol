@@ -34,30 +34,8 @@ use yii\helpers\Url;
                 </div>
             <?php endif ?>
         </div>
-        <div class="date">
-            <div class="title">date</div>
-            <?= date('F Y', $article->created_at) ?>
-        </div>
-        <div class="doi">
-            <div class="title">DOI</div>
-            <a href="http://dx.doi.org/<?= $article->fullDoi ?>" target="_blank"><?= $article->fullDoi ?></a>
-        </div>
-
-        <div class="authors">
-            <div class="title">Author<?= count($article->authorList) > 1 ? 's' : ''; ?></div>
-            <?php if (count($authorsList)): ?>
-                <?php foreach ($authorsList as $author): ?>
-                <div class="author-item"><a href="<?= $author['url']?>"><?= $author['name']; ?></a></div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-
-        <div class="article-number">Article number: <strong><?= $article->article_number ?></strong></div>
-    </div>
-    <?php if ($article->versions): ?>
-        <?php if ($article->is_current) : ?>
-            <div class="sidebar-widget-version-item">
-                <div class="number">Previous version<?= count($article->versions) > 1 ? 's' : ''; ?></div>
+        <?php if ($article->versions): ?>
+            <?php if ($article->is_current) : ?>
                 <?php foreach ($article->versions as $version): ?>
                     <div class="number">
                         <a href="<?= $version->urlOnePager ?>">version: <strong><?= $version->version ?></strong></a>
@@ -71,9 +49,7 @@ use yii\helpers\Url;
                         <?php endif ?>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        <?php else : ?>
-            <div class="sidebar-widget-version-item">
+            <?php else : ?>
                 <?php foreach ($article->versions as $version): ?>
                     <div class="number">
                         <a href="<?= $version->urlOnePager ?>">
@@ -92,7 +68,26 @@ use yii\helpers\Url;
                         <?php endif ?>
                     </div>
                 <?php endforeach; ?>
-            </div>
+            <?php endif; ?>
         <?php endif; ?>
-    <?php endif; ?>
+        <div class="date">
+            <div class="title">date</div>
+            <?= date('F Y', $article->created_at) ?>
+        </div>
+        <div class="doi">
+            <div class="title">DOI</div>
+            <a href="http://dx.doi.org/<?= $article->fullDoi ?>" target="_blank"><?= $article->fullDoi ?></a>
+        </div>
+
+        <div class="authors">
+            <div class="title">Author<?= count($article->authorList) > 1 ? 's' : ''; ?></div>
+            <?php if (count($authorsList)): ?>
+                <?php foreach ($authorsList as $author): ?>
+                    <div class="author-item"><a href="<?= $author['url'] ?>"><?= $author['name']; ?></a></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
+        <div class="article-number">Article number: <strong><?= $article->article_number ?></strong></div>
+    </div>
 </div>
