@@ -228,7 +228,7 @@ MapAsset::register($this);
             
             <div class="sidebar-widget">
                 <div class="widget-title">Article</div>
-                <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title') ?></a>
+                <a href="<?= $article->urlOnePager ?>"><?= $attributes['title']->getData('title') ?></a>
                 <div class="writers">
                     <?php if (count($authors)): ?>
                         <?php foreach($authors as $author): ?>

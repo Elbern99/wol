@@ -211,7 +211,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         if (count($ids)) {
             $related = $this
                 ->find()
-                ->where(['id' => $ids, 'enabled' => 1])
+                ->where(['article_number' => $ids, 'enabled' => 1, 'is_current' => 1])
                 ->with(['articleAuthors.author' => function($query) {
                         return $query->select(['id', 'name', 'url_key']);
                     }])
@@ -266,7 +266,6 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
 
     public function getVersions()
     {
-        // DO NOT USE, not implemented, deprecated
         return $this
                 ->hasMany(Article::className(), ['article_number' => 'article_number'])
                 ->andOnCondition('version.id <> :self', [':self' => $this->id])
@@ -275,6 +274,15 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
                 ->orderBy('version DESC');
     }
 
+    public function getAllVersions()
+    {
+        return $this
+                ->hasMany(Article::className(), ['article_number' => 'article_number'])
+                ->andOnCondition('version.enabled=1')
+                ->from(['version' => Article::tableName()])
+                ->orderBy('version DESC');
+    }
+    
 
     public function getRelatedCategories()
     {

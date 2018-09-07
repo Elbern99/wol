@@ -470,6 +470,7 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
             <ul class="sidebar-accrodion-list">
 
                 <?php if (isset($attributes['related'])): ?>
+
                     <?php $related = $article->getRelatedArticles($attributes['related']->getData(null, $currentLang)); ?>
                     <?php $count_related = count($related) ?>
 
