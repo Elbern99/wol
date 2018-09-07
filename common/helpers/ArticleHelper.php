@@ -26,7 +26,7 @@ class ArticleHelper
             $maxVersionArticle->update(false, ['is_current']);
             Article::updateAll(['max_version' => $maxVersionArticle->version], $condition);
         } else {
-            throw new \Exception('Article number "' . $articleNumber . '" not found.');
+            return false;
         }
 
         return $maxVersionArticle;
