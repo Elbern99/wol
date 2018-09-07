@@ -178,15 +178,11 @@ class ArticleController extends Controller
 
         if (count($model->articleAuthors)) {
 
-            foreach ($model->articleAuthors as $author) {
-
-                if (!isset($author['author'])) {
-                    continue;
-                }
+            foreach ($model->authors as $author) {
 
                 $authors[] = [
-                    'name' => $author['author']['name'],
-                    'url' => Author::getAuthorUrl($author['author']['url_key'])
+                    'name' => $author['name'],
+                    'url' => Author::getAuthorUrl($author['url_key'])
                 ];
             }
         }

@@ -492,6 +492,7 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                     <?php endif; ?>
 
                     <?php if (isset($attributes['related'])): ?>
+
                         <?php $related = $article->getRelatedArticles($attributes['related']->getData()); ?>
                         <?php $count_related = count($related) ?>
 
