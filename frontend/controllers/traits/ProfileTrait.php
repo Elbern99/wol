@@ -44,7 +44,10 @@ trait ProfileTrait
                         ->innerJoin(Category::tableName() . ' as c', 'ac.category_id = c.id AND c.lvl = 1');
                 }])
             ->orderBy(['id' => SORT_DESC, 'diff' => SORT_ASC])
-            ->having('diff=(select min(aa.max_version-aa.version) as min_diff from article aa where aa.article_number=a.article_number)')
+            ->having('diff=(select min(aa.max_version-aa.version) as min_diff from article aa '
+                . 'LEFT JOIN article_author arau ON aa.id=arau.article_id '
+                . 'LEFT JOIN author aau ON arau.author_id=aau.id '
+                . 'WHERE aa.article_number=a.article_number AND aau.id=' . intval($authorId) . ')')
             ->all();
 
 
