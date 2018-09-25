@@ -559,7 +559,7 @@
                     cite += ' ';
                 }
                 
-                cite += citeConfig.id;
+                cite += citeConfig.num;
                 
                 if (citeConfig.doi) {
                     cite += ' doi: '+citeConfig.doi;
