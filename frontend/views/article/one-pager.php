@@ -763,7 +763,8 @@ $cite = [
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
     'id' => $article->id,
-    'doi' => $article->doi,
+    'doi' => $article->fullDoi,
+    'num' => $article->article_number,
     'postUrl' => '/article/download-cite'
 ];
 

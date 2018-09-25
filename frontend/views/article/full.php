@@ -765,14 +765,14 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
     <div class="icon-close-popup"></div>
 </div>
 <?php
-
 $cite = [
     'authors' => $authors,
     'title' => EavAttributeHelper::getAttribute('title')->getData('title'),
     'publisher' => 'IZA World of Labor',
     'date' => date('Y', $article->created_at),
     'id' => $article->id,
-    'doi' => $article->doi,
+    'num' => $article->article_number,
+    'doi' => $article->fullDoi,
     'postUrl' => '/article/download-cite'
 ];
 
