@@ -18,6 +18,8 @@ use yii\helpers\ArrayHelper;
  */
 class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\contracts\EntityInterface
 {
+    public $addingErrors = null;
+    
     /**
      * @inheritdoc
      */
@@ -80,13 +82,21 @@ class EavEntity extends \yii\db\ActiveRecord implements \common\modules\eav\cont
         return ArrayHelper::getColumn($query, 'lang_id');
     }
     
-    public function addEntity(array $args) {
+    public function addEntity(array $args, $allowOverride = false) {
         
         $obj = Yii::createObject(self::class);
         $obj->load($args, '');
 
+        $checking = self::find()->where(['model_id' => $obj->model_id, 'type_id' => $obj->type_id])->count();
+        
+        if ($checking && $allowOverride) {
+            self::find()->where(['model_id' => $obj->model_id, 'type_id' => $obj->type_id])->one()->delete();
+        }
+        
         if ($obj->save()) {
             return $obj;
+        } else {
+            $this->addingErrors = $obj->errors;
         }
 
         return null;

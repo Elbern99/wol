@@ -384,12 +384,11 @@ class ArticleParser implements ParserInterface
 
         $typeId = $attributes->id;
 
-        $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId]);
+        $entity = $this->entity->addEntity(['model_id' => $articleId, 'type_id' => $typeId, 'name' => 'article_' . $articleId], true);
 
         if (is_null($entity)) {
-
             $this->article->delete();
-            $this->log->addLine(Yii::t('app/messages', 'Entity could not be created'));
+            $this->log->addLine(Yii::t('app/messages', 'Entity could not be created').' '.print_r($this->entity->addingErrors, true));
             return $this->log;
         }
 
