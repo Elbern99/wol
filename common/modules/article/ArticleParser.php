@@ -500,14 +500,16 @@ class ArticleParser implements ParserInterface
         }
 
         $authors = $class::getAuthorByCode($keys);
+        $authorIds = [];
+        
         foreach ($authors as $author) {
-
             $bulkInsertArray[] = [
                 'article_id' => $articleId,
                 'author_id' => $author['id'],
             ];
         }
 
+        $class::deleteAll(['article_id' => $articleId]);
         $class::massInsert($bulkInsertArray);
     }
 
@@ -536,6 +538,7 @@ class ArticleParser implements ParserInterface
             ];
         }
 
+        $class::deleteAll(['article_id' => $articleId]);
         $class::massInsert($bulkInsertArray);
     }
 
