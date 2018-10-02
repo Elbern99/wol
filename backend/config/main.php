@@ -1,9 +1,6 @@
 <?php
 $params = array_merge(
-    require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/../../common/config/params.php'), require(__DIR__ . '/../../common/config/params-local.php'), require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -41,7 +38,7 @@ return [
         'request' => [
             'class' => 'common\components\Request',
             'csrfParam' => '_csrf-backend',
-            'web'=> '/backend/web',
+            'web' => '/backend/web',
             'adminUrl' => '/iza-admin',
             'csrfCookie' => [
                 'httpOnly' => true,
@@ -93,6 +90,7 @@ return [
                 'articles/<slug:[0-9a-zA-Z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
                 'articles/<slug:[0-9a-zA-Z-]+>/references' => 'article/references',
             ],
+        ],
     ],
     'params' => $params,
 ];
