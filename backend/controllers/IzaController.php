@@ -106,7 +106,8 @@ class IzaController extends Controller
                             EavAttributeHelper::initEavAttributes($attributes);
 
                             if (isset($attributes['full_pdf'])) {
-                                $pdfUrl = Url::to([$attributes['full_pdf']->getData('url'), 'v' => count($model->getArticleVersions()) + 1]);
+                                //$pdfUrl = Url::to([$attributes['full_pdf']->getData('url'), 'v' => count($model->getArticleVersions()) + 1]);
+                                $pdfUrl = Yii::$app->frontendUrlManager->createAbsoluteUrl([$attributes['full_pdf']->getData('url')]);
                             } else {
                                 $pdfUrl = null;
                             }
@@ -114,7 +115,7 @@ class IzaController extends Controller
                             $event = new \common\modules\article\ArticleEvent();
                             $event->id = $model->id;
                             $event->title = $model->title;
-                            $event->url = $model->urlOnePager;
+                            $event->url = Yii::$app->frontendUrlManager->createAbsoluteUrl(['article/one-pager', 'slug' => $model->seo]);
                             $event->categoryIds = array_values(ArrayHelper::map($model->articleCategories, 'id', 'id'));
                             $event->availability = $model->availability;
                             $event->pdf = $pdfUrl;

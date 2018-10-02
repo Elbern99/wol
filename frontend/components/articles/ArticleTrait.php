@@ -109,7 +109,7 @@ trait ArticleTrait
         return Article::find()
                 ->alias('a')
                 ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
-                ->where(['a.enabled' => 1])
+                ->where(['a.enabled' => 1, 'a.version' => new \yii\db\Expression('max_version')])
                 ->with(['articleCategories' => function($query) {
                         return $query->alias('ac')
                             ->select(['category_id', 'article_id'])
