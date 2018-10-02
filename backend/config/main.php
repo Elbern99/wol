@@ -76,6 +76,7 @@ return [
             ],
         ],
         'frontendUrlManager' => [
+            'class' => \yii\web\UrlManager::className(),
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'baseUrl' => 'https://wol.iza.org',
