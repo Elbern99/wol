@@ -4,7 +4,7 @@
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear subscriber,</span></p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">A new version of an article has been published on IZA World of Labor in a topic you are interested in:
 <?= $article->title ?> by <?= $article->availability ?> <a href="<?= $article->url; ?>"><?= $article->url ?></a>
-<a href="<?= $article->pdf ?>">Download as PDF</span></a>
+<a href="<?= $article->pdf ?>"><span>Download as PDF</span></a>
 </p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">You can view a summary of the changes made by clicking on the Information icon in the ‘Versions’ panel of each article.</span></p>
 
