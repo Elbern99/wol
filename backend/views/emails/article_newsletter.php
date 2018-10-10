@@ -3,8 +3,8 @@
 <?php $this->beginContent(__DIR__.'/layout.php'); ?>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear subscriber,</span></p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">An article has been published on IZA World of Labor in a topic you are interested in:
-<?= $article->title ?> by <?= $article->availability ?> <a href="<?= Url::to('/'.$article->url, true) ?>"><?= Url::to('/'.$article->url, true) ?></a>
-<a href="<?= Url::to($article->pdf, true) ?>">Download as PDF</span></a>
+<?= $article->title ?> by <?= $article->availability ?>  <a href="<?= $article->url; ?>"><?= $article->url ?></a>
+<a href="<?= $article->pdf ?>"><span>Download as PDF</span></a>
 </p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Know someone who would also be interested in this article? Click the forward button and share with them.</span></p>
 
