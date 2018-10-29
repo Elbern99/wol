@@ -220,7 +220,7 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
                             </div>
                         </a>
                         <?php foreach($langs as $lang): ?>
-                        <?php if ($lang['code'] != $currentLang) :?>
+                        <?php if ($lang['id'] != $currentLang) :?>
                         <a href="<?= $article->getUrlLang($lang['code']); ?>" class="btn-border-gray-middle color-blue">
                             <div class="inner">
                                 <span class="text"><?= $lang['name'] ?></span>
