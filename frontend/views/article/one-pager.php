@@ -219,6 +219,15 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
                         </a>
+                        <?php foreach($langs as $lang): ?>
+                        <?php if ($lang['code'] != $currentLang) :?>
+                        <a href="<?= $article->getUrlLang($lang['code']); ?>" class="btn-border-gray-middle color-blue">
+                            <div class="inner">
+                                <span class="text"><?= $lang['name'] ?></span>
+                            </div>
+                        </a>
+                    <?php endif; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
