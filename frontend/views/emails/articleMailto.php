@@ -26,7 +26,7 @@ if ($articleElevatorPitch) {
 }
 
 $mailText = "I think that you would be interested in the following article from IZA World of Labor.\r\n\r\n";
-$mailText .= "$articleTitle - $articleUrl' $mailAuthors\r\n\r\n";
+$mailText .= "$articleTitle - $articleUrl $mailAuthors\r\n\r\n";
 $mailText .= $mailDOI."\r\n\r\n";
 $mailText .= $mailElevatorPitch;
 $mailText = htmlentities(rawurlencode($mailText));
