@@ -86,7 +86,7 @@ $mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.
     'authorsList' => $authorsList,
     'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
     'articleUrl' => Url::to($model->urlOnePager, true),
-    'articleDoi' => $article->doi
+    'articleDoi' => $article->fullDoi
 ]);
 
 $mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
