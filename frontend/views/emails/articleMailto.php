@@ -11,7 +11,7 @@ $mailElevatorPitch = '';
 $siteUrl = Url::home(true);
 
 if (count($authorsList)) {
-    $authors = implode(",", array_map(function($author) {
+    $authors = implode(", ", array_map(function($author) {
         return ''.$author['name'].' at '.$author['url'];
     }, $authorsList));
     $mailAuthors = 'by '.$authors;
