@@ -108,7 +108,7 @@ MapAsset::register($this);
         'authorsList' => $authors,
         'articleTitle' => $attributes['title']->getData('title'),
         'articleUrl' => Url::to('/articles/'.$article->seo, true),
-        'articleDoi' => $article->doi
+        'articleDoi' => $article->fullDoi
     ));
 
     $config = [
