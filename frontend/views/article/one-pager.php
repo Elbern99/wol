@@ -94,7 +94,7 @@ array(
         'authorsList' => $authorsList,
         'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
         'articleUrl' => Url::to($model->urlOnePager, true),
-        'articleDoi' => $article->doi,
+        'articleDoi' => $article->fullDoi,
         'articleElevatorPitch' => EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang)
 ));
 
