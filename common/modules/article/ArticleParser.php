@@ -590,8 +590,7 @@ class ArticleParser implements ParserInterface
             } else {
 
                 foreach ($langs as $lang) {
-
-                    if (preg_match("/($lang)/i", $name)) {
+                    if (preg_match("/(\.$lang\.)/i", $name)) {
 
                         $name = $this->article->seo . '.one-pager.' . $lang . '.pdf';
                         $obj = new \stdClass();

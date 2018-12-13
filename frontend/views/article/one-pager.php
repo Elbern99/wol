@@ -21,8 +21,7 @@ $this->params['breadcrumbs'][] = EavAttributeHelper::getAttribute('title')->getD
 $this->registerMetaTag([
     'name' => 'keywords',
     'content' => Html::encode(
-        implode(' ', 
-            array_map(
+        implode(' ', array_map(
                 function($item) {
                     return $item->word;
                 }, EavAttributeHelper::getAttribute('keywords')->getData(null, $currentLang)
@@ -89,8 +88,7 @@ $mailArticleShare = Yii::$app->view->renderFile('@app/views/emails/articleShare.
     'articleDoi' => $article->fullDoi
 ]);
 
-$mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php',
-array(
+$mailArticle = Yii::$app->view->renderFile('@app/views/emails/articleMailto.php', array(
         'authorsList' => $authorsList,
         'articleTitle' => EavAttributeHelper::getAttribute('title')->getData('title', $currentLang),
         'articleUrl' => Url::to($model->urlOnePager, true),
@@ -183,7 +181,8 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
 
                 <div class="desc">
                     <div class="name">
-                        <?= Html::a($author['name']->first_name.' '.
+                            <?=
+                            Html::a($author['name']->first_name . ' ' .
                             $author['name']->middle_name.' '.
                             $author['name']->last_name
                             ,$author['profile']
@@ -219,6 +218,15 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
                                 <span class="text"><?= Yii::$app->params['default_lang']['name'] ?></span>
                             </div>
                         </a>
+                                <?php foreach ($langs as $lang): ?>
+                                    <?php if ($lang['id'] != $currentLang) : ?>
+                                        <a href="<?= $article->getUrlLang($lang['code']); ?>" class="btn-border-gray-middle color-blue">
+                                            <div class="inner">
+                                                <span class="text"><?= $lang['name'] ?></span>
+                                            </div>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>

@@ -260,6 +260,8 @@ trait ArticleTrait
                     $langs = Lang::find()->where(['id' => $langIds])->asArray()->all();
                 } else {
 
+                    $langIds = $articleCollection->getLanguages();
+                    $langs = Lang::find()->where(['id' => $langIds])->asArray()->all();
                     $lang = Lang::find()->where(['code' => $langCode])->select(['id'])->one();
 
                     if (is_object($lang)) {
