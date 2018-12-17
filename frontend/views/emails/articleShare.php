@@ -11,7 +11,7 @@ $siteUrl = Url::home(true);
 
 if (count($authorsList)) {
     $authors = implode(", ", array_map(function($author) {
-        return ''.$author['name'].' at '.Url::toRoute($author['url'], true);
+        return ''.$author['name'].' at '.$author['url'];
     }, $authorsList));
     $mailAuthors = 'by '.$authors;
 }
