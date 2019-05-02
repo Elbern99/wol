@@ -7,6 +7,21 @@ class RelevantComparator implements ComparatorInterface {
     
     private $types;
     private $results;
+
+    /**
+     * @var array list of search types. It is order output on search page.
+     */
+    private $orderOutput = [
+        'article',
+        'biography',
+        'key_topics',
+        'news',
+        'opinions',
+        'events',
+        'videos',
+        'papers',
+        'policypapers'
+    ];
     
     public function __construct($results) {
         $this->results = $results;
@@ -17,7 +32,6 @@ class RelevantComparator implements ComparatorInterface {
         if (!count($elements)) {
             return $elements;
         }
-
         $this->orderByType($elements);
         return $this->relivantOrder();
     }
@@ -30,22 +44,15 @@ class RelevantComparator implements ComparatorInterface {
     }
 
     private function relivantOrder() {
-
-        $relevant = []; 
-
-        foreach ($this->results as $result) {
-            
-            if (isset($this->types[$result['type']])) {
-                
-                $items = $this->types[$result['type']];
-                $item = $this->searchItemByID($result['id'], $items);
-                
-                if ($item) {
-                    $relevant[] = $item;
+        $relevant = [];
+        foreach ($this->orderOutput as $type) {
+            if (isset($this->types[$type]) && $this->types[$type]) {
+                foreach ($this->types[$type] as $element) {
+                    $relevant[] = $element;
                 }
             }
         }
-        
+
         return $relevant;
     }
     
