@@ -32,6 +32,7 @@ use dosamigos\datepicker\DatePicker;
                 ]
         ]);?>
         <?= $form->field($model, 'enabled')->checkbox() ?>
+        <?= $form->field($model, 'version_updated_label')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>

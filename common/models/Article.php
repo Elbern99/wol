@@ -26,6 +26,7 @@ use common\modules\eav\StorageEav;
  * @property string $publisher
  * @property int $version 
  * @property boolean $is_current
+ * @property boolean $version_updated_label
  *
  * @property ArticleAuthor[] $articleAuthors
  * @property ArticleCategory[] $articleCategories
@@ -122,6 +123,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             ['notices', 'string'],
             [['doi', 'availability', 'publisher'], 'string', 'max' => 50],
             [['id'], 'unique'],
+            ['version_updated_label', 'boolean']
         ];
     }
 
@@ -162,6 +164,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'publisher' => Yii::t('app', 'Publisher'),
+            'version_updated_label' => Yii::t('app', 'Display version label')
         ];
     }
 
