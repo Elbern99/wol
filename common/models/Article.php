@@ -292,7 +292,6 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         
     }
 
-
     /**
      * @return \common\models\ArticleCreated
      */
@@ -468,6 +467,22 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
         return $this->_anotherVersions;
     }
 
+    /**
+     * Check if version update label should be display.
+     *
+     * @return bool return `true` if it needs to display.
+     * @throws \yii\base\Exception
+     */
+    public function isShowVersionLabel()
+    {
+        if (!$this->version_updated_label ||
+            $this->version == 1 ||
+            $this->version != $this->getMaxVersion()) {
+            return false;
+        }
+
+        return true;
+    }
 
     public function getAuthorList()
     {
