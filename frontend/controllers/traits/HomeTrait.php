@@ -35,6 +35,7 @@ trait HomeTrait {
         }
         
         $homePage = Page::getPageById($homePage->id);
+
         $subjectAreas = $this->getSubjectAreas();
         $this->more = new ShowMore();
         $articles = $this->getLastArticles($subjectAreas);
@@ -203,6 +204,7 @@ trait HomeTrait {
                 }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
+                'isShowLabel' => $article->isShowVersionLabel()
             ];
         }
         

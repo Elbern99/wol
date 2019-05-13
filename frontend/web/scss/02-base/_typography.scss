@@ -314,3 +314,14 @@ h2:empty{
     pointer-events: none;
   }
 }
+
+.version-label {
+  color: #fff;
+  font-size: 10px;
+  text-transform: uppercase;
+  background: #f99a5b;
+  padding: 3px 7px;
+  font-weight: 600;
+  border-radius: 5px;
+  vertical-align: top;
+}

@@ -160,7 +160,12 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
         </div>
 
         <div class="article-top">
-            <h1><?= EavAttributeHelper::getAttribute('title')->getData('title') ?></h1>
+            <h1>
+                <?= EavAttributeHelper::getAttribute('title')->getData('title', $currentLang) ?>
+                <?php if ($article->isShowVersionLabel()): ?>
+                    <span class="version-label">Updated</span>
+                <?php endif; ?>
+            </h1>
             <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser') ?></h3>
         </div>
 

@@ -68,7 +68,7 @@ trait TopicTrait {
 
         return  Article::find()
                         ->alias('a')
-                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at', 'a.version', 'a.article_number', 'a.version_updated_label'])
                         ->where(['a.enabled' => 1, 'a.id' => $articlesIds])
                         ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
@@ -135,6 +135,7 @@ trait TopicTrait {
                 }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
+                'isShowLabel' => $article->isShowVersionLabel()
             ];
             
         }

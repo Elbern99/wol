@@ -69,7 +69,12 @@ unset($currentParams);
                                 <li><?= $link ?></li>
                             <?php endforeach; ?>
                         </ul>
-                        <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
+                        <h2>
+                            <a href="<?= $article['url'] ?>"><?= $article['title'] ?></a>
+                            <?php if ($article['isShowLabel']) : ?>
+                                <span class="version-label">Updated</span>
+                            <?php endif; ?>
+                        </h2>
                         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                         <div class="writers">
                             <?php foreach($article['authors'] as $author): ?>

@@ -1,3 +1,4 @@
+<?php $article = \common\models\Article::findOne($value['id']); ?>
 <div class="search-results-item">
     <div class="publication-date">
         <?= date('F Y', $value['created_at']) ?>
@@ -6,7 +7,12 @@
         Article
     </div>
     <div class="article-item">
-        <h2><a href="<?= $value['url'] ?>"><?= $value['title'] ?></a></h2>
+        <h2>
+            <a href="<?= $value['url'] ?>"><?= $value['title'] ?></a>
+            <?php if ($article->isShowVersionLabel()): ?>
+                <span class="version-label">Updated</span>
+            <?php endif; ?>
+        </h2>
         <h3><?= $value['teaser']->teaser ?? ''; ?></h3>
         <div class="writers">
             <?php foreach($value['authors'] as $owner): ?>

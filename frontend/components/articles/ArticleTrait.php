@@ -83,7 +83,7 @@ trait ArticleTrait
         $order = OrderBehavior::getArticleOrder();
         $query = Article::find()
             ->alias('a')
-            ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+            ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at', 'a.version', 'a.article_number', 'a.version_updated_label'])
             ->where(['a.enabled' => 1])
             ->with(['articleCategories' => function($query) {
                     return $query->alias('ac')
@@ -108,7 +108,7 @@ trait ArticleTrait
 
         return Article::find()
                 ->alias('a')
-                ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at', 'a.article_number', 'a.version', 'a.version_updated_label'])
                 ->where(['a.enabled' => 1, 'a.version' => new \yii\db\Expression('max_version')])
                 ->with(['articleCategories' => function($query) {
                         return $query->alias('ac')

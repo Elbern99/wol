@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $article \common\models\Article */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -168,7 +169,12 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
         </div>
 
         <div class="article-top">
-            <h1><?= EavAttributeHelper::getAttribute('title')->getData('title', $currentLang) ?></h1>
+            <h1>
+                <?= EavAttributeHelper::getAttribute('title')->getData('title', $currentLang) ?>
+                <?php if ($article->isShowVersionLabel()): ?>
+                    <span class="version-label">Updated</span>
+                <?php endif; ?>
+            </h1>
             <h3><?= EavAttributeHelper::getAttribute('teaser')->getData('teaser', $currentLang) ?></h3>
         </div>
 
