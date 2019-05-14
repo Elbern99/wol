@@ -12,7 +12,7 @@ class m190510_144059_alter_version_updated_label_article_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%article}}', 'version_updated_label', $this->boolean()->notNull()->defaultValue(1));
+        $this->addColumn('{{%article}}', 'version_updated_label', $this->boolean()->notNull()->defaultValue(0));
     }
 
     /**
