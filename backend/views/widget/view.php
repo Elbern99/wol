@@ -30,6 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]) ?>
 
+            <?php if ($model->name == 'home_featured_article') : ?>
+                <div class="form-group">
+                    <span>If you want to add <b>"Updated"</b> indicator, You should to paste the following code <code><?= htmlspecialchars('<span class="version-label">Updated</span>') ?></code></span>
+                </div>
+            <?php endif; ?>
+
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app/form', 'Submit'), ['class' => 'btn btn-primary']) ?>
             </div>
