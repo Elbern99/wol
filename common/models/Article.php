@@ -164,7 +164,7 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'publisher' => Yii::t('app', 'Publisher'),
-            'version_updated_label' => Yii::t('app', 'Display version label')
+            'version_updated_label' => Yii::t('app', 'Add Updated Indicator')
         ];
     }
 
