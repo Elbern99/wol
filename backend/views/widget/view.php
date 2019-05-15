@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php if ($model->name == 'home_featured_article') : ?>
                 <div class="form-group">
-                    <span>If you want to add <b>"Updated"</b> indicator, You should to paste the following code <code><?= htmlspecialchars('<span class="version-label">Updated</span>') ?></code></span>
+                    <span>If you want to add the <b>"Updated"</b> indicator, You should click the <b>"Source"</b> button and put the following code after the article title <code><?= htmlspecialchars('<span class="version-label">Updated</span>') ?></code></span>
                 </div>
             <?php endif; ?>
 
