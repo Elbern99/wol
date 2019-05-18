@@ -79,7 +79,7 @@ class ArticleRepository implements RepositoryInterface {
         
         $query =  Article::find()
                         ->alias('a')
-                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at'])
+                        ->select(['a.id', 'a.title', 'a.seo', 'a.availability', 'a.created_at', 'a.article_number', 'a.version', 'a.version_updated_label'])
                         ->where(['a.enabled' => 1, 'a.id' => $articlesIds, 'a.version' => new \yii\db\Expression('max_version')])
                         ->with(['articleCategories' => function($query) {
                                 return $query->alias('ac')
@@ -261,6 +261,7 @@ class ArticleRepository implements RepositoryInterface {
                 }), 
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
+                'isShowLabel' => $article->isShowVersionLabel()
             ];
         }
 
