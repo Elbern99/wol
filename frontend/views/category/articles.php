@@ -125,7 +125,12 @@ unset($currentParams);
                                     <li><?= $link ?></li>
                                 <?php endforeach; ?>
                             </ul>
-                            <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
+                            <h2>
+                                <a href="<?= $article['url'] ?>"><?= $article['title'] ?></a>
+                                <?php if ($article['isShowLabel']) : ?>
+                                    <span class="version-label">Updated</span>
+                                <?php endif; ?>
+                            </h2>
                             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                             <?php //print_r(array_keys($article)); die();?>
                             <div class="writers">

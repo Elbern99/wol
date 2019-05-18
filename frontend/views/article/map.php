@@ -136,7 +136,12 @@ MapAsset::register($this);
         </div>
 
         <div class="map-title">Evidence map</div>
-        <h1><a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title'); ?></a></h1>
+        <h1>
+            <a href="<?= Url::to('/articles/'.$article->seo) ?>"><?= $attributes['title']->getData('title'); ?></a>
+            <?php if ($article->isShowVersionLabel()): ?>
+                <span class="version-label">Updated</span>
+            <?php endif; ?>
+        </h1>
     </div>
 
     <div class="content-inner">
