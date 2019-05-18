@@ -98,6 +98,7 @@ trait ProfileTrait
                     }),
                 'created_at' => $article->created_at,
                 'category' => $articleCategory,
+                'isShowLabel' => $article->isShowVersionLabel()
             ];
         }
 
