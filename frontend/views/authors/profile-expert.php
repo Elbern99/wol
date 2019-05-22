@@ -190,7 +190,12 @@ $this->registerJsFile('/js/pages/profile.js', ['depends' => ['yii\web\YiiAsset']
                                     <li><?= $link ?></li>
                                 <?php endforeach; ?>
                             </ul>
-                            <h2><a href="<?= $article['url'] ?>"><?= $article['title'] ?></a></h2>
+                            <h2>
+                                <a href="<?= $article['url'] ?>"><?= $article['title'] ?></a>
+                                <?php if ($article['isShowLabel']) : ?>
+                                    <span class="version-label">Updated</span>
+                                <?php endif; ?>
+                            </h2>
                             <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                             <div class="writers">
                                 <?php foreach($article['authors'] as $owner): ?><span class="writer-item"><a href="<?= $owner->getUrl() ?>"><?= $owner->name ?></a></span><?php endforeach; ?>,
