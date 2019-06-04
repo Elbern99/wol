@@ -5,6 +5,7 @@ namespace common\models;
 
 use Yii;
 use common\contracts\SearchModelInterface;
+use yii\db\Expression;
 use yii\sphinx\MatchExpression;
 use yii\helpers\ArrayHelper;
 
@@ -70,19 +71,26 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
 
         if ($searchPhrase) {
 
-            $match->match(Yii::$app->sphinx->escapeMatchValue($searchPhrase));
+            $phrase = str_replace(['\\', '/' , '(', ')', '|', '!', '@', '~', '&', '^', '$', '=', '>', '<', "\x00", "\n", "\r", "\x1a", '?'], '', $searchPhrase);
+
+            $words = explode(' ', $phrase);
+            $synonyms = SynonymsSearch::getSynonymsFormatArray($words);
+            $searchedMatch = '('.$phrase.')';
+
+            if (count($synonyms)) {
+                $searchedMatch .= ' | ('.implode(' ', $synonyms).')';
+            }
 
             $data = self::find()
                 ->addOptions([
                     'ranker' => new \yii\db\Expression("expr('sum(hit_count*user_weight)')"),
-                    'field_weights' => ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10]
+                    'field_weights' => ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10],
                 ])
                 ->select(['id', 'title', 'max_version', 'version', new \yii\db\Expression('max_version-version as w')])
-                ->match($match)
-                ->orderBy(['w' => SORT_ASC, 'WEIGHT()' => SORT_DESC])
+                ->match(new MatchExpression($searchedMatch))
+                ->orderBy(['WEIGHT()' => SORT_DESC])
                 ->asArray()
                 ->all();
-            var_dump($data); exit;
 
             $ids = ArrayHelper::getColumn($data, 'id');
 
