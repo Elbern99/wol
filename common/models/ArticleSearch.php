@@ -73,11 +73,16 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
             $match->match(Yii::$app->sphinx->escapeMatchValue($searchPhrase));
 
             $data = self::find()
-                ->select(['id', 'max_version', 'version', new \yii\db\Expression('max_version-version as w')])
+                ->addOptions([
+                    'ranker' => new \yii\db\Expression("expr('sum(hit_count*user_weight)')"),
+                    'field_weights' => ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10]
+                ])
+                ->select(['id', 'title', 'max_version', 'version', new \yii\db\Expression('max_version-version as w')])
                 ->match($match)
                 ->orderBy(['w' => SORT_ASC, 'WEIGHT()' => SORT_DESC])
                 ->asArray()
                 ->all();
+            var_dump($data); exit;
 
             $ids = ArrayHelper::getColumn($data, 'id');
 
