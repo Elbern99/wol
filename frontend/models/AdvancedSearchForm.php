@@ -97,7 +97,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
         
         $types = Yii::$app->params['search'];
         $searched = [];
-        $fieldsWeight = ['title' => 80, 'name' => 80, 'url' => 40, 'value' => 10];
+        $fieldsWeight = ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10];
         $fields = ['title', 'description', 'body', 'location', 'name', 'editor', 'url', 'value', 'surname', 'availability'];
         
         $searchPhrase = $this->checkSynonymInPhrase();
@@ -125,7 +125,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             $sphinx->setLimits(0, $class::SEARCH_LIMIT);
             $params = $this->getSearchMatch($this->getAttributes(), $fields, $searchPhrase);
             $sql = $query->match($params)->createCommand()->getRawSql();
-
+            $sphinx->SetRankingMode ( SPH_RANK_EXPR, 'sum(hit_count*user_weight)' );
 
             preg_match('/\(.+\)/',$sql, $m);
 
