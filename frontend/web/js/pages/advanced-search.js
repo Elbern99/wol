@@ -44,7 +44,9 @@
                     keyword += ' ';
                     keyword += synonymWords.join(' ');
                 }
-                $(body).unmark().mark(keyword);
+                $(body).unmark().mark(keyword, {
+                    'accuracy': 'exactly'
+                });
             };
             if($(body).length) {
                 mark();
