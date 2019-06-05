@@ -106,7 +106,7 @@
             if(checkMobile) {
                 $item.jScrollPane({showArrows: true});
 
-                elements.window.load(function () {
+                elements.window.on('load', function () {
                     $item.bind('jsp-initialised', function(event, isScrollable) {
                         headerMenu.mobileScrollToActive(item);
 
@@ -1372,7 +1372,7 @@
         headerMenu.mobileScroll('.header-mobile  .header-bottom .header-menu-bottom-list');
     });
 
-    elements.window.load(function() {
+    elements.window.on('load', function() {
         home.closeSubscribe('.sticky-newsletter .icon-close','.sticky-newsletter');
         home.closeCookiesNotice('.cookie-notice .icon-close','.cookie-notice');
 
