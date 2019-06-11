@@ -44,8 +44,14 @@
                     keyword += ' ';
                     keyword += synonymWords.join(' ');
                 }
+                console.log(keyword);
                 $(body).unmark().mark(keyword, {
-                    'accuracy': 'exactly'
+                    accuracy: {
+                        "value": "exactly",
+                        "limiters": [",", "."]
+                    },
+                    ignorePunctuation: ":;.,-–—‒_(){}[]!'\"+=".split(""),
+                    acrossElements: true
                 });
             };
             if($(body).length) {
