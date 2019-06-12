@@ -268,7 +268,7 @@
         filterLoad.openInMobile();
     });
 
-    elements.window.load(function() {
+    elements.window.on('load', function() {
         advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         filterLoad.setCheckResult('.sidebar-accrodion-item');
         filterLoad.showCheckedAccordion('.sidebar-accrodion-item');
