@@ -37,7 +37,7 @@ unset($currentParams);
         <h1>Search the site</h1>
     </div>
 
-    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'search_phrase' => $phrase]), 'options' => ['class'=>'result-search']]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::to(['/search', 'search_phrase' => $phrase]), 'options' => ['class'=>'result-search', 'data-search-phrase' => $phrase]]); ?>
         <div class="search-results-top">
             <div class="search">
                 <div class="save-search-holder hide-desktop">
@@ -57,7 +57,7 @@ unset($currentParams);
                         </span>
                     </button>
                     <div class="search-holder">
-                        <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Keyword(s) or name"])->label('') ?>
+                        <?= $form->field($search, 'search_phrase')->textInput(['class'=>"form-control-decor", 'placeholder'=>"Keyword(s) or name", 'id' => 'search-phrase-input'])->label('') ?>
                     </div>
                 </div>
             </div>

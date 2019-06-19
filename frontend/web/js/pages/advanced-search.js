@@ -266,6 +266,14 @@
         filter.checkedSublevelItems('.checkbox-list>li>label>:checkbox');
         filter.checkedSublevelItem('.subcheckbox-list>li>label>:checkbox');
         filterLoad.openInMobile();
+
+        $('.search-results').on('submit', 'form.result-search', function (e) {
+            var search_phrase = $(this).data('search-phrase');
+            var entered_search_phrase = $('#search-phrase-input').val();
+            if (search_phrase != entered_search_phrase) {
+                $('.item-filter-box').children('input:checkbox').attr('checked', 'checked').removeAttr('disabled');
+            }
+        });
     });
 
     elements.window.on('load', function() {
