@@ -203,10 +203,13 @@ class SearchController extends Controller
 
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-                $matches = $model->searchAjax();
+                $matches = $model->search();
 
                 if (count($matches)) {
-                    $columns = ArrayHelper::getColumn($matches, 'title');
+                    $sortingResult = new ResultStrategy($matches);
+                    $sortingResult->setComparator($this->getOrderComparator($matches));
+                    $resultOrdered = $sortingResult->sort();
+                    $columns = ArrayHelper::getColumn($resultOrdered, 'title');
                     return $columns;
                 }
             }

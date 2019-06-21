@@ -67,27 +67,14 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
     public static function getSearchAjaxResult($searchPhrase)
     {
 
-        $match = new MatchExpression();
-
         if ($searchPhrase) {
-
-            $phrase = str_replace(['\\', '/' , '(', ')', '|', '!', '@', '~', '&', '^', '$', '=', '>', '<', "\x00", "\n", "\r", "\x1a", '?'], '', $searchPhrase);
-
-            $words = explode(' ', $phrase);
-            $synonyms = SynonymsSearch::getSynonymsFormatArray($words);
-            $searchedMatch = '('.$phrase.')';
-
-            if (count($synonyms)) {
-                $searchedMatch .= ' | ('.implode(' ', $synonyms).')';
-            }
-
             $data = self::find()
                 ->addOptions([
                     'ranker' => new \yii\db\Expression("expr('sum(hit_count*user_weight)')"),
                     'field_weights' => ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10],
                 ])
                 ->select(['id', 'title', 'max_version', 'version', new \yii\db\Expression('max_version-version as w')])
-                ->match(new MatchExpression($searchedMatch))
+                ->match(new MatchExpression($searchPhrase))
                 ->orderBy(['WEIGHT()' => SORT_DESC])
                 ->asArray()
                 ->all();
@@ -125,7 +112,6 @@ class ArticleSearch extends \yii\sphinx\ActiveRecord implements SearchModelInter
 
     protected static function filterArticleResult(array $ids): array
     {
-
         return Article::find()
                 ->select(['id', 'title'])
                 ->where(['id' => $ids, 'enabled' => 1])

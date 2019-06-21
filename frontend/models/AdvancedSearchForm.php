@@ -45,6 +45,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
     public function searchAjax() {
 
         $types = Yii::$app->params['search'];
+        $searchPhrase = $this->checkSynonymInPhrase();
         $result = [];
         
         foreach($this->getheadingModelFilter() as $modelType) {
@@ -54,7 +55,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
             }
             
             $class = $types[$modelType];
-            $data = $class::getSearchAjaxResult($this->search_phrase);
+            $data = $class::getSearchAjaxResult($searchPhrase);
 
             foreach ($data as $t) {
                 $result[] = array_merge(['type' => $modelType], $t);
@@ -62,7 +63,7 @@ class AdvancedSearchForm extends Model implements SearchInterface
 
         }
 
-        $comparator = new \frontend\components\search\comparators\TopRelevantComparator($this->search_phrase);
+        $comparator = new \frontend\components\search\comparators\RelevantComparator($result);
         $sortingResult = new ResultStrategy($result);
         $sortingResult->setComparator($comparator);
         return $sortingResult->sort();
@@ -94,7 +95,6 @@ class AdvancedSearchForm extends Model implements SearchInterface
      * @return User|null the saved model or null if saving fails
      */
     public function search() {
-        
         $types = Yii::$app->params['search'];
         $searched = [];
         $fieldsWeight = ['title' => 100000, 'name' => 80, 'url' => 10, 'value' => 10];
@@ -156,7 +156,6 @@ class AdvancedSearchForm extends Model implements SearchInterface
                 $matches[] = $match['attrs'];
             }
         }
-
         return $matches;
     }
     
