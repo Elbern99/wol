@@ -18,6 +18,7 @@ class NewsletterForm extends Model
     public $interest = 0;
     public $iza_world = 0;
     public $iza = 0;
+    public $recaptcha;
 
     public function rules()
     {
@@ -28,6 +29,7 @@ class NewsletterForm extends Model
             ['areas_interest', 'safe'],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email', ],
+            [['recaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
         ];
     }
 

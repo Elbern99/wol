@@ -40,9 +40,9 @@ return [
     ],
     'components' => [
         'request' => [
-            'class' => 'common\components\Request',
+            'class' => 'yii\web\Request',
             'csrfParam' => '_csrf-frontend',
-            'web'=> '/frontend/web'
+//            'web'=> '/frontend/web'
         ],
         'imageCache' => [
             'class' => 'frontend\components\image\ImageCache',
@@ -124,6 +124,13 @@ return [
                     'css' => [],
                 ]
             ],
+        ],
+        'reCaptcha' => [
+            'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
+            'siteKeyV2' => '6Lfc2qoUAAAAALTXfD70mxxxKUeO2SiMHt4h6vfO',
+            'secretV2' => '6Lfc2qoUAAAAAPCVpTtIdrNSu09sv3BZDVrpynBz',
+            'siteKeyV3' => '6LcO2aoUAAAAACyFYG7-C0dOSWWwA87Hhg7DKTwz',
+            'secretV3' => '6LcO2aoUAAAAAP6XUeB9V51GqEfM4fg8L8XFQK1u',
         ],
     ],
     'params' => $params,

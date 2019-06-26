@@ -24,6 +24,7 @@ class SignupForm extends Model
     public $items = null;
     public $newsletter = 0;
     public $errorMessage = false;
+    public $recaptcha;
     
     /**
      * @inheritdoc
@@ -55,7 +56,9 @@ class SignupForm extends Model
             ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>"Password don't match"],
             ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions'],
             ['items', 'safe'],
-            ['newsletter', 'safe']
+            ['newsletter', 'safe'],
+
+            ['recaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
             
         ];
     }
