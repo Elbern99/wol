@@ -18,7 +18,7 @@ class NewsletterForm extends Model
     public $interest = 0;
     public $iza_world = 0;
     public $iza = 0;
-    public $recaptcha;
+    public $reCaptcha;
 
     public function rules()
     {
@@ -29,7 +29,7 @@ class NewsletterForm extends Model
             ['areas_interest', 'safe'],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email', ],
-            [['recaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.', 'message' => 'The verification code is incorrect.']
         ];
     }
 
@@ -47,6 +47,7 @@ class NewsletterForm extends Model
             'interest' => Yii::t('app', 'Interest'),
             'iza_world' => Yii::t('app', 'Iza World'),
             'iza' => Yii::t('app', 'Iza'),
+            'reCaptcha' => Yii::t('app', 'Recaptcha'),
         ];
     }
 
