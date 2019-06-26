@@ -40,9 +40,9 @@ return [
     ],
     'components' => [
         'request' => [
-            'class' => 'yii\web\Request',
+            'class' => 'common\components\Request',
             'csrfParam' => '_csrf-frontend',
-//            'web'=> '/frontend/web'
+            'web'=> '/frontend/web'
         ],
         'imageCache' => [
             'class' => 'frontend\components\image\ImageCache',
