@@ -127,8 +127,8 @@ return [
         ],
         'reCaptcha' => [
             'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
-            'siteKeyV2' => '6Lfc2qoUAAAAALTXfD70mxxxKUeO2SiMHt4h6vfO',
-            'secretV2' => '6Lfc2qoUAAAAAPCVpTtIdrNSu09sv3BZDVrpynBz',
+            'siteKeyV2' => '6LeGsa0UAAAAAKHmze7VsScLsyYvVz4FgLBSIqTh',
+            'secretV2' => '6LcevKsUAAAAALS6tmZMYE6K3vIP7DNmnwJgTEdh',
             'siteKeyV3' => '6LcO2aoUAAAAACyFYG7-C0dOSWWwA87Hhg7DKTwz',
             'secretV3' => '6LcO2aoUAAAAAP6XUeB9V51GqEfM4fg8L8XFQK1u',
         ],
