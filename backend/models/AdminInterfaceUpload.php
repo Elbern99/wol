@@ -38,13 +38,6 @@ class AdminInterfaceUpload extends Model implements UploadInterface {
         
         $class = $this->getActionClass();
         
-        if ($this->getTypeParse() == self::ARTICLE_TYPE) {
-
-            Event::on($class, $class::EVENT_ARTICLE_CREATE,  function ($event) {
-                NewsletterArticleSubscribe::addQueue($event);
-            });
-        }
-        
         if ($this->getTypeParse() != self::TAXONOMY_TYPE) {
             Event::on($class, $class::EVENT_SPHINX_REINDEX,  function ($event) {
 

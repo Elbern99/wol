@@ -112,16 +112,6 @@ class IzaController extends Controller
                                 $pdfUrl = null;
                             }
 
-                            $event = new \common\modules\article\ArticleEvent();
-                            $event->id = $model->id;
-                            $event->title = $model->title;
-                            $event->url = Yii::$app->frontendUrlManager->createAbsoluteUrl(['article/one-pager', 'slug' => $model->seo]);
-                            $event->categoryIds = array_values(ArrayHelper::map($model->articleCategories, 'id', 'id'));
-                            $event->availability = $model->availability;
-                            $event->pdf = $pdfUrl;
-                            $event->version = $model->version;
-                            \backend\components\queue\NewsletterArticleSubscribe::addQueue($event);
-
                             //\yii\base\Event::trigger(\common\modules\article\ArticleParser::class, \common\modules\article\ArticleParser::EVENT_ARTICLE_CREATE, $event);
                         }
 
