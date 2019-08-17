@@ -185,19 +185,20 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
         return $mails;
     }
 
-    protected function sendEmail($subject = '', string $body) {
-
-        $job = new \UrbanIndo\Yii2\Queue\Job([
-            'route' => 'mail/send',
-            'data' => [
-                'to' => $this->email,
-                'from' => null,
-                'subject' => $subject,
-                'body' => $body
-            ]
-        ]);
-
-        Yii::$app->queue->post($job);
+    /**
+     * Send welcome message to new or existing subscriber
+     *
+     * @param $subject
+     * @param string $body
+     * @return bool
+     */
+    protected function sendEmail($subject, string $body) {
+        return Yii::$app->mailer
+            ->compose()
+            ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
+            ->setTo($this->email)
+            ->setSubject($subject)
+            ->setHtmlBody($body)
+            ->send();
     }
-
 }
