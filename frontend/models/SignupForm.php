@@ -121,21 +121,24 @@ class SignupForm extends Model
         
         return null;
     }
-    
-    public function sendRegisteredEmail($subscriberId, $user) {
-        
-        $body = Yii::$app->view->renderFile('@frontend/views/emails/registered.php', ['subscriber' => $subscriberId, 'user' => $user]);
 
-        $job = new \UrbanIndo\Yii2\Queue\Job([
-            'route' => 'mail/send', 
-            'data' => [
-                'to' => $this->email, 
-                'from' => null, //Null means default "from"
-                'subject' => 'Welcome to IZA World of Labor', 
-                'body' => $body
-            ]
-        ]);
-
-        Yii::$app->queue->post($job);
+    /**
+     * Send welcome email to new user.
+     *
+     * @param $subscriberId
+     * @param $user
+     * @return bool
+     */
+    public function sendRegisteredEmail($subscriberId, $user)
+    {
+        return Yii::$app->mailer
+            ->compose('@frontend/views/emails/registered.php', [
+                'subscriber' => $subscriberId,
+                'user' => $user
+            ])
+            ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
+            ->setTo($this->email)
+            ->setSubject(Yii::t('app', 'Welcome to IZA World of Labor'))
+            ->send();
     }
 }
