@@ -11,6 +11,7 @@ use Yii;
  * @property integer $user_id
  * @property string $token
  * @property integer $created_at
+ * @property string $new_email
  *
  * @property User $user
  */
@@ -92,24 +93,25 @@ class UserActivation extends \yii\db\ActiveRecord
         
         return false;
     }
-    
-    public function sendConfirmedEmail(User $user, string $token) {
-        
-        $body = Yii::$app->view->renderFile('@frontend/views/emails/confirmatedEmail.php',['user' => $user, 'token' => $token]);
 
-        $job = new \UrbanIndo\Yii2\Queue\Job([
-            'route' => 'mail/send', 
-            'data' => [
-                'to' => $this->new_email ? $this->new_email : $user->email,
-                'from' => null, 
-                'subject' => $this->subject, 
-                'body' => $body
-            ]
-        ]);
-
-        Yii::$app->queue->post($job);
-        
-        return true;
+    /**
+     * Send confirmation email to user.
+     *
+     * @param User $user
+     * @param string $token
+     * @return bool
+     */
+    public function sendConfirmedEmail(User $user, string $token)
+    {
+        return Yii::$app->mailer
+            ->compose('@frontend/views/emails/confirmatedEmail.php', [
+                'user' => $user,
+                'token' => $token
+            ])
+            ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
+            ->setTo($this->new_email ? $this->new_email : $user->email)
+            ->setSubject($this->subject)
+            ->send();
     }
     
     public function changeUserEmailVerification(User $user, string $newEmail) {
