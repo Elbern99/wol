@@ -9,7 +9,10 @@ use yii\bootstrap\Html;
             <h3 class="panel-title"><?= Yii::t('app', 'Article enabled alerts') ?></h3>
         </div>
         <div class="panel-body">
-            <?= Html::button(Yii::t('app/form', 'Send'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::button(Yii::t('app/form', 'Send'), [
+                'id'    => 'new-article-alerts-btn',
+                'class' => 'btn btn-primary'
+            ]) ?>
         </div>
     </div>
 
@@ -18,7 +21,10 @@ use yii\bootstrap\Html;
             <h3 class="panel-title"><?= Yii::t('app', 'Article new version alerts') ?></h3>
         </div>
         <div class="panel-body">
-            <?= Html::button(Yii::t('app/form', 'Send'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::button(Yii::t('app/form', 'Send'), [
+                'id'    => 'new-version-alerts-btn',
+                'class' => 'btn btn-primary'
+            ]) ?>
         </div>
     </div>
 </div>

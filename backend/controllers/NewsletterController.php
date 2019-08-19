@@ -25,7 +25,7 @@ class NewsletterController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['news', 'news-view', 'news-delete', 'subscribers', 'subscriber-delete', 'subscribers-export'],
+                        'actions' => ['news', 'news-view', 'news-delete', 'subscribers', 'subscriber-delete', 'subscribers-export', 'send-new-article-alerts', 'send-new-version-article-alerts'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -35,7 +35,9 @@ class NewsletterController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'news-delete' => ['post'],
-                    'subscriber-delete' => ['post']
+                    'subscriber-delete' => ['post'],
+                    'send-new-article-alerts' => ['post'],
+                    'send-new-version-article-alerts' => ['post']
                 ],
             ],
         ];
@@ -185,6 +187,22 @@ class NewsletterController extends Controller
         }
         
         throw new NotFoundHttpException(Yii::t('app/text','File not exist.'));
+    }
+
+    /**
+     * @param integer $articleId
+     */
+    public function actionSendNewArticleAlerts($articleId)
+    {
+        //TODO
+    }
+
+    /**
+     * @param integer $articleId
+     */
+    public function actionSendNewVersionArticleAlerts($articleId)
+    {
+        //TODO
     }
     
 }
