@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'label' => '<i class="glyphicon"></i> '.Yii::t('app/text','Author(s)'),
                         'content' => $this->renderFile(__DIR__.'/article/authors.php', ['query' => $articleAuthor, 'articleAuthorForm' => $articleAuthorForm])
+                    ],
+                    [
+                        'label' => Yii::t('app/text','Newsletter'). ' <i class="glyphicon glyphicon-envelope"></i>',
+                        'content' => $this->renderFile(__DIR__.'/article/alerts.php')
                     ]
                 ],
                'position' => TabsX::POS_LEFT,
