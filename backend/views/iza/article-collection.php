@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'label' => Yii::t('app/text','Newsletter'). ' <i class="glyphicon glyphicon-envelope"></i>',
-                        'content' => $this->renderFile(__DIR__.'/article/alerts.php')
+                        'content' => $this->renderFile(__DIR__.'/article/alerts.php', [
+                            'article' => $articleModel
+                        ])
                     ]
                 ],
                'position' => TabsX::POS_LEFT,

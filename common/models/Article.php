@@ -20,6 +20,7 @@ use common\modules\eav\StorageEav;
  * @property string $seo
  * @property string $doi
  * @property string $availability
+ * @property string $title
  * @property integer $enabled
  * @property string $created_at
  * @property string $updated_at

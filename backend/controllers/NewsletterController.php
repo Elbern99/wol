@@ -2,10 +2,14 @@
 
 namespace backend\controllers;
 
+use UrbanIndo\Yii2\Queue\Job;
 use Yii;
 use common\models\NewsletterNews;
+use yii\base\Exception;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
@@ -13,6 +17,7 @@ use common\models\Newsletter;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\web\Response;
 
 /*
  * Newslletter Manager Class Controller
@@ -191,18 +196,50 @@ class NewsletterController extends Controller
 
     /**
      * @param integer $articleId
+     * @return array
      */
     public function actionSendNewArticleAlerts($articleId)
     {
-        //TODO
+        try {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            if (!Yii::$app->request->isAjax) {
+                throw new ForbiddenHttpException();
+            }
+
+            $job = new Job([
+                'route' => 'article-alerts/new-article-alerts',
+                'data' => ['articleId' => $articleId],
+            ]);
+            Yii::$app->queue->run($job);
+            return ['status' => true];
+        } catch (\Exception $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+        }
     }
 
     /**
      * @param integer $articleId
+     * @return array
      */
     public function actionSendNewVersionArticleAlerts($articleId)
     {
-        //TODO
+        try {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            if (!Yii::$app->request->isAjax) {
+                throw new ForbiddenHttpException();
+            }
+
+            $job = new Job([
+                'route' => 'article-alerts/new-article-version-alerts',
+                'data' => Json::encode(['articleId' => $articleId]),
+            ]);
+            Yii::$app->queue->run($job);
+            return ['status' => true];
+        } catch (\Exception $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+        }
     }
     
 }
