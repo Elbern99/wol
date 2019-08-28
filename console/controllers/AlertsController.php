@@ -1,19 +1,17 @@
 <?php
 
-
-namespace common\modules\task\controllers;
+namespace console\controllers;
 
 use common\models\Article;
 use common\models\Category;
 use common\models\Newsletter;
-use common\modules\article\ArticleEvent;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
-use UrbanIndo\Yii2\Queue\Worker\Controller;
+use Yii;
+use yii\console\Controller;
 use yii\helpers\ArrayHelper;
-use yii;
 
-class ArticleAlertsController extends Controller
+class AlertsController extends Controller
 {
     public function actionNewArticleAlerts($articleId)
     {
@@ -47,7 +45,7 @@ class ArticleAlertsController extends Controller
         $event->id = $article->id;
         $event->title = $article->title;
         $event->url = Yii::$app->frontendUrlManager->createAbsoluteUrl(['article/one-pager', 'slug' => $article->seo]);
-        $event->categoryIds = array_values(ArrayHelper::map($article->articleCategories, 'id', 'category_id'));
+        $event->categoryIds = $article->getArticleCategories()->select('category_id')->column();
         $event->availability = $article->availability;
         $event->pdf = $pdfUrl;
         $event->version = $article->version;

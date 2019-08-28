@@ -11,6 +11,11 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'eav_module'],
     'controllerNamespace' => 'console\controllers',
+    'modules' => [
+        'treemanager' => [
+            'class' => '\common\modules\category\Module'
+        ],
+    ],
     'components' => [
         'log' => [
             'targets' => [

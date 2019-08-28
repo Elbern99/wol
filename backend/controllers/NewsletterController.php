@@ -2,12 +2,10 @@
 
 namespace backend\controllers;
 
-use UrbanIndo\Yii2\Queue\Job;
+use backend\helpers\ConsoleRunner;
 use Yii;
 use common\models\NewsletterNews;
-use yii\base\Exception;
 use yii\filters\AccessControl;
-use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -195,7 +193,7 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param integer $articleId
+     * @param $articleId
      * @return array
      */
     public function actionSendNewArticleAlerts($articleId)
@@ -207,11 +205,10 @@ class NewsletterController extends Controller
                 throw new ForbiddenHttpException();
             }
 
-            $job = new Job([
-                'route' => 'article-alerts/new-article-alerts',
-                'data' => ['articleId' => $articleId],
-            ]);
-            Yii::$app->queue->run($job);
+            Yii::info('Call console command "./yii alerts/new-article-alerts" in background');
+            $consoleRunner = new ConsoleRunner();
+            $consoleRunner->run("alerts/new-article-alerts $articleId");
+
             return ['status' => true];
         } catch (\Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
@@ -219,7 +216,7 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param integer $articleId
+     * @param $articleId
      * @return array
      */
     public function actionSendNewVersionArticleAlerts($articleId)
@@ -231,15 +228,13 @@ class NewsletterController extends Controller
                 throw new ForbiddenHttpException();
             }
 
-            $job = new Job([
-                'route' => 'article-alerts/new-article-version-alerts',
-                'data' => Json::encode(['articleId' => $articleId]),
-            ]);
-            Yii::$app->queue->run($job);
+            Yii::info('Call console command "./yii alerts/new-article-version-alerts" in background');
+            $consoleRunner = new ConsoleRunner();
+            $consoleRunner->run("alerts/new-article-version-alerts $articleId");
+
             return ['status' => true];
         } catch (\Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
         }
     }
-    
 }

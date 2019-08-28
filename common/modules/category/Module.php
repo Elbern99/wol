@@ -42,12 +42,14 @@ class Module extends BaseModule {
             'urlKeyAttribute' => 'url_key',
         ];
         $nodeActions = ArrayHelper::getValue($this->treeViewSettings, 'nodeActions', []);
-        $nodeActions += [
-            self::NODE_MANAGE => Url::to(['/treemanager/node/manage']),
-            self::NODE_SAVE => Url::to(['/treemanager/node/save']),
-            self::NODE_REMOVE => Url::to(['/treemanager/node/remove']),
-            self::NODE_MOVE => Url::to(['/treemanager/node/move']),
-        ];
+        if (!Yii::$app instanceof \yii\console\Application) {
+            $nodeActions += [
+                self::NODE_MANAGE => Url::to(['/treemanager/node/manage']),
+                self::NODE_SAVE => Url::to(['/treemanager/node/save']),
+                self::NODE_REMOVE => Url::to(['/treemanager/node/remove']),
+                self::NODE_MOVE => Url::to(['/treemanager/node/move']),
+            ];
+        }
 
         $this->treeViewSettings['nodeActions'] = $nodeActions;
         

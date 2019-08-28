@@ -23,6 +23,25 @@ return [
             'class' => 'yii\caching\FileCache',
             'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
         ],
+        'frontendUrlManager' => [
+            'class' => \yii\web\UrlManager::className(),
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'scriptUrl' => '',
+            'baseUrl' => 'https://wol.iza.org',
+            'hostInfo' => 'https://wol.iza.org',
+            'rules' => [
+                'articles/<slug:[0-9a-zA-Z-]+>/v<v:[\d]+>' => 'article/one-pager',
+                'articles/<slug:[0-9a-zA-Z-]+>' => 'article/one-pager',
+                'articles/<slug:[0-9a-zA-Z-]+>/v<v:[\d]+>/long' => 'article/full',
+                'articles/<slug:[0-9a-zA-Z-]+>/long' => 'article/full',
+                'articles/<slug:[0-9a-zA-Z-]+>/v<v:[\d]+>/map' => 'article/map',
+                'articles/<slug:[0-9a-zA-Z-]+>/map' => 'article/map',
+                'articles/<slug:[0-9a-zA-Z-]+>/v<v:[\d]+>/lang/<code:[a-z]{2}>' => 'article/lang',
+                'articles/<slug:[0-9a-zA-Z-]+>/lang/<code:[a-z]{2}>' => 'article/lang',
+                'articles/<slug:[0-9a-zA-Z-]+>/references' => 'article/references',
+            ],
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
