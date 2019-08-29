@@ -77,4 +77,15 @@ class ConsoleRunner extends Component
             return false;
         }
     }
+
+    /**
+     * @param $cmd
+     * @return bool
+     */
+    public static function isRun($cmd)
+    {
+        $cmd = 'ps -aux | grep "' . $cmd . '" | grep -v grep';
+        exec($cmd, $output);
+        return $output ? true : false;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use backend\helpers\ConsoleRunner;
 use common\models\Article;
 use common\models\Category;
 use common\models\Newsletter;
@@ -9,20 +10,48 @@ use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
 use Yii;
 use yii\console\Controller;
-use yii\helpers\ArrayHelper;
 
 class AlertsController extends Controller
 {
+    /**
+     * @param $articleId
+     * @return bool|int
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionNewArticleAlerts($articleId)
     {
+        $cmd = 'yii alerts/new-article-alerts';
+        if (ConsoleRunner::isRun($cmd)) {
+            Yii::warning('Console command "' . $cmd . '" already started.');
+            return self::EXIT_CODE_ERROR;
+        }
+
         return $this->send($articleId, 'article_newsletter.php', 'Article from IZA World of Labor');
     }
 
+    /**
+     * @param $articleId
+     * @return bool|int
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionNewArticleVersionAlerts($articleId)
     {
+        $cmd = 'yii alerts/new-article-version-alerts';
+        if (ConsoleRunner::isRun($cmd)) {
+            Yii::warning('Console command "' . $cmd . '" already started.');
+            return self::EXIT_CODE_ERROR;
+        }
+
         return $this->send($articleId, 'article_newsletter_version.php', 'A new version of an article published');
     }
 
+    /**
+     * @param $articleId
+     * @param $viewFileName
+     * @param $subject
+     * @return bool
+     * @throws \yii\base\InvalidConfigException
+     */
     protected function send($articleId, $viewFileName, $subject)
     {
         $article = Article::findOne($articleId);
