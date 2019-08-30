@@ -17,10 +17,10 @@ $this->registerJsFile(Url::to(['/js/article/article-alerts.js']), ['depends' => 
 <div class="col-sm-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><?= Yii::t('app', 'Article enabled alerts') ?></h3>
+            <h3 class="panel-title"><?= Yii::t('app', 'Newsletter "Article from IZA World of Labor"') ?></h3>
         </div>
         <div class="panel-body">
-            <?= Html::button(Yii::t('app/form', 'Send'), [
+            <?= Html::button(Yii::t('app/form', 'Send to queue'), [
                 'id'    => 'new-article-alerts-btn',
                 'class' => 'btn btn-primary send-alerts',
                 'data-confirm-message' => Yii::t('app', 'Are you sure to send alerts?'),
@@ -32,10 +32,10 @@ $this->registerJsFile(Url::to(['/js/article/article-alerts.js']), ['depends' => 
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><?= Yii::t('app', 'Article new version alerts') ?></h3>
+            <h3 class="panel-title"><?= Yii::t('app', 'Newsletter "A new version of an article published"') ?></h3>
         </div>
         <div class="panel-body">
-            <?= Html::button(Yii::t('app/form', 'Send'), [
+            <?= Html::button(Yii::t('app/form', 'Send to queue'), [
                 'id'    => 'new-version-alerts-btn',
                 'class' => 'btn btn-primary send-alerts',
                 'data-confirm-message' => Yii::t('app', 'Are you sure to send alerts?'),
