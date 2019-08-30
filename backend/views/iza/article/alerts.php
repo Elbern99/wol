@@ -39,7 +39,7 @@ $this->registerJsFile(Url::to(['/js/article/article-alerts.js']), ['depends' => 
                 'id'    => 'new-version-alerts-btn',
                 'class' => 'btn btn-primary send-alerts',
                 'data-confirm-message' => Yii::t('app', 'Are you sure to send alerts?'),
-                'data-url' => Url::to(['newsletter/send-new-article-alerts', 'articleId' => $article->id], true),
+                'data-url' => Url::to(['newsletter/send-new-version-article-alerts', 'articleId' => $article->id], true),
                 'disabled' => ConsoleRunner::isRun('yii alerts/new-article-version-alerts' .$article->id) ? true : false
             ]) ?>
         </div>
