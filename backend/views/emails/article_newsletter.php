@@ -1,5 +1,3 @@
-<?php use yii\helpers\Url; ?>
-
 <?php $this->beginContent(__DIR__.'/layout.php'); ?>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">Dear subscriber,</span></p>
 <p><span style="font-size:10.0pt;font-family:'Lucida Sans',sans-serif">An article has been published on IZA World of Labor in a topic you are interested in:
