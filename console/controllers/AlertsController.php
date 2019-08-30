@@ -20,7 +20,7 @@ class AlertsController extends Controller
      */
     public function actionNewArticleAlerts($articleId)
     {
-        $cmd = 'yii alerts/new-article-alerts';
+        $cmd = 'yii alerts/new-article-alerts' . $articleId;
         if (ConsoleRunner::isRun($cmd)) {
             Yii::warning('Console command "' . $cmd . '" already started.');
             return self::EXIT_CODE_ERROR;
@@ -36,7 +36,7 @@ class AlertsController extends Controller
      */
     public function actionNewArticleVersionAlerts($articleId)
     {
-        $cmd = 'yii alerts/new-article-version-alerts';
+        $cmd = 'yii alerts/new-article-version-alerts' . $articleId;
         if (ConsoleRunner::isRun($cmd)) {
             Yii::warning('Console command "' . $cmd . '" already started.');
             return self::EXIT_CODE_ERROR;
