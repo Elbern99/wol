@@ -6,6 +6,7 @@ use backend\helpers\ConsoleRunner;
 use common\models\Article;
 use common\models\Category;
 use common\models\Newsletter;
+use common\models\NewsletterLogs;
 use common\modules\eav\Collection;
 use common\modules\eav\helper\EavAttributeHelper;
 use Yii;
@@ -85,7 +86,7 @@ class AlertsController extends Controller
             ->where(['id' => $event->categoryIds, 'active' => 1])
             ->all();
 
-        $subscribers = Newsletter::find()->select(['first_name', 'email', 'last_name', 'code'])->andWhere(['interest' => 1]);
+        $subscribers = Newsletter::find()->andWhere(['interest' => 1]);
 
         $filtered = [];
         $first = true;
@@ -124,18 +125,55 @@ class AlertsController extends Controller
             }
         }
 
-        foreach ($subscribers->each(200) as $subscriber) {
-            /** @var Newsletter $subscriber */
-            Yii::info('Send mail');
-            Yii::$app->mailer
-                ->compose('@backend/views/emails/' . $viewFileName, [
-                    'subscriber' => $subscriber,
-                    'article' => $event
-                ])
-                ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
-                ->setTo($subscriber->email)
-                ->setSubject($subject)
-                ->send();
+        $transaction = NewsletterLogs::getDb()->beginTransaction();
+        $qtySubscribers = $subscribers->count();
+        $oneSubscriberPercent = (100 / $qtySubscribers);
+
+        $newsletterLog = new NewsletterLogs();
+        $newsletterLog->progress = 0;
+        $newsletterLog->status = NewsletterLogs::STATUS_IN_PROGRESS;
+        $newsletterLog->subject = $subject;
+        $newsletterLog->qty = $qtySubscribers;
+        $newsletterLog->save(false);
+        try {
+            $newsletterLog->link('article', $article);
+
+            foreach ($subscribers->each(200) as $subscriber) {
+                /** @var Newsletter $subscriber */
+                Yii::info('Send mail');
+                $isMailSent = Yii::$app->mailer
+                    ->compose('@backend/views/emails/' . $viewFileName, [
+                        'subscriber' => $subscriber,
+                        'article' => $event
+                    ])
+                    ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
+                    ->setTo($subscriber->email)
+                    ->setSubject($subject)
+                    ->send();
+
+                if (!$isMailSent) {
+                    $newsletterLog->status = NewsletterLogs::STATUS_WARNING;
+                    $newsletterLog->error_text .= 'Mail to ' . $subscriber->email . ' has not been sent.';
+                    $newsletterLog->save(false);
+                } else {
+                    $newsletterLog->link('subscribers', $subscriber);
+                }
+                $newsletterLog->progress += (int) $oneSubscriberPercent;
+                $newsletterLog->save(false);
+            }
+            if ($newsletterLog->progress != 100) {
+                $newsletterLog->progress = 100;
+            }
+            if ($newsletterLog->status == NewsletterLogs::STATUS_IN_PROGRESS) {
+                $newsletterLog->status = NewsletterLogs::STATUS_SUCCESS;
+            }
+            $newsletterLog->save(false);
+            $transaction->commit();
+        } catch (\Throwable $e) {
+            $newsletterLog->error_text = $e->getMessage();
+            $newsletterLog->status = NewsletterLogs::STATUS_ERROR;
+            $newsletterLog->save(false);
+            $transaction->commit();
         }
 
         return true;

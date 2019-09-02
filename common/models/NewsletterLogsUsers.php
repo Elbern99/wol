@@ -62,6 +62,6 @@ class NewsletterLogsUsers extends ActiveRecord
     public function getSubscribers()
     {
         return $this->hasMany(Newsletter::class, ['id' => 'newsletter_id'])
-            ->viaTable('newsletter_logs_users', ['newsletter_logs_id' => 'id']);
+            ->viaTable('{{%newsletter_logs_users}}', ['newsletter_logs_id' => 'id']);
     }
 }

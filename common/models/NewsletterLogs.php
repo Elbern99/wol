@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\components\TimestampBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii;
 use yii\db\ActiveRecord;
 use yii\db\ActiveQuery;
@@ -21,7 +21,7 @@ use yii\db\ActiveQuery;
  * @property integer $updated_at
  *
  * @property Newsletter[] $subscribers
- * @property Article[] $articles
+ * @property Article $article
  */
 class NewsletterLogs extends ActiveRecord
 {
@@ -59,7 +59,7 @@ class NewsletterLogs extends ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'progress' => Yii::t('app', 'Progress'),
             'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'updated_at' => Yii::t('app', 'Updated At')
         ];
     }
 
@@ -70,7 +70,7 @@ class NewsletterLogs extends ActiveRecord
     {
         return [
             [['subject', 'qty', 'status', 'progress'], 'required'],
-            [['qty', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['qty', 'status'], 'integer'],
             ['subject', 'string', 'max' => 255],
             ['error_text', 'string', 'min' => 0],
             ['progress', 'integer', 'min' => 1, 'max' => 100],
@@ -84,16 +84,16 @@ class NewsletterLogs extends ActiveRecord
     public function getSubscribers()
     {
         return $this->hasMany(Newsletter::class, ['id' => 'newsletter_id'])
-            ->viaTable('newsletter_logs_users', ['newsletter_logs_id' => 'id']);
+            ->viaTable('{{%newsletter_logs_users}}', ['newsletter_logs_id' => 'id']);
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getArticles()
+    public function getArticle()
     {
-        return $this->hasMany(Article::class, ['id' => 'article_id'])
-            ->viaTable('newsletter_logs_users', ['newsletter_logs_id' => 'id']);
+        return $this->hasOne(Article::class, ['id' => 'article_id'])
+            ->viaTable('{{%newsletter_logs_article}}', ['newsletter_logs_id' => 'id']);
     }
 
     /**
