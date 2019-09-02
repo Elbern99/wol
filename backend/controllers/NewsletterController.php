@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use backend\helpers\ConsoleRunner;
+use common\models\NewsletterLogs;
+use common\models\NewsLetterLogsArticle;
 use Yii;
 use common\models\NewsletterNews;
 use yii\filters\AccessControl;
@@ -28,7 +30,7 @@ class NewsletterController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['news', 'news-view', 'news-delete', 'subscribers', 'subscriber-delete', 'subscribers-export', 'send-new-article-alerts', 'send-new-version-article-alerts'],
+                        'actions' => ['news', 'news-view', 'news-delete', 'subscribers', 'subscriber-delete', 'subscribers-export', 'send-new-article-alerts', 'send-new-version-article-alerts', 'article'],
                         'roles' => ['@'],
                         'allow' => true,
                     ],
@@ -190,6 +192,22 @@ class NewsletterController extends Controller
         }
         
         throw new NotFoundHttpException(Yii::t('app/text','File not exist.'));
+    }
+
+    public function actionArticle()
+    {
+        $articleLogs = NewsletterLogs::find()
+            ->joinWith('article', true, 'INNER JOIN')
+            ->with('subscribers');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $articleLogs,
+            'pagination' => ['pageSize' => 30]
+        ]);
+
+        return $this->render('article', [
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

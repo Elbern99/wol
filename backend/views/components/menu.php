@@ -66,6 +66,7 @@ if (Yii::$app->user->isGuest) {
         'items' => [
             ['label' => Yii::t('app/menu','News'), 'url' => ['/newsletter/news']],
             ['label' => Yii::t('app/menu','Subscribers'), 'url' => ['/newsletter/subscribers']],
+            ['label' => Yii::t('app/menu','Article Newsletter'), 'url' => ['/newsletter/article']]
         ],
     ];
         
