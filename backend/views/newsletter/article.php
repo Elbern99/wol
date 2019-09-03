@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn', 'contentOptions' => ['style'=>'vertical-align: middle;']],
                     [
                         'attribute' => 'article.title',
+                        'label' => Yii::t('app', 'Article name'),
                         'format' => 'raw',
                         'contentOptions' => ['style'=>'vertical-align: middle;'],
                         'value' => function (NewsletterLogs $log) {
