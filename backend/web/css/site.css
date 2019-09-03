@@ -72,6 +72,11 @@ a.desc:after {
     content: "\e156";
 }
 
+/** Hack, delete in futere **/
+#article_newsletter_logs_table td {
+    white-space: normal;
+}
+
 .grid-view td {
     white-space: nowrap;
 }
