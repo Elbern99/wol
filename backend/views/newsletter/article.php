@@ -99,9 +99,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ['class' => 'text-danger']
                                 );
                             }
-                            return Html::ul(ArrayHelper::getColumn(array_slice($log->subscribers, 0, 5), function (Newsletter $subscriber) {
+
+                            $subscribers = $log->subscribers;
+                            if (count($log->subscribers) > 5) {
+                                $subscribers = array_slice($log->subscribers, 0, 5);
+                            }
+                            $subscribers = ArrayHelper::getColumn($subscribers, function (Newsletter $subscriber) {
                                 return Html::a($subscriber->email, 'mailto:' . $subscriber->email);
-                            }), ['encode' => false, 'style' => 'padding: 0; list-style:none;']);
+                            });
+                            $subscribers[] = Html::a(
+                                    Yii::t('app', 'See detailed information...'),
+                                    Url::to(['newsletter/subscribers', 'logs_id' => $log->id], true),
+                                    ['class' => 'text-warning']
+                            );
+
+                            return Html::ul($subscribers, ['encode' => false, 'style' => 'padding: 0; list-style:none;']);
                         }
                     ],
                     [

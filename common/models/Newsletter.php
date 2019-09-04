@@ -19,6 +19,10 @@ use yii\helpers\Url;
  * @property integer $iza_world
  * @property integer $iza
  * @property integer $created_at
+ * @property string $code
+ * @property integer $user_id
+ *
+ * @property NewsletterLogs[] $logs
  */
 class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
@@ -77,6 +81,15 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
         }
 
         return $parent;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLogs()
+    {
+        return $this->hasMany(NewsletterLogs::class, ['id' => 'newsletter_logs_id'])
+            ->viaTable('{{%newsletter_logs_users}}', ['newsletter_id' => 'id']);
     }
 
     public function getSubscriber(string $email) {

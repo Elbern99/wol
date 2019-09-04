@@ -91,7 +91,8 @@ class NewsletterController extends Controller
         return $this->redirect('@web/newsletter/news');
     }
     
-    public function actionSubscribers() {
+    public function actionSubscribers($logs_id = null)
+    {
         $categories =  Category::find()
                             ->alias('s')
                             ->select(['c.id', 'c.title'])
@@ -102,8 +103,23 @@ class NewsletterController extends Controller
         
         $areas = ArrayHelper::map($categories, 'id', 'title');
         
-        $news = Newsletter::find()->orderBy('created_at');
-        return $this->render('newsletter', ['dataProvider' => new ActiveDataProvider(['query' => $news, 'pagination' => ['pageSize' => 30]]), 'areas' => $areas]);
+        $news = Newsletter::find()
+            ->orderBy('created_at');
+
+        if ($logs_id) {
+            $news->joinWith('logs l', true, 'INNER JOIN')
+                ->where(['l.id' => $logs_id]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $news,
+            'pagination' => ['pageSize' => 30]
+        ]);
+
+        return $this->render('newsletter', [
+            'dataProvider' => $dataProvider,
+            'areas' => $areas
+        ]);
     }
     
     public function actionSubscriberDelete($id) {
