@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'div',
                                 '',
                                 ['class' => 'text-success glyphicon glyphicon-ok']
-                            );
+                            ) . Html::tag('div', 'No errors', ['class' => 'text-success']);
                         }
                     ],
                     [
