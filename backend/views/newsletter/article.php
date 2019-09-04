@@ -1,9 +1,6 @@
 <?php
 
-use backend\helpers\AdminFunctionHelper;
-use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
-use yii\web\View;
 use yii\grid\GridView;
 use common\models\NewsletterLogs;
 use yii\helpers\Url;
@@ -14,7 +11,7 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app.menu', 'Article Newsletter');
+$this->title = Yii::t('app.menu', 'Article Newsletter Log');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
