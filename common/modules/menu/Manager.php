@@ -55,26 +55,17 @@ class Manager implements MenuManagerInterface {
     }
     
     private function init($category, $links) {
-        
-        $cache = Yii::$app->cache;
-        $data = $cache->get(MenuCache::cache_key);
-        
-        if (!$data) {
-            
-            $this->setCategoryTree($category);
-            $this->setGroupLinks($links);
-            
-            $this->data = [
-                'top' => $this->getTopMenu(),
-                'bottom' => $this->getBottomMenu(),
-                'main' => $this->getMainMenu()
-            ];
 
-            $cache->set(MenuCache::cache_key, $this->data, 86400);
-            return;
-        }
-        
-        $this->data = $data;
+        $this->setCategoryTree($category);
+        $this->setGroupLinks($links);
+
+        $this->data = [
+            'top' => $this->getTopMenu(),
+            'bottom' => $this->getBottomMenu(),
+            'main' => $this->getMainMenu()
+        ];
+
+        return;
     }
 
     protected function getTopMenu() {
