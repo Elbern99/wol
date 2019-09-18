@@ -129,8 +129,9 @@ class AlertsController extends Controller
         $qtySubscribers = $subscribers->count();
         $oneSubscriberPercent = (100 / $qtySubscribers);
 
+        $progress = 0;
         $newsletterLog = new NewsletterLogs();
-        $newsletterLog->progress = 0;
+        $newsletterLog->progress = $progress;
         $newsletterLog->status = NewsletterLogs::STATUS_IN_PROGRESS;
         $newsletterLog->subject = $subject;
         $newsletterLog->qty = $qtySubscribers;
@@ -158,7 +159,9 @@ class AlertsController extends Controller
                 } else {
                     $newsletterLog->link('subscribers', $subscriber);
                 }
-                $newsletterLog->progress += (int) $oneSubscriberPercent;
+
+                $progress += $oneSubscriberPercent;
+                $newsletterLog->progress = $progress;
                 $newsletterLog->save(false);
             }
             if ($newsletterLog->progress != 100) {
