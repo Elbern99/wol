@@ -161,7 +161,7 @@ class AlertsController extends Controller
                 }
 
                 $progress += $oneSubscriberPercent;
-                $newsletterLog->progress = $progress;
+                $newsletterLog->progress = (int)$progress;
                 $newsletterLog->save(false);
             }
             if ($newsletterLog->progress != 100) {
