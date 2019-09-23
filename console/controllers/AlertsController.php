@@ -125,7 +125,6 @@ class AlertsController extends Controller
             }
         }
 
-        $transaction = NewsletterLogs::getDb()->beginTransaction();
         $qtySubscribers = $subscribers->count();
         $oneSubscriberPercent = (100 / $qtySubscribers);
 
@@ -160,12 +159,10 @@ class AlertsController extends Controller
                 $newsletterLog->status = NewsletterLogs::STATUS_SUCCESS;
             }
             $newsletterLog->save(false);
-            $transaction->commit();
         } catch (\Throwable $e) {
             $newsletterLog->error_text = $e->getMessage();
             $newsletterLog->status = NewsletterLogs::STATUS_ERROR;
             $newsletterLog->save(false);
-            $transaction->commit();
         }
 
         return true;
@@ -187,6 +184,7 @@ class AlertsController extends Controller
         } catch (\Swift_TransportException $e) {
             $this->stdout($e->getMessage() . PHP_EOL);
             if ($e->getCode() == 421) {
+                $this->stdout('Sleeping 60 seconds...' . PHP_EOL);
                 sleep(60);
                 $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
                 $this->sendMessage($subscriber, $viewFileName, $event, $subject);
