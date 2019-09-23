@@ -139,10 +139,8 @@ class AlertsController extends Controller
         try {
             $newsletterLog->link('article', $article);
 
-            foreach ($subscribers->each(200) as $subscriber) {
-                /** @var Newsletter $subscriber */
-                Yii::info('Send mail');
-                $isMailSent = Yii::$app->mailer
+            $sendMessage = function ($subscriber) use ($viewFileName, $subject, $event) {
+                return Yii::$app->mailer
                     ->compose('@backend/views/emails/' . $viewFileName, [
                         'subscriber' => $subscriber,
                         'article' => $event
@@ -151,6 +149,23 @@ class AlertsController extends Controller
                     ->setTo($subscriber->email)
                     ->setSubject($subject)
                     ->send();
+            };
+
+            foreach ($subscribers->each(200) as $subscriber) {
+                /** @var Newsletter $subscriber */
+                Yii::info('Send mail');
+                $this->stdout('Send mail to ' . $subscriber->email);
+                try {
+                    $isMailSent = $sendMessage($subscriber);
+                } catch (\Swift_TransportException $e) {
+                    $isMailSent = false;
+                    if ($e->getCode() == 421) {
+                        $this->stdout('Client has exceeded the configured limit. Sleeping 10 seconds...');
+                        sleep(10);
+                        $this->stdout('Resend mail to ' . $subscriber->email);
+                        $isMailSent = $sendMessage($subscriber);
+                    }
+                }
 
                 if (!$isMailSent) {
                     $newsletterLog->status = NewsletterLogs::STATUS_WARNING;
