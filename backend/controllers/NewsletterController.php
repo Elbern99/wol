@@ -218,7 +218,8 @@ class NewsletterController extends Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => $articleLogs,
-            'pagination' => ['pageSize' => 30]
+            'pagination' => ['pageSize' => 30],
+            'sort'=> ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
 
         return $this->render('article', [
