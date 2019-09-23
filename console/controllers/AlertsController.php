@@ -138,10 +138,11 @@ class AlertsController extends Controller
         try {
             $newsletterLog->link('article', $article);
 
+            $warning = false;
             foreach ($subscribers->each(200) as $subscriber) {
                 /** @var Newsletter $subscriber */
                 if (!$this->sendMessage($subscriber, $viewFileName, $event, $subject)) {
-                    $newsletterLog->status = NewsletterLogs::STATUS_WARNING;
+                    $warning = true;
                     $newsletterLog->error_text .= 'Mail to ' . $subscriber->email . ' has not been sent.';
                     $newsletterLog->save(false);
                 } else {
@@ -152,12 +153,9 @@ class AlertsController extends Controller
                 $newsletterLog->progress = (int)$progress;
                 $newsletterLog->save(false);
             }
-            if ($newsletterLog->progress != 100) {
-                $newsletterLog->progress = 100;
-            }
-            if ($newsletterLog->status == NewsletterLogs::STATUS_IN_PROGRESS) {
-                $newsletterLog->status = NewsletterLogs::STATUS_SUCCESS;
-            }
+
+            $newsletterLog->progress = 100;
+            $newsletterLog->status =  $warning ? NewsletterLogs::STATUS_WARNING : NewsletterLogs::STATUS_SUCCESS;
             $newsletterLog->save(false);
         } catch (\Throwable $e) {
             $newsletterLog->error_text = $e->getMessage();
@@ -185,11 +183,11 @@ class AlertsController extends Controller
             if ($cycle < 4) {
                 $this->stdout($e->getMessage() . PHP_EOL);
                 $this->stdout('Error was occurred...' . PHP_EOL);
-                $this->stdout('Try to renew. Attempt number' .$cycle . PHP_EOL);
-                $this->stdout('Sleeping 30 seconds...' . PHP_EOL);
-                sleep(30);
+                $this->stdout('Try to renew. Attempt number ' .$cycle . PHP_EOL . '...');
+                $this->stdout('Sleeping 10 seconds...' . PHP_EOL);
+                sleep(10);
                 $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
-                $this->sendMessage($subscriber, $viewFileName, $event, $subject, $cycle + 1);
+                return $this->sendMessage($subscriber, $viewFileName, $event, $subject, $cycle + 1);
             }
             $this->stdout('Skip send mail to' . $subscriber->email . PHP_EOL);
         }
