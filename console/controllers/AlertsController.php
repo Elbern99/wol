@@ -154,15 +154,15 @@ class AlertsController extends Controller
             foreach ($subscribers->each(200) as $subscriber) {
                 /** @var Newsletter $subscriber */
                 Yii::info('Send mail');
-                $this->stdout('Send mail to ' . $subscriber->email);
+                $this->stdout('Send mail to ' . $subscriber->email . PHP_EOL);
                 try {
                     $isMailSent = $sendMessage($subscriber);
                 } catch (\Swift_TransportException $e) {
                     $isMailSent = false;
                     if ($e->getCode() == 421) {
-                        $this->stdout('Client has exceeded the configured limit. Sleeping 10 seconds...');
-                        sleep(10);
-                        $this->stdout('Resend mail to ' . $subscriber->email);
+                        $this->stdout('Client has exceeded the configured limit. Sleeping 60 seconds...' . PHP_EOL);
+                        sleep(60);
+                        $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
                         $isMailSent = $sendMessage($subscriber);
                     }
                 }
