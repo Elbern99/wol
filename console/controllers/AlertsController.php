@@ -139,35 +139,9 @@ class AlertsController extends Controller
         try {
             $newsletterLog->link('article', $article);
 
-            $sendMessage = function ($subscriber) use ($viewFileName, $subject, $event) {
-                return Yii::$app->mailer
-                    ->compose('@backend/views/emails/' . $viewFileName, [
-                        'subscriber' => $subscriber,
-                        'article' => $event
-                    ])
-                    ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
-                    ->setTo($subscriber->email)
-                    ->setSubject($subject)
-                    ->send();
-            };
-
             foreach ($subscribers->each(200) as $subscriber) {
                 /** @var Newsletter $subscriber */
-                Yii::info('Send mail');
-                $this->stdout('Send mail to ' . $subscriber->email . PHP_EOL);
-                try {
-                    $isMailSent = $sendMessage($subscriber);
-                } catch (\Swift_TransportException $e) {
-                    $isMailSent = false;
-                    if ($e->getCode() == 421) {
-                        $this->stdout('Client has exceeded the configured limit. Sleeping 60 seconds...' . PHP_EOL);
-                        sleep(60);
-                        $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
-                        $isMailSent = $sendMessage($subscriber);
-                    }
-                }
-
-                if (!$isMailSent) {
+                if (!$this->sendMessage($subscriber, $viewFileName, $event, $subject)) {
                     $newsletterLog->status = NewsletterLogs::STATUS_WARNING;
                     $newsletterLog->error_text .= 'Mail to ' . $subscriber->email . ' has not been sent.';
                     $newsletterLog->save(false);
@@ -194,6 +168,30 @@ class AlertsController extends Controller
             $transaction->commit();
         }
 
+        return true;
+    }
+
+    protected function sendMessage($subscriber, $viewFileName, $event, $subject)
+    {
+        $this->stdout('Send mail to ' . $subscriber->email . PHP_EOL);
+        try {
+            return Yii::$app->mailer
+                ->compose('@backend/views/emails/' . $viewFileName, [
+                    'subscriber' => $subscriber,
+                    'article' => $event
+                ])
+                ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
+                ->setTo($subscriber->email)
+                ->setSubject($subject)
+                ->send();
+        } catch (\Swift_TransportException $e) {
+            $this->stdout($e->getMessage() . PHP_EOL);
+            if ($e->getCode() == 421) {
+                sleep(60);
+                $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
+                $this->sendMessage($subscriber, $viewFileName, $event, $subject);
+            }
+        }
         return true;
     }
 }
