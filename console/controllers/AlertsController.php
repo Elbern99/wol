@@ -168,7 +168,7 @@ class AlertsController extends Controller
         return true;
     }
 
-    protected function sendMessage($subscriber, $viewFileName, $event, $subject)
+    protected function sendMessage($subscriber, $viewFileName, $event, $subject, $cycle = 1)
     {
         $this->stdout('Send mail to ' . $subscriber->email . PHP_EOL);
         try {
@@ -182,14 +182,17 @@ class AlertsController extends Controller
                 ->setSubject($subject)
                 ->send();
         } catch (\Swift_TransportException $e) {
-            $this->stdout($e->getMessage() . PHP_EOL);
-            if ($e->getCode() == 421) {
-                $this->stdout('Sleeping 60 seconds...' . PHP_EOL);
-                sleep(60);
+            if ($cycle < 4) {
+                $this->stdout($e->getMessage() . PHP_EOL);
+                $this->stdout('Error was occurred...' . PHP_EOL);
+                $this->stdout('Try to renew. Attempt number' .$cycle . PHP_EOL);
+                $this->stdout('Sleeping 30 seconds...' . PHP_EOL);
+                sleep(30);
                 $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
-                $this->sendMessage($subscriber, $viewFileName, $event, $subject);
+                $this->sendMessage($subscriber, $viewFileName, $event, $subject, $cycle + 1);
             }
+            $this->stdout('Skip send mail to' . $subscriber->email . PHP_EOL);
         }
-        return true;
+        return false;
     }
 }
