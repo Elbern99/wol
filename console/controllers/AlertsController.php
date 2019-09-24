@@ -183,7 +183,7 @@ class AlertsController extends Controller
             if ($cycle < 4) {
                 $this->stdout($e->getMessage() . PHP_EOL);
                 $this->stdout('Error was occurred...' . PHP_EOL);
-                $this->stdout('Try to renew. Attempt number ' .$cycle . PHP_EOL . '...');
+                $this->stdout('Try to renew. Attempt number ' .$cycle . '...' . PHP_EOL);
                 $this->stdout('Sleeping 10 seconds...' . PHP_EOL);
                 sleep(10);
                 $this->stdout('Resend mail to ' . $subscriber->email . PHP_EOL);
