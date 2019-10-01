@@ -118,7 +118,8 @@ class NewsletterController extends Controller
 
         return $this->render('newsletter', [
             'dataProvider' => $dataProvider,
-            'areas' => $areas
+            'areas' => $areas,
+            'logId' => $logs_id,
         ]);
     }
     
@@ -140,7 +141,7 @@ class NewsletterController extends Controller
         return $this->redirect('@web/newsletter/subscribers');
     }
     
-    public function actionSubscribersExport() {
+    public function actionSubscribersExport($logs_id = null) {
         
         $folderPath = Yii::$app->basePath.'/runtime/temporary_folder/export';
         
@@ -161,24 +162,27 @@ class NewsletterController extends Controller
                             ->all();
         
         $categories = ArrayHelper::map($categories, 'id', 'taxonomy_code');
-        $subscribers = Newsletter::find()->alias('n')
-                                         ->select([
-                                            'email', 'first_name', 'last_name', 
-                                            'areas_interest', 'interest', 'iza_world', 
-                                            'iza', 'user_id as registered'
-                                         ])
-                                         ->asArray()
-                                         ->all();
-        
+
+        $subscribers = Newsletter::find()
+            ->alias('n')
+            ->select([
+                'n.email', 'n.first_name', 'n.last_name',
+                'n.areas_interest', 'n.interest', 'n.iza_world',
+                'n.iza', 'n.id', 'n.user_id', 'n.user_id as registered'
+            ]);
+
+        if ($logs_id) {
+            $subscribers->joinWith('logs l', false, 'INNER JOIN')
+                ->where(['l.id' => $logs_id]);
+        }
+        $subscribers = $subscribers->asArray()->all();
         if (count($subscribers)) {
-            
             $fp = fopen($filePath, 'w+');
             fputcsv($fp, ['email', 'first_name', 'last_name', 
                                             'areas_interest', 'interest', 'iza_world', 
                                             'iza', 'registered']);
 
             foreach ($subscribers as $fields) {
-                
                 $areas_interest = explode(',', $fields['areas_interest']);
                 $areas_interest_taxonomy = [];
                 
@@ -196,7 +200,6 @@ class NewsletterController extends Controller
                 } else {
                     $fields['registered'] = 1;
                 }
-                
                 fputcsv($fp, $fields);
             }
             
