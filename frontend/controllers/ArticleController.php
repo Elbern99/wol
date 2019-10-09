@@ -86,7 +86,7 @@ class ArticleController extends Controller
                 }
             }
             
-            $authors = $article->authorList;
+            $authors = $article->authors;
             $eavValue = $values[$article->id] ?? [];
 
             $articlesCollection[$article->id] = [

@@ -142,7 +142,7 @@ class Author extends \yii\db\ActiveRecord implements AuthorInterface, EntityMode
 
     public static function getAuthorUrl($url_key)
     {
-        return Url::toRoute(['authors/profile', 'url_key' => $url_key]);
+        return Url::toRoute(['authors/profile', 'url_key' => $url_key], true);
     }
 
 

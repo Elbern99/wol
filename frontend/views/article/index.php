@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
+use common\models\Author;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\components\articles\SubjectAreas;
@@ -77,8 +78,11 @@ unset($currentParams);
                         </h2>
                         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                         <div class="writers">
-                            <?php foreach($article['authors'] as $author): ?>
-                            <span class="writer-item"><?= $author ?></span><?php endforeach; ?>,
+                            <?php foreach($article['authors'] as $author): /** @var $aurhor Author */ ?>
+                                <a href="<?= Author::getAuthorUrl($author->url_key) ?>">
+                                    <?= $author->name; ?>
+                                </a>
+                            <?php endforeach; ?>,
                             <?= date('F Y', $article['created_at']) ?>
                         </div>
                         <div class="description">
