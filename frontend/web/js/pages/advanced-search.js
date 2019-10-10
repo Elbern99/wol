@@ -257,6 +257,7 @@
    
     $(document).ready(function() {
         $('.item-filter-box').children('input:checkbox').bind('change', dynamicFilter);
+        advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         advancedSearch.searchHightLight('.search-results-top input', '.search-results-table-body .article-item');
         advancedSearch.saveSearch('.btn-save-search');
         advancedSearch.focusCustom('.my-tags-list');
@@ -277,7 +278,6 @@
     });
 
     elements.window.on('load', function() {
-        advancedSearch.customTagList('.my-tags-list', '.my-tags-holder');
         filterLoad.setCheckResult('.sidebar-accrodion-item');
         filterLoad.showCheckedAccordion('.sidebar-accrodion-item');
     });
