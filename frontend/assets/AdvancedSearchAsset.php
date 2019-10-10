@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class AdvancedSearchAsset extends AssetBundle
 {
-    public $jsOptions = ['position' => \yii\web\View::POS_END, 'async' => 'async', 'charset' => 'utf-8'];
+    public $jsOptions = ['position' => \yii\web\View::POS_END];
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
