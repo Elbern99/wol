@@ -81,7 +81,7 @@ $this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
             ],
         ]);
         ?>
-    
+
         <?= $form->field($model, 'enabled')->checkbox() ?>
 
         <div class="form-group input_fields_wrap">
@@ -99,9 +99,9 @@ $this->registerJs("dynamicallyFields.init(".json_encode($config).");", 3);
             'data' => $model->articlesList(),
             'options' => ['placeholder' => 'Select topic articles...', 'multiple' => true],
             'pluginOptions' => [
-                'tags' => true,
+                'tags' => false,
                 'tokenSeparators' => [',', ' '],
-                'maximumInputLength' => 10
+                'maximumInputLength' => 25,
             ],
         ])->label($model->getAttributeLabel('article_ids')); ?>
     <div class="form-group">
