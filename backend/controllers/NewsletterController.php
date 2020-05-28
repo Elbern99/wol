@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\helpers\ConsoleRunner;
+use backend\models\SubscribersSearch;
 use common\models\NewsletterLogs;
 use common\models\NewsLetterLogsArticle;
 use Yii;
@@ -47,21 +48,21 @@ class NewsletterController extends Controller
             ],
         ];
     }
-    
+
     public function actionNews() {
         $news = NewsletterNews::find()->orderBy('date');
         return $this->render('news', ['dataProvider' => new ActiveDataProvider(['query' => $news, 'pagination' => ['pageSize' => 30]])]);
     }
-    
+
     public function actionNewsView($id = null) {
-        
+
         if (is_null($id)) {
             $model = new NewsletterNews();
         } else {
             $model = NewsletterNews::findOne($id);
         }
         $model->validate();
-        
+
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
 
             if ($model->save()) {
@@ -69,28 +70,28 @@ class NewsletterController extends Controller
                 return $this->redirect('@web/newsletter/news');
             }
         }
-        
+
         return $this->render('news-view', ['model'=>$model]);
     }
-    
+
     public function actionNewsDelete($id) {
-        
+
         try {
             $model = NewsletterNews::findOne($id);
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
             }
-            
+
             $model->delete();
             Yii::$app->getSession()->setFlash('success', Yii::t('app/text','News was delete success!'));
-            
+
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','News did not delete!'));
         }
-             
+
         return $this->redirect('@web/newsletter/news');
     }
-    
+
     public function actionSubscribers($logs_id = null)
     {
         $categories =  Category::find()
@@ -100,9 +101,9 @@ class NewsletterController extends Controller
                             ->where(['s.url_key' => 'articles', 'c.active' => 1, 'c.lvl' => 1])
                             ->asArray()
                             ->all();
-        
+
         $areas = ArrayHelper::map($categories, 'id', 'title');
-        
+
         $news = Newsletter::find()
             ->orderBy('created_at');
 
@@ -110,45 +111,47 @@ class NewsletterController extends Controller
             $news->joinWith('logs l', true, 'INNER JOIN')
                 ->where(['l.id' => $logs_id]);
         }
+        $cats = ['' => 'Select one'];
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $news,
-            'pagination' => ['pageSize' => 30]
-        ]);
+        $cats = ArrayHelper::merge($cats, $areas);
+        $searchModel = new SubscribersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('newsletter', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
             'areas' => $areas,
             'logId' => $logs_id,
+            'cats' => $cats
         ]);
     }
-    
+
     public function actionSubscriberDelete($id) {
-        
+
         try {
             $model = Newsletter::findOne($id);
             if (!is_object($model)) {
                 throw new NotFoundHttpException(Yii::t('app/text','The requested page does not exist.'));
             }
-            
+
             $model->delete();
             Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Subscriber was delete success!'));
-            
+
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Subscriber did not delete!'));
         }
-             
+
         return $this->redirect('@web/newsletter/subscribers');
     }
-    
+
     public function actionSubscribersExport($logs_id = null) {
-        
+
         $folderPath = Yii::$app->basePath.'/runtime/temporary_folder/export';
-        
+
         if (!FileHelper::createDirectory($folderPath, 0775, true)) {
             throw new NotFoundHttpException(Yii::t('app/text','Folder can not be create.'));
         }
-        
+
         $filePath = $folderPath.'/'.'subscribers.csv';
 
         $parent = Category::find()
@@ -160,7 +163,7 @@ class NewsletterController extends Controller
                             ->select(['id', 'taxonomy_code'])
                             ->asArray()
                             ->all();
-        
+
         $categories = ArrayHelper::map($categories, 'id', 'taxonomy_code');
 
         $subscribers = Newsletter::find()
@@ -178,23 +181,23 @@ class NewsletterController extends Controller
         $subscribers = $subscribers->asArray()->all();
         if (count($subscribers)) {
             $fp = fopen($filePath, 'w+');
-            fputcsv($fp, ['email', 'first_name', 'last_name', 
-                                            'areas_interest', 'interest', 'iza_world', 
+            fputcsv($fp, ['email', 'first_name', 'last_name',
+                                            'areas_interest', 'interest', 'iza_world',
                                             'iza', 'registered']);
 
             foreach ($subscribers as $fields) {
                 $areas_interest = explode(',', $fields['areas_interest']);
                 $areas_interest_taxonomy = [];
-                
+
                 foreach ($areas_interest as $ai) {
                     if (isset($categories[$ai])) {
                         $areas_interest_taxonomy[] = $categories[$ai];
                     }
 
                 }
-                
+
                 $fields['areas_interest'] = implode(',', $areas_interest_taxonomy);
-                
+
                 if (is_null($fields['registered'])) {
                     $fields['registered'] = 0;
                 } else {
@@ -202,14 +205,14 @@ class NewsletterController extends Controller
                 }
                 fputcsv($fp, $fields);
             }
-            
+
             fclose($fp);
         }
 
         if (file_exists($filePath)) {
             return Yii::$app->getResponse()->sendContentAsFile(file_get_contents($filePath), 'subscribers.csv');
         }
-        
+
         throw new NotFoundHttpException(Yii::t('app/text','File not exist.'));
     }
 
