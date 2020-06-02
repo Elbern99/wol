@@ -4,6 +4,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use backend\helpers\AdminFunctionHelper;
 use yii\widgets\ActiveForm;
+use dosamigos\datepicker\DatePicker;
 
 
 /* @var $this yii\web\View */
@@ -12,6 +13,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = Yii::t('app.menu', 'Newsletter');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="user-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -23,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Yii::t('app/menu', 'Export') ?>
         </a>
     </p>
-    
+
     <div class="row content">
         <div class="col-sm-12 sidenav">
             <?=
@@ -36,8 +38,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     'first_name',
                     'last_name',
                     [
+                        //'format' => 'datetime',
+                        'filter' =>
+                            'From:'.DatePicker::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'created_at_from',
+                                'clientOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'yyyy-mm-dd',
+                                    'endDate'=> date('Y-m-d')
+                                ]
+                            ]).
+                            'To:'.DatePicker::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'created_at_to',
+                                'clientOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'yyyy-mm-dd',
+                                    'endDate'=> date('Y-m-d')
+                                ]
+                            ]),
+                        'label' => 'Created At',
                         'attribute' => 'date',
-                        'value' => function($model) {
+                        'value' => function ($model) {
                             return AdminFunctionHelper::dateFormat($model->created_at);
                         }
                     ],
@@ -79,7 +102,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'iza_world',
-                        'label' => 'IZA World of Labor'
+                        'label' => 'IZA World of Labor',
+                        'filter' => Html::DropDownList( 'SubscribersSearch[iza_world]', Yii::$app->request->get( 'SubscribersSearch' )['iza_world'], [
+                            '' => 'Select',
+                            0 => 0,
+                            1 => 1
+                        ] )
                     ],
                     [
                         'attribute' => 'iza',

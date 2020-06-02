@@ -13,6 +13,9 @@ use common\models\Newsletter;
 
 class SubscribersSearch extends Newsletter {
 
+    public $created_at_from = '';
+    public $created_at_to = '';
+
     /**
      * @inheritdoc
      */
@@ -24,6 +27,9 @@ class SubscribersSearch extends Newsletter {
             [ [ 'interest' ], 'integer', 'max' => 1 ],
             [ [ 'areas_interest' ], 'string', 'max' => 255 ],
             [ [ 'iza' ], 'integer', 'max' => 1 ],
+            [ [ 'iza_world' ], 'integer', 'max' => 1 ],
+            [['created_at_from', 'created_at_to'], 'safe'],
+
         ];
     }
 
@@ -72,6 +78,21 @@ class SubscribersSearch extends Newsletter {
 
         $query->andFilterWhere( [ 'interest' => $this->interest ] );
 
+        $query->andFilterWhere( [ 'iza_world' => $this->iza_world ] );
+
+        if ($this->created_at_from) {
+
+            if (!$this->created_at_to) {
+                $this->created_at_to = date('Y-m-d');
+            }
+
+            $query->andFilterWhere( [
+                'between',
+                'created_at',
+                strtotime( $this->created_at_from ),
+                strtotime( $this->created_at_to )
+            ] );
+        }
 
         if ( $this->areas_interest ) {
             $query->andFilterWhere( [ 'like', 'areas_interest', $this->areas_interest ] );
