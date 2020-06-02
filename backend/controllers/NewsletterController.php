@@ -199,7 +199,7 @@ class NewsletterController extends Controller
                 $fields['areas_interest'] = implode(',', $areas_interest_taxonomy);
 
                 if (!is_null($fields['created_at'])) {
-                    $fields['created_at'] = date('l jS \of F Y', $fields['created_at']);
+                    $fields['created_at'] = date('j-m-Y', $fields['created_at']);
                 }
                 fputcsv($fp, $fields);
             }
