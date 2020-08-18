@@ -171,7 +171,7 @@ class NewsletterController extends Controller
             ->select([
                 'n.email', 'n.first_name', 'n.last_name',
                 'n.areas_interest', 'n.interest', 'n.iza_world',
-                'n.iza', 'n.created_at'
+                'n.iza', 'n.created_at', 'n.user_id', 'n.user_id as registered'
             ]);
 
         if ($logs_id) {
@@ -201,6 +201,13 @@ class NewsletterController extends Controller
                 if (!is_null($fields['created_at'])) {
                     $fields['created_at'] = date('j-m-Y', $fields['created_at']);
                 }
+
+                if (is_null($fields['registered'])) {
+                    $fields['registered'] = 0;
+                } else {
+                    $fields['registered'] = 1;
+                }
+
                 fputcsv($fp, $fields);
             }
 
