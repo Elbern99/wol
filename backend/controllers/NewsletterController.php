@@ -183,7 +183,7 @@ class NewsletterController extends Controller
             $fp = fopen($filePath, 'w+');
             fputcsv($fp, ['email', 'first_name', 'last_name',
                                             'areas_interest', 'interest', 'iza_world',
-                                            'iza', 'registered']);
+                                            'iza', 'registered', 'user ID', 'registered accounts']);
 
             foreach ($subscribers as $fields) {
                 $areas_interest = explode(',', $fields['areas_interest']);
