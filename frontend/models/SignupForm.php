@@ -44,7 +44,7 @@ class SignupForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'The email address "[email address used in form]" has already been subscribed, please login [link] or use an alternative.'],
             ['confirm_email', 'required'],
             ['confirm_email', 'string', 'max' => 255],
             ['confirm_email', 'compare', 'compareAttribute'=>'email', 'message'=>"Email don't match"],
@@ -54,7 +54,7 @@ class SignupForm extends Model
             ['confirm_password', 'required'],
             ['confirm_password', 'string', 'min' => 6],
             ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>"Password don't match"],
-            ['agree', 'required', 'requiredValue' => 1, 'message' => 'You do not agree with conditions'],
+            ['agree', 'required', 'requiredValue' => 1, 'message' => 'Please agree to the terms and conditions and data usage policy.'],
             ['items', 'safe'],
             ['newsletter', 'safe'],
 

@@ -113,10 +113,10 @@ class SiteController extends Controller
             $newslatter = Yii::$container->get('newsletter');
 
             if ($model->validate() && $newslatter->setSubscriber($model->getAttributes())) {
-                Yii::$app->session->setFlash('success', 'You are subscribed.');
+                Yii::$app->session->setFlash('success', '"Thank you for signing up for the IZA World of Labor newsletter/article alerts. We have sent you an email confirming your subscription.<br>We hope you enjoy our updates but if you’d like to stop receiving emails, please click the ‘unsubscribe’ link in the newsletter/article alert or contact us at wol@iza.org."');
                 return $this->redirect(\yii\helpers\Url::toRoute(['subscribe']));
             } else {
-                Yii::$app->session->setFlash('error', 'You are not subscribed.');
+                Yii::$app->session->setFlash('error', 'There is an existing subscription for this email address. Please login or use a different one and try again.');
             }
         }
 
@@ -152,7 +152,7 @@ class SiteController extends Controller
 
             Yii::$app->getSession()->setFlash('error', $text);
         } else {
-            Yii::$app->getSession()->setFlash('error', 'Incorrect email or password.');
+            Yii::$app->getSession()->setFlash('error', 'Your email or password has not been recognized. Please try again.');
         }
         return $this->goBack();
     }
@@ -189,7 +189,7 @@ class SiteController extends Controller
                 if ($model->signup()) {
 
                     if ($model->errorMessage === false) {
-                        Yii::$app->session->setFlash('success', 'You have been successfully registered. Please confirm your email!');
+                        Yii::$app->session->setFlash('success', '"You have successfully created an account with IZA World of Labor. You can now save your favorite articles and searches, upload a profile image, and manage your subscription preferences. <br> A confirmation email has been sent to your registered address - please follow the instructions in the message. "');
                     } else {
                         Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
                     }
@@ -224,7 +224,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'A password reset email has been sent to you. Please follow the instructions in the email.');
 
                 return $this->goHome();
             } else {

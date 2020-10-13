@@ -242,12 +242,12 @@ class ArticleController extends Controller
             $model->article_id = $id;
 
             if ($model->save()) {
-                return ['message' => 'Article added to favorites'];
+                return ['message' => 'Article successfully added to your favorites.'];
             }
         } catch (Exception $ex) {
             
         } catch (\yii\db\Exception $e) {
-            return ['message' => 'You already added this article'];
+            return ['message' => 'This article has already been added to your favorites'];
         }
 
         return ['message' => 'Bad Request'];
