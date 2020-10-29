@@ -116,9 +116,11 @@ $this->params['breadcrumbs'][] = 'Register';
                 </div>                
             </div>
 
-            <?= $form->field($model, 'reCaptcha')->widget(
-                \himiklab\yii2\recaptcha\ReCaptcha2::class
-            ) ?>
+            <?= 
+            // $form->field($model, 'reCaptcha')->widget(
+            //     \himiklab\yii2\recaptcha\ReCaptcha2::class
+            // ) 
+            ?>
 
             <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
         <?php ActiveForm::end(); ?>
