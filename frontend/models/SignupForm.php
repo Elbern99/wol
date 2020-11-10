@@ -58,7 +58,7 @@ class SignupForm extends Model
             ['items', 'safe'],
             ['newsletter', 'safe'],
 
-            ['reCaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
+            // ['reCaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
             
         ];
     }
