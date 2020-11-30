@@ -189,7 +189,7 @@ class SiteController extends Controller
                 if ($model->signup()) {
 
                     if ($model->errorMessage === false) {
-                        Yii::$app->session->setFlash('success', '"You have successfully created an account with IZA World of Labor. You can now save your favorite articles and searches, upload a profile image, and manage your subscription preferences. <br> A confirmation email has been sent to your registered address - please follow the instructions in the message. "');
+                        Yii::$app->session->setFlash('success', 'You have been successfully registered. Please follow the instructions in the email to confirm your account.');
                     } else {
                         Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
                     }
@@ -257,7 +257,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
 
-            Yii::$app->session->setFlash('success', 'New password was saved.');
+            Yii::$app->session->setFlash('success', 'You have successfully changed your password.');
             return $this->goHome();
         }
 

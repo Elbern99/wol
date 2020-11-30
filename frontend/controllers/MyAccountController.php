@@ -296,7 +296,7 @@ class MyAccountController extends Controller {
             }
             
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Favorite Article deleted'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('app/text','Favorite article successfully deleted.'));
             
         } catch (\yii\db\Exception $e) {
             Yii::$app->getSession()->setFlash('error', Yii::t('app/text','Favorite Article was not delete!'));
