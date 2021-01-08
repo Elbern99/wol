@@ -80,7 +80,8 @@
     });
 
     $('.remember-alert a').click(function(e){
+        e.preventDefault();
         localStorage.setItem('already',true);
-        $('#asking').css('display','none')
+        window.location.href = $(this).attr('href');
     });
 })(jQuery);
