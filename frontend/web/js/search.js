@@ -64,7 +64,7 @@
 })(jQuery);
 
 (function($) {
-    if (localStorage.getItem(key)) {
+    if (!localStorage.getItem('already')) {
         $(document).ready(function(){
             $(window).scroll(function(){
                 if ($(window).scrollTop() > 100){
