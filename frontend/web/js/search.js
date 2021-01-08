@@ -79,7 +79,7 @@
         $('#asking').css('display','none')
     });
 
-    $('.remember-alert a').click(function(e){
+    $('#asking a').click(function(e){
         e.preventDefault();
         localStorage.setItem('already',true);
         window.location.href = $(this).attr('href');
