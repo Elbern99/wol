@@ -113,7 +113,8 @@ class SiteController extends Controller
             $newslatter = Yii::$container->get('newsletter');
 
             if ($model->validate() && $newslatter->setSubscriber($model->getAttributes())) {
-                Yii::$app->session->setFlash('success', '"Thank you for signing up for the IZA World of Labor newsletter/article alerts. We have sent you an email confirming your subscription.<br>We hope you enjoy our updates but if you’d like to stop receiving emails, please click the ‘unsubscribe’ link in the newsletter/article alert or contact us at wol@iza.org."');
+                Yii::$app->session->setFlash('success', 'Thank you for signing up for our newsletter/article alerts. We have sent an email confirming your subscription.<br>
+                To unsubscribe click the link in our email footers or contact us at wol@iza.org.');
                 return $this->redirect(\yii\helpers\Url::toRoute(['subscribe']));
             } else {
                 Yii::$app->session->setFlash('error', 'There is an existing subscription for this email address. Please login or use a different one and try again.');

@@ -78,4 +78,9 @@
         localStorage.setItem('already',true);
         $('#asking').css('display','none')
     });
+
+    $('.remember-alert a').click(function(e){
+        localStorage.setItem('already',true);
+        $('#asking').css('display','none')
+    });
 })(jQuery);
