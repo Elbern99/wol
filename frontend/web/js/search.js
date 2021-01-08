@@ -62,3 +62,20 @@
     });
     
 })(jQuery);
+
+(function($) {
+    if (localStorage.getItem(key)) {
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                if ($(window).scrollTop() > 100){
+                    $('#asking').css('display','block')
+                }
+            });
+        });
+    }
+
+    $('.remember-alert').click(function(e){
+        localStorage.setItem('already',true);
+        $('#asking').css('display','none')
+    });
+})(jQuery);

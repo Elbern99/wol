@@ -75,6 +75,12 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
           </div>
       </div>
   </footer>
+
+    <div class="alert alert-primary fade in" id="#asking">
+    <button type="button" class="close remember-alert" data-dismiss="alert" aria-hidden="true">×</button>
+        <p>ZA continually aims to improve the quality and relevance of our content.
+         To do so we would really appreciate your feedback by way of completing our annual survey. To complete the survey, please click here <a href="https://www.google.com/">LINK</a></p>
+    </div>
 </div>
 
 <?php $this->endBody() ?>
