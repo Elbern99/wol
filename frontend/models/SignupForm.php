@@ -50,9 +50,9 @@ class SignupForm extends Model
             ['confirm_email', 'compare', 'compareAttribute'=>'email', 'message'=>"Email addresses do not match, please review and correct."],
 
             ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 6, 'tooShort'=>"Your password must contain at least six characters."],
             ['confirm_password', 'required'],
-            ['confirm_password', 'string', 'min' => 6],
+            ['confirm_password', 'string', 'min' => 6, 'tooShort'=>"Your password must contain at least six characters."], 
             ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords do not match. Please try again."],
             ['agree', 'required', 'requiredValue' => 1, 'message' => 'Please agree to the terms and conditions and data usage policy.'],
             ['items', 'safe'],
