@@ -78,8 +78,9 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
 
     <div class="alert alert-primary fade in" id="asking">
     <button type="button" class="close remember-alert" data-dismiss="alert" aria-hidden="true">×</button>
-        <p>IZA continually aims to improve the quality and relevance of our content.
-         To do so we would really appreciate your feedback by way of completing our annual survey. To complete the survey, please click here <a href="https://www.google.com/">LINK</a></p>
+        <p>How can we improve IZA World of Labor? Click <a href="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=EhEUMOud80C-HK92sH16BoAaTZPdRw5LqfNIotT81mdUMVdXUzJDWlBUMlQ4NzhUSjBMUU9CMDdEVC4u
+">here</a> to take our 3-minute survey and enter a prize draw
+ </p>
     </div>
 </div>
 
