@@ -1411,3 +1411,32 @@
     });
 
 })(jQuery);
+
+(function($) {
+    $(document).ready(function(){
+        $(window).scroll(function(){
+
+            if ($(window).scrollTop() > 100){
+                if (!localStorage.getItem('already')) {
+                    $('#asking').css('display','block')
+                }
+            }
+        });
+
+        if ($(window).scrollTop() > 100 && !localStorage.getItem('already')){
+            $('#asking').css('display','block')
+        }
+
+        $('.remember-alert').click(function(e){
+            localStorage.setItem('already',true);
+            $('#asking').css('display','none')
+        });
+
+        $('#asking a').click(function(e){
+            e.preventDefault();
+            localStorage.setItem('already',true);
+            window.location.href = $(this).attr('href');
+        });
+    });
+
+})(jQuery);
