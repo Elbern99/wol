@@ -44,7 +44,7 @@ class SignupForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'The email address "[email address used in form]" has already been subscribed, please login [link] or use an alternative.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been subscribed, please login or use an alternative.'],
             ['confirm_email', 'required'],
             ['confirm_email', 'string', 'max' => 255],
             ['confirm_email', 'compare', 'compareAttribute'=>'email', 'message'=>"Email addresses do not match, please review and correct."],
