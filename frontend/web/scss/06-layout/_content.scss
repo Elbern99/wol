@@ -74,3 +74,25 @@
 iframe[name = advpp_manager] {
   display: none;
 }
+
+.grid .grid-line .help-block {
+  color: red;
+  background-color: #fff;
+}
+
+body .alert{
+  width: 100%;bottom: 0;
+      right: 0;
+          display: flex;
+             padding: 20px;
+                 justify-content: center;
+                      text-align: center;  
+                       align-items: center; 
+                          margin: 0;   
+                           border-radius: 0;
+                               font-size: 16px;color:#fff;}
+                               body .alert-success {
+                                 background-color: green}
+                                 body .alert-danger 
+                                 {background-color: red}
+                                 #asking {display:none;background-color: #f99a5b;padding: 40px;font-size: 18px;z-index:9999999}
