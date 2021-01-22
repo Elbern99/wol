@@ -187,6 +187,10 @@ class SiteController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
 
+                if (!$model->validate()){
+                    Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
+                }
+
                 if ($model->signup()) {
 
                     if ($model->errorMessage === false) {
@@ -213,7 +217,6 @@ class SiteController extends Controller
                 'model' => $model,
         ]);
     }
-
 
     /**
      * Requests password reset.
