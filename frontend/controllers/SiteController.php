@@ -208,7 +208,7 @@ class SiteController extends Controller
                 }
             }
              elseif ($modelPopup->load(Yii::$app->request->post())) {
-                var_dump($model, '2');die();
+                var_dump($modelPopup, '2');die();
 
 
                 if (!$modelPopup->validate()){
