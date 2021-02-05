@@ -185,7 +185,7 @@ class SiteController extends Controller
 
         if (Yii::$app->request->isPost) {
 
-            if ($model->load(Yii::$app->request->post())) {
+            // if ($model->load(Yii::$app->request->post())) {
 
                 if (!$model->validate()){
                     Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
@@ -205,7 +205,7 @@ class SiteController extends Controller
                     }
 
                 }
-            }
+            // }
             //  elseif ($modelPopup->load(Yii::$app->request->post())) {
 
             //     if (!$model->validate()){
