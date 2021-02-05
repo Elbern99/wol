@@ -181,7 +181,7 @@ class SiteController extends Controller
     {
 
         $model = new SignupForm();
-        // $modelPopup = new SignupPopupForm();
+        $modelPopup = new SignupPopupForm();
 
         if (Yii::$app->request->isPost) {
 
@@ -207,17 +207,39 @@ class SiteController extends Controller
 
                 }
             }
-            //  elseif ($modelPopup->load(Yii::$app->request->post())) {
+             elseif ($modelPopup->load(Yii::$app->request->post())) {
+                var_dump($model, '2');die();
 
-            //     if (!$model->validate()){
-            //         Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
-            //     }
 
-            //     if ($modelPopup->signup()) {
-            //         Yii::$app->session->setFlash('success', 'You have been successfully registered');
-            //         return $this->goHome();
-            //     }
-            // }
+                if (!$modelPopup->validate()){
+                    Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
+                }
+
+                if ($modelPopup->signup()) {
+
+                    if ($modelPopup->errorMessage === false) {
+                        Yii::$app->session->setFlash('success', 'You have successfully created an account with IZA World of Labor.
+                         You can now save your favorite articles and searches, upload a profile image, and manage your subscription preferences. 
+                        <br>
+                        A confirmation email has been sent to your registered address - please follow the instructions in the message. ');
+                        return $this->goHome();
+
+                    } else {
+                        Yii::$app->session->setFlash('error', implode("<br>", $modelPopup->errorMessage));
+                    }
+
+                }
+
+
+                // if (!$model->validate()){
+                //     Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
+                // }
+
+                // if ($modelPopup->signup()) {
+                //     Yii::$app->session->setFlash('success', 'You have been successfully registered');
+                //     return $this->goHome();
+                // }
+            }
         }
 
         return $this->render('signup', [
