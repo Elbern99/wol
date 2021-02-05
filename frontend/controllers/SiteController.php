@@ -186,7 +186,6 @@ class SiteController extends Controller
         if (Yii::$app->request->isPost) {
 
             if ($model->load( Yii::$app->request->post() )) {
-                var_dump($model);die();
 
                 if (!$model->validate()){
                     Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
@@ -204,12 +203,9 @@ class SiteController extends Controller
                     } else {
                         Yii::$app->session->setFlash('error', implode("<br>", $model->errorMessage));
                     }
-
                 }
             }
              elseif ($modelPopup->load(Yii::$app->request->post())) {
-                var_dump($modelPopup, '2');die();
-
 
                 if (!$modelPopup->validate()){
                     Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
@@ -229,16 +225,9 @@ class SiteController extends Controller
                     }
 
                 }
-
-
-                // if (!$model->validate()){
-                //     Yii::$app->session->setFlash('error', 'There is an existing account for this email address. Please login or use a different one and try again.');
-                // }
-
-                // if ($modelPopup->signup()) {
-                //     Yii::$app->session->setFlash('success', 'You have been successfully registered');
-                //     return $this->goHome();
-                // }
+                return $this->render('signup', [
+                        'model' => $modelPopup,
+                ]);
             }
         }
 
