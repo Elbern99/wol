@@ -20,6 +20,9 @@ if (!YII_ENV_TEST) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
+    $config['aliases'] = [
+        '@webroot' => dirname(dirname(__FILE__)) . '/web',
+    ]
 }
 
 return $config;
