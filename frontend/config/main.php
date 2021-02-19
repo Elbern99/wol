@@ -124,7 +124,7 @@ return [
                     'css' => [],
                 ]
             ],
-        ],
+        ]
         // 'reCaptcha' => [
         //     'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
         //     'siteKeyV2' => '6Lfc2qoUAAAAALTXfD70mxxxKUeO2SiMHt4h6vfO',
