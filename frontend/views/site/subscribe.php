@@ -126,9 +126,9 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
         </div>
 
         <?= 
-            $form->field($model, 'reCaptcha')->widget(
-                \himiklab\yii2\recaptcha\ReCaptcha2::class
-            ) 
+            // $form->field($model, 'reCaptcha')->widget(
+            //     \himiklab\yii2\recaptcha\ReCaptcha2::class
+            // ) 
         ?>
 
 
