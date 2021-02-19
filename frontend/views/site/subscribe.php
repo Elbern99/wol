@@ -125,6 +125,12 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
             <?php ActiveForm::end(); ?>
         </div>
 
+        <?= 
+            $form->field($model, 'reCaptcha')->widget(
+                \himiklab\yii2\recaptcha\ReCaptcha2::class
+            ) 
+        ?>
+
 
         <aside class="sidebar-right">
             <div class="sidebar-widget sidebar-widget-articles-filter">
