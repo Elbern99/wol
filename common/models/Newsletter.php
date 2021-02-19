@@ -118,8 +118,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
         if ($this->load($data, '') && $this->validate()) {
 
-            
-            var_dump($data);die();
+
             
             $this->user_id = $this->getUserByEmail();
             
@@ -128,6 +127,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
                 $this->setAttribute('code', Yii::$app->security->generateRandomString());
                 $this->sendSuccessEmail();
             }
+            var_dump($data);die();
             
             return $this->save(false);
         }
