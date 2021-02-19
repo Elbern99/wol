@@ -29,7 +29,7 @@ class NewsletterForm extends Model
             ['areas_interest', 'safe'],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email', ],
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator3::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.', 'message' => 'The verification code is incorrect.']
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::className(), 'uncheckedMessage' => 'Please confirm that you are not a bot.', 'message' => 'The verification code is incorrect.']
         ];
     }
 
