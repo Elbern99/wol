@@ -117,6 +117,9 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
     public function setSubscriber(array $data) {
 
         if ($this->load($data, '') && $this->validate()) {
+
+            
+            var_dump($data);die();
             
             $this->user_id = $this->getUserByEmail();
             
