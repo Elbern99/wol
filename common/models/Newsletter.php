@@ -185,7 +185,6 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
                 'subject' => 'Welcome to the IZA World of Labor newsletter'
             ];
         }
-        var_dump("1zz", $mails);
         if ($this->getAttribute('interest') && count($this->areas_interest)) {
             
             $link = (Yii::$app->user->getIsGuest()) ? Url::to('/subscribe', true) : Url::to('/my-account', true);
@@ -195,7 +194,6 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
                 'subject' => 'Article alerts for IZA World of Labor'
             ];
         }
-        var_dump($mails);die();
         
         return $mails;
     }
@@ -208,6 +206,7 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
      * @return bool
      */
     protected function sendEmail($subject, string $body) {
+        var_dump($this->email);die();
 
         return Yii::$app->mailer
             ->compose()
