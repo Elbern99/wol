@@ -18,7 +18,7 @@ class NewsletterForm extends Model
     public $interest = 0;
     public $iza_world = 0;
     public $iza = 0;
-    // public $reCaptcha;
+    public $reCaptcha;
 
     public function rules()
     {
@@ -47,7 +47,7 @@ class NewsletterForm extends Model
             'interest' => Yii::t('app', 'Interest'),
             'iza_world' => Yii::t('app', 'Iza World'),
             'iza' => Yii::t('app', 'Iza'),
-            // 'reCaptcha' => Yii::t('app', 'Recaptcha'),
+            'reCaptcha' => Yii::t('app', 'Recaptcha'),
         ];
     }
 
