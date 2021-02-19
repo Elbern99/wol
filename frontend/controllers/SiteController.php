@@ -111,7 +111,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $newslatter = Yii::$container->get('newsletter');
-            var_dump($model->validate(),$model->getAttributes());die();
+            // var_dump($model->validate(),$model->getAttributes());die();
 
             if ($model->validate() && $newslatter->setSubscriber($model->getAttributes())) {
                 Yii::$app->session->setFlash('success', 'Thank you for signing up for our newsletter/article alerts. We have sent an email confirming your subscription.<br>
