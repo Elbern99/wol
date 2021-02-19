@@ -134,9 +134,6 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
     public function sendSuccessEmail() {
 
-
-        var_dump($this->id,$this->getOldAttributes());die();
-
         if (!is_null($this->id) && count($this->getOldAttributes())) {
             $mails = $this->forIssetSubscriber();
         } else {
@@ -180,6 +177,8 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
 
         $mails = [];
         
+        var_dump($this->getAttribute('iza_world'));die();
+
         if ($this->getAttribute('iza_world') || $this->getAttribute('iza')) {
             
             $mails[] = [
