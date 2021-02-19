@@ -206,13 +206,6 @@ class Newsletter extends \yii\db\ActiveRecord implements NewsletterInterface {
      * @return bool
      */
     protected function sendEmail($subject, string $body) {
-        var_dump(Yii::$app->mailer
-        ->compose()
-        ->setFrom([Yii::$app->params['fromAddress'] => Yii::$app->params['fromName']])
-        ->setTo($this->email)
-        ->setSubject($subject)
-        ->setHtmlBody($body)
-        ->send());die();
 
         return Yii::$app->mailer
             ->compose()
