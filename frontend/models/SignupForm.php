@@ -24,7 +24,7 @@ class SignupForm extends Model
     public $items = null;
     public $newsletter = 0;
     public $errorMessage = false;
-    // public $reCaptcha;
+    public $reCaptcha;
     
     /**
      * @inheritdoc
