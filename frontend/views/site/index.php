@@ -9,7 +9,7 @@ use frontend\assets\TwitterAsset;
 use common\models\NewsItem;
 
 $prefixTitle = common\modules\settings\SettingsRepository::get('title_prefix');
-$this->title = $prefixTitle.$page->Cms('meta_title');
+$this->title = $prefixTitle . $page->Cms('meta_title');
 $this->params['breadcrumbs'][] = Html::encode($page->Cms('title'));
 $googleVerification = common\modules\settings\SettingsRepository::get('google_site_verification');
 
@@ -42,7 +42,7 @@ TwitterAsset::register($this);
                 <div class="content-inner-text">
 
                     <div class="index-head">
-                        <?= $page->Page('text') ?> 
+                        <?= $page->Page('text') ?>
                     </div>
 
                     <?= $page->getWidgetByName('home_featured_article') ?>
@@ -67,12 +67,15 @@ TwitterAsset::register($this);
                                         </h2>
                                         <h3><?= $article['teaser']->teaser ?? ''; ?></h3>
                                         <div class="writers">
-                                            <?php foreach ($article['authors'] as $author): ?><span class="writer-item"><?= $author ?></span><?php endforeach; ?>, <?= date('F Y', $article['created_at']) ?>
+                                            <?php foreach ($article['authors'] as $author): ?><span
+                                                    class="writer-item"><?= $author ?></span><?php endforeach; ?>
+                                            , <?= date('F Y', $article['created_at']) ?>
                                         </div>
                                         <div class="description">
                                             <?= $article['abstract']->abstract ?? ''; ?>
                                         </div>
-                                        <a href="" class="article-more"><span class="more">More</span><span class="less">Less</span></a>
+                                        <a href="" class="article-more"><span class="more">More</span><span
+                                                    class="less">Less</span></a>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
@@ -90,7 +93,8 @@ TwitterAsset::register($this);
                                 <li>
                                     <div class="post-item <?= ($img) ? 'has-image' : '' ?>">
                                         <?php if ($img): ?>
-                                            <a href="<?= Url::to(['/news/' . $newsItem['url_key']]) ?>" class="img" style="background-image: url(/uploads/news/<?= $newsItem['image_link'] ?>)"></a>
+                                            <a href="<?= Url::to(['/news/' . $newsItem['url_key']]) ?>" class="img"
+                                               style="background-image: url(/uploads/news/<?= $newsItem['image_link'] ?>)"></a>
                                         <?php endif; ?>
                                         <div class="desc">
                                             <div class="head-news-holder">
@@ -117,9 +121,11 @@ TwitterAsset::register($this);
                         <div class="other-commentary-list-holder">
                             <?php /* Show Commentary */ ?>
                             <div class="widget-title medium"><a href="/commentary">commentary</a></div>
+                            <?php Pjax::begin(['linkSelector' => '#commentary_video_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
                             <ul class="post-list other-commentary-list">
                                 <?php foreach ($commentary['video'] as $video): ?>
-                                    <li><div class="post-item s-opinion-item media-item">
+                                    <li>
+                                        <div class="post-item s-opinion-item media-item">
                                             <?=
                                             Html::beginTag('a', [
                                                 'href' => Url::to(['/video/view', 'slug' => $video->url_key]),
@@ -131,11 +137,18 @@ TwitterAsset::register($this);
                                             <?= Html::endTag('a'); ?>
                                             <div class="category"><?= Html::a('video', ['/video/index']); ?></div>
                                             <h2><?= Html::a($video->title, ['/video/view', 'slug' => $video->url_key]); ?></h2>
-                                        </div></li>
+                                        </div>
+                                    </li>
                                 <?php endforeach; ?>
+                            </ul>
+                            <?= $more->getLink('commentary_video_limit') ?>
+                            <?php Pjax::end(); ?>
+                            <?php Pjax::begin(['linkSelector' => '#commentary_opinion_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
 
+                            <ul class="post-list other-commentary-list">
                                 <?php foreach ($commentary['opinion'] as $opinion): ?>
-                                    <li><div class="post-item s-opinion-item media-item">
+                                    <li>
+                                        <div class="post-item s-opinion-item media-item">
                                             <?php $hasImage = $opinion->image_link ? true : false; ?>
                                             <?php if ($hasImage) : ?>
                                                 <?=
@@ -162,24 +175,27 @@ TwitterAsset::register($this);
                                                 <div class="author">
                                                     <?=
                                                     implode(', ', array_map(
-                                                            function($item) {
-                                                            $author = $item['author_name'];
+                                                            function ($item) {
+                                                                $author = $item['author_name'];
 
-                                                            if ($item['author_url']) {
-                                                                return Html::a($item['author_name'], $item['author_url']);
-                                                            }
+                                                                if ($item['author_url']) {
+                                                                    return Html::a($item['author_name'], $item['author_url']);
+                                                                }
 
-                                                            return $author;
-                                                        }, $opinion['opinionAuthors']
+                                                                return $author;
+                                                            }, $opinion['opinionAuthors']
                                                         )
                                                     )
                                                     ?>
                                                 </div>
                                             <?php endif; ?>
                                             <h2><?= Html::a($opinion->title, ['/opinion/view', 'slug' => $opinion->url_key]); ?></h2>
-                                        </div></li>
+                                        </div>
+                                    </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <?= $more->getLink('commentary_opinion_limit') ?>
+                            <?php Pjax::end(); ?>
                         </div>
                     <?php endif; ?>
                     <?php Pjax::begin(['linkSelector' => '#event_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
@@ -190,7 +206,8 @@ TwitterAsset::register($this);
                                 <li>
                                     <div class="post-item media-item">
                                         <?php if (date('M d, Y', strtotime($event['date_from'])) != date('M d, Y', strtotime($event['date_to']))) : ?>
-                                            <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?> - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
+                                            <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?>
+                                                - <?= date('M d, Y', strtotime($event['date_to'])) ?></div>
                                         <?php else : ?>
                                             <div class="date"><?= date('M d, Y', strtotime($event['date_from'])) ?></div>
                                         <?php endif; ?>
@@ -223,22 +240,29 @@ TwitterAsset::register($this);
                             <div class="widget-title">trending topics</div>
                             <div class="data-method-list">
                                 <?php foreach ($topics as $topic): ?>
-                                    <a href="<?= Url::to(['/topic/view', 'slug' => $topic['url_key']]) ?>" class="data-method-item gray">
-                                        <div class="img"><img src="<?= Yii::$app->imageCache->getImgSrc('/uploads/topics/' . $topic['image_link'], '297', '239') ?>" alt=""></div>
+                                    <a href="<?= Url::to(['/topic/view', 'slug' => $topic['url_key']]) ?>"
+                                       class="data-method-item gray">
+                                        <div class="img"><img
+                                                    src="<?= Yii::$app->imageCache->getImgSrc('/uploads/topics/' . $topic['image_link'], '297', '239') ?>"
+                                                    alt=""></div>
                                         <div class="caption">
                                             <span class="icon-arrow-square-blue">
-                                                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                                <span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span>
                                             </span>
                                             <h3><?= $topic['title'] ?></h3>
                                         </div>
                                     </a>
-                                <?php endforeach; ?> 
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
                     <div class="sidebar-widget sidebar-widget-twitter">
                         <div class="widget-title">iza world of labor on twitter</div>
-                        <a data-lang="en" data-tweet-limit="5" class="twitter-timeline custom-tr" data-chrome="noheader transparent nofooter" href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>" data-link-color="#0053a0">Tweets by IZAWorldofLabor</a>
+                        <a data-lang="en" data-tweet-limit="5" class="twitter-timeline custom-tr"
+                           data-chrome="noheader transparent nofooter"
+                           href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>"
+                           data-link-color="#0053a0">Tweets by IZAWorldofLabor</a>
                         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                         <?php
                         /*
@@ -247,7 +271,9 @@ TwitterAsset::register($this);
                         </a>
                             */
                         ?>
-                        <a href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @IZAWorldofLabor</a>
+                        <a href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>"
+                           class="twitter-follow-button" data-size="large" data-show-count="false">Follow
+                            @IZAWorldofLabor</a>
                     </div>
                 </aside>
             </div>

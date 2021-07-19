@@ -31,6 +31,8 @@ return [
     'expert_limit' => 9,
     'search_result_limit' => 50,
     'authors_limit' => 10,
+    'commentary_video_limit' => 3,
+    'commentary_opinion_limit' => 3,
     'topic_articles_limit' => 6,
     'topic_videos_limit' => 6,
     'topic_opinions_limit' => 6,
