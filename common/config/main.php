@@ -18,6 +18,10 @@ return [
             'class' => 'common\modules\task\Module',
         ]
     ],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'components' => [
         'cacheFrontend' => [
             'class' => 'yii\caching\FileCache',
