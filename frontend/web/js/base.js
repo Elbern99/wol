@@ -1440,7 +1440,7 @@
     });
 
     $(window).load(function(){
-        if(cvox){
+        if(window.cvox !== void 0){
             $('.header-top .container').append(`<div class="screen_reader_btn">Skip to main content</div>`)
             $(".screen_reader_btn").click(function(){
                 $(this).fadeOut()
