@@ -1439,4 +1439,15 @@
         });
     });
 
+    $(window).load(function(){
+        if(cvox){
+            $('.header-top .container').append(`<div class="screen_reader_btn">Skip to main content</div>`)
+            $(".screen_reader_btn").click(function(){
+                $(this).fadeOut()
+                $('html').animate({ 
+                    scrollTop: $('h1').offset().top
+                }, 500);
+            })
+        }
+    })
 })(jQuery);
