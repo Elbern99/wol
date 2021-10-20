@@ -1440,14 +1440,16 @@
     });
 
     $(window).load(function(){
-        if(window.cvox !== void 0){
-            $('.header-top .container').append(`<div class="screen_reader_btn">Skip to main content</div>`)
-            $(".screen_reader_btn").click(function(){
-                $(this).fadeOut()
-                $('html').animate({ 
-                    scrollTop: $('h1').offset().top
-                }, 500);
-            })
-        }
+        let firstVisit = true 
+        $(window).on('keydown',function(EO){
+            if(firstVisit && EO.keyCode === 9){
+                EO.preventDefault()
+                console.log(123)
+                $('.screen_reader_btn').focus()
+                firstVisit = false
+            }
+        })
+
+        $($('h1')[0]).attr('id','screen_reader_content')
     })
 })(jQuery);
