@@ -1,4 +1,12 @@
+
 <header class="header header-desktop">
+    <nav>
+        <ul class="screen_reader_link_menu">
+            <li>
+                <a href="#screen_reader_content" class="screen_reader_btn">Skip to main content</a>
+            </li>
+        </ul>
+    </nav>
     <div class="header-top">
         <div class="container">
             <?= $this->renderFile('@app/views/components/header/menu/top.php'); ?>
