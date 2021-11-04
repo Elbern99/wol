@@ -1,3 +1,43 @@
+.screen_reader_nav{
+  position: absolute;
+}
+.screen_reader_link_menu{
+  list-style: none;
+  padding: 0;
+  li{
+    line-height: 0;
+    padding: 0;
+    &::before{
+      display: none;
+    }
+  }
+}
+.screen_reader_btn{
+  position: absolute;
+  top: 18px;
+  left: 0;
+  color: #0053a0;
+  font-size: 24px;
+  background: #fff;
+  border: 1px solid #bcbcbc;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  z-index: 20;
+  text-align: center;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px,1px,1px,1px);
+  line-height: initial;
+  &:focus{
+    height: auto;
+    width: 300px;
+    overflow: hidden;
+    clip: auto;
+  }
+}
 .header-desktop {
   display: none;
 
@@ -64,6 +104,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
   }
 }
