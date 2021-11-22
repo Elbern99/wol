@@ -190,6 +190,8 @@ class AlertsController extends Controller
                 return $this->sendMessage($subscriber, $viewFileName, $event, $subject, $cycle + 1);
             }
             $this->stdout('Skip send mail to' . $subscriber->email . PHP_EOL);
+
+            Yii::error('Error send email ' . $subscriber->email . ' : ' . $e->getMessage());
         }
         return false;
     }

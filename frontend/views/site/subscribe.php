@@ -121,15 +121,13 @@ $this->params['breadcrumbs'][] = 'Subscribe to newsletter';
                 </div>
             </div>
 
+            <?= $form->field($model, 'reCaptcha')->widget(\himiklab\yii2\recaptcha\ReCaptcha3::className(), [
+                    'action' => 'subscribe'
+            ]) ?>
+
             <?= Html::submitButton('Sign up', ['class' => 'btn-blue-large', 'name' => 'signup-button']) ?>
             <?php ActiveForm::end(); ?>
         </div>
-
-        <?php
-            // $form->field($model, 'reCaptcha')->widget(
-            //     \himiklab\yii2\recaptcha\ReCaptcha2::class
-            // ) 
-        ?>
 
 
         <aside class="sidebar-right">

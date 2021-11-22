@@ -24,7 +24,7 @@ class SignupForm extends Model
     public $items = null;
     public $newsletter = 0;
     public $errorMessage = false;
-    // public $reCaptcha;
+    public $reCaptcha;
     
     /**
      * @inheritdoc
@@ -57,6 +57,12 @@ class SignupForm extends Model
             ['agree', 'required', 'requiredValue' => 1, 'message' => 'Please agree to the terms and conditions and data usage policy.'],
             ['items', 'safe'],
             ['newsletter', 'safe'],
+
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator3::className(),
+                'threshold' => 0.5,
+                'action' => 'register',
+                'message' => 'The verification code is incorrect.'
+            ]
 
             // ['reCaptcha', \himiklab\yii2\recaptcha\ReCaptchaValidator2::class, 'uncheckedMessage' => 'Please confirm that you are not a bot.']
             

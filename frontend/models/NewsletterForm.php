@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\models;
 
 use yii\base\Model;
@@ -7,10 +8,10 @@ use Yii;
 /**
  * Signup form
  */
-class NewsletterForm extends Model 
+class NewsletterForm extends Model
 {
     use \frontend\models\traits\AreasOfInterest;
-    
+
     public $email;
     public $first_name;
     public $last_name;
@@ -18,7 +19,7 @@ class NewsletterForm extends Model
     public $interest = 0;
     public $iza_world = 0;
     public $iza = 0;
-    // public $reCaptcha;
+    public $reCaptcha;
 
     public function rules()
     {
@@ -28,8 +29,12 @@ class NewsletterForm extends Model
             [['email', 'first_name', 'last_name'], 'string', 'max' => 255],
             ['areas_interest', 'safe'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email', ],
-            // [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::className(), 'uncheckedMessage' => 'Please confirm that you are not a bot.', 'message' => 'The verification code is incorrect.']
+            ['email', 'unique', 'targetClass' => \common\models\Newsletter::className(), 'targetAttribute' => 'email',],
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator3::className(),
+                'threshold' => 0.5,
+                'action' => 'subscribe',
+                'message' => 'The verification code is incorrect.'
+            ]
         ];
     }
 

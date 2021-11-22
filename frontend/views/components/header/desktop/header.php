@@ -1,6 +1,14 @@
+
 <header class="header header-desktop">
     <div class="header-top">
         <div class="container">
+            <nav class="screen_reader_nav">
+                <ul class="screen_reader_link_menu">
+                    <li>
+                        <a href="#screen_reader_content" class="screen_reader_btn">Skip to main content</a>
+                    </li>
+                </ul>
+            </nav>
             <?= $this->renderFile('@app/views/components/header/menu/top.php'); ?>
             <?= $this->renderFile('@app/views/components/header/desktop/login-registration.php'); ?>
         </div>
