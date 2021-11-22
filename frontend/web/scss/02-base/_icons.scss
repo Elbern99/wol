@@ -201,7 +201,7 @@
   }
 
   &:after {
-    transform: rotate(-45deg);
+    transform: rotate(-45deg) !important;
   }
 }
 
