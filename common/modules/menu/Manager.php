@@ -29,11 +29,11 @@ class Manager implements MenuManagerInterface {
         
         $this->category = $category->find()->select([
                     'id', 'title', 'url_key',
-                    'root', 'lvl', 'lft', 'rgt'
+                    'root', 'lvl', 'lft', 'rgt', 'sort_index'
                 ])
                 ->where(['active' => 1, 'visible_in_menu' => 1])
                 ->andWhere(['<=', 'lvl', 2])
-                ->orderBy(['root' => SORT_ASC, 'lft' => SORT_ASC])
+                ->orderBy(['sort_index' => SORT_ASC, 'lft' => SORT_ASC])
                 ->asArray()
                 ->all();
     }
