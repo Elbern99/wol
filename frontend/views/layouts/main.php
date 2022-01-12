@@ -75,15 +75,14 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
           </div>
       </div>
   </footer>
-    <? /* ?>
-    <div class="alert alert-primary fade in" id="asking">
+
+<!--    <div class="alert alert-primary fade in" id="asking">
         <button type="button" class="close remember-alert" data-dismiss="alert" aria-hidden="true">×</button>
         <p>
             How can we improve IZA World of Labor?
             Click <a target="_blank" onclick="window.open('https://forms.office.com/r/Q13ZijPare', '_blank');" href="#">here</a> to take our 5-minute survey and enter a prize draw.
         </p>
-    </div>
-    <? */ ?>
+    </div> -->
 </div>
 
 <?php $this->endBody() ?>
