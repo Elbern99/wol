@@ -294,6 +294,7 @@
                 var $cur = $(this),
                   curText = $cur.text();
                 $cur.parents(parent).find(':text').val(curText);
+                $cur.parents(parent).find('form').submit();
                 $(drop).fadeOut();
                 e.preventDefault();
             });
