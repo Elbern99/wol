@@ -20,7 +20,7 @@
     <div class="socials">
         <ul class="socials-list">
             <li><a href="http://twitter.com/IZAWorldofLabor" target="_blank"><span class="icon-twitter"></span></a></li>
-            <li><a href="http://www.linkedin.com/groups?gid=6610789&mostPopular=&trk=tyah&trkInfo=tas%3AIZA%20wo%2Cidx%3A1-1-1" target="_blank"><span class="icon-linkedn"></span></a></li>
+            <li><a href="https://www.linkedin.com/showcase/iza-world-of-labor/" target="_blank"><span class="icon-linkedn"></span></a></li>
             <li><a href="http://www.facebook.com/pages/IZA-World-of-Labor/174866842714452" target="_blank"><span class="icon-facebook"></span></a></li>
         </ul>
     </div>
