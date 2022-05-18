@@ -935,9 +935,9 @@
                   slicedTitle = sliceText(titleClear,140);
 
                 //set
-                var linkEdn = "http://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+slicedTitle+"&summary="+slicedDesc+"",
+                var linkEdn = "https://www.linkedin.com/sharing/share-offsite/?url="+url,
                   twitter = "http://twitter.com/share/?url=http%3A%2F%2F"+urlText+"&via=IZAWorldofLabor&related=IZAWorldofLabor&text="+slicedTitle+"",
-                  facebook = 'http://facebook.com/dialog/share?display=popup&href='+url+'&title='+slicedTitle+'&description='+slicedDesc+'&app_id=686925074844965';
+                  facebook = 'https://www.facebook.com/sharer.php?u='+url;
 
                 $(item).each(function() {
                     var cur = $(this);
