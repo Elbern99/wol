@@ -272,6 +272,7 @@ trait ArticleTrait
 
             $model->setCurrentLang($currentLang);
             $model->renderTwitterTags();
+            $model->renderOgTags();
         } catch (\Exception $e) {
             throw $e;
             throw new NotFoundHttpException('Page Not Found.');

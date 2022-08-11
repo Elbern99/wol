@@ -69,7 +69,8 @@ class VideoController extends Controller {
         
         $videosSidebar = Video::find()->orderBy('id desc')->all();
         $video->renderTwitterTags();
-        
+        $video->renderOgTags();
+
         return $this->render('view', [
             'model' => $video,
             'category' => $this->getMainCategory($this->mainCategory),

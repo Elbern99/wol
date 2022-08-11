@@ -3,10 +3,11 @@
 namespace common\models;
 
 
-use Yii;
+use common\components\OpenGraphBehavior;
+use common\components\TwitterBehavior;
 use common\contracts\VideoInterface;
 use common\helpers\VideoHelper;
-use common\models\Video;
+use Yii;
 
 
 class Video extends \yii\db\ActiveRecord implements VideoInterface
@@ -34,12 +35,18 @@ class Video extends \yii\db\ActiveRecord implements VideoInterface
     {
         return [
             [
-                'class' => \common\components\TwitterBehavior::className(),
+                'class' => TwitterBehavior::className(),
                 'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
                 'twitterDescription' => 'description',
                 'twitterImage' => 'videoImageLink',
+            ],
+            [
+                'class' => OpenGraphBehavior::className(),
+                'title' => 'title',
+                'type' => 'video.movie',
+                'image' => 'videoImageLink',
             ]
         ];
     }
