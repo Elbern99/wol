@@ -205,7 +205,16 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
 
                 <h2>Elevator pitch</h2>
                 <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract') ?></p>
-                <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
+                <?php
+                $gaImage = EavAttributeHelper::getAttribute('ga_image');
+
+                $this->registerMetaTag([
+                    'name' => 'og:image',
+                    'itemprop' => 'image primaryImageOfPage',
+                    'content' => Url::to($gaImage->getData('path'), true)
+                ]);
+
+                ?>
                 <figure>
                     <?php if ($gaImage->getData('target')): ?>
                         <a href="<?= $gaImage->getData('target') ?>" class="text-reference">

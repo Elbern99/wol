@@ -107,18 +107,7 @@
         if (parameters.twitterUsername && parameters.twitterUsername.length) {
             twitterUrl += '&via=' + parameters.twitterUsername;
         }
-        var facebookUrl = 'https://facebook.com/dialog/share?display=' + parameters.facebookDisplayMode + '&href=' + PAGE_URL + '&title='+title+'&description="' + text + '"';
-        if (document.querySelector('meta[property="fb:app_id"]') && document.querySelector('meta[property="fb:app_id"]').getAttribute('content')) {
-            var content = document.querySelector('meta[property="fb:app_id"]');
-            facebookUrl += '&app_id=' + content;
-        } else if (parameters.facebookAppID && parameters.facebookAppID.length) {
-            facebookUrl += '&app_id=' + parameters.facebookAppID;
-        } else {
-            var idx = parameters.buttons.indexOf('facebook');
-            if (idx > -1) {
-                parameters.buttons.splice(idx, 1);
-            }
-        }
+        var facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + PAGE_URL + '&title='+title+'&description="' + text + '"';
 
         var textLong = getSelectedText();
 
