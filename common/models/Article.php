@@ -3,6 +3,8 @@
 namespace common\models;
 
 
+use common\components\OpenGraphBehavior;
+use common\components\TwitterBehavior;
 use Yii;
 use common\modules\article\contracts\ArticleInterface;
 use common\modules\eav\contracts\EntityModelInterface;
@@ -136,12 +138,20 @@ class Article extends \yii\db\ActiveRecord implements ArticleInterface, EntityMo
     {
         return [
             [
-                'class' => \common\components\TwitterBehavior::className(),
+                'class' => TwitterBehavior::className(),
                 'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
                 'twitterDescription' => 'teaser',
                 'twitterImage' => function ($model) {
+                    return \yii\helpers\Url::to($model->getElevatorImageUrl(), true);
+                },
+            ],
+            [
+                'class' => OpenGraphBehavior::className(),
+                'title' => 'title',
+                'type' => 'article',
+                'image' => function ($model) {
                     return \yii\helpers\Url::to($model->getElevatorImageUrl(), true);
                 },
             ]

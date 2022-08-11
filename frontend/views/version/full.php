@@ -200,12 +200,6 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
                 <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract') ?></p>
                 <?php
                 $gaImage = EavAttributeHelper::getAttribute('ga_image');
-
-                $this->registerMetaTag([
-                    'name' => 'og:image',
-                    'itemprop' => 'image primaryImageOfPage',
-                    'content' => Url::to($gaImage->getData('path'), true)
-                ]);
                 ?>
                 <figure>
                     <?php if ($gaImage->getData('target')): ?>
