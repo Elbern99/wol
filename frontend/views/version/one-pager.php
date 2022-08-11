@@ -225,13 +225,6 @@ $affiliationArticle = EavAttributeHelper::getAttribute('affiliation_article')->g
             <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
             <?php
             $gaImage = EavAttributeHelper::getAttribute('ga_image');
-
-            $this->registerMetaTag([
-                'name' => 'og:image',
-                'itemprop' => 'image primaryImageOfPage',
-                'content' => Url::to($gaImage->getData('path', $currentLang), true)
-            ]);
-
             ?>
             <figure>
                 <?php if ($gaImage->getData('target', $currentLang)): ?>

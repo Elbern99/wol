@@ -86,6 +86,7 @@ class NewsController extends Controller
         $latestNews = NewsItem::find()->andWhere(['enabled' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $articles = $newsItem->getNewsArticles()->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $newsItem->renderTwitterTags();
+        $newsItem->renderOgTags();
 
         return $this->render('view', [
                 'model' => $newsItem,

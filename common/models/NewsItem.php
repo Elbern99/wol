@@ -3,6 +3,8 @@
 namespace common\models;
 
 
+use common\components\OpenGraphBehavior;
+use common\components\TwitterBehavior;
 use Yii;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
@@ -75,7 +77,7 @@ class NewsItem extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class' => \common\components\TwitterBehavior::className(),
+                'class' => TwitterBehavior::className(),
                 'twitterCard' => 'summary_large_image',
                 'twitterSite' => '@izaworldoflabor',
                 'twitterTitle' => 'title',
@@ -83,6 +85,14 @@ class NewsItem extends \yii\db\ActiveRecord
                 'twitterImage' => function ($model) {
                     return $model->getImageUrl(true);
                 },
+            ],
+            [
+                'class' => OpenGraphBehavior::className(),
+                'title' => 'title',
+                'type' => 'article',
+                'image' => function ($model) {
+                    return $model->getImageUrl(true);
+                }
             ]
         ];
     }
