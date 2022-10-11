@@ -245,7 +245,9 @@ if (isset($affiliationArticle[0]) && is_object($affiliationArticle[0])) {
 
                 <h2><?= Yii::t('app/article', 'Elevator pitch') ?></h2>
                 <p><?= EavAttributeHelper::getAttribute('abstract')->getData('abstract', $currentLang) ?></p>
-                <?php $gaImage = EavAttributeHelper::getAttribute('ga_image'); ?>
+                <?php
+                $gaImage = EavAttributeHelper::getAttribute('ga_image');
+                ?>
                 <figure>
                     <?php if ($gaImage->getData('target', $currentLang)): ?>
                         <a href="<?= $gaImage->getData('target', $currentLang) ?>" class="text-reference">

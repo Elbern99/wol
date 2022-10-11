@@ -68,6 +68,7 @@ class OpinionController extends Controller {
         
         $videosSidebar = Video::find()->orderBy('id desc')->all();
         $opinion->renderTwitterTags();
+        $opinion->renderOgTags();
         
         return $this->render('view', [
             'model' => $opinion,
