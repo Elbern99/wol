@@ -84,7 +84,7 @@ class Topic extends \yii\db\ActiveRecord
             'video_ids' => Yii::t('app', 'Videos'),
             'opinion_ids' => Yii::t('app', 'Opinions'),
             'event_ids' => Yii::t('app', 'Events'),
-            'is_hided' => Yii::t('app', 'Is Hided')
+            'is_hided' => Yii::t('app', 'Is Hidden')
         ];
     }
 
