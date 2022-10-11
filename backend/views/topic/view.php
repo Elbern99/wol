@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => $model->articlesList(),
                     'options' => ['placeholder' => 'Select topic articles...', 'multiple' => true],
                     'pluginOptions' => [
-                        'tags' => true,
+                        'tags' => false,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => $model->videosList(),
                     'options' => ['placeholder' => 'Select topic videos...', 'multiple' => true],
                     'pluginOptions' => [
-                        'tags' => true,
+                        'tags' => false,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => $model->opinionsList(),
                     'options' => ['placeholder' => 'Select topic opinions...', 'multiple' => true],
                     'pluginOptions' => [
-                        'tags' => true,
+                        'tags' => false,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],
@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => $model->eventsList(),
                     'options' => ['placeholder' => 'Select topic events...', 'multiple' => true],
                     'pluginOptions' => [
-                        'tags' => true,
+                        'tags' => false,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],

@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => $model->videosList(),
                     'options' => ['placeholder' => 'Select related videos...', 'multiple' => true],
                     'pluginOptions' => [
-                        'tags' => true,
+                        'tags' => false,
                         'tokenSeparators' => [',', ' '],
                         'maximumInputLength' => 10
                     ],
