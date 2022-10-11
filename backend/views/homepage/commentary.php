@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'data' => $model::videosList(),
                 'options' => ['placeholder' => 'Select videos for the page...', 'multiple' => true],
                 'pluginOptions' => [
-                    'tags' => true,
+                    'tags' => false,
                     'tokenSeparators' => [',', ' '],
                     'maximumInputLength' => 10
                 ],
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'data' => $model::opinionsList(),
                 'options' => ['placeholder' => 'Select opinions for the page...', 'multiple' => true],
                 'pluginOptions' => [
-                    'tags' => true,
+                    'tags' => false,
                     'tokenSeparators' => [',', ' '],
                     'maximumInputLength' => 10
                 ],
