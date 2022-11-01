@@ -77,13 +77,19 @@ a.desc:after {
     white-space: normal;
 }
 
+.grid-view table.table {
+    table-layout: fixed;
+}
+
 .grid-view td {
-    white-space: nowrap;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .grid-view .filters input,
 .grid-view .filters select {
     min-width: 50px;
+    width: 100%;
 }
 
 .hint-block {
