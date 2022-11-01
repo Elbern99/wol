@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 
 
-$this->title = Yii::t('app.menu', 'Homepage Commentray');
+$this->title = Yii::t('app.menu', 'Homepage Commentary');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="view">
