@@ -9,7 +9,7 @@ use yii\sphinx\Query;
 use yii\sphinx\MatchExpression;
 use common\models\SynonymsSearch;
 
-require_once ('api/sphinxapi.php');
+//require_once ('api/sphinxapi.php');
 /**
  * Signup form
  */
