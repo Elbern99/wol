@@ -71,7 +71,7 @@ $this->registerJsFile('/js/plugins/scrollpane.js', ['depends' => ['yii\web\YiiAs
                 <div id="cookiebar" style="display: block">
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-12 mt-2" style="font-size: 16px !important; color: black !important;">
+                            <div class="col-12 mt-2" style="font-size: 16px !important; color: black !important; margin-top: 0.5rem;">
                                 We use cookies to provide you with an optimal website experience. This includes cookies that are necessary for the operation of the site as well as cookies that are only used for anonymous statistical purposes, for comfort settings or to display personalized content. You can decide for yourself which categories you want to allow. Please note that based on your settings, you may not be able to use all of the site's functions.                            </div>
 
                             <div class="col-12 mt-3 mb-2" style="margin-top: 1rem!important; margin-bottom: 0.5rem!important;">
