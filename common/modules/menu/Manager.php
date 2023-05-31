@@ -114,7 +114,9 @@ class Manager implements MenuManagerInterface {
                 $nodeRight = $node['rgt'];
                 $nodeTitle = $node['title'];
                 $nodeUrlKey = Url::to($node['url_key'], true);
-
+                if($nodeTitle == 'News') {
+                    continue;
+                }
 
                 $isChild = ($nodeRight == $nodeLeft + 1);
                 $css = '';

@@ -86,35 +86,38 @@ TwitterAsset::register($this);
 
                     <?php Pjax::begin(['linkSelector' => '#news_limit_button', 'options' => ['class' => 'loader-ajax']]); ?>
                     <div class="news-list-holder">
-                        <div class="widget-title medium"><a href="/news">latest news</a></div>
+                        <div class="widget-title medium"><a href="/news">Latest from the IZA Newsroom</a></div>
                         <ul class="post-list news-home-list">
+
+
                             <?php foreach ($news as $newsItem): ?>
-                                <?php $img = ($newsItem['image_link']) ? true : false; ?>
+                                <?php $img = ($newsItem['imageurl']) ? true : false; ?>
                                 <li>
                                     <div class="post-item <?= ($img) ? 'has-image' : '' ?>">
                                         <?php if ($img): ?>
-                                            <a href="<?= Url::to(['/news/' . $newsItem['url_key']]) ?>" class="img"
-                                               style="background-image: url(/uploads/news/<?= $newsItem['image_link'] ?>)"></a>
+                                            <a href="<?= $newsItem['imageurl'] ?>" class="img"
+                                               style="background-image: url(<?= $newsItem['imageurl'] ?>)"></a>
                                         <?php endif; ?>
                                         <div class="desc">
                                             <div class="head-news-holder">
                                                 <div class="head-news">
-                                                    <div class="date"><?= date('M d, Y', strtotime($newsItem['created_at'])) ?></div>
-                                                    <div class="writers">
-                                                        <span class="writer-item"><?= NewsItem::getSourcesLink($newsItem['sources']) ?></span>
-                                                    </div>
+                                                    <div class="date"><?= date('M d, Y', strtotime($newsItem['pubdate'])) ?></div>
+<!--                                                    <div class="writers">-->
+<!--                                                        <span class="writer-item">--><?php //= NewsItem::getSourcesLink($newsItem['sources']) ?><!--</span>-->
+<!--                                                    </div>-->
                                                 </div>
                                             </div>
                                             <h2>
-                                                <a href="<?= Url::to(['/news/' . $newsItem['url_key']]) ?>"><?= $newsItem['title'] ?></a>
+                                                <a href="<?= $newsItem['link'] ?>"><?= $newsItem['title'] ?></a>
                                             </h2>
-                                            <div class="hide-mobile"><?= $newsItem['short_description'] ?></div>
+                                            <div class="hide-mobile"><?= $newsItem['tweet'] ?></div>
                                         </div>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
+
                         </ul>
-                        <?= $more->getLink('news_limit') ?>
+                        <?= Html::a("Visit the IZA Newsroom", 'https://newsroom.iza.org/', ['class' => 'btn-gray align-center', 'id' => $key.'_button', 'style' => ['max-width' => '200px']]); ?>
                     </div>
                     <?php Pjax::end(); ?>
                     <?php if (count($commentary['video']) || $commentary['opinion']) : ?>
@@ -259,7 +262,7 @@ TwitterAsset::register($this);
                     </div>
                     <div class="sidebar-widget sidebar-widget-twitter">
                         <div class="widget-title">iza world of labor on twitter</div>
-                        <a data-lang="en" data-tweet-limit="5" class="twitter-timeline custom-tr"
+                        <a data-lang="en" data-tweet-limit="1" class="twitter-timeline custom-tr"
                            data-chrome="noheader transparent nofooter"
                            href="https://twitter.com/<?= common\modules\settings\SettingsRepository::get('twitter_feed_id') ?>"
                            data-link-color="#0053a0">Tweets by IZAWorldofLabor</a>

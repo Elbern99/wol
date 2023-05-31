@@ -4,6 +4,7 @@ namespace frontend\controllers\traits;
 
 use frontend\models\CmsPagesRepository as Page;
 use common\models\CmsPages;
+use yii\httpclient\Client;
 use yii\web\NotFoundHttpException;
 use Yii;
 use common\modules\eav\helper\EavValueHelper;
@@ -30,7 +31,7 @@ trait HomeTrait
 
     protected function getHomeParams()
     {
-
+        $this->getRssNews();
         $homePage = CmsPages::find()->select('id')->where(['url' => 'home', 'enabled' => 1])->one();
 
         if (!is_object($homePage)) {
@@ -51,7 +52,8 @@ trait HomeTrait
             'events' => $this->getLastEvents(),
             'topics' => $this->getTopics(),
             'commentary' => $this->getCommentary(),
-            'news' => $this->getNews()
+//            'news' => $this->getNews()
+            'news' => $this->getRssNews()
         ];
     }
 
@@ -238,6 +240,38 @@ trait HomeTrait
         }
 
         return $articlesCollection;
+    }
+
+    protected function getRssNews()
+    {
+        $client = new Client([
+            'transport' => 'yii\httpclient\CurlTransport' //только cURL поддерживает нужные нам параметры
+        ]);
+        $response = $client->createRequest()
+            ->setMethod('GET')
+            ->setUrl('https://newsroom.iza.org/en/latestnews/')
+            ->setOptions([
+                CURLOPT_CONNECTTIMEOUT => 5, // тайм-аут подключения
+                CURLOPT_TIMEOUT => 10, // тайм-аут получения данных
+            ])
+            ->send();
+        $xml = simplexml_load_string($response->getContent(), "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $array = json_decode($json,TRUE);
+        $news = [];
+        if (!empty($array['channel']['item'])) {
+            foreach ($array['channel']['item'] as $k => $v) {
+                $news[$k] = $v;
+                if ($k >= 4) {
+                    break;
+                }
+            }
+        }
+
+//        echo "<pre>";
+//        print_r($array);echo "</pre>";
+//        die();
+        return $news;
     }
 }
 
