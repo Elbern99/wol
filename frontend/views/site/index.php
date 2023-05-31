@@ -117,7 +117,7 @@ TwitterAsset::register($this);
                             <?php endforeach; ?>
 
                         </ul>
-                        <?= Html::a("Visit the IZA Newsroom", 'https://newsroom.iza.org/', ['class' => 'btn-gray align-center', 'id' => $key.'_button', 'style' => ['max-width' => '200px']]); ?>
+                        <?= Html::a("Visit the IZA Newsroom", 'https://newsroom.iza.org/', ['class' => 'btn-gray align-center', 'id' => 'news_limit_button', 'style' => ['max-width' => '200px']]); ?>
                     </div>
                     <?php Pjax::end(); ?>
                     <?php if (count($commentary['video']) || $commentary['opinion']) : ?>
